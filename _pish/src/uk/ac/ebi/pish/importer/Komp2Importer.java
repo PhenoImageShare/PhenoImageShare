@@ -148,7 +148,7 @@ public class Komp2Importer {
 		}
 		System.out.println("Done building the JSON with " + k + " entries in " + (System.currentTimeMillis()-time));
 		time = System.currentTimeMillis();
-		BufferedWriter cout = new BufferedWriter(new FileWriter ( new File("komp2ImagesDump.json")));
+		BufferedWriter cout = new BufferedWriter(new FileWriter ( new File("resources/komp2ImagesDump.json")));
 		cout.write(json.toString());
 		cout.close();
 		System.out.println("Done writing to file in " + (System.currentTimeMillis()-time));
