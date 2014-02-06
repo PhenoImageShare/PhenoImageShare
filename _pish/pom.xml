@@ -19,7 +19,7 @@
   
    <!--	DEPENDENCIES -->
 	<dependencies>
-	
+
 		<dependency>
 			<artifactId>solr-solrj</artifactId>
 			<groupId>org.apache.solr</groupId>
@@ -30,6 +30,23 @@
 			<groupId>org.json</groupId>
 			<artifactId>json</artifactId>
 			<version>20131018</version>
+		</dependency>
+
+		<!--  OWL Depenencies -->
+		<dependency>
+	   	  <groupId>org.bbop</groupId>
+	   	  <artifactId>OWLTools-Core</artifactId>
+	   	  <version>0.2.1-SNAPSHOT</version>
+	  </dependency>
+	  <dependency>
+	   	  <groupId>org.bbop</groupId>
+	   	  <artifactId>OWLTools-Oort</artifactId>
+	   	  <version>0.2.1-SNAPSHOT</version>
+	  </dependency>
+		<dependency>
+	    <groupId>net.sourceforge.owlapi</groupId>
+	    <artifactId>owlapi-api</artifactId>
+	    <version>3.4.10</version>
 		</dependency>
 
   	<!-- HTTP components Dependencies -->
@@ -101,5 +118,21 @@
 		
 	</dependencies>
   
+  
+  
+  <!-- REPOSITORIES -->
+  <repositories> 
+  
+
+	    
+	    <repository>
+	      <id>BerkeleyBOPSnapshot</id>
+				<url>http://code.berkeleybop.org/maven/snapshot-repository/</url>
+	      <snapshots>
+	      	<enabled>true</enabled>
+	      </snapshots>
+	    </repository>
+	    
+	  </repositories>
   
 </project>
