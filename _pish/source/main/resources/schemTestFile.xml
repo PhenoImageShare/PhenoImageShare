@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:Doc xmlns:x="http://www.example.org/phisSchema"  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.example.org/phisSchema phisSchema.xsd">
+	<entry>
+	
+		<sex>Male</sex>
+		<id>komp2_0</id>
+		<organism>Mus musculus</organism>
+		<image_url>http://www.mousephenotype.org/data/media/images/0/M00110006_00003602_download_full.jpg</image_url>
+		<data_source>KOMP2</data_source>
+		<age>
+			<age_since_birth>94.50</age_since_birth>
+		</age>
+		<center>WTSI</center>
+		<gene_name>
+			<el>Ube3b</el>
+		</gene_name>
+		<gene_id>
+			<el>MGI:1891295</el>
+		</gene_id>
+		<zygosity>
+			<el>heterozygous</el>
+		</zygosity>
+		<original_image_id>70220</original_image_id>
+		<procedure>Eye Morphology</procedure>
+		<image_type>other</image_type>
+		<associated_roi>
+			<el>komp2_roi_0_0</el>
+		</associated_roi>
+		<phenotype_ann_bag>
+			<el>MP:0010254</el>
+			<el>hard cataracts</el>
+		</phenotype_ann_bag>
+		<anatomy_id>
+			<el>MA:0000261</el>
+		</anatomy_id>
+		<anatomy_term>
+			<el>eye</el>
+		</anatomy_term>
+<!-- 		<genetic_feature_id>
+			<el>MGI:4129255</el>
+		</genetic_feature_id>
+		<genetic_feature_name>
+			<el>Ube3b&lt;Gt(RRJ142)Byg&gt;</el>
+		</genetic_feature_name><phenotype_id/><phenotype_term/><observations/>
+</entry><entry><genetic_feature_id><el>MGI:4129255
+</el>
+</genetic_feature_id><genetic_feature_name><el>Ube3b&lt;Gt(RRJ142)Byg&gt;
+</el>
+</genetic_feature_name><zygosity><el>heterozygote
+</el>-->
+</entry>
+</x:Doc>
