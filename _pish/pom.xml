@@ -17,6 +17,8 @@
     </plugins>
   </build>
   
+     
+     
    <!--	DEPENDENCIES -->
 	<dependencies>
 
@@ -116,15 +118,92 @@
 			<version>1.2</version>
 		</dependency>
 		
+		
+		<!-- DB Dependencies -->
+
+		<dependency>
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
+			<version>20030825.184428</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>commons-pool</groupId>
+			<artifactId>commons-pool</artifactId>
+			<version>20030825.183949</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-net</groupId>
+			<artifactId>commons-net</artifactId>
+			<version>3.1</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+		</dependency>
+			
+		<dependency>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+			<version>3.2.1</version>
+		</dependency>
+
+		
+		<!-- MySQL database driver -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.21</version>
+		</dependency>
+		
+		<!--  Spring  -->
+    
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-context</artifactId>
+        <version>4.0.1.RELEASE</version>
+    </dependency>
+    
+		<dependency>
+		  <groupId>org.springframework.boot</groupId>
+		  <artifactId>spring-boot-starter</artifactId>
+		  <version>1.0.0.RC1</version>
+		</dependency>
+		
+		<dependency>
+		  <groupId>org.springframework.boot</groupId>
+		  <artifactId>spring-boot-parent</artifactId>
+		  <version>1.0.0.RC1</version>
+	 	 <type>pom</type>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>1.3.175</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>4.0.1.RELEASE</version>
+		</dependency>
 	</dependencies>
   
   
   
   <!-- REPOSITORIES -->
-  <repositories> 
   
-
-	    
+  <repositories> 
+  	    
 	    <repository>
 	      <id>BerkeleyBOPSnapshot</id>
 				<url>http://code.berkeleybop.org/maven/snapshot-repository/</url>
@@ -133,6 +212,19 @@
 	      </snapshots>
 	    </repository>
 	    
+	    <repository>
+		    <id>spring-milestones</id>
+		    <url>http://repo.springsource.org/libs-milestone/</url>
+		  </repository>
+		  
+	     <repository>
+            <id>spring-snapshots</id>
+            <name>Spring Snapshots</name>
+            <url>http://repo.spring.io/libs-snapshot</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
 	  </repositories>
   
 </project>
