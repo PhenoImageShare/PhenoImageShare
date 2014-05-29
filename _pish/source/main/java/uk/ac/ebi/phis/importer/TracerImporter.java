@@ -62,13 +62,7 @@ public class TracerImporter {
 	}
 	
 	public void read() throws IOException{
-/*		SimpleDriverDataSource dataSource = new SimpleDriverDataSource();
-        dataSource.setDriverClass(com.mysql.jdbc.Driver.class);
-        dataSource.setUsername("admin");
-        dataSource.setUrl("jdbc:mysql://mysql-mi-prod.ebi.ac.uk:4404/sblac?autoReconnect=true&amp;zeroDateTimeBehavior=convertToNull");
-        dataSource.setPassword("tJlgQV56");
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
- */     
+    
         ApplicationContext ac = new ClassPathXmlApplicationContext("app-config.xml");
 		DataSource dataSource = (DataSource) ac.getBean("tracerDB");
         

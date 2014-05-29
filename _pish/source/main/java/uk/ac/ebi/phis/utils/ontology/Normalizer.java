@@ -63,6 +63,31 @@ public class Normalizer {
 		else throw new Exception("Could not match \"" + sex + "\"to an existing zygosity");
 	}
 	
+	public float getAgeInDays(String inputAge){
+		String age = inputAge.toLowerCase();
+		if (age.endsWith("w")){
+			Float weeks = new Float(age.replace("w", ""));
+			return weeks * 7; // we need the age in days
+		}
+		else if (age.endsWith("w (at death)")){
+			Float weeks = new Float(age.replace("w (at death)", ""));
+			return  weeks * 7; // we need the age in days
+		}
+		else if (age.endsWith("e")){
+			return new Float(age.replace("e", ""));
+		}
+		else if (age.endsWith("e (at death)")){
+			return new Float(age.replace("e (at death)", ""));
+		}
+		else if (age.startsWith("unknown")){
+			return -1; 	// "" stands for unspecified age
+		}
+		else if (age.startsWith("e")){
+			return new Float(age.replace("e", ""));
+		}
+		return new Float(age);
+	}
+	
 	public String normalizeAge(String inputAge){
 		String age = inputAge.toLowerCase();
 		if (age.endsWith("w")){

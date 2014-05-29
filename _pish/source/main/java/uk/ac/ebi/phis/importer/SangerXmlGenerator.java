@@ -1,9 +1,16 @@
 package uk.ac.ebi.phis.importer;
 
+import j.Age;
+import j.Dimensions;
+import j.Image;
+import j.ImageDescription;
+
+import java.awt.Dimension;
 import java.io.File;
 import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -32,12 +39,12 @@ import uk.ac.ebi.phis.utils.ontology.Normalizer;
 import uk.ac.ebi.phis.utils.ontology.OntologyMapperPredefinedTypes;
 import uk.ac.ebi.phis.utils.ontology.Utils;
 
-public class SangerImagesImporter {
+public class SangerXmlGenerator {
 	
 	Normalizer norm;
 	Utils utils;
 		
-	public SangerImagesImporter(){
+	public SangerXmlGenerator(){
 		norm = new Normalizer();
 		utils = new Utils(OntologyMapperPredefinedTypes.MA_MP);
 	}
@@ -68,19 +75,6 @@ public class SangerImagesImporter {
         	PreparedStatement statement = dataSource.getConnection().prepareStatement(command);
      		ResultSet res = statement.executeQuery();
                   	
-	        DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
-	 
-			// root elements
-			Document imageDoc = docBuilder.newDocument();
-			Element imageRoot = imageDoc.createElement("doc");
-			imageDoc.appendChild(imageRoot);
-			Document roiDoc = docBuilder.newDocument();
-			Element roiRoot = roiDoc.createElement("doc");
-			roiDoc.appendChild(roiRoot);
-			Document channelDoc = docBuilder.newDocument();
-			Element channelRoot = channelDoc.createElement("doc");
-			channelDoc.appendChild(channelRoot);
 						
 			int i = 0;
 	        while ( res.next()){
@@ -91,17 +85,32 @@ public class SangerImagesImporter {
 		        	
 		        	String internal_id =  "komp2_" + i;
 		        	
-		        	String imageId = res.getString("ID");		        	
-		        	
-		        	Element image = imageDoc.createElement("entry");
-		        	Element channel = null;
+		        	String imageId = res.getString("ID");		        
 		    		
 		    		String url = "http://www.mousephenotype.org/data/media/" + res.getString("FULL_RESOLUTION_FILE_PATH") ;
+		    		Map<String, Integer> dimensions = utils.getImageMeasuresFromUrl(url);
+		    		if (dimensions != null){// the image could be loaded 
 		    		
-		    		image.appendChild(utils.getNewElement(JsonFields.ID, internal_id, imageDoc));
-		    		image.appendChild(utils.getNewElement(JsonFields.IMAGE_URL, url, imageDoc));
-		    		image.appendChild(utils.getNewElement(JsonFields.DATA_SOURCE, "KOMP2", imageDoc));
-//		    		image.appendChild(utils.getNewElement(JsonFields.DOCUMENT_TYPE, "image", imageDoc));
+		    			Dimensions d = new Dimensions();
+		    			d.setImageHeight(dimensions.get("height"));
+		    			d.setImageWidth(dimensions.get("width"));
+		    			
+			    		Image image = new Image();
+			    		
+			    		ImageDescription imageDesc = new ImageDescription();
+			    		imageDesc.setImageUrl(url);
+			    		imageDesc.setOriginalImageId(res.getString("ID"));
+			    		imageDesc.setImageDimensions(d);
+			    		
+			    		image.setId(internal_id);
+			    		
+			    		Age age = new Age();
+			    		if (norm.isEmbryonicAge(res.getString("AGE_IN_WEEKS"))){
+			    			age.setEmbryonicAge(norm.getAgeInDays(res.getString("AGE_IN_WEEKS")));
+			    		} else {
+			    			age.setAgeSinceBirth(norm.getAgeInDays(res.getString("AGE_IN_WEEKS")));
+			    		}
+			    		
 		    		
 	    			image.appendChild(utils.getNewElement( JsonFields.AGE, "" + norm.normalizeAge(res.getString("AGE_IN_WEEKS")), imageDoc));  	
 	    			image.appendChild(utils.getNewElement( JsonFields.CENTER , "WTSI", imageDoc));
@@ -114,7 +123,6 @@ public class SangerImagesImporter {
 	    			image= utils.addElementToArray(image, JsonFields.GENETIC_FEATURE_NAME , res.getString("ALLELE"), imageDoc);
 	    			image= utils.addElementToArray(image, JsonFields.ZYGOSITY , norm.normalizeZygosity(res.getString("GENOTYPE")), imageDoc);
 	    			
-	    			image.appendChild(utils.getNewElement( JsonFields.ORIGINAL_IMAGE_ID , res.getString("ID"), imageDoc));
 	    			image.appendChild(utils.getNewElement( JsonFields.PROCEDURE , res.getString("procedure_name"), imageDoc));
 	    			
 	    			
@@ -188,6 +196,7 @@ public class SangerImagesImporter {
 		        	image.appendChild(utils.getNewArrrayElement( JsonFields.OBSERVATIONS , observations  , imageDoc));
 	
 	    			imageRoot.appendChild(image);
+		    		}
 	        	}
 	    		i++;
 		        
