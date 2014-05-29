@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.org/phisSchema" xmlns:x="http://www.example.org/phisSchema">
+
+								<simpleType name="Sex">
+									<restriction base="string">
+										<enumeration value="Male"></enumeration>
+										<enumeration value="Female"></enumeration>
+										<enumeration value="Unknown"></enumeration>
+									</restriction>
+								</simpleType>
+								<simpleType name="Zygosity">
+									<restriction base="string">
+										<enumeration value="homozygous"></enumeration>
+										<enumeration value="heterozygous"></enumeration>
+										<enumeration value="hemizygous"></enumeration>
+									</restriction>
+								</simpleType>
+								
+								<complexType name="Age">
+									<choice>
+										<element name="age_since_birth" type="float"></element>
+										<element name="embryonic_age"  type="float"></element>
+									</choice>
+								</complexType>
+															
+								<complexType name="StringArray">
+										<sequence>
+						    			<element name="el" type="string" minOccurs="1" maxOccurs="unbounded"/>
+						    		</sequence>
+								</complexType>
+								
+								<complexType name="IntArray">
+										<sequence>
+						    			<element name="el" type="int" minOccurs="1" maxOccurs="unbounded"/>
+						    		</sequence>
+								</complexType>
+								
+								<complexType name="ZygArray">
+										<sequence>
+						    			<element name="el" type="x:Zygosity" minOccurs="0" maxOccurs="unbounded"/>
+						    		</sequence>
+								</complexType>
+								
+								<complexType name="Dimensions">
+									<all>									
+						  	  		<element name="image_depth"	type="int" minOccurs="0" maxOccurs="1"/>
+						  	  		<element name="image_height"	type="int" minOccurs="1" maxOccurs="1"/>
+						  	  		<element name="image_width"	type="int" minOccurs="1" maxOccurs="1"/>
+									</all>
+								</complexType>
+								
+								<simpleType name="Strand">
+			  	  			<restriction base="string">
+										<enumeration value="+"></enumeration>
+										<enumeration value="-"></enumeration>
+									</restriction>
+								</simpleType>
+								
+								<complexType name="GenomicLocation">
+									<all>									
+						  	  		<element name="start_pos"	type="int" minOccurs="0" maxOccurs="1"/>
+						  	  		<element name="end_pos"	type="int" minOccurs="0" maxOccurs="1"/>
+						  	  		<element name="chromosone"	type="string" minOccurs="0" maxOccurs="1"/>
+						  	  		<element name="strand"	type="x:Strand" minOccurs="0" maxOccurs="1"/>
+									</all>
+								</complexType>
+								
+								<complexType name="GenomicLocationArray">
+										<sequence>
+						    			<element name="el" type="x:GenomicLocation" minOccurs="0" maxOccurs="unbounded"/>
+						    		</sequence>
+								</complexType>
+								
+								<complexType name="ImageDescription">
+									<all>									
+						  	  		<element name="image_url" type="string" minOccurs="1" maxOccurs="1"/>
+						  	  		<element name="image_context_url" type="string" minOccurs="0" maxOccurs="1"/>
+						  	  		<element name="image_dimensions"	type="x:Dimensions" minOccurs="1" maxOccurs="1"/>	
+						  	  		<element name="machine"	type="string" minOccurs="0" maxOccurs="1"/>
+						  	  		<element name="image_type" type="string" minOccurs="0" maxOccurs="1"/>
+						  	  		<element name="original_image_id" type="string" minOccurs="1" maxOccurs="1"/>
+						  	  		<element name="source_project_url"  type="string" minOccurs="1" maxOccurs="1"/>
+						  	  		<element name="data_source" type="string" minOccurs="1" maxOccurs="1"/>
+									</all>
+								</complexType>
+								
+								<complexType name="Organism">
+									<all>
+						  	  		<element name="age" type="x:Age" minOccurs="1" maxOccurs="1"/>
+						  	  		<element name="taxon" type="string" minOccurs="1" maxOccurs="1"/>
+						   		 		<element name="sex" type="x:Sex" minOccurs="1" maxOccurs="1"/>
+						  	  		<element name="ncbi_taxon_id"	type="string" minOccurs="0" maxOccurs="1"/>
+						  	  		<element name="stage"	type="string" minOccurs="0" maxOccurs="1"/>
+						  	  </all>
+								</complexType>
+								
+								<complexType name="Phenotype">
+									<all minOccurs="1">
+						  	  		<element name="phenotype_ontology_id"	type="x:StringArray" minOccurs="0" maxOccurs="1"/> <!-- These should reside in the ROI -->
+						  	 			<element name="phenotype_freetext"	type="x:StringArray" minOccurs="0" maxOccurs="1"/> <!-- These should reside in the ROI -->
+						  	  		<element name="phenotype_ontology_term"	type="x:StringArray" minOccurs="0" maxOccurs="1"/> <!-- These should reside in the ROI -->
+						  	  		<!-- element name="phenotype_computed_id"	type="x:StringArray" minOccurs="0" maxOccurs="1"/--> <!-- These should reside in the ROI -->
+						  	  		<!-- element name="phenotype_computed_term"	type="x:StringArray" minOccurs="0" maxOccurs="1"/-->
+									</all>
+								</complexType>
+								
+								<complexType name="Anatomy">
+									<all minOccurs="1">
+						  	  		<element name="anatomy_ontology_id" type="x:StringArray" minOccurs="0" maxOccurs="1"/>
+						  	  		<element name="anatomy_ontology_term" type="x:StringArray" minOccurs="0" maxOccurs="1"/>
+						  	  		<!-- element name="anatomy_ann_bag" type="x:StringArray" minOccurs="0" maxOccurs="1"/-->
+						  	  		<element name="anatomy_freetext" type="x:StringArray" minOccurs="0" maxOccurs="1"/>
+									</all>						
+								</complexType>
+								
+						    <complexType name="Image">
+						   		<all>
+						  	  		<element name="id" type="string" minOccurs="1" maxOccurs="1"/>
+						  	  		<element name="organism" type="x:Organism" minOccurs="1" maxOccurs="1"/>
+						  	  		<element name="image_description" type="x:ImageDescription" minOccurs="1" maxOccurs="1"/>
+						  	  		<element name="phenotyping_center" type="string" minOccurs="1" maxOccurs="1"/>
+						  	  		<element name="gene_id" type="x:StringArray" minOccurs="0" maxOccurs="1"/>
+						  	  		<element name="gene_name" type="x:StringArray" minOccurs="0" maxOccurs="1"/>
+              			  <element name="genetic_feature_id" type="x:StringArray" minOccurs="0" maxOccurs="1"/>
+              			  <element name="genetic_feature_name" type="x:StringArray" minOccurs="0" maxOccurs="1"/>
+               				<element name="genetic_feature_ensembl_id" type="x:StringArray" minOccurs="0" maxOccurs="1"/>
+               				<element name="genomic_location" type="x:GenomicLocationArray" minOccurs="0" maxOccurs="1"/>
+						  	  		<element name="zygosity" type="x:ZygArray" minOccurs="0" maxOccurs="1"/>
+						  	  		<element name="procedure" type="string" minOccurs="0" maxOccurs="1"/>
+						  	  		<element name="conditions"	type="string" minOccurs="0" maxOccurs="1"/>		
+						  	  		<element name="observations"	type="x:StringArray" minOccurs="0" maxOccurs="1"/>
+						  	  		<element name="associated_roi" type="x:StringArray" minOccurs="0" maxOccurs="1"/>
+						  	  		<element name="associated_channel" type="x:StringArray" minOccurs="0" maxOccurs="1"/>
+						  	  		<element name="depicted_anatomical_structure" type="x:Anatomy" minOccurs="0" maxOccurs="1"/>								  	  					  	  		
+						  	  </all>
+						  	</complexType>
+						  	
+						  	<complexType name="Channel">
+						  		<all>
+						  	  		<element name="associated_immage" type="string" minOccurs="1" maxOccurs="1"/>
+						  	  		<element name="associated_roi" type="x:StringArray" minOccurs="0" maxOccurs="1"/>
+						  	  		<element name="gene_id" type="x:StringArray" minOccurs="0" maxOccurs="1"/>
+						  	  		<element name="gene_name" type="x:StringArray" minOccurs="0" maxOccurs="1"/>
+              			  <element name="genetic_feature_id" type="x:StringArray" minOccurs="0" maxOccurs="1"/>
+              			  <element name="genetic_feature_name" type="x:StringArray" minOccurs="0" maxOccurs="1"/>
+               				<element name="genetic_feature_ensembl_id" type="x:StringArray" minOccurs="0" maxOccurs="1"/>
+               				<element name="genomic_location" type="x:GenomicLocationArray" minOccurs="0" maxOccurs="1"/>
+						  	  		<element name="zygosity" type="x:ZygArray" minOccurs="0" maxOccurs="1"/>
+						  		</all>
+						  	</complexType>
+						  	
+						  	<complexType name="Roi">
+						  		<all>
+						  	  		<element name="associated_immage" type="string" minOccurs="1" maxOccurs="1"/>
+						  	  		<element name="id" type="string" minOccurs="1" maxOccurs="1"/> 
+						  	  		<element name="x_coordinates" type="x:IntArray" minOccurs="1" maxOccurs="1"/>
+						  	  		<element name="y_coordinates" type="x:IntArray" minOccurs="1" maxOccurs="1"/>
+						  	  		<element name="z_coordinates" type="x:IntArray" minOccurs="1" maxOccurs="1"/>
+						  	  		<element name="anatomy_expression_annotations" type="x:Anatomy" minOccurs="0" maxOccurs="1"/>		
+						  	  		<element name="phenotype_annotations" type="x:Phenotype" minOccurs="0" maxOccurs="1"/>				
+						  	  		<element name="observations" type="x:StringArray" minOccurs="0" maxOccurs="1"/>
+						  	  		<element name="associated_channel" type="x:StringArray" minOccurs="0" maxOccurs="1"/>
+						  	  		
+						  		</all>
+						  	</complexType>
+						  	
+						  	<complexType name="Doc">
+						  		<choice maxOccurs="1">
+						    			<element name="image" type="x:Image" maxOccurs="unbounded"/>
+						    			<element name="channel" type="x:Channel" maxOccurs="unbounded"/>
+						    			<element name="roi" type="x:Roi" maxOccurs="unbounded"/>
+						  		</choice>
+						  	</complexType>
+						
+								<element  name="Doc" type="x:Doc"/>
+						   
+						   
+						   
+						   <!--  
+                <field column="expressed_gf_bag" xpath="/doc/entry/expressed_gf_bag/el"/>
+                <field column="expressed_anatomy_bag" xpath="/doc/entry/expressed_anatomy_bag/el"/>
+                <field column="insertion_site" xpath="/doc/entry/insertion_site/el"/>
+                <field column="other_ann_bag" xpath="/doc/entry/other_ann_list/el"/>
+
+                <field column="phenotype_eq" xpath="/doc/entry/phenotype_eq/el"/>
+                <field column="phenotype_eq_labels" xpath="/doc/entry/phenotype_eq_labels/el"/>
+                <field column="phenotype_ann_bag" xpath="/doc/entry/phenotype_ann_bag/el"/>
+
+						    -->
+</schema>

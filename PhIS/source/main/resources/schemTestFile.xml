@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:Doc xmlns:x="http://www.example.org/phisSchema"  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.example.org/phisSchema phisSchema.xsd">
+	
+		<image>
+			<id>komp2_0</id>
+			<organism>
+				<sex>Male</sex>
+				<taxon>Mus musculus</taxon>
+				<age>
+					<age_since_birth>94.50</age_since_birth>
+				</age>
+			</organism>
+			
+			<image_description>
+				<image_url>http://www.mousephenotype.org/data/media/images/0/M00110006_00003602_download_full.jpg</image_url>
+				<image_dimensions>
+					<image_height>1000</image_height>
+					<image_width>2000</image_width>
+				</image_dimensions>
+				<original_image_id>70220</original_image_id>
+				<image_type>other</image_type>	
+				<source_project_url>http://www.mousephenotype.org/</source_project_url>
+				<data_source>KOMP2</data_source>
+			</image_description>
+			
+			<phenotyping_center>WTSI</phenotyping_center>
+			<gene_name>
+				<el>Ube3b</el>
+			</gene_name>
+			<gene_id>
+				<el>MGI:1891295</el>
+			</gene_id>
+			<zygosity>
+				<el>heterozygous</el>
+			</zygosity>
+			<procedure>Eye Morphology</procedure>
+			<associated_roi>
+				<el>komp2_roi_0_0</el>
+			</associated_roi>
+			<depicted_anatomical_structure>
+				<anatomy_ontology_id><el>MA:0000261</el></anatomy_ontology_id>
+				<anatomy_ontology_term><el>eye</el></anatomy_ontology_term>
+			</depicted_anatomical_structure>
+		</image>
+
+</x:Doc>
