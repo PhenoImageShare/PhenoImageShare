@@ -47,23 +47,22 @@ Find images of phenotypes in this region (results based on spatial reasoning).<b
 
 
 5. Find images of phenotypes and gene expression in some named anatomical structure:<br>
-	Right now won't work becuase not combined bag.
+6. Right now won't work becuase not combined bag.
 __Entry point:__ Search for a species, then search for an anatomical structure by auto-suggest (including synonyms).<br> Provide feedback to user on terms found by autocomplete (e.g. definition; defining images).<br>
- # Could this refer to any one of - whole image; expression of some feature (if so which?); location of some phenotype?  A.  whole image, exp anatomy terms are stored separately.  Anatomy inferred from MP
-Find images of gene expression in this structure  (include results found by subsumption)
-Find images of phenotypes in this structure (include results found by subsumption) 
-			http://wwwdev.ebi.ac.uk/mi/phis/images/select?q=anatomy_term:brain&fq=phenotype_term:*\
+Find images of gene expression in this structure  (include results found by subsumption)<br>
+Find images of phenotypes in this structure (include results found by subsumption)<br> 
+[Example query](http://wwwdev.ebi.ac.uk/mi/phis/images/select?q=anatomy_term:brain&fq=phenotype_term:*)
 
 52. Find images showing expression in some anatomy structure X<br>
-__Entry point:__ Search for a species, then search for an anatomical structure by auto-suggest (including synonyms).  Provide feedback to user on terms found by autocomplete (e.g. definition; defining images).
-http://wwwdev.ebi.ac.uk/mi/phis/images/select?q=expressed_anatomy_bag:ear 
+__Entry point:__ Search for a species, then search for an anatomical structure by auto-suggest (including synonyms). <br> Provide feedback to user on terms found by autocomplete (e.g. definition; defining images).<br>
+[Example Query](http://wwwdev.ebi.ac.uk/mi/phis/images/select?q=expressed_anatomy_bag:ear) 
 
 55. Find images depicting anatomical structure X<br>
-__Entry point:__ Search for a species, then search for an anatomical structure by auto-suggest (including synonyms).  Provide feedback to user on terms found by autocomplete (e.g. definition; defining images).
-http://wwwdev.ebi.ac.uk/mi/phis/images/select?q=anatomy_term:brain 
+__Entry point:__ Search for a species, then search for an anatomical structure by auto-suggest (including synonyms). <br> Provide feedback to user on terms found by autocomplete (e.g. definition; defining images).<br>
+[Example query](http://wwwdev.ebi.ac.uk/mi/phis/images/select?q=anatomy_term:brain)
 
 57. Find images depicting phenotypes in anatomical structure X<br>
-__Entry point:__ Search for a species, then search for an anatomical structure by auto-suggest (including synonyms).  Provide feedback to user on terms found by autocomplete (e.g. definition; defining images).
+[__Entry point:__] Search for a species, then search for an anatomical structure by auto-suggest (including synonyms).<br> Provide feedback to user on terms found by autocomplete (e.g. definition; defining images).<br>
 Note - anatomy terms inferred from phenotype terms currently go into a general inferred terms bag - which includes some terms inferred from expression (Tracer mapping).   It is useful to mark inferred terms in some way, but phenotype and expression should still be kept separate.  In some cases for KOMP2 there are also MA terms associated with images - where these can be clearly assigned to phenotype or expression they should be.  But if this is not possible, they should live only in an aggregated index of all anatomy terms for image.
 
 6. Search on phenotype term annotation.
@@ -79,59 +78,55 @@ __Entry point:__
 
 ## Spec for display of results
 
-3 different potential levels of detail:
+### potential levels of detail:
 
 * Image montage
 * Large images only?
 * Table with thumbnails
 * Image report
-** More easily allows information to be displayed so that connection between elements can be made clear.
+ * More easily allows information to be displayed so that connection between elements can be made clear.
+
+
+### Questions: 
+1. Queries will all return tables that can be further refined using the faceted browsing capabilities of SOLR. As our ability to provide structured information in a table is limited - should we consider providing single image report pages with more detailed and structured content?
+2. Should ROIs be used simply for search purposes, or do we have a good use case for displaying them?
+3. A large number of fields have been suggested -  too many to display in a default results table.  Should we allow users to configure their display, adding extra columns?
+4. Some fields May have multiple components. If displayed in a table, have multiple per box?
 
 ## Results display competency questions.  
 
 Users should be able to use the displayed results to rapidly assess:
 
 * What does the image look like? 
-** Thumbnail essential  <- +Higher resolution popup?
+ * Thumbnail essential  <- +Higher resolution popup?
 * What does the whole image depict? (will require display of multiple fields)
-** e.g. whole, male mouse embryo at TS3; section through the adrenal gland of a 5 day old female mouse.  <- All indexed on whole image e.g. anatomy_term:brain 
+ * e.g. whole, male mouse embryo at TS3; section through the adrenal gland of a 5 day old female mouse.  <- All indexed on whole image e.g. anatomy_term:brain 
 * What gene/transgene expression is depicted? *
 * Which channel/colour corresponds to which expression pattern?  
-** - in channel document
+ * in channel document
 * What anatomy terms has the expression pattern been annotated with? *
-**- in channel document
-* What is the genotype? * 
-			Yes - stored on whole image
+ * in channel document
+* What is the genotype?  
+ * Stored on whole image
 * What are the phenotype annotations? *
-			Yes - stored on whole image.  For ROIs - each ROI has co-ords and annotations.
+ * stored on whole image.  For ROIs - each ROI has co-ords and annotations.
 * What is the image source?
-On image doc
-Is the image 2D or 3D?
-TBA - depends on mappings to imaging ontology FBbi
-
-* What techniques were used to collect the image? *
-TBA - depends on mappings to imaging ontology FBbi
-… {Lots of other fields suggested - are they all essential for display?}
-
-* May have multiple components. If displayed in a table, have multiple per box?
-
-### Questions: 
-1. Queries will all return tables that can be further refined using the faceted browsing capabilities of SOLR. As our ability to provide structured information in a table is limited - should we consider providing single image report pages with more detailed and structured content?
-2. Should ROIs be used simply for search purposes, or do we have a good use case for displaying them?
-3. A large number of fields have been suggested -  too many to display in a default results table.  Should we allow users to configure their display, adding extra columns?
+ * On image doc
+* Is the image 2D or 3D?
+ * TBA - depends on mappings to imaging ontology FBbi
+* What techniques were used to collect the image?
+ * TBA - depends on mappings to imaging ontology FBbi
+ * 
 
 
-Some notes on queries:
+Lots of other fields suggested - are they all essential for display?
+
+
+### Some notes on queries:
 
 Tracer:  These things are enhancer traps - can we have a general class for them?  Is there something in SO.  DOS to check.
 
 Look at what from image ontology to map Tracer images to.
-
-Komp2 - what does dysmophology mean?
-See
-https://www.mousephenotype.org/data/search#q=*:*&fq=(expName:"Dysmorphology")&core=images
-& Talk to Terry
-Ilinca to send full list.
 
 Notes on SOLR indexes:
 Expressed features - stored denormalized: as bag on whole image and as individual features associated with each channel.
