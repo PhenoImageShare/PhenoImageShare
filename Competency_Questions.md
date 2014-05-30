@@ -25,8 +25,7 @@ This document is for recording: the basic queries we intended to support; what t
 
 3.  Find images illustrating the phenotypes due to mutations in gene X
  * __Entry point:__ Search for a gene by name (include synonyms?) - with auto-suggest
- * Then look for  images of phenotypes due to genotypes that include
-   alleles of that gene.  [Example SOLR query](http://wwwdev.ebi.ac.uk/mi/phis/images/select?q=gene_name:Ube3b) Note - this will only cover parent  * genes of elements of genotype, as parent genes for expressed features are stored separately in expressed\_gf\_bag - attached to whole image.
+ * Then look for  images of phenotypes due to genotypes that include alleles of that gene.  [Example SOLR query](http://wwwdev.ebi.ac.uk/mi/phis/images/select?q=gene_name:Ube3b) _Note - this will only cover parent genes of elements of genotype, as parent genes for expressed features are stored separately in expressed\_gf\_bag - attached to whole image._
  * Optionally refine by mutation type (knockout) - _Not currently possible.  Note, may not be so useful to biologists if > 1 genotype element._
  * Optionally refine by stage &/or anatomical structure name with results including those grouped by subsumption under selected term.
    * Possible with simple intersection on anatomy/stage indexes (will support subsumption once transitive closure is stored). [Example query](http://wwwdev.ebi.ac.uk/mi/phis/images/select?q=gene_name:Ube3b&fq=anatomy_term:eye&fq=age:[80%20TO%20100])
