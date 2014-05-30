@@ -16,7 +16,7 @@ This document is for recording: the basic queries we intended to support; what t
  * Optionally refine by magnification level.
  
 2. Find images illustrating the phenotypes due a specific allele X
- * _Entry point:_ Search for a allele by name (include synonyms?) - with auto-suggest
+ * __Entry point:__ Search for a allele by name (include synonyms?) - with auto-suggest
  * Then look for images of phenotypes due to genotypes that include
    this allele. - [Example SOLR query](http://wwwdev.ebi.ac.uk/mi/phis/images/select?q=genetic_feature_name:"Sesn3<tm1a(EUCOMM)Wtsi>")<br>
  * Optionally refine by mutation type (knockout)
@@ -51,10 +51,11 @@ adjacent; near to; adjacent along some axis.
  * __Entry point:__ Search for a species, then search for an anatomical structure by auto-suggest (including synonyms).  Provide feedback to user on terms found by autocomplete (e.g. definition; defining images).  [Example Query](http://wwwdev.ebi.ac.uk/mi/phis/images/select?q=expressed_anatomy_bag:ear) 
 
 55. Find images depicting anatomical structure X
- * __Entry point:__ Search for a species, then search for an anatomical structure by auto-suggest (including synonyms).  Provide feedback to user on terms found by autocomplete (e.g. definition; defining images). [Example query](http://wwwdev.ebi.ac.uk/mi/phis/images/select?q=anatomy_term:brain)
+ * __Entry point:__ Search for a species, then search for an anatomical structure by auto-suggest (including synonyms).   
+ * Provide feedback to user on terms found by autocomplete (e.g. definition; defining images). [Example query](http://wwwdev.ebi.ac.uk/mi/phis/images/select?q=anatomy_term:brain)
 
 57. Find images depicting phenotypes in anatomical structure X
- * [__Entry point:__] Search for a species, then search for an anatomical structure by auto-suggest (including synonyms). Provide feedback to user on terms found by autocomplete (e.g. definition; defining images).<br>
+ * __Entry point:__ Search for a species, then search for an anatomical structure by auto-suggest (including synonyms). Provide feedback to user on terms found by autocomplete (e.g. definition; defining images).<br>
 _Note - anatomy terms inferred from phenotype terms currently go into a general inferred terms bag - which includes some terms inferred from expression (Tracer mapping).   It is useful to mark inferred terms in some way, but phenotype and expression should still be kept separate.  In some cases for KOMP2 there are also MA terms associated with images - where these can be clearly assigned to phenotype or expression they should be.  But if this is not possible, they should live only in an aggregated index of all anatomy terms for image._
 
 6. Search on phenotype term annotation.
