@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.org/phisSchema" xmlns:x="http://www.example.org/phisSchema">
 
+<!-- Change image_type to 3 fields as in David's document -->
+<!-- add production center, source project name, source project url, analysis center -->
+
 								<simpleType name="Sex">
 									<restriction base="string">
 										<enumeration value="Male"></enumeration>
@@ -74,13 +77,15 @@
 								<complexType name="ImageDescription">
 									<all>									
 						  	  		<element name="image_url" type="string" minOccurs="1" maxOccurs="1"/>
-						  	  		<element name="image_context_url" type="string" minOccurs="0" maxOccurs="1"/>
+						  	  		<element name="image_context_url" type="string" minOccurs="0" maxOccurs="1"/> <!-- URL linking back to the image page on the original website, if they have single image pages -->
 						  	  		<element name="image_dimensions"	type="x:Dimensions" minOccurs="1" maxOccurs="1"/>	
 						  	  		<element name="machine"	type="string" minOccurs="0" maxOccurs="1"/>
 						  	  		<element name="image_type" type="string" minOccurs="0" maxOccurs="1"/>
 						  	  		<element name="original_image_id" type="string" minOccurs="1" maxOccurs="1"/>
-						  	  		<element name="source_project_url"  type="string" minOccurs="1" maxOccurs="1"/>
-						  	  		<element name="data_source" type="string" minOccurs="1" maxOccurs="1"/>
+						  	  		<element name="image_generated_by" type="string" minOccurs="1" /> <!-- Lab/center/institute that produced the images -->
+						  	  		<element name="organism_generated_by" type="string" minOccurs="1" maxOccurs="1"/> <!-- Lab/center/institute that produced the organism -->
+						  	  		<element name="host_url"  type="string" minOccurs="1" maxOccurs="1"/> <!-- URL to the website where all the images are accessible -->
+						  	  		<element name="host_name" type="string" minOccurs="1" maxOccurs="1"/>
 									</all>
 								</complexType>
 								
@@ -118,7 +123,6 @@
 						  	  		<element name="id" type="string" minOccurs="1" maxOccurs="1"/>
 						  	  		<element name="organism" type="x:Organism" minOccurs="1" maxOccurs="1"/>
 						  	  		<element name="image_description" type="x:ImageDescription" minOccurs="1" maxOccurs="1"/>
-						  	  		<element name="phenotyping_center" type="string" minOccurs="1" maxOccurs="1"/>
 						  	  		<element name="gene_id" type="x:StringArray" minOccurs="0" maxOccurs="1"/>
 						  	  		<element name="gene_name" type="x:StringArray" minOccurs="0" maxOccurs="1"/>
               			  <element name="genetic_feature_id" type="x:StringArray" minOccurs="0" maxOccurs="1"/>
