@@ -118,53 +118,68 @@
 									</all>						
 								</complexType>
 								
+								<complexType name="GeneticTrait">
+									<all>
+						  	  		<element name="gene_id" type="string" minOccurs="0" maxOccurs="1"/>
+						  	  		<element name="gene_name" type="string" minOccurs="0" maxOccurs="1"/>
+              			  <element name="genetic_feature_id" type="string" minOccurs="0" maxOccurs="1"/>
+              			  <element name="genetic_feature_name" type="string" minOccurs="0" maxOccurs="1"/>
+               				<element name="genetic_feature_ensembl_id" type="string" minOccurs="0" maxOccurs="1"/>
+               				<element name="genomic_location" type="x:GenomicLocation" minOccurs="0" maxOccurs="1"/>
+						  	  		<element name="zygosity" type="x:Zygosity" minOccurs="0" maxOccurs="1"/>
+						  	  </all>
+								</complexType>
+								
+								<complexType name="GeneticTraitArray">
+										<sequence>
+						    			<element name="el" type="x:GeneticTrait" minOccurs="1" maxOccurs="unbounded"/>
+						    		</sequence>
+								</complexType>
+								
+								
+								<!-- Main image document -->
 						    <complexType name="Image">
 						   		<all>
 						  	  		<element name="id" type="string" minOccurs="1" maxOccurs="1"/>
 						  	  		<element name="organism" type="x:Organism" minOccurs="1" maxOccurs="1"/>
 						  	  		<element name="image_description" type="x:ImageDescription" minOccurs="1" maxOccurs="1"/>
-						  	  		<element name="gene_id" type="x:StringArray" minOccurs="0" maxOccurs="1"/>
-						  	  		<element name="gene_name" type="x:StringArray" minOccurs="0" maxOccurs="1"/>
-              			  <element name="genetic_feature_id" type="x:StringArray" minOccurs="0" maxOccurs="1"/>
-              			  <element name="genetic_feature_name" type="x:StringArray" minOccurs="0" maxOccurs="1"/>
-               				<element name="genetic_feature_ensembl_id" type="x:StringArray" minOccurs="0" maxOccurs="1"/>
-               				<element name="genomic_location" type="x:GenomicLocationArray" minOccurs="0" maxOccurs="1"/>
-						  	  		<element name="zygosity" type="x:ZygArray" minOccurs="0" maxOccurs="1"/>
-						  	  		<element name="procedure" type="string" minOccurs="0" maxOccurs="1"/>
+						  	  		<element name="mutant_genotype_traits" type="x:GeneticTraitArray"  minOccurs="1" maxOccurs="1"/> <!-- Mutant genetic features. Expressed ones should be associated to the channel, not the image itself! -->
+						  	  		<!-- element name="procedure" type="string" minOccurs="0" maxOccurs="1"/-->
 						  	  		<element name="conditions"	type="string" minOccurs="0" maxOccurs="1"/>		
 						  	  		<element name="observations"	type="x:StringArray" minOccurs="0" maxOccurs="1"/>
 						  	  		<element name="associated_roi" type="x:StringArray" minOccurs="0" maxOccurs="1"/>
-						  	  		<element name="associated_channel" type="x:StringArray" minOccurs="0" maxOccurs="1"/>
+						  	   		<element name="associated_channel" type="x:StringArray" minOccurs="0" maxOccurs="1"/>
 						  	  		<element name="depicted_anatomical_structure" type="x:Anatomy" minOccurs="0" maxOccurs="1"/>								  	  					  	  		
 						  	  </all>
 						  	</complexType>
 						  	
+						  	
+						  	<!-- Main Channel document. Must be associated to the right image and ROI. -->
 						  	<complexType name="Channel">
 						  		<all>
+						  	  		<element name="id" type="string" minOccurs="1" maxOccurs="1"/> 
 						  	  		<element name="associated_image" type="string" minOccurs="1" maxOccurs="1"/>
 						  	  		<element name="associated_roi" type="x:StringArray" minOccurs="0" maxOccurs="1"/>
-						  	  		<element name="gene_id" type="x:StringArray" minOccurs="0" maxOccurs="1"/>
-						  	  		<element name="gene_name" type="x:StringArray" minOccurs="0" maxOccurs="1"/>
-              			  <element name="genetic_feature_id" type="x:StringArray" minOccurs="0" maxOccurs="1"/>
-              			  <element name="genetic_feature_name" type="x:StringArray" minOccurs="0" maxOccurs="1"/>
-               				<element name="genetic_feature_ensembl_id" type="x:StringArray" minOccurs="0" maxOccurs="1"/>
-               				<element name="genomic_location" type="x:GenomicLocationArray" minOccurs="0" maxOccurs="1"/>
-						  	  		<element name="zygosity" type="x:ZygArray" minOccurs="0" maxOccurs="1"/>
+											<element name="expressed_genotype_trait" type="x:GeneticTraitArray" minOccurs="1" maxOccurs="1" />
 						  		</all>
 						  	</complexType>
 						  	
+						  	
+						  	<!-- Main Region Of Interest (ROI) document -->
 						  	<complexType name="Roi">
 						  		<all>
-						  	  		<element name="associated_immage" type="string" minOccurs="1" maxOccurs="1"/>
 						  	  		<element name="id" type="string" minOccurs="1" maxOccurs="1"/> 
+						  	  		<element name="associated_immage" type="string" minOccurs="1" maxOccurs="1"/> <!-- Must always be associated to the right image -->
+						  	  		<element name="associated_channel" type="x:StringArray" minOccurs="0" maxOccurs="1"/>
+						  	  		<!-- Roi coordinates. Current assumption is thar Rois are either rectangles or points -->
 						  	  		<element name="x_coordinates" type="x:IntArray" minOccurs="1" maxOccurs="1"/>
 						  	  		<element name="y_coordinates" type="x:IntArray" minOccurs="1" maxOccurs="1"/>
 						  	  		<element name="z_coordinates" type="x:IntArray" minOccurs="1" maxOccurs="1"/>
-						  	  		<element name="anatomy_expression_annotations" type="x:Anatomy" minOccurs="0" maxOccurs="1"/>		
+						  	  		<!--  Annotations -->
+						  	  		<element name="anatomy_expression_annotations" type="x:Anatomy" minOccurs="0" maxOccurs="1"/>	
+						  	  		<element name="anatomical_part_with_phenotype" type="x:Anatomy" minOccurs="0" maxOccurs="1"/>		
 						  	  		<element name="phenotype_annotations" type="x:Phenotype" minOccurs="0" maxOccurs="1"/>				
 						  	  		<element name="observations" type="x:StringArray" minOccurs="0" maxOccurs="1"/>
-						  	  		<element name="associated_channel" type="x:StringArray" minOccurs="0" maxOccurs="1"/>
-						  	  		
 						  		</all>
 						  	</complexType>
 						  	

@@ -1,9 +1,6 @@
 package uk.ac.ebi.phis.importer;
 
-import j.Age;
-import j.Dimensions;
-import j.Image;
-import j.ImageDescription;
+import j.*;
 
 import java.awt.Dimension;
 import java.io.File;
@@ -110,13 +107,20 @@ public class SangerXmlGenerator {
 			    		} else {
 			    			age.setAgeSinceBirth(norm.getAgeInDays(res.getString("AGE_IN_WEEKS")));
 			    		}
+
+			    		imageDesc.setOrganismGeneratedBy("WTSI");
+			    		imageDesc.setImageGeneratedBy("WTSI");
+			    		imageDesc.setHostName("Mouse Phenotype");
+			    		imageDesc.setHostUrl("http://www.mousephenotype.org/");
 			    		
-		    		
-	    			image.appendChild(utils.getNewElement( JsonFields.AGE, "" + norm.normalizeAge(res.getString("AGE_IN_WEEKS")), imageDoc));  	
-	    			image.appendChild(utils.getNewElement( JsonFields.CENTER , "WTSI", imageDoc));
-	    			image.appendChild(utils.getNewElement( JsonFields.SEX , norm.normalizeSex(res.getString("GENDER")), imageDoc));
-	    			image.appendChild(utils.getNewElement( JsonFields.ORGANISM , "Mus musculus" , imageDoc));
-	    			
+			    		Sex sex = Sex.fromValue(norm.normalizeSex(res.getString("GENDER")));
+
+			    		Organism organism = new Organism();
+			    		organism.setAge(age);
+			    		organism.setSex(sex);
+			    		organism.setTaxon("Mus musculus");
+			    		
+			    		
 	    			image= utils.addElementToArray(image, JsonFields.GENE_ID, res.getString("gf_acc"), imageDoc);
 	    			image= utils.addElementToArray(image, JsonFields.GENE_NAME , res.getString("GENE"), imageDoc);
 	    			image= utils.addElementToArray(image, JsonFields.GENETIC_FEATURE_ID , res.getString("acc"), imageDoc);
