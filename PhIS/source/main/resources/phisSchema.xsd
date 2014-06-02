@@ -141,7 +141,7 @@
 						  	
 						  	<complexType name="Channel">
 						  		<all>
-						  	  		<element name="associated_immage" type="string" minOccurs="1" maxOccurs="1"/>
+						  	  		<element name="associated_image" type="string" minOccurs="1" maxOccurs="1"/>
 						  	  		<element name="associated_roi" type="x:StringArray" minOccurs="0" maxOccurs="1"/>
 						  	  		<element name="gene_id" type="x:StringArray" minOccurs="0" maxOccurs="1"/>
 						  	  		<element name="gene_name" type="x:StringArray" minOccurs="0" maxOccurs="1"/>
