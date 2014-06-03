@@ -9,6 +9,7 @@
 										<enumeration value="Male"></enumeration>
 										<enumeration value="Female"></enumeration>
 										<enumeration value="Unknown"></enumeration>
+										<enumeration value="Unsexed"></enumeration>
 									</restriction>
 								</simpleType>
 								<simpleType name="Zygosity">
@@ -16,6 +17,8 @@
 										<enumeration value="homozygous"></enumeration>
 										<enumeration value="heterozygous"></enumeration>
 										<enumeration value="hemizygous"></enumeration>
+										<enumeration value="wild type"></enumeration>
+										<enumeration value="unspecified"></enumeration>
 									</restriction>
 								</simpleType>
 								
@@ -104,16 +107,13 @@
 						  	  		<element name="phenotype_ontology_id"	type="x:StringArray" minOccurs="0" maxOccurs="1"/> <!-- These should reside in the ROI -->
 						  	 			<element name="phenotype_freetext"	type="x:StringArray" minOccurs="0" maxOccurs="1"/> <!-- These should reside in the ROI -->
 						  	  		<element name="phenotype_ontology_term"	type="x:StringArray" minOccurs="0" maxOccurs="1"/> <!-- These should reside in the ROI -->
-						  	  		<!-- element name="phenotype_computed_id"	type="x:StringArray" minOccurs="0" maxOccurs="1"/--> <!-- These should reside in the ROI -->
-						  	  		<!-- element name="phenotype_computed_term"	type="x:StringArray" minOccurs="0" maxOccurs="1"/-->
-									</all>
+						  	  </all>
 								</complexType>
 								
 								<complexType name="Anatomy">
 									<all minOccurs="1">
 						  	  		<element name="anatomy_ontology_id" type="x:StringArray" minOccurs="0" maxOccurs="1"/>
 						  	  		<element name="anatomy_ontology_term" type="x:StringArray" minOccurs="0" maxOccurs="1"/>
-						  	  		<!-- element name="anatomy_ann_bag" type="x:StringArray" minOccurs="0" maxOccurs="1"/-->
 						  	  		<element name="anatomy_freetext" type="x:StringArray" minOccurs="0" maxOccurs="1"/>
 									</all>						
 								</complexType>
@@ -121,7 +121,7 @@
 								<complexType name="GeneticTrait">
 									<all>
 						  	  		<element name="gene_id" type="string" minOccurs="0" maxOccurs="1"/>
-						  	  		<element name="gene_name" type="string" minOccurs="0" maxOccurs="1"/>
+						  	  		<element name="gene_symbol" type="string" minOccurs="0" maxOccurs="1"/>
               			  <element name="genetic_feature_id" type="string" minOccurs="0" maxOccurs="1"/>
               			  <element name="genetic_feature_name" type="string" minOccurs="0" maxOccurs="1"/>
                				<element name="genetic_feature_ensembl_id" type="string" minOccurs="0" maxOccurs="1"/>
@@ -183,27 +183,22 @@
 						  		</all>
 						  	</complexType>
 						  	
-						  	<complexType name="Doc">
-						  		<choice maxOccurs="1">
-						    			<element name="image" type="x:Image" maxOccurs="unbounded"/>
-						    			<element name="channel" type="x:Channel" maxOccurs="unbounded"/>
-						    			<element name="roi" type="x:Roi" maxOccurs="unbounded"/>
-						  		</choice>
-						  	</complexType>
-						
-								<element  name="Doc" type="x:Doc"/>
-						   
+						  	
+						  	
+						  	<element name="Doc">
+						  		<complexType>
+							  		<sequence>
+							    			<element name="image" type="x:Image" minOccurs="1" maxOccurs="unbounded"/>
+							    			<element name="channel" type="x:Channel"  minOccurs="0" maxOccurs="unbounded"/>
+							    			<element name="roi" type="x:Roi"  minOccurs="0" maxOccurs="unbounded"/>
+							  		</sequence>
+						  		</complexType>
+						  	</element>
+												   
 						   
 						   
 						   <!--  
-                <field column="expressed_gf_bag" xpath="/doc/entry/expressed_gf_bag/el"/>
-                <field column="expressed_anatomy_bag" xpath="/doc/entry/expressed_anatomy_bag/el"/>
-                <field column="insertion_site" xpath="/doc/entry/insertion_site/el"/>
-                <field column="other_ann_bag" xpath="/doc/entry/other_ann_list/el"/>
-
                 <field column="phenotype_eq" xpath="/doc/entry/phenotype_eq/el"/>
                 <field column="phenotype_eq_labels" xpath="/doc/entry/phenotype_eq_labels/el"/>
-                <field column="phenotype_ann_bag" xpath="/doc/entry/phenotype_ann_bag/el"/>
-
 						    -->
 </schema>

@@ -14,6 +14,8 @@ import java.util.List;
 import java.util.Map;
 
 import javax.sql.DataSource;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -72,8 +74,9 @@ public class SangerXmlGenerator {
         	PreparedStatement statement = dataSource.getConnection().prepareStatement(command);
      		ResultSet res = statement.executeQuery();
                   	
-						
+			Doc doc = new Doc();			
 			int i = 0;
+			
 	        while ( res.next()){
 
 	        	if (res.getString("gf_acc") != null && res.getString("gf_acc").startsWith("MGI:")){
@@ -88,48 +91,55 @@ public class SangerXmlGenerator {
 		    		Map<String, Integer> dimensions = utils.getImageMeasuresFromUrl(url);
 		    		if (dimensions != null){// the image could be loaded 
 		    		
+
+			    		Image image = new Image();
+			    		image.setId(internal_id);
+		    			
 		    			Dimensions d = new Dimensions();
 		    			d.setImageHeight(dimensions.get("height"));
 		    			d.setImageWidth(dimensions.get("width"));
-		    			
-			    		Image image = new Image();
-			    		
 			    		ImageDescription imageDesc = new ImageDescription();
 			    		imageDesc.setImageUrl(url);
 			    		imageDesc.setOriginalImageId(res.getString("ID"));
 			    		imageDesc.setImageDimensions(d);
+			      		imageDesc.setOrganismGeneratedBy("WTSI");
+			    		imageDesc.setImageGeneratedBy("WTSI");
+			    		imageDesc.setHostName("Mouse Phenotype");
+			    		imageDesc.setHostUrl("http://www.mousephenotype.org/");
+			    		image.setImageDescription(imageDesc);
 			    		
-			    		image.setId(internal_id);
-			    		
+			    		Sex sex = Sex.fromValue(norm.normalizeSex(res.getString("GENDER")));
 			    		Age age = new Age();
 			    		if (norm.isEmbryonicAge(res.getString("AGE_IN_WEEKS"))){
 			    			age.setEmbryonicAge(norm.getAgeInDays(res.getString("AGE_IN_WEEKS")));
 			    		} else {
 			    			age.setAgeSinceBirth(norm.getAgeInDays(res.getString("AGE_IN_WEEKS")));
 			    		}
-
-			    		imageDesc.setOrganismGeneratedBy("WTSI");
-			    		imageDesc.setImageGeneratedBy("WTSI");
-			    		imageDesc.setHostName("Mouse Phenotype");
-			    		imageDesc.setHostUrl("http://www.mousephenotype.org/");
-			    		
-			    		Sex sex = Sex.fromValue(norm.normalizeSex(res.getString("GENDER")));
-
 			    		Organism organism = new Organism();
 			    		organism.setAge(age);
 			    		organism.setSex(sex);
 			    		organism.setTaxon("Mus musculus");
+			    		image.setOrganism(organism);
+			    		
+			    		GeneticTrait gt = new GeneticTrait();
+			    		gt.setGeneId(res.getString("gf_acc"));
+			    		gt.setGeneSymbol(res.getString("GENE"));
+			    		gt.setGeneticFeatureId(res.getString("acc"));
+			    		gt.setGeneticFeatureName(res.getString("ALLELE"));
+			    		Zygosity zyg = Zygosity.fromValue(norm.normalizeZygosity(res.getString("GENOTYPE")));
+			    		gt.setZygosity(zyg);
 			    		
 			    		
-	    			image= utils.addElementToArray(image, JsonFields.GENE_ID, res.getString("gf_acc"), imageDoc);
-	    			image= utils.addElementToArray(image, JsonFields.GENE_NAME , res.getString("GENE"), imageDoc);
-	    			image= utils.addElementToArray(image, JsonFields.GENETIC_FEATURE_ID , res.getString("acc"), imageDoc);
-	    			image= utils.addElementToArray(image, JsonFields.GENETIC_FEATURE_NAME , res.getString("ALLELE"), imageDoc);
-	    			image= utils.addElementToArray(image, JsonFields.ZYGOSITY , norm.normalizeZygosity(res.getString("GENOTYPE")), imageDoc);
+			    		
+			    		
+			    		
+			    		// !!!  Last thing in this block  !!!
+				        doc.getImage().add(image);
+			    		//TODO Map David's notes
+//	    			image.appendChild(utils.getNewElement( JsonFields.PROCEDURE , res.getString("procedure_name"), imageDoc));
 	    			
-	    			image.appendChild(utils.getNewElement( JsonFields.PROCEDURE , res.getString("procedure_name"), imageDoc));
-	    			
-	    			
+
+			    		/*
 		    		HashSet<String> anatomyIds = new HashSet<String>(); 
 		    		HashSet<String> anatomyTerms = new HashSet<String>(); 
 		    		HashSet<String> phenotypeIds = new HashSet<String>(); 
@@ -198,29 +208,23 @@ public class SangerXmlGenerator {
 		        	image.appendChild(utils.getNewArrrayElement( JsonFields.PHENOTYPE_ID, phenotypeIds, imageDoc));
 		        	image.appendChild(utils.getNewArrrayElement( JsonFields.PHENOTYPE_TERM , phenotypeTerms , imageDoc));
 		        	image.appendChild(utils.getNewArrrayElement( JsonFields.OBSERVATIONS , observations  , imageDoc));
-	
-	    			imageRoot.appendChild(image);
+	*/
 		    		}
 	        	}
 	    		i++;
-		        
+	    		break;
 	        }
-			// write the content into xml file
-			TransformerFactory transformerFactory = TransformerFactory.newInstance();
-			Transformer transformer = transformerFactory.newTransformer();
-			DOMSource source = new DOMSource(imageDoc);
-			StreamResult result = new StreamResult(new File("source/main/resources/sangerImagesDump_imageCore.xml"));
-			transformer.transform(source, result);
 			
-			source = new DOMSource(roiDoc);
-			result = new StreamResult(new File("source/main/resources/sangerImagesDump_roiCore.xml"));
-			transformer.transform(source, result);
-			
-			source = new DOMSource(channelDoc);
-			result = new StreamResult(new File("source/main/resources/sangerImagesDump_channelCore.xml"));
-			transformer.transform(source, result);
-				
-			System.out.println("Files saved!");
+	        File file = new File("source/main/resources/sangerExport.xml");
+			JAXBContext jaxbContext = JAXBContext.newInstance(Doc.class);
+			Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+	 
+			// output pretty printed
+			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+			jaxbMarshaller.marshal(doc, file);
+			jaxbMarshaller.marshal(doc, System.out);
+					
 			
 			}catch (ParserConfigurationException pce) {
 				pce.printStackTrace();

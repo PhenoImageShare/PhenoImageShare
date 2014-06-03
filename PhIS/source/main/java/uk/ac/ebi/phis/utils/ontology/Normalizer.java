@@ -28,13 +28,13 @@ public class Normalizer {
 		String z = zygosity.toLowerCase();
 		
 		if (z.startsWith("hom")){
-			return "homozygote";
+			return "homozygous";
 		}
 		else if (z.startsWith("het")){
-			return "heterozygote";
+			return "heterozygous";
 		}
 		else if (z.startsWith("hemi")){
-			return "hemizygote";
+			return "hemizygous";
 		}
 		else if (z.equals("wt")){
 			return "wild type";
@@ -49,16 +49,16 @@ public class Normalizer {
 		String z = sex.toLowerCase();
 		
 		if (z.startsWith("m")){
-			return "male";
+			return "Male";
 		}
 		else if (z.startsWith("f")){
-			return "female";
+			return "Female";
 		}
 		else if (z.equalsIgnoreCase("unsexed")){
-			return "unsexed";
+			return "Unsexed";
 		}
 		else if (z.equalsIgnoreCase("") || z == null){
-			return "unspecified";
+			return "Unknown";
 		}
 		else throw new Exception("Could not match \"" + sex + "\"to an existing zygosity");
 	}
