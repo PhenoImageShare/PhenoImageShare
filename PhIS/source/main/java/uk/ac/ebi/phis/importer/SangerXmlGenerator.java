@@ -128,13 +128,85 @@ public class SangerXmlGenerator {
 			    		gt.setGeneticFeatureName(res.getString("ALLELE"));
 			    		Zygosity zyg = Zygosity.fromValue(norm.normalizeZygosity(res.getString("GENOTYPE")));
 			    		gt.setZygosity(zyg);
-			    		
-			    		
+			    		GeneticTraitArray gta = new GeneticTraitArray();
+			    		gta.getEl().add(gt);
+			    		image.setMutantGenotypeTraits(gta);
 			    		
 			    		
 			    		
 			    		// !!!  Last thing in this block  !!!
 				        doc.getImage().add(image);
+				        
+				        
+				        /* 	Channel 	*/
+			    		String imageType = norm.getImageType(res.getString("procedure_name"));
+			    		if (imageType.equalsIgnoreCase("expression")){
+					    
+			    			Channel channel = new Channel();
+					        channel.setAssociatedImage(internal_id);
+				    		String channelId = internal_id.replace("komp2_", "komp2_channel_") + "_" + 0; // we know that for Sanger data there is at most one channel.
+				    		channel.setId(channelId);
+				    						    		
+				    		channel.setExpressedGenotypeTrait(gta);
+				    		doc.getChannel().add(channel);
+		    			}
+			    		
+
+				        /*	ROI	*/
+			    		int k = 0; 
+			    		while(sameImage){
+
+			    			
+			    			
+				    		Roi roi = new Roi();
+				    		String roiId = internal_id.replace("komp2_", "komp2_roi_") + "_" + k;
+				    		roi.setId(roiId);
+				    		// Need to decide first if we associate annotations to a ROI or to the whole image
+				    		// 1. Phenotypes should always be associated to a region of interest
+				    		if (res.getString("ONTOLOGY_DICT_ID").equalsIgnoreCase("1")){ // 1 = MP
+				    			//TODO createRoi
+				    		}
+				    		
+				    		// 2. Existing ROI should be kept it the coordinates != 0 
+				    		else if ((Float)res.getFloat("X_START") +(Float) res.getFloat("X_END") + (Float)res.getFloat("Y_START") + (Float)res.getFloat("Y_END") != 0){
+				    			//TODO createRoi
+				    		}
+							       
+				    		// 3. Anatomy from ixpression annotations should always be associated to it's ROI
+				    		// Sanger expression images: if an anatomy term is associated to the whole expression image it means there is expression in that anatomical structure
+				    		else if ()
+				    		
+				    		// Otherwise associate annotation to the whole image
+				    		
+			        		// From TAG NAMES  & VALUES  I need to make observations
+			    			if (!res.getString("TAG_VALUE").equalsIgnoreCase("null")){
+			    				roi.setObservations(res.getString("TAG_NAME") + ": " + res.getString("TAG_VALUE"));
+			    			}
+			    			
+			    			// Add pehnotype & anat. terms
+			    			if (res.getString("ONTOLOGY_DICT_ID").toString().equalsIgnoreCase("2") || res.getString("ONTOLOGY_DICT_ID").toString().equalsIgnoreCase("4")){ //2=EMAP, 4=MA
+			    				anatomyIds.add(res.getString("TERM_ID").toString());
+			    				anatomyTerms.add(res.getString("TERM_NAME").toString());
+			    			}
+					        // Add ROIs
+					        if ((Float) res.getFloat("X_START") +(Float) res.getFloat("X_END") + (Float)res.getFloat("Y_START") + (Float)res.getFloat("Y_END") != 0 
+					        		|| res.getString("ONTOLOGY_DICT_ID").toString().equalsIgnoreCase("1")){
+					        	HashMap<String, Element> list = utils.addRoiSangerData(image, channel, roiDoc, imageDoc,channelDoc, res, 0);
+					        	image = list.get("image");
+					        	roiRoot.appendChild(list.get("roi"));
+					        	channel = list.get("channel");
+					        }	
+			    			
+					        if (res.next() && imageId.equalsIgnoreCase(res.getString("ID"))){
+		    					i++;
+		    				}
+					        else {
+					        	sameImage=false;
+					        	res.previous();
+					        }
+					        k++;
+			    		
+			    		}
 			    		//TODO Map David's notes
 //	    			image.appendChild(utils.getNewElement( JsonFields.PROCEDURE , res.getString("procedure_name"), imageDoc));
 	    			
@@ -147,14 +219,12 @@ public class SangerXmlGenerator {
 		    		HashSet<String> observations = new HashSet<String>(); 
 		    	//	HashSet<String> anatomyAnnBag = new HashSet<String>(); 
 		    		
-		    		String imageType = norm.getImageType(res.getString("procedure_name"));
 	    			image.appendChild(utils.getNewElement(JsonFields.IMAGE_TYPE, imageType , imageDoc));
 	    			if (imageType.equalsIgnoreCase("expression")){
 	    				
 	    				// create channel
 	    				channel = channelDoc.createElement("entry");
 //			    		channel.appendChild(utils.getNewElement(JsonFields.DOCUMENT_TYPE, "channel", channelDoc));
-			    		String channelId = internal_id.replace("komp2_", "komp2_channel_") + 0;
 	    				channel.appendChild(utils.getNewElement(JsonFields.ID, channelId, channelDoc));
 	    				// associate ids
 	    				channel.appendChild(utils.getNewElement(JsonFields.ASSOCIATED_IMAGE, internal_id, channelDoc));
@@ -212,7 +282,7 @@ public class SangerXmlGenerator {
 		    		}
 	        	}
 	    		i++;
-	    		break;
+	    		if (i==100) break;
 	        }
 			
 	        File file = new File("source/main/resources/sangerExport.xml");
