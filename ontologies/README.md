@@ -12,8 +12,8 @@ We use [OBO Foundry](http://www.obofoundry.org/) stage ontologies, which are col
 
 We use [OBO Foundry](http://www.obofoundry.org/) anatomy ontologies including:
 
-[Mouse Anatomy]()
-[Drosophila anatomy ontology]()
+* [Mouse Anatomy]()
+* [Drosophila anatomy ontology]()
 
 ## Phenotype ontologies
 
