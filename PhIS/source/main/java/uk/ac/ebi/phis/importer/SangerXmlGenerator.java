@@ -25,6 +25,8 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import net.wimpi.telnetd.io.terminal.ansi;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -133,30 +135,26 @@ public class SangerXmlGenerator {
 			    		image.setMutantGenotypeTraits(gta);
 			    		
 			    		
-			    		
-			    		// !!!  Last thing in this block  !!!
-				        doc.getImage().add(image);
 				        
 				        
 				        /* 	Channel 	*/
 			    		String imageType = norm.getImageType(res.getString("procedure_name"));
+			    		Channel channel = null;
+			    		String channelId = "";
 			    		if (imageType.equalsIgnoreCase("expression")){
 					    
-			    			Channel channel = new Channel();
+			    			channel = new Channel();
 					        channel.setAssociatedImage(internal_id);
-				    		String channelId = internal_id.replace("komp2_", "komp2_channel_") + "_" + 0; // we know that for Sanger data there is at most one channel.
+				    		channelId = internal_id.replace("komp2_", "komp2_channel_") + "_" + 0; // we know that for Sanger data there is at most one channel.
 				    		channel.setId(channelId);
-				    						    		
 				    		channel.setExpressedGenotypeTrait(gta);
-				    		doc.getChannel().add(channel);
 		    			}
 			    		
 
 				        /*	ROI	*/
-			    		int k = 0; 
+			    		int k = 0;
+			    		// Go through all annotations for the same image
 			    		while(sameImage){
-
-			    			
 			    			
 				    		Roi roi = new Roi();
 				    		String roiId = internal_id.replace("komp2_", "komp2_roi_") + "_" + k;
@@ -165,47 +163,33 @@ public class SangerXmlGenerator {
 				    		// 1. Phenotypes should always be associated to a region of interest
 				    		if (res.getString("ONTOLOGY_DICT_ID").equalsIgnoreCase("1")){ // 1 = MP
 				    			//TODO createRoi
+				    			roi = fillRoi(roi, res);
 				    		}
 				    		
 				    		// 2. Existing ROI should be kept it the coordinates != 0 
 				    		else if ((Float)res.getFloat("X_START") +(Float) res.getFloat("X_END") + (Float)res.getFloat("Y_START") + (Float)res.getFloat("Y_END") != 0){
-				    			//TODO createRoi
+				    			//TODO check if there isn't another Roi eith same coordinates before createRoi
+				    			roi = fillRoi(roi, res);
 				    		}
 							       
 				    		// 3. Anatomy from ixpression annotations should always be associated to it's ROI
 				    		// Sanger expression images: if an anatomy term is associated to the whole expression image it means there is expression in that anatomical structure
-				    		else if ()
-				    		
+				    		else if (imageType.equalsIgnoreCase("expression"))
+				    		{
+				    			roi = fillRoi(roi, res);
+				    			roi.getAssociatedChannel().getEl().add(channelId);
+				    			channel.getAssociatedRoi().getEl().add(roiId);
+				    			//TODO createRoi
+				    		}
 				    		// Otherwise associate annotation to the whole image
+				    		else {
+				    			// Add annotation to the whole image
+				    			
+				    		}
 				    		
-			        		// From TAG NAMES  & VALUES  I need to make observations
-			    			if (!res.getString("TAG_VALUE").equalsIgnoreCase("null")){
-			    				roi.setObservations(res.getString("TAG_NAME") + ": " + res.getString("TAG_VALUE"));
-			    			}
-			    			
-			    			// Add pehnotype & anat. terms
-			    			if (res.getString("ONTOLOGY_DICT_ID").toString().equalsIgnoreCase("2") || res.getString("ONTOLOGY_DICT_ID").toString().equalsIgnoreCase("4")){ //2=EMAP, 4=MA
-			    				anatomyIds.add(res.getString("TERM_ID").toString());
-			    				anatomyTerms.add(res.getString("TERM_NAME").toString());
-			    			}
-					        // Add ROIs
-					        if ((Float) res.getFloat("X_START") +(Float) res.getFloat("X_END") + (Float)res.getFloat("Y_START") + (Float)res.getFloat("Y_END") != 0 
-					        		|| res.getString("ONTOLOGY_DICT_ID").toString().equalsIgnoreCase("1")){
-					        	HashMap<String, Element> list = utils.addRoiSangerData(image, channel, roiDoc, imageDoc,channelDoc, res, 0);
-					        	image = list.get("image");
-					        	roiRoot.appendChild(list.get("roi"));
-					        	channel = list.get("channel");
-					        }	
-			    			
-					        if (res.next() && imageId.equalsIgnoreCase(res.getString("ID"))){
-		    					i++;
-		    				}
-					        else {
-					        	sameImage=false;
-					        	res.previous();
-					        }
-					        k++;
-			    		
+				    		
+				    		
+			        		
 			    		}
 			    		//TODO Map David's notes
 //	    			image.appendChild(utils.getNewElement( JsonFields.PROCEDURE , res.getString("procedure_name"), imageDoc));
@@ -279,6 +263,10 @@ public class SangerXmlGenerator {
 		        	image.appendChild(utils.getNewArrrayElement( JsonFields.PHENOTYPE_TERM , phenotypeTerms , imageDoc));
 		        	image.appendChild(utils.getNewArrrayElement( JsonFields.OBSERVATIONS , observations  , imageDoc));
 	*/
+			    		
+			    		// !!!  Last thing in this block  !!!
+				        doc.getImage().add(image);
+			    		doc.getChannel().add(channel);
 		    		}
 	        	}
 	    		i++;
@@ -307,5 +295,37 @@ public class SangerXmlGenerator {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+        
+       
 	}
+	 private Roi fillRoi(Roi roi, ResultSet res){
+     		// From TAG NAMES  & VALUES  I need to make observations
+			if (!res.getString("TAG_VALUE").equalsIgnoreCase("null")){
+				roi.getObservations().getEl().add(res.getString("TAG_NAME") + ": " + res.getString("TAG_VALUE"));
+			}
+			
+			// Add anat. terms
+			if (res.getString("ONTOLOGY_DICT_ID").toString().equalsIgnoreCase("2") || res.getString("ONTOLOGY_DICT_ID").toString().equalsIgnoreCase("4")){ //2=EMAP, 4=MA
+				if (imageType.equalsIgnoreCase("expression")){
+					roi.getAnatomyExpressionAnnotations().getAnatomyOntologyId().getEl().add(res.getString("TERM_ID").toString());
+					roi.getAnatomyExpressionAnnotations().getAnatomyOntologyTerm().getEl().add(res.getString("TERM_NAME").toString());
+					
+				}
+			}
+	        // Add roi coordinates
+	        if ((Float) res.getFloat("X_START") +(Float) res.getFloat("X_END") + (Float)res.getFloat("Y_START") + (Float)res.getFloat("Y_END") != 0 
+	        		|| res.getString("ONTOLOGY_DICT_ID").toString().equalsIgnoreCase("1")){
+	        	
+	        }	
+			
+	        if (res.next() && imageId.equalsIgnoreCase(res.getString("ID"))){
+				i++;
+			}
+	        else {
+	        	sameImage=false;
+	        	res.previous();
+	        }
+	        k++;
+	        return roi;
+     }
 }
