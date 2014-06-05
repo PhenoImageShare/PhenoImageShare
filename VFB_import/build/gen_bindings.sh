@@ -4,6 +4,6 @@ java -jar ../lib/xsdvi.jar ../../PhIS/source/main/resources/phisSchema.xsd
 
 # generate pyxb python data model lib
 pyxbgen \
-   -u ../../PhiS/source/main/resources/phisSchema.xsd -m phisSchema
+   -u ../../PhIS/source/main/resources/phisSchema.xsd -m phisSchema
 
 
