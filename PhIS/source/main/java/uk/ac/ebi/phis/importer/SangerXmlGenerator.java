@@ -92,8 +92,8 @@ public class SangerXmlGenerator {
 		    		
 		    		String url = "http://www.mousephenotype.org/data/media/" + res.getString("FULL_RESOLUTION_FILE_PATH") ;
 		    		Map<String, Integer> dimensions = utils.getImageMeasuresFromUrl(url);
-		    		if (dimensions != null){// the image could be loaded 
 		    		
+		    		if (dimensions != null){// the image could be loaded 	    		
 
 			    		Image image = new Image();
 			    		image.setId(internal_id);
