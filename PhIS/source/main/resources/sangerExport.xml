@@ -20,6 +20,23 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
+            <imaging_method>
+                <el>
+                    <termLabel>macroscopy</termLabel>
+                    <termId>FBbi_00000240</termId>
+                </el>
+            </imaging_method>
+            <sample_preparation>
+                <el>
+                    <termLabel>whole mounted tissue</termLabel>
+                    <termId>FBbi_00000024</termId>
+                </el>
+                <el>
+                    <termLabel>living tissue</termLabel>
+                    <termId>FBbi_00000025</termId>
+                </el>
+            </sample_preparation>
+            <visualisation_method/>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -30,37 +47,12 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
-    </image>
-    <image>
-        <id>komp2_1</id>
-        <organism>
-            <age>
-                <age_since_birth>94.5</age_since_birth>
-            </age>
-            <taxon>Mus musculus</taxon>
-            <sex>Male</sex>
-        </organism>
-        <image_description>
-            <image_url>http://www.mousephenotype.org/data/media/images/0/M00110006_00003602_download_full.jpg</image_url>
-            <image_dimensions>
-                <image_height>1296</image_height>
-                <image_width>1728</image_width>
-            </image_dimensions>
-            <original_image_id>70220</original_image_id>
-            <image_generated_by>WTSI</image_generated_by>
-            <organism_generated_by>WTSI</organism_generated_by>
-            <host_url>http://www.mousephenotype.org/</host_url>
-            <host_name>Mouse Phenotype</host_name>
-        </image_description>
-        <mutant_genotype_traits>
+        <depicted_anatomical_structure>
             <el>
-                <gene_id>MGI:1891295</gene_id>
-                <gene_symbol>Ube3b</gene_symbol>
-                <genetic_feature_id>MGI:4129255</genetic_feature_id>
-                <genetic_feature_name>Ube3b&lt;Gt(RRJ142)Byg&gt;</genetic_feature_name>
-                <zygosity>heterozygous</zygosity>
+                <anatomy_ontology_id>MA:0000261</anatomy_ontology_id>
+                <anatomy_ontology_term>eye</anatomy_ontology_term>
             </el>
-        </mutant_genotype_traits>
+        </depicted_anatomical_structure>
     </image>
     <image>
         <id>komp2_2</id>
@@ -82,6 +74,23 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
+            <imaging_method>
+                <el>
+                    <termLabel>macroscopy</termLabel>
+                    <termId>FBbi_00000240</termId>
+                </el>
+            </imaging_method>
+            <sample_preparation>
+                <el>
+                    <termLabel>whole mounted tissue</termLabel>
+                    <termId>FBbi_00000024</termId>
+                </el>
+                <el>
+                    <termLabel>living tissue</termLabel>
+                    <termId>FBbi_00000025</termId>
+                </el>
+            </sample_preparation>
+            <visualisation_method/>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -92,37 +101,12 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
-    </image>
-    <image>
-        <id>komp2_3</id>
-        <organism>
-            <age>
-                <age_since_birth>94.5</age_since_birth>
-            </age>
-            <taxon>Mus musculus</taxon>
-            <sex>Male</sex>
-        </organism>
-        <image_description>
-            <image_url>http://www.mousephenotype.org/data/media/images/0/M00110006_00003607_download_full.jpg</image_url>
-            <image_dimensions>
-                <image_height>1296</image_height>
-                <image_width>1728</image_width>
-            </image_dimensions>
-            <original_image_id>70221</original_image_id>
-            <image_generated_by>WTSI</image_generated_by>
-            <organism_generated_by>WTSI</organism_generated_by>
-            <host_url>http://www.mousephenotype.org/</host_url>
-            <host_name>Mouse Phenotype</host_name>
-        </image_description>
-        <mutant_genotype_traits>
+        <depicted_anatomical_structure>
             <el>
-                <gene_id>MGI:1891295</gene_id>
-                <gene_symbol>Ube3b</gene_symbol>
-                <genetic_feature_id>MGI:4129255</genetic_feature_id>
-                <genetic_feature_name>Ube3b&lt;Gt(RRJ142)Byg&gt;</genetic_feature_name>
-                <zygosity>heterozygous</zygosity>
+                <anatomy_ontology_id>MA:0000261</anatomy_ontology_id>
+                <anatomy_ontology_term>eye</anatomy_ontology_term>
             </el>
-        </mutant_genotype_traits>
+        </depicted_anatomical_structure>
     </image>
     <image>
         <id>komp2_4</id>
@@ -144,6 +128,9 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
+            <imaging_method/>
+            <sample_preparation/>
+            <visualisation_method/>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -175,37 +162,9 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
-        </image_description>
-        <mutant_genotype_traits>
-            <el>
-                <gene_id>MGI:104874</gene_id>
-                <gene_symbol>Akt2</gene_symbol>
-                <genetic_feature_id>MGI:4365210</genetic_feature_id>
-                <genetic_feature_name>Akt2&lt;tm1e(KOMP)Wtsi&gt;</genetic_feature_name>
-                <zygosity>heterozygous</zygosity>
-            </el>
-        </mutant_genotype_traits>
-    </image>
-    <image>
-        <id>komp2_6</id>
-        <organism>
-            <age>
-                <age_since_birth>58.799995</age_since_birth>
-            </age>
-            <taxon>Mus musculus</taxon>
-            <sex>Female</sex>
-        </organism>
-        <image_description>
-            <image_url>http://www.mousephenotype.org/data/media/images/0/Akt2-V-2-6.1f_00001115_download_full.jpg</image_url>
-            <image_dimensions>
-                <image_height>1632</image_height>
-                <image_width>2176</image_width>
-            </image_dimensions>
-            <original_image_id>70240</original_image_id>
-            <image_generated_by>WTSI</image_generated_by>
-            <organism_generated_by>WTSI</organism_generated_by>
-            <host_url>http://www.mousephenotype.org/</host_url>
-            <host_name>Mouse Phenotype</host_name>
+            <imaging_method/>
+            <sample_preparation/>
+            <visualisation_method/>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -237,37 +196,9 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
-        </image_description>
-        <mutant_genotype_traits>
-            <el>
-                <gene_id>MGI:104874</gene_id>
-                <gene_symbol>Akt2</gene_symbol>
-                <genetic_feature_id>MGI:4365210</genetic_feature_id>
-                <genetic_feature_name>Akt2&lt;tm1e(KOMP)Wtsi&gt;</genetic_feature_name>
-                <zygosity>heterozygous</zygosity>
-            </el>
-        </mutant_genotype_traits>
-    </image>
-    <image>
-        <id>komp2_8</id>
-        <organism>
-            <age>
-                <age_since_birth>58.799995</age_since_birth>
-            </age>
-            <taxon>Mus musculus</taxon>
-            <sex>Female</sex>
-        </organism>
-        <image_description>
-            <image_url>http://www.mousephenotype.org/data/media/images/0/Akt2-V-2-6.1f_00001119_download_full.jpg</image_url>
-            <image_dimensions>
-                <image_height>1632</image_height>
-                <image_width>2176</image_width>
-            </image_dimensions>
-            <original_image_id>70244</original_image_id>
-            <image_generated_by>WTSI</image_generated_by>
-            <organism_generated_by>WTSI</organism_generated_by>
-            <host_url>http://www.mousephenotype.org/</host_url>
-            <host_name>Mouse Phenotype</host_name>
+            <imaging_method/>
+            <sample_preparation/>
+            <visualisation_method/>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -299,99 +230,9 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
-        </image_description>
-        <mutant_genotype_traits>
-            <el>
-                <gene_id>MGI:104874</gene_id>
-                <gene_symbol>Akt2</gene_symbol>
-                <genetic_feature_id>MGI:4365210</genetic_feature_id>
-                <genetic_feature_name>Akt2&lt;tm1e(KOMP)Wtsi&gt;</genetic_feature_name>
-                <zygosity>heterozygous</zygosity>
-            </el>
-        </mutant_genotype_traits>
-    </image>
-    <image>
-        <id>komp2_10</id>
-        <organism>
-            <age>
-                <age_since_birth>58.799995</age_since_birth>
-            </age>
-            <taxon>Mus musculus</taxon>
-            <sex>Female</sex>
-        </organism>
-        <image_description>
-            <image_url>http://www.mousephenotype.org/data/media/images/0/Akt2-V-2-6.1f_00001121_download_full.jpg</image_url>
-            <image_dimensions>
-                <image_height>1632</image_height>
-                <image_width>2176</image_width>
-            </image_dimensions>
-            <original_image_id>70246</original_image_id>
-            <image_generated_by>WTSI</image_generated_by>
-            <organism_generated_by>WTSI</organism_generated_by>
-            <host_url>http://www.mousephenotype.org/</host_url>
-            <host_name>Mouse Phenotype</host_name>
-        </image_description>
-        <mutant_genotype_traits>
-            <el>
-                <gene_id>MGI:104874</gene_id>
-                <gene_symbol>Akt2</gene_symbol>
-                <genetic_feature_id>MGI:4365210</genetic_feature_id>
-                <genetic_feature_name>Akt2&lt;tm1e(KOMP)Wtsi&gt;</genetic_feature_name>
-                <zygosity>heterozygous</zygosity>
-            </el>
-        </mutant_genotype_traits>
-    </image>
-    <image>
-        <id>komp2_11</id>
-        <organism>
-            <age>
-                <age_since_birth>58.799995</age_since_birth>
-            </age>
-            <taxon>Mus musculus</taxon>
-            <sex>Female</sex>
-        </organism>
-        <image_description>
-            <image_url>http://www.mousephenotype.org/data/media/images/0/Akt2-V-2-6.1f_00001121_download_full.jpg</image_url>
-            <image_dimensions>
-                <image_height>1632</image_height>
-                <image_width>2176</image_width>
-            </image_dimensions>
-            <original_image_id>70246</original_image_id>
-            <image_generated_by>WTSI</image_generated_by>
-            <organism_generated_by>WTSI</organism_generated_by>
-            <host_url>http://www.mousephenotype.org/</host_url>
-            <host_name>Mouse Phenotype</host_name>
-        </image_description>
-        <mutant_genotype_traits>
-            <el>
-                <gene_id>MGI:104874</gene_id>
-                <gene_symbol>Akt2</gene_symbol>
-                <genetic_feature_id>MGI:4365210</genetic_feature_id>
-                <genetic_feature_name>Akt2&lt;tm1e(KOMP)Wtsi&gt;</genetic_feature_name>
-                <zygosity>heterozygous</zygosity>
-            </el>
-        </mutant_genotype_traits>
-    </image>
-    <image>
-        <id>komp2_12</id>
-        <organism>
-            <age>
-                <age_since_birth>58.799995</age_since_birth>
-            </age>
-            <taxon>Mus musculus</taxon>
-            <sex>Female</sex>
-        </organism>
-        <image_description>
-            <image_url>http://www.mousephenotype.org/data/media/images/0/Akt2-V-2-6.1f_00001121_download_full.jpg</image_url>
-            <image_dimensions>
-                <image_height>1632</image_height>
-                <image_width>2176</image_width>
-            </image_dimensions>
-            <original_image_id>70246</original_image_id>
-            <image_generated_by>WTSI</image_generated_by>
-            <organism_generated_by>WTSI</organism_generated_by>
-            <host_url>http://www.mousephenotype.org/</host_url>
-            <host_name>Mouse Phenotype</host_name>
+            <imaging_method/>
+            <sample_preparation/>
+            <visualisation_method/>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -423,6 +264,9 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
+            <imaging_method/>
+            <sample_preparation/>
+            <visualisation_method/>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -454,6 +298,9 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
+            <imaging_method/>
+            <sample_preparation/>
+            <visualisation_method/>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -485,6 +332,9 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
+            <imaging_method/>
+            <sample_preparation/>
+            <visualisation_method/>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -516,6 +366,9 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
+            <imaging_method/>
+            <sample_preparation/>
+            <visualisation_method/>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -547,6 +400,9 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
+            <imaging_method/>
+            <sample_preparation/>
+            <visualisation_method/>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -578,68 +434,9 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
-        </image_description>
-        <mutant_genotype_traits>
-            <el>
-                <gene_id>MGI:104874</gene_id>
-                <gene_symbol>Akt2</gene_symbol>
-                <genetic_feature_id>MGI:4365210</genetic_feature_id>
-                <genetic_feature_name>Akt2&lt;tm1e(KOMP)Wtsi&gt;</genetic_feature_name>
-                <zygosity>heterozygous</zygosity>
-            </el>
-        </mutant_genotype_traits>
-    </image>
-    <image>
-        <id>komp2_19</id>
-        <organism>
-            <age>
-                <age_since_birth>58.799995</age_since_birth>
-            </age>
-            <taxon>Mus musculus</taxon>
-            <sex>Female</sex>
-        </organism>
-        <image_description>
-            <image_url>http://www.mousephenotype.org/data/media/images/0/Akt2-V-2-6.1f_00001171_download_full.jpg</image_url>
-            <image_dimensions>
-                <image_height>1632</image_height>
-                <image_width>2176</image_width>
-            </image_dimensions>
-            <original_image_id>70290</original_image_id>
-            <image_generated_by>WTSI</image_generated_by>
-            <organism_generated_by>WTSI</organism_generated_by>
-            <host_url>http://www.mousephenotype.org/</host_url>
-            <host_name>Mouse Phenotype</host_name>
-        </image_description>
-        <mutant_genotype_traits>
-            <el>
-                <gene_id>MGI:104874</gene_id>
-                <gene_symbol>Akt2</gene_symbol>
-                <genetic_feature_id>MGI:4365210</genetic_feature_id>
-                <genetic_feature_name>Akt2&lt;tm1e(KOMP)Wtsi&gt;</genetic_feature_name>
-                <zygosity>heterozygous</zygosity>
-            </el>
-        </mutant_genotype_traits>
-    </image>
-    <image>
-        <id>komp2_20</id>
-        <organism>
-            <age>
-                <age_since_birth>58.799995</age_since_birth>
-            </age>
-            <taxon>Mus musculus</taxon>
-            <sex>Female</sex>
-        </organism>
-        <image_description>
-            <image_url>http://www.mousephenotype.org/data/media/images/0/Akt2-V-2-6.1f_00001171_download_full.jpg</image_url>
-            <image_dimensions>
-                <image_height>1632</image_height>
-                <image_width>2176</image_width>
-            </image_dimensions>
-            <original_image_id>70290</original_image_id>
-            <image_generated_by>WTSI</image_generated_by>
-            <organism_generated_by>WTSI</organism_generated_by>
-            <host_url>http://www.mousephenotype.org/</host_url>
-            <host_name>Mouse Phenotype</host_name>
+            <imaging_method/>
+            <sample_preparation/>
+            <visualisation_method/>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -671,6 +468,9 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
+            <imaging_method/>
+            <sample_preparation/>
+            <visualisation_method/>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -702,6 +502,9 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
+            <imaging_method/>
+            <sample_preparation/>
+            <visualisation_method/>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -733,6 +536,9 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
+            <imaging_method/>
+            <sample_preparation/>
+            <visualisation_method/>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -764,37 +570,9 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
-        </image_description>
-        <mutant_genotype_traits>
-            <el>
-                <gene_id>MGI:1338071</gene_id>
-                <gene_symbol>Ikbkb</gene_symbol>
-                <genetic_feature_id>MGI:4432305</genetic_feature_id>
-                <genetic_feature_name>Ikbkb&lt;tm1a(EUCOMM)Wtsi&gt;</genetic_feature_name>
-                <zygosity>heterozygous</zygosity>
-            </el>
-        </mutant_genotype_traits>
-    </image>
-    <image>
-        <id>komp2_25</id>
-        <organism>
-            <age>
-                <age_since_birth>42.7</age_since_birth>
-            </age>
-            <taxon>Mus musculus</taxon>
-            <sex>Female</sex>
-        </organism>
-        <image_description>
-            <image_url>http://www.mousephenotype.org/data/media/images/0/M00138376_00015932_download_full.jpg</image_url>
-            <image_dimensions>
-                <image_height>2448</image_height>
-                <image_width>3264</image_width>
-            </image_dimensions>
-            <original_image_id>70360</original_image_id>
-            <image_generated_by>WTSI</image_generated_by>
-            <organism_generated_by>WTSI</organism_generated_by>
-            <host_url>http://www.mousephenotype.org/</host_url>
-            <host_name>Mouse Phenotype</host_name>
+            <imaging_method/>
+            <sample_preparation/>
+            <visualisation_method/>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -826,6 +604,9 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
+            <imaging_method/>
+            <sample_preparation/>
+            <visualisation_method/>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -857,6 +638,23 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
+            <imaging_method>
+                <el>
+                    <termLabel>macroscopy</termLabel>
+                    <termId>FBbi_00000240</termId>
+                </el>
+            </imaging_method>
+            <sample_preparation>
+                <el>
+                    <termLabel>whole mounted tissue</termLabel>
+                    <termId>FBbi_00000024</termId>
+                </el>
+                <el>
+                    <termLabel>living tissue</termLabel>
+                    <termId>FBbi_00000025</termId>
+                </el>
+            </sample_preparation>
+            <visualisation_method/>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -867,68 +665,12 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
-    </image>
-    <image>
-        <id>komp2_28</id>
-        <organism>
-            <age>
-                <age_since_birth>112.700005</age_since_birth>
-            </age>
-            <taxon>Mus musculus</taxon>
-            <sex>Male</sex>
-        </organism>
-        <image_description>
-            <image_url>http://www.mousephenotype.org/data/media/images/0/M00258370_00007903_download_full.jpg</image_url>
-            <image_dimensions>
-                <image_height>1296</image_height>
-                <image_width>1728</image_width>
-            </image_dimensions>
-            <original_image_id>70377</original_image_id>
-            <image_generated_by>WTSI</image_generated_by>
-            <organism_generated_by>WTSI</organism_generated_by>
-            <host_url>http://www.mousephenotype.org/</host_url>
-            <host_name>Mouse Phenotype</host_name>
-        </image_description>
-        <mutant_genotype_traits>
+        <depicted_anatomical_structure>
             <el>
-                <gene_id>MGI:1926159</gene_id>
-                <gene_symbol>Mdn1</gene_symbol>
-                <genetic_feature_id>MGI:4363099</genetic_feature_id>
-                <genetic_feature_name>Mdn1&lt;tm1a(KOMP)Wtsi&gt;</genetic_feature_name>
-                <zygosity>heterozygous</zygosity>
+                <anatomy_ontology_id>MA:0000261</anatomy_ontology_id>
+                <anatomy_ontology_term>eye</anatomy_ontology_term>
             </el>
-        </mutant_genotype_traits>
-    </image>
-    <image>
-        <id>komp2_29</id>
-        <organism>
-            <age>
-                <age_since_birth>112.700005</age_since_birth>
-            </age>
-            <taxon>Mus musculus</taxon>
-            <sex>Male</sex>
-        </organism>
-        <image_description>
-            <image_url>http://www.mousephenotype.org/data/media/images/0/M00258370_00007903_download_full.jpg</image_url>
-            <image_dimensions>
-                <image_height>1296</image_height>
-                <image_width>1728</image_width>
-            </image_dimensions>
-            <original_image_id>70377</original_image_id>
-            <image_generated_by>WTSI</image_generated_by>
-            <organism_generated_by>WTSI</organism_generated_by>
-            <host_url>http://www.mousephenotype.org/</host_url>
-            <host_name>Mouse Phenotype</host_name>
-        </image_description>
-        <mutant_genotype_traits>
-            <el>
-                <gene_id>MGI:1926159</gene_id>
-                <gene_symbol>Mdn1</gene_symbol>
-                <genetic_feature_id>MGI:4363099</genetic_feature_id>
-                <genetic_feature_name>Mdn1&lt;tm1a(KOMP)Wtsi&gt;</genetic_feature_name>
-                <zygosity>heterozygous</zygosity>
-            </el>
-        </mutant_genotype_traits>
+        </depicted_anatomical_structure>
     </image>
     <image>
         <id>komp2_30</id>
@@ -950,6 +692,23 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
+            <imaging_method>
+                <el>
+                    <termLabel>macroscopy</termLabel>
+                    <termId>FBbi_00000240</termId>
+                </el>
+            </imaging_method>
+            <sample_preparation>
+                <el>
+                    <termLabel>whole mounted tissue</termLabel>
+                    <termId>FBbi_00000024</termId>
+                </el>
+                <el>
+                    <termLabel>living tissue</termLabel>
+                    <termId>FBbi_00000025</termId>
+                </el>
+            </sample_preparation>
+            <visualisation_method/>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -960,68 +719,12 @@
                 <zygosity>homozygous</zygosity>
             </el>
         </mutant_genotype_traits>
-    </image>
-    <image>
-        <id>komp2_31</id>
-        <organism>
-            <age>
-                <age_since_birth>108.5</age_since_birth>
-            </age>
-            <taxon>Mus musculus</taxon>
-            <sex>Female</sex>
-        </organism>
-        <image_description>
-            <image_url>http://www.mousephenotype.org/data/media/images/520/M00379015_00012839_download_full.jpg</image_url>
-            <image_dimensions>
-                <image_height>1296</image_height>
-                <image_width>1728</image_width>
-            </image_dimensions>
-            <original_image_id>70394</original_image_id>
-            <image_generated_by>WTSI</image_generated_by>
-            <organism_generated_by>WTSI</organism_generated_by>
-            <host_url>http://www.mousephenotype.org/</host_url>
-            <host_name>Mouse Phenotype</host_name>
-        </image_description>
-        <mutant_genotype_traits>
+        <depicted_anatomical_structure>
             <el>
-                <gene_id>MGI:2384936</gene_id>
-                <gene_symbol>Spns2</gene_symbol>
-                <genetic_feature_id>MGI:4460276</genetic_feature_id>
-                <genetic_feature_name>Spns2&lt;tm1a(KOMP)Wtsi&gt;</genetic_feature_name>
-                <zygosity>homozygous</zygosity>
+                <anatomy_ontology_id>MA:0000261</anatomy_ontology_id>
+                <anatomy_ontology_term>eye</anatomy_ontology_term>
             </el>
-        </mutant_genotype_traits>
-    </image>
-    <image>
-        <id>komp2_32</id>
-        <organism>
-            <age>
-                <age_since_birth>108.5</age_since_birth>
-            </age>
-            <taxon>Mus musculus</taxon>
-            <sex>Female</sex>
-        </organism>
-        <image_description>
-            <image_url>http://www.mousephenotype.org/data/media/images/520/M00379015_00012839_download_full.jpg</image_url>
-            <image_dimensions>
-                <image_height>1296</image_height>
-                <image_width>1728</image_width>
-            </image_dimensions>
-            <original_image_id>70394</original_image_id>
-            <image_generated_by>WTSI</image_generated_by>
-            <organism_generated_by>WTSI</organism_generated_by>
-            <host_url>http://www.mousephenotype.org/</host_url>
-            <host_name>Mouse Phenotype</host_name>
-        </image_description>
-        <mutant_genotype_traits>
-            <el>
-                <gene_id>MGI:2384936</gene_id>
-                <gene_symbol>Spns2</gene_symbol>
-                <genetic_feature_id>MGI:4460276</genetic_feature_id>
-                <genetic_feature_name>Spns2&lt;tm1a(KOMP)Wtsi&gt;</genetic_feature_name>
-                <zygosity>homozygous</zygosity>
-            </el>
-        </mutant_genotype_traits>
+        </depicted_anatomical_structure>
     </image>
     <image>
         <id>komp2_33</id>
@@ -1043,6 +746,9 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
+            <imaging_method/>
+            <sample_preparation/>
+            <visualisation_method/>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -1074,37 +780,9 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
-        </image_description>
-        <mutant_genotype_traits>
-            <el>
-                <gene_id>MGI:2150037</gene_id>
-                <gene_symbol>Mta1</gene_symbol>
-                <genetic_feature_id>MGI:4842891</genetic_feature_id>
-                <genetic_feature_name>Mta1&lt;tm1a(EUCOMM)Wtsi&gt;</genetic_feature_name>
-                <zygosity>heterozygous</zygosity>
-            </el>
-        </mutant_genotype_traits>
-    </image>
-    <image>
-        <id>komp2_35</id>
-        <organism>
-            <age>
-                <age_since_birth>48.3</age_since_birth>
-            </age>
-            <taxon>Mus musculus</taxon>
-            <sex>Female</sex>
-        </organism>
-        <image_description>
-            <image_url>http://www.mousephenotype.org/data/media/images/520/Mta1-V-3.6e_00000843_download_full.jpg</image_url>
-            <image_dimensions>
-                <image_height>1632</image_height>
-                <image_width>2176</image_width>
-            </image_dimensions>
-            <original_image_id>70561</original_image_id>
-            <image_generated_by>WTSI</image_generated_by>
-            <organism_generated_by>WTSI</organism_generated_by>
-            <host_url>http://www.mousephenotype.org/</host_url>
-            <host_name>Mouse Phenotype</host_name>
+            <imaging_method/>
+            <sample_preparation/>
+            <visualisation_method/>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -1136,6 +814,9 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
+            <imaging_method/>
+            <sample_preparation/>
+            <visualisation_method/>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -1167,6 +848,9 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
+            <imaging_method/>
+            <sample_preparation/>
+            <visualisation_method/>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -1198,37 +882,9 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
-        </image_description>
-        <mutant_genotype_traits>
-            <el>
-                <gene_id>MGI:2150037</gene_id>
-                <gene_symbol>Mta1</gene_symbol>
-                <genetic_feature_id>MGI:4842891</genetic_feature_id>
-                <genetic_feature_name>Mta1&lt;tm1a(EUCOMM)Wtsi&gt;</genetic_feature_name>
-                <zygosity>heterozygous</zygosity>
-            </el>
-        </mutant_genotype_traits>
-    </image>
-    <image>
-        <id>komp2_39</id>
-        <organism>
-            <age>
-                <age_since_birth>48.3</age_since_birth>
-            </age>
-            <taxon>Mus musculus</taxon>
-            <sex>Female</sex>
-        </organism>
-        <image_description>
-            <image_url>http://www.mousephenotype.org/data/media/images/520/Mta1-V-3.6e_00000858_download_full.jpg</image_url>
-            <image_dimensions>
-                <image_height>1632</image_height>
-                <image_width>2176</image_width>
-            </image_dimensions>
-            <original_image_id>70566</original_image_id>
-            <image_generated_by>WTSI</image_generated_by>
-            <organism_generated_by>WTSI</organism_generated_by>
-            <host_url>http://www.mousephenotype.org/</host_url>
-            <host_name>Mouse Phenotype</host_name>
+            <imaging_method/>
+            <sample_preparation/>
+            <visualisation_method/>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -1260,37 +916,9 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
-        </image_description>
-        <mutant_genotype_traits>
-            <el>
-                <gene_id>MGI:2150037</gene_id>
-                <gene_symbol>Mta1</gene_symbol>
-                <genetic_feature_id>MGI:4842891</genetic_feature_id>
-                <genetic_feature_name>Mta1&lt;tm1a(EUCOMM)Wtsi&gt;</genetic_feature_name>
-                <zygosity>heterozygous</zygosity>
-            </el>
-        </mutant_genotype_traits>
-    </image>
-    <image>
-        <id>komp2_41</id>
-        <organism>
-            <age>
-                <age_since_birth>131.59999</age_since_birth>
-            </age>
-            <taxon>Mus musculus</taxon>
-            <sex>Male</sex>
-        </organism>
-        <image_description>
-            <image_url>http://www.mousephenotype.org/data/media/images/520/Mta1_V2.1a_00000914_download_full.jpg</image_url>
-            <image_dimensions>
-                <image_height>1632</image_height>
-                <image_width>2176</image_width>
-            </image_dimensions>
-            <original_image_id>70578</original_image_id>
-            <image_generated_by>WTSI</image_generated_by>
-            <organism_generated_by>WTSI</organism_generated_by>
-            <host_url>http://www.mousephenotype.org/</host_url>
-            <host_name>Mouse Phenotype</host_name>
+            <imaging_method/>
+            <sample_preparation/>
+            <visualisation_method/>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -1322,6 +950,9 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
+            <imaging_method/>
+            <sample_preparation/>
+            <visualisation_method/>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -1353,6 +984,9 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
+            <imaging_method/>
+            <sample_preparation/>
+            <visualisation_method/>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -1384,6 +1018,9 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
+            <imaging_method/>
+            <sample_preparation/>
+            <visualisation_method/>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -1415,6 +1052,9 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
+            <imaging_method/>
+            <sample_preparation/>
+            <visualisation_method/>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -1446,6 +1086,9 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
+            <imaging_method/>
+            <sample_preparation/>
+            <visualisation_method/>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -1477,6 +1120,9 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
+            <imaging_method/>
+            <sample_preparation/>
+            <visualisation_method/>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -1508,6 +1154,9 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
+            <imaging_method/>
+            <sample_preparation/>
+            <visualisation_method/>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -1539,6 +1188,9 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
+            <imaging_method/>
+            <sample_preparation/>
+            <visualisation_method/>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -1570,6 +1222,9 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
+            <imaging_method/>
+            <sample_preparation/>
+            <visualisation_method/>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -1601,37 +1256,9 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
-        </image_description>
-        <mutant_genotype_traits>
-            <el>
-                <gene_id>MGI:98809</gene_id>
-                <gene_symbol>Tpm1</gene_symbol>
-                <genetic_feature_id>MGI:4842867</genetic_feature_id>
-                <genetic_feature_name>Tpm1&lt;tm1a(EUCOMM)Wtsi&gt;</genetic_feature_name>
-                <zygosity>heterozygous</zygosity>
-            </el>
-        </mutant_genotype_traits>
-    </image>
-    <image>
-        <id>komp2_52</id>
-        <organism>
-            <age>
-                <age_since_birth>52.5</age_since_birth>
-            </age>
-            <taxon>Mus musculus</taxon>
-            <sex>Male</sex>
-        </organism>
-        <image_description>
-            <image_url>http://www.mousephenotype.org/data/media/images/522/Tpm1-V-2.7c_00001392_download_full.jpg</image_url>
-            <image_dimensions>
-                <image_height>1632</image_height>
-                <image_width>2176</image_width>
-            </image_dimensions>
-            <original_image_id>70765</original_image_id>
-            <image_generated_by>WTSI</image_generated_by>
-            <organism_generated_by>WTSI</organism_generated_by>
-            <host_url>http://www.mousephenotype.org/</host_url>
-            <host_name>Mouse Phenotype</host_name>
+            <imaging_method/>
+            <sample_preparation/>
+            <visualisation_method/>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -1663,6 +1290,9 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
+            <imaging_method/>
+            <sample_preparation/>
+            <visualisation_method/>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -1694,6 +1324,9 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
+            <imaging_method/>
+            <sample_preparation/>
+            <visualisation_method/>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -1725,6 +1358,9 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
+            <imaging_method/>
+            <sample_preparation/>
+            <visualisation_method/>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -1756,6 +1392,9 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
+            <imaging_method/>
+            <sample_preparation/>
+            <visualisation_method/>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -1787,37 +1426,9 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
-        </image_description>
-        <mutant_genotype_traits>
-            <el>
-                <gene_id>MGI:98809</gene_id>
-                <gene_symbol>Tpm1</gene_symbol>
-                <genetic_feature_id>MGI:4842867</genetic_feature_id>
-                <genetic_feature_name>Tpm1&lt;tm1a(EUCOMM)Wtsi&gt;</genetic_feature_name>
-                <zygosity>heterozygous</zygosity>
-            </el>
-        </mutant_genotype_traits>
-    </image>
-    <image>
-        <id>komp2_58</id>
-        <organism>
-            <age>
-                <age_since_birth>52.5</age_since_birth>
-            </age>
-            <taxon>Mus musculus</taxon>
-            <sex>Female</sex>
-        </organism>
-        <image_description>
-            <image_url>http://www.mousephenotype.org/data/media/images/522/Tpm1-V-2.7d_00001203_download_full.jpg</image_url>
-            <image_dimensions>
-                <image_height>1632</image_height>
-                <image_width>2176</image_width>
-            </image_dimensions>
-            <original_image_id>70801</original_image_id>
-            <image_generated_by>WTSI</image_generated_by>
-            <organism_generated_by>WTSI</organism_generated_by>
-            <host_url>http://www.mousephenotype.org/</host_url>
-            <host_name>Mouse Phenotype</host_name>
+            <imaging_method/>
+            <sample_preparation/>
+            <visualisation_method/>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -1849,6 +1460,9 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
+            <imaging_method/>
+            <sample_preparation/>
+            <visualisation_method/>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -1880,6 +1494,9 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
+            <imaging_method/>
+            <sample_preparation/>
+            <visualisation_method/>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -1911,37 +1528,9 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
-        </image_description>
-        <mutant_genotype_traits>
-            <el>
-                <gene_id>MGI:98809</gene_id>
-                <gene_symbol>Tpm1</gene_symbol>
-                <genetic_feature_id>MGI:4842867</genetic_feature_id>
-                <genetic_feature_name>Tpm1&lt;tm1a(EUCOMM)Wtsi&gt;</genetic_feature_name>
-                <zygosity>heterozygous</zygosity>
-            </el>
-        </mutant_genotype_traits>
-    </image>
-    <image>
-        <id>komp2_62</id>
-        <organism>
-            <age>
-                <age_since_birth>52.5</age_since_birth>
-            </age>
-            <taxon>Mus musculus</taxon>
-            <sex>Female</sex>
-        </organism>
-        <image_description>
-            <image_url>http://www.mousephenotype.org/data/media/images/522/Tpm1-V-2.7d_00001246_download_full.jpg</image_url>
-            <image_dimensions>
-                <image_height>1632</image_height>
-                <image_width>2176</image_width>
-            </image_dimensions>
-            <original_image_id>70843</original_image_id>
-            <image_generated_by>WTSI</image_generated_by>
-            <organism_generated_by>WTSI</organism_generated_by>
-            <host_url>http://www.mousephenotype.org/</host_url>
-            <host_name>Mouse Phenotype</host_name>
+            <imaging_method/>
+            <sample_preparation/>
+            <visualisation_method/>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -1973,6 +1562,24 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
+            <imaging_method>
+                <el>
+                    <termLabel>confocal microscopy</termLabel>
+                    <termId>FBbi_00000251</termId>
+                </el>
+            </imaging_method>
+            <sample_preparation>
+                <el>
+                    <termLabel>whole mounted tissue</termLabel>
+                    <termId>FBbi_00000024</termId>
+                </el>
+            </sample_preparation>
+            <visualisation_method>
+                <el>
+                    <termLabel>fluorescent protein tag</termLabel>
+                    <termId>FBbi_00000405</termId>
+                </el>
+            </visualisation_method>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -1983,6 +1590,12 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <depicted_anatomical_structure>
+            <el>
+                <anatomy_ontology_id>MA:0000700</anatomy_ontology_id>
+                <anatomy_ontology_term>tail skin</anatomy_ontology_term>
+            </el>
+        </depicted_anatomical_structure>
     </image>
     <image>
         <id>komp2_64</id>
@@ -2004,6 +1617,24 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
+            <imaging_method>
+                <el>
+                    <termLabel>confocal microscopy</termLabel>
+                    <termId>FBbi_00000251</termId>
+                </el>
+            </imaging_method>
+            <sample_preparation>
+                <el>
+                    <termLabel>whole mounted tissue</termLabel>
+                    <termId>FBbi_00000024</termId>
+                </el>
+            </sample_preparation>
+            <visualisation_method>
+                <el>
+                    <termLabel>fluorescent protein tag</termLabel>
+                    <termId>FBbi_00000405</termId>
+                </el>
+            </visualisation_method>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -2014,6 +1645,12 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <depicted_anatomical_structure>
+            <el>
+                <anatomy_ontology_id>MA:0000700</anatomy_ontology_id>
+                <anatomy_ontology_term>tail skin</anatomy_ontology_term>
+            </el>
+        </depicted_anatomical_structure>
     </image>
     <image>
         <id>komp2_65</id>
@@ -2035,6 +1672,24 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
+            <imaging_method>
+                <el>
+                    <termLabel>confocal microscopy</termLabel>
+                    <termId>FBbi_00000251</termId>
+                </el>
+            </imaging_method>
+            <sample_preparation>
+                <el>
+                    <termLabel>whole mounted tissue</termLabel>
+                    <termId>FBbi_00000024</termId>
+                </el>
+            </sample_preparation>
+            <visualisation_method>
+                <el>
+                    <termLabel>fluorescent protein tag</termLabel>
+                    <termId>FBbi_00000405</termId>
+                </el>
+            </visualisation_method>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -2045,6 +1700,12 @@
                 <zygosity>homozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <depicted_anatomical_structure>
+            <el>
+                <anatomy_ontology_id>MA:0000700</anatomy_ontology_id>
+                <anatomy_ontology_term>tail skin</anatomy_ontology_term>
+            </el>
+        </depicted_anatomical_structure>
     </image>
     <image>
         <id>komp2_66</id>
@@ -2066,6 +1727,24 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
+            <imaging_method>
+                <el>
+                    <termLabel>confocal microscopy</termLabel>
+                    <termId>FBbi_00000251</termId>
+                </el>
+            </imaging_method>
+            <sample_preparation>
+                <el>
+                    <termLabel>whole mounted tissue</termLabel>
+                    <termId>FBbi_00000024</termId>
+                </el>
+            </sample_preparation>
+            <visualisation_method>
+                <el>
+                    <termLabel>fluorescent protein tag</termLabel>
+                    <termId>FBbi_00000405</termId>
+                </el>
+            </visualisation_method>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -2076,6 +1755,12 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <depicted_anatomical_structure>
+            <el>
+                <anatomy_ontology_id>MA:0000700</anatomy_ontology_id>
+                <anatomy_ontology_term>tail skin</anatomy_ontology_term>
+            </el>
+        </depicted_anatomical_structure>
     </image>
     <image>
         <id>komp2_67</id>
@@ -2097,6 +1782,24 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
+            <imaging_method>
+                <el>
+                    <termLabel>confocal microscopy</termLabel>
+                    <termId>FBbi_00000251</termId>
+                </el>
+            </imaging_method>
+            <sample_preparation>
+                <el>
+                    <termLabel>whole mounted tissue</termLabel>
+                    <termId>FBbi_00000024</termId>
+                </el>
+            </sample_preparation>
+            <visualisation_method>
+                <el>
+                    <termLabel>fluorescent protein tag</termLabel>
+                    <termId>FBbi_00000405</termId>
+                </el>
+            </visualisation_method>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -2107,6 +1810,12 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <depicted_anatomical_structure>
+            <el>
+                <anatomy_ontology_id>MA:0000700</anatomy_ontology_id>
+                <anatomy_ontology_term>tail skin</anatomy_ontology_term>
+            </el>
+        </depicted_anatomical_structure>
     </image>
     <image>
         <id>komp2_68</id>
@@ -2128,6 +1837,9 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
+            <imaging_method/>
+            <sample_preparation/>
+            <visualisation_method/>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -2159,6 +1871,9 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
+            <imaging_method/>
+            <sample_preparation/>
+            <visualisation_method/>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -2190,37 +1905,9 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
-        </image_description>
-        <mutant_genotype_traits>
-            <el>
-                <gene_id>MGI:2151172</gene_id>
-                <gene_symbol>Mta3</gene_symbol>
-                <genetic_feature_id>MGI:4419906</genetic_feature_id>
-                <genetic_feature_name>Mta3&lt;tm3a(KOMP)Wtsi&gt;</genetic_feature_name>
-                <zygosity>heterozygous</zygosity>
-            </el>
-        </mutant_genotype_traits>
-    </image>
-    <image>
-        <id>komp2_71</id>
-        <organism>
-            <age>
-                <age_since_birth>57.399998</age_since_birth>
-            </age>
-            <taxon>Mus musculus</taxon>
-            <sex>Male</sex>
-        </organism>
-        <image_description>
-            <image_url>http://www.mousephenotype.org/data/media/images/522/M00017625_00001797_download_full.jpg</image_url>
-            <image_dimensions>
-                <image_height>1632</image_height>
-                <image_width>2176</image_width>
-            </image_dimensions>
-            <original_image_id>70926</original_image_id>
-            <image_generated_by>WTSI</image_generated_by>
-            <organism_generated_by>WTSI</organism_generated_by>
-            <host_url>http://www.mousephenotype.org/</host_url>
-            <host_name>Mouse Phenotype</host_name>
+            <imaging_method/>
+            <sample_preparation/>
+            <visualisation_method/>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -2252,37 +1939,9 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
-        </image_description>
-        <mutant_genotype_traits>
-            <el>
-                <gene_id>MGI:2151172</gene_id>
-                <gene_symbol>Mta3</gene_symbol>
-                <genetic_feature_id>MGI:4419906</genetic_feature_id>
-                <genetic_feature_name>Mta3&lt;tm3a(KOMP)Wtsi&gt;</genetic_feature_name>
-                <zygosity>heterozygous</zygosity>
-            </el>
-        </mutant_genotype_traits>
-    </image>
-    <image>
-        <id>komp2_73</id>
-        <organism>
-            <age>
-                <age_since_birth>57.399998</age_since_birth>
-            </age>
-            <taxon>Mus musculus</taxon>
-            <sex>Male</sex>
-        </organism>
-        <image_description>
-            <image_url>http://www.mousephenotype.org/data/media/images/522/M00017625_00001809_download_full.jpg</image_url>
-            <image_dimensions>
-                <image_height>1632</image_height>
-                <image_width>2176</image_width>
-            </image_dimensions>
-            <original_image_id>70939</original_image_id>
-            <image_generated_by>WTSI</image_generated_by>
-            <organism_generated_by>WTSI</organism_generated_by>
-            <host_url>http://www.mousephenotype.org/</host_url>
-            <host_name>Mouse Phenotype</host_name>
+            <imaging_method/>
+            <sample_preparation/>
+            <visualisation_method/>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -2314,6 +1973,9 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
+            <imaging_method/>
+            <sample_preparation/>
+            <visualisation_method/>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -2345,6 +2007,9 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
+            <imaging_method/>
+            <sample_preparation/>
+            <visualisation_method/>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -2376,6 +2041,9 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
+            <imaging_method/>
+            <sample_preparation/>
+            <visualisation_method/>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -2407,6 +2075,9 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
+            <imaging_method/>
+            <sample_preparation/>
+            <visualisation_method/>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -2438,37 +2109,9 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
-        </image_description>
-        <mutant_genotype_traits>
-            <el>
-                <gene_id>MGI:2151172</gene_id>
-                <gene_symbol>Mta3</gene_symbol>
-                <genetic_feature_id>MGI:4419906</genetic_feature_id>
-                <genetic_feature_name>Mta3&lt;tm3a(KOMP)Wtsi&gt;</genetic_feature_name>
-                <zygosity>heterozygous</zygosity>
-            </el>
-        </mutant_genotype_traits>
-    </image>
-    <image>
-        <id>komp2_79</id>
-        <organism>
-            <age>
-                <age_since_birth>57.399998</age_since_birth>
-            </age>
-            <taxon>Mus musculus</taxon>
-            <sex>Male</sex>
-        </organism>
-        <image_description>
-            <image_url>http://www.mousephenotype.org/data/media/images/523/M00017625_00001837_download_full.jpg</image_url>
-            <image_dimensions>
-                <image_height>1632</image_height>
-                <image_width>2176</image_width>
-            </image_dimensions>
-            <original_image_id>70967</original_image_id>
-            <image_generated_by>WTSI</image_generated_by>
-            <organism_generated_by>WTSI</organism_generated_by>
-            <host_url>http://www.mousephenotype.org/</host_url>
-            <host_name>Mouse Phenotype</host_name>
+            <imaging_method/>
+            <sample_preparation/>
+            <visualisation_method/>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -2500,6 +2143,9 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
+            <imaging_method/>
+            <sample_preparation/>
+            <visualisation_method/>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -2531,6 +2177,9 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
+            <imaging_method/>
+            <sample_preparation/>
+            <visualisation_method/>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -2562,6 +2211,9 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
+            <imaging_method/>
+            <sample_preparation/>
+            <visualisation_method/>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -2593,6 +2245,9 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
+            <imaging_method/>
+            <sample_preparation/>
+            <visualisation_method/>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -2624,37 +2279,9 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
-        </image_description>
-        <mutant_genotype_traits>
-            <el>
-                <gene_id>MGI:2141207</gene_id>
-                <gene_symbol>Kctd10</gene_symbol>
-                <genetic_feature_id>MGI:4128950</genetic_feature_id>
-                <genetic_feature_name>Kctd10&lt;Gt(RRG305)Byg&gt;</genetic_feature_name>
-                <zygosity>heterozygous</zygosity>
-            </el>
-        </mutant_genotype_traits>
-    </image>
-    <image>
-        <id>komp2_85</id>
-        <organism>
-            <age>
-                <age_since_birth>39.2</age_since_birth>
-            </age>
-            <taxon>Mus musculus</taxon>
-            <sex>Male</sex>
-        </organism>
-        <image_description>
-            <image_url>http://www.mousephenotype.org/data/media/images/523/M00020998_00001975_download_full.jpg</image_url>
-            <image_dimensions>
-                <image_height>1632</image_height>
-                <image_width>2176</image_width>
-            </image_dimensions>
-            <original_image_id>71007</original_image_id>
-            <image_generated_by>WTSI</image_generated_by>
-            <organism_generated_by>WTSI</organism_generated_by>
-            <host_url>http://www.mousephenotype.org/</host_url>
-            <host_name>Mouse Phenotype</host_name>
+            <imaging_method/>
+            <sample_preparation/>
+            <visualisation_method/>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -2686,6 +2313,9 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
+            <imaging_method/>
+            <sample_preparation/>
+            <visualisation_method/>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -2717,6 +2347,9 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
+            <imaging_method/>
+            <sample_preparation/>
+            <visualisation_method/>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -2748,6 +2381,9 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
+            <imaging_method/>
+            <sample_preparation/>
+            <visualisation_method/>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -2779,6 +2415,9 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
+            <imaging_method/>
+            <sample_preparation/>
+            <visualisation_method/>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -2810,6 +2449,9 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
+            <imaging_method/>
+            <sample_preparation/>
+            <visualisation_method/>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -2841,6 +2483,9 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
+            <imaging_method/>
+            <sample_preparation/>
+            <visualisation_method/>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -2872,37 +2517,9 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
-        </image_description>
-        <mutant_genotype_traits>
-            <el>
-                <gene_id>MGI:1349766</gene_id>
-                <gene_symbol>Brd7</gene_symbol>
-                <genetic_feature_id>MGI:4842893</genetic_feature_id>
-                <genetic_feature_name>Brd7&lt;tm2a(EUCOMM)Wtsi&gt;</genetic_feature_name>
-                <zygosity>heterozygous</zygosity>
-            </el>
-        </mutant_genotype_traits>
-    </image>
-    <image>
-        <id>komp2_93</id>
-        <organism>
-            <age>
-                <age_since_birth>79.799995</age_since_birth>
-            </age>
-            <taxon>Mus musculus</taxon>
-            <sex>Male</sex>
-        </organism>
-        <image_description>
-            <image_url>http://www.mousephenotype.org/data/media/images/523/M00030102_00002236_download_full.jpg</image_url>
-            <image_dimensions>
-                <image_height>1632</image_height>
-                <image_width>2176</image_width>
-            </image_dimensions>
-            <original_image_id>71088</original_image_id>
-            <image_generated_by>WTSI</image_generated_by>
-            <organism_generated_by>WTSI</organism_generated_by>
-            <host_url>http://www.mousephenotype.org/</host_url>
-            <host_name>Mouse Phenotype</host_name>
+            <imaging_method/>
+            <sample_preparation/>
+            <visualisation_method/>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -2934,68 +2551,9 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
-        </image_description>
-        <mutant_genotype_traits>
-            <el>
-                <gene_id>MGI:1349766</gene_id>
-                <gene_symbol>Brd7</gene_symbol>
-                <genetic_feature_id>MGI:4842893</genetic_feature_id>
-                <genetic_feature_name>Brd7&lt;tm2a(EUCOMM)Wtsi&gt;</genetic_feature_name>
-                <zygosity>heterozygous</zygosity>
-            </el>
-        </mutant_genotype_traits>
-    </image>
-    <image>
-        <id>komp2_95</id>
-        <organism>
-            <age>
-                <age_since_birth>79.799995</age_since_birth>
-            </age>
-            <taxon>Mus musculus</taxon>
-            <sex>Male</sex>
-        </organism>
-        <image_description>
-            <image_url>http://www.mousephenotype.org/data/media/images/523/M00030102_00002242_download_full.jpg</image_url>
-            <image_dimensions>
-                <image_height>1632</image_height>
-                <image_width>2176</image_width>
-            </image_dimensions>
-            <original_image_id>71094</original_image_id>
-            <image_generated_by>WTSI</image_generated_by>
-            <organism_generated_by>WTSI</organism_generated_by>
-            <host_url>http://www.mousephenotype.org/</host_url>
-            <host_name>Mouse Phenotype</host_name>
-        </image_description>
-        <mutant_genotype_traits>
-            <el>
-                <gene_id>MGI:1349766</gene_id>
-                <gene_symbol>Brd7</gene_symbol>
-                <genetic_feature_id>MGI:4842893</genetic_feature_id>
-                <genetic_feature_name>Brd7&lt;tm2a(EUCOMM)Wtsi&gt;</genetic_feature_name>
-                <zygosity>heterozygous</zygosity>
-            </el>
-        </mutant_genotype_traits>
-    </image>
-    <image>
-        <id>komp2_96</id>
-        <organism>
-            <age>
-                <age_since_birth>79.799995</age_since_birth>
-            </age>
-            <taxon>Mus musculus</taxon>
-            <sex>Male</sex>
-        </organism>
-        <image_description>
-            <image_url>http://www.mousephenotype.org/data/media/images/523/M00030102_00002242_download_full.jpg</image_url>
-            <image_dimensions>
-                <image_height>1632</image_height>
-                <image_width>2176</image_width>
-            </image_dimensions>
-            <original_image_id>71094</original_image_id>
-            <image_generated_by>WTSI</image_generated_by>
-            <organism_generated_by>WTSI</organism_generated_by>
-            <host_url>http://www.mousephenotype.org/</host_url>
-            <host_name>Mouse Phenotype</host_name>
+            <imaging_method/>
+            <sample_preparation/>
+            <visualisation_method/>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -3027,6 +2585,9 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
+            <imaging_method/>
+            <sample_preparation/>
+            <visualisation_method/>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -3058,6 +2619,9 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
+            <imaging_method/>
+            <sample_preparation/>
+            <visualisation_method/>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -3089,6 +2653,9 @@
             <organism_generated_by>WTSI</organism_generated_by>
             <host_url>http://www.mousephenotype.org/</host_url>
             <host_name>Mouse Phenotype</host_name>
+            <imaging_method/>
+            <sample_preparation/>
+            <visualisation_method/>
         </image_description>
         <mutant_genotype_traits>
             <el>
@@ -3101,8 +2668,11 @@
         </mutant_genotype_traits>
     </image>
     <channel>
-        <id>komp2_channel_40</id>
+        <id>komp2_channel_4_0</id>
         <associated_image>komp2_4</associated_image>
+        <associated_roi>
+            <el>komp2_roi_4_0</el>
+        </associated_roi>
         <expressed_genotype_trait>
             <el>
                 <gene_id>MGI:1922997</gene_id>
@@ -3114,8 +2684,11 @@
         </expressed_genotype_trait>
     </channel>
     <channel>
-        <id>komp2_channel_50</id>
+        <id>komp2_channel_5_0</id>
         <associated_image>komp2_5</associated_image>
+        <associated_roi>
+            <el>komp2_roi_5_1</el>
+        </associated_roi>
         <expressed_genotype_trait>
             <el>
                 <gene_id>MGI:104874</gene_id>
@@ -3127,21 +2700,11 @@
         </expressed_genotype_trait>
     </channel>
     <channel>
-        <id>komp2_channel_60</id>
-        <associated_image>komp2_6</associated_image>
-        <expressed_genotype_trait>
-            <el>
-                <gene_id>MGI:104874</gene_id>
-                <gene_symbol>Akt2</gene_symbol>
-                <genetic_feature_id>MGI:4365210</genetic_feature_id>
-                <genetic_feature_name>Akt2&lt;tm1e(KOMP)Wtsi&gt;</genetic_feature_name>
-                <zygosity>heterozygous</zygosity>
-            </el>
-        </expressed_genotype_trait>
-    </channel>
-    <channel>
-        <id>komp2_channel_70</id>
+        <id>komp2_channel_7_0</id>
         <associated_image>komp2_7</associated_image>
+        <associated_roi>
+            <el>komp2_roi_7_1</el>
+        </associated_roi>
         <expressed_genotype_trait>
             <el>
                 <gene_id>MGI:104874</gene_id>
@@ -3153,21 +2716,11 @@
         </expressed_genotype_trait>
     </channel>
     <channel>
-        <id>komp2_channel_80</id>
-        <associated_image>komp2_8</associated_image>
-        <expressed_genotype_trait>
-            <el>
-                <gene_id>MGI:104874</gene_id>
-                <gene_symbol>Akt2</gene_symbol>
-                <genetic_feature_id>MGI:4365210</genetic_feature_id>
-                <genetic_feature_name>Akt2&lt;tm1e(KOMP)Wtsi&gt;</genetic_feature_name>
-                <zygosity>heterozygous</zygosity>
-            </el>
-        </expressed_genotype_trait>
-    </channel>
-    <channel>
-        <id>komp2_channel_90</id>
+        <id>komp2_channel_9_0</id>
         <associated_image>komp2_9</associated_image>
+        <associated_roi>
+            <el>komp2_roi_9_3</el>
+        </associated_roi>
         <expressed_genotype_trait>
             <el>
                 <gene_id>MGI:104874</gene_id>
@@ -3179,47 +2732,11 @@
         </expressed_genotype_trait>
     </channel>
     <channel>
-        <id>komp2_channel_100</id>
-        <associated_image>komp2_10</associated_image>
-        <expressed_genotype_trait>
-            <el>
-                <gene_id>MGI:104874</gene_id>
-                <gene_symbol>Akt2</gene_symbol>
-                <genetic_feature_id>MGI:4365210</genetic_feature_id>
-                <genetic_feature_name>Akt2&lt;tm1e(KOMP)Wtsi&gt;</genetic_feature_name>
-                <zygosity>heterozygous</zygosity>
-            </el>
-        </expressed_genotype_trait>
-    </channel>
-    <channel>
-        <id>komp2_channel_110</id>
-        <associated_image>komp2_11</associated_image>
-        <expressed_genotype_trait>
-            <el>
-                <gene_id>MGI:104874</gene_id>
-                <gene_symbol>Akt2</gene_symbol>
-                <genetic_feature_id>MGI:4365210</genetic_feature_id>
-                <genetic_feature_name>Akt2&lt;tm1e(KOMP)Wtsi&gt;</genetic_feature_name>
-                <zygosity>heterozygous</zygosity>
-            </el>
-        </expressed_genotype_trait>
-    </channel>
-    <channel>
-        <id>komp2_channel_120</id>
-        <associated_image>komp2_12</associated_image>
-        <expressed_genotype_trait>
-            <el>
-                <gene_id>MGI:104874</gene_id>
-                <gene_symbol>Akt2</gene_symbol>
-                <genetic_feature_id>MGI:4365210</genetic_feature_id>
-                <genetic_feature_name>Akt2&lt;tm1e(KOMP)Wtsi&gt;</genetic_feature_name>
-                <zygosity>heterozygous</zygosity>
-            </el>
-        </expressed_genotype_trait>
-    </channel>
-    <channel>
-        <id>komp2_channel_130</id>
+        <id>komp2_channel_13_0</id>
         <associated_image>komp2_13</associated_image>
+        <associated_roi>
+            <el>komp2_roi_13_0</el>
+        </associated_roi>
         <expressed_genotype_trait>
             <el>
                 <gene_id>MGI:104874</gene_id>
@@ -3231,8 +2748,11 @@
         </expressed_genotype_trait>
     </channel>
     <channel>
-        <id>komp2_channel_140</id>
+        <id>komp2_channel_14_0</id>
         <associated_image>komp2_14</associated_image>
+        <associated_roi>
+            <el>komp2_roi_14_0</el>
+        </associated_roi>
         <expressed_genotype_trait>
             <el>
                 <gene_id>MGI:104874</gene_id>
@@ -3244,8 +2764,11 @@
         </expressed_genotype_trait>
     </channel>
     <channel>
-        <id>komp2_channel_150</id>
+        <id>komp2_channel_15_0</id>
         <associated_image>komp2_15</associated_image>
+        <associated_roi>
+            <el>komp2_roi_15_0</el>
+        </associated_roi>
         <expressed_genotype_trait>
             <el>
                 <gene_id>MGI:104874</gene_id>
@@ -3257,8 +2780,11 @@
         </expressed_genotype_trait>
     </channel>
     <channel>
-        <id>komp2_channel_160</id>
+        <id>komp2_channel_16_0</id>
         <associated_image>komp2_16</associated_image>
+        <associated_roi>
+            <el>komp2_roi_16_0</el>
+        </associated_roi>
         <expressed_genotype_trait>
             <el>
                 <gene_id>MGI:104874</gene_id>
@@ -3270,8 +2796,11 @@
         </expressed_genotype_trait>
     </channel>
     <channel>
-        <id>komp2_channel_170</id>
+        <id>komp2_channel_17_0</id>
         <associated_image>komp2_17</associated_image>
+        <associated_roi>
+            <el>komp2_roi_17_0</el>
+        </associated_roi>
         <expressed_genotype_trait>
             <el>
                 <gene_id>MGI:104874</gene_id>
@@ -3283,8 +2812,11 @@
         </expressed_genotype_trait>
     </channel>
     <channel>
-        <id>komp2_channel_180</id>
+        <id>komp2_channel_18_0</id>
         <associated_image>komp2_18</associated_image>
+        <associated_roi>
+            <el>komp2_roi_18_2</el>
+        </associated_roi>
         <expressed_genotype_trait>
             <el>
                 <gene_id>MGI:104874</gene_id>
@@ -3296,34 +2828,11 @@
         </expressed_genotype_trait>
     </channel>
     <channel>
-        <id>komp2_channel_190</id>
-        <associated_image>komp2_19</associated_image>
-        <expressed_genotype_trait>
-            <el>
-                <gene_id>MGI:104874</gene_id>
-                <gene_symbol>Akt2</gene_symbol>
-                <genetic_feature_id>MGI:4365210</genetic_feature_id>
-                <genetic_feature_name>Akt2&lt;tm1e(KOMP)Wtsi&gt;</genetic_feature_name>
-                <zygosity>heterozygous</zygosity>
-            </el>
-        </expressed_genotype_trait>
-    </channel>
-    <channel>
-        <id>komp2_channel_200</id>
-        <associated_image>komp2_20</associated_image>
-        <expressed_genotype_trait>
-            <el>
-                <gene_id>MGI:104874</gene_id>
-                <gene_symbol>Akt2</gene_symbol>
-                <genetic_feature_id>MGI:4365210</genetic_feature_id>
-                <genetic_feature_name>Akt2&lt;tm1e(KOMP)Wtsi&gt;</genetic_feature_name>
-                <zygosity>heterozygous</zygosity>
-            </el>
-        </expressed_genotype_trait>
-    </channel>
-    <channel>
-        <id>komp2_channel_210</id>
+        <id>komp2_channel_21_0</id>
         <associated_image>komp2_21</associated_image>
+        <associated_roi>
+            <el>komp2_roi_21_0</el>
+        </associated_roi>
         <expressed_genotype_trait>
             <el>
                 <gene_id>MGI:104874</gene_id>
@@ -3335,8 +2844,11 @@
         </expressed_genotype_trait>
     </channel>
     <channel>
-        <id>komp2_channel_220</id>
+        <id>komp2_channel_22_0</id>
         <associated_image>komp2_22</associated_image>
+        <associated_roi>
+            <el>komp2_roi_22_0</el>
+        </associated_roi>
         <expressed_genotype_trait>
             <el>
                 <gene_id>MGI:2444584</gene_id>
@@ -3348,8 +2860,11 @@
         </expressed_genotype_trait>
     </channel>
     <channel>
-        <id>komp2_channel_230</id>
+        <id>komp2_channel_23_0</id>
         <associated_image>komp2_23</associated_image>
+        <associated_roi>
+            <el>komp2_roi_23_0</el>
+        </associated_roi>
         <expressed_genotype_trait>
             <el>
                 <gene_id>MGI:2444584</gene_id>
@@ -3361,8 +2876,11 @@
         </expressed_genotype_trait>
     </channel>
     <channel>
-        <id>komp2_channel_240</id>
+        <id>komp2_channel_24_0</id>
         <associated_image>komp2_24</associated_image>
+        <associated_roi>
+            <el>komp2_roi_24_1</el>
+        </associated_roi>
         <expressed_genotype_trait>
             <el>
                 <gene_id>MGI:1338071</gene_id>
@@ -3374,21 +2892,11 @@
         </expressed_genotype_trait>
     </channel>
     <channel>
-        <id>komp2_channel_250</id>
-        <associated_image>komp2_25</associated_image>
-        <expressed_genotype_trait>
-            <el>
-                <gene_id>MGI:1338071</gene_id>
-                <gene_symbol>Ikbkb</gene_symbol>
-                <genetic_feature_id>MGI:4432305</genetic_feature_id>
-                <genetic_feature_name>Ikbkb&lt;tm1a(EUCOMM)Wtsi&gt;</genetic_feature_name>
-                <zygosity>heterozygous</zygosity>
-            </el>
-        </expressed_genotype_trait>
-    </channel>
-    <channel>
-        <id>komp2_channel_260</id>
+        <id>komp2_channel_26_0</id>
         <associated_image>komp2_26</associated_image>
+        <associated_roi>
+            <el>komp2_roi_26_0</el>
+        </associated_roi>
         <expressed_genotype_trait>
             <el>
                 <gene_id>MGI:1923784</gene_id>
@@ -3400,8 +2908,11 @@
         </expressed_genotype_trait>
     </channel>
     <channel>
-        <id>komp2_channel_330</id>
+        <id>komp2_channel_33_0</id>
         <associated_image>komp2_33</associated_image>
+        <associated_roi>
+            <el>komp2_roi_33_0</el>
+        </associated_roi>
         <expressed_genotype_trait>
             <el>
                 <gene_id>MGI:2150037</gene_id>
@@ -3413,8 +2924,11 @@
         </expressed_genotype_trait>
     </channel>
     <channel>
-        <id>komp2_channel_340</id>
+        <id>komp2_channel_34_0</id>
         <associated_image>komp2_34</associated_image>
+        <associated_roi>
+            <el>komp2_roi_34_1</el>
+        </associated_roi>
         <expressed_genotype_trait>
             <el>
                 <gene_id>MGI:2150037</gene_id>
@@ -3426,21 +2940,11 @@
         </expressed_genotype_trait>
     </channel>
     <channel>
-        <id>komp2_channel_350</id>
-        <associated_image>komp2_35</associated_image>
-        <expressed_genotype_trait>
-            <el>
-                <gene_id>MGI:2150037</gene_id>
-                <gene_symbol>Mta1</gene_symbol>
-                <genetic_feature_id>MGI:4842891</genetic_feature_id>
-                <genetic_feature_name>Mta1&lt;tm1a(EUCOMM)Wtsi&gt;</genetic_feature_name>
-                <zygosity>heterozygous</zygosity>
-            </el>
-        </expressed_genotype_trait>
-    </channel>
-    <channel>
-        <id>komp2_channel_360</id>
+        <id>komp2_channel_36_0</id>
         <associated_image>komp2_36</associated_image>
+        <associated_roi>
+            <el>komp2_roi_36_0</el>
+        </associated_roi>
         <expressed_genotype_trait>
             <el>
                 <gene_id>MGI:2150037</gene_id>
@@ -3452,8 +2956,11 @@
         </expressed_genotype_trait>
     </channel>
     <channel>
-        <id>komp2_channel_370</id>
+        <id>komp2_channel_37_0</id>
         <associated_image>komp2_37</associated_image>
+        <associated_roi>
+            <el>komp2_roi_37_0</el>
+        </associated_roi>
         <expressed_genotype_trait>
             <el>
                 <gene_id>MGI:2150037</gene_id>
@@ -3465,8 +2972,11 @@
         </expressed_genotype_trait>
     </channel>
     <channel>
-        <id>komp2_channel_380</id>
+        <id>komp2_channel_38_0</id>
         <associated_image>komp2_38</associated_image>
+        <associated_roi>
+            <el>komp2_roi_38_1</el>
+        </associated_roi>
         <expressed_genotype_trait>
             <el>
                 <gene_id>MGI:2150037</gene_id>
@@ -3478,21 +2988,11 @@
         </expressed_genotype_trait>
     </channel>
     <channel>
-        <id>komp2_channel_390</id>
-        <associated_image>komp2_39</associated_image>
-        <expressed_genotype_trait>
-            <el>
-                <gene_id>MGI:2150037</gene_id>
-                <gene_symbol>Mta1</gene_symbol>
-                <genetic_feature_id>MGI:4842891</genetic_feature_id>
-                <genetic_feature_name>Mta1&lt;tm1a(EUCOMM)Wtsi&gt;</genetic_feature_name>
-                <zygosity>heterozygous</zygosity>
-            </el>
-        </expressed_genotype_trait>
-    </channel>
-    <channel>
-        <id>komp2_channel_400</id>
+        <id>komp2_channel_40_0</id>
         <associated_image>komp2_40</associated_image>
+        <associated_roi>
+            <el>komp2_roi_40_1</el>
+        </associated_roi>
         <expressed_genotype_trait>
             <el>
                 <gene_id>MGI:2150037</gene_id>
@@ -3504,21 +3004,11 @@
         </expressed_genotype_trait>
     </channel>
     <channel>
-        <id>komp2_channel_410</id>
-        <associated_image>komp2_41</associated_image>
-        <expressed_genotype_trait>
-            <el>
-                <gene_id>MGI:2150037</gene_id>
-                <gene_symbol>Mta1</gene_symbol>
-                <genetic_feature_id>MGI:4842891</genetic_feature_id>
-                <genetic_feature_name>Mta1&lt;tm1a(EUCOMM)Wtsi&gt;</genetic_feature_name>
-                <zygosity>heterozygous</zygosity>
-            </el>
-        </expressed_genotype_trait>
-    </channel>
-    <channel>
-        <id>komp2_channel_420</id>
+        <id>komp2_channel_42_0</id>
         <associated_image>komp2_42</associated_image>
+        <associated_roi>
+            <el>komp2_roi_42_0</el>
+        </associated_roi>
         <expressed_genotype_trait>
             <el>
                 <gene_id>MGI:2150037</gene_id>
@@ -3530,8 +3020,11 @@
         </expressed_genotype_trait>
     </channel>
     <channel>
-        <id>komp2_channel_430</id>
+        <id>komp2_channel_43_0</id>
         <associated_image>komp2_43</associated_image>
+        <associated_roi>
+            <el>komp2_roi_43_0</el>
+        </associated_roi>
         <expressed_genotype_trait>
             <el>
                 <gene_id>MGI:98809</gene_id>
@@ -3543,8 +3036,11 @@
         </expressed_genotype_trait>
     </channel>
     <channel>
-        <id>komp2_channel_440</id>
+        <id>komp2_channel_44_0</id>
         <associated_image>komp2_44</associated_image>
+        <associated_roi>
+            <el>komp2_roi_44_0</el>
+        </associated_roi>
         <expressed_genotype_trait>
             <el>
                 <gene_id>MGI:98809</gene_id>
@@ -3556,8 +3052,11 @@
         </expressed_genotype_trait>
     </channel>
     <channel>
-        <id>komp2_channel_450</id>
+        <id>komp2_channel_45_0</id>
         <associated_image>komp2_45</associated_image>
+        <associated_roi>
+            <el>komp2_roi_45_0</el>
+        </associated_roi>
         <expressed_genotype_trait>
             <el>
                 <gene_id>MGI:98809</gene_id>
@@ -3569,8 +3068,11 @@
         </expressed_genotype_trait>
     </channel>
     <channel>
-        <id>komp2_channel_460</id>
+        <id>komp2_channel_46_0</id>
         <associated_image>komp2_46</associated_image>
+        <associated_roi>
+            <el>komp2_roi_46_0</el>
+        </associated_roi>
         <expressed_genotype_trait>
             <el>
                 <gene_id>MGI:98809</gene_id>
@@ -3582,8 +3084,11 @@
         </expressed_genotype_trait>
     </channel>
     <channel>
-        <id>komp2_channel_470</id>
+        <id>komp2_channel_47_0</id>
         <associated_image>komp2_47</associated_image>
+        <associated_roi>
+            <el>komp2_roi_47_0</el>
+        </associated_roi>
         <expressed_genotype_trait>
             <el>
                 <gene_id>MGI:98809</gene_id>
@@ -3595,8 +3100,11 @@
         </expressed_genotype_trait>
     </channel>
     <channel>
-        <id>komp2_channel_480</id>
+        <id>komp2_channel_48_0</id>
         <associated_image>komp2_48</associated_image>
+        <associated_roi>
+            <el>komp2_roi_48_0</el>
+        </associated_roi>
         <expressed_genotype_trait>
             <el>
                 <gene_id>MGI:98809</gene_id>
@@ -3608,8 +3116,11 @@
         </expressed_genotype_trait>
     </channel>
     <channel>
-        <id>komp2_channel_490</id>
+        <id>komp2_channel_49_0</id>
         <associated_image>komp2_49</associated_image>
+        <associated_roi>
+            <el>komp2_roi_49_0</el>
+        </associated_roi>
         <expressed_genotype_trait>
             <el>
                 <gene_id>MGI:98809</gene_id>
@@ -3621,8 +3132,11 @@
         </expressed_genotype_trait>
     </channel>
     <channel>
-        <id>komp2_channel_500</id>
+        <id>komp2_channel_50_0</id>
         <associated_image>komp2_50</associated_image>
+        <associated_roi>
+            <el>komp2_roi_50_0</el>
+        </associated_roi>
         <expressed_genotype_trait>
             <el>
                 <gene_id>MGI:98809</gene_id>
@@ -3634,8 +3148,11 @@
         </expressed_genotype_trait>
     </channel>
     <channel>
-        <id>komp2_channel_510</id>
+        <id>komp2_channel_51_0</id>
         <associated_image>komp2_51</associated_image>
+        <associated_roi>
+            <el>komp2_roi_51_1</el>
+        </associated_roi>
         <expressed_genotype_trait>
             <el>
                 <gene_id>MGI:98809</gene_id>
@@ -3647,21 +3164,11 @@
         </expressed_genotype_trait>
     </channel>
     <channel>
-        <id>komp2_channel_520</id>
-        <associated_image>komp2_52</associated_image>
-        <expressed_genotype_trait>
-            <el>
-                <gene_id>MGI:98809</gene_id>
-                <gene_symbol>Tpm1</gene_symbol>
-                <genetic_feature_id>MGI:4842867</genetic_feature_id>
-                <genetic_feature_name>Tpm1&lt;tm1a(EUCOMM)Wtsi&gt;</genetic_feature_name>
-                <zygosity>heterozygous</zygosity>
-            </el>
-        </expressed_genotype_trait>
-    </channel>
-    <channel>
-        <id>komp2_channel_530</id>
+        <id>komp2_channel_53_0</id>
         <associated_image>komp2_53</associated_image>
+        <associated_roi>
+            <el>komp2_roi_53_0</el>
+        </associated_roi>
         <expressed_genotype_trait>
             <el>
                 <gene_id>MGI:98809</gene_id>
@@ -3673,8 +3180,11 @@
         </expressed_genotype_trait>
     </channel>
     <channel>
-        <id>komp2_channel_540</id>
+        <id>komp2_channel_54_0</id>
         <associated_image>komp2_54</associated_image>
+        <associated_roi>
+            <el>komp2_roi_54_0</el>
+        </associated_roi>
         <expressed_genotype_trait>
             <el>
                 <gene_id>MGI:98809</gene_id>
@@ -3686,8 +3196,11 @@
         </expressed_genotype_trait>
     </channel>
     <channel>
-        <id>komp2_channel_550</id>
+        <id>komp2_channel_55_0</id>
         <associated_image>komp2_55</associated_image>
+        <associated_roi>
+            <el>komp2_roi_55_0</el>
+        </associated_roi>
         <expressed_genotype_trait>
             <el>
                 <gene_id>MGI:98809</gene_id>
@@ -3699,8 +3212,11 @@
         </expressed_genotype_trait>
     </channel>
     <channel>
-        <id>komp2_channel_560</id>
+        <id>komp2_channel_56_0</id>
         <associated_image>komp2_56</associated_image>
+        <associated_roi>
+            <el>komp2_roi_56_0</el>
+        </associated_roi>
         <expressed_genotype_trait>
             <el>
                 <gene_id>MGI:98809</gene_id>
@@ -3712,8 +3228,11 @@
         </expressed_genotype_trait>
     </channel>
     <channel>
-        <id>komp2_channel_570</id>
+        <id>komp2_channel_57_0</id>
         <associated_image>komp2_57</associated_image>
+        <associated_roi>
+            <el>komp2_roi_57_1</el>
+        </associated_roi>
         <expressed_genotype_trait>
             <el>
                 <gene_id>MGI:98809</gene_id>
@@ -3725,21 +3244,11 @@
         </expressed_genotype_trait>
     </channel>
     <channel>
-        <id>komp2_channel_580</id>
-        <associated_image>komp2_58</associated_image>
-        <expressed_genotype_trait>
-            <el>
-                <gene_id>MGI:98809</gene_id>
-                <gene_symbol>Tpm1</gene_symbol>
-                <genetic_feature_id>MGI:4842867</genetic_feature_id>
-                <genetic_feature_name>Tpm1&lt;tm1a(EUCOMM)Wtsi&gt;</genetic_feature_name>
-                <zygosity>heterozygous</zygosity>
-            </el>
-        </expressed_genotype_trait>
-    </channel>
-    <channel>
-        <id>komp2_channel_590</id>
+        <id>komp2_channel_59_0</id>
         <associated_image>komp2_59</associated_image>
+        <associated_roi>
+            <el>komp2_roi_59_0</el>
+        </associated_roi>
         <expressed_genotype_trait>
             <el>
                 <gene_id>MGI:98809</gene_id>
@@ -3751,8 +3260,11 @@
         </expressed_genotype_trait>
     </channel>
     <channel>
-        <id>komp2_channel_600</id>
+        <id>komp2_channel_60_0</id>
         <associated_image>komp2_60</associated_image>
+        <associated_roi>
+            <el>komp2_roi_60_0</el>
+        </associated_roi>
         <expressed_genotype_trait>
             <el>
                 <gene_id>MGI:98809</gene_id>
@@ -3764,8 +3276,11 @@
         </expressed_genotype_trait>
     </channel>
     <channel>
-        <id>komp2_channel_610</id>
+        <id>komp2_channel_61_0</id>
         <associated_image>komp2_61</associated_image>
+        <associated_roi>
+            <el>komp2_roi_61_1</el>
+        </associated_roi>
         <expressed_genotype_trait>
             <el>
                 <gene_id>MGI:98809</gene_id>
@@ -3777,21 +3292,11 @@
         </expressed_genotype_trait>
     </channel>
     <channel>
-        <id>komp2_channel_620</id>
-        <associated_image>komp2_62</associated_image>
-        <expressed_genotype_trait>
-            <el>
-                <gene_id>MGI:98809</gene_id>
-                <gene_symbol>Tpm1</gene_symbol>
-                <genetic_feature_id>MGI:4842867</genetic_feature_id>
-                <genetic_feature_name>Tpm1&lt;tm1a(EUCOMM)Wtsi&gt;</genetic_feature_name>
-                <zygosity>heterozygous</zygosity>
-            </el>
-        </expressed_genotype_trait>
-    </channel>
-    <channel>
-        <id>komp2_channel_680</id>
+        <id>komp2_channel_68_0</id>
         <associated_image>komp2_68</associated_image>
+        <associated_roi>
+            <el>komp2_roi_68_0</el>
+        </associated_roi>
         <expressed_genotype_trait>
             <el>
                 <gene_id>MGI:2151172</gene_id>
@@ -3803,8 +3308,11 @@
         </expressed_genotype_trait>
     </channel>
     <channel>
-        <id>komp2_channel_690</id>
+        <id>komp2_channel_69_0</id>
         <associated_image>komp2_69</associated_image>
+        <associated_roi>
+            <el>komp2_roi_69_0</el>
+        </associated_roi>
         <expressed_genotype_trait>
             <el>
                 <gene_id>MGI:2151172</gene_id>
@@ -3816,8 +3324,11 @@
         </expressed_genotype_trait>
     </channel>
     <channel>
-        <id>komp2_channel_700</id>
+        <id>komp2_channel_70_0</id>
         <associated_image>komp2_70</associated_image>
+        <associated_roi>
+            <el>komp2_roi_70_1</el>
+        </associated_roi>
         <expressed_genotype_trait>
             <el>
                 <gene_id>MGI:2151172</gene_id>
@@ -3829,21 +3340,11 @@
         </expressed_genotype_trait>
     </channel>
     <channel>
-        <id>komp2_channel_710</id>
-        <associated_image>komp2_71</associated_image>
-        <expressed_genotype_trait>
-            <el>
-                <gene_id>MGI:2151172</gene_id>
-                <gene_symbol>Mta3</gene_symbol>
-                <genetic_feature_id>MGI:4419906</genetic_feature_id>
-                <genetic_feature_name>Mta3&lt;tm3a(KOMP)Wtsi&gt;</genetic_feature_name>
-                <zygosity>heterozygous</zygosity>
-            </el>
-        </expressed_genotype_trait>
-    </channel>
-    <channel>
-        <id>komp2_channel_720</id>
+        <id>komp2_channel_72_0</id>
         <associated_image>komp2_72</associated_image>
+        <associated_roi>
+            <el>komp2_roi_72_1</el>
+        </associated_roi>
         <expressed_genotype_trait>
             <el>
                 <gene_id>MGI:2151172</gene_id>
@@ -3855,21 +3356,11 @@
         </expressed_genotype_trait>
     </channel>
     <channel>
-        <id>komp2_channel_730</id>
-        <associated_image>komp2_73</associated_image>
-        <expressed_genotype_trait>
-            <el>
-                <gene_id>MGI:2151172</gene_id>
-                <gene_symbol>Mta3</gene_symbol>
-                <genetic_feature_id>MGI:4419906</genetic_feature_id>
-                <genetic_feature_name>Mta3&lt;tm3a(KOMP)Wtsi&gt;</genetic_feature_name>
-                <zygosity>heterozygous</zygosity>
-            </el>
-        </expressed_genotype_trait>
-    </channel>
-    <channel>
-        <id>komp2_channel_740</id>
+        <id>komp2_channel_74_0</id>
         <associated_image>komp2_74</associated_image>
+        <associated_roi>
+            <el>komp2_roi_74_0</el>
+        </associated_roi>
         <expressed_genotype_trait>
             <el>
                 <gene_id>MGI:2151172</gene_id>
@@ -3881,8 +3372,11 @@
         </expressed_genotype_trait>
     </channel>
     <channel>
-        <id>komp2_channel_750</id>
+        <id>komp2_channel_75_0</id>
         <associated_image>komp2_75</associated_image>
+        <associated_roi>
+            <el>komp2_roi_75_0</el>
+        </associated_roi>
         <expressed_genotype_trait>
             <el>
                 <gene_id>MGI:2151172</gene_id>
@@ -3894,8 +3388,11 @@
         </expressed_genotype_trait>
     </channel>
     <channel>
-        <id>komp2_channel_760</id>
+        <id>komp2_channel_76_0</id>
         <associated_image>komp2_76</associated_image>
+        <associated_roi>
+            <el>komp2_roi_76_0</el>
+        </associated_roi>
         <expressed_genotype_trait>
             <el>
                 <gene_id>MGI:2151172</gene_id>
@@ -3907,8 +3404,11 @@
         </expressed_genotype_trait>
     </channel>
     <channel>
-        <id>komp2_channel_770</id>
+        <id>komp2_channel_77_0</id>
         <associated_image>komp2_77</associated_image>
+        <associated_roi>
+            <el>komp2_roi_77_0</el>
+        </associated_roi>
         <expressed_genotype_trait>
             <el>
                 <gene_id>MGI:2151172</gene_id>
@@ -3920,8 +3420,11 @@
         </expressed_genotype_trait>
     </channel>
     <channel>
-        <id>komp2_channel_780</id>
+        <id>komp2_channel_78_0</id>
         <associated_image>komp2_78</associated_image>
+        <associated_roi>
+            <el>komp2_roi_78_1</el>
+        </associated_roi>
         <expressed_genotype_trait>
             <el>
                 <gene_id>MGI:2151172</gene_id>
@@ -3933,21 +3436,11 @@
         </expressed_genotype_trait>
     </channel>
     <channel>
-        <id>komp2_channel_790</id>
-        <associated_image>komp2_79</associated_image>
-        <expressed_genotype_trait>
-            <el>
-                <gene_id>MGI:2151172</gene_id>
-                <gene_symbol>Mta3</gene_symbol>
-                <genetic_feature_id>MGI:4419906</genetic_feature_id>
-                <genetic_feature_name>Mta3&lt;tm3a(KOMP)Wtsi&gt;</genetic_feature_name>
-                <zygosity>heterozygous</zygosity>
-            </el>
-        </expressed_genotype_trait>
-    </channel>
-    <channel>
-        <id>komp2_channel_800</id>
+        <id>komp2_channel_80_0</id>
         <associated_image>komp2_80</associated_image>
+        <associated_roi>
+            <el>komp2_roi_80_0</el>
+        </associated_roi>
         <expressed_genotype_trait>
             <el>
                 <gene_id>MGI:2151172</gene_id>
@@ -3959,8 +3452,11 @@
         </expressed_genotype_trait>
     </channel>
     <channel>
-        <id>komp2_channel_810</id>
+        <id>komp2_channel_81_0</id>
         <associated_image>komp2_81</associated_image>
+        <associated_roi>
+            <el>komp2_roi_81_0</el>
+        </associated_roi>
         <expressed_genotype_trait>
             <el>
                 <gene_id>MGI:2151172</gene_id>
@@ -3972,8 +3468,11 @@
         </expressed_genotype_trait>
     </channel>
     <channel>
-        <id>komp2_channel_820</id>
+        <id>komp2_channel_82_0</id>
         <associated_image>komp2_82</associated_image>
+        <associated_roi>
+            <el>komp2_roi_82_0</el>
+        </associated_roi>
         <expressed_genotype_trait>
             <el>
                 <gene_id>MGI:2141207</gene_id>
@@ -3985,8 +3484,11 @@
         </expressed_genotype_trait>
     </channel>
     <channel>
-        <id>komp2_channel_830</id>
+        <id>komp2_channel_83_0</id>
         <associated_image>komp2_83</associated_image>
+        <associated_roi>
+            <el>komp2_roi_83_0</el>
+        </associated_roi>
         <expressed_genotype_trait>
             <el>
                 <gene_id>MGI:2141207</gene_id>
@@ -3998,8 +3500,11 @@
         </expressed_genotype_trait>
     </channel>
     <channel>
-        <id>komp2_channel_840</id>
+        <id>komp2_channel_84_0</id>
         <associated_image>komp2_84</associated_image>
+        <associated_roi>
+            <el>komp2_roi_84_1</el>
+        </associated_roi>
         <expressed_genotype_trait>
             <el>
                 <gene_id>MGI:2141207</gene_id>
@@ -4011,21 +3516,11 @@
         </expressed_genotype_trait>
     </channel>
     <channel>
-        <id>komp2_channel_850</id>
-        <associated_image>komp2_85</associated_image>
-        <expressed_genotype_trait>
-            <el>
-                <gene_id>MGI:2141207</gene_id>
-                <gene_symbol>Kctd10</gene_symbol>
-                <genetic_feature_id>MGI:4128950</genetic_feature_id>
-                <genetic_feature_name>Kctd10&lt;Gt(RRG305)Byg&gt;</genetic_feature_name>
-                <zygosity>heterozygous</zygosity>
-            </el>
-        </expressed_genotype_trait>
-    </channel>
-    <channel>
-        <id>komp2_channel_860</id>
+        <id>komp2_channel_86_0</id>
         <associated_image>komp2_86</associated_image>
+        <associated_roi>
+            <el>komp2_roi_86_0</el>
+        </associated_roi>
         <expressed_genotype_trait>
             <el>
                 <gene_id>MGI:2141207</gene_id>
@@ -4037,8 +3532,11 @@
         </expressed_genotype_trait>
     </channel>
     <channel>
-        <id>komp2_channel_870</id>
+        <id>komp2_channel_87_0</id>
         <associated_image>komp2_87</associated_image>
+        <associated_roi>
+            <el>komp2_roi_87_0</el>
+        </associated_roi>
         <expressed_genotype_trait>
             <el>
                 <gene_id>MGI:2141207</gene_id>
@@ -4050,8 +3548,11 @@
         </expressed_genotype_trait>
     </channel>
     <channel>
-        <id>komp2_channel_880</id>
+        <id>komp2_channel_88_0</id>
         <associated_image>komp2_88</associated_image>
+        <associated_roi>
+            <el>komp2_roi_88_0</el>
+        </associated_roi>
         <expressed_genotype_trait>
             <el>
                 <gene_id>MGI:2141207</gene_id>
@@ -4063,8 +3564,11 @@
         </expressed_genotype_trait>
     </channel>
     <channel>
-        <id>komp2_channel_890</id>
+        <id>komp2_channel_89_0</id>
         <associated_image>komp2_89</associated_image>
+        <associated_roi>
+            <el>komp2_roi_89_0</el>
+        </associated_roi>
         <expressed_genotype_trait>
             <el>
                 <gene_id>MGI:2141207</gene_id>
@@ -4076,8 +3580,11 @@
         </expressed_genotype_trait>
     </channel>
     <channel>
-        <id>komp2_channel_900</id>
+        <id>komp2_channel_90_0</id>
         <associated_image>komp2_90</associated_image>
+        <associated_roi>
+            <el>komp2_roi_90_0</el>
+        </associated_roi>
         <expressed_genotype_trait>
             <el>
                 <gene_id>MGI:2141207</gene_id>
@@ -4089,8 +3596,11 @@
         </expressed_genotype_trait>
     </channel>
     <channel>
-        <id>komp2_channel_910</id>
+        <id>komp2_channel_91_0</id>
         <associated_image>komp2_91</associated_image>
+        <associated_roi>
+            <el>komp2_roi_91_0</el>
+        </associated_roi>
         <expressed_genotype_trait>
             <el>
                 <gene_id>MGI:1349766</gene_id>
@@ -4102,8 +3612,11 @@
         </expressed_genotype_trait>
     </channel>
     <channel>
-        <id>komp2_channel_920</id>
+        <id>komp2_channel_92_0</id>
         <associated_image>komp2_92</associated_image>
+        <associated_roi>
+            <el>komp2_roi_92_1</el>
+        </associated_roi>
         <expressed_genotype_trait>
             <el>
                 <gene_id>MGI:1349766</gene_id>
@@ -4115,21 +3628,11 @@
         </expressed_genotype_trait>
     </channel>
     <channel>
-        <id>komp2_channel_930</id>
-        <associated_image>komp2_93</associated_image>
-        <expressed_genotype_trait>
-            <el>
-                <gene_id>MGI:1349766</gene_id>
-                <gene_symbol>Brd7</gene_symbol>
-                <genetic_feature_id>MGI:4842893</genetic_feature_id>
-                <genetic_feature_name>Brd7&lt;tm2a(EUCOMM)Wtsi&gt;</genetic_feature_name>
-                <zygosity>heterozygous</zygosity>
-            </el>
-        </expressed_genotype_trait>
-    </channel>
-    <channel>
-        <id>komp2_channel_940</id>
+        <id>komp2_channel_94_0</id>
         <associated_image>komp2_94</associated_image>
+        <associated_roi>
+            <el>komp2_roi_94_2</el>
+        </associated_roi>
         <expressed_genotype_trait>
             <el>
                 <gene_id>MGI:1349766</gene_id>
@@ -4141,34 +3644,11 @@
         </expressed_genotype_trait>
     </channel>
     <channel>
-        <id>komp2_channel_950</id>
-        <associated_image>komp2_95</associated_image>
-        <expressed_genotype_trait>
-            <el>
-                <gene_id>MGI:1349766</gene_id>
-                <gene_symbol>Brd7</gene_symbol>
-                <genetic_feature_id>MGI:4842893</genetic_feature_id>
-                <genetic_feature_name>Brd7&lt;tm2a(EUCOMM)Wtsi&gt;</genetic_feature_name>
-                <zygosity>heterozygous</zygosity>
-            </el>
-        </expressed_genotype_trait>
-    </channel>
-    <channel>
-        <id>komp2_channel_960</id>
-        <associated_image>komp2_96</associated_image>
-        <expressed_genotype_trait>
-            <el>
-                <gene_id>MGI:1349766</gene_id>
-                <gene_symbol>Brd7</gene_symbol>
-                <genetic_feature_id>MGI:4842893</genetic_feature_id>
-                <genetic_feature_name>Brd7&lt;tm2a(EUCOMM)Wtsi&gt;</genetic_feature_name>
-                <zygosity>heterozygous</zygosity>
-            </el>
-        </expressed_genotype_trait>
-    </channel>
-    <channel>
-        <id>komp2_channel_970</id>
+        <id>komp2_channel_97_0</id>
         <associated_image>komp2_97</associated_image>
+        <associated_roi>
+            <el>komp2_roi_97_0</el>
+        </associated_roi>
         <expressed_genotype_trait>
             <el>
                 <gene_id>MGI:1349766</gene_id>
@@ -4180,8 +3660,11 @@
         </expressed_genotype_trait>
     </channel>
     <channel>
-        <id>komp2_channel_980</id>
+        <id>komp2_channel_98_0</id>
         <associated_image>komp2_98</associated_image>
+        <associated_roi>
+            <el>komp2_roi_98_0</el>
+        </associated_roi>
         <expressed_genotype_trait>
             <el>
                 <gene_id>MGI:1349766</gene_id>
@@ -4193,8 +3676,11 @@
         </expressed_genotype_trait>
     </channel>
     <channel>
-        <id>komp2_channel_990</id>
+        <id>komp2_channel_99_0</id>
         <associated_image>komp2_99</associated_image>
+        <associated_roi>
+            <el>komp2_roi_99_0</el>
+        </associated_roi>
         <expressed_genotype_trait>
             <el>
                 <gene_id>MGI:1349766</gene_id>
@@ -4205,4 +3691,2079 @@
             </el>
         </expressed_genotype_trait>
     </channel>
+    <roi>
+        <id>komp2_roi_0_0</id>
+        <associated_immage>komp2_0</associated_immage>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <phenotype_annotations>
+            <el>
+                <phenotype_ontology_id>MP:0010254</phenotype_ontology_id>
+                <phenotype_ontology_term>hard cataracts</phenotype_ontology_term>
+            </el>
+        </phenotype_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_2_0</id>
+        <associated_immage>komp2_2</associated_immage>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <phenotype_annotations>
+            <el>
+                <phenotype_ontology_id>MP:0001304</phenotype_ontology_id>
+                <phenotype_ontology_term>cataracts</phenotype_ontology_term>
+            </el>
+        </phenotype_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_4_0</id>
+        <associated_immage>komp2_4</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_4_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000137</anatomy_ontology_id>
+                <anatomy_ontology_term>peyer's patch</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_5_0</id>
+        <associated_immage>komp2_5</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_5_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000176</anatomy_ontology_id>
+                <anatomy_ontology_term>pituitary gland</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_5_1</id>
+        <associated_immage>komp2_5</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_5_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000218</anatomy_ontology_id>
+                <anatomy_ontology_term>peripheral nervous system</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_7_0</id>
+        <associated_immage>komp2_7</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_7_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000259</anatomy_ontology_id>
+                <anatomy_ontology_term>pinna</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_7_1</id>
+        <associated_immage>komp2_7</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_7_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000151</anatomy_ontology_id>
+                <anatomy_ontology_term>skin</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_9_0</id>
+        <associated_immage>komp2_9</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_9_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000104</anatomy_ontology_id>
+                <anatomy_ontology_term>cartilage</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_9_1</id>
+        <associated_immage>komp2_9</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_9_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000009</anatomy_ontology_id>
+                <anatomy_ontology_term>adipose tissue</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_9_2</id>
+        <associated_immage>komp2_9</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_9_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0002439</anatomy_ontology_id>
+                <anatomy_ontology_term>skeletal muscle tissue</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_9_3</id>
+        <associated_immage>komp2_9</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_9_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0001331</anatomy_ontology_id>
+                <anatomy_ontology_term>sternum</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_13_0</id>
+        <associated_immage>komp2_13</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_13_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000415</anatomy_ontology_id>
+                <anatomy_ontology_term>lung</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_14_0</id>
+        <associated_immage>komp2_14</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_14_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000072</anatomy_ontology_id>
+                <anatomy_ontology_term>heart</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_15_0</id>
+        <associated_immage>komp2_15</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_15_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000168</anatomy_ontology_id>
+                <anatomy_ontology_term>brain</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_16_0</id>
+        <associated_immage>komp2_16</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_16_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0002559</anatomy_ontology_id>
+                <anatomy_ontology_term>stomach body</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_17_0</id>
+        <associated_immage>komp2_17</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_17_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000368</anatomy_ontology_id>
+                <anatomy_ontology_term>kidney</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_18_0</id>
+        <associated_immage>komp2_18</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_18_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000389</anatomy_ontology_id>
+                <anatomy_ontology_term>uterus</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_18_1</id>
+        <associated_immage>komp2_18</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_18_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000385</anatomy_ontology_id>
+                <anatomy_ontology_term>oviduct</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_18_2</id>
+        <associated_immage>komp2_18</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_18_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000384</anatomy_ontology_id>
+                <anatomy_ontology_term>ovary</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_21_0</id>
+        <associated_immage>komp2_21</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_21_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0002439</anatomy_ontology_id>
+                <anatomy_ontology_term>skeletal muscle tissue</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_22_0</id>
+        <associated_immage>komp2_22</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_22_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000441</anatomy_ontology_id>
+                <anatomy_ontology_term>trachea</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_23_0</id>
+        <associated_immage>komp2_23</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_23_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000116</anatomy_ontology_id>
+                <anatomy_ontology_term>adrenal gland</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_24_0</id>
+        <associated_immage>komp2_24</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_24_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000176</anatomy_ontology_id>
+                <anatomy_ontology_term>pituitary gland</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_24_1</id>
+        <associated_immage>komp2_24</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_24_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000218</anatomy_ontology_id>
+                <anatomy_ontology_term>peripheral nervous system</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_26_0</id>
+        <associated_immage>komp2_26</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_26_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000057</anatomy_ontology_id>
+                <anatomy_ontology_term>brown adipose tissue</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_27_0</id>
+        <associated_immage>komp2_27</associated_immage>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <phenotype_annotations>
+            <el>
+                <phenotype_ontology_id>MP:0001314</phenotype_ontology_id>
+                <phenotype_ontology_term>corneal opacity</phenotype_ontology_term>
+            </el>
+        </phenotype_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_27_1</id>
+        <associated_immage>komp2_27</associated_immage>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <phenotype_annotations>
+            <el>
+                <phenotype_ontology_id>MP:0001307</phenotype_ontology_id>
+                <phenotype_ontology_term>cornea/lens fusion</phenotype_ontology_term>
+            </el>
+        </phenotype_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_30_0</id>
+        <associated_immage>komp2_30</associated_immage>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <phenotype_annotations>
+            <el>
+                <phenotype_ontology_id>MP:0001314</phenotype_ontology_id>
+                <phenotype_ontology_term>corneal opacity</phenotype_ontology_term>
+            </el>
+        </phenotype_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_30_1</id>
+        <associated_immage>komp2_30</associated_immage>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <phenotype_annotations>
+            <el>
+                <phenotype_ontology_id>MP:0001307</phenotype_ontology_id>
+                <phenotype_ontology_term>cornea/lens fusion</phenotype_ontology_term>
+            </el>
+        </phenotype_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_33_0</id>
+        <associated_immage>komp2_33</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_33_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000104</anatomy_ontology_id>
+                <anatomy_ontology_term>cartilage tissue</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_34_0</id>
+        <associated_immage>komp2_34</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_34_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000384</anatomy_ontology_id>
+                <anatomy_ontology_term>ovary</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_34_1</id>
+        <associated_immage>komp2_34</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_34_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000389</anatomy_ontology_id>
+                <anatomy_ontology_term>uterus</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_36_0</id>
+        <associated_immage>komp2_36</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_36_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000441</anatomy_ontology_id>
+                <anatomy_ontology_term>trachea</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_37_0</id>
+        <associated_immage>komp2_37</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_37_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000415</anatomy_ontology_id>
+                <anatomy_ontology_term>lung</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_38_0</id>
+        <associated_immage>komp2_38</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_38_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000062</anatomy_ontology_id>
+                <anatomy_ontology_term>aorta</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_38_1</id>
+        <associated_immage>komp2_38</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_38_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000072</anatomy_ontology_id>
+                <anatomy_ontology_term>heart</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_40_0</id>
+        <associated_immage>komp2_40</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_40_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000104</anatomy_ontology_id>
+                <anatomy_ontology_term>cartilage tissue</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_40_1</id>
+        <associated_immage>komp2_40</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_40_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0001331</anatomy_ontology_id>
+                <anatomy_ontology_term>sternum</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_42_0</id>
+        <associated_immage>komp2_42</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_42_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000060</anatomy_ontology_id>
+                <anatomy_ontology_term>blood vessel</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_43_0</id>
+        <associated_immage>komp2_43</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_43_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000441</anatomy_ontology_id>
+                <anatomy_ontology_term>trachea</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_44_0</id>
+        <associated_immage>komp2_44</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_44_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000415</anatomy_ontology_id>
+                <anatomy_ontology_term>lung</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_45_0</id>
+        <associated_immage>komp2_45</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_45_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000072</anatomy_ontology_id>
+                <anatomy_ontology_term>heart</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_46_0</id>
+        <associated_immage>komp2_46</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_46_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000356</anatomy_ontology_id>
+                <anatomy_ontology_term>gall bladder</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_47_0</id>
+        <associated_immage>komp2_47</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_47_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0002829</anatomy_ontology_id>
+                <anatomy_ontology_term>mesenteric lymph node</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_48_0</id>
+        <associated_immage>komp2_48</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_48_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000141</anatomy_ontology_id>
+                <anatomy_ontology_term>spleen</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_49_0</id>
+        <associated_immage>komp2_49</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_49_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000116</anatomy_ontology_id>
+                <anatomy_ontology_term>adrenal gland</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_50_0</id>
+        <associated_immage>komp2_50</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_50_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000368</anatomy_ontology_id>
+                <anatomy_ontology_term>kidney</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_51_0</id>
+        <associated_immage>komp2_51</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_51_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0002548</anatomy_ontology_id>
+                <anatomy_ontology_term>inguinal fat pad</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_51_1</id>
+        <associated_immage>komp2_51</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_51_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000060</anatomy_ontology_id>
+                <anatomy_ontology_term>blood vessel</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_53_0</id>
+        <associated_immage>komp2_53</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_53_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000411</anatomy_ontology_id>
+                <anatomy_ontology_term>testis</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_54_0</id>
+        <associated_immage>komp2_54</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_54_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0002439</anatomy_ontology_id>
+                <anatomy_ontology_term>skeletal muscle tissue</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_55_0</id>
+        <associated_immage>komp2_55</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_55_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000168</anatomy_ontology_id>
+                <anatomy_ontology_term>brain</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_56_0</id>
+        <associated_immage>komp2_56</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_56_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000168</anatomy_ontology_id>
+                <anatomy_ontology_term>brain</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_57_0</id>
+        <associated_immage>komp2_57</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_57_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000176</anatomy_ontology_id>
+                <anatomy_ontology_term>pituitary gland</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_57_1</id>
+        <associated_immage>komp2_57</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_57_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000218</anatomy_ontology_id>
+                <anatomy_ontology_term>peripheral nervous system</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_59_0</id>
+        <associated_immage>komp2_59</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_59_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000151</anatomy_ontology_id>
+                <anatomy_ontology_term>skin</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_60_0</id>
+        <associated_immage>komp2_60</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_60_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0002439</anatomy_ontology_id>
+                <anatomy_ontology_term>skeletal muscle tissue</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_61_0</id>
+        <associated_immage>komp2_61</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_61_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000384</anatomy_ontology_id>
+                <anatomy_ontology_term>ovary</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_61_1</id>
+        <associated_immage>komp2_61</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_61_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000389</anatomy_ontology_id>
+                <anatomy_ontology_term>uterus</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_68_0</id>
+        <associated_immage>komp2_68</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_68_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000168</anatomy_ontology_id>
+                <anatomy_ontology_term>brain</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_69_0</id>
+        <associated_immage>komp2_69</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_69_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000168</anatomy_ontology_id>
+                <anatomy_ontology_term>brain</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_70_0</id>
+        <associated_immage>komp2_70</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_70_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000176</anatomy_ontology_id>
+                <anatomy_ontology_term>pituitary gland</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_70_1</id>
+        <associated_immage>komp2_70</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_70_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000218</anatomy_ontology_id>
+                <anatomy_ontology_term>peripheral nervous system</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_72_0</id>
+        <associated_immage>komp2_72</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_72_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000259</anatomy_ontology_id>
+                <anatomy_ontology_term>pinna</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_72_1</id>
+        <associated_immage>komp2_72</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_72_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000151</anatomy_ontology_id>
+                <anatomy_ontology_term>skin</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_74_0</id>
+        <associated_immage>komp2_74</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_74_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000104</anatomy_ontology_id>
+                <anatomy_ontology_term>cartilage</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_75_0</id>
+        <associated_immage>komp2_75</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_75_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000441</anatomy_ontology_id>
+                <anatomy_ontology_term>trachea</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_76_0</id>
+        <associated_immage>komp2_76</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_76_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000072</anatomy_ontology_id>
+                <anatomy_ontology_term>heart</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_77_0</id>
+        <associated_immage>komp2_77</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_77_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000116</anatomy_ontology_id>
+                <anatomy_ontology_term>adrenal gland</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_78_0</id>
+        <associated_immage>komp2_78</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_78_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000368</anatomy_ontology_id>
+                <anatomy_ontology_term>kidney</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_78_1</id>
+        <associated_immage>komp2_78</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_78_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000116</anatomy_ontology_id>
+                <anatomy_ontology_term>adrenal gland</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_80_0</id>
+        <associated_immage>komp2_80</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_80_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000380</anatomy_ontology_id>
+                <anatomy_ontology_term>urinary bladder</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_81_0</id>
+        <associated_immage>komp2_81</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_81_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000411</anatomy_ontology_id>
+                <anatomy_ontology_term>testis</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_82_0</id>
+        <associated_immage>komp2_82</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_82_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000168</anatomy_ontology_id>
+                <anatomy_ontology_term>brain</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_83_0</id>
+        <associated_immage>komp2_83</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_83_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000168</anatomy_ontology_id>
+                <anatomy_ontology_term>brain</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_84_0</id>
+        <associated_immage>komp2_84</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_84_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000176</anatomy_ontology_id>
+                <anatomy_ontology_term>pituitary gland</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_84_1</id>
+        <associated_immage>komp2_84</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_84_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000218</anatomy_ontology_id>
+                <anatomy_ontology_term>peripheral nervous system</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_86_0</id>
+        <associated_immage>komp2_86</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_86_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000415</anatomy_ontology_id>
+                <anatomy_ontology_term>lung</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_87_0</id>
+        <associated_immage>komp2_87</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_87_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0002559</anatomy_ontology_id>
+                <anatomy_ontology_term>stomach body</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_88_0</id>
+        <associated_immage>komp2_88</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_88_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000137</anatomy_ontology_id>
+                <anatomy_ontology_term>peyer's patch</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_89_0</id>
+        <associated_immage>komp2_89</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_89_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000411</anatomy_ontology_id>
+                <anatomy_ontology_term>testis</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_90_0</id>
+        <associated_immage>komp2_90</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_90_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000530</anatomy_ontology_id>
+                <anatomy_ontology_term>abdominal segment skin</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_91_0</id>
+        <associated_immage>komp2_91</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_91_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000168</anatomy_ontology_id>
+                <anatomy_ontology_term>brain</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_92_0</id>
+        <associated_immage>komp2_92</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_92_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000218</anatomy_ontology_id>
+                <anatomy_ontology_term>peripheral nervous system</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_92_1</id>
+        <associated_immage>komp2_92</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_92_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000176</anatomy_ontology_id>
+                <anatomy_ontology_term>pituitary gland</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_94_0</id>
+        <associated_immage>komp2_94</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_94_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000060</anatomy_ontology_id>
+                <anatomy_ontology_term>blood vessel</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_94_1</id>
+        <associated_immage>komp2_94</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_94_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0002439</anatomy_ontology_id>
+                <anatomy_ontology_term>skeletal muscle tissue</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_94_2</id>
+        <associated_immage>komp2_94</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_94_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000104</anatomy_ontology_id>
+                <anatomy_ontology_term>cartilage</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_97_0</id>
+        <associated_immage>komp2_97</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_97_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000441</anatomy_ontology_id>
+                <anatomy_ontology_term>trachea</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_98_0</id>
+        <associated_immage>komp2_98</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_98_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000415</anatomy_ontology_id>
+                <anatomy_ontology_term>lung</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
+    <roi>
+        <id>komp2_roi_99_0</id>
+        <associated_immage>komp2_99</associated_immage>
+        <associated_channel>
+            <el>komp2_channel_99_0</el>
+        </associated_channel>
+        <coordinates>
+            <y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </y_coordinates>
+            <x_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+            </x_coordinates>
+        </coordinates>
+        <anatomy_expression_annotations>
+            <el>
+                <anatomy_ontology_id>MA:0000072</anatomy_ontology_id>
+                <anatomy_ontology_term>heart</anatomy_ontology_term>
+            </el>
+        </anatomy_expression_annotations>
+    </roi>
 </ns2:Doc>

@@ -41,17 +41,33 @@
 						    		</sequence>
 								</complexType>
 								
+								
+								<complexType name="FloatArray">
+										<sequence>
+						    			<element name="el" type="float" minOccurs="1" maxOccurs="unbounded"/>
+						    		</sequence>
+								</complexType>
+								
+								
 								<complexType name="ZygArray">
 										<sequence>
 						    			<element name="el" type="x:Zygosity" minOccurs="0" maxOccurs="unbounded"/>
 						    		</sequence>
 								</complexType>
 								
-								<complexType name="Dimensions">
+								<complexType name="Dimensions"> <!-- in pixels -->
 									<all>									
 						  	  		<element name="image_depth"	type="int" minOccurs="0" maxOccurs="1"/>
 						  	  		<element name="image_height"	type="int" minOccurs="1" maxOccurs="1"/>
 						  	  		<element name="image_width"	type="int" minOccurs="1" maxOccurs="1"/>
+									</all>
+								</complexType>
+								
+								<complexType name="Coordinates"> <!-- in % relative to the image dimensions -->
+									<all>									
+						  	  		<element name="z_coordinates"	type="x:FloatArray" minOccurs="0" maxOccurs="1"/>
+						  	  		<element name="y_coordinates"	type="x:FloatArray" minOccurs="1" maxOccurs="1"/>
+						  	  		<element name="x_coordinates"	type="x:FloatArray" minOccurs="1" maxOccurs="1"/>
 									</all>
 								</complexType>
 								
@@ -89,6 +105,9 @@
 						  	  		<element name="organism_generated_by" type="string" minOccurs="1" maxOccurs="1"/> <!-- Lab/center/institute that produced the organism -->
 						  	  		<element name="host_url"  type="string" minOccurs="1" maxOccurs="1"/> <!-- URL to the website where all the images are accessible -->
 						  	  		<element name="host_name" type="string" minOccurs="1" maxOccurs="1"/>
+						  	  		<element name="imaging_method" type="x:OntologyTermArray"  minOccurs="0" maxOccurs="1" /> <!-- from Fbbi -->
+						  	  		<element name="sample_preparation" type="x:OntologyTermArray"  minOccurs="0" maxOccurs="1" /> <!-- from Fbbi -->
+						  	  		<element name="visualisation_method" type="x:OntologyTermArray"  minOccurs="0" maxOccurs="1" /> <!-- from Fbbi -->
 									</all>
 								</complexType>
 								
@@ -102,20 +121,48 @@
 						  	  </all>
 								</complexType>
 								
+								<complexType name="OntologyTerm">
+									<all>
+										<element name="termLabel" type="string" minOccurs="1" maxOccurs="1"/>
+										<element name="termId" type="string" minOccurs="1" maxOccurs="1"/>
+									</all>
+								</complexType>
+								
+								
+								<complexType name="OntologyTermArray">
+										<sequence>
+						    			<element name="el" type="x:OntologyTerm" minOccurs="1" maxOccurs="unbounded"/>
+						    		</sequence>
+								</complexType>
+								
+								
 								<complexType name="Phenotype">
 									<all minOccurs="1">
-						  	  		<element name="phenotype_ontology_id"	type="x:StringArray" minOccurs="0" maxOccurs="1"/> <!-- These should reside in the ROI -->
-						  	 			<element name="phenotype_freetext"	type="x:StringArray" minOccurs="0" maxOccurs="1"/> <!-- These should reside in the ROI -->
-						  	  		<element name="phenotype_ontology_term"	type="x:StringArray" minOccurs="0" maxOccurs="1"/> <!-- These should reside in the ROI -->
+						  	  		<element name="phenotype_ontology_id"	type="string" minOccurs="0" maxOccurs="1"/> <!-- These should reside in the ROI -->
+						  	 			<element name="phenotype_freetext"	type="string" minOccurs="0" maxOccurs="1"/> <!-- These should reside in the ROI -->
+						  	  		<element name="phenotype_ontology_term"	type="string" minOccurs="0" maxOccurs="1"/> <!-- These should reside in the ROI -->
 						  	  </all>
 								</complexType>
 								
+								<complexType name="PhenotypeArray">
+										<sequence>
+						    			<element name="el" type="x:Phenotype" minOccurs="1" maxOccurs="unbounded"/>
+						    		</sequence>
+								</complexType>
+								
+								
 								<complexType name="Anatomy">
 									<all minOccurs="1">
-						  	  		<element name="anatomy_ontology_id" type="x:StringArray" minOccurs="0" maxOccurs="1"/>
-						  	  		<element name="anatomy_ontology_term" type="x:StringArray" minOccurs="0" maxOccurs="1"/>
-						  	  		<element name="anatomy_freetext" type="x:StringArray" minOccurs="0" maxOccurs="1"/>
+						  	  		<element name="anatomy_ontology_id" type="string" minOccurs="0" maxOccurs="1"/>
+						  	  		<element name="anatomy_ontology_term" type="string" minOccurs="0" maxOccurs="1"/>
+						  	  		<element name="anatomy_freetext" type="string" minOccurs="0" maxOccurs="1"/>
 									</all>						
+								</complexType>
+								
+								<complexType name="AnatomyArray">
+										<sequence>
+						    			<element name="el" type="x:Anatomy" minOccurs="1" maxOccurs="unbounded"/>
+						    		</sequence>
 								</complexType>
 								
 								<complexType name="GeneticTrait">
@@ -149,7 +196,7 @@
 						  	  		<element name="observations"	type="x:StringArray" minOccurs="0" maxOccurs="1"/>
 						  	  		<element name="associated_roi" type="x:StringArray" minOccurs="0" maxOccurs="1"/>
 						  	   		<element name="associated_channel" type="x:StringArray" minOccurs="0" maxOccurs="1"/>
-						  	  		<element name="depicted_anatomical_structure" type="x:Anatomy" minOccurs="0" maxOccurs="1"/>								  	  					  	  		
+						  	  		<element name="depicted_anatomical_structure" type="x:AnatomyArray" minOccurs="0" maxOccurs="1"/>								  	  					  	  		
 						  	  </all>
 						  	</complexType>
 						  	
@@ -172,13 +219,12 @@
 						  	  		<element name="associated_immage" type="string" minOccurs="1" maxOccurs="1"/> <!-- Must always be associated to the right image -->
 						  	  		<element name="associated_channel" type="x:StringArray" minOccurs="0" maxOccurs="1"/>
 						  	  		<!-- Roi coordinates. Current assumption is thar Rois are either rectangles or points -->
-						  	  		<element name="x_coordinates" type="x:IntArray" minOccurs="1" maxOccurs="1"/>
-						  	  		<element name="y_coordinates" type="x:IntArray" minOccurs="1" maxOccurs="1"/>
-						  	  		<element name="z_coordinates" type="x:IntArray" minOccurs="1" maxOccurs="1"/>
+						  	  		<element name="coordinates" type="x:Coordinates" minOccurs="1" maxOccurs="1"/>
 						  	  		<!--  Annotations -->
-						  	  		<element name="anatomy_expression_annotations" type="x:Anatomy" minOccurs="0" maxOccurs="1"/>	
-						  	  		<element name="anatomical_part_with_phenotype" type="x:Anatomy" minOccurs="0" maxOccurs="1"/>		
-						  	  		<element name="phenotype_annotations" type="x:Phenotype" minOccurs="0" maxOccurs="1"/>				
+						  	  		<element name="anatomy_expression_annotations" type="x:AnatomyArray" minOccurs="0" maxOccurs="1"/>	
+						  	  		<element name="anatomical_part_with_phenotype" type="x:AnatomyArray" minOccurs="0" maxOccurs="1"/>		
+						  	  		<element name="anatomical_part_of_interest" type="x:AnatomyArray" minOccurs="0" maxOccurs="1"/>		
+						  	  		<element name="phenotype_annotations" type="x:PhenotypeArray" minOccurs="0" maxOccurs="1"/>				
 						  	  		<element name="observations" type="x:StringArray" minOccurs="0" maxOccurs="1"/>
 						  		</all>
 						  	</complexType>

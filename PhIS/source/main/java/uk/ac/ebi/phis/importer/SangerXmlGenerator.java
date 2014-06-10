@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -108,18 +109,28 @@ public class SangerXmlGenerator {
 			    		imageDesc.setImageGeneratedBy("WTSI");
 			    		imageDesc.setHostName("Mouse Phenotype");
 			    		imageDesc.setHostUrl("http://www.mousephenotype.org/");
-			    		image.setImageDescription(imageDesc);
 			    		
-			    		Sex sex = Sex.fromValue(norm.normalizeSex(res.getString("GENDER")));
-			    		Age age = new Age();
-			    		if (norm.isEmbryonicAge(res.getString("AGE_IN_WEEKS"))){
-			    			age.setEmbryonicAge(norm.getAgeInDays(res.getString("AGE_IN_WEEKS")));
-			    		} else {
-			    			age.setAgeSinceBirth(norm.getAgeInDays(res.getString("AGE_IN_WEEKS")));
-			    		}
+			    		OntologyTermArray samplePrep = new OntologyTermArray();
+			    		OntologyTermArray imagingType = new OntologyTermArray();
+			    		OntologyTermArray visualisationMetod = new OntologyTermArray();
+			    		String procedure = res.getString("procedure_name");
+			    		// Parse procedure names to get most info out of htem. Mappings done by David can be found at https://docs.google.com/spreadsheet/ccc?key=0AmK8olNJT0Z7dEN2MklCX2g1TmhJWTk0N3VlUERVaVE&usp=drive_web#gid=0
+			    		imageDesc = setSamplePrep(procedure, imageDesc);
+			    			    		
+			    		image.setImageDescription(imageDesc);
+
 			    		Organism organism = new Organism();
-			    		organism.setAge(age);
+			    		Sex sex = Sex.fromValue(norm.normalizeSex(res.getString("GENDER")));
 			    		organism.setSex(sex);
+			    		Age age = new Age();
+			    		if (ageIsRelevant(procedure)){
+			    			if (norm.isEmbryonicAge(res.getString("AGE_IN_WEEKS"))){
+				    			age.setEmbryonicAge(norm.getAgeInDays(res.getString("AGE_IN_WEEKS")));
+				    		} else {
+				    			age.setAgeSinceBirth(norm.getAgeInDays(res.getString("AGE_IN_WEEKS")));
+				    		}
+				    		organism.setAge(age);
+			    		}
 			    		organism.setTaxon("Mus musculus");
 			    		image.setOrganism(organism);
 			    		
@@ -149,7 +160,7 @@ public class SangerXmlGenerator {
 				    		channel.setId(channelId);
 				    		channel.setExpressedGenotypeTrait(gta);
 		    			}
-			    		
+			    			    			
 
 				        /*	ROI	*/
 			    		int k = 0;
@@ -158,42 +169,53 @@ public class SangerXmlGenerator {
 			    			
 				    		Roi roi = new Roi();
 				    		String roiId = internal_id.replace("komp2_", "komp2_roi_") + "_" + k;
+				    		System.out.println(roiId + " " + res);
 				    		roi.setId(roiId);
+				    		roi.setAssociatedImmage(internal_id);
 				    		// Need to decide first if we associate annotations to a ROI or to the whole image
 				    		// 1. Phenotypes should always be associated to a region of interest
-				    		if (res.getString("ONTOLOGY_DICT_ID").equalsIgnoreCase("1")){ // 1 = MP
-				    			//TODO createRoi
-				    			roi = fillRoi(roi, res);
+				    		// 2. Existing ROI should be kept if the coordinates != 0 
+				    		if (res.getString("ONTOLOGY_DICT_ID").equalsIgnoreCase("1") || 
+				    				(Float)res.getFloat("X_START") + (Float) res.getFloat("X_END") + (Float)res.getFloat("Y_START") + (Float)res.getFloat("Y_END") != 0 ){ // 1 = MP
+				    			roi = fillRoi(roi, res, d, imageType.equalsIgnoreCase("expression"));
 				    		}
-				    		
-				    		// 2. Existing ROI should be kept it the coordinates != 0 
-				    		else if ((Float)res.getFloat("X_START") +(Float) res.getFloat("X_END") + (Float)res.getFloat("Y_START") + (Float)res.getFloat("Y_END") != 0){
-				    			//TODO check if there isn't another Roi eith same coordinates before createRoi
-				    			roi = fillRoi(roi, res);
-				    		}
-							       
+				    									       
 				    		// 3. Anatomy from ixpression annotations should always be associated to it's ROI
 				    		// Sanger expression images: if an anatomy term is associated to the whole expression image it means there is expression in that anatomical structure
 				    		else if (imageType.equalsIgnoreCase("expression"))
 				    		{
-				    			roi = fillRoi(roi, res);
+				    			roi = fillRoi(roi, res, d, imageType.equalsIgnoreCase("expression"));
+				    			roi.setAssociatedChannel(new StringArray());
 				    			roi.getAssociatedChannel().getEl().add(channelId);
+				    			channel.setAssociatedRoi(new StringArray());
 				    			channel.getAssociatedRoi().getEl().add(roiId);
-				    			//TODO createRoi
 				    		}
 				    		// Otherwise associate annotation to the whole image
 				    		else {
 				    			// Add annotation to the whole image
-				    			
+				    			if (!res.getString("TAG_VALUE").equalsIgnoreCase("null")){
+									image.getObservations().getEl().add(res.getString("TAG_NAME") + ": " + res.getString("TAG_VALUE"));
+								}
+				    			image.setDepictedAnatomicalStructure(getAnatomyArray(new AnatomyArray(), res.getString("TERM_ID").toString(),
+										res.getString("TERM_NAME").toString(), null));
+				    			roi = null;
 				    		}
 				    		
-				    		
-				    		
-			        		
+
+					        if (res.next() && imageId.equalsIgnoreCase(res.getString("ID"))){
+								i++;
+							}
+					        else {
+					        	sameImage=false;
+					        	res.previous();
+					        }
+					        
+					        k++;	
+					        if (roi != null){
+					        	doc.getRoi().add(roi);
+					        }
 			    		}
-			    		//TODO Map David's notes
-//	    			image.appendChild(utils.getNewElement( JsonFields.PROCEDURE , res.getString("procedure_name"), imageDoc));
-	    			
+			    		
 
 			    		/*
 		    		HashSet<String> anatomyIds = new HashSet<String>(); 
@@ -225,52 +247,18 @@ public class SangerXmlGenerator {
 		    			image = utils.addElementToArray(image, JsonFields.EXPRESSED_GF_LIST , res.getString("ALLELE"), imageDoc);
 		    			    			
 	    			}
-		    		
-		        	// get all anatomy anntoations
-		        	while(sameImage){
-		        		
-		        		// From TAG NAMES  & VALUES  I need to make observations
-		    			if (!res.getString("TAG_VALUE").equalsIgnoreCase("null")){
-		    				observations.add(res.getString("TAG_NAME") + ": " + res.getString("TAG_VALUE"));
-		    			}
-		    			
-		    			// Add pehnotype & anat. terms
-		    			if (res.getString("ONTOLOGY_DICT_ID").toString().equalsIgnoreCase("2") || res.getString("ONTOLOGY_DICT_ID").toString().equalsIgnoreCase("4")){ //2=EMAP, 4=MA
-		    				anatomyIds.add(res.getString("TERM_ID").toString());
-		    				anatomyTerms.add(res.getString("TERM_NAME").toString());
-		    			}
-				        // Add ROIs
-				        if ((Float) res.getFloat("X_START") +(Float) res.getFloat("X_END") + (Float)res.getFloat("Y_START") + (Float)res.getFloat("Y_END") != 0 
-				        		|| res.getString("ONTOLOGY_DICT_ID").toString().equalsIgnoreCase("1")){
-				        	HashMap<String, Element> list = utils.addRoiSangerData(image, channel, roiDoc, imageDoc,channelDoc, res, 0);
-				        	image = list.get("image");
-				        	roiRoot.appendChild(list.get("roi"));
-				        	channel = list.get("channel");
-				        }	
-		    			
-				        if (res.next() && imageId.equalsIgnoreCase(res.getString("ID"))){
-	    					i++;
-	    				}
-				        else {
-				        	sameImage=false;
-				        	res.previous();
-				        }
-		    		}
-			        	
-		        	image.appendChild(utils.getNewArrrayElement( JsonFields.ANATOMY_ID , anatomyIds , imageDoc));
-		        	image.appendChild(utils.getNewArrrayElement( JsonFields.ANATOMY_TERM , anatomyTerms , imageDoc));
-		        	image.appendChild(utils.getNewArrrayElement( JsonFields.PHENOTYPE_ID, phenotypeIds, imageDoc));
-		        	image.appendChild(utils.getNewArrrayElement( JsonFields.PHENOTYPE_TERM , phenotypeTerms , imageDoc));
-		        	image.appendChild(utils.getNewArrrayElement( JsonFields.OBSERVATIONS , observations  , imageDoc));
-	*/
+		 */
 			    		
 			    		// !!!  Last thing in this block  !!!
 				        doc.getImage().add(image);
-			    		doc.getChannel().add(channel);
+				        if (channel != null){
+				        	doc.getChannel().add(channel);
+				        }
 		    		}
 	        	}
 	    		i++;
-	    		if (i==100) break;
+	    		if (i == 100)
+	    			break;
 	        }
 			
 	        File file = new File("source/main/resources/sangerExport.xml");
@@ -298,34 +286,178 @@ public class SangerXmlGenerator {
         
        
 	}
-	 private Roi fillRoi(Roi roi, ResultSet res){
+	 private Roi fillRoi(Roi roi, ResultSet res, Dimensions d, Boolean isExpressionImg){
      		// From TAG NAMES  & VALUES  I need to make observations
-			if (!res.getString("TAG_VALUE").equalsIgnoreCase("null")){
-				roi.getObservations().getEl().add(res.getString("TAG_NAME") + ": " + res.getString("TAG_VALUE"));
-			}
-			
-			// Add anat. terms
-			if (res.getString("ONTOLOGY_DICT_ID").toString().equalsIgnoreCase("2") || res.getString("ONTOLOGY_DICT_ID").toString().equalsIgnoreCase("4")){ //2=EMAP, 4=MA
-				if (imageType.equalsIgnoreCase("expression")){
-					roi.getAnatomyExpressionAnnotations().getAnatomyOntologyId().getEl().add(res.getString("TERM_ID").toString());
-					roi.getAnatomyExpressionAnnotations().getAnatomyOntologyTerm().getEl().add(res.getString("TERM_NAME").toString());
-					
+			try {
+				if (!res.getString("TAG_VALUE").equalsIgnoreCase("null")){
+					roi.getObservations().getEl().add(res.getString("TAG_NAME") + ": " + res.getString("TAG_VALUE"));
 				}
-			}
-	        // Add roi coordinates
-	        if ((Float) res.getFloat("X_START") +(Float) res.getFloat("X_END") + (Float)res.getFloat("Y_START") + (Float)res.getFloat("Y_END") != 0 
-	        		|| res.getString("ONTOLOGY_DICT_ID").toString().equalsIgnoreCase("1")){
+		
+				// Add anat. terms
+				if (res.getString("ONTOLOGY_DICT_ID").toString().equalsIgnoreCase("2") || res.getString("ONTOLOGY_DICT_ID").toString().equalsIgnoreCase("4")){ //2=EMAP, 4=MA
+					if (isExpressionImg){
+						// we have expression in the annotated anatomy term
+						roi.setAnatomyExpressionAnnotations(getAnatomyArray(new AnatomyArray(), res.getString("TERM_ID").toString(),
+								res.getString("TERM_NAME").toString(), null));
+					}
+					else { 
+						// we have somthin interesting but not expression in the anatomy term
+						roi.setAnatomicalPartOfInterest(getAnatomyArray(new AnatomyArray(), res.getString("TERM_ID").toString(),
+								res.getString("TERM_NAME").toString(), null));
+					}
+				}
+				// Add phenotuype terms
+				else if (res.getString("ONTOLOGY_DICT_ID").toString().equalsIgnoreCase("1") ){ // 1 = MP
+					
+					// we know there's only one phenotype associated so we don't need to check if the array is empty					
+					roi.setPhenotypeAnnotations(getPhenotypeArray(new PhenotypeArray(), res.getString("TERM_ID").toString(), res.getString("TERM_NAME").toString(), null));
+				}
+				
+	        	Coordinates coord = new Coordinates();
+	        	FloatArray xCoord = new FloatArray();
+	        	FloatArray yCoord = new FloatArray();
 	        	
-	        }	
-			
-	        if (res.next() && imageId.equalsIgnoreCase(res.getString("ID"))){
-				i++;
+		        // Add coordinates
+		        if ( (Float) res.getFloat("X_START") + (Float) res.getFloat("X_END") + (Float)res.getFloat("Y_START") + (Float)res.getFloat("Y_END") != 0 ){
+		        	// we have coordinates 
+		        	// Order is important: (start, end)
+		        	// Sanger stores percentages so no need to compute them here, we just copy 
+		        	xCoord.getEl().add((Float) res.getFloat("X_START") ); 
+		        	xCoord.getEl().add((Float) res.getFloat("X_END") );
+		        	coord.setXCoordinates(xCoord);
+		        	
+		        	// Order is important: (start, end)
+		        	yCoord.getEl().add((Float) res.getFloat("Y_START") ); 
+		        	yCoord.getEl().add((Float) res.getFloat("Y_END") );
+		        	coord.setYCoordinates(yCoord);
+		        }	
+		        else  {
+		        	float zero = 0; 
+		        	float hunderd = 100;
+		        	// create the coordinates
+		        	xCoord.getEl().add(zero); 
+		        	xCoord.getEl().add(hunderd);
+		        	coord.setXCoordinates(xCoord);
+		        	
+		        	// Order is important: (start, end)
+		        	yCoord.getEl().add(zero); 
+		        	yCoord.getEl().add(hunderd);
+		        	coord.setYCoordinates(yCoord);
+		        }
+		        
+		        roi.setCoordinates(coord);
+		        
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
-	        else {
-	        	sameImage=false;
-	        	res.previous();
-	        }
-	        k++;
 	        return roi;
      }
+	 
+	 ImageDescription setSamplePrep (String procedure, ImageDescription desc){
+			OntologyTermArray sp = new OntologyTermArray();
+			OntologyTermArray im = new OntologyTermArray();
+			OntologyTermArray vm = new OntologyTermArray();
+			
+		if (procedure.equalsIgnoreCase("Dysmorphology")){
+			sp.getEl().add(getOntologyTerm("living tissue" , "FBbi_00000025"));
+			sp.getEl().add(getOntologyTerm("whole mounted tissue" , "FBbi_00000024"));
+			im.getEl().add(getOntologyTerm("macroscopy", "FBbi_00000240"));
+		}
+		else if (procedure.equalsIgnoreCase("Embryo dysmorphology")){
+			sp.getEl().add(getOntologyTerm("whole mounted tissue" , "FBbi_00000024"));
+			im.getEl().add(getOntologyTerm("bright-field microscopy", "FBbi_00000243"));
+		}
+		else if (procedure.equalsIgnoreCase("Xray")){
+			sp.getEl().add(getOntologyTerm("whole mounted tissue" , "FBbi_00000024"));
+			sp.getEl().add(getOntologyTerm("living tissue" , "FBbi_00000025"));
+			im.getEl().add(getOntologyTerm("X-ray radiography", "FBbi_00001001"));
+		}
+		else if (procedure.equalsIgnoreCase("Eye Morphology")){ // &&  slit lamp
+			sp.getEl().add(getOntologyTerm("whole mounted tissue" , "FBbi_00000024"));
+			sp.getEl().add(getOntologyTerm("living tissue" , "FBbi_00000025"));
+			im.getEl().add(getOntologyTerm("macroscopy", "FBbi_00000240"));
+		}
+/*		else if (procedure.equalsIgnoreCase("Eye Morphology")){ // && TEFI
+			sp.getEl().add(getOntologyTerm("whole mounted tissue" , "FBbi_00000024"));
+			sp.getEl().add(getOntologyTerm("living tissue" , "FBbi_00000025"));
+			im.getEl().add(getOntologyTerm("light microscopy", "FBbi_00000345"));
+		}
+		*/
+		else if (procedure.equalsIgnoreCase("Expression")){
+			sp.getEl().add(getOntologyTerm("whole mounted tissue" , "FBbi_00000024"));
+			im.getEl().add(getOntologyTerm("bright-field microscopy", "FBbi_00000243"));
+			vm.getEl().add(getOntologyTerm("visualisation of genetically encoded beta-galactosidase", "FBbi_00000077"));
+		}
+		else if (procedure.equalsIgnoreCase("Tail Epidermis Wholemount")){
+			sp.getEl().add(getOntologyTerm("whole mounted tissue" , "FBbi_00000024"));
+			im.getEl().add(getOntologyTerm("confocal microscopy", "FBbi_00000251"));
+			vm.getEl().add(getOntologyTerm("fluorescent protein tag", "FBbi_00000405"));
+		}
+		else if (procedure.equalsIgnoreCase("Histology Slide")){
+			im.getEl().add(getOntologyTerm("bright-field microscopy", "FBbi_00000243"));
+			vm.getEl().add(getOntologyTerm("optically dense stain", "FBbi_00000567"));
+		}
+/*		else if (procedure.equalsIgnoreCase("Histology Slide")){
+			
+		}
+		*/
+		else if (procedure.equalsIgnoreCase("Brain Histopathology")){
+			sp.getEl().add(getOntologyTerm("sectioned tissue" , "FBbi_00000026"));
+			im.getEl().add(getOntologyTerm("confocal microscopy", "FBbi_00000251"));
+			vm.getEl().add(getOntologyTerm("fluorescent protein tag", "FBbi_00000405"));
+		}
+		
+		desc.setSamplePreparation(sp);
+		desc.setImagingMethod(im);
+		desc.setVisualisationMethod(vm);
+		return desc;
+	 }
+	 
+	 OntologyTerm getOntologyTerm (String label, String id){
+		 OntologyTerm term = new OntologyTerm();
+		 term.setTermId(id);
+		 term.setTermLabel(label);
+		 return term;
+	 }
+	 
+	 PhenotypeArray getPhenotypeArray(PhenotypeArray pa, String id, String label, String freetext){
+		 Phenotype p = new Phenotype();
+		 if (id != null)
+			 p.setPhenotypeOntologyId(id);
+
+		 if (label != null)
+			 p.setPhenotypeOntologyTerm(label);
+
+		 if (freetext != null)
+			 p.setPhenotypeFreetext(freetext);
+		 
+		 pa.getEl().add(p);
+		 return pa;
+	 }
+	 
+	 AnatomyArray getAnatomyArray(AnatomyArray pa, String id, String label, String freetext){
+		 Anatomy p = new Anatomy();
+		 if (id != null)
+			 p.setAnatomyOntologyId(id);
+
+		 if (label != null)
+			 p.setAnatomyOntologyTerm(label);
+
+		 if (freetext != null)
+			 p.setAnatomyFreetext(freetext);
+		 
+		 pa.getEl().add(p);
+		 return pa;
+	 }
+	 
+	 // On live procedures the age is not relevant and we should not import it. It does not mean it's the age at which the picture was taken.
+	 // See David's document https://docs.google.com/spreadsheet/ccc?key=0AmK8olNJT0Z7dEN2MklCX2g1TmhJWTk0N3VlUERVaVE&usp=drive_web#gid=0
+	 boolean ageIsRelevant(String procedure){
+		 if (procedure.equalsIgnoreCase("Dysmorphology") ||
+				 procedure.equalsIgnoreCase("Xray") ||
+				 procedure.equalsIgnoreCase("Eye Morphology") ){
+			 return false;
+		 }
+		 else return true;
+	 }
 }
