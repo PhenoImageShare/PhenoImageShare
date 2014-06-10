@@ -131,6 +131,11 @@ public class SangerXmlGenerator {
 				    		}
 				    		organism.setAge(age);
 			    		}
+			    		OntologyTerm stageOt = getStageFromProcedure(procedure);
+			    		if (stageOt != null){
+			    			organism.setStageOntologyTerm(stageOt);
+			    		}
+			    			
 			    		organism.setTaxon("Mus musculus");
 			    		image.setOrganism(organism);
 			    		
@@ -459,5 +464,17 @@ public class SangerXmlGenerator {
 			 return false;
 		 }
 		 else return true;
+	 }
+	 
+	 OntologyTerm getStageFromProcedure(String procedure){
+		 OntologyTerm ot = null;
+		 if (procedure.equalsIgnoreCase("Dysmorphology") ||
+				 procedure.equalsIgnoreCase("Xray") ||
+				 procedure.equalsIgnoreCase("Eye Morphology") ){
+			ot = new OntologyTerm();
+			ot.setTermId("MmusDv_0000092");
+			ot.setTermLabel("postnatal stage");
+		 }
+		 return ot;
 	 }
 }
