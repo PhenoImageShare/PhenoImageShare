@@ -1,7 +1,7 @@
 # ./phisSchema.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:4a11b7f056635b900095d2a98a5d7168825518c5
-# Generated 2014-06-09 13:22:10.734887 by PyXB version 1.2.3
+# Generated 2014-06-11 12:07:28.744552 by PyXB version 1.2.3
 # Namespace http://www.example.org/phisSchema
 
 import pyxb
@@ -13,7 +13,7 @@ import pyxb.utils.domutils
 import sys
 
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:ae2d9e57-efd0-11e3-a3a1-a8bbcf19a3b6')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:93919263-f158-11e3-b053-a8bbcf19a3b6')
 
 # Version of PyXB used to generate the bindings
 _PyXBVersion = '1.2.3'
@@ -77,7 +77,7 @@ class Sex (pyxb.binding.datatypes.string, pyxb.binding.basis.enumeration_mixin):
     """An atomic simple type."""
 
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, u'Sex')
-    _XSDLocation = pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 7, 8)
+    _XSDLocation = pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 7, 8)
     _Documentation = None
 Sex._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=Sex, enum_prefix=None)
 Sex.Male = Sex._CF_enumeration.addEnumeration(unicode_value=u'Male', tag=u'Male')
@@ -93,7 +93,7 @@ class Zygosity (pyxb.binding.datatypes.string, pyxb.binding.basis.enumeration_mi
     """An atomic simple type."""
 
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, u'Zygosity')
-    _XSDLocation = pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 15, 8)
+    _XSDLocation = pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 15, 8)
     _Documentation = None
 Zygosity._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=Zygosity, enum_prefix=None)
 Zygosity.homozygous = Zygosity._CF_enumeration.addEnumeration(unicode_value=u'homozygous', tag=u'homozygous')
@@ -110,7 +110,7 @@ class Strand (pyxb.binding.datatypes.string, pyxb.binding.basis.enumeration_mixi
     """An atomic simple type."""
 
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, u'Strand')
-    _XSDLocation = pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 58, 8)
+    _XSDLocation = pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 74, 8)
     _Documentation = None
 Strand._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=Strand, enum_prefix=None)
 Strand.emptyString = Strand._CF_enumeration.addEnumeration(unicode_value=u'+', tag='emptyString')
@@ -125,20 +125,20 @@ class Age (pyxb.binding.basis.complexTypeDefinition):
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
     _Abstract = False
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, u'Age')
-    _XSDLocation = pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 25, 8)
+    _XSDLocation = pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 25, 8)
     _ElementMap = {}
     _AttributeMap = {}
     # Base type is pyxb.binding.datatypes.anyType
     
     # Element age_since_birth uses Python identifier age_since_birth
-    __age_since_birth = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'age_since_birth'), 'age_since_birth', '__httpwww_example_orgphisSchema_Age_age_since_birth', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 27, 10), )
+    __age_since_birth = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'age_since_birth'), 'age_since_birth', '__httpwww_example_orgphisSchema_Age_age_since_birth', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 27, 10), )
 
     
     age_since_birth = property(__age_since_birth.value, __age_since_birth.set, None, None)
 
     
     # Element embryonic_age uses Python identifier embryonic_age
-    __embryonic_age = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'embryonic_age'), 'embryonic_age', '__httpwww_example_orgphisSchema_Age_embryonic_age', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 28, 10), )
+    __embryonic_age = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'embryonic_age'), 'embryonic_age', '__httpwww_example_orgphisSchema_Age_embryonic_age', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 28, 10), )
 
     
     embryonic_age = property(__embryonic_age.value, __embryonic_age.set, None, None)
@@ -160,13 +160,13 @@ class StringArray (pyxb.binding.basis.complexTypeDefinition):
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
     _Abstract = False
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, u'StringArray')
-    _XSDLocation = pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 32, 8)
+    _XSDLocation = pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 32, 8)
     _ElementMap = {}
     _AttributeMap = {}
     # Base type is pyxb.binding.datatypes.anyType
     
     # Element el uses Python identifier el
-    __el = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'el'), 'el', '__httpwww_example_orgphisSchema_StringArray_el', True, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 34, 13), )
+    __el = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'el'), 'el', '__httpwww_example_orgphisSchema_StringArray_el', True, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 34, 13), )
 
     
     el = property(__el.value, __el.set, None, None)
@@ -187,13 +187,13 @@ class IntArray (pyxb.binding.basis.complexTypeDefinition):
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
     _Abstract = False
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, u'IntArray')
-    _XSDLocation = pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 38, 8)
+    _XSDLocation = pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 38, 8)
     _ElementMap = {}
     _AttributeMap = {}
     # Base type is pyxb.binding.datatypes.anyType
     
     # Element el uses Python identifier el
-    __el = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'el'), 'el', '__httpwww_example_orgphisSchema_IntArray_el', True, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 40, 13), )
+    __el = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'el'), 'el', '__httpwww_example_orgphisSchema_IntArray_el', True, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 40, 13), )
 
     
     el = property(__el.value, __el.set, None, None)
@@ -207,6 +207,33 @@ class IntArray (pyxb.binding.basis.complexTypeDefinition):
 Namespace.addCategoryObject('typeBinding', u'IntArray', IntArray)
 
 
+# Complex type {http://www.example.org/phisSchema}FloatArray with content type ELEMENT_ONLY
+class FloatArray (pyxb.binding.basis.complexTypeDefinition):
+    """Complex type {http://www.example.org/phisSchema}FloatArray with content type ELEMENT_ONLY"""
+    _TypeDefinition = None
+    _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
+    _Abstract = False
+    _ExpandedName = pyxb.namespace.ExpandedName(Namespace, u'FloatArray')
+    _XSDLocation = pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 45, 8)
+    _ElementMap = {}
+    _AttributeMap = {}
+    # Base type is pyxb.binding.datatypes.anyType
+    
+    # Element el uses Python identifier el
+    __el = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'el'), 'el', '__httpwww_example_orgphisSchema_FloatArray_el', True, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 47, 13), )
+
+    
+    el = property(__el.value, __el.set, None, None)
+
+    _ElementMap.update({
+        __el.name() : __el
+    })
+    _AttributeMap.update({
+        
+    })
+Namespace.addCategoryObject('typeBinding', u'FloatArray', FloatArray)
+
+
 # Complex type {http://www.example.org/phisSchema}ZygArray with content type ELEMENT_ONLY
 class ZygArray (pyxb.binding.basis.complexTypeDefinition):
     """Complex type {http://www.example.org/phisSchema}ZygArray with content type ELEMENT_ONLY"""
@@ -214,13 +241,13 @@ class ZygArray (pyxb.binding.basis.complexTypeDefinition):
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
     _Abstract = False
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, u'ZygArray')
-    _XSDLocation = pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 44, 8)
+    _XSDLocation = pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 52, 8)
     _ElementMap = {}
     _AttributeMap = {}
     # Base type is pyxb.binding.datatypes.anyType
     
     # Element el uses Python identifier el
-    __el = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'el'), 'el', '__httpwww_example_orgphisSchema_ZygArray_el', True, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 46, 13), )
+    __el = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'el'), 'el', '__httpwww_example_orgphisSchema_ZygArray_el', True, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 54, 13), )
 
     
     el = property(__el.value, __el.set, None, None)
@@ -241,27 +268,27 @@ class Dimensions (pyxb.binding.basis.complexTypeDefinition):
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
     _Abstract = False
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, u'Dimensions')
-    _XSDLocation = pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 50, 8)
+    _XSDLocation = pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 58, 8)
     _ElementMap = {}
     _AttributeMap = {}
     # Base type is pyxb.binding.datatypes.anyType
     
     # Element image_depth uses Python identifier image_depth
-    __image_depth = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'image_depth'), 'image_depth', '__httpwww_example_orgphisSchema_Dimensions_image_depth', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 52, 13), )
+    __image_depth = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'image_depth'), 'image_depth', '__httpwww_example_orgphisSchema_Dimensions_image_depth', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 60, 13), )
 
     
     image_depth = property(__image_depth.value, __image_depth.set, None, None)
 
     
     # Element image_height uses Python identifier image_height
-    __image_height = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'image_height'), 'image_height', '__httpwww_example_orgphisSchema_Dimensions_image_height', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 53, 13), )
+    __image_height = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'image_height'), 'image_height', '__httpwww_example_orgphisSchema_Dimensions_image_height', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 61, 13), )
 
     
     image_height = property(__image_height.value, __image_height.set, None, None)
 
     
     # Element image_width uses Python identifier image_width
-    __image_width = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'image_width'), 'image_width', '__httpwww_example_orgphisSchema_Dimensions_image_width', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 54, 13), )
+    __image_width = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'image_width'), 'image_width', '__httpwww_example_orgphisSchema_Dimensions_image_width', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 62, 13), )
 
     
     image_width = property(__image_width.value, __image_width.set, None, None)
@@ -277,6 +304,49 @@ class Dimensions (pyxb.binding.basis.complexTypeDefinition):
 Namespace.addCategoryObject('typeBinding', u'Dimensions', Dimensions)
 
 
+# Complex type {http://www.example.org/phisSchema}Coordinates with content type ELEMENT_ONLY
+class Coordinates (pyxb.binding.basis.complexTypeDefinition):
+    """Complex type {http://www.example.org/phisSchema}Coordinates with content type ELEMENT_ONLY"""
+    _TypeDefinition = None
+    _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
+    _Abstract = False
+    _ExpandedName = pyxb.namespace.ExpandedName(Namespace, u'Coordinates')
+    _XSDLocation = pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 66, 8)
+    _ElementMap = {}
+    _AttributeMap = {}
+    # Base type is pyxb.binding.datatypes.anyType
+    
+    # Element z_coordinates uses Python identifier z_coordinates
+    __z_coordinates = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'z_coordinates'), 'z_coordinates', '__httpwww_example_orgphisSchema_Coordinates_z_coordinates', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 68, 13), )
+
+    
+    z_coordinates = property(__z_coordinates.value, __z_coordinates.set, None, None)
+
+    
+    # Element y_coordinates uses Python identifier y_coordinates
+    __y_coordinates = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'y_coordinates'), 'y_coordinates', '__httpwww_example_orgphisSchema_Coordinates_y_coordinates', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 69, 13), )
+
+    
+    y_coordinates = property(__y_coordinates.value, __y_coordinates.set, None, None)
+
+    
+    # Element x_coordinates uses Python identifier x_coordinates
+    __x_coordinates = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'x_coordinates'), 'x_coordinates', '__httpwww_example_orgphisSchema_Coordinates_x_coordinates', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 70, 13), )
+
+    
+    x_coordinates = property(__x_coordinates.value, __x_coordinates.set, None, None)
+
+    _ElementMap.update({
+        __z_coordinates.name() : __z_coordinates,
+        __y_coordinates.name() : __y_coordinates,
+        __x_coordinates.name() : __x_coordinates
+    })
+    _AttributeMap.update({
+        
+    })
+Namespace.addCategoryObject('typeBinding', u'Coordinates', Coordinates)
+
+
 # Complex type {http://www.example.org/phisSchema}GenomicLocation with content type ELEMENT_ONLY
 class GenomicLocation (pyxb.binding.basis.complexTypeDefinition):
     """Complex type {http://www.example.org/phisSchema}GenomicLocation with content type ELEMENT_ONLY"""
@@ -284,34 +354,34 @@ class GenomicLocation (pyxb.binding.basis.complexTypeDefinition):
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
     _Abstract = False
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, u'GenomicLocation')
-    _XSDLocation = pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 65, 8)
+    _XSDLocation = pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 81, 8)
     _ElementMap = {}
     _AttributeMap = {}
     # Base type is pyxb.binding.datatypes.anyType
     
     # Element start_pos uses Python identifier start_pos
-    __start_pos = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'start_pos'), 'start_pos', '__httpwww_example_orgphisSchema_GenomicLocation_start_pos', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 67, 13), )
+    __start_pos = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'start_pos'), 'start_pos', '__httpwww_example_orgphisSchema_GenomicLocation_start_pos', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 83, 13), )
 
     
     start_pos = property(__start_pos.value, __start_pos.set, None, None)
 
     
     # Element end_pos uses Python identifier end_pos
-    __end_pos = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'end_pos'), 'end_pos', '__httpwww_example_orgphisSchema_GenomicLocation_end_pos', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 68, 13), )
+    __end_pos = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'end_pos'), 'end_pos', '__httpwww_example_orgphisSchema_GenomicLocation_end_pos', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 84, 13), )
 
     
     end_pos = property(__end_pos.value, __end_pos.set, None, None)
 
     
     # Element chromosone uses Python identifier chromosone
-    __chromosone = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'chromosone'), 'chromosone', '__httpwww_example_orgphisSchema_GenomicLocation_chromosone', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 69, 13), )
+    __chromosone = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'chromosone'), 'chromosone', '__httpwww_example_orgphisSchema_GenomicLocation_chromosone', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 85, 13), )
 
     
     chromosone = property(__chromosone.value, __chromosone.set, None, None)
 
     
     # Element strand uses Python identifier strand
-    __strand = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'strand'), 'strand', '__httpwww_example_orgphisSchema_GenomicLocation_strand', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 70, 13), )
+    __strand = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'strand'), 'strand', '__httpwww_example_orgphisSchema_GenomicLocation_strand', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 86, 13), )
 
     
     strand = property(__strand.value, __strand.set, None, None)
@@ -335,13 +405,13 @@ class GenomicLocationArray (pyxb.binding.basis.complexTypeDefinition):
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
     _Abstract = False
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, u'GenomicLocationArray')
-    _XSDLocation = pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 74, 8)
+    _XSDLocation = pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 90, 8)
     _ElementMap = {}
     _AttributeMap = {}
     # Base type is pyxb.binding.datatypes.anyType
     
     # Element el uses Python identifier el
-    __el = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'el'), 'el', '__httpwww_example_orgphisSchema_GenomicLocationArray_el', True, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 76, 13), )
+    __el = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'el'), 'el', '__httpwww_example_orgphisSchema_GenomicLocationArray_el', True, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 92, 13), )
 
     
     el = property(__el.value, __el.set, None, None)
@@ -362,79 +432,100 @@ class ImageDescription (pyxb.binding.basis.complexTypeDefinition):
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
     _Abstract = False
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, u'ImageDescription')
-    _XSDLocation = pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 80, 8)
+    _XSDLocation = pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 96, 8)
     _ElementMap = {}
     _AttributeMap = {}
     # Base type is pyxb.binding.datatypes.anyType
     
     # Element image_url uses Python identifier image_url
-    __image_url = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'image_url'), 'image_url', '__httpwww_example_orgphisSchema_ImageDescription_image_url', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 82, 13), )
+    __image_url = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'image_url'), 'image_url', '__httpwww_example_orgphisSchema_ImageDescription_image_url', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 98, 13), )
 
     
     image_url = property(__image_url.value, __image_url.set, None, None)
 
     
     # Element image_context_url uses Python identifier image_context_url
-    __image_context_url = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'image_context_url'), 'image_context_url', '__httpwww_example_orgphisSchema_ImageDescription_image_context_url', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 83, 13), )
+    __image_context_url = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'image_context_url'), 'image_context_url', '__httpwww_example_orgphisSchema_ImageDescription_image_context_url', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 99, 13), )
 
     
     image_context_url = property(__image_context_url.value, __image_context_url.set, None, None)
 
     
     # Element image_dimensions uses Python identifier image_dimensions
-    __image_dimensions = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'image_dimensions'), 'image_dimensions', '__httpwww_example_orgphisSchema_ImageDescription_image_dimensions', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 84, 13), )
+    __image_dimensions = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'image_dimensions'), 'image_dimensions', '__httpwww_example_orgphisSchema_ImageDescription_image_dimensions', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 100, 13), )
 
     
     image_dimensions = property(__image_dimensions.value, __image_dimensions.set, None, None)
 
     
     # Element machine uses Python identifier machine
-    __machine = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'machine'), 'machine', '__httpwww_example_orgphisSchema_ImageDescription_machine', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 85, 13), )
+    __machine = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'machine'), 'machine', '__httpwww_example_orgphisSchema_ImageDescription_machine', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 101, 13), )
 
     
     machine = property(__machine.value, __machine.set, None, None)
 
     
     # Element image_type uses Python identifier image_type
-    __image_type = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'image_type'), 'image_type', '__httpwww_example_orgphisSchema_ImageDescription_image_type', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 86, 13), )
+    __image_type = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'image_type'), 'image_type', '__httpwww_example_orgphisSchema_ImageDescription_image_type', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 102, 13), )
 
     
     image_type = property(__image_type.value, __image_type.set, None, None)
 
     
     # Element original_image_id uses Python identifier original_image_id
-    __original_image_id = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'original_image_id'), 'original_image_id', '__httpwww_example_orgphisSchema_ImageDescription_original_image_id', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 87, 13), )
+    __original_image_id = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'original_image_id'), 'original_image_id', '__httpwww_example_orgphisSchema_ImageDescription_original_image_id', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 103, 13), )
 
     
     original_image_id = property(__original_image_id.value, __original_image_id.set, None, None)
 
     
     # Element image_generated_by uses Python identifier image_generated_by
-    __image_generated_by = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'image_generated_by'), 'image_generated_by', '__httpwww_example_orgphisSchema_ImageDescription_image_generated_by', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 88, 13), )
+    __image_generated_by = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'image_generated_by'), 'image_generated_by', '__httpwww_example_orgphisSchema_ImageDescription_image_generated_by', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 104, 13), )
 
     
     image_generated_by = property(__image_generated_by.value, __image_generated_by.set, None, None)
 
     
     # Element organism_generated_by uses Python identifier organism_generated_by
-    __organism_generated_by = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'organism_generated_by'), 'organism_generated_by', '__httpwww_example_orgphisSchema_ImageDescription_organism_generated_by', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 89, 13), )
+    __organism_generated_by = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'organism_generated_by'), 'organism_generated_by', '__httpwww_example_orgphisSchema_ImageDescription_organism_generated_by', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 105, 13), )
 
     
     organism_generated_by = property(__organism_generated_by.value, __organism_generated_by.set, None, None)
 
     
     # Element host_url uses Python identifier host_url
-    __host_url = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'host_url'), 'host_url', '__httpwww_example_orgphisSchema_ImageDescription_host_url', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 90, 13), )
+    __host_url = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'host_url'), 'host_url', '__httpwww_example_orgphisSchema_ImageDescription_host_url', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 106, 13), )
 
     
     host_url = property(__host_url.value, __host_url.set, None, None)
 
     
     # Element host_name uses Python identifier host_name
-    __host_name = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'host_name'), 'host_name', '__httpwww_example_orgphisSchema_ImageDescription_host_name', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 91, 13), )
+    __host_name = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'host_name'), 'host_name', '__httpwww_example_orgphisSchema_ImageDescription_host_name', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 107, 13), )
 
     
     host_name = property(__host_name.value, __host_name.set, None, None)
+
+    
+    # Element imaging_method uses Python identifier imaging_method
+    __imaging_method = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'imaging_method'), 'imaging_method', '__httpwww_example_orgphisSchema_ImageDescription_imaging_method', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 108, 13), )
+
+    
+    imaging_method = property(__imaging_method.value, __imaging_method.set, None, None)
+
+    
+    # Element sample_preparation uses Python identifier sample_preparation
+    __sample_preparation = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'sample_preparation'), 'sample_preparation', '__httpwww_example_orgphisSchema_ImageDescription_sample_preparation', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 109, 13), )
+
+    
+    sample_preparation = property(__sample_preparation.value, __sample_preparation.set, None, None)
+
+    
+    # Element visualisation_method uses Python identifier visualisation_method
+    __visualisation_method = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'visualisation_method'), 'visualisation_method', '__httpwww_example_orgphisSchema_ImageDescription_visualisation_method', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 110, 13), )
+
+    
+    visualisation_method = property(__visualisation_method.value, __visualisation_method.set, None, None)
 
     _ElementMap.update({
         __image_url.name() : __image_url,
@@ -446,7 +537,10 @@ class ImageDescription (pyxb.binding.basis.complexTypeDefinition):
         __image_generated_by.name() : __image_generated_by,
         __organism_generated_by.name() : __organism_generated_by,
         __host_url.name() : __host_url,
-        __host_name.name() : __host_name
+        __host_name.name() : __host_name,
+        __imaging_method.name() : __imaging_method,
+        __sample_preparation.name() : __sample_preparation,
+        __visualisation_method.name() : __visualisation_method
     })
     _AttributeMap.update({
         
@@ -461,56 +555,126 @@ class Organism (pyxb.binding.basis.complexTypeDefinition):
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
     _Abstract = False
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, u'Organism')
-    _XSDLocation = pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 95, 8)
+    _XSDLocation = pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 114, 8)
     _ElementMap = {}
     _AttributeMap = {}
     # Base type is pyxb.binding.datatypes.anyType
     
     # Element age uses Python identifier age
-    __age = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'age'), 'age', '__httpwww_example_orgphisSchema_Organism_age', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 97, 13), )
+    __age = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'age'), 'age', '__httpwww_example_orgphisSchema_Organism_age', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 116, 13), )
 
     
     age = property(__age.value, __age.set, None, None)
 
     
     # Element taxon uses Python identifier taxon
-    __taxon = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'taxon'), 'taxon', '__httpwww_example_orgphisSchema_Organism_taxon', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 98, 13), )
+    __taxon = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'taxon'), 'taxon', '__httpwww_example_orgphisSchema_Organism_taxon', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 117, 13), )
 
     
     taxon = property(__taxon.value, __taxon.set, None, None)
 
     
     # Element sex uses Python identifier sex
-    __sex = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'sex'), 'sex', '__httpwww_example_orgphisSchema_Organism_sex', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 99, 14), )
+    __sex = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'sex'), 'sex', '__httpwww_example_orgphisSchema_Organism_sex', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 118, 14), )
 
     
     sex = property(__sex.value, __sex.set, None, None)
 
     
     # Element ncbi_taxon_id uses Python identifier ncbi_taxon_id
-    __ncbi_taxon_id = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'ncbi_taxon_id'), 'ncbi_taxon_id', '__httpwww_example_orgphisSchema_Organism_ncbi_taxon_id', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 100, 13), )
+    __ncbi_taxon_id = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'ncbi_taxon_id'), 'ncbi_taxon_id', '__httpwww_example_orgphisSchema_Organism_ncbi_taxon_id', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 119, 13), )
 
     
     ncbi_taxon_id = property(__ncbi_taxon_id.value, __ncbi_taxon_id.set, None, None)
 
     
     # Element stage uses Python identifier stage
-    __stage = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'stage'), 'stage', '__httpwww_example_orgphisSchema_Organism_stage', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 101, 13), )
+    __stage = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'stage'), 'stage', '__httpwww_example_orgphisSchema_Organism_stage', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 120, 13), )
 
     
     stage = property(__stage.value, __stage.set, None, None)
+
+    
+    # Element stage_ontology_term uses Python identifier stage_ontology_term
+    __stage_ontology_term = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'stage_ontology_term'), 'stage_ontology_term', '__httpwww_example_orgphisSchema_Organism_stage_ontology_term', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 121, 13), )
+
+    
+    stage_ontology_term = property(__stage_ontology_term.value, __stage_ontology_term.set, None, None)
 
     _ElementMap.update({
         __age.name() : __age,
         __taxon.name() : __taxon,
         __sex.name() : __sex,
         __ncbi_taxon_id.name() : __ncbi_taxon_id,
-        __stage.name() : __stage
+        __stage.name() : __stage,
+        __stage_ontology_term.name() : __stage_ontology_term
     })
     _AttributeMap.update({
         
     })
 Namespace.addCategoryObject('typeBinding', u'Organism', Organism)
+
+
+# Complex type {http://www.example.org/phisSchema}OntologyTerm with content type ELEMENT_ONLY
+class OntologyTerm (pyxb.binding.basis.complexTypeDefinition):
+    """Complex type {http://www.example.org/phisSchema}OntologyTerm with content type ELEMENT_ONLY"""
+    _TypeDefinition = None
+    _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
+    _Abstract = False
+    _ExpandedName = pyxb.namespace.ExpandedName(Namespace, u'OntologyTerm')
+    _XSDLocation = pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 125, 8)
+    _ElementMap = {}
+    _AttributeMap = {}
+    # Base type is pyxb.binding.datatypes.anyType
+    
+    # Element termLabel uses Python identifier termLabel
+    __termLabel = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'termLabel'), 'termLabel', '__httpwww_example_orgphisSchema_OntologyTerm_termLabel', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 127, 10), )
+
+    
+    termLabel = property(__termLabel.value, __termLabel.set, None, None)
+
+    
+    # Element termId uses Python identifier termId
+    __termId = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'termId'), 'termId', '__httpwww_example_orgphisSchema_OntologyTerm_termId', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 128, 10), )
+
+    
+    termId = property(__termId.value, __termId.set, None, None)
+
+    _ElementMap.update({
+        __termLabel.name() : __termLabel,
+        __termId.name() : __termId
+    })
+    _AttributeMap.update({
+        
+    })
+Namespace.addCategoryObject('typeBinding', u'OntologyTerm', OntologyTerm)
+
+
+# Complex type {http://www.example.org/phisSchema}OntologyTermArray with content type ELEMENT_ONLY
+class OntologyTermArray (pyxb.binding.basis.complexTypeDefinition):
+    """Complex type {http://www.example.org/phisSchema}OntologyTermArray with content type ELEMENT_ONLY"""
+    _TypeDefinition = None
+    _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
+    _Abstract = False
+    _ExpandedName = pyxb.namespace.ExpandedName(Namespace, u'OntologyTermArray')
+    _XSDLocation = pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 133, 8)
+    _ElementMap = {}
+    _AttributeMap = {}
+    # Base type is pyxb.binding.datatypes.anyType
+    
+    # Element el uses Python identifier el
+    __el = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'el'), 'el', '__httpwww_example_orgphisSchema_OntologyTermArray_el', True, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 135, 13), )
+
+    
+    el = property(__el.value, __el.set, None, None)
+
+    _ElementMap.update({
+        __el.name() : __el
+    })
+    _AttributeMap.update({
+        
+    })
+Namespace.addCategoryObject('typeBinding', u'OntologyTermArray', OntologyTermArray)
 
 
 # Complex type {http://www.example.org/phisSchema}Phenotype with content type ELEMENT_ONLY
@@ -520,27 +684,27 @@ class Phenotype (pyxb.binding.basis.complexTypeDefinition):
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
     _Abstract = False
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, u'Phenotype')
-    _XSDLocation = pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 105, 8)
+    _XSDLocation = pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 140, 8)
     _ElementMap = {}
     _AttributeMap = {}
     # Base type is pyxb.binding.datatypes.anyType
     
     # Element phenotype_ontology_id uses Python identifier phenotype_ontology_id
-    __phenotype_ontology_id = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'phenotype_ontology_id'), 'phenotype_ontology_id', '__httpwww_example_orgphisSchema_Phenotype_phenotype_ontology_id', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 107, 13), )
+    __phenotype_ontology_id = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'phenotype_ontology_id'), 'phenotype_ontology_id', '__httpwww_example_orgphisSchema_Phenotype_phenotype_ontology_id', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 142, 13), )
 
     
     phenotype_ontology_id = property(__phenotype_ontology_id.value, __phenotype_ontology_id.set, None, None)
 
     
     # Element phenotype_freetext uses Python identifier phenotype_freetext
-    __phenotype_freetext = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'phenotype_freetext'), 'phenotype_freetext', '__httpwww_example_orgphisSchema_Phenotype_phenotype_freetext', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 108, 13), )
+    __phenotype_freetext = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'phenotype_freetext'), 'phenotype_freetext', '__httpwww_example_orgphisSchema_Phenotype_phenotype_freetext', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 143, 13), )
 
     
     phenotype_freetext = property(__phenotype_freetext.value, __phenotype_freetext.set, None, None)
 
     
     # Element phenotype_ontology_term uses Python identifier phenotype_ontology_term
-    __phenotype_ontology_term = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'phenotype_ontology_term'), 'phenotype_ontology_term', '__httpwww_example_orgphisSchema_Phenotype_phenotype_ontology_term', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 109, 13), )
+    __phenotype_ontology_term = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'phenotype_ontology_term'), 'phenotype_ontology_term', '__httpwww_example_orgphisSchema_Phenotype_phenotype_ontology_term', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 144, 13), )
 
     
     phenotype_ontology_term = property(__phenotype_ontology_term.value, __phenotype_ontology_term.set, None, None)
@@ -556,6 +720,33 @@ class Phenotype (pyxb.binding.basis.complexTypeDefinition):
 Namespace.addCategoryObject('typeBinding', u'Phenotype', Phenotype)
 
 
+# Complex type {http://www.example.org/phisSchema}PhenotypeArray with content type ELEMENT_ONLY
+class PhenotypeArray (pyxb.binding.basis.complexTypeDefinition):
+    """Complex type {http://www.example.org/phisSchema}PhenotypeArray with content type ELEMENT_ONLY"""
+    _TypeDefinition = None
+    _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
+    _Abstract = False
+    _ExpandedName = pyxb.namespace.ExpandedName(Namespace, u'PhenotypeArray')
+    _XSDLocation = pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 148, 8)
+    _ElementMap = {}
+    _AttributeMap = {}
+    # Base type is pyxb.binding.datatypes.anyType
+    
+    # Element el uses Python identifier el
+    __el = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'el'), 'el', '__httpwww_example_orgphisSchema_PhenotypeArray_el', True, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 150, 13), )
+
+    
+    el = property(__el.value, __el.set, None, None)
+
+    _ElementMap.update({
+        __el.name() : __el
+    })
+    _AttributeMap.update({
+        
+    })
+Namespace.addCategoryObject('typeBinding', u'PhenotypeArray', PhenotypeArray)
+
+
 # Complex type {http://www.example.org/phisSchema}Anatomy with content type ELEMENT_ONLY
 class Anatomy (pyxb.binding.basis.complexTypeDefinition):
     """Complex type {http://www.example.org/phisSchema}Anatomy with content type ELEMENT_ONLY"""
@@ -563,27 +754,27 @@ class Anatomy (pyxb.binding.basis.complexTypeDefinition):
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
     _Abstract = False
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, u'Anatomy')
-    _XSDLocation = pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 113, 8)
+    _XSDLocation = pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 155, 8)
     _ElementMap = {}
     _AttributeMap = {}
     # Base type is pyxb.binding.datatypes.anyType
     
     # Element anatomy_ontology_id uses Python identifier anatomy_ontology_id
-    __anatomy_ontology_id = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'anatomy_ontology_id'), 'anatomy_ontology_id', '__httpwww_example_orgphisSchema_Anatomy_anatomy_ontology_id', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 115, 13), )
+    __anatomy_ontology_id = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'anatomy_ontology_id'), 'anatomy_ontology_id', '__httpwww_example_orgphisSchema_Anatomy_anatomy_ontology_id', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 157, 13), )
 
     
     anatomy_ontology_id = property(__anatomy_ontology_id.value, __anatomy_ontology_id.set, None, None)
 
     
     # Element anatomy_ontology_term uses Python identifier anatomy_ontology_term
-    __anatomy_ontology_term = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'anatomy_ontology_term'), 'anatomy_ontology_term', '__httpwww_example_orgphisSchema_Anatomy_anatomy_ontology_term', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 116, 13), )
+    __anatomy_ontology_term = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'anatomy_ontology_term'), 'anatomy_ontology_term', '__httpwww_example_orgphisSchema_Anatomy_anatomy_ontology_term', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 158, 13), )
 
     
     anatomy_ontology_term = property(__anatomy_ontology_term.value, __anatomy_ontology_term.set, None, None)
 
     
     # Element anatomy_freetext uses Python identifier anatomy_freetext
-    __anatomy_freetext = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'anatomy_freetext'), 'anatomy_freetext', '__httpwww_example_orgphisSchema_Anatomy_anatomy_freetext', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 117, 13), )
+    __anatomy_freetext = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'anatomy_freetext'), 'anatomy_freetext', '__httpwww_example_orgphisSchema_Anatomy_anatomy_freetext', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 159, 13), )
 
     
     anatomy_freetext = property(__anatomy_freetext.value, __anatomy_freetext.set, None, None)
@@ -599,6 +790,33 @@ class Anatomy (pyxb.binding.basis.complexTypeDefinition):
 Namespace.addCategoryObject('typeBinding', u'Anatomy', Anatomy)
 
 
+# Complex type {http://www.example.org/phisSchema}AnatomyArray with content type ELEMENT_ONLY
+class AnatomyArray (pyxb.binding.basis.complexTypeDefinition):
+    """Complex type {http://www.example.org/phisSchema}AnatomyArray with content type ELEMENT_ONLY"""
+    _TypeDefinition = None
+    _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
+    _Abstract = False
+    _ExpandedName = pyxb.namespace.ExpandedName(Namespace, u'AnatomyArray')
+    _XSDLocation = pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 163, 8)
+    _ElementMap = {}
+    _AttributeMap = {}
+    # Base type is pyxb.binding.datatypes.anyType
+    
+    # Element el uses Python identifier el
+    __el = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'el'), 'el', '__httpwww_example_orgphisSchema_AnatomyArray_el', True, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 165, 13), )
+
+    
+    el = property(__el.value, __el.set, None, None)
+
+    _ElementMap.update({
+        __el.name() : __el
+    })
+    _AttributeMap.update({
+        
+    })
+Namespace.addCategoryObject('typeBinding', u'AnatomyArray', AnatomyArray)
+
+
 # Complex type {http://www.example.org/phisSchema}GeneticTrait with content type ELEMENT_ONLY
 class GeneticTrait (pyxb.binding.basis.complexTypeDefinition):
     """Complex type {http://www.example.org/phisSchema}GeneticTrait with content type ELEMENT_ONLY"""
@@ -606,55 +824,55 @@ class GeneticTrait (pyxb.binding.basis.complexTypeDefinition):
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
     _Abstract = False
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, u'GeneticTrait')
-    _XSDLocation = pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 121, 8)
+    _XSDLocation = pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 169, 8)
     _ElementMap = {}
     _AttributeMap = {}
     # Base type is pyxb.binding.datatypes.anyType
     
     # Element gene_id uses Python identifier gene_id
-    __gene_id = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'gene_id'), 'gene_id', '__httpwww_example_orgphisSchema_GeneticTrait_gene_id', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 123, 13), )
+    __gene_id = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'gene_id'), 'gene_id', '__httpwww_example_orgphisSchema_GeneticTrait_gene_id', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 171, 13), )
 
     
     gene_id = property(__gene_id.value, __gene_id.set, None, None)
 
     
     # Element gene_symbol uses Python identifier gene_symbol
-    __gene_symbol = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'gene_symbol'), 'gene_symbol', '__httpwww_example_orgphisSchema_GeneticTrait_gene_symbol', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 124, 13), )
+    __gene_symbol = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'gene_symbol'), 'gene_symbol', '__httpwww_example_orgphisSchema_GeneticTrait_gene_symbol', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 172, 13), )
 
     
     gene_symbol = property(__gene_symbol.value, __gene_symbol.set, None, None)
 
     
     # Element genetic_feature_id uses Python identifier genetic_feature_id
-    __genetic_feature_id = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'genetic_feature_id'), 'genetic_feature_id', '__httpwww_example_orgphisSchema_GeneticTrait_genetic_feature_id', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 125, 19), )
+    __genetic_feature_id = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'genetic_feature_id'), 'genetic_feature_id', '__httpwww_example_orgphisSchema_GeneticTrait_genetic_feature_id', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 173, 19), )
 
     
     genetic_feature_id = property(__genetic_feature_id.value, __genetic_feature_id.set, None, None)
 
     
     # Element genetic_feature_name uses Python identifier genetic_feature_name
-    __genetic_feature_name = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'genetic_feature_name'), 'genetic_feature_name', '__httpwww_example_orgphisSchema_GeneticTrait_genetic_feature_name', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 126, 19), )
+    __genetic_feature_name = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'genetic_feature_name'), 'genetic_feature_name', '__httpwww_example_orgphisSchema_GeneticTrait_genetic_feature_name', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 174, 19), )
 
     
     genetic_feature_name = property(__genetic_feature_name.value, __genetic_feature_name.set, None, None)
 
     
     # Element genetic_feature_ensembl_id uses Python identifier genetic_feature_ensembl_id
-    __genetic_feature_ensembl_id = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'genetic_feature_ensembl_id'), 'genetic_feature_ensembl_id', '__httpwww_example_orgphisSchema_GeneticTrait_genetic_feature_ensembl_id', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 127, 19), )
+    __genetic_feature_ensembl_id = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'genetic_feature_ensembl_id'), 'genetic_feature_ensembl_id', '__httpwww_example_orgphisSchema_GeneticTrait_genetic_feature_ensembl_id', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 175, 19), )
 
     
     genetic_feature_ensembl_id = property(__genetic_feature_ensembl_id.value, __genetic_feature_ensembl_id.set, None, None)
 
     
     # Element genomic_location uses Python identifier genomic_location
-    __genomic_location = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'genomic_location'), 'genomic_location', '__httpwww_example_orgphisSchema_GeneticTrait_genomic_location', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 128, 19), )
+    __genomic_location = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'genomic_location'), 'genomic_location', '__httpwww_example_orgphisSchema_GeneticTrait_genomic_location', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 176, 19), )
 
     
     genomic_location = property(__genomic_location.value, __genomic_location.set, None, None)
 
     
     # Element zygosity uses Python identifier zygosity
-    __zygosity = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'zygosity'), 'zygosity', '__httpwww_example_orgphisSchema_GeneticTrait_zygosity', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 129, 13), )
+    __zygosity = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'zygosity'), 'zygosity', '__httpwww_example_orgphisSchema_GeneticTrait_zygosity', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 177, 13), )
 
     
     zygosity = property(__zygosity.value, __zygosity.set, None, None)
@@ -681,13 +899,13 @@ class GeneticTraitArray (pyxb.binding.basis.complexTypeDefinition):
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
     _Abstract = False
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, u'GeneticTraitArray')
-    _XSDLocation = pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 133, 8)
+    _XSDLocation = pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 181, 8)
     _ElementMap = {}
     _AttributeMap = {}
     # Base type is pyxb.binding.datatypes.anyType
     
     # Element el uses Python identifier el
-    __el = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'el'), 'el', '__httpwww_example_orgphisSchema_GeneticTraitArray_el', True, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 135, 13), )
+    __el = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'el'), 'el', '__httpwww_example_orgphisSchema_GeneticTraitArray_el', True, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 183, 13), )
 
     
     el = property(__el.value, __el.set, None, None)
@@ -708,69 +926,69 @@ class Image (pyxb.binding.basis.complexTypeDefinition):
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
     _Abstract = False
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, u'Image')
-    _XSDLocation = pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 141, 10)
+    _XSDLocation = pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 189, 10)
     _ElementMap = {}
     _AttributeMap = {}
     # Base type is pyxb.binding.datatypes.anyType
     
     # Element id uses Python identifier id
-    __id = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'id'), 'id', '__httpwww_example_orgphisSchema_Image_id', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 143, 13), )
+    __id = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'id'), 'id', '__httpwww_example_orgphisSchema_Image_id', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 191, 13), )
 
     
     id = property(__id.value, __id.set, None, None)
 
     
     # Element organism uses Python identifier organism
-    __organism = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'organism'), 'organism', '__httpwww_example_orgphisSchema_Image_organism', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 144, 13), )
+    __organism = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'organism'), 'organism', '__httpwww_example_orgphisSchema_Image_organism', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 192, 13), )
 
     
     organism = property(__organism.value, __organism.set, None, None)
 
     
     # Element image_description uses Python identifier image_description
-    __image_description = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'image_description'), 'image_description', '__httpwww_example_orgphisSchema_Image_image_description', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 145, 13), )
+    __image_description = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'image_description'), 'image_description', '__httpwww_example_orgphisSchema_Image_image_description', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 193, 13), )
 
     
     image_description = property(__image_description.value, __image_description.set, None, None)
 
     
     # Element mutant_genotype_traits uses Python identifier mutant_genotype_traits
-    __mutant_genotype_traits = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'mutant_genotype_traits'), 'mutant_genotype_traits', '__httpwww_example_orgphisSchema_Image_mutant_genotype_traits', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 146, 13), )
+    __mutant_genotype_traits = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'mutant_genotype_traits'), 'mutant_genotype_traits', '__httpwww_example_orgphisSchema_Image_mutant_genotype_traits', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 194, 13), )
 
     
     mutant_genotype_traits = property(__mutant_genotype_traits.value, __mutant_genotype_traits.set, None, None)
 
     
     # Element conditions uses Python identifier conditions
-    __conditions = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'conditions'), 'conditions', '__httpwww_example_orgphisSchema_Image_conditions', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 148, 13), )
+    __conditions = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'conditions'), 'conditions', '__httpwww_example_orgphisSchema_Image_conditions', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 196, 13), )
 
     
     conditions = property(__conditions.value, __conditions.set, None, None)
 
     
     # Element observations uses Python identifier observations
-    __observations = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'observations'), 'observations', '__httpwww_example_orgphisSchema_Image_observations', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 149, 13), )
+    __observations = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'observations'), 'observations', '__httpwww_example_orgphisSchema_Image_observations', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 197, 13), )
 
     
     observations = property(__observations.value, __observations.set, None, None)
 
     
     # Element associated_roi uses Python identifier associated_roi
-    __associated_roi = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'associated_roi'), 'associated_roi', '__httpwww_example_orgphisSchema_Image_associated_roi', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 150, 13), )
+    __associated_roi = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'associated_roi'), 'associated_roi', '__httpwww_example_orgphisSchema_Image_associated_roi', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 198, 13), )
 
     
     associated_roi = property(__associated_roi.value, __associated_roi.set, None, None)
 
     
     # Element associated_channel uses Python identifier associated_channel
-    __associated_channel = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'associated_channel'), 'associated_channel', '__httpwww_example_orgphisSchema_Image_associated_channel', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 151, 14), )
+    __associated_channel = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'associated_channel'), 'associated_channel', '__httpwww_example_orgphisSchema_Image_associated_channel', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 199, 14), )
 
     
     associated_channel = property(__associated_channel.value, __associated_channel.set, None, None)
 
     
     # Element depicted_anatomical_structure uses Python identifier depicted_anatomical_structure
-    __depicted_anatomical_structure = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'depicted_anatomical_structure'), 'depicted_anatomical_structure', '__httpwww_example_orgphisSchema_Image_depicted_anatomical_structure', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 152, 13), )
+    __depicted_anatomical_structure = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'depicted_anatomical_structure'), 'depicted_anatomical_structure', '__httpwww_example_orgphisSchema_Image_depicted_anatomical_structure', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 200, 13), )
 
     
     depicted_anatomical_structure = property(__depicted_anatomical_structure.value, __depicted_anatomical_structure.set, None, None)
@@ -799,34 +1017,34 @@ class Channel (pyxb.binding.basis.complexTypeDefinition):
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
     _Abstract = False
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, u'Channel')
-    _XSDLocation = pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 158, 9)
+    _XSDLocation = pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 206, 9)
     _ElementMap = {}
     _AttributeMap = {}
     # Base type is pyxb.binding.datatypes.anyType
     
     # Element id uses Python identifier id
-    __id = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'id'), 'id', '__httpwww_example_orgphisSchema_Channel_id', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 160, 13), )
+    __id = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'id'), 'id', '__httpwww_example_orgphisSchema_Channel_id', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 208, 13), )
 
     
     id = property(__id.value, __id.set, None, None)
 
     
     # Element associated_image uses Python identifier associated_image
-    __associated_image = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'associated_image'), 'associated_image', '__httpwww_example_orgphisSchema_Channel_associated_image', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 161, 13), )
+    __associated_image = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'associated_image'), 'associated_image', '__httpwww_example_orgphisSchema_Channel_associated_image', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 209, 13), )
 
     
     associated_image = property(__associated_image.value, __associated_image.set, None, None)
 
     
     # Element associated_roi uses Python identifier associated_roi
-    __associated_roi = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'associated_roi'), 'associated_roi', '__httpwww_example_orgphisSchema_Channel_associated_roi', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 162, 13), )
+    __associated_roi = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'associated_roi'), 'associated_roi', '__httpwww_example_orgphisSchema_Channel_associated_roi', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 210, 13), )
 
     
     associated_roi = property(__associated_roi.value, __associated_roi.set, None, None)
 
     
     # Element expressed_genotype_trait uses Python identifier expressed_genotype_trait
-    __expressed_genotype_trait = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'expressed_genotype_trait'), 'expressed_genotype_trait', '__httpwww_example_orgphisSchema_Channel_expressed_genotype_trait', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 163, 11), )
+    __expressed_genotype_trait = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'expressed_genotype_trait'), 'expressed_genotype_trait', '__httpwww_example_orgphisSchema_Channel_expressed_genotype_trait', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 211, 11), )
 
     
     expressed_genotype_trait = property(__expressed_genotype_trait.value, __expressed_genotype_trait.set, None, None)
@@ -850,76 +1068,69 @@ class Roi (pyxb.binding.basis.complexTypeDefinition):
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
     _Abstract = False
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, u'Roi')
-    _XSDLocation = pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 169, 9)
+    _XSDLocation = pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 217, 9)
     _ElementMap = {}
     _AttributeMap = {}
     # Base type is pyxb.binding.datatypes.anyType
     
     # Element id uses Python identifier id
-    __id = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'id'), 'id', '__httpwww_example_orgphisSchema_Roi_id', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 171, 13), )
+    __id = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'id'), 'id', '__httpwww_example_orgphisSchema_Roi_id', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 219, 13), )
 
     
     id = property(__id.value, __id.set, None, None)
 
     
     # Element associated_immage uses Python identifier associated_immage
-    __associated_immage = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'associated_immage'), 'associated_immage', '__httpwww_example_orgphisSchema_Roi_associated_immage', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 172, 13), )
+    __associated_immage = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'associated_immage'), 'associated_immage', '__httpwww_example_orgphisSchema_Roi_associated_immage', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 220, 13), )
 
     
     associated_immage = property(__associated_immage.value, __associated_immage.set, None, None)
 
     
     # Element associated_channel uses Python identifier associated_channel
-    __associated_channel = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'associated_channel'), 'associated_channel', '__httpwww_example_orgphisSchema_Roi_associated_channel', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 173, 13), )
+    __associated_channel = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'associated_channel'), 'associated_channel', '__httpwww_example_orgphisSchema_Roi_associated_channel', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 221, 13), )
 
     
     associated_channel = property(__associated_channel.value, __associated_channel.set, None, None)
 
     
-    # Element x_coordinates uses Python identifier x_coordinates
-    __x_coordinates = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'x_coordinates'), 'x_coordinates', '__httpwww_example_orgphisSchema_Roi_x_coordinates', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 175, 13), )
+    # Element coordinates uses Python identifier coordinates
+    __coordinates = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'coordinates'), 'coordinates', '__httpwww_example_orgphisSchema_Roi_coordinates', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 223, 13), )
 
     
-    x_coordinates = property(__x_coordinates.value, __x_coordinates.set, None, None)
-
-    
-    # Element y_coordinates uses Python identifier y_coordinates
-    __y_coordinates = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'y_coordinates'), 'y_coordinates', '__httpwww_example_orgphisSchema_Roi_y_coordinates', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 176, 13), )
-
-    
-    y_coordinates = property(__y_coordinates.value, __y_coordinates.set, None, None)
-
-    
-    # Element z_coordinates uses Python identifier z_coordinates
-    __z_coordinates = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'z_coordinates'), 'z_coordinates', '__httpwww_example_orgphisSchema_Roi_z_coordinates', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 177, 13), )
-
-    
-    z_coordinates = property(__z_coordinates.value, __z_coordinates.set, None, None)
+    coordinates = property(__coordinates.value, __coordinates.set, None, None)
 
     
     # Element anatomy_expression_annotations uses Python identifier anatomy_expression_annotations
-    __anatomy_expression_annotations = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'anatomy_expression_annotations'), 'anatomy_expression_annotations', '__httpwww_example_orgphisSchema_Roi_anatomy_expression_annotations', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 179, 13), )
+    __anatomy_expression_annotations = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'anatomy_expression_annotations'), 'anatomy_expression_annotations', '__httpwww_example_orgphisSchema_Roi_anatomy_expression_annotations', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 225, 13), )
 
     
     anatomy_expression_annotations = property(__anatomy_expression_annotations.value, __anatomy_expression_annotations.set, None, None)
 
     
     # Element anatomical_part_with_phenotype uses Python identifier anatomical_part_with_phenotype
-    __anatomical_part_with_phenotype = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'anatomical_part_with_phenotype'), 'anatomical_part_with_phenotype', '__httpwww_example_orgphisSchema_Roi_anatomical_part_with_phenotype', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 180, 13), )
+    __anatomical_part_with_phenotype = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'anatomical_part_with_phenotype'), 'anatomical_part_with_phenotype', '__httpwww_example_orgphisSchema_Roi_anatomical_part_with_phenotype', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 226, 13), )
 
     
     anatomical_part_with_phenotype = property(__anatomical_part_with_phenotype.value, __anatomical_part_with_phenotype.set, None, None)
 
     
+    # Element anatomical_part_of_interest uses Python identifier anatomical_part_of_interest
+    __anatomical_part_of_interest = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'anatomical_part_of_interest'), 'anatomical_part_of_interest', '__httpwww_example_orgphisSchema_Roi_anatomical_part_of_interest', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 227, 13), )
+
+    
+    anatomical_part_of_interest = property(__anatomical_part_of_interest.value, __anatomical_part_of_interest.set, None, None)
+
+    
     # Element phenotype_annotations uses Python identifier phenotype_annotations
-    __phenotype_annotations = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'phenotype_annotations'), 'phenotype_annotations', '__httpwww_example_orgphisSchema_Roi_phenotype_annotations', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 181, 13), )
+    __phenotype_annotations = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'phenotype_annotations'), 'phenotype_annotations', '__httpwww_example_orgphisSchema_Roi_phenotype_annotations', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 228, 13), )
 
     
     phenotype_annotations = property(__phenotype_annotations.value, __phenotype_annotations.set, None, None)
 
     
     # Element observations uses Python identifier observations
-    __observations = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'observations'), 'observations', '__httpwww_example_orgphisSchema_Roi_observations', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 182, 13), )
+    __observations = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'observations'), 'observations', '__httpwww_example_orgphisSchema_Roi_observations', False, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 229, 13), )
 
     
     observations = property(__observations.value, __observations.set, None, None)
@@ -928,11 +1139,10 @@ class Roi (pyxb.binding.basis.complexTypeDefinition):
         __id.name() : __id,
         __associated_immage.name() : __associated_immage,
         __associated_channel.name() : __associated_channel,
-        __x_coordinates.name() : __x_coordinates,
-        __y_coordinates.name() : __y_coordinates,
-        __z_coordinates.name() : __z_coordinates,
+        __coordinates.name() : __coordinates,
         __anatomy_expression_annotations.name() : __anatomy_expression_annotations,
         __anatomical_part_with_phenotype.name() : __anatomical_part_with_phenotype,
+        __anatomical_part_of_interest.name() : __anatomical_part_of_interest,
         __phenotype_annotations.name() : __phenotype_annotations,
         __observations.name() : __observations
     })
@@ -949,27 +1159,27 @@ class CTD_ANON (pyxb.binding.basis.complexTypeDefinition):
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
     _Abstract = False
     _ExpandedName = None
-    _XSDLocation = pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 189, 10)
+    _XSDLocation = pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 236, 10)
     _ElementMap = {}
     _AttributeMap = {}
     # Base type is pyxb.binding.datatypes.anyType
     
     # Element image uses Python identifier image
-    __image = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'image'), 'image', '__httpwww_example_orgphisSchema_CTD_ANON_image', True, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 191, 14), )
+    __image = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'image'), 'image', '__httpwww_example_orgphisSchema_CTD_ANON_image', True, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 238, 14), )
 
     
     image = property(__image.value, __image.set, None, None)
 
     
     # Element channel uses Python identifier channel
-    __channel = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'channel'), 'channel', '__httpwww_example_orgphisSchema_CTD_ANON_channel', True, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 192, 14), )
+    __channel = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'channel'), 'channel', '__httpwww_example_orgphisSchema_CTD_ANON_channel', True, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 239, 14), )
 
     
     channel = property(__channel.value, __channel.set, None, None)
 
     
     # Element roi uses Python identifier roi
-    __roi = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'roi'), 'roi', '__httpwww_example_orgphisSchema_CTD_ANON_roi', True, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 193, 14), )
+    __roi = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, u'roi'), 'roi', '__httpwww_example_orgphisSchema_CTD_ANON_roi', True, pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 240, 14), )
 
     
     roi = property(__roi.value, __roi.set, None, None)
@@ -985,14 +1195,14 @@ class CTD_ANON (pyxb.binding.basis.complexTypeDefinition):
 
 
 
-Doc = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'Doc'), CTD_ANON, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 188, 9))
+Doc = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, u'Doc'), CTD_ANON, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 235, 9))
 Namespace.addCategoryObject('elementBinding', Doc.name().localName(), Doc)
 
 
 
-Age._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'age_since_birth'), pyxb.binding.datatypes.float, scope=Age, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 27, 10)))
+Age._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'age_since_birth'), pyxb.binding.datatypes.float, scope=Age, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 27, 10)))
 
-Age._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'embryonic_age'), pyxb.binding.datatypes.float, scope=Age, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 28, 10)))
+Age._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'embryonic_age'), pyxb.binding.datatypes.float, scope=Age, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 28, 10)))
 
 def _BuildAutomaton ():
     # Remove this helper function from the namespace after it is invoked
@@ -1003,11 +1213,11 @@ def _BuildAutomaton ():
     counters = set()
     states = []
     final_update = set()
-    symbol = pyxb.binding.content.ElementUse(Age._UseForTag(pyxb.namespace.ExpandedName(None, u'age_since_birth')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 27, 10))
+    symbol = pyxb.binding.content.ElementUse(Age._UseForTag(pyxb.namespace.ExpandedName(None, u'age_since_birth')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 27, 10))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     final_update = set()
-    symbol = pyxb.binding.content.ElementUse(Age._UseForTag(pyxb.namespace.ExpandedName(None, u'embryonic_age')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 28, 10))
+    symbol = pyxb.binding.content.ElementUse(Age._UseForTag(pyxb.namespace.ExpandedName(None, u'embryonic_age')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 28, 10))
     st_1 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_1)
     transitions = []
@@ -1020,7 +1230,7 @@ Age._Automaton = _BuildAutomaton()
 
 
 
-StringArray._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'el'), pyxb.binding.datatypes.string, scope=StringArray, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 34, 13)))
+StringArray._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'el'), pyxb.binding.datatypes.string, scope=StringArray, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 34, 13)))
 
 def _BuildAutomaton_ ():
     # Remove this helper function from the namespace after it is invoked
@@ -1031,7 +1241,7 @@ def _BuildAutomaton_ ():
     counters = set()
     states = []
     final_update = set()
-    symbol = pyxb.binding.content.ElementUse(StringArray._UseForTag(pyxb.namespace.ExpandedName(None, u'el')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 34, 13))
+    symbol = pyxb.binding.content.ElementUse(StringArray._UseForTag(pyxb.namespace.ExpandedName(None, u'el')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 34, 13))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []
@@ -1044,7 +1254,7 @@ StringArray._Automaton = _BuildAutomaton_()
 
 
 
-IntArray._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'el'), pyxb.binding.datatypes.int, scope=IntArray, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 40, 13)))
+IntArray._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'el'), pyxb.binding.datatypes.int, scope=IntArray, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 40, 13)))
 
 def _BuildAutomaton_2 ():
     # Remove this helper function from the namespace after it is invoked
@@ -1055,7 +1265,7 @@ def _BuildAutomaton_2 ():
     counters = set()
     states = []
     final_update = set()
-    symbol = pyxb.binding.content.ElementUse(IntArray._UseForTag(pyxb.namespace.ExpandedName(None, u'el')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 40, 13))
+    symbol = pyxb.binding.content.ElementUse(IntArray._UseForTag(pyxb.namespace.ExpandedName(None, u'el')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 40, 13))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []
@@ -1068,7 +1278,7 @@ IntArray._Automaton = _BuildAutomaton_2()
 
 
 
-ZygArray._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'el'), Zygosity, scope=ZygArray, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 46, 13)))
+FloatArray._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'el'), pyxb.binding.datatypes.float, scope=FloatArray, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 47, 13)))
 
 def _BuildAutomaton_3 ():
     # Remove this helper function from the namespace after it is invoked
@@ -1077,12 +1287,36 @@ def _BuildAutomaton_3 ():
     import pyxb.utils.fac as fac
 
     counters = set()
-    cc_0 = fac.CounterCondition(min=0L, max=None, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 46, 13))
+    states = []
+    final_update = set()
+    symbol = pyxb.binding.content.ElementUse(FloatArray._UseForTag(pyxb.namespace.ExpandedName(None, u'el')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 47, 13))
+    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
+    states.append(st_0)
+    transitions = []
+    transitions.append(fac.Transition(st_0, [
+         ]))
+    st_0._set_transitionSet(transitions)
+    return fac.Automaton(states, counters, False, containing_state=None)
+FloatArray._Automaton = _BuildAutomaton_3()
+
+
+
+
+ZygArray._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'el'), Zygosity, scope=ZygArray, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 54, 13)))
+
+def _BuildAutomaton_4 ():
+    # Remove this helper function from the namespace after it is invoked
+    global _BuildAutomaton_4
+    del _BuildAutomaton_4
+    import pyxb.utils.fac as fac
+
+    counters = set()
+    cc_0 = fac.CounterCondition(min=0L, max=None, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 54, 13))
     counters.add(cc_0)
     states = []
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(ZygArray._UseForTag(pyxb.namespace.ExpandedName(None, u'el')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 46, 13))
+    symbol = pyxb.binding.content.ElementUse(ZygArray._UseForTag(pyxb.namespace.ExpandedName(None, u'el')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 54, 13))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []
@@ -1090,37 +1324,16 @@ def _BuildAutomaton_3 ():
         fac.UpdateInstruction(cc_0, True) ]))
     st_0._set_transitionSet(transitions)
     return fac.Automaton(states, counters, True, containing_state=None)
-ZygArray._Automaton = _BuildAutomaton_3()
+ZygArray._Automaton = _BuildAutomaton_4()
 
 
 
 
-Dimensions._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'image_depth'), pyxb.binding.datatypes.int, scope=Dimensions, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 52, 13)))
+Dimensions._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'image_depth'), pyxb.binding.datatypes.int, scope=Dimensions, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 60, 13)))
 
-Dimensions._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'image_height'), pyxb.binding.datatypes.int, scope=Dimensions, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 53, 13)))
+Dimensions._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'image_height'), pyxb.binding.datatypes.int, scope=Dimensions, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 61, 13)))
 
-Dimensions._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'image_width'), pyxb.binding.datatypes.int, scope=Dimensions, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 54, 13)))
-
-def _BuildAutomaton_5 ():
-    # Remove this helper function from the namespace after it is invoked
-    global _BuildAutomaton_5
-    del _BuildAutomaton_5
-    import pyxb.utils.fac as fac
-
-    counters = set()
-    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 52, 13))
-    counters.add(cc_0)
-    states = []
-    final_update = set()
-    final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(Dimensions._UseForTag(pyxb.namespace.ExpandedName(None, u'image_depth')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 52, 13))
-    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
-    states.append(st_0)
-    transitions = []
-    transitions.append(fac.Transition(st_0, [
-        fac.UpdateInstruction(cc_0, True) ]))
-    st_0._set_transitionSet(transitions)
-    return fac.Automaton(states, counters, True, containing_state=st_0)
+Dimensions._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'image_width'), pyxb.binding.datatypes.int, scope=Dimensions, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 62, 13)))
 
 def _BuildAutomaton_6 ():
     # Remove this helper function from the namespace after it is invoked
@@ -1129,14 +1342,19 @@ def _BuildAutomaton_6 ():
     import pyxb.utils.fac as fac
 
     counters = set()
+    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 60, 13))
+    counters.add(cc_0)
     states = []
     final_update = set()
-    symbol = pyxb.binding.content.ElementUse(Dimensions._UseForTag(pyxb.namespace.ExpandedName(None, u'image_height')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 53, 13))
+    final_update.add(fac.UpdateInstruction(cc_0, False))
+    symbol = pyxb.binding.content.ElementUse(Dimensions._UseForTag(pyxb.namespace.ExpandedName(None, u'image_depth')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 60, 13))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []
+    transitions.append(fac.Transition(st_0, [
+        fac.UpdateInstruction(cc_0, True) ]))
     st_0._set_transitionSet(transitions)
-    return fac.Automaton(states, counters, False, containing_state=st_0)
+    return fac.Automaton(states, counters, True, containing_state=st_0)
 
 def _BuildAutomaton_7 ():
     # Remove this helper function from the namespace after it is invoked
@@ -1147,68 +1365,61 @@ def _BuildAutomaton_7 ():
     counters = set()
     states = []
     final_update = set()
-    symbol = pyxb.binding.content.ElementUse(Dimensions._UseForTag(pyxb.namespace.ExpandedName(None, u'image_width')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 54, 13))
+    symbol = pyxb.binding.content.ElementUse(Dimensions._UseForTag(pyxb.namespace.ExpandedName(None, u'image_height')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 61, 13))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []
     st_0._set_transitionSet(transitions)
     return fac.Automaton(states, counters, False, containing_state=st_0)
 
-def _BuildAutomaton_4 ():
+def _BuildAutomaton_8 ():
     # Remove this helper function from the namespace after it is invoked
-    global _BuildAutomaton_4
-    del _BuildAutomaton_4
+    global _BuildAutomaton_8
+    del _BuildAutomaton_8
     import pyxb.utils.fac as fac
 
     counters = set()
-    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 52, 13))
+    states = []
+    final_update = set()
+    symbol = pyxb.binding.content.ElementUse(Dimensions._UseForTag(pyxb.namespace.ExpandedName(None, u'image_width')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 62, 13))
+    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
+    states.append(st_0)
+    transitions = []
+    st_0._set_transitionSet(transitions)
+    return fac.Automaton(states, counters, False, containing_state=st_0)
+
+def _BuildAutomaton_5 ():
+    # Remove this helper function from the namespace after it is invoked
+    global _BuildAutomaton_5
+    del _BuildAutomaton_5
+    import pyxb.utils.fac as fac
+
+    counters = set()
+    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 60, 13))
     counters.add(cc_0)
     states = []
     sub_automata = []
-    sub_automata.append(_BuildAutomaton_5())
     sub_automata.append(_BuildAutomaton_6())
     sub_automata.append(_BuildAutomaton_7())
+    sub_automata.append(_BuildAutomaton_8())
     final_update = set()
-    symbol = pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 51, 9)
+    symbol = pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 59, 9)
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=True)
     st_0._set_subAutomata(*sub_automata)
     states.append(st_0)
     transitions = []
     st_0._set_transitionSet(transitions)
     return fac.Automaton(states, counters, False, containing_state=None)
-Dimensions._Automaton = _BuildAutomaton_4()
+Dimensions._Automaton = _BuildAutomaton_5()
 
 
 
 
-GenomicLocation._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'start_pos'), pyxb.binding.datatypes.int, scope=GenomicLocation, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 67, 13)))
+Coordinates._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'z_coordinates'), FloatArray, scope=Coordinates, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 68, 13)))
 
-GenomicLocation._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'end_pos'), pyxb.binding.datatypes.int, scope=GenomicLocation, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 68, 13)))
+Coordinates._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'y_coordinates'), FloatArray, scope=Coordinates, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 69, 13)))
 
-GenomicLocation._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'chromosone'), pyxb.binding.datatypes.string, scope=GenomicLocation, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 69, 13)))
-
-GenomicLocation._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'strand'), Strand, scope=GenomicLocation, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 70, 13)))
-
-def _BuildAutomaton_9 ():
-    # Remove this helper function from the namespace after it is invoked
-    global _BuildAutomaton_9
-    del _BuildAutomaton_9
-    import pyxb.utils.fac as fac
-
-    counters = set()
-    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 67, 13))
-    counters.add(cc_0)
-    states = []
-    final_update = set()
-    final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(GenomicLocation._UseForTag(pyxb.namespace.ExpandedName(None, u'start_pos')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 67, 13))
-    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
-    states.append(st_0)
-    transitions = []
-    transitions.append(fac.Transition(st_0, [
-        fac.UpdateInstruction(cc_0, True) ]))
-    st_0._set_transitionSet(transitions)
-    return fac.Automaton(states, counters, True, containing_state=st_0)
+Coordinates._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'x_coordinates'), FloatArray, scope=Coordinates, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 70, 13)))
 
 def _BuildAutomaton_10 ():
     # Remove this helper function from the namespace after it is invoked
@@ -1217,12 +1428,12 @@ def _BuildAutomaton_10 ():
     import pyxb.utils.fac as fac
 
     counters = set()
-    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 68, 13))
+    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 68, 13))
     counters.add(cc_0)
     states = []
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(GenomicLocation._UseForTag(pyxb.namespace.ExpandedName(None, u'end_pos')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 68, 13))
+    symbol = pyxb.binding.content.ElementUse(Coordinates._UseForTag(pyxb.namespace.ExpandedName(None, u'z_coordinates')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 68, 13))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []
@@ -1238,19 +1449,14 @@ def _BuildAutomaton_11 ():
     import pyxb.utils.fac as fac
 
     counters = set()
-    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 69, 13))
-    counters.add(cc_0)
     states = []
     final_update = set()
-    final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(GenomicLocation._UseForTag(pyxb.namespace.ExpandedName(None, u'chromosone')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 69, 13))
+    symbol = pyxb.binding.content.ElementUse(Coordinates._UseForTag(pyxb.namespace.ExpandedName(None, u'y_coordinates')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 69, 13))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []
-    transitions.append(fac.Transition(st_0, [
-        fac.UpdateInstruction(cc_0, True) ]))
     st_0._set_transitionSet(transitions)
-    return fac.Automaton(states, counters, True, containing_state=st_0)
+    return fac.Automaton(states, counters, False, containing_state=st_0)
 
 def _BuildAutomaton_12 ():
     # Remove this helper function from the namespace after it is invoked
@@ -1259,12 +1465,63 @@ def _BuildAutomaton_12 ():
     import pyxb.utils.fac as fac
 
     counters = set()
-    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 70, 13))
+    states = []
+    final_update = set()
+    symbol = pyxb.binding.content.ElementUse(Coordinates._UseForTag(pyxb.namespace.ExpandedName(None, u'x_coordinates')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 70, 13))
+    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
+    states.append(st_0)
+    transitions = []
+    st_0._set_transitionSet(transitions)
+    return fac.Automaton(states, counters, False, containing_state=st_0)
+
+def _BuildAutomaton_9 ():
+    # Remove this helper function from the namespace after it is invoked
+    global _BuildAutomaton_9
+    del _BuildAutomaton_9
+    import pyxb.utils.fac as fac
+
+    counters = set()
+    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 68, 13))
+    counters.add(cc_0)
+    states = []
+    sub_automata = []
+    sub_automata.append(_BuildAutomaton_10())
+    sub_automata.append(_BuildAutomaton_11())
+    sub_automata.append(_BuildAutomaton_12())
+    final_update = set()
+    symbol = pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 67, 9)
+    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=True)
+    st_0._set_subAutomata(*sub_automata)
+    states.append(st_0)
+    transitions = []
+    st_0._set_transitionSet(transitions)
+    return fac.Automaton(states, counters, False, containing_state=None)
+Coordinates._Automaton = _BuildAutomaton_9()
+
+
+
+
+GenomicLocation._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'start_pos'), pyxb.binding.datatypes.int, scope=GenomicLocation, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 83, 13)))
+
+GenomicLocation._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'end_pos'), pyxb.binding.datatypes.int, scope=GenomicLocation, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 84, 13)))
+
+GenomicLocation._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'chromosone'), pyxb.binding.datatypes.string, scope=GenomicLocation, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 85, 13)))
+
+GenomicLocation._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'strand'), Strand, scope=GenomicLocation, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 86, 13)))
+
+def _BuildAutomaton_14 ():
+    # Remove this helper function from the namespace after it is invoked
+    global _BuildAutomaton_14
+    del _BuildAutomaton_14
+    import pyxb.utils.fac as fac
+
+    counters = set()
+    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 83, 13))
     counters.add(cc_0)
     states = []
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(GenomicLocation._UseForTag(pyxb.namespace.ExpandedName(None, u'strand')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 70, 13))
+    symbol = pyxb.binding.content.ElementUse(GenomicLocation._UseForTag(pyxb.namespace.ExpandedName(None, u'start_pos')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 83, 13))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []
@@ -1273,87 +1530,6 @@ def _BuildAutomaton_12 ():
     st_0._set_transitionSet(transitions)
     return fac.Automaton(states, counters, True, containing_state=st_0)
 
-def _BuildAutomaton_8 ():
-    # Remove this helper function from the namespace after it is invoked
-    global _BuildAutomaton_8
-    del _BuildAutomaton_8
-    import pyxb.utils.fac as fac
-
-    counters = set()
-    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 67, 13))
-    counters.add(cc_0)
-    cc_1 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 68, 13))
-    counters.add(cc_1)
-    cc_2 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 69, 13))
-    counters.add(cc_2)
-    cc_3 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 70, 13))
-    counters.add(cc_3)
-    states = []
-    sub_automata = []
-    sub_automata.append(_BuildAutomaton_9())
-    sub_automata.append(_BuildAutomaton_10())
-    sub_automata.append(_BuildAutomaton_11())
-    sub_automata.append(_BuildAutomaton_12())
-    final_update = set()
-    symbol = pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 66, 9)
-    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=True)
-    st_0._set_subAutomata(*sub_automata)
-    states.append(st_0)
-    transitions = []
-    st_0._set_transitionSet(transitions)
-    return fac.Automaton(states, counters, True, containing_state=None)
-GenomicLocation._Automaton = _BuildAutomaton_8()
-
-
-
-
-GenomicLocationArray._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'el'), GenomicLocation, scope=GenomicLocationArray, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 76, 13)))
-
-def _BuildAutomaton_13 ():
-    # Remove this helper function from the namespace after it is invoked
-    global _BuildAutomaton_13
-    del _BuildAutomaton_13
-    import pyxb.utils.fac as fac
-
-    counters = set()
-    cc_0 = fac.CounterCondition(min=0L, max=None, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 76, 13))
-    counters.add(cc_0)
-    states = []
-    final_update = set()
-    final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(GenomicLocationArray._UseForTag(pyxb.namespace.ExpandedName(None, u'el')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 76, 13))
-    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
-    states.append(st_0)
-    transitions = []
-    transitions.append(fac.Transition(st_0, [
-        fac.UpdateInstruction(cc_0, True) ]))
-    st_0._set_transitionSet(transitions)
-    return fac.Automaton(states, counters, True, containing_state=None)
-GenomicLocationArray._Automaton = _BuildAutomaton_13()
-
-
-
-
-ImageDescription._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'image_url'), pyxb.binding.datatypes.string, scope=ImageDescription, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 82, 13)))
-
-ImageDescription._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'image_context_url'), pyxb.binding.datatypes.string, scope=ImageDescription, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 83, 13)))
-
-ImageDescription._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'image_dimensions'), Dimensions, scope=ImageDescription, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 84, 13)))
-
-ImageDescription._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'machine'), pyxb.binding.datatypes.string, scope=ImageDescription, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 85, 13)))
-
-ImageDescription._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'image_type'), pyxb.binding.datatypes.string, scope=ImageDescription, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 86, 13)))
-
-ImageDescription._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'original_image_id'), pyxb.binding.datatypes.string, scope=ImageDescription, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 87, 13)))
-
-ImageDescription._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'image_generated_by'), pyxb.binding.datatypes.string, scope=ImageDescription, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 88, 13)))
-
-ImageDescription._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'organism_generated_by'), pyxb.binding.datatypes.string, scope=ImageDescription, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 89, 13)))
-
-ImageDescription._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'host_url'), pyxb.binding.datatypes.string, scope=ImageDescription, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 90, 13)))
-
-ImageDescription._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'host_name'), pyxb.binding.datatypes.string, scope=ImageDescription, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 91, 13)))
-
 def _BuildAutomaton_15 ():
     # Remove this helper function from the namespace after it is invoked
     global _BuildAutomaton_15
@@ -1361,14 +1537,19 @@ def _BuildAutomaton_15 ():
     import pyxb.utils.fac as fac
 
     counters = set()
+    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 84, 13))
+    counters.add(cc_0)
     states = []
     final_update = set()
-    symbol = pyxb.binding.content.ElementUse(ImageDescription._UseForTag(pyxb.namespace.ExpandedName(None, u'image_url')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 82, 13))
+    final_update.add(fac.UpdateInstruction(cc_0, False))
+    symbol = pyxb.binding.content.ElementUse(GenomicLocation._UseForTag(pyxb.namespace.ExpandedName(None, u'end_pos')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 84, 13))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []
+    transitions.append(fac.Transition(st_0, [
+        fac.UpdateInstruction(cc_0, True) ]))
     st_0._set_transitionSet(transitions)
-    return fac.Automaton(states, counters, False, containing_state=st_0)
+    return fac.Automaton(states, counters, True, containing_state=st_0)
 
 def _BuildAutomaton_16 ():
     # Remove this helper function from the namespace after it is invoked
@@ -1377,12 +1558,12 @@ def _BuildAutomaton_16 ():
     import pyxb.utils.fac as fac
 
     counters = set()
-    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 83, 13))
+    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 85, 13))
     counters.add(cc_0)
     states = []
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(ImageDescription._UseForTag(pyxb.namespace.ExpandedName(None, u'image_context_url')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 83, 13))
+    symbol = pyxb.binding.content.ElementUse(GenomicLocation._UseForTag(pyxb.namespace.ExpandedName(None, u'chromosone')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 85, 13))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []
@@ -1398,14 +1579,55 @@ def _BuildAutomaton_17 ():
     import pyxb.utils.fac as fac
 
     counters = set()
+    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 86, 13))
+    counters.add(cc_0)
     states = []
     final_update = set()
-    symbol = pyxb.binding.content.ElementUse(ImageDescription._UseForTag(pyxb.namespace.ExpandedName(None, u'image_dimensions')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 84, 13))
+    final_update.add(fac.UpdateInstruction(cc_0, False))
+    symbol = pyxb.binding.content.ElementUse(GenomicLocation._UseForTag(pyxb.namespace.ExpandedName(None, u'strand')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 86, 13))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []
+    transitions.append(fac.Transition(st_0, [
+        fac.UpdateInstruction(cc_0, True) ]))
     st_0._set_transitionSet(transitions)
-    return fac.Automaton(states, counters, False, containing_state=st_0)
+    return fac.Automaton(states, counters, True, containing_state=st_0)
+
+def _BuildAutomaton_13 ():
+    # Remove this helper function from the namespace after it is invoked
+    global _BuildAutomaton_13
+    del _BuildAutomaton_13
+    import pyxb.utils.fac as fac
+
+    counters = set()
+    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 83, 13))
+    counters.add(cc_0)
+    cc_1 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 84, 13))
+    counters.add(cc_1)
+    cc_2 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 85, 13))
+    counters.add(cc_2)
+    cc_3 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 86, 13))
+    counters.add(cc_3)
+    states = []
+    sub_automata = []
+    sub_automata.append(_BuildAutomaton_14())
+    sub_automata.append(_BuildAutomaton_15())
+    sub_automata.append(_BuildAutomaton_16())
+    sub_automata.append(_BuildAutomaton_17())
+    final_update = set()
+    symbol = pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 82, 9)
+    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=True)
+    st_0._set_subAutomata(*sub_automata)
+    states.append(st_0)
+    transitions = []
+    st_0._set_transitionSet(transitions)
+    return fac.Automaton(states, counters, True, containing_state=None)
+GenomicLocation._Automaton = _BuildAutomaton_13()
+
+
+
+
+GenomicLocationArray._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'el'), GenomicLocation, scope=GenomicLocationArray, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 92, 13)))
 
 def _BuildAutomaton_18 ():
     # Remove this helper function from the namespace after it is invoked
@@ -1414,40 +1636,49 @@ def _BuildAutomaton_18 ():
     import pyxb.utils.fac as fac
 
     counters = set()
-    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 85, 13))
+    cc_0 = fac.CounterCondition(min=0L, max=None, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 92, 13))
     counters.add(cc_0)
     states = []
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(ImageDescription._UseForTag(pyxb.namespace.ExpandedName(None, u'machine')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 85, 13))
+    symbol = pyxb.binding.content.ElementUse(GenomicLocationArray._UseForTag(pyxb.namespace.ExpandedName(None, u'el')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 92, 13))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []
     transitions.append(fac.Transition(st_0, [
         fac.UpdateInstruction(cc_0, True) ]))
     st_0._set_transitionSet(transitions)
-    return fac.Automaton(states, counters, True, containing_state=st_0)
+    return fac.Automaton(states, counters, True, containing_state=None)
+GenomicLocationArray._Automaton = _BuildAutomaton_18()
 
-def _BuildAutomaton_19 ():
-    # Remove this helper function from the namespace after it is invoked
-    global _BuildAutomaton_19
-    del _BuildAutomaton_19
-    import pyxb.utils.fac as fac
 
-    counters = set()
-    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 86, 13))
-    counters.add(cc_0)
-    states = []
-    final_update = set()
-    final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(ImageDescription._UseForTag(pyxb.namespace.ExpandedName(None, u'image_type')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 86, 13))
-    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
-    states.append(st_0)
-    transitions = []
-    transitions.append(fac.Transition(st_0, [
-        fac.UpdateInstruction(cc_0, True) ]))
-    st_0._set_transitionSet(transitions)
-    return fac.Automaton(states, counters, True, containing_state=st_0)
+
+
+ImageDescription._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'image_url'), pyxb.binding.datatypes.string, scope=ImageDescription, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 98, 13)))
+
+ImageDescription._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'image_context_url'), pyxb.binding.datatypes.string, scope=ImageDescription, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 99, 13)))
+
+ImageDescription._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'image_dimensions'), Dimensions, scope=ImageDescription, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 100, 13)))
+
+ImageDescription._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'machine'), pyxb.binding.datatypes.string, scope=ImageDescription, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 101, 13)))
+
+ImageDescription._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'image_type'), pyxb.binding.datatypes.string, scope=ImageDescription, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 102, 13)))
+
+ImageDescription._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'original_image_id'), pyxb.binding.datatypes.string, scope=ImageDescription, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 103, 13)))
+
+ImageDescription._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'image_generated_by'), pyxb.binding.datatypes.string, scope=ImageDescription, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 104, 13)))
+
+ImageDescription._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'organism_generated_by'), pyxb.binding.datatypes.string, scope=ImageDescription, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 105, 13)))
+
+ImageDescription._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'host_url'), pyxb.binding.datatypes.string, scope=ImageDescription, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 106, 13)))
+
+ImageDescription._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'host_name'), pyxb.binding.datatypes.string, scope=ImageDescription, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 107, 13)))
+
+ImageDescription._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'imaging_method'), OntologyTermArray, scope=ImageDescription, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 108, 13)))
+
+ImageDescription._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'sample_preparation'), OntologyTermArray, scope=ImageDescription, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 109, 13)))
+
+ImageDescription._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'visualisation_method'), OntologyTermArray, scope=ImageDescription, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 110, 13)))
 
 def _BuildAutomaton_20 ():
     # Remove this helper function from the namespace after it is invoked
@@ -1458,7 +1689,7 @@ def _BuildAutomaton_20 ():
     counters = set()
     states = []
     final_update = set()
-    symbol = pyxb.binding.content.ElementUse(ImageDescription._UseForTag(pyxb.namespace.ExpandedName(None, u'original_image_id')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 87, 13))
+    symbol = pyxb.binding.content.ElementUse(ImageDescription._UseForTag(pyxb.namespace.ExpandedName(None, u'image_url')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 98, 13))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []
@@ -1472,14 +1703,19 @@ def _BuildAutomaton_21 ():
     import pyxb.utils.fac as fac
 
     counters = set()
+    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 99, 13))
+    counters.add(cc_0)
     states = []
     final_update = set()
-    symbol = pyxb.binding.content.ElementUse(ImageDescription._UseForTag(pyxb.namespace.ExpandedName(None, u'image_generated_by')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 88, 13))
+    final_update.add(fac.UpdateInstruction(cc_0, False))
+    symbol = pyxb.binding.content.ElementUse(ImageDescription._UseForTag(pyxb.namespace.ExpandedName(None, u'image_context_url')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 99, 13))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []
+    transitions.append(fac.Transition(st_0, [
+        fac.UpdateInstruction(cc_0, True) ]))
     st_0._set_transitionSet(transitions)
-    return fac.Automaton(states, counters, False, containing_state=st_0)
+    return fac.Automaton(states, counters, True, containing_state=st_0)
 
 def _BuildAutomaton_22 ():
     # Remove this helper function from the namespace after it is invoked
@@ -1490,7 +1726,7 @@ def _BuildAutomaton_22 ():
     counters = set()
     states = []
     final_update = set()
-    symbol = pyxb.binding.content.ElementUse(ImageDescription._UseForTag(pyxb.namespace.ExpandedName(None, u'organism_generated_by')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 89, 13))
+    symbol = pyxb.binding.content.ElementUse(ImageDescription._UseForTag(pyxb.namespace.ExpandedName(None, u'image_dimensions')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 100, 13))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []
@@ -1504,140 +1740,12 @@ def _BuildAutomaton_23 ():
     import pyxb.utils.fac as fac
 
     counters = set()
-    states = []
-    final_update = set()
-    symbol = pyxb.binding.content.ElementUse(ImageDescription._UseForTag(pyxb.namespace.ExpandedName(None, u'host_url')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 90, 13))
-    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
-    states.append(st_0)
-    transitions = []
-    st_0._set_transitionSet(transitions)
-    return fac.Automaton(states, counters, False, containing_state=st_0)
-
-def _BuildAutomaton_24 ():
-    # Remove this helper function from the namespace after it is invoked
-    global _BuildAutomaton_24
-    del _BuildAutomaton_24
-    import pyxb.utils.fac as fac
-
-    counters = set()
-    states = []
-    final_update = set()
-    symbol = pyxb.binding.content.ElementUse(ImageDescription._UseForTag(pyxb.namespace.ExpandedName(None, u'host_name')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 91, 13))
-    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
-    states.append(st_0)
-    transitions = []
-    st_0._set_transitionSet(transitions)
-    return fac.Automaton(states, counters, False, containing_state=st_0)
-
-def _BuildAutomaton_14 ():
-    # Remove this helper function from the namespace after it is invoked
-    global _BuildAutomaton_14
-    del _BuildAutomaton_14
-    import pyxb.utils.fac as fac
-
-    counters = set()
-    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 83, 13))
-    counters.add(cc_0)
-    cc_1 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 85, 13))
-    counters.add(cc_1)
-    cc_2 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 86, 13))
-    counters.add(cc_2)
-    states = []
-    sub_automata = []
-    sub_automata.append(_BuildAutomaton_15())
-    sub_automata.append(_BuildAutomaton_16())
-    sub_automata.append(_BuildAutomaton_17())
-    sub_automata.append(_BuildAutomaton_18())
-    sub_automata.append(_BuildAutomaton_19())
-    sub_automata.append(_BuildAutomaton_20())
-    sub_automata.append(_BuildAutomaton_21())
-    sub_automata.append(_BuildAutomaton_22())
-    sub_automata.append(_BuildAutomaton_23())
-    sub_automata.append(_BuildAutomaton_24())
-    final_update = set()
-    symbol = pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 81, 9)
-    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=True)
-    st_0._set_subAutomata(*sub_automata)
-    states.append(st_0)
-    transitions = []
-    st_0._set_transitionSet(transitions)
-    return fac.Automaton(states, counters, False, containing_state=None)
-ImageDescription._Automaton = _BuildAutomaton_14()
-
-
-
-
-Organism._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'age'), Age, scope=Organism, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 97, 13)))
-
-Organism._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'taxon'), pyxb.binding.datatypes.string, scope=Organism, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 98, 13)))
-
-Organism._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'sex'), Sex, scope=Organism, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 99, 14)))
-
-Organism._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'ncbi_taxon_id'), pyxb.binding.datatypes.string, scope=Organism, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 100, 13)))
-
-Organism._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'stage'), pyxb.binding.datatypes.string, scope=Organism, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 101, 13)))
-
-def _BuildAutomaton_26 ():
-    # Remove this helper function from the namespace after it is invoked
-    global _BuildAutomaton_26
-    del _BuildAutomaton_26
-    import pyxb.utils.fac as fac
-
-    counters = set()
-    states = []
-    final_update = set()
-    symbol = pyxb.binding.content.ElementUse(Organism._UseForTag(pyxb.namespace.ExpandedName(None, u'age')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 97, 13))
-    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
-    states.append(st_0)
-    transitions = []
-    st_0._set_transitionSet(transitions)
-    return fac.Automaton(states, counters, False, containing_state=st_0)
-
-def _BuildAutomaton_27 ():
-    # Remove this helper function from the namespace after it is invoked
-    global _BuildAutomaton_27
-    del _BuildAutomaton_27
-    import pyxb.utils.fac as fac
-
-    counters = set()
-    states = []
-    final_update = set()
-    symbol = pyxb.binding.content.ElementUse(Organism._UseForTag(pyxb.namespace.ExpandedName(None, u'taxon')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 98, 13))
-    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
-    states.append(st_0)
-    transitions = []
-    st_0._set_transitionSet(transitions)
-    return fac.Automaton(states, counters, False, containing_state=st_0)
-
-def _BuildAutomaton_28 ():
-    # Remove this helper function from the namespace after it is invoked
-    global _BuildAutomaton_28
-    del _BuildAutomaton_28
-    import pyxb.utils.fac as fac
-
-    counters = set()
-    states = []
-    final_update = set()
-    symbol = pyxb.binding.content.ElementUse(Organism._UseForTag(pyxb.namespace.ExpandedName(None, u'sex')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 99, 14))
-    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
-    states.append(st_0)
-    transitions = []
-    st_0._set_transitionSet(transitions)
-    return fac.Automaton(states, counters, False, containing_state=st_0)
-
-def _BuildAutomaton_29 ():
-    # Remove this helper function from the namespace after it is invoked
-    global _BuildAutomaton_29
-    del _BuildAutomaton_29
-    import pyxb.utils.fac as fac
-
-    counters = set()
-    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 100, 13))
+    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 101, 13))
     counters.add(cc_0)
     states = []
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(Organism._UseForTag(pyxb.namespace.ExpandedName(None, u'ncbi_taxon_id')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 100, 13))
+    symbol = pyxb.binding.content.ElementUse(ImageDescription._UseForTag(pyxb.namespace.ExpandedName(None, u'machine')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 101, 13))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []
@@ -1646,19 +1754,19 @@ def _BuildAutomaton_29 ():
     st_0._set_transitionSet(transitions)
     return fac.Automaton(states, counters, True, containing_state=st_0)
 
-def _BuildAutomaton_30 ():
+def _BuildAutomaton_24 ():
     # Remove this helper function from the namespace after it is invoked
-    global _BuildAutomaton_30
-    del _BuildAutomaton_30
+    global _BuildAutomaton_24
+    del _BuildAutomaton_24
     import pyxb.utils.fac as fac
 
     counters = set()
-    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 101, 13))
+    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 102, 13))
     counters.add(cc_0)
     states = []
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(Organism._UseForTag(pyxb.namespace.ExpandedName(None, u'stage')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 101, 13))
+    symbol = pyxb.binding.content.ElementUse(ImageDescription._UseForTag(pyxb.namespace.ExpandedName(None, u'image_type')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 102, 13))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []
@@ -1674,91 +1782,92 @@ def _BuildAutomaton_25 ():
     import pyxb.utils.fac as fac
 
     counters = set()
-    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 100, 13))
-    counters.add(cc_0)
-    cc_1 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 101, 13))
-    counters.add(cc_1)
-    states = []
-    sub_automata = []
-    sub_automata.append(_BuildAutomaton_26())
-    sub_automata.append(_BuildAutomaton_27())
-    sub_automata.append(_BuildAutomaton_28())
-    sub_automata.append(_BuildAutomaton_29())
-    sub_automata.append(_BuildAutomaton_30())
-    final_update = set()
-    symbol = pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 96, 9)
-    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=True)
-    st_0._set_subAutomata(*sub_automata)
-    states.append(st_0)
-    transitions = []
-    st_0._set_transitionSet(transitions)
-    return fac.Automaton(states, counters, False, containing_state=None)
-Organism._Automaton = _BuildAutomaton_25()
-
-
-
-
-Phenotype._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'phenotype_ontology_id'), StringArray, scope=Phenotype, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 107, 13)))
-
-Phenotype._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'phenotype_freetext'), StringArray, scope=Phenotype, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 108, 13)))
-
-Phenotype._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'phenotype_ontology_term'), StringArray, scope=Phenotype, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 109, 13)))
-
-def _BuildAutomaton_32 ():
-    # Remove this helper function from the namespace after it is invoked
-    global _BuildAutomaton_32
-    del _BuildAutomaton_32
-    import pyxb.utils.fac as fac
-
-    counters = set()
-    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 107, 13))
-    counters.add(cc_0)
     states = []
     final_update = set()
-    final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(Phenotype._UseForTag(pyxb.namespace.ExpandedName(None, u'phenotype_ontology_id')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 107, 13))
+    symbol = pyxb.binding.content.ElementUse(ImageDescription._UseForTag(pyxb.namespace.ExpandedName(None, u'original_image_id')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 103, 13))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []
-    transitions.append(fac.Transition(st_0, [
-        fac.UpdateInstruction(cc_0, True) ]))
     st_0._set_transitionSet(transitions)
-    return fac.Automaton(states, counters, True, containing_state=st_0)
+    return fac.Automaton(states, counters, False, containing_state=st_0)
 
-def _BuildAutomaton_33 ():
+def _BuildAutomaton_26 ():
     # Remove this helper function from the namespace after it is invoked
-    global _BuildAutomaton_33
-    del _BuildAutomaton_33
+    global _BuildAutomaton_26
+    del _BuildAutomaton_26
     import pyxb.utils.fac as fac
 
     counters = set()
-    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 108, 13))
-    counters.add(cc_0)
     states = []
     final_update = set()
-    final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(Phenotype._UseForTag(pyxb.namespace.ExpandedName(None, u'phenotype_freetext')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 108, 13))
+    symbol = pyxb.binding.content.ElementUse(ImageDescription._UseForTag(pyxb.namespace.ExpandedName(None, u'image_generated_by')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 104, 13))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []
-    transitions.append(fac.Transition(st_0, [
-        fac.UpdateInstruction(cc_0, True) ]))
     st_0._set_transitionSet(transitions)
-    return fac.Automaton(states, counters, True, containing_state=st_0)
+    return fac.Automaton(states, counters, False, containing_state=st_0)
 
-def _BuildAutomaton_34 ():
+def _BuildAutomaton_27 ():
     # Remove this helper function from the namespace after it is invoked
-    global _BuildAutomaton_34
-    del _BuildAutomaton_34
+    global _BuildAutomaton_27
+    del _BuildAutomaton_27
     import pyxb.utils.fac as fac
 
     counters = set()
-    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 109, 13))
+    states = []
+    final_update = set()
+    symbol = pyxb.binding.content.ElementUse(ImageDescription._UseForTag(pyxb.namespace.ExpandedName(None, u'organism_generated_by')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 105, 13))
+    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
+    states.append(st_0)
+    transitions = []
+    st_0._set_transitionSet(transitions)
+    return fac.Automaton(states, counters, False, containing_state=st_0)
+
+def _BuildAutomaton_28 ():
+    # Remove this helper function from the namespace after it is invoked
+    global _BuildAutomaton_28
+    del _BuildAutomaton_28
+    import pyxb.utils.fac as fac
+
+    counters = set()
+    states = []
+    final_update = set()
+    symbol = pyxb.binding.content.ElementUse(ImageDescription._UseForTag(pyxb.namespace.ExpandedName(None, u'host_url')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 106, 13))
+    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
+    states.append(st_0)
+    transitions = []
+    st_0._set_transitionSet(transitions)
+    return fac.Automaton(states, counters, False, containing_state=st_0)
+
+def _BuildAutomaton_29 ():
+    # Remove this helper function from the namespace after it is invoked
+    global _BuildAutomaton_29
+    del _BuildAutomaton_29
+    import pyxb.utils.fac as fac
+
+    counters = set()
+    states = []
+    final_update = set()
+    symbol = pyxb.binding.content.ElementUse(ImageDescription._UseForTag(pyxb.namespace.ExpandedName(None, u'host_name')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 107, 13))
+    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
+    states.append(st_0)
+    transitions = []
+    st_0._set_transitionSet(transitions)
+    return fac.Automaton(states, counters, False, containing_state=st_0)
+
+def _BuildAutomaton_30 ():
+    # Remove this helper function from the namespace after it is invoked
+    global _BuildAutomaton_30
+    del _BuildAutomaton_30
+    import pyxb.utils.fac as fac
+
+    counters = set()
+    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 108, 13))
     counters.add(cc_0)
     states = []
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(Phenotype._UseForTag(pyxb.namespace.ExpandedName(None, u'phenotype_ontology_term')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 109, 13))
+    symbol = pyxb.binding.content.ElementUse(ImageDescription._UseForTag(pyxb.namespace.ExpandedName(None, u'imaging_method')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 108, 13))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []
@@ -1774,49 +1883,12 @@ def _BuildAutomaton_31 ():
     import pyxb.utils.fac as fac
 
     counters = set()
-    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 107, 13))
-    counters.add(cc_0)
-    cc_1 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 108, 13))
-    counters.add(cc_1)
-    cc_2 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 109, 13))
-    counters.add(cc_2)
-    states = []
-    sub_automata = []
-    sub_automata.append(_BuildAutomaton_32())
-    sub_automata.append(_BuildAutomaton_33())
-    sub_automata.append(_BuildAutomaton_34())
-    final_update = set()
-    symbol = pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 106, 9)
-    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=True)
-    st_0._set_subAutomata(*sub_automata)
-    states.append(st_0)
-    transitions = []
-    st_0._set_transitionSet(transitions)
-    return fac.Automaton(states, counters, True, containing_state=None)
-Phenotype._Automaton = _BuildAutomaton_31()
-
-
-
-
-Anatomy._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'anatomy_ontology_id'), StringArray, scope=Anatomy, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 115, 13)))
-
-Anatomy._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'anatomy_ontology_term'), StringArray, scope=Anatomy, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 116, 13)))
-
-Anatomy._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'anatomy_freetext'), StringArray, scope=Anatomy, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 117, 13)))
-
-def _BuildAutomaton_36 ():
-    # Remove this helper function from the namespace after it is invoked
-    global _BuildAutomaton_36
-    del _BuildAutomaton_36
-    import pyxb.utils.fac as fac
-
-    counters = set()
-    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 115, 13))
+    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 109, 13))
     counters.add(cc_0)
     states = []
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(Anatomy._UseForTag(pyxb.namespace.ExpandedName(None, u'anatomy_ontology_id')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 115, 13))
+    symbol = pyxb.binding.content.ElementUse(ImageDescription._UseForTag(pyxb.namespace.ExpandedName(None, u'sample_preparation')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 109, 13))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []
@@ -1825,6 +1897,134 @@ def _BuildAutomaton_36 ():
     st_0._set_transitionSet(transitions)
     return fac.Automaton(states, counters, True, containing_state=st_0)
 
+def _BuildAutomaton_32 ():
+    # Remove this helper function from the namespace after it is invoked
+    global _BuildAutomaton_32
+    del _BuildAutomaton_32
+    import pyxb.utils.fac as fac
+
+    counters = set()
+    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 110, 13))
+    counters.add(cc_0)
+    states = []
+    final_update = set()
+    final_update.add(fac.UpdateInstruction(cc_0, False))
+    symbol = pyxb.binding.content.ElementUse(ImageDescription._UseForTag(pyxb.namespace.ExpandedName(None, u'visualisation_method')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 110, 13))
+    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
+    states.append(st_0)
+    transitions = []
+    transitions.append(fac.Transition(st_0, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    st_0._set_transitionSet(transitions)
+    return fac.Automaton(states, counters, True, containing_state=st_0)
+
+def _BuildAutomaton_19 ():
+    # Remove this helper function from the namespace after it is invoked
+    global _BuildAutomaton_19
+    del _BuildAutomaton_19
+    import pyxb.utils.fac as fac
+
+    counters = set()
+    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 99, 13))
+    counters.add(cc_0)
+    cc_1 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 101, 13))
+    counters.add(cc_1)
+    cc_2 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 102, 13))
+    counters.add(cc_2)
+    cc_3 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 108, 13))
+    counters.add(cc_3)
+    cc_4 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 109, 13))
+    counters.add(cc_4)
+    cc_5 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 110, 13))
+    counters.add(cc_5)
+    states = []
+    sub_automata = []
+    sub_automata.append(_BuildAutomaton_20())
+    sub_automata.append(_BuildAutomaton_21())
+    sub_automata.append(_BuildAutomaton_22())
+    sub_automata.append(_BuildAutomaton_23())
+    sub_automata.append(_BuildAutomaton_24())
+    sub_automata.append(_BuildAutomaton_25())
+    sub_automata.append(_BuildAutomaton_26())
+    sub_automata.append(_BuildAutomaton_27())
+    sub_automata.append(_BuildAutomaton_28())
+    sub_automata.append(_BuildAutomaton_29())
+    sub_automata.append(_BuildAutomaton_30())
+    sub_automata.append(_BuildAutomaton_31())
+    sub_automata.append(_BuildAutomaton_32())
+    final_update = set()
+    symbol = pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 97, 9)
+    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=True)
+    st_0._set_subAutomata(*sub_automata)
+    states.append(st_0)
+    transitions = []
+    st_0._set_transitionSet(transitions)
+    return fac.Automaton(states, counters, False, containing_state=None)
+ImageDescription._Automaton = _BuildAutomaton_19()
+
+
+
+
+Organism._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'age'), Age, scope=Organism, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 116, 13)))
+
+Organism._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'taxon'), pyxb.binding.datatypes.string, scope=Organism, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 117, 13)))
+
+Organism._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'sex'), Sex, scope=Organism, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 118, 14)))
+
+Organism._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'ncbi_taxon_id'), pyxb.binding.datatypes.string, scope=Organism, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 119, 13)))
+
+Organism._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'stage'), pyxb.binding.datatypes.string, scope=Organism, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 120, 13)))
+
+Organism._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'stage_ontology_term'), OntologyTerm, scope=Organism, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 121, 13)))
+
+def _BuildAutomaton_34 ():
+    # Remove this helper function from the namespace after it is invoked
+    global _BuildAutomaton_34
+    del _BuildAutomaton_34
+    import pyxb.utils.fac as fac
+
+    counters = set()
+    states = []
+    final_update = set()
+    symbol = pyxb.binding.content.ElementUse(Organism._UseForTag(pyxb.namespace.ExpandedName(None, u'age')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 116, 13))
+    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
+    states.append(st_0)
+    transitions = []
+    st_0._set_transitionSet(transitions)
+    return fac.Automaton(states, counters, False, containing_state=st_0)
+
+def _BuildAutomaton_35 ():
+    # Remove this helper function from the namespace after it is invoked
+    global _BuildAutomaton_35
+    del _BuildAutomaton_35
+    import pyxb.utils.fac as fac
+
+    counters = set()
+    states = []
+    final_update = set()
+    symbol = pyxb.binding.content.ElementUse(Organism._UseForTag(pyxb.namespace.ExpandedName(None, u'taxon')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 117, 13))
+    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
+    states.append(st_0)
+    transitions = []
+    st_0._set_transitionSet(transitions)
+    return fac.Automaton(states, counters, False, containing_state=st_0)
+
+def _BuildAutomaton_36 ():
+    # Remove this helper function from the namespace after it is invoked
+    global _BuildAutomaton_36
+    del _BuildAutomaton_36
+    import pyxb.utils.fac as fac
+
+    counters = set()
+    states = []
+    final_update = set()
+    symbol = pyxb.binding.content.ElementUse(Organism._UseForTag(pyxb.namespace.ExpandedName(None, u'sex')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 118, 14))
+    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
+    states.append(st_0)
+    transitions = []
+    st_0._set_transitionSet(transitions)
+    return fac.Automaton(states, counters, False, containing_state=st_0)
+
 def _BuildAutomaton_37 ():
     # Remove this helper function from the namespace after it is invoked
     global _BuildAutomaton_37
@@ -1832,12 +2032,12 @@ def _BuildAutomaton_37 ():
     import pyxb.utils.fac as fac
 
     counters = set()
-    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 116, 13))
+    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 119, 13))
     counters.add(cc_0)
     states = []
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(Anatomy._UseForTag(pyxb.namespace.ExpandedName(None, u'anatomy_ontology_term')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 116, 13))
+    symbol = pyxb.binding.content.ElementUse(Organism._UseForTag(pyxb.namespace.ExpandedName(None, u'ncbi_taxon_id')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 119, 13))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []
@@ -1853,204 +2053,12 @@ def _BuildAutomaton_38 ():
     import pyxb.utils.fac as fac
 
     counters = set()
-    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 117, 13))
+    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 120, 13))
     counters.add(cc_0)
     states = []
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(Anatomy._UseForTag(pyxb.namespace.ExpandedName(None, u'anatomy_freetext')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 117, 13))
-    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
-    states.append(st_0)
-    transitions = []
-    transitions.append(fac.Transition(st_0, [
-        fac.UpdateInstruction(cc_0, True) ]))
-    st_0._set_transitionSet(transitions)
-    return fac.Automaton(states, counters, True, containing_state=st_0)
-
-def _BuildAutomaton_35 ():
-    # Remove this helper function from the namespace after it is invoked
-    global _BuildAutomaton_35
-    del _BuildAutomaton_35
-    import pyxb.utils.fac as fac
-
-    counters = set()
-    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 115, 13))
-    counters.add(cc_0)
-    cc_1 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 116, 13))
-    counters.add(cc_1)
-    cc_2 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 117, 13))
-    counters.add(cc_2)
-    states = []
-    sub_automata = []
-    sub_automata.append(_BuildAutomaton_36())
-    sub_automata.append(_BuildAutomaton_37())
-    sub_automata.append(_BuildAutomaton_38())
-    final_update = set()
-    symbol = pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 114, 9)
-    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=True)
-    st_0._set_subAutomata(*sub_automata)
-    states.append(st_0)
-    transitions = []
-    st_0._set_transitionSet(transitions)
-    return fac.Automaton(states, counters, True, containing_state=None)
-Anatomy._Automaton = _BuildAutomaton_35()
-
-
-
-
-GeneticTrait._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'gene_id'), pyxb.binding.datatypes.string, scope=GeneticTrait, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 123, 13)))
-
-GeneticTrait._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'gene_symbol'), pyxb.binding.datatypes.string, scope=GeneticTrait, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 124, 13)))
-
-GeneticTrait._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'genetic_feature_id'), pyxb.binding.datatypes.string, scope=GeneticTrait, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 125, 19)))
-
-GeneticTrait._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'genetic_feature_name'), pyxb.binding.datatypes.string, scope=GeneticTrait, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 126, 19)))
-
-GeneticTrait._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'genetic_feature_ensembl_id'), pyxb.binding.datatypes.string, scope=GeneticTrait, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 127, 19)))
-
-GeneticTrait._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'genomic_location'), GenomicLocation, scope=GeneticTrait, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 128, 19)))
-
-GeneticTrait._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'zygosity'), Zygosity, scope=GeneticTrait, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 129, 13)))
-
-def _BuildAutomaton_40 ():
-    # Remove this helper function from the namespace after it is invoked
-    global _BuildAutomaton_40
-    del _BuildAutomaton_40
-    import pyxb.utils.fac as fac
-
-    counters = set()
-    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 123, 13))
-    counters.add(cc_0)
-    states = []
-    final_update = set()
-    final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(GeneticTrait._UseForTag(pyxb.namespace.ExpandedName(None, u'gene_id')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 123, 13))
-    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
-    states.append(st_0)
-    transitions = []
-    transitions.append(fac.Transition(st_0, [
-        fac.UpdateInstruction(cc_0, True) ]))
-    st_0._set_transitionSet(transitions)
-    return fac.Automaton(states, counters, True, containing_state=st_0)
-
-def _BuildAutomaton_41 ():
-    # Remove this helper function from the namespace after it is invoked
-    global _BuildAutomaton_41
-    del _BuildAutomaton_41
-    import pyxb.utils.fac as fac
-
-    counters = set()
-    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 124, 13))
-    counters.add(cc_0)
-    states = []
-    final_update = set()
-    final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(GeneticTrait._UseForTag(pyxb.namespace.ExpandedName(None, u'gene_symbol')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 124, 13))
-    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
-    states.append(st_0)
-    transitions = []
-    transitions.append(fac.Transition(st_0, [
-        fac.UpdateInstruction(cc_0, True) ]))
-    st_0._set_transitionSet(transitions)
-    return fac.Automaton(states, counters, True, containing_state=st_0)
-
-def _BuildAutomaton_42 ():
-    # Remove this helper function from the namespace after it is invoked
-    global _BuildAutomaton_42
-    del _BuildAutomaton_42
-    import pyxb.utils.fac as fac
-
-    counters = set()
-    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 125, 19))
-    counters.add(cc_0)
-    states = []
-    final_update = set()
-    final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(GeneticTrait._UseForTag(pyxb.namespace.ExpandedName(None, u'genetic_feature_id')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 125, 19))
-    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
-    states.append(st_0)
-    transitions = []
-    transitions.append(fac.Transition(st_0, [
-        fac.UpdateInstruction(cc_0, True) ]))
-    st_0._set_transitionSet(transitions)
-    return fac.Automaton(states, counters, True, containing_state=st_0)
-
-def _BuildAutomaton_43 ():
-    # Remove this helper function from the namespace after it is invoked
-    global _BuildAutomaton_43
-    del _BuildAutomaton_43
-    import pyxb.utils.fac as fac
-
-    counters = set()
-    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 126, 19))
-    counters.add(cc_0)
-    states = []
-    final_update = set()
-    final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(GeneticTrait._UseForTag(pyxb.namespace.ExpandedName(None, u'genetic_feature_name')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 126, 19))
-    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
-    states.append(st_0)
-    transitions = []
-    transitions.append(fac.Transition(st_0, [
-        fac.UpdateInstruction(cc_0, True) ]))
-    st_0._set_transitionSet(transitions)
-    return fac.Automaton(states, counters, True, containing_state=st_0)
-
-def _BuildAutomaton_44 ():
-    # Remove this helper function from the namespace after it is invoked
-    global _BuildAutomaton_44
-    del _BuildAutomaton_44
-    import pyxb.utils.fac as fac
-
-    counters = set()
-    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 127, 19))
-    counters.add(cc_0)
-    states = []
-    final_update = set()
-    final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(GeneticTrait._UseForTag(pyxb.namespace.ExpandedName(None, u'genetic_feature_ensembl_id')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 127, 19))
-    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
-    states.append(st_0)
-    transitions = []
-    transitions.append(fac.Transition(st_0, [
-        fac.UpdateInstruction(cc_0, True) ]))
-    st_0._set_transitionSet(transitions)
-    return fac.Automaton(states, counters, True, containing_state=st_0)
-
-def _BuildAutomaton_45 ():
-    # Remove this helper function from the namespace after it is invoked
-    global _BuildAutomaton_45
-    del _BuildAutomaton_45
-    import pyxb.utils.fac as fac
-
-    counters = set()
-    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 128, 19))
-    counters.add(cc_0)
-    states = []
-    final_update = set()
-    final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(GeneticTrait._UseForTag(pyxb.namespace.ExpandedName(None, u'genomic_location')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 128, 19))
-    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
-    states.append(st_0)
-    transitions = []
-    transitions.append(fac.Transition(st_0, [
-        fac.UpdateInstruction(cc_0, True) ]))
-    st_0._set_transitionSet(transitions)
-    return fac.Automaton(states, counters, True, containing_state=st_0)
-
-def _BuildAutomaton_46 ():
-    # Remove this helper function from the namespace after it is invoked
-    global _BuildAutomaton_46
-    del _BuildAutomaton_46
-    import pyxb.utils.fac as fac
-
-    counters = set()
-    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 129, 13))
-    counters.add(cc_0)
-    states = []
-    final_update = set()
-    final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(GeneticTrait._UseForTag(pyxb.namespace.ExpandedName(None, u'zygosity')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 129, 13))
+    symbol = pyxb.binding.content.ElementUse(Organism._UseForTag(pyxb.namespace.ExpandedName(None, u'stage')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 120, 13))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []
@@ -2066,43 +2074,185 @@ def _BuildAutomaton_39 ():
     import pyxb.utils.fac as fac
 
     counters = set()
-    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 123, 13))
+    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 121, 13))
     counters.add(cc_0)
-    cc_1 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 124, 13))
+    states = []
+    final_update = set()
+    final_update.add(fac.UpdateInstruction(cc_0, False))
+    symbol = pyxb.binding.content.ElementUse(Organism._UseForTag(pyxb.namespace.ExpandedName(None, u'stage_ontology_term')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 121, 13))
+    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
+    states.append(st_0)
+    transitions = []
+    transitions.append(fac.Transition(st_0, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    st_0._set_transitionSet(transitions)
+    return fac.Automaton(states, counters, True, containing_state=st_0)
+
+def _BuildAutomaton_33 ():
+    # Remove this helper function from the namespace after it is invoked
+    global _BuildAutomaton_33
+    del _BuildAutomaton_33
+    import pyxb.utils.fac as fac
+
+    counters = set()
+    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 119, 13))
+    counters.add(cc_0)
+    cc_1 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 120, 13))
     counters.add(cc_1)
-    cc_2 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 125, 19))
+    cc_2 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 121, 13))
     counters.add(cc_2)
-    cc_3 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 126, 19))
-    counters.add(cc_3)
-    cc_4 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 127, 19))
-    counters.add(cc_4)
-    cc_5 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 128, 19))
-    counters.add(cc_5)
-    cc_6 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 129, 13))
-    counters.add(cc_6)
     states = []
     sub_automata = []
-    sub_automata.append(_BuildAutomaton_40())
-    sub_automata.append(_BuildAutomaton_41())
-    sub_automata.append(_BuildAutomaton_42())
-    sub_automata.append(_BuildAutomaton_43())
-    sub_automata.append(_BuildAutomaton_44())
-    sub_automata.append(_BuildAutomaton_45())
-    sub_automata.append(_BuildAutomaton_46())
+    sub_automata.append(_BuildAutomaton_34())
+    sub_automata.append(_BuildAutomaton_35())
+    sub_automata.append(_BuildAutomaton_36())
+    sub_automata.append(_BuildAutomaton_37())
+    sub_automata.append(_BuildAutomaton_38())
+    sub_automata.append(_BuildAutomaton_39())
     final_update = set()
-    symbol = pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 122, 9)
+    symbol = pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 115, 9)
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=True)
     st_0._set_subAutomata(*sub_automata)
     states.append(st_0)
     transitions = []
     st_0._set_transitionSet(transitions)
-    return fac.Automaton(states, counters, True, containing_state=None)
-GeneticTrait._Automaton = _BuildAutomaton_39()
+    return fac.Automaton(states, counters, False, containing_state=None)
+Organism._Automaton = _BuildAutomaton_33()
 
 
 
 
-GeneticTraitArray._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'el'), GeneticTrait, scope=GeneticTraitArray, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 135, 13)))
+OntologyTerm._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'termLabel'), pyxb.binding.datatypes.string, scope=OntologyTerm, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 127, 10)))
+
+OntologyTerm._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'termId'), pyxb.binding.datatypes.string, scope=OntologyTerm, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 128, 10)))
+
+def _BuildAutomaton_41 ():
+    # Remove this helper function from the namespace after it is invoked
+    global _BuildAutomaton_41
+    del _BuildAutomaton_41
+    import pyxb.utils.fac as fac
+
+    counters = set()
+    states = []
+    final_update = set()
+    symbol = pyxb.binding.content.ElementUse(OntologyTerm._UseForTag(pyxb.namespace.ExpandedName(None, u'termLabel')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 127, 10))
+    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
+    states.append(st_0)
+    transitions = []
+    st_0._set_transitionSet(transitions)
+    return fac.Automaton(states, counters, False, containing_state=st_0)
+
+def _BuildAutomaton_42 ():
+    # Remove this helper function from the namespace after it is invoked
+    global _BuildAutomaton_42
+    del _BuildAutomaton_42
+    import pyxb.utils.fac as fac
+
+    counters = set()
+    states = []
+    final_update = set()
+    symbol = pyxb.binding.content.ElementUse(OntologyTerm._UseForTag(pyxb.namespace.ExpandedName(None, u'termId')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 128, 10))
+    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
+    states.append(st_0)
+    transitions = []
+    st_0._set_transitionSet(transitions)
+    return fac.Automaton(states, counters, False, containing_state=st_0)
+
+def _BuildAutomaton_40 ():
+    # Remove this helper function from the namespace after it is invoked
+    global _BuildAutomaton_40
+    del _BuildAutomaton_40
+    import pyxb.utils.fac as fac
+
+    counters = set()
+    states = []
+    sub_automata = []
+    sub_automata.append(_BuildAutomaton_41())
+    sub_automata.append(_BuildAutomaton_42())
+    final_update = set()
+    symbol = pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 126, 9)
+    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=True)
+    st_0._set_subAutomata(*sub_automata)
+    states.append(st_0)
+    transitions = []
+    st_0._set_transitionSet(transitions)
+    return fac.Automaton(states, counters, False, containing_state=None)
+OntologyTerm._Automaton = _BuildAutomaton_40()
+
+
+
+
+OntologyTermArray._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'el'), OntologyTerm, scope=OntologyTermArray, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 135, 13)))
+
+def _BuildAutomaton_43 ():
+    # Remove this helper function from the namespace after it is invoked
+    global _BuildAutomaton_43
+    del _BuildAutomaton_43
+    import pyxb.utils.fac as fac
+
+    counters = set()
+    states = []
+    final_update = set()
+    symbol = pyxb.binding.content.ElementUse(OntologyTermArray._UseForTag(pyxb.namespace.ExpandedName(None, u'el')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 135, 13))
+    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
+    states.append(st_0)
+    transitions = []
+    transitions.append(fac.Transition(st_0, [
+         ]))
+    st_0._set_transitionSet(transitions)
+    return fac.Automaton(states, counters, False, containing_state=None)
+OntologyTermArray._Automaton = _BuildAutomaton_43()
+
+
+
+
+Phenotype._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'phenotype_ontology_id'), pyxb.binding.datatypes.string, scope=Phenotype, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 142, 13)))
+
+Phenotype._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'phenotype_freetext'), pyxb.binding.datatypes.string, scope=Phenotype, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 143, 13)))
+
+Phenotype._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'phenotype_ontology_term'), pyxb.binding.datatypes.string, scope=Phenotype, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 144, 13)))
+
+def _BuildAutomaton_45 ():
+    # Remove this helper function from the namespace after it is invoked
+    global _BuildAutomaton_45
+    del _BuildAutomaton_45
+    import pyxb.utils.fac as fac
+
+    counters = set()
+    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 142, 13))
+    counters.add(cc_0)
+    states = []
+    final_update = set()
+    final_update.add(fac.UpdateInstruction(cc_0, False))
+    symbol = pyxb.binding.content.ElementUse(Phenotype._UseForTag(pyxb.namespace.ExpandedName(None, u'phenotype_ontology_id')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 142, 13))
+    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
+    states.append(st_0)
+    transitions = []
+    transitions.append(fac.Transition(st_0, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    st_0._set_transitionSet(transitions)
+    return fac.Automaton(states, counters, True, containing_state=st_0)
+
+def _BuildAutomaton_46 ():
+    # Remove this helper function from the namespace after it is invoked
+    global _BuildAutomaton_46
+    del _BuildAutomaton_46
+    import pyxb.utils.fac as fac
+
+    counters = set()
+    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 143, 13))
+    counters.add(cc_0)
+    states = []
+    final_update = set()
+    final_update.add(fac.UpdateInstruction(cc_0, False))
+    symbol = pyxb.binding.content.ElementUse(Phenotype._UseForTag(pyxb.namespace.ExpandedName(None, u'phenotype_freetext')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 143, 13))
+    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
+    states.append(st_0)
+    transitions = []
+    transitions.append(fac.Transition(st_0, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    st_0._set_transitionSet(transitions)
+    return fac.Automaton(states, counters, True, containing_state=st_0)
 
 def _BuildAutomaton_47 ():
     # Remove this helper function from the namespace after it is invoked
@@ -2111,9 +2261,63 @@ def _BuildAutomaton_47 ():
     import pyxb.utils.fac as fac
 
     counters = set()
+    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 144, 13))
+    counters.add(cc_0)
     states = []
     final_update = set()
-    symbol = pyxb.binding.content.ElementUse(GeneticTraitArray._UseForTag(pyxb.namespace.ExpandedName(None, u'el')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 135, 13))
+    final_update.add(fac.UpdateInstruction(cc_0, False))
+    symbol = pyxb.binding.content.ElementUse(Phenotype._UseForTag(pyxb.namespace.ExpandedName(None, u'phenotype_ontology_term')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 144, 13))
+    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
+    states.append(st_0)
+    transitions = []
+    transitions.append(fac.Transition(st_0, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    st_0._set_transitionSet(transitions)
+    return fac.Automaton(states, counters, True, containing_state=st_0)
+
+def _BuildAutomaton_44 ():
+    # Remove this helper function from the namespace after it is invoked
+    global _BuildAutomaton_44
+    del _BuildAutomaton_44
+    import pyxb.utils.fac as fac
+
+    counters = set()
+    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 142, 13))
+    counters.add(cc_0)
+    cc_1 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 143, 13))
+    counters.add(cc_1)
+    cc_2 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 144, 13))
+    counters.add(cc_2)
+    states = []
+    sub_automata = []
+    sub_automata.append(_BuildAutomaton_45())
+    sub_automata.append(_BuildAutomaton_46())
+    sub_automata.append(_BuildAutomaton_47())
+    final_update = set()
+    symbol = pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 141, 9)
+    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=True)
+    st_0._set_subAutomata(*sub_automata)
+    states.append(st_0)
+    transitions = []
+    st_0._set_transitionSet(transitions)
+    return fac.Automaton(states, counters, True, containing_state=None)
+Phenotype._Automaton = _BuildAutomaton_44()
+
+
+
+
+PhenotypeArray._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'el'), Phenotype, scope=PhenotypeArray, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 150, 13)))
+
+def _BuildAutomaton_48 ():
+    # Remove this helper function from the namespace after it is invoked
+    global _BuildAutomaton_48
+    del _BuildAutomaton_48
+    import pyxb.utils.fac as fac
+
+    counters = set()
+    states = []
+    final_update = set()
+    symbol = pyxb.binding.content.ElementUse(PhenotypeArray._UseForTag(pyxb.namespace.ExpandedName(None, u'el')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 150, 13))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []
@@ -2121,44 +2325,16 @@ def _BuildAutomaton_47 ():
          ]))
     st_0._set_transitionSet(transitions)
     return fac.Automaton(states, counters, False, containing_state=None)
-GeneticTraitArray._Automaton = _BuildAutomaton_47()
+PhenotypeArray._Automaton = _BuildAutomaton_48()
 
 
 
 
-Image._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'id'), pyxb.binding.datatypes.string, scope=Image, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 143, 13)))
+Anatomy._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'anatomy_ontology_id'), pyxb.binding.datatypes.string, scope=Anatomy, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 157, 13)))
 
-Image._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'organism'), Organism, scope=Image, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 144, 13)))
+Anatomy._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'anatomy_ontology_term'), pyxb.binding.datatypes.string, scope=Anatomy, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 158, 13)))
 
-Image._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'image_description'), ImageDescription, scope=Image, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 145, 13)))
-
-Image._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'mutant_genotype_traits'), GeneticTraitArray, scope=Image, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 146, 13)))
-
-Image._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'conditions'), pyxb.binding.datatypes.string, scope=Image, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 148, 13)))
-
-Image._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'observations'), StringArray, scope=Image, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 149, 13)))
-
-Image._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'associated_roi'), StringArray, scope=Image, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 150, 13)))
-
-Image._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'associated_channel'), StringArray, scope=Image, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 151, 14)))
-
-Image._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'depicted_anatomical_structure'), Anatomy, scope=Image, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 152, 13)))
-
-def _BuildAutomaton_49 ():
-    # Remove this helper function from the namespace after it is invoked
-    global _BuildAutomaton_49
-    del _BuildAutomaton_49
-    import pyxb.utils.fac as fac
-
-    counters = set()
-    states = []
-    final_update = set()
-    symbol = pyxb.binding.content.ElementUse(Image._UseForTag(pyxb.namespace.ExpandedName(None, u'id')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 143, 13))
-    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
-    states.append(st_0)
-    transitions = []
-    st_0._set_transitionSet(transitions)
-    return fac.Automaton(states, counters, False, containing_state=st_0)
+Anatomy._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'anatomy_freetext'), pyxb.binding.datatypes.string, scope=Anatomy, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 159, 13)))
 
 def _BuildAutomaton_50 ():
     # Remove this helper function from the namespace after it is invoked
@@ -2167,14 +2343,19 @@ def _BuildAutomaton_50 ():
     import pyxb.utils.fac as fac
 
     counters = set()
+    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 157, 13))
+    counters.add(cc_0)
     states = []
     final_update = set()
-    symbol = pyxb.binding.content.ElementUse(Image._UseForTag(pyxb.namespace.ExpandedName(None, u'organism')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 144, 13))
+    final_update.add(fac.UpdateInstruction(cc_0, False))
+    symbol = pyxb.binding.content.ElementUse(Anatomy._UseForTag(pyxb.namespace.ExpandedName(None, u'anatomy_ontology_id')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 157, 13))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []
+    transitions.append(fac.Transition(st_0, [
+        fac.UpdateInstruction(cc_0, True) ]))
     st_0._set_transitionSet(transitions)
-    return fac.Automaton(states, counters, False, containing_state=st_0)
+    return fac.Automaton(states, counters, True, containing_state=st_0)
 
 def _BuildAutomaton_51 ():
     # Remove this helper function from the namespace after it is invoked
@@ -2183,14 +2364,19 @@ def _BuildAutomaton_51 ():
     import pyxb.utils.fac as fac
 
     counters = set()
+    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 158, 13))
+    counters.add(cc_0)
     states = []
     final_update = set()
-    symbol = pyxb.binding.content.ElementUse(Image._UseForTag(pyxb.namespace.ExpandedName(None, u'image_description')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 145, 13))
+    final_update.add(fac.UpdateInstruction(cc_0, False))
+    symbol = pyxb.binding.content.ElementUse(Anatomy._UseForTag(pyxb.namespace.ExpandedName(None, u'anatomy_ontology_term')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 158, 13))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []
+    transitions.append(fac.Transition(st_0, [
+        fac.UpdateInstruction(cc_0, True) ]))
     st_0._set_transitionSet(transitions)
-    return fac.Automaton(states, counters, False, containing_state=st_0)
+    return fac.Automaton(states, counters, True, containing_state=st_0)
 
 def _BuildAutomaton_52 ():
     # Remove this helper function from the namespace after it is invoked
@@ -2199,14 +2385,52 @@ def _BuildAutomaton_52 ():
     import pyxb.utils.fac as fac
 
     counters = set()
+    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 159, 13))
+    counters.add(cc_0)
     states = []
     final_update = set()
-    symbol = pyxb.binding.content.ElementUse(Image._UseForTag(pyxb.namespace.ExpandedName(None, u'mutant_genotype_traits')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 146, 13))
+    final_update.add(fac.UpdateInstruction(cc_0, False))
+    symbol = pyxb.binding.content.ElementUse(Anatomy._UseForTag(pyxb.namespace.ExpandedName(None, u'anatomy_freetext')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 159, 13))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []
+    transitions.append(fac.Transition(st_0, [
+        fac.UpdateInstruction(cc_0, True) ]))
     st_0._set_transitionSet(transitions)
-    return fac.Automaton(states, counters, False, containing_state=st_0)
+    return fac.Automaton(states, counters, True, containing_state=st_0)
+
+def _BuildAutomaton_49 ():
+    # Remove this helper function from the namespace after it is invoked
+    global _BuildAutomaton_49
+    del _BuildAutomaton_49
+    import pyxb.utils.fac as fac
+
+    counters = set()
+    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 157, 13))
+    counters.add(cc_0)
+    cc_1 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 158, 13))
+    counters.add(cc_1)
+    cc_2 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 159, 13))
+    counters.add(cc_2)
+    states = []
+    sub_automata = []
+    sub_automata.append(_BuildAutomaton_50())
+    sub_automata.append(_BuildAutomaton_51())
+    sub_automata.append(_BuildAutomaton_52())
+    final_update = set()
+    symbol = pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 156, 9)
+    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=True)
+    st_0._set_subAutomata(*sub_automata)
+    states.append(st_0)
+    transitions = []
+    st_0._set_transitionSet(transitions)
+    return fac.Automaton(states, counters, True, containing_state=None)
+Anatomy._Automaton = _BuildAutomaton_49()
+
+
+
+
+AnatomyArray._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'el'), Anatomy, scope=AnatomyArray, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 165, 13)))
 
 def _BuildAutomaton_53 ():
     # Remove this helper function from the namespace after it is invoked
@@ -2215,40 +2439,34 @@ def _BuildAutomaton_53 ():
     import pyxb.utils.fac as fac
 
     counters = set()
-    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 148, 13))
-    counters.add(cc_0)
     states = []
     final_update = set()
-    final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(Image._UseForTag(pyxb.namespace.ExpandedName(None, u'conditions')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 148, 13))
+    symbol = pyxb.binding.content.ElementUse(AnatomyArray._UseForTag(pyxb.namespace.ExpandedName(None, u'el')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 165, 13))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []
     transitions.append(fac.Transition(st_0, [
-        fac.UpdateInstruction(cc_0, True) ]))
+         ]))
     st_0._set_transitionSet(transitions)
-    return fac.Automaton(states, counters, True, containing_state=st_0)
+    return fac.Automaton(states, counters, False, containing_state=None)
+AnatomyArray._Automaton = _BuildAutomaton_53()
 
-def _BuildAutomaton_54 ():
-    # Remove this helper function from the namespace after it is invoked
-    global _BuildAutomaton_54
-    del _BuildAutomaton_54
-    import pyxb.utils.fac as fac
 
-    counters = set()
-    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 149, 13))
-    counters.add(cc_0)
-    states = []
-    final_update = set()
-    final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(Image._UseForTag(pyxb.namespace.ExpandedName(None, u'observations')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 149, 13))
-    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
-    states.append(st_0)
-    transitions = []
-    transitions.append(fac.Transition(st_0, [
-        fac.UpdateInstruction(cc_0, True) ]))
-    st_0._set_transitionSet(transitions)
-    return fac.Automaton(states, counters, True, containing_state=st_0)
+
+
+GeneticTrait._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'gene_id'), pyxb.binding.datatypes.string, scope=GeneticTrait, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 171, 13)))
+
+GeneticTrait._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'gene_symbol'), pyxb.binding.datatypes.string, scope=GeneticTrait, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 172, 13)))
+
+GeneticTrait._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'genetic_feature_id'), pyxb.binding.datatypes.string, scope=GeneticTrait, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 173, 19)))
+
+GeneticTrait._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'genetic_feature_name'), pyxb.binding.datatypes.string, scope=GeneticTrait, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 174, 19)))
+
+GeneticTrait._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'genetic_feature_ensembl_id'), pyxb.binding.datatypes.string, scope=GeneticTrait, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 175, 19)))
+
+GeneticTrait._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'genomic_location'), GenomicLocation, scope=GeneticTrait, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 176, 19)))
+
+GeneticTrait._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'zygosity'), Zygosity, scope=GeneticTrait, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 177, 13)))
 
 def _BuildAutomaton_55 ():
     # Remove this helper function from the namespace after it is invoked
@@ -2257,12 +2475,12 @@ def _BuildAutomaton_55 ():
     import pyxb.utils.fac as fac
 
     counters = set()
-    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 150, 13))
+    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 171, 13))
     counters.add(cc_0)
     states = []
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(Image._UseForTag(pyxb.namespace.ExpandedName(None, u'associated_roi')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 150, 13))
+    symbol = pyxb.binding.content.ElementUse(GeneticTrait._UseForTag(pyxb.namespace.ExpandedName(None, u'gene_id')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 171, 13))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []
@@ -2278,12 +2496,12 @@ def _BuildAutomaton_56 ():
     import pyxb.utils.fac as fac
 
     counters = set()
-    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 151, 14))
+    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 172, 13))
     counters.add(cc_0)
     states = []
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(Image._UseForTag(pyxb.namespace.ExpandedName(None, u'associated_channel')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 151, 14))
+    symbol = pyxb.binding.content.ElementUse(GeneticTrait._UseForTag(pyxb.namespace.ExpandedName(None, u'gene_symbol')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 172, 13))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []
@@ -2299,12 +2517,12 @@ def _BuildAutomaton_57 ():
     import pyxb.utils.fac as fac
 
     counters = set()
-    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 152, 13))
+    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 173, 19))
     counters.add(cc_0)
     states = []
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(Image._UseForTag(pyxb.namespace.ExpandedName(None, u'depicted_anatomical_structure')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 152, 13))
+    symbol = pyxb.binding.content.ElementUse(GeneticTrait._UseForTag(pyxb.namespace.ExpandedName(None, u'genetic_feature_id')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 173, 19))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []
@@ -2313,54 +2531,26 @@ def _BuildAutomaton_57 ():
     st_0._set_transitionSet(transitions)
     return fac.Automaton(states, counters, True, containing_state=st_0)
 
-def _BuildAutomaton_48 ():
+def _BuildAutomaton_58 ():
     # Remove this helper function from the namespace after it is invoked
-    global _BuildAutomaton_48
-    del _BuildAutomaton_48
+    global _BuildAutomaton_58
+    del _BuildAutomaton_58
     import pyxb.utils.fac as fac
 
     counters = set()
-    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 148, 13))
+    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 174, 19))
     counters.add(cc_0)
-    cc_1 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 149, 13))
-    counters.add(cc_1)
-    cc_2 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 150, 13))
-    counters.add(cc_2)
-    cc_3 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 151, 14))
-    counters.add(cc_3)
-    cc_4 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 152, 13))
-    counters.add(cc_4)
     states = []
-    sub_automata = []
-    sub_automata.append(_BuildAutomaton_49())
-    sub_automata.append(_BuildAutomaton_50())
-    sub_automata.append(_BuildAutomaton_51())
-    sub_automata.append(_BuildAutomaton_52())
-    sub_automata.append(_BuildAutomaton_53())
-    sub_automata.append(_BuildAutomaton_54())
-    sub_automata.append(_BuildAutomaton_55())
-    sub_automata.append(_BuildAutomaton_56())
-    sub_automata.append(_BuildAutomaton_57())
     final_update = set()
-    symbol = pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 142, 11)
-    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=True)
-    st_0._set_subAutomata(*sub_automata)
+    final_update.add(fac.UpdateInstruction(cc_0, False))
+    symbol = pyxb.binding.content.ElementUse(GeneticTrait._UseForTag(pyxb.namespace.ExpandedName(None, u'genetic_feature_name')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 174, 19))
+    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []
+    transitions.append(fac.Transition(st_0, [
+        fac.UpdateInstruction(cc_0, True) ]))
     st_0._set_transitionSet(transitions)
-    return fac.Automaton(states, counters, False, containing_state=None)
-Image._Automaton = _BuildAutomaton_48()
-
-
-
-
-Channel._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'id'), pyxb.binding.datatypes.string, scope=Channel, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 160, 13)))
-
-Channel._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'associated_image'), pyxb.binding.datatypes.string, scope=Channel, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 161, 13)))
-
-Channel._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'associated_roi'), StringArray, scope=Channel, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 162, 13)))
-
-Channel._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'expressed_genotype_trait'), GeneticTraitArray, scope=Channel, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 163, 11)))
+    return fac.Automaton(states, counters, True, containing_state=st_0)
 
 def _BuildAutomaton_59 ():
     # Remove this helper function from the namespace after it is invoked
@@ -2369,14 +2559,19 @@ def _BuildAutomaton_59 ():
     import pyxb.utils.fac as fac
 
     counters = set()
+    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 175, 19))
+    counters.add(cc_0)
     states = []
     final_update = set()
-    symbol = pyxb.binding.content.ElementUse(Channel._UseForTag(pyxb.namespace.ExpandedName(None, u'id')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 160, 13))
+    final_update.add(fac.UpdateInstruction(cc_0, False))
+    symbol = pyxb.binding.content.ElementUse(GeneticTrait._UseForTag(pyxb.namespace.ExpandedName(None, u'genetic_feature_ensembl_id')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 175, 19))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []
+    transitions.append(fac.Transition(st_0, [
+        fac.UpdateInstruction(cc_0, True) ]))
     st_0._set_transitionSet(transitions)
-    return fac.Automaton(states, counters, False, containing_state=st_0)
+    return fac.Automaton(states, counters, True, containing_state=st_0)
 
 def _BuildAutomaton_60 ():
     # Remove this helper function from the namespace after it is invoked
@@ -2385,14 +2580,19 @@ def _BuildAutomaton_60 ():
     import pyxb.utils.fac as fac
 
     counters = set()
+    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 176, 19))
+    counters.add(cc_0)
     states = []
     final_update = set()
-    symbol = pyxb.binding.content.ElementUse(Channel._UseForTag(pyxb.namespace.ExpandedName(None, u'associated_image')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 161, 13))
+    final_update.add(fac.UpdateInstruction(cc_0, False))
+    symbol = pyxb.binding.content.ElementUse(GeneticTrait._UseForTag(pyxb.namespace.ExpandedName(None, u'genomic_location')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 176, 19))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []
+    transitions.append(fac.Transition(st_0, [
+        fac.UpdateInstruction(cc_0, True) ]))
     st_0._set_transitionSet(transitions)
-    return fac.Automaton(states, counters, False, containing_state=st_0)
+    return fac.Automaton(states, counters, True, containing_state=st_0)
 
 def _BuildAutomaton_61 ():
     # Remove this helper function from the namespace after it is invoked
@@ -2401,12 +2601,12 @@ def _BuildAutomaton_61 ():
     import pyxb.utils.fac as fac
 
     counters = set()
-    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 162, 13))
+    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 177, 13))
     counters.add(cc_0)
     states = []
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(Channel._UseForTag(pyxb.namespace.ExpandedName(None, u'associated_roi')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 162, 13))
+    symbol = pyxb.binding.content.ElementUse(GeneticTrait._UseForTag(pyxb.namespace.ExpandedName(None, u'zygosity')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 177, 13))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []
@@ -2414,6 +2614,51 @@ def _BuildAutomaton_61 ():
         fac.UpdateInstruction(cc_0, True) ]))
     st_0._set_transitionSet(transitions)
     return fac.Automaton(states, counters, True, containing_state=st_0)
+
+def _BuildAutomaton_54 ():
+    # Remove this helper function from the namespace after it is invoked
+    global _BuildAutomaton_54
+    del _BuildAutomaton_54
+    import pyxb.utils.fac as fac
+
+    counters = set()
+    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 171, 13))
+    counters.add(cc_0)
+    cc_1 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 172, 13))
+    counters.add(cc_1)
+    cc_2 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 173, 19))
+    counters.add(cc_2)
+    cc_3 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 174, 19))
+    counters.add(cc_3)
+    cc_4 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 175, 19))
+    counters.add(cc_4)
+    cc_5 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 176, 19))
+    counters.add(cc_5)
+    cc_6 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 177, 13))
+    counters.add(cc_6)
+    states = []
+    sub_automata = []
+    sub_automata.append(_BuildAutomaton_55())
+    sub_automata.append(_BuildAutomaton_56())
+    sub_automata.append(_BuildAutomaton_57())
+    sub_automata.append(_BuildAutomaton_58())
+    sub_automata.append(_BuildAutomaton_59())
+    sub_automata.append(_BuildAutomaton_60())
+    sub_automata.append(_BuildAutomaton_61())
+    final_update = set()
+    symbol = pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 170, 9)
+    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=True)
+    st_0._set_subAutomata(*sub_automata)
+    states.append(st_0)
+    transitions = []
+    st_0._set_transitionSet(transitions)
+    return fac.Automaton(states, counters, True, containing_state=None)
+GeneticTrait._Automaton = _BuildAutomaton_54()
+
+
+
+
+GeneticTraitArray._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'el'), GeneticTrait, scope=GeneticTraitArray, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 183, 13)))
 
 def _BuildAutomaton_62 ():
     # Remove this helper function from the namespace after it is invoked
@@ -2424,60 +2669,36 @@ def _BuildAutomaton_62 ():
     counters = set()
     states = []
     final_update = set()
-    symbol = pyxb.binding.content.ElementUse(Channel._UseForTag(pyxb.namespace.ExpandedName(None, u'expressed_genotype_trait')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 163, 11))
+    symbol = pyxb.binding.content.ElementUse(GeneticTraitArray._UseForTag(pyxb.namespace.ExpandedName(None, u'el')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 183, 13))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []
-    st_0._set_transitionSet(transitions)
-    return fac.Automaton(states, counters, False, containing_state=st_0)
-
-def _BuildAutomaton_58 ():
-    # Remove this helper function from the namespace after it is invoked
-    global _BuildAutomaton_58
-    del _BuildAutomaton_58
-    import pyxb.utils.fac as fac
-
-    counters = set()
-    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 162, 13))
-    counters.add(cc_0)
-    states = []
-    sub_automata = []
-    sub_automata.append(_BuildAutomaton_59())
-    sub_automata.append(_BuildAutomaton_60())
-    sub_automata.append(_BuildAutomaton_61())
-    sub_automata.append(_BuildAutomaton_62())
-    final_update = set()
-    symbol = pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 159, 10)
-    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=True)
-    st_0._set_subAutomata(*sub_automata)
-    states.append(st_0)
-    transitions = []
+    transitions.append(fac.Transition(st_0, [
+         ]))
     st_0._set_transitionSet(transitions)
     return fac.Automaton(states, counters, False, containing_state=None)
-Channel._Automaton = _BuildAutomaton_58()
+GeneticTraitArray._Automaton = _BuildAutomaton_62()
 
 
 
 
-Roi._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'id'), pyxb.binding.datatypes.string, scope=Roi, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 171, 13)))
+Image._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'id'), pyxb.binding.datatypes.string, scope=Image, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 191, 13)))
 
-Roi._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'associated_immage'), pyxb.binding.datatypes.string, scope=Roi, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 172, 13)))
+Image._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'organism'), Organism, scope=Image, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 192, 13)))
 
-Roi._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'associated_channel'), StringArray, scope=Roi, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 173, 13)))
+Image._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'image_description'), ImageDescription, scope=Image, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 193, 13)))
 
-Roi._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'x_coordinates'), IntArray, scope=Roi, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 175, 13)))
+Image._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'mutant_genotype_traits'), GeneticTraitArray, scope=Image, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 194, 13)))
 
-Roi._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'y_coordinates'), IntArray, scope=Roi, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 176, 13)))
+Image._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'conditions'), pyxb.binding.datatypes.string, scope=Image, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 196, 13)))
 
-Roi._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'z_coordinates'), IntArray, scope=Roi, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 177, 13)))
+Image._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'observations'), StringArray, scope=Image, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 197, 13)))
 
-Roi._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'anatomy_expression_annotations'), Anatomy, scope=Roi, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 179, 13)))
+Image._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'associated_roi'), StringArray, scope=Image, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 198, 13)))
 
-Roi._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'anatomical_part_with_phenotype'), Anatomy, scope=Roi, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 180, 13)))
+Image._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'associated_channel'), StringArray, scope=Image, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 199, 14)))
 
-Roi._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'phenotype_annotations'), Phenotype, scope=Roi, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 181, 13)))
-
-Roi._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'observations'), StringArray, scope=Roi, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 182, 13)))
+Image._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'depicted_anatomical_structure'), AnatomyArray, scope=Image, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 200, 13)))
 
 def _BuildAutomaton_64 ():
     # Remove this helper function from the namespace after it is invoked
@@ -2488,7 +2709,7 @@ def _BuildAutomaton_64 ():
     counters = set()
     states = []
     final_update = set()
-    symbol = pyxb.binding.content.ElementUse(Roi._UseForTag(pyxb.namespace.ExpandedName(None, u'id')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 171, 13))
+    symbol = pyxb.binding.content.ElementUse(Image._UseForTag(pyxb.namespace.ExpandedName(None, u'id')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 191, 13))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []
@@ -2504,7 +2725,7 @@ def _BuildAutomaton_65 ():
     counters = set()
     states = []
     final_update = set()
-    symbol = pyxb.binding.content.ElementUse(Roi._UseForTag(pyxb.namespace.ExpandedName(None, u'associated_immage')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 172, 13))
+    symbol = pyxb.binding.content.ElementUse(Image._UseForTag(pyxb.namespace.ExpandedName(None, u'organism')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 192, 13))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []
@@ -2518,19 +2739,14 @@ def _BuildAutomaton_66 ():
     import pyxb.utils.fac as fac
 
     counters = set()
-    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 173, 13))
-    counters.add(cc_0)
     states = []
     final_update = set()
-    final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(Roi._UseForTag(pyxb.namespace.ExpandedName(None, u'associated_channel')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 173, 13))
+    symbol = pyxb.binding.content.ElementUse(Image._UseForTag(pyxb.namespace.ExpandedName(None, u'image_description')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 193, 13))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []
-    transitions.append(fac.Transition(st_0, [
-        fac.UpdateInstruction(cc_0, True) ]))
     st_0._set_transitionSet(transitions)
-    return fac.Automaton(states, counters, True, containing_state=st_0)
+    return fac.Automaton(states, counters, False, containing_state=st_0)
 
 def _BuildAutomaton_67 ():
     # Remove this helper function from the namespace after it is invoked
@@ -2541,7 +2757,7 @@ def _BuildAutomaton_67 ():
     counters = set()
     states = []
     final_update = set()
-    symbol = pyxb.binding.content.ElementUse(Roi._UseForTag(pyxb.namespace.ExpandedName(None, u'x_coordinates')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 175, 13))
+    symbol = pyxb.binding.content.ElementUse(Image._UseForTag(pyxb.namespace.ExpandedName(None, u'mutant_genotype_traits')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 194, 13))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []
@@ -2555,14 +2771,19 @@ def _BuildAutomaton_68 ():
     import pyxb.utils.fac as fac
 
     counters = set()
+    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 196, 13))
+    counters.add(cc_0)
     states = []
     final_update = set()
-    symbol = pyxb.binding.content.ElementUse(Roi._UseForTag(pyxb.namespace.ExpandedName(None, u'y_coordinates')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 176, 13))
+    final_update.add(fac.UpdateInstruction(cc_0, False))
+    symbol = pyxb.binding.content.ElementUse(Image._UseForTag(pyxb.namespace.ExpandedName(None, u'conditions')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 196, 13))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []
+    transitions.append(fac.Transition(st_0, [
+        fac.UpdateInstruction(cc_0, True) ]))
     st_0._set_transitionSet(transitions)
-    return fac.Automaton(states, counters, False, containing_state=st_0)
+    return fac.Automaton(states, counters, True, containing_state=st_0)
 
 def _BuildAutomaton_69 ():
     # Remove this helper function from the namespace after it is invoked
@@ -2571,14 +2792,19 @@ def _BuildAutomaton_69 ():
     import pyxb.utils.fac as fac
 
     counters = set()
+    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 197, 13))
+    counters.add(cc_0)
     states = []
     final_update = set()
-    symbol = pyxb.binding.content.ElementUse(Roi._UseForTag(pyxb.namespace.ExpandedName(None, u'z_coordinates')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 177, 13))
+    final_update.add(fac.UpdateInstruction(cc_0, False))
+    symbol = pyxb.binding.content.ElementUse(Image._UseForTag(pyxb.namespace.ExpandedName(None, u'observations')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 197, 13))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []
+    transitions.append(fac.Transition(st_0, [
+        fac.UpdateInstruction(cc_0, True) ]))
     st_0._set_transitionSet(transitions)
-    return fac.Automaton(states, counters, False, containing_state=st_0)
+    return fac.Automaton(states, counters, True, containing_state=st_0)
 
 def _BuildAutomaton_70 ():
     # Remove this helper function from the namespace after it is invoked
@@ -2587,12 +2813,12 @@ def _BuildAutomaton_70 ():
     import pyxb.utils.fac as fac
 
     counters = set()
-    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 179, 13))
+    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 198, 13))
     counters.add(cc_0)
     states = []
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(Roi._UseForTag(pyxb.namespace.ExpandedName(None, u'anatomy_expression_annotations')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 179, 13))
+    symbol = pyxb.binding.content.ElementUse(Image._UseForTag(pyxb.namespace.ExpandedName(None, u'associated_roi')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 198, 13))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []
@@ -2608,12 +2834,12 @@ def _BuildAutomaton_71 ():
     import pyxb.utils.fac as fac
 
     counters = set()
-    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 180, 13))
+    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 199, 14))
     counters.add(cc_0)
     states = []
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(Roi._UseForTag(pyxb.namespace.ExpandedName(None, u'anatomical_part_with_phenotype')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 180, 13))
+    symbol = pyxb.binding.content.ElementUse(Image._UseForTag(pyxb.namespace.ExpandedName(None, u'associated_channel')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 199, 14))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []
@@ -2629,33 +2855,12 @@ def _BuildAutomaton_72 ():
     import pyxb.utils.fac as fac
 
     counters = set()
-    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 181, 13))
+    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 200, 13))
     counters.add(cc_0)
     states = []
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(Roi._UseForTag(pyxb.namespace.ExpandedName(None, u'phenotype_annotations')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 181, 13))
-    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
-    states.append(st_0)
-    transitions = []
-    transitions.append(fac.Transition(st_0, [
-        fac.UpdateInstruction(cc_0, True) ]))
-    st_0._set_transitionSet(transitions)
-    return fac.Automaton(states, counters, True, containing_state=st_0)
-
-def _BuildAutomaton_73 ():
-    # Remove this helper function from the namespace after it is invoked
-    global _BuildAutomaton_73
-    del _BuildAutomaton_73
-    import pyxb.utils.fac as fac
-
-    counters = set()
-    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 182, 13))
-    counters.add(cc_0)
-    states = []
-    final_update = set()
-    final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(Roi._UseForTag(pyxb.namespace.ExpandedName(None, u'observations')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 182, 13))
+    symbol = pyxb.binding.content.ElementUse(Image._UseForTag(pyxb.namespace.ExpandedName(None, u'depicted_anatomical_structure')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 200, 13))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []
@@ -2671,15 +2876,15 @@ def _BuildAutomaton_63 ():
     import pyxb.utils.fac as fac
 
     counters = set()
-    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 173, 13))
+    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 196, 13))
     counters.add(cc_0)
-    cc_1 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 179, 13))
+    cc_1 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 197, 13))
     counters.add(cc_1)
-    cc_2 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 180, 13))
+    cc_2 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 198, 13))
     counters.add(cc_2)
-    cc_3 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 181, 13))
+    cc_3 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 199, 14))
     counters.add(cc_3)
-    cc_4 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 182, 13))
+    cc_4 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 200, 13))
     counters.add(cc_4)
     states = []
     sub_automata = []
@@ -2692,25 +2897,26 @@ def _BuildAutomaton_63 ():
     sub_automata.append(_BuildAutomaton_70())
     sub_automata.append(_BuildAutomaton_71())
     sub_automata.append(_BuildAutomaton_72())
-    sub_automata.append(_BuildAutomaton_73())
     final_update = set()
-    symbol = pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 170, 10)
+    symbol = pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 190, 11)
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=True)
     st_0._set_subAutomata(*sub_automata)
     states.append(st_0)
     transitions = []
     st_0._set_transitionSet(transitions)
     return fac.Automaton(states, counters, False, containing_state=None)
-Roi._Automaton = _BuildAutomaton_63()
+Image._Automaton = _BuildAutomaton_63()
 
 
 
 
-CTD_ANON._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'image'), Image, scope=CTD_ANON, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 191, 14)))
+Channel._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'id'), pyxb.binding.datatypes.string, scope=Channel, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 208, 13)))
 
-CTD_ANON._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'channel'), Channel, scope=CTD_ANON, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 192, 14)))
+Channel._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'associated_image'), pyxb.binding.datatypes.string, scope=Channel, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 209, 13)))
 
-CTD_ANON._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'roi'), Roi, scope=CTD_ANON, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 193, 14)))
+Channel._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'associated_roi'), StringArray, scope=Channel, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 210, 13)))
+
+Channel._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'expressed_genotype_trait'), GeneticTraitArray, scope=Channel, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 211, 11)))
 
 def _BuildAutomaton_74 ():
     # Remove this helper function from the namespace after it is invoked
@@ -2719,23 +2925,361 @@ def _BuildAutomaton_74 ():
     import pyxb.utils.fac as fac
 
     counters = set()
-    cc_0 = fac.CounterCondition(min=0L, max=None, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 192, 14))
+    states = []
+    final_update = set()
+    symbol = pyxb.binding.content.ElementUse(Channel._UseForTag(pyxb.namespace.ExpandedName(None, u'id')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 208, 13))
+    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
+    states.append(st_0)
+    transitions = []
+    st_0._set_transitionSet(transitions)
+    return fac.Automaton(states, counters, False, containing_state=st_0)
+
+def _BuildAutomaton_75 ():
+    # Remove this helper function from the namespace after it is invoked
+    global _BuildAutomaton_75
+    del _BuildAutomaton_75
+    import pyxb.utils.fac as fac
+
+    counters = set()
+    states = []
+    final_update = set()
+    symbol = pyxb.binding.content.ElementUse(Channel._UseForTag(pyxb.namespace.ExpandedName(None, u'associated_image')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 209, 13))
+    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
+    states.append(st_0)
+    transitions = []
+    st_0._set_transitionSet(transitions)
+    return fac.Automaton(states, counters, False, containing_state=st_0)
+
+def _BuildAutomaton_76 ():
+    # Remove this helper function from the namespace after it is invoked
+    global _BuildAutomaton_76
+    del _BuildAutomaton_76
+    import pyxb.utils.fac as fac
+
+    counters = set()
+    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 210, 13))
     counters.add(cc_0)
-    cc_1 = fac.CounterCondition(min=0L, max=None, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 193, 14))
+    states = []
+    final_update = set()
+    final_update.add(fac.UpdateInstruction(cc_0, False))
+    symbol = pyxb.binding.content.ElementUse(Channel._UseForTag(pyxb.namespace.ExpandedName(None, u'associated_roi')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 210, 13))
+    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
+    states.append(st_0)
+    transitions = []
+    transitions.append(fac.Transition(st_0, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    st_0._set_transitionSet(transitions)
+    return fac.Automaton(states, counters, True, containing_state=st_0)
+
+def _BuildAutomaton_77 ():
+    # Remove this helper function from the namespace after it is invoked
+    global _BuildAutomaton_77
+    del _BuildAutomaton_77
+    import pyxb.utils.fac as fac
+
+    counters = set()
+    states = []
+    final_update = set()
+    symbol = pyxb.binding.content.ElementUse(Channel._UseForTag(pyxb.namespace.ExpandedName(None, u'expressed_genotype_trait')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 211, 11))
+    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
+    states.append(st_0)
+    transitions = []
+    st_0._set_transitionSet(transitions)
+    return fac.Automaton(states, counters, False, containing_state=st_0)
+
+def _BuildAutomaton_73 ():
+    # Remove this helper function from the namespace after it is invoked
+    global _BuildAutomaton_73
+    del _BuildAutomaton_73
+    import pyxb.utils.fac as fac
+
+    counters = set()
+    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 210, 13))
+    counters.add(cc_0)
+    states = []
+    sub_automata = []
+    sub_automata.append(_BuildAutomaton_74())
+    sub_automata.append(_BuildAutomaton_75())
+    sub_automata.append(_BuildAutomaton_76())
+    sub_automata.append(_BuildAutomaton_77())
+    final_update = set()
+    symbol = pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 207, 10)
+    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=True)
+    st_0._set_subAutomata(*sub_automata)
+    states.append(st_0)
+    transitions = []
+    st_0._set_transitionSet(transitions)
+    return fac.Automaton(states, counters, False, containing_state=None)
+Channel._Automaton = _BuildAutomaton_73()
+
+
+
+
+Roi._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'id'), pyxb.binding.datatypes.string, scope=Roi, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 219, 13)))
+
+Roi._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'associated_immage'), pyxb.binding.datatypes.string, scope=Roi, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 220, 13)))
+
+Roi._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'associated_channel'), StringArray, scope=Roi, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 221, 13)))
+
+Roi._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'coordinates'), Coordinates, scope=Roi, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 223, 13)))
+
+Roi._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'anatomy_expression_annotations'), AnatomyArray, scope=Roi, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 225, 13)))
+
+Roi._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'anatomical_part_with_phenotype'), AnatomyArray, scope=Roi, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 226, 13)))
+
+Roi._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'anatomical_part_of_interest'), AnatomyArray, scope=Roi, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 227, 13)))
+
+Roi._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'phenotype_annotations'), PhenotypeArray, scope=Roi, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 228, 13)))
+
+Roi._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'observations'), StringArray, scope=Roi, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 229, 13)))
+
+def _BuildAutomaton_79 ():
+    # Remove this helper function from the namespace after it is invoked
+    global _BuildAutomaton_79
+    del _BuildAutomaton_79
+    import pyxb.utils.fac as fac
+
+    counters = set()
+    states = []
+    final_update = set()
+    symbol = pyxb.binding.content.ElementUse(Roi._UseForTag(pyxb.namespace.ExpandedName(None, u'id')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 219, 13))
+    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
+    states.append(st_0)
+    transitions = []
+    st_0._set_transitionSet(transitions)
+    return fac.Automaton(states, counters, False, containing_state=st_0)
+
+def _BuildAutomaton_80 ():
+    # Remove this helper function from the namespace after it is invoked
+    global _BuildAutomaton_80
+    del _BuildAutomaton_80
+    import pyxb.utils.fac as fac
+
+    counters = set()
+    states = []
+    final_update = set()
+    symbol = pyxb.binding.content.ElementUse(Roi._UseForTag(pyxb.namespace.ExpandedName(None, u'associated_immage')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 220, 13))
+    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
+    states.append(st_0)
+    transitions = []
+    st_0._set_transitionSet(transitions)
+    return fac.Automaton(states, counters, False, containing_state=st_0)
+
+def _BuildAutomaton_81 ():
+    # Remove this helper function from the namespace after it is invoked
+    global _BuildAutomaton_81
+    del _BuildAutomaton_81
+    import pyxb.utils.fac as fac
+
+    counters = set()
+    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 221, 13))
+    counters.add(cc_0)
+    states = []
+    final_update = set()
+    final_update.add(fac.UpdateInstruction(cc_0, False))
+    symbol = pyxb.binding.content.ElementUse(Roi._UseForTag(pyxb.namespace.ExpandedName(None, u'associated_channel')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 221, 13))
+    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
+    states.append(st_0)
+    transitions = []
+    transitions.append(fac.Transition(st_0, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    st_0._set_transitionSet(transitions)
+    return fac.Automaton(states, counters, True, containing_state=st_0)
+
+def _BuildAutomaton_82 ():
+    # Remove this helper function from the namespace after it is invoked
+    global _BuildAutomaton_82
+    del _BuildAutomaton_82
+    import pyxb.utils.fac as fac
+
+    counters = set()
+    states = []
+    final_update = set()
+    symbol = pyxb.binding.content.ElementUse(Roi._UseForTag(pyxb.namespace.ExpandedName(None, u'coordinates')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 223, 13))
+    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
+    states.append(st_0)
+    transitions = []
+    st_0._set_transitionSet(transitions)
+    return fac.Automaton(states, counters, False, containing_state=st_0)
+
+def _BuildAutomaton_83 ():
+    # Remove this helper function from the namespace after it is invoked
+    global _BuildAutomaton_83
+    del _BuildAutomaton_83
+    import pyxb.utils.fac as fac
+
+    counters = set()
+    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 225, 13))
+    counters.add(cc_0)
+    states = []
+    final_update = set()
+    final_update.add(fac.UpdateInstruction(cc_0, False))
+    symbol = pyxb.binding.content.ElementUse(Roi._UseForTag(pyxb.namespace.ExpandedName(None, u'anatomy_expression_annotations')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 225, 13))
+    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
+    states.append(st_0)
+    transitions = []
+    transitions.append(fac.Transition(st_0, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    st_0._set_transitionSet(transitions)
+    return fac.Automaton(states, counters, True, containing_state=st_0)
+
+def _BuildAutomaton_84 ():
+    # Remove this helper function from the namespace after it is invoked
+    global _BuildAutomaton_84
+    del _BuildAutomaton_84
+    import pyxb.utils.fac as fac
+
+    counters = set()
+    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 226, 13))
+    counters.add(cc_0)
+    states = []
+    final_update = set()
+    final_update.add(fac.UpdateInstruction(cc_0, False))
+    symbol = pyxb.binding.content.ElementUse(Roi._UseForTag(pyxb.namespace.ExpandedName(None, u'anatomical_part_with_phenotype')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 226, 13))
+    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
+    states.append(st_0)
+    transitions = []
+    transitions.append(fac.Transition(st_0, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    st_0._set_transitionSet(transitions)
+    return fac.Automaton(states, counters, True, containing_state=st_0)
+
+def _BuildAutomaton_85 ():
+    # Remove this helper function from the namespace after it is invoked
+    global _BuildAutomaton_85
+    del _BuildAutomaton_85
+    import pyxb.utils.fac as fac
+
+    counters = set()
+    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 227, 13))
+    counters.add(cc_0)
+    states = []
+    final_update = set()
+    final_update.add(fac.UpdateInstruction(cc_0, False))
+    symbol = pyxb.binding.content.ElementUse(Roi._UseForTag(pyxb.namespace.ExpandedName(None, u'anatomical_part_of_interest')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 227, 13))
+    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
+    states.append(st_0)
+    transitions = []
+    transitions.append(fac.Transition(st_0, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    st_0._set_transitionSet(transitions)
+    return fac.Automaton(states, counters, True, containing_state=st_0)
+
+def _BuildAutomaton_86 ():
+    # Remove this helper function from the namespace after it is invoked
+    global _BuildAutomaton_86
+    del _BuildAutomaton_86
+    import pyxb.utils.fac as fac
+
+    counters = set()
+    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 228, 13))
+    counters.add(cc_0)
+    states = []
+    final_update = set()
+    final_update.add(fac.UpdateInstruction(cc_0, False))
+    symbol = pyxb.binding.content.ElementUse(Roi._UseForTag(pyxb.namespace.ExpandedName(None, u'phenotype_annotations')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 228, 13))
+    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
+    states.append(st_0)
+    transitions = []
+    transitions.append(fac.Transition(st_0, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    st_0._set_transitionSet(transitions)
+    return fac.Automaton(states, counters, True, containing_state=st_0)
+
+def _BuildAutomaton_87 ():
+    # Remove this helper function from the namespace after it is invoked
+    global _BuildAutomaton_87
+    del _BuildAutomaton_87
+    import pyxb.utils.fac as fac
+
+    counters = set()
+    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 229, 13))
+    counters.add(cc_0)
+    states = []
+    final_update = set()
+    final_update.add(fac.UpdateInstruction(cc_0, False))
+    symbol = pyxb.binding.content.ElementUse(Roi._UseForTag(pyxb.namespace.ExpandedName(None, u'observations')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 229, 13))
+    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
+    states.append(st_0)
+    transitions = []
+    transitions.append(fac.Transition(st_0, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    st_0._set_transitionSet(transitions)
+    return fac.Automaton(states, counters, True, containing_state=st_0)
+
+def _BuildAutomaton_78 ():
+    # Remove this helper function from the namespace after it is invoked
+    global _BuildAutomaton_78
+    del _BuildAutomaton_78
+    import pyxb.utils.fac as fac
+
+    counters = set()
+    cc_0 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 221, 13))
+    counters.add(cc_0)
+    cc_1 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 225, 13))
+    counters.add(cc_1)
+    cc_2 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 226, 13))
+    counters.add(cc_2)
+    cc_3 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 227, 13))
+    counters.add(cc_3)
+    cc_4 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 228, 13))
+    counters.add(cc_4)
+    cc_5 = fac.CounterCondition(min=0L, max=1L, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 229, 13))
+    counters.add(cc_5)
+    states = []
+    sub_automata = []
+    sub_automata.append(_BuildAutomaton_79())
+    sub_automata.append(_BuildAutomaton_80())
+    sub_automata.append(_BuildAutomaton_81())
+    sub_automata.append(_BuildAutomaton_82())
+    sub_automata.append(_BuildAutomaton_83())
+    sub_automata.append(_BuildAutomaton_84())
+    sub_automata.append(_BuildAutomaton_85())
+    sub_automata.append(_BuildAutomaton_86())
+    sub_automata.append(_BuildAutomaton_87())
+    final_update = set()
+    symbol = pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 218, 10)
+    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=True)
+    st_0._set_subAutomata(*sub_automata)
+    states.append(st_0)
+    transitions = []
+    st_0._set_transitionSet(transitions)
+    return fac.Automaton(states, counters, False, containing_state=None)
+Roi._Automaton = _BuildAutomaton_78()
+
+
+
+
+CTD_ANON._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'image'), Image, scope=CTD_ANON, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 238, 14)))
+
+CTD_ANON._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'channel'), Channel, scope=CTD_ANON, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 239, 14)))
+
+CTD_ANON._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, u'roi'), Roi, scope=CTD_ANON, location=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 240, 14)))
+
+def _BuildAutomaton_88 ():
+    # Remove this helper function from the namespace after it is invoked
+    global _BuildAutomaton_88
+    del _BuildAutomaton_88
+    import pyxb.utils.fac as fac
+
+    counters = set()
+    cc_0 = fac.CounterCondition(min=0L, max=None, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 239, 14))
+    counters.add(cc_0)
+    cc_1 = fac.CounterCondition(min=0L, max=None, metadata=pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 240, 14))
     counters.add(cc_1)
     states = []
     final_update = set()
-    symbol = pyxb.binding.content.ElementUse(CTD_ANON._UseForTag(pyxb.namespace.ExpandedName(None, u'image')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 191, 14))
+    symbol = pyxb.binding.content.ElementUse(CTD_ANON._UseForTag(pyxb.namespace.ExpandedName(None, u'image')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 238, 14))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(CTD_ANON._UseForTag(pyxb.namespace.ExpandedName(None, u'channel')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 192, 14))
+    symbol = pyxb.binding.content.ElementUse(CTD_ANON._UseForTag(pyxb.namespace.ExpandedName(None, u'channel')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 239, 14))
     st_1 = fac.State(symbol, is_initial=False, final_update=final_update, is_unordered_catenation=False)
     states.append(st_1)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_1, False))
-    symbol = pyxb.binding.content.ElementUse(CTD_ANON._UseForTag(pyxb.namespace.ExpandedName(None, u'roi')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhiS/source/main/resources/phisSchema.xsd', 193, 14))
+    symbol = pyxb.binding.content.ElementUse(CTD_ANON._UseForTag(pyxb.namespace.ExpandedName(None, u'roi')), pyxb.utils.utility.Location('/repos/PhenoImageShare/PhIS/source/main/resources/phisSchema.xsd', 240, 14))
     st_2 = fac.State(symbol, is_initial=False, final_update=final_update, is_unordered_catenation=False)
     states.append(st_2)
     transitions = []
@@ -2757,5 +3301,5 @@ def _BuildAutomaton_74 ():
         fac.UpdateInstruction(cc_1, True) ]))
     st_2._set_transitionSet(transitions)
     return fac.Automaton(states, counters, False, containing_state=None)
-CTD_ANON._Automaton = _BuildAutomaton_74()
+CTD_ANON._Automaton = _BuildAutomaton_88()
 
