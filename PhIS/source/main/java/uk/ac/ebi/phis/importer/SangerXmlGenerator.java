@@ -2,41 +2,25 @@ package uk.ac.ebi.phis.importer;
 
 import j.*;
 
-import java.awt.Dimension;
+
 import java.io.File;
 import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
+
 import java.util.Map;
 
 import javax.sql.DataSource;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-
-import net.wimpi.telnetd.io.terminal.ansi;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 import org.w3c.dom.DOMException;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 
-import uk.ac.ebi.phis.utils.ontology.JsonFields;
 import uk.ac.ebi.phis.utils.ontology.Normalizer;
 import uk.ac.ebi.phis.utils.ontology.OntologyMapperPredefinedTypes;
 import uk.ac.ebi.phis.utils.ontology.Utils;
@@ -86,7 +70,7 @@ public class SangerXmlGenerator {
     				
 		        	boolean sameImage = true;
 		        	
-		        	String internal_id =  "komp2_" + i;
+		        	String internalId =  "komp2_" + i;
 		        	
 		        	String imageId = res.getString("ID");		        
 		    		
@@ -96,7 +80,7 @@ public class SangerXmlGenerator {
 		    		if (dimensions != null){// the image could be loaded 	    		
 
 			    		Image image = new Image();
-			    		image.setId(internal_id);
+			    		image.setId(internalId);
 		    			
 		    			Dimensions d = new Dimensions();
 		    			d.setImageHeight(dimensions.get("height"));
@@ -113,7 +97,9 @@ public class SangerXmlGenerator {
 			    		String procedure = res.getString("procedure_name");
 			    		// Parse procedure names to get most info out of htem. Mappings done by David can be found at https://docs.google.com/spreadsheet/ccc?key=0AmK8olNJT0Z7dEN2MklCX2g1TmhJWTk0N3VlUERVaVE&usp=drive_web#gid=0
 			    		imageDesc = setSamplePrep(procedure, imageDesc);
-			    			    		
+			    		// store proceudre name as observation
+			    		image.setObservations(new StringArray());
+			    		image.getObservations().getEl().add("Procedure name: " + procedure);
 			    		image.setImageDescription(imageDesc);
 
 			    		Organism organism = new Organism();
@@ -157,8 +143,8 @@ public class SangerXmlGenerator {
 			    		if (imageType.equalsIgnoreCase("expression")){
 					    
 			    			channel = new Channel();
-					        channel.setAssociatedImage(internal_id);
-				    		channelId = internal_id.replace("komp2_", "komp2_channel_") + "_" + 0; // we know that for Sanger data there is at most one channel.
+					        channel.setAssociatedImage(internalId);
+				    		channelId = internalId.replace("komp2_", "komp2_channel_") + "_" + 0; // we know that for Sanger data there is at most one channel.
 				    		channel.setId(channelId);
 				    		channel.setExpressedGenotypeTrait(gta);
 		    			}
@@ -170,10 +156,9 @@ public class SangerXmlGenerator {
 			    		while(sameImage){
 			    			
 				    		Roi roi = new Roi();
-				    		String roiId = internal_id.replace("komp2_", "komp2_roi_") + "_" + k;
-				    		System.out.println(roiId + " " + res);
+				    		String roiId = internalId.replace("komp2_", "komp2_roi_") + "_" + k;
 				    		roi.setId(roiId);
-				    		roi.setAssociatedImmage(internal_id);
+				    		roi.setAssociatedImmage(internalId);
 				    		// Need to decide first if we associate annotations to a ROI or to the whole image
 				    		// 1. Phenotypes should always be associated to a region of interest
 				    		// 2. Existing ROI should be kept if the coordinates != 0 
@@ -198,8 +183,8 @@ public class SangerXmlGenerator {
 				    			if (!res.getString("TAG_VALUE").equalsIgnoreCase("null")){
 									image.getObservations().getEl().add(res.getString("TAG_NAME") + ": " + res.getString("TAG_VALUE"));
 								}
-				    			image.setDepictedAnatomicalStructure(getAnatomyArray(new AnatomyArray(), res.getString("TERM_ID").toString(),
-										res.getString("TERM_NAME").toString(), null));
+				    			image.setDepictedAnatomicalStructure(getAnnotationArray(new AnnotationArray(), res.getString("TERM_ID").toString(),
+										res.getString("TERM_NAME").toString(), null, AnnotationMode.MANUAL));
 				    			roi = null;
 				    		}
 				    		
@@ -299,20 +284,20 @@ public class SangerXmlGenerator {
 				if (res.getString("ONTOLOGY_DICT_ID").toString().equalsIgnoreCase("2") || res.getString("ONTOLOGY_DICT_ID").toString().equalsIgnoreCase("4")){ //2=EMAP, 4=MA
 					if (isExpressionImg){
 						// we have expression in the annotated anatomy term
-						roi.setAnatomyExpressionAnnotations(getAnatomyArray(new AnatomyArray(), res.getString("TERM_ID").toString(),
-								res.getString("TERM_NAME").toString(), null));
+						roi.setAnatomyExpressionAnnotations(getAnnotationArray(new AnnotationArray(), res.getString("TERM_ID").toString(),
+								res.getString("TERM_NAME").toString(), null, AnnotationMode.MANUAL));
 					}
 					else { 
 						// we have somthin interesting but not expression in the anatomy term
-						roi.setAnatomicalPartOfInterest(getAnatomyArray(new AnatomyArray(), res.getString("TERM_ID").toString(),
-								res.getString("TERM_NAME").toString(), null));
+						roi.setAnatomicalPartOfInterest(getAnnotationArray(new AnnotationArray(), res.getString("TERM_ID").toString(),
+								res.getString("TERM_NAME").toString(), null, AnnotationMode.MANUAL));
 					}
 				}
 				// Add phenotuype terms
 				else if (res.getString("ONTOLOGY_DICT_ID").toString().equalsIgnoreCase("1") ){ // 1 = MP
 					
 					// we know there's only one phenotype associated so we don't need to check if the array is empty					
-					roi.setPhenotypeAnnotations(getPhenotypeArray(new PhenotypeArray(), res.getString("TERM_ID").toString(), res.getString("TERM_NAME").toString(), null));
+					roi.setPhenotypeAnnotations(getAnnotationArray(new AnnotationArray(), res.getString("TERM_ID").toString(), res.getString("TERM_NAME").toString(), null, AnnotationMode.MANUAL));
 				}
 				
 	        	Coordinates coord = new Coordinates();
@@ -422,31 +407,16 @@ public class SangerXmlGenerator {
 		 return term;
 	 }
 	 
-	 PhenotypeArray getPhenotypeArray(PhenotypeArray pa, String id, String label, String freetext){
-		 Phenotype p = new Phenotype();
-		 if (id != null)
-			 p.setPhenotypeOntologyId(id);
-
-		 if (label != null)
-			 p.setPhenotypeOntologyTerm(label);
-
-		 if (freetext != null)
-			 p.setPhenotypeFreetext(freetext);
-		 
-		 pa.getEl().add(p);
-		 return pa;
-	 }
 	 
-	 AnatomyArray getAnatomyArray(AnatomyArray pa, String id, String label, String freetext){
-		 Anatomy p = new Anatomy();
-		 if (id != null)
-			 p.setAnatomyOntologyId(id);
-
-		 if (label != null)
-			 p.setAnatomyOntologyTerm(label);
+	 AnnotationArray getAnnotationArray(AnnotationArray pa, String id, String label, String freetext, AnnotationMode annMode){
+		 Annotation p = new Annotation();
+		 
+		 if (label != null && id != null)
+			 p.setOntologyTerm(getOntologyTerm(label, id));
 
 		 if (freetext != null)
 			 p.setAnatomyFreetext(freetext);
+		 p.setAnnotationMode(annMode);
 		 
 		 pa.getEl().add(p);
 		 return pa;

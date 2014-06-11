@@ -1,43 +1,21 @@
 package uk.ac.ebi.phis.importer;
 
-import j.Dimensions;
-import j.Doc;
-import j.Image;
-import j.ImageDescription;
-import j.OntologyTerm;
-import j.OntologyTermArray;
+import j.*;
 
-import java.io.File;
 import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 
 import javax.sql.DataSource;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.datasource.SimpleDriverDataSource;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 
-import uk.ac.ebi.phis.utils.ontology.GenomicLocation;
-import uk.ac.ebi.phis.utils.ontology.JsonFields;
 import uk.ac.ebi.phis.utils.ontology.Normalizer;
 import uk.ac.ebi.phis.utils.ontology.OntologyMapperPredefinedTypes;
 import uk.ac.ebi.phis.utils.ontology.Utils;
@@ -104,7 +82,7 @@ public class TracerXmlGenerator {
 	        while ( res.next()){
 	        	boolean sameImage = true;
 	        	String imageName = res.getString("image_name");
-	        	String internal_id =  "tracer_" + i;
+	        	String internalId =  "tracer_" + i;
 	        		    		
 	    		String url = "http://www.ebi.ac.uk/panda-srv/tracer/sblac/" + res.getString("file_path") + "/" + res.getString("image_name") + ".jpg";
 	    		
@@ -113,7 +91,7 @@ public class TracerXmlGenerator {
 	    		if (dimensions != null){ //index info only if the image could be loaded 	    		
 
 		    		Image image = new Image();
-		    		image.setId(internal_id);
+		    		image.setId(internalId);
 	    			
 	    			Dimensions d = new Dimensions();
 	    			d.setImageHeight(dimensions.get("height"));
@@ -141,154 +119,98 @@ public class TracerXmlGenerator {
 		    		
 		    		image.setImageDescription(imageDesc);
 		    		
-	    		}
-	    		
-	    		
-	        }
-	        
-        }catch(Exception e){
-        	e.printStackTrace();
-        }
-	    		/*
-	    		image.appendChild(utils.getNewElement(JsonFields.IMAGE_URL, url, imageDoc));
-	    		image.appendChild(utils.getNewElement(JsonFields.DATA_SOURCE, "TRACER", imageDoc));
-	    			    		
-	    		// in TRACER there are no regions of interest so I need to set the default whole image ROI
-	    		Map<String, Integer> dimensions = utils.getImageMeasuresFromUrl(url);
-	    		if (dimensions != null && res.getString("mgi_id") != null){// the image could be loaded 
-	    			Element expressedAnatomyList = utils.getNewElement(JsonFields.EXPRESSED_ANATOMY_ANN_LIST, "", imageDoc);
-	    			ArrayList<Object> x = new ArrayList<Object>();
-	    			x.add(0);
-	    			x.add(dimensions.get("width"));
-	    			ArrayList<Object> y = new ArrayList<Object>();
-	    			y.add(0);
-	    			y.add(dimensions.get("height"));
-	    			
-	    			roi.appendChild(utils.getNewArrrayElement(JsonFields.X_COORDINATES, x, roiDoc));
-	    			roi.appendChild(utils.getNewArrrayElement( JsonFields.Y_COORDINATES, y, roiDoc));
-	    			
-	    			image.appendChild(utils.getNewElement(JsonFields.WIDTH, ""+dimensions.get("width"), imageDoc));
-	    			image.appendChild(utils.getNewElement( JsonFields.HEIGHT , ""+dimensions.get("height") , imageDoc ));
-	    			
-	    			// Generate internal_id
-	    			String uniqueId = internal_id;
-	    			image.appendChild(utils.getNewElement( JsonFields.ID , uniqueId, imageDoc ));
-	    			
-	    			String roiId = "tracer_roi_" + i;
-	    			roi.appendChild(utils.getNewElement( JsonFields.ID , roiId, roiDoc ));
-	    			image.appendChild(utils.getNewArrrayElement(JsonFields.ASSOCIATED_ROI, roiId, imageDoc));
-	    			roi.appendChild(utils.getNewElement(JsonFields.ASSOCIATED_IMAGE, uniqueId, roiDoc));
-	    			
-	    			String channelId = "tracer_channel_" + i;
-	    			channel.appendChild(utils.getNewElement( JsonFields.ID , channelId, channelDoc ));
-	    			channel.appendChild(utils.getNewElement(JsonFields.ASSOCIATED_IMAGE, uniqueId, channelDoc));
-	    			channel.appendChild(utils.getNewArrrayElement(JsonFields.ASSOCIATED_ROI, roiId, channelDoc));
-	    			image.appendChild(utils.getNewArrrayElement(JsonFields.ASSOCIATED_CHANNEL, channelId, imageDoc));
-	    			roi.appendChild(utils.getNewArrrayElement(JsonFields.ASSOCIATED_CHANNEL, channelId, roiDoc));
-	    			
-	    			
+	    			if (res.getString("image_comment") != null){
+	    				image.getObservations().getEl().add(res.getString("image_comment"));
+	    			}
+		    		
+		    		Organism org = new Organism();
 	    			// in the TRACER fields 'stage' they actually store dpc, with values like E11.5
-	    			String age = norm.normalizeAge(res.getString("stage"));
-	    			image.appendChild(utils.getNewElement( JsonFields.EMBRYO_AGE, ""+age, imageDoc));
-	    					
-	    			// TODO image type
-	    			image.appendChild(utils.getNewElement( JsonFields.IMAGE_TYPE , "expression" , imageDoc));
-	    				    			
-	    			image.appendChild(utils.getNewElement( JsonFields.CENTER , res.getString("source")  , imageDoc));
-	    			
-	    			image.appendChild(utils.getNewElement( JsonFields.ORGANISM , "Mus musculus" , imageDoc));
-	    			
-    				channel.appendChild(utils.getNewArrrayElement( JsonFields.CHROMOSOME , res.getString("chr_name") , channelDoc));
+	    			String a = norm.normalizeAge(res.getString("stage"));
+	    			Age age = new Age();
+	    			age.setEmbryonicAge(Float.valueOf(a));
+	    			org.setAge(age);
+	    			org.setTaxon("Mus musculus");
 
-    				channel.appendChild(utils.getNewArrrayElement( JsonFields.STRAND , res.getString("strand") , channelDoc));
-    				
-    				channel.appendChild(utils.getNewArrrayElement( JsonFields.INSERTION_SITE , res.getString("position") , channelDoc));
+	    			// We always have 1 channel
+	    			Channel channel = new Channel();
+	    			String channelId = "tracer_channel_" + i + "_0"; 
+	    			// Link it to the image
+	    			channel.setAssociatedImage(internalId);
+	    			// Link image to channel too
+	    			image.setAssociatedChannel(new StringArray());
+	    			image.getAssociatedChannel().getEl().add(channelId);
 	    			
-	    			if (res.getString("image_comment") != null)
-	    				image.appendChild(utils.getNewArrrayElement( JsonFields.OBSERVATIONS , res.getString("image_comment") , imageDoc));
+	    			channel.setExpressedGenotypeTrait(new GeneticTraitArray());
+	    			GeneticTrait expressed = new GeneticTrait();
+	    			GenomicLocation gl = new GenomicLocation();
+	    			gl.setChromosone(res.getString("chr_name"));
+	    			gl.setStartPos(Integer.getInteger(res.getString("position")));
+	    			gl.setEndPos(Integer.getInteger(res.getString("position")));
+	    			gl.setStrand(res.getString("strand"));
+	    			expressed.setGenomicLocation(gl);
+	    			
+	    			channel.getExpressedGenotypeTrait().getEl().add(expressed);
+	    			Roi roi = null;
+	    			
+	    			// get all anntoations associated to the same image => need to collapse rows
+		        	while(sameImage){
+		        		
+		        		String anat =  res.getString("expression_domain_name");
 
-	    		HashSet<String> anatomyIds = new HashSet<String>(); 
-	    		HashSet<String> anatomyTerms = new HashSet<String>(); 
-	    		HashSet<String> anatomyComputedIds = new HashSet<String>(); 
-	    		HashSet<String> anatomyComputedTerms = new HashSet<String>(); 
-	    		HashSet<String> anatomyFreeText = new HashSet<String>(); 
-	    		HashSet<String> anatomyAnnBag = new HashSet<String>(); 
+        				// as long as we have an annotation create a roi
+		        		if (anat != null){
+		        			if (roi == null){
+		    	    			String roiId = "tracer_roi_" + i;
+		    	    			roi = new Roi();
+		    	    			// link image and channel
+		    	    			roi.setAssociatedChannel(new StringArray());
+		    	    			roi.getAssociatedChannel().getEl().add(channelId);
+		    	    			roi.setAssociatedImmage(internalId);
+		    	    			roi.setAnatomyExpressionAnnotations(new AnnotationArray());
+		    	    		}
+		        			Annotation anatomy = new Annotation();
+		        			anatomy.setAnatomyFreetext(anat);
+
+			    			if (emapIds.containsKey(anat)){	
+			    				anatomy.setOntologyTerm(getOntologyTerm(emapLabels.get(anat), emapIds.get(anat)));
+			    				anatomy.setAnnotationMode(AnnotationMode.MANUAL);
+			    			}
+			    			else {	
+			    				try {
+			    					if (!getAnatomyId(anat, a).equalsIgnoreCase("")){
+					    				anatomy.setOntologyTerm(getOntologyTerm(emapLabels.get(anat), emapIds.get(anat)));
+					    				anatomy.setAnnotationMode(AnnotationMode.AUTOMATED); 						
+			    					}
+			    				} catch (JSONException e) {
+			    					e.printStackTrace();
+			    				} catch (Exception e) {
+			    					e.printStackTrace();
+			    				}
+			    			}
+			    			roi.getAnatomyExpressionAnnotations().getEl().add(anatomy);
+		        		}
+		        				    			
+		    			if (res.next() && imageName.equalsIgnoreCase(res.getString("image_name"))){
+		    					i++;
+		    				}
+		    			else {
+		    				sameImage=false;
+		    				res.previous();
+		        		}
+		    		}
+		    		if (roi != null){
+		    			image.setAssociatedRoi(new StringArray());
+		    			image.getAssociatedRoi().getEl().add(roi.getId());
+		    			channel.setAssociatedRoi(new StringArray());
+		    			channel.getAssociatedRoi().getEl().add(roi.getId());
+		    		}
 	    		
-	        	// get all anntoations associated to the same image => need to collapse rows
-	        	while(sameImage){
-	        		String anat =  res.getString("expression_domain_name");
-	    			anatomyFreeText.add(anat);
-	    			anatomyAnnBag.add(anat);
-	    			if (emapIds.containsKey(anat)){	
-	    				anatomyIds.add(emapIds.get(anat));
-	    				anatomyTerms.add(emapLabels.get(anat));
-	    				anatomyAnnBag.add(emapIds.get(anat));
-	    				anatomyAnnBag.add(emapLabels.get(anat));
-	    			}
-	    			else {	
-	    				try {
-	    					if (!getAnatomyId(anat, age).equalsIgnoreCase("")){
-	    						anatomyComputedIds.add(getAnatomyId(anat, age));
-	    						anatomyComputedTerms.add(getAnatomyLabels(anat, age));
-	    						anatomyAnnBag.add(getAnatomyId(anat, age));
-	    						anatomyAnnBag.add(getAnatomyLabels(anat, age));	    						
-	    					}
-	    				} catch (JSONException e) {
-	    					e.printStackTrace();
-	    				} catch (Exception e) {
-	    					e.printStackTrace();
-	    				}
-	    			}
-	    			image.appendChild(expressedAnatomyList);
-	    			
-	    			if (res.next() && imageName.equalsIgnoreCase(res.getString("image_name"))){
-	    					i++;
-	    				}
-	    			else {
-	    				sameImage=false;
-	    				res.previous();
-	        		}
-	    		}
-
-				roi.appendChild(utils.getNewArrrayElement( JsonFields.ANATOMY_ID , anatomyIds , roiDoc));
-				roi.appendChild(utils.getNewArrrayElement( JsonFields.ANATOMY_TERM , anatomyTerms , roiDoc));
-    			roi.appendChild(utils.getNewArrrayElement( JsonFields.ANATOMY_FREETEXT, anatomyFreeText, roiDoc));
-				roi.appendChild(utils.getNewArrrayElement( JsonFields.ANATOMY_COMPUTED_ID , anatomyComputedIds , roiDoc));
-				roi.appendChild(utils.getNewArrrayElement( JsonFields.ANATOMY_COMPUTED_TERM , anatomyComputedTerms  , roiDoc));
-				image.appendChild(utils.getNewArrrayElement( JsonFields.EXPRESSED_ANATOMY_ANN_LIST , anatomyAnnBag , imageDoc));
-
-    			imageRroot.appendChild(image);
-    			roiRoot.appendChild(roi);
-    			channelRoot.appendChild(channel);
-    			
+	    		} // end while ( res.next())
+	    	}
+	        }catch(Exception e){
+	        	e.printStackTrace();
 	        }
-	        }
-			// write the content into xml file
-			TransformerFactory transformerFactory = TransformerFactory.newInstance();
-			Transformer transformer = transformerFactory.newTransformer();
-			DOMSource source = new DOMSource(imageDoc);
-			StreamResult result = new StreamResult(new File("source/main/resources/tracerImagesDump_imageCore.xml"));
-			transformer.transform(source, result);
-			
-			source = new DOMSource(roiDoc);
-			result = new StreamResult(new File("source/main/resources/tracerImagesDump_roiCore.xml"));
-			transformer.transform(source, result);
-			
-			source = new DOMSource(channelDoc);
-			result = new StreamResult(new File("source/main/resources/tracerImagesDump_channelCore.xml"));
-			transformer.transform(source, result);
-			
-			System.out.println("File saved!");
-			
-			}catch (ParserConfigurationException pce) {
-				pce.printStackTrace();
-			} catch (TransformerException tfe) {
-				tfe.printStackTrace();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-        */
+	    
 	}
 	
 	

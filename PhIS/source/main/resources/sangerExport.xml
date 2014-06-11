@@ -3,11 +3,12 @@
     <image>
         <id>komp2_0</id>
         <organism>
-            <age>
-                <age_since_birth>94.5</age_since_birth>
-            </age>
             <taxon>Mus musculus</taxon>
             <sex>Male</sex>
+            <stage_ontology_term>
+                <termLabel>postnatal stage</termLabel>
+                <termId>MmusDv_0000092</termId>
+            </stage_ontology_term>
         </organism>
         <image_description>
             <image_url>http://www.mousephenotype.org/data/media/images/0/M00110006_00003602_download_full.jpg</image_url>
@@ -47,6 +48,9 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Eye Morphology</el>
+        </observations>
         <depicted_anatomical_structure>
             <el>
                 <anatomy_ontology_id>MA:0000261</anatomy_ontology_id>
@@ -57,11 +61,12 @@
     <image>
         <id>komp2_2</id>
         <organism>
-            <age>
-                <age_since_birth>94.5</age_since_birth>
-            </age>
             <taxon>Mus musculus</taxon>
             <sex>Male</sex>
+            <stage_ontology_term>
+                <termLabel>postnatal stage</termLabel>
+                <termId>MmusDv_0000092</termId>
+            </stage_ontology_term>
         </organism>
         <image_description>
             <image_url>http://www.mousephenotype.org/data/media/images/0/M00110006_00003607_download_full.jpg</image_url>
@@ -101,6 +106,9 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Eye Morphology</el>
+        </observations>
         <depicted_anatomical_structure>
             <el>
                 <anatomy_ontology_id>MA:0000261</anatomy_ontology_id>
@@ -141,6 +149,9 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Wholemount Expression</el>
+        </observations>
     </image>
     <image>
         <id>komp2_5</id>
@@ -175,6 +186,9 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Wholemount Expression</el>
+        </observations>
     </image>
     <image>
         <id>komp2_7</id>
@@ -209,6 +223,9 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Wholemount Expression</el>
+        </observations>
     </image>
     <image>
         <id>komp2_9</id>
@@ -243,6 +260,9 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Wholemount Expression</el>
+        </observations>
     </image>
     <image>
         <id>komp2_13</id>
@@ -277,6 +297,9 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Wholemount Expression</el>
+        </observations>
     </image>
     <image>
         <id>komp2_14</id>
@@ -311,6 +334,9 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Wholemount Expression</el>
+        </observations>
     </image>
     <image>
         <id>komp2_15</id>
@@ -345,6 +371,9 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Wholemount Expression</el>
+        </observations>
     </image>
     <image>
         <id>komp2_16</id>
@@ -379,6 +408,9 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Wholemount Expression</el>
+        </observations>
     </image>
     <image>
         <id>komp2_17</id>
@@ -413,6 +445,9 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Wholemount Expression</el>
+        </observations>
     </image>
     <image>
         <id>komp2_18</id>
@@ -447,6 +482,9 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Wholemount Expression</el>
+        </observations>
     </image>
     <image>
         <id>komp2_21</id>
@@ -481,6 +519,9 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Wholemount Expression</el>
+        </observations>
     </image>
     <image>
         <id>komp2_22</id>
@@ -515,6 +556,9 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Wholemount Expression</el>
+        </observations>
     </image>
     <image>
         <id>komp2_23</id>
@@ -549,6 +593,9 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Wholemount Expression</el>
+        </observations>
     </image>
     <image>
         <id>komp2_24</id>
@@ -583,6 +630,9 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Wholemount Expression</el>
+        </observations>
     </image>
     <image>
         <id>komp2_26</id>
@@ -617,15 +667,19 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Wholemount Expression</el>
+        </observations>
     </image>
     <image>
         <id>komp2_27</id>
         <organism>
-            <age>
-                <age_since_birth>112.700005</age_since_birth>
-            </age>
             <taxon>Mus musculus</taxon>
             <sex>Male</sex>
+            <stage_ontology_term>
+                <termLabel>postnatal stage</termLabel>
+                <termId>MmusDv_0000092</termId>
+            </stage_ontology_term>
         </organism>
         <image_description>
             <image_url>http://www.mousephenotype.org/data/media/images/0/M00258370_00007903_download_full.jpg</image_url>
@@ -665,6 +719,9 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Eye Morphology</el>
+        </observations>
         <depicted_anatomical_structure>
             <el>
                 <anatomy_ontology_id>MA:0000261</anatomy_ontology_id>
@@ -675,11 +732,12 @@
     <image>
         <id>komp2_30</id>
         <organism>
-            <age>
-                <age_since_birth>108.5</age_since_birth>
-            </age>
             <taxon>Mus musculus</taxon>
             <sex>Female</sex>
+            <stage_ontology_term>
+                <termLabel>postnatal stage</termLabel>
+                <termId>MmusDv_0000092</termId>
+            </stage_ontology_term>
         </organism>
         <image_description>
             <image_url>http://www.mousephenotype.org/data/media/images/520/M00379015_00012839_download_full.jpg</image_url>
@@ -719,6 +777,9 @@
                 <zygosity>homozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Eye Morphology</el>
+        </observations>
         <depicted_anatomical_structure>
             <el>
                 <anatomy_ontology_id>MA:0000261</anatomy_ontology_id>
@@ -759,6 +820,9 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Wholemount Expression</el>
+        </observations>
     </image>
     <image>
         <id>komp2_34</id>
@@ -793,6 +857,9 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Wholemount Expression</el>
+        </observations>
     </image>
     <image>
         <id>komp2_36</id>
@@ -827,6 +894,9 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Wholemount Expression</el>
+        </observations>
     </image>
     <image>
         <id>komp2_37</id>
@@ -861,6 +931,9 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Wholemount Expression</el>
+        </observations>
     </image>
     <image>
         <id>komp2_38</id>
@@ -895,6 +968,9 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Wholemount Expression</el>
+        </observations>
     </image>
     <image>
         <id>komp2_40</id>
@@ -929,6 +1005,9 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Wholemount Expression</el>
+        </observations>
     </image>
     <image>
         <id>komp2_42</id>
@@ -963,6 +1042,9 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Wholemount Expression</el>
+        </observations>
     </image>
     <image>
         <id>komp2_43</id>
@@ -997,6 +1079,9 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Wholemount Expression</el>
+        </observations>
     </image>
     <image>
         <id>komp2_44</id>
@@ -1031,6 +1116,9 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Wholemount Expression</el>
+        </observations>
     </image>
     <image>
         <id>komp2_45</id>
@@ -1065,6 +1153,9 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Wholemount Expression</el>
+        </observations>
     </image>
     <image>
         <id>komp2_46</id>
@@ -1099,6 +1190,9 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Wholemount Expression</el>
+        </observations>
     </image>
     <image>
         <id>komp2_47</id>
@@ -1133,6 +1227,9 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Wholemount Expression</el>
+        </observations>
     </image>
     <image>
         <id>komp2_48</id>
@@ -1167,6 +1264,9 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Wholemount Expression</el>
+        </observations>
     </image>
     <image>
         <id>komp2_49</id>
@@ -1201,6 +1301,9 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Wholemount Expression</el>
+        </observations>
     </image>
     <image>
         <id>komp2_50</id>
@@ -1235,6 +1338,9 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Wholemount Expression</el>
+        </observations>
     </image>
     <image>
         <id>komp2_51</id>
@@ -1269,6 +1375,9 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Wholemount Expression</el>
+        </observations>
     </image>
     <image>
         <id>komp2_53</id>
@@ -1303,6 +1412,9 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Wholemount Expression</el>
+        </observations>
     </image>
     <image>
         <id>komp2_54</id>
@@ -1337,6 +1449,9 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Wholemount Expression</el>
+        </observations>
     </image>
     <image>
         <id>komp2_55</id>
@@ -1371,6 +1486,9 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Wholemount Expression</el>
+        </observations>
     </image>
     <image>
         <id>komp2_56</id>
@@ -1405,6 +1523,9 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Wholemount Expression</el>
+        </observations>
     </image>
     <image>
         <id>komp2_57</id>
@@ -1439,6 +1560,9 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Wholemount Expression</el>
+        </observations>
     </image>
     <image>
         <id>komp2_59</id>
@@ -1473,6 +1597,9 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Wholemount Expression</el>
+        </observations>
     </image>
     <image>
         <id>komp2_60</id>
@@ -1507,6 +1634,9 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Wholemount Expression</el>
+        </observations>
     </image>
     <image>
         <id>komp2_61</id>
@@ -1541,6 +1671,9 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Wholemount Expression</el>
+        </observations>
     </image>
     <image>
         <id>komp2_63</id>
@@ -1590,6 +1723,9 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Tail Epidermis Wholemount</el>
+        </observations>
         <depicted_anatomical_structure>
             <el>
                 <anatomy_ontology_id>MA:0000700</anatomy_ontology_id>
@@ -1645,6 +1781,9 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Tail Epidermis Wholemount</el>
+        </observations>
         <depicted_anatomical_structure>
             <el>
                 <anatomy_ontology_id>MA:0000700</anatomy_ontology_id>
@@ -1700,6 +1839,9 @@
                 <zygosity>homozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Tail Epidermis Wholemount</el>
+        </observations>
         <depicted_anatomical_structure>
             <el>
                 <anatomy_ontology_id>MA:0000700</anatomy_ontology_id>
@@ -1755,6 +1897,9 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Tail Epidermis Wholemount</el>
+        </observations>
         <depicted_anatomical_structure>
             <el>
                 <anatomy_ontology_id>MA:0000700</anatomy_ontology_id>
@@ -1810,6 +1955,9 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Tail Epidermis Wholemount</el>
+        </observations>
         <depicted_anatomical_structure>
             <el>
                 <anatomy_ontology_id>MA:0000700</anatomy_ontology_id>
@@ -1850,6 +1998,9 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Wholemount Expression</el>
+        </observations>
     </image>
     <image>
         <id>komp2_69</id>
@@ -1884,6 +2035,9 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Wholemount Expression</el>
+        </observations>
     </image>
     <image>
         <id>komp2_70</id>
@@ -1918,6 +2072,9 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Wholemount Expression</el>
+        </observations>
     </image>
     <image>
         <id>komp2_72</id>
@@ -1952,6 +2109,9 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Wholemount Expression</el>
+        </observations>
     </image>
     <image>
         <id>komp2_74</id>
@@ -1986,6 +2146,9 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Wholemount Expression</el>
+        </observations>
     </image>
     <image>
         <id>komp2_75</id>
@@ -2020,6 +2183,9 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Wholemount Expression</el>
+        </observations>
     </image>
     <image>
         <id>komp2_76</id>
@@ -2054,6 +2220,9 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Wholemount Expression</el>
+        </observations>
     </image>
     <image>
         <id>komp2_77</id>
@@ -2088,6 +2257,9 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Wholemount Expression</el>
+        </observations>
     </image>
     <image>
         <id>komp2_78</id>
@@ -2122,6 +2294,9 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Wholemount Expression</el>
+        </observations>
     </image>
     <image>
         <id>komp2_80</id>
@@ -2156,6 +2331,9 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Wholemount Expression</el>
+        </observations>
     </image>
     <image>
         <id>komp2_81</id>
@@ -2190,6 +2368,9 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Wholemount Expression</el>
+        </observations>
     </image>
     <image>
         <id>komp2_82</id>
@@ -2224,6 +2405,9 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Wholemount Expression</el>
+        </observations>
     </image>
     <image>
         <id>komp2_83</id>
@@ -2258,6 +2442,9 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Wholemount Expression</el>
+        </observations>
     </image>
     <image>
         <id>komp2_84</id>
@@ -2292,6 +2479,9 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Wholemount Expression</el>
+        </observations>
     </image>
     <image>
         <id>komp2_86</id>
@@ -2326,6 +2516,9 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Wholemount Expression</el>
+        </observations>
     </image>
     <image>
         <id>komp2_87</id>
@@ -2360,6 +2553,9 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Wholemount Expression</el>
+        </observations>
     </image>
     <image>
         <id>komp2_88</id>
@@ -2394,6 +2590,9 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Wholemount Expression</el>
+        </observations>
     </image>
     <image>
         <id>komp2_89</id>
@@ -2428,6 +2627,9 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Wholemount Expression</el>
+        </observations>
     </image>
     <image>
         <id>komp2_90</id>
@@ -2462,6 +2664,9 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Wholemount Expression</el>
+        </observations>
     </image>
     <image>
         <id>komp2_91</id>
@@ -2496,6 +2701,9 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Wholemount Expression</el>
+        </observations>
     </image>
     <image>
         <id>komp2_92</id>
@@ -2530,6 +2738,9 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Wholemount Expression</el>
+        </observations>
     </image>
     <image>
         <id>komp2_94</id>
@@ -2564,6 +2775,9 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Wholemount Expression</el>
+        </observations>
     </image>
     <image>
         <id>komp2_97</id>
@@ -2598,6 +2812,9 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Wholemount Expression</el>
+        </observations>
     </image>
     <image>
         <id>komp2_98</id>
@@ -2632,6 +2849,9 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Wholemount Expression</el>
+        </observations>
     </image>
     <image>
         <id>komp2_99</id>
@@ -2666,6 +2886,9 @@
                 <zygosity>heterozygous</zygosity>
             </el>
         </mutant_genotype_traits>
+        <observations>
+            <el>Procedure name: Wholemount Expression</el>
+        </observations>
     </image>
     <channel>
         <id>komp2_channel_4_0</id>

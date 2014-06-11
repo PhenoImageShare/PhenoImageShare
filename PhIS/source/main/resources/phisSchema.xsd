@@ -135,33 +135,24 @@
 						    		</sequence>
 								</complexType>
 								
-								
-								<complexType name="Phenotype">
+								<simpleType name="AnnotationMode">
+									<restriction base="string">
+										<enumeration value="Manual"></enumeration>
+										<enumeration value="Automated"></enumeration>
+									</restriction>
+								</simpleType>
+																
+								<complexType name="Annotation">
 									<all minOccurs="1">
-						  	  		<element name="phenotype_ontology_id"	type="string" minOccurs="0" maxOccurs="1"/> <!-- These should reside in the ROI -->
-						  	 			<element name="phenotype_freetext"	type="string" minOccurs="0" maxOccurs="1"/> <!-- These should reside in the ROI -->
-						  	  		<element name="phenotype_ontology_term"	type="string" minOccurs="0" maxOccurs="1"/> <!-- These should reside in the ROI -->
-						  	  </all>
-								</complexType>
-								
-								<complexType name="PhenotypeArray">
-										<sequence>
-						    			<element name="el" type="x:Phenotype" minOccurs="1" maxOccurs="unbounded"/>
-						    		</sequence>
-								</complexType>
-								
-								
-								<complexType name="Anatomy">
-									<all minOccurs="1">
-						  	  		<element name="anatomy_ontology_id" type="string" minOccurs="0" maxOccurs="1"/>
-						  	  		<element name="anatomy_ontology_term" type="string" minOccurs="0" maxOccurs="1"/>
+						  	  		<element name="ontology_term" type="x:OntologyTerm" minOccurs="0" maxOccurs="1"/>
 						  	  		<element name="anatomy_freetext" type="string" minOccurs="0" maxOccurs="1"/>
+						  	  		<element name="annotationMode" type="x:AnnotationMode" minOccurs="0" maxOccurs="1"/>
 									</all>						
 								</complexType>
 								
-								<complexType name="AnatomyArray">
+								<complexType name="AnnotationArray">
 										<sequence>
-						    			<element name="el" type="x:Anatomy" minOccurs="1" maxOccurs="unbounded"/>
+						    			<element name="el" type="x:Annotation" minOccurs="1" maxOccurs="unbounded"/>
 						    		</sequence>
 								</complexType>
 								
@@ -196,7 +187,7 @@
 						  	  		<element name="observations"	type="x:StringArray" minOccurs="0" maxOccurs="1"/>
 						  	  		<element name="associated_roi" type="x:StringArray" minOccurs="0" maxOccurs="1"/>
 						  	   		<element name="associated_channel" type="x:StringArray" minOccurs="0" maxOccurs="1"/>
-						  	  		<element name="depicted_anatomical_structure" type="x:AnatomyArray" minOccurs="0" maxOccurs="1"/>								  	  					  	  		
+						  	  		<element name="depicted_anatomical_structure" type="x:AnnotationArray" minOccurs="0" maxOccurs="1"/>								  	  					  	  		
 						  	  </all>
 						  	</complexType>
 						  	
@@ -221,10 +212,10 @@
 						  	  		<!-- Roi coordinates. Current assumption is thar Rois are either rectangles or points -->
 						  	  		<element name="coordinates" type="x:Coordinates" minOccurs="1" maxOccurs="1"/>
 						  	  		<!--  Annotations -->
-						  	  		<element name="anatomy_expression_annotations" type="x:AnatomyArray" minOccurs="0" maxOccurs="1"/>	
-						  	  		<element name="anatomical_part_with_phenotype" type="x:AnatomyArray" minOccurs="0" maxOccurs="1"/>		
-						  	  		<element name="anatomical_part_of_interest" type="x:AnatomyArray" minOccurs="0" maxOccurs="1"/>		
-						  	  		<element name="phenotype_annotations" type="x:PhenotypeArray" minOccurs="0" maxOccurs="1"/>				
+						  	  		<element name="anatomy_expression_annotations" type="x:AnnotationArray" minOccurs="0" maxOccurs="1"/>	
+						  	  		<element name="anatomical_part_with_phenotype" type="x:AnnotationArray" minOccurs="0" maxOccurs="1"/>		
+						  	  		<element name="anatomical_part_of_interest" type="x:AnnotationArray" minOccurs="0" maxOccurs="1"/>		
+						  	  		<element name="phenotype_annotations" type="x:AnnotationArray" minOccurs="0" maxOccurs="1"/>				
 						  	  		<element name="observations" type="x:StringArray" minOccurs="0" maxOccurs="1"/>
 						  		</all>
 						  	</complexType>
