@@ -2,15 +2,17 @@ package uk.ac.ebi.phis.importer;
 
 import j.*;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.sql.DataSource;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
 
 import org.json.JSONException;
 import org.springframework.context.ApplicationContext;
@@ -71,13 +73,10 @@ public class TracerXmlGenerator {
         	
         	PreparedStatement statement = dataSource.getConnection().prepareStatement(command);
      		ResultSet res = statement.executeQuery();
-             
-	        DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
-	 
-			// root element = doc
-			Doc doc = new Doc();			
+            
 			int i = 0;
+			
+			Doc doc = new Doc();
 			
 	        while ( res.next()){
 	        	boolean sameImage = true;
@@ -98,7 +97,7 @@ public class TracerXmlGenerator {
 	    			d.setImageWidth(dimensions.get("width"));
 		    		ImageDescription imageDesc = new ImageDescription();
 		    		imageDesc.setImageUrl(url);
-		    		imageDesc.setOriginalImageId(res.getString("ID"));
+		    		imageDesc.setOriginalImageId(res.getString("sb_id"));
 		    		imageDesc.setImageDimensions(d);
 		      		imageDesc.setOrganismGeneratedBy("Spitz Lab, EMBL");
 		    		imageDesc.setImageGeneratedBy("Spitz Lab, EMBL");
@@ -120,6 +119,9 @@ public class TracerXmlGenerator {
 		    		image.setImageDescription(imageDesc);
 		    		
 	    			if (res.getString("image_comment") != null){
+	    				if (image.getObservations() == null){
+	    					image.setObservations(new StringArray());
+	    				}
 	    				image.getObservations().getEl().add(res.getString("image_comment"));
 	    			}
 		    		
@@ -144,42 +146,46 @@ public class TracerXmlGenerator {
 	    			GeneticTrait expressed = new GeneticTrait();
 	    			GenomicLocation gl = new GenomicLocation();
 	    			gl.setChromosone(res.getString("chr_name"));
-	    			gl.setStartPos(Integer.getInteger(res.getString("position")));
-	    			gl.setEndPos(Integer.getInteger(res.getString("position")));
+	    			gl.setStartPos(Integer.parseInt(res.getString("position")));
+	    			gl.setEndPos(Integer.parseInt(res.getString("position")));
 	    			gl.setStrand(res.getString("strand"));
 	    			expressed.setGenomicLocation(gl);
 	    			
 	    			channel.getExpressedGenotypeTrait().getEl().add(expressed);
 	    			Roi roi = null;
 	    			
+	    			ArrayList<String> addedAnnoations = new ArrayList<>();
 	    			// get all anntoations associated to the same image => need to collapse rows
 		        	while(sameImage){
 		        		
 		        		String anat =  res.getString("expression_domain_name");
 
         				// as long as we have an annotation create a roi
-		        		if (anat != null){
+		        		if (anat != null && !addedAnnoations.contains(anat)){
 		        			if (roi == null){
 		    	    			String roiId = "tracer_roi_" + i;
 		    	    			roi = new Roi();
 		    	    			// link image and channel
+		    	    			roi.setId(roiId);
 		    	    			roi.setAssociatedChannel(new StringArray());
 		    	    			roi.getAssociatedChannel().getEl().add(channelId);
 		    	    			roi.setAssociatedImmage(internalId);
 		    	    			roi.setAnatomyExpressionAnnotations(new AnnotationArray());
-		    	    		}
+		    	    				}
 		        			Annotation anatomy = new Annotation();
 		        			anatomy.setAnatomyFreetext(anat);
-
+		        			addedAnnoations.add(anat); // in the DB the entries are repeated for each neighbouring gene to the insertions site.
+			    	    	
 			    			if (emapIds.containsKey(anat)){	
 			    				anatomy.setOntologyTerm(getOntologyTerm(emapLabels.get(anat), emapIds.get(anat)));
-			    				anatomy.setAnnotationMode(AnnotationMode.MANUAL);
 			    			}
 			    			else {	
 			    				try {
 			    					if (!getAnatomyId(anat, a).equalsIgnoreCase("")){
-					    				anatomy.setOntologyTerm(getOntologyTerm(emapLabels.get(anat), emapIds.get(anat)));
-					    				anatomy.setAnnotationMode(AnnotationMode.AUTOMATED); 						
+			    						Annotation automatedAnn = new Annotation();
+			    						automatedAnn.setOntologyTerm(getOntologyTerm(getAnatomyLabels(anat, a), getAnatomyId(anat, a)));
+			    						automatedAnn.setAnnotationMode(AnnotationMode.AUTOMATED); 		
+			    						roi.getAnatomyExpressionAnnotations().getEl().add(automatedAnn);
 			    					}
 			    				} catch (JSONException e) {
 			    					e.printStackTrace();
@@ -188,6 +194,7 @@ public class TracerXmlGenerator {
 			    				}
 			    			}
 			    			roi.getAnatomyExpressionAnnotations().getEl().add(anatomy);
+		    				anatomy.setAnnotationMode(AnnotationMode.MANUAL);
 		        		}
 		        				    			
 		    			if (res.next() && imageName.equalsIgnoreCase(res.getString("image_name"))){
@@ -203,10 +210,27 @@ public class TracerXmlGenerator {
 		    			image.getAssociatedRoi().getEl().add(roi.getId());
 		    			channel.setAssociatedRoi(new StringArray());
 		    			channel.getAssociatedRoi().getEl().add(roi.getId());
+		    			doc.getRoi().add(roi);
 		    		}
-	    		
-	    		} // end while ( res.next())
-	    	}
+
+			        doc.getImage().add(image);
+			        if (channel != null){
+			        	doc.getChannel().add(channel);
+			        }
+	    		} 
+	    	}// end while ( res.next())
+	        
+
+	        File file = new File("source/main/resources/tracerExport.xml");
+			JAXBContext jaxbContext = JAXBContext.newInstance(Doc.class);
+			Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+	 
+			// output pretty printed
+			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+			jaxbMarshaller.marshal(doc, file);
+			jaxbMarshaller.marshal(doc, System.out);
+	        
 	        }catch(Exception e){
 	        	e.printStackTrace();
 	        }

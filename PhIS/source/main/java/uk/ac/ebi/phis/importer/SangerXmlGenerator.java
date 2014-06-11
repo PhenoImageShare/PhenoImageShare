@@ -202,40 +202,7 @@ public class SangerXmlGenerator {
 					        	doc.getRoi().add(roi);
 					        }
 			    		}
-			    		
-
-			    		/*
-		    		HashSet<String> anatomyIds = new HashSet<String>(); 
-		    		HashSet<String> anatomyTerms = new HashSet<String>(); 
-		    		HashSet<String> phenotypeIds = new HashSet<String>(); 
-		    		HashSet<String> phenotypeTerms = new HashSet<String>(); 
-		    		HashSet<String> observations = new HashSet<String>(); 
-		    	//	HashSet<String> anatomyAnnBag = new HashSet<String>(); 
-		    		
-	    			image.appendChild(utils.getNewElement(JsonFields.IMAGE_TYPE, imageType , imageDoc));
-	    			if (imageType.equalsIgnoreCase("expression")){
-	    				
-	    				// create channel
-	    				channel = channelDoc.createElement("entry");
-//			    		channel.appendChild(utils.getNewElement(JsonFields.DOCUMENT_TYPE, "channel", channelDoc));
-	    				channel.appendChild(utils.getNewElement(JsonFields.ID, channelId, channelDoc));
-	    				// associate ids
-	    				channel.appendChild(utils.getNewElement(JsonFields.ASSOCIATED_IMAGE, internal_id, channelDoc));
-	    				image.appendChild(utils.getNewArrrayElement(JsonFields.ASSOCIATED_CHANNEL, channelId, imageDoc));
-	    				// fill expressed genetic features
-	    				channel = utils.addElementToArray(channel, JsonFields.GENE_ID, res.getString("gf_acc"), channelDoc);
-	    				channel = utils.addElementToArray(channel, JsonFields.GENE_NAME , res.getString("GENE"), channelDoc);
-	    				channel = utils.addElementToArray(channel, JsonFields.GENETIC_FEATURE_ID , res.getString("acc"), channelDoc);
-	    				channel = utils.addElementToArray(channel, JsonFields.GENETIC_FEATURE_NAME , res.getString("ALLELE"), channelDoc);
-	    				// mark them as expressed genetic features too
-	    				image = utils.addElementToArray(image, JsonFields.EXPRESSED_GF_LIST, res.getString("gf_acc"), imageDoc);
-		    			image = utils.addElementToArray(image, JsonFields.EXPRESSED_GF_LIST , res.getString("GENE"), imageDoc);
-		    			image = utils.addElementToArray(image, JsonFields.EXPRESSED_GF_LIST , res.getString("acc"), imageDoc);
-		    			image = utils.addElementToArray(image, JsonFields.EXPRESSED_GF_LIST , res.getString("ALLELE"), imageDoc);
-		    			    			
-	    			}
-		 */
-			    		
+			    					    		
 			    		// !!!  Last thing in this block  !!!
 				        doc.getImage().add(image);
 				        if (channel != null){

@@ -8,6 +8,7 @@ import org.apache.solr.client.solrj.SolrServerException;
 import uk.ac.ebi.phis.importer.SangerImagesImporter;
 import uk.ac.ebi.phis.importer.SangerXmlGenerator;
 import uk.ac.ebi.phis.importer.TracerImporter;
+import uk.ac.ebi.phis.importer.TracerXmlGenerator;
 import uk.ac.ebi.phis.utils.ontology.OntologyMapper;
 import uk.ac.ebi.phis.utils.ontology.OntologyMapperPredefinedTypes;
 
@@ -20,8 +21,11 @@ public class main {
 //		System.out.println("\t\t " + mapper.getAnatomyLabel("MA_0000003"));
 		try {
 
-			SangerXmlGenerator sg = new SangerXmlGenerator();
-			sg.read();
+//			SangerXmlGenerator sg = new SangerXmlGenerator();
+//			sg.read();
+			
+			TracerXmlGenerator tg = new TracerXmlGenerator();
+			tg.read();
 			
 			/*		
 			SangerImagesImporter sanger = new SangerImagesImporter();
