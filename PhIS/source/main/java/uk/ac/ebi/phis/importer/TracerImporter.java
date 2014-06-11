@@ -76,10 +76,7 @@ public class TracerImporter {
         		+ "WHERE"
         		+ " sl.sb_id=si.sb_id AND sl.lab_id=l.lab_id AND si.chr_id=c.chr_id AND si.insertion_type_id=it.insertion_type_id "
         		+ "AND sl.sb_id=ei.sb_id AND ei.exp_image_id=eid.exp_image_id AND eid.exp_domain_id=ed.exp_domain_id AND "
-        		+ "ei.display_mode='public' AND sbg.sb_id=sl.sb_id AND sl.display_mode='public'";
-        
-       // List<Map<String, Object>> results = jdbcTemplate.queryForList(command);
-        
+        		+ "ei.display_mode='public' AND sbg.sb_id=sl.sb_id AND sl.display_mode='public'";      
        
         try {
         	

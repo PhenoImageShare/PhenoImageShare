@@ -99,7 +99,6 @@
 						  	  		<element name="image_context_url" type="string" minOccurs="0" maxOccurs="1"/> <!-- URL linking back to the image page on the original website, if they have single image pages -->
 						  	  		<element name="image_dimensions"	type="x:Dimensions" minOccurs="1" maxOccurs="1"/>	
 						  	  		<element name="machine"	type="string" minOccurs="0" maxOccurs="1"/>
-						  	  		<element name="image_type" type="string" minOccurs="0" maxOccurs="1"/>
 						  	  		<element name="original_image_id" type="string" minOccurs="1" maxOccurs="1"/>
 						  	  		<element name="image_generated_by" type="string" minOccurs="1" /> <!-- Lab/center/institute that produced the images -->
 						  	  		<element name="organism_generated_by" type="string" minOccurs="1" maxOccurs="1"/> <!-- Lab/center/institute that produced the organism -->

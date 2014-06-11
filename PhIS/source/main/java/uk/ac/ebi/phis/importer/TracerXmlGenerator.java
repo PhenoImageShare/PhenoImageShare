@@ -4,6 +4,8 @@ import j.Dimensions;
 import j.Doc;
 import j.Image;
 import j.ImageDescription;
+import j.OntologyTerm;
+import j.OntologyTermArray;
 
 import java.io.File;
 import java.io.IOException;
@@ -124,7 +126,24 @@ public class TracerXmlGenerator {
 		    		imageDesc.setImageGeneratedBy("Spitz Lab, EMBL");
 		    		imageDesc.setHostName("Tracer Database");
 		    		imageDesc.setHostUrl("http://www.ebi.ac.uk/panda-srv/tracer/");
+		    		
+		    		OntologyTermArray sp = new OntologyTermArray();
+		    		sp.getEl().add(getOntologyTerm("whole mounted tissue", "FBbi_00000024"));
+		    		imageDesc.setSamplePreparation(sp);
+		    		
+		    		OntologyTermArray vm = new OntologyTermArray();
+		    		vm.getEl().add(getOntologyTerm("visualisation of genetically encoded beta-galactosidase", "FBbi_00000077"));
+		    		imageDesc.setVisualisationMethod(vm);
+		    		
+		    		OntologyTermArray im = new OntologyTermArray();
+		    		im.getEl().add(getOntologyTerm("light microscopy", "FBbi_00000345"));
+		    		imageDesc.setImagingMethod(im);
+		    		
+		    		image.setImageDescription(imageDesc);
+		    		
 	    		}
+	    		
+	    		
 	        }
 	        
         }catch(Exception e){
@@ -355,5 +374,11 @@ public class TracerXmlGenerator {
 		if (eAge == 19) return 27;
 		return -1;
 	}
-	
+
+	OntologyTerm getOntologyTerm (String label, String id){
+		 OntologyTerm term = new OntologyTerm();
+		 term.setTermId(id);
+		 term.setTermLabel(label);
+		 return term;
+	 }
 }

@@ -110,9 +110,6 @@ public class SangerXmlGenerator {
 			    		imageDesc.setHostName("Mouse Phenotype");
 			    		imageDesc.setHostUrl("http://www.mousephenotype.org/");
 			    		
-			    		OntologyTermArray samplePrep = new OntologyTermArray();
-			    		OntologyTermArray imagingType = new OntologyTermArray();
-			    		OntologyTermArray visualisationMetod = new OntologyTermArray();
 			    		String procedure = res.getString("procedure_name");
 			    		// Parse procedure names to get most info out of htem. Mappings done by David can be found at https://docs.google.com/spreadsheet/ccc?key=0AmK8olNJT0Z7dEN2MklCX2g1TmhJWTk0N3VlUERVaVE&usp=drive_web#gid=0
 			    		imageDesc = setSamplePrep(procedure, imageDesc);
