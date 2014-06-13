@@ -112,9 +112,9 @@
 								
 								<complexType name="Organism">
 									<all>
-						  	  		<element name="age" type="x:Age" minOccurs="1" maxOccurs="1"/>
+						  	  		<element name="age" type="x:Age" minOccurs="0" maxOccurs="1"/>
 						  	  		<element name="taxon" type="string" minOccurs="1" maxOccurs="1"/>
-						   		 		<element name="sex" type="x:Sex" minOccurs="1" maxOccurs="1"/>
+						   		 		<element name="sex" type="x:Sex" minOccurs="0" maxOccurs="1"/>
 						  	  		<element name="ncbi_taxon_id"	type="string" minOccurs="0" maxOccurs="1"/>
 						  	  		<element name="stage"	type="string" minOccurs="0" maxOccurs="1"/>
 						  	  		<element name="stage_ontology_term" type="x:OntologyTerm" minOccurs="0" maxOccurs="1"/>
@@ -181,8 +181,7 @@
 						  	  		<element name="id" type="string" minOccurs="1" maxOccurs="1"/>
 						  	  		<element name="organism" type="x:Organism" minOccurs="1" maxOccurs="1"/>
 						  	  		<element name="image_description" type="x:ImageDescription" minOccurs="1" maxOccurs="1"/>
-						  	  		<element name="mutant_genotype_traits" type="x:GeneticTraitArray"  minOccurs="1" maxOccurs="1"/> <!-- Mutant genetic features. Expressed ones should be associated to the channel, not the image itself! -->
-						  	  		<!-- element name="procedure" type="string" minOccurs="0" maxOccurs="1"/-->
+						  	  		<element name="mutant_genotype_traits" type="x:GeneticTraitArray"  minOccurs="0" maxOccurs="1"/> <!-- Mutant genetic features. Expressed ones should be associated to the channel, not the image itself! -->
 						  	  		<element name="conditions"	type="string" minOccurs="0" maxOccurs="1"/>		
 						  	  		<element name="observations"	type="x:StringArray" minOccurs="0" maxOccurs="1"/>
 						  	  		<element name="associated_roi" type="x:StringArray" minOccurs="0" maxOccurs="1"/>

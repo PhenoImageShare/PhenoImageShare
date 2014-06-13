@@ -5,12 +5,13 @@ import java.util.ArrayList;
 
 import org.apache.solr.client.solrj.SolrServerException;
 
-import uk.ac.ebi.phis.importer.SangerImagesImporter;
-import uk.ac.ebi.phis.importer.SangerXmlGenerator;
-import uk.ac.ebi.phis.importer.TracerImporter;
-import uk.ac.ebi.phis.importer.TracerXmlGenerator;
+import uk.ac.ebi.phis.importer.BatchXmlReader;
 import uk.ac.ebi.phis.utils.ontology.OntologyMapper;
 import uk.ac.ebi.phis.utils.ontology.OntologyMapperPredefinedTypes;
+import uk.ac.ebi.phis.xmlDump.SangerImagesImporter;
+import uk.ac.ebi.phis.xmlDump.SangerXmlGenerator;
+import uk.ac.ebi.phis.xmlDump.TracerImporter;
+import uk.ac.ebi.phis.xmlDump.TracerXmlGenerator;
 
 public class main {
 
@@ -21,11 +22,15 @@ public class main {
 //		System.out.println("\t\t " + mapper.getAnatomyLabel("MA_0000003"));
 		try {
 
+			BatchXmlReader reader = new BatchXmlReader();
+//			System.out.println(reader.validate("tracerExport.xml"));
+			System.out.println(reader.validate("sangerExport.xml"));
+			System.out.println(reader.convertXmlToObjects("sangerExport.xml"));
 //			SangerXmlGenerator sg = new SangerXmlGenerator();
 //			sg.read();
 			
-			TracerXmlGenerator tg = new TracerXmlGenerator();
-			tg.read();
+//			TracerXmlGenerator tg = new TracerXmlGenerator();
+//			tg.read();
 			
 			/*		
 			SangerImagesImporter sanger = new SangerImagesImporter();
@@ -35,12 +40,10 @@ public class main {
 			tracer.read();
 	*/
 			
-			
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		
+				
 		/*		
 		Komp2Importer komp = new Komp2Importer();
 		komp.downloadAndParseToXml();

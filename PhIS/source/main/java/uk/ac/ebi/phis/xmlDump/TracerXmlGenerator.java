@@ -1,0 +1,343 @@
+package uk.ac.ebi.phis.xmlDump;
+
+import j.*;
+
+import java.io.File;
+import java.io.IOException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.sql.DataSource;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
+
+import org.json.JSONException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import uk.ac.ebi.phis.utils.ontology.Normalizer;
+import uk.ac.ebi.phis.utils.ontology.OntologyMapperPredefinedTypes;
+import uk.ac.ebi.phis.utils.ontology.Utils;
+
+
+public class TracerXmlGenerator {
+	
+	Normalizer norm;
+	Utils utils;
+	
+	// hand made mapping between TRACER anatomy terms and EMAPA ids. See e-mail thread Fwd: [Phenoimageshare] Call 6 February 2014
+	Map<String, String> emapLabels = new HashMap<String, String>(); 
+	Map<String, String> emapIds = new HashMap<String, String>(); 
+	
+	public TracerXmlGenerator(){
+		norm = new Normalizer();
+		utils = new Utils(OntologyMapperPredefinedTypes.MA_MP);
+		emapLabels.put("cranial ganglia", "cranial ganglion"); emapIds.put("cranial ganglia", "EMAPA:16659");
+		emapLabels.put("digestive", "alimentary system"); emapIds.put("digestive", "EMAPA:16246");
+		emapLabels.put("dorsal root ganglia", "dorsal root ganglion"); emapIds.put("dorsal root ganglia", "EMAPA:16668");
+		emapLabels.put("ear", "ear"); emapIds.put("ear", "EMAPA:16193");
+		emapLabels.put("eye", "eye"); emapIds.put("eye", "EMAPA:16198");
+		emapLabels.put("face", "head"); emapIds.put("face", "EMAPA:31858");
+		emapLabels.put("forebrain", "forebrain"); emapIds.put("forebrain", "EMAPA:16895");
+		emapLabels.put("heart", "heart"); emapIds.put("heart", "EMAPA:16105");
+		emapLabels.put("hindbrain", "hindbrain"); emapIds.put("hindbrain", "EMAPA:16916");
+		emapLabels.put("limb", "limb"); emapIds.put("limb", "EMAPA:16405");
+		emapLabels.put("midbrain", "midbrain"); emapIds.put("midbrain", "EMAPA:16974");
+		emapLabels.put("somites", "somite group"); emapIds.put("somites", "EMAPA:31169");
+	}
+	
+	public void read() throws IOException{
+    
+        ApplicationContext ac = new ClassPathXmlApplicationContext("app-config.xml");
+		DataSource dataSource = (DataSource) ac.getBean("tracerDB");
+        
+		
+        String command = "SELECT sl.sb_id, sl.sbname, l.name as source, c.name as chr_name, si.position, si.strand, "
+        		+ "it.name AS insertion_type, ei.name AS image_name, ei.file_path, ei.stage, ei.comment AS image_comment, "
+        		+ "ed.name AS expression_domain_name, sbg.name AS gene_name, sbg.ensembl_gene_id, sbg.mgi_id "
+        		+ "FROM "
+        		+ "sb_lines sl, labs l, sb_insertions si, insertion_types it, chromosomes c, expression_images ei, expression_image_domains eid, "
+        		+ "expression_domains ed, sb_genes sbg  "
+        		+ "WHERE"
+        		+ " sl.sb_id=si.sb_id AND sl.lab_id=l.lab_id AND si.chr_id=c.chr_id AND si.insertion_type_id=it.insertion_type_id "
+        		+ "AND sl.sb_id=ei.sb_id AND ei.exp_image_id=eid.exp_image_id AND eid.exp_domain_id=ed.exp_domain_id AND "
+        		+ "ei.display_mode='public' AND sbg.sb_id=sl.sb_id AND sl.display_mode='public'";
+        
+       // List<Map<String, Object>> results = jdbcTemplate.queryForList(command);
+        
+       
+        try {
+        	
+        	PreparedStatement statement = dataSource.getConnection().prepareStatement(command);
+     		ResultSet res = statement.executeQuery();
+            
+			int i = 0;
+			
+			Doc doc = new Doc();
+			
+	        while ( res.next()){
+	        	boolean sameImage = true;
+	        	String imageName = res.getString("image_name");
+	        	String internalId =  "tracer_" + i;
+	        		    		
+	    		String url = "http://www.ebi.ac.uk/panda-srv/tracer/sblac/" + res.getString("file_path") + "/" + res.getString("image_name") + ".jpg";
+	    		
+	    		Map<String, Integer> dimensions = utils.getImageMeasuresFromUrl(url);
+	    		
+	    		if (dimensions != null){ //index info only if the image could be loaded 	    		
+
+		    		Image image = new Image();
+		    		image.setId(internalId);
+	    			
+	    			Dimensions d = new Dimensions();
+	    			d.setImageHeight(dimensions.get("height"));
+	    			d.setImageWidth(dimensions.get("width"));
+		    		ImageDescription imageDesc = new ImageDescription();
+		    		imageDesc.setImageUrl(url);
+		    		imageDesc.setOriginalImageId(res.getString("sb_id"));
+		    		imageDesc.setImageDimensions(d);
+		      		imageDesc.setOrganismGeneratedBy("Spitz Lab, EMBL");
+		    		imageDesc.setImageGeneratedBy("Spitz Lab, EMBL");
+		    		imageDesc.setHostName("Tracer Database");
+		    		imageDesc.setHostUrl("http://www.ebi.ac.uk/panda-srv/tracer/");
+		    		
+		    		OntologyTermArray sp = new OntologyTermArray();
+		    		sp.getEl().add(getOntologyTerm("whole mounted tissue", "FBbi_00000024"));
+		    		imageDesc.setSamplePreparation(sp);
+		    		
+		    		OntologyTermArray vm = new OntologyTermArray();
+		    		vm.getEl().add(getOntologyTerm("visualisation of genetically encoded beta-galactosidase", "FBbi_00000077"));
+		    		imageDesc.setVisualisationMethod(vm);
+		    		
+		    		OntologyTermArray im = new OntologyTermArray();
+		    		im.getEl().add(getOntologyTerm("light microscopy", "FBbi_00000345"));
+		    		imageDesc.setImagingMethod(im);
+		    		
+		    		image.setImageDescription(imageDesc);
+		    		
+	    			if (res.getString("image_comment") != null){
+	    				if (image.getObservations() == null){
+	    					image.setObservations(new StringArray());
+	    				}
+	    				image.getObservations().getEl().add(res.getString("image_comment"));
+	    			}
+		    		
+		    		Organism org = new Organism();
+	    			// in the TRACER fields 'stage' they actually store dpc, with values like E11.5
+	    			String a = norm.normalizeAge(res.getString("stage"));
+	    			Age age = new Age();
+	    			age.setEmbryonicAge(Float.valueOf(a));
+	    			org.setAge(age);
+	    			org.setTaxon("Mus musculus");
+	    			image.setOrganism(org);
+
+	    			// We always have 1 channel
+	    			Channel channel = new Channel();
+	    			String channelId = "tracer_channel_" + i + "_0";
+	    			channel.setId(channelId);
+	    			// Link it to the image
+	    			channel.setAssociatedImage(internalId);
+	    			// Link image to channel too
+	    			image.setAssociatedChannel(new StringArray());
+	    			image.getAssociatedChannel().getEl().add(channelId);
+	    			
+	    			channel.setExpressedGenotypeTrait(new GeneticTraitArray());
+	    			GeneticTrait expressed = new GeneticTrait();
+	    			GenomicLocation gl = new GenomicLocation();
+	    			gl.setChromosone(res.getString("chr_name"));
+	    			gl.setStartPos(Integer.parseInt(res.getString("position")));
+	    			gl.setEndPos(Integer.parseInt(res.getString("position")));
+	    			gl.setStrand(res.getString("strand"));
+	    			expressed.setGenomicLocation(gl);
+	    			
+	    			channel.getExpressedGenotypeTrait().getEl().add(expressed);
+	    			Roi roi = null;
+	    			
+	    			ArrayList<String> addedAnnoations = new ArrayList<>();
+	    			// get all anntoations associated to the same image => need to collapse rows
+		        	while(sameImage){
+		        		
+		        		String anat =  res.getString("expression_domain_name");
+
+        				// as long as we have an annotation create a roi
+		        		if (anat != null && !addedAnnoations.contains(anat)){
+		        			if (roi == null){
+		    	    			String roiId = "tracer_roi_" + i;
+		    	    			roi = new Roi();
+		    	    			// link image and channel
+		    	    			roi.setId(roiId);
+		    	    			roi.setAssociatedChannel(new StringArray());
+		    	    			roi.getAssociatedChannel().getEl().add(channelId);
+		    	    			roi.setAssociatedImmage(internalId);
+		    	    			roi.setAnatomyExpressionAnnotations(new AnnotationArray());
+		    	    			// set coordinates
+		    	    			Coordinates coords = new Coordinates();
+		    	    			FloatArray xcoords = new FloatArray();
+		    	    			FloatArray ycoords = new FloatArray();
+		    	    			xcoords.getEl().add((float)0);
+		    	    			xcoords.getEl().add((float)100); // whole image because tracer doesn't do rois by it's own
+		    	    			ycoords.getEl().add((float)0);
+		    	    			ycoords.getEl().add((float)100);
+		    	    			coords.setYCoordinates(ycoords);
+		    	    			coords.setXCoordinates(xcoords);
+		    	    			roi.setCoordinates(coords);
+		    	    		}
+		        			Annotation anatomy = new Annotation();
+		        			anatomy.setAnatomyFreetext(anat);
+		        			addedAnnoations.add(anat); // in the DB the entries are repeated for each neighbouring gene to the insertions site.
+			    	    	
+			    			if (emapIds.containsKey(anat)){	
+			    				anatomy.setOntologyTerm(getOntologyTerm(emapLabels.get(anat), emapIds.get(anat)));
+			    			}
+			    			else {	
+			    				try {
+			    					if (!getAnatomyId(anat, a).equalsIgnoreCase("")){
+			    						Annotation automatedAnn = new Annotation();
+			    						automatedAnn.setOntologyTerm(getOntologyTerm(getAnatomyLabels(anat, a), getAnatomyId(anat, a)));
+			    						automatedAnn.setAnnotationMode(AnnotationMode.AUTOMATED); 		
+			    						roi.getAnatomyExpressionAnnotations().getEl().add(automatedAnn);
+			    					}
+			    				} catch (JSONException e) {
+			    					e.printStackTrace();
+			    				} catch (Exception e) {
+			    					e.printStackTrace();
+			    				}
+			    			}
+			    			roi.getAnatomyExpressionAnnotations().getEl().add(anatomy);
+		    				anatomy.setAnnotationMode(AnnotationMode.MANUAL);
+		        		}
+		        				    			
+		    			if (res.next() && imageName.equalsIgnoreCase(res.getString("image_name"))){
+		    					i++;
+		    				}
+		    			else {
+		    				sameImage=false;
+		    				res.previous();
+		        		}
+		    		}
+		    		if (roi != null){
+		    			image.setAssociatedRoi(new StringArray());
+		    			image.getAssociatedRoi().getEl().add(roi.getId());
+		    			channel.setAssociatedRoi(new StringArray());
+		    			channel.getAssociatedRoi().getEl().add(roi.getId());
+		    			doc.getRoi().add(roi);
+		    		}
+
+			        doc.getImage().add(image);
+			        if (channel != null){
+			        	doc.getChannel().add(channel);
+			        }
+	    		} 
+	    	}// end while ( res.next())
+	        
+
+	        File file = new File("source/main/resources/tracerExport.xml");
+			JAXBContext jaxbContext = JAXBContext.newInstance(Doc.class);
+			Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+	 
+			// output pretty printed
+			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+			jaxbMarshaller.marshal(doc, file);
+			jaxbMarshaller.marshal(doc, System.out);
+	        
+	        }catch(Exception e){
+	        	e.printStackTrace();
+	        }
+	    
+	}
+	
+	
+	private String getAnatomyId(String anat, String ageInDays) throws Exception{
+		String res = "";
+		if (ageInDays.equalsIgnoreCase(""))
+			return res;
+		float age = new Float(ageInDays);
+		int ts = convertAgeToTs(age);
+		if (anat.equalsIgnoreCase("genital bud")){
+			if (ts <= 18)
+				return "EMAPA:30074";
+			else if (ts == 19)
+				return "EMAPA:30074";
+//			else throw new Exception("I don't know the sex!!!");
+		}
+		else if (anat.equalsIgnoreCase("urogenital")){
+			if (ts <= 18)
+				return "EMAPA:16367";
+			else 
+				return "EMAPA:17381";	
+		}
+		else if (anat.equalsIgnoreCase("neural tube")){
+			if (ts <= 19)
+				return "EMAPA:16525";
+			else return "EMAPA:17577";
+		}		
+		return res;
+	}
+	
+	private String getAnatomyLabels(String anat, String ageInDays) throws Exception{
+		String res = "";
+		if (ageInDays.equalsIgnoreCase(""))
+			return "";
+		float age = new Float(ageInDays);
+		int ts = convertAgeToTs(age);
+		if (anat.equalsIgnoreCase("genital bud")){
+			if (ts <= 18)
+				return "genital swelling";
+			else if (ts == 19)
+				return "genital tubercle";
+//			else throw new Exception("I don't know the sex!!!");
+		}
+		else if (anat.equalsIgnoreCase("urogenital")){
+			if (ts <= 18)
+				return "genitourinary system";
+			else return "reproductive system";
+		}
+		else if (anat.equalsIgnoreCase("neural tube")){
+			if (ts <= 19)
+				return "future spinal cord";
+			else return "spinal cord";
+		}		
+		return res;
+	}
+	
+	private int convertAgeToTs(Float eAge){
+		if (eAge <= 1)	return 2;
+		if (eAge == 2) return 3;
+		if (eAge == 3) return 4;
+		if (eAge == 4) return 5;
+		if (eAge == 4.5) return 6;
+		if (eAge == 5) return 7;
+		if (eAge == 6) return 8;
+		if (eAge == 6.5) return 9;
+		if (eAge == 7) return 10;
+		if (eAge == 7.5) return 11;
+		if (eAge == 8) return 12;
+		if (eAge == 8.5) return 13;
+		if (eAge == 9) return 14;
+		if (eAge == 9.5) return 15;
+		if (eAge == 10) return 16;
+		if (eAge == 10.5) return 17;
+		if (eAge == 11) return 18;
+		if (eAge == 11.5) return 19;
+		if (eAge == 12) return 20;
+		if (eAge == 13) return 21;
+		if (eAge == 14) return 22;
+		if (eAge == 15) return 23;
+		if (eAge == 16) return 24;
+		if (eAge == 17) return 25;
+		if (eAge == 18) return 26;
+		if (eAge == 19) return 27;
+		return -1;
+	}
+
+	OntologyTerm getOntologyTerm (String label, String id){
+		 OntologyTerm term = new OntologyTerm();
+		 term.setTermId(id);
+		 term.setTermLabel(label);
+		 return term;
+	 }
+}
