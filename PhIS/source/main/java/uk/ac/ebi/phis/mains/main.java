@@ -23,7 +23,7 @@ public class main {
 		try {
 
 			BatchXmlReader reader = new BatchXmlReader();
-//			System.out.println(reader.validate("tracerExport.xml"));
+			System.out.println(reader.validate("tracerExport.xml"));
 			System.out.println(reader.validate("sangerExport.xml"));
 			System.out.println(reader.convertXmlToObjects("sangerExport.xml"));
 //			SangerXmlGenerator sg = new SangerXmlGenerator();

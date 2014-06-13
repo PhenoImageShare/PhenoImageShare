@@ -18,15 +18,15 @@ import org.json.JSONException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import uk.ac.ebi.phis.utils.ontology.Normalizer;
+import uk.ac.ebi.phis.utils.EnrichingUtils;
+import uk.ac.ebi.phis.utils.Normalizer;
+import uk.ac.ebi.phis.utils.Utils_deprecated;
 import uk.ac.ebi.phis.utils.ontology.OntologyMapperPredefinedTypes;
-import uk.ac.ebi.phis.utils.ontology.Utils;
 
 
 public class TracerXmlGenerator {
 	
 	Normalizer norm;
-	Utils utils;
 	
 	// hand made mapping between TRACER anatomy terms and EMAPA ids. See e-mail thread Fwd: [Phenoimageshare] Call 6 February 2014
 	Map<String, String> emapLabels = new HashMap<String, String>(); 
@@ -34,7 +34,6 @@ public class TracerXmlGenerator {
 	
 	public TracerXmlGenerator(){
 		norm = new Normalizer();
-		utils = new Utils(OntologyMapperPredefinedTypes.MA_MP);
 		emapLabels.put("cranial ganglia", "cranial ganglion"); emapIds.put("cranial ganglia", "EMAPA:16659");
 		emapLabels.put("digestive", "alimentary system"); emapIds.put("digestive", "EMAPA:16246");
 		emapLabels.put("dorsal root ganglia", "dorsal root ganglion"); emapIds.put("dorsal root ganglia", "EMAPA:16668");
@@ -85,7 +84,7 @@ public class TracerXmlGenerator {
 	        		    		
 	    		String url = "http://www.ebi.ac.uk/panda-srv/tracer/sblac/" + res.getString("file_path") + "/" + res.getString("image_name") + ".jpg";
 	    		
-	    		Map<String, Integer> dimensions = utils.getImageMeasuresFromUrl(url);
+	    		Map<String, Integer> dimensions = EnrichingUtils.getImageMeasuresFromUrl(url);
 	    		
 	    		if (dimensions != null){ //index info only if the image could be loaded 	    		
 
@@ -175,8 +174,8 @@ public class TracerXmlGenerator {
 		    	    			roi.setAnatomyExpressionAnnotations(new AnnotationArray());
 		    	    			// set coordinates
 		    	    			Coordinates coords = new Coordinates();
-		    	    			FloatArray xcoords = new FloatArray();
-		    	    			FloatArray ycoords = new FloatArray();
+		    	    			PercentArray xcoords = new PercentArray();
+		    	    			PercentArray ycoords = new PercentArray();
 		    	    			xcoords.getEl().add((float)0);
 		    	    			xcoords.getEl().add((float)100); // whole image because tracer doesn't do rois by it's own
 		    	    			ycoords.getEl().add((float)0);

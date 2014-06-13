@@ -2,13 +2,11 @@ package uk.ac.ebi.phis.xmlDump;
 
 import j.*;
 
-
 import java.io.File;
 import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import java.util.Map;
 
 import javax.sql.DataSource;
@@ -21,18 +19,17 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.w3c.dom.DOMException;
 
-import uk.ac.ebi.phis.utils.ontology.Normalizer;
+import uk.ac.ebi.phis.utils.EnrichingUtils;
+import uk.ac.ebi.phis.utils.Normalizer;
+import uk.ac.ebi.phis.utils.Utils_deprecated;
 import uk.ac.ebi.phis.utils.ontology.OntologyMapperPredefinedTypes;
-import uk.ac.ebi.phis.utils.ontology.Utils;
 
 public class SangerXmlGenerator {
 	
 	Normalizer norm;
-	Utils utils;
 		
 	public SangerXmlGenerator(){
 		norm = new Normalizer();
-		utils = new Utils(OntologyMapperPredefinedTypes.MA_MP);
 	}
 	
 	public void read() throws IOException{
@@ -75,7 +72,7 @@ public class SangerXmlGenerator {
 		        	String imageId = res.getString("ID");		        
 		    		
 		    		String url = "http://www.mousephenotype.org/data/media/" + res.getString("LARGE_THUMBNAIL_FILE_PATH") ;
-		    		Map<String, Integer> dimensions = utils.getImageMeasuresFromUrl(url);
+		    		Map<String, Integer> dimensions = EnrichingUtils.getImageMeasuresFromUrl(url);
 		    		
 		    		if (dimensions != null){// the image could be loaded 	    		
 
@@ -266,8 +263,8 @@ public class SangerXmlGenerator {
 				}
 				
 	        	Coordinates coord = new Coordinates();
-	        	FloatArray xCoord = new FloatArray();
-	        	FloatArray yCoord = new FloatArray();
+	        	PercentArray xCoord = new PercentArray();
+	        	PercentArray yCoord = new PercentArray();
 	        	
 		        // Add coordinates
 		        if ( (Float) res.getFloat("X_START") + (Float) res.getFloat("X_END") + (Float)res.getFloat("Y_START") + (Float)res.getFloat("Y_END") != 0 ){

@@ -1,4 +1,4 @@
-package uk.ac.ebi.phis.utils.ontology;
+package uk.ac.ebi.phis.utils;
 
 public final class JsonFields {
 //	public static final String DOCUMENT_TYPE = "document_type";

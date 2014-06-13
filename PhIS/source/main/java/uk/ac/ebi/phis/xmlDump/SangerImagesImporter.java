@@ -27,19 +27,19 @@ import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import uk.ac.ebi.phis.utils.ontology.JsonFields;
-import uk.ac.ebi.phis.utils.ontology.Normalizer;
+import uk.ac.ebi.phis.utils.JsonFields;
+import uk.ac.ebi.phis.utils.Normalizer;
+import uk.ac.ebi.phis.utils.Utils_deprecated;
 import uk.ac.ebi.phis.utils.ontology.OntologyMapperPredefinedTypes;
-import uk.ac.ebi.phis.utils.ontology.Utils;
 
 public class SangerImagesImporter {
 	
 	Normalizer norm;
-	Utils utils;
+	Utils_deprecated utils;
 		
 	public SangerImagesImporter(){
 		norm = new Normalizer();
-		utils = new Utils(OntologyMapperPredefinedTypes.MA_MP);
+		utils = new Utils_deprecated(OntologyMapperPredefinedTypes.MA_MP);
 	}
 	
 	public void read() throws IOException{

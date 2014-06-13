@@ -17,16 +17,16 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for AnnotationArray complex type.
+ * <p>Java class for PercentArray complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="AnnotationArray">
+ * &lt;complexType name="PercentArray">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="el" type="{http://www.example.org/phisSchema}Annotation" maxOccurs="unbounded"/>
+ *         &lt;element name="el" type="{http://www.example.org/phisSchema}Percentage" maxOccurs="unbounded"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -36,13 +36,13 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "AnnotationArray", propOrder = {
+@XmlType(name = "PercentArray", propOrder = {
     "el"
 })
-public class AnnotationArray {
+public class PercentArray {
 
-    @XmlElement(required = true)
-    protected List<Annotation> el;
+    @XmlElement(type = Float.class)
+    protected List<Float> el;
 
     /**
      * Gets the value of the el property.
@@ -62,13 +62,13 @@ public class AnnotationArray {
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link Annotation }
+     * {@link Float }
      * 
      * 
      */
-    public List<Annotation> getEl() {
+    public List<Float> getEl() {
         if (el == null) {
-            el = new ArrayList<Annotation>();
+            el = new ArrayList<Float>();
         }
         return this.el;
     }

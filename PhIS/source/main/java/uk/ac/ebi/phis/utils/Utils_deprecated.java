@@ -1,4 +1,4 @@
-package uk.ac.ebi.phis.utils.ontology;
+package uk.ac.ebi.phis.utils;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -17,11 +17,14 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Text;
 
-public class Utils {
+import uk.ac.ebi.phis.utils.ontology.OntologyMapper;
+import uk.ac.ebi.phis.utils.ontology.OntologyMapperPredefinedTypes;
+
+public class Utils_deprecated {
 
 	 OntologyMapper mapper;
 	 
-	 public Utils(OntologyMapperPredefinedTypes mapperType){
+	 public Utils_deprecated(OntologyMapperPredefinedTypes mapperType){
 		 mapper = new OntologyMapper(mapperType);
 	 }
 	
@@ -162,7 +165,7 @@ public class Utils {
 			// If the ends are 0, 0 replace them with the height & width
 			
 			if ( res.getFloat("Y_END") == 0){// height
-				 dimensions = getImageMeasuresFromUrl("http://www.mousephenotype.org/data/media/" + res.getString("FULL_RESOLUTION_FILE_PATH").replaceAll(" ", "%20"));
+				 dimensions = EnrichingUtils.getImageMeasuresFromUrl("http://www.mousephenotype.org/data/media/" + res.getString("FULL_RESOLUTION_FILE_PATH").replaceAll(" ", "%20"));
 				 if (dimensions == null)
 					 System.out.println("http://www.mousephenotype.org/data/media/" + res.getString("FULL_RESOLUTION_FILE_PATH").replaceAll(" ", "%20"));
 				 roi = addElementToArray(roi, JsonFields.Y_COORDINATES, "" + dimensions.get("height"), roiDoc);
@@ -172,7 +175,7 @@ public class Utils {
 			
 			if (res.getFloat("X_END") == 0){ // width
 				if (dimensions == null){
-					 dimensions = getImageMeasuresFromUrl("http://www.mousephenotype.org/data/media/" + res.getString("FULL_RESOLUTION_FILE_PATH").replaceAll(" ", "%20"));		
+					 dimensions = EnrichingUtils.getImageMeasuresFromUrl("http://www.mousephenotype.org/data/media/" + res.getString("FULL_RESOLUTION_FILE_PATH").replaceAll(" ", "%20"));		
 				}
 				roi = addElementToArray(roi, JsonFields.X_COORDINATES, "" + dimensions.get("width"), roiDoc);
 			} else {
@@ -224,20 +227,6 @@ public class Utils {
 			}
 		}
 		return image;
-	}
-	
-
-	public Map<String, Integer> getImageMeasuresFromUrl(String url){
-		Map<String, Integer> map = new HashMap<String, Integer>();
-		try {
-			 BufferedImage image = ImageIO.read(new URL(url));
-			 map.put("height", image.getHeight());
-			 map.put("width", image.getWidth());
-		} catch (IOException e) {
-	//		e.printStackTrace();
-			return null;
-		}
-		return map;
 	}
 	
 }

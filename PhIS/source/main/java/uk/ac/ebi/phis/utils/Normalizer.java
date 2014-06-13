@@ -1,4 +1,4 @@
-package uk.ac.ebi.phis.utils.ontology;
+package uk.ac.ebi.phis.utils;
 
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
@@ -119,79 +119,7 @@ public class Normalizer {
 		else return false;
 	}
 	
-	public String getSequence(String geneSymbol, String specieSnakeCase) throws JSONException, IOException{
-		// http://beta.rest.ensembl.org/xrefs/symbol/mus_musculus/AKT2?content-type=application/json
-		String uri = "http://beta.rest.ensembl.org/xrefs/symbol/" + specieSnakeCase + "/" + geneSymbol + "?content-type=application/json";
-		JSONArray arr = readJsonArrayFromUrl(uri);
-		String ensemblId = null;
-		int i = 0 ;
-		while (i++ < arr.length()){
-			JSONObject obj = (JSONObject) arr.get(0);
-			if (obj.getString("type").equalsIgnoreCase("gene")){
-				ensemblId = obj.getString("id");
-				break;
-			}
-		}
-		// http://beta.rest.ensembl.org/sequence/id/ENSMUSG00000004056?content-type=text/plain
-		if (ensemblId != null){
-			String sequenceUrl = "http://beta.rest.ensembl.org/sequence/id/" + ensemblId + "?content-type=text/plain";
-			return getStringFromUrl (sequenceUrl);
-		}
-		return null;
-	}
 	
-	private static String readAll(Reader rd) throws IOException {
-	    StringBuilder sb = new StringBuilder();
-	    int cp;
-	    while ((cp = rd.read()) != -1) {
-	      sb.append((char) cp);
-	    }
-	    return sb.toString();
-	  }
-
-	public static JSONArray readJsonArrayFromUrl(String url) throws IOException, JSONException {
-		InputStream is = new URL(url).openStream();
-		try {
-			BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
-			String jsonText = readAll(rd);
-			JSONArray json = new JSONArray(jsonText);
-			return json;
-		} finally { is.close(); }
-	}
-	
-	public static JSONObject readJsonFromUrl(String url) throws IOException, JSONException {
-		InputStream is = new URL(url).openStream();
-		try {
-			BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
-			String jsonText = readAll(rd);
-			JSONObject json = new JSONObject(jsonText);
-			return json;
-		} finally { is.close(); }
-	}
-	
-	public String getStringFromUrl(String url) throws MalformedURLException, IOException{
-		InputStream is = new URL(url).openStream();
-		try {
-			BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
-			String text = readAll(rd);
-			return text;
-		} finally { is.close(); }
-	}
-	
-	public GenomicLocation getGenomeLocation(String ensemblId) throws JSONException, IOException{
-		String url = "http://beta.rest.ensembl.org/lookup/id/" + ensemblId + "?content-type=application/json";
-		// http://beta.rest.ensembl.org/lookup/id/ENSG00000157764?content-type=application/json
-		JSONObject json = readJsonFromUrl(url);
-		GenomicLocation loc = new GenomicLocation();
-		loc.setChromosomeString(json.getString("seq_region_name"));
-		loc.setEnd(json.getDouble("end"));
-		loc.setEnsemblId(json.getString("id"));
-		loc.setStart(json.getDouble("start"));
-		loc.setStrand(json.getInt("strand"));
-		return loc;
-	}
-	
-
 	public String getImageType (String procedure){
 		if (procedure.equalsIgnoreCase("Adult LacZ") || procedure.equalsIgnoreCase("Wholemount Expression") || procedure.equalsIgnoreCase("Anti-nuclear Antibody Assay"))
 			return "expression";

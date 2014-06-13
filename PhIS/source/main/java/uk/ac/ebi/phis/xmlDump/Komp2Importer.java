@@ -24,9 +24,9 @@ import org.json.JSONObject;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import uk.ac.ebi.phis.utils.ontology.JsonFields;
-import uk.ac.ebi.phis.utils.ontology.Normalizer;
-import uk.ac.ebi.phis.utils.ontology.Utils;
+import uk.ac.ebi.phis.utils.JsonFields;
+import uk.ac.ebi.phis.utils.Normalizer;
+import uk.ac.ebi.phis.utils.Utils_deprecated;
 
 public class Komp2Importer {
 	

@@ -21,32 +21,29 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import uk.ac.ebi.phis.utils.ontology.GenomicLocation;
-import uk.ac.ebi.phis.utils.ontology.JsonFields;
-import uk.ac.ebi.phis.utils.ontology.Normalizer;
+import uk.ac.ebi.phis.utils.EnrichingUtils;
+import uk.ac.ebi.phis.utils.JsonFields;
+import uk.ac.ebi.phis.utils.Normalizer;
+import uk.ac.ebi.phis.utils.Utils_deprecated;
 import uk.ac.ebi.phis.utils.ontology.OntologyMapperPredefinedTypes;
-import uk.ac.ebi.phis.utils.ontology.Utils;
 
 
 public class TracerImporter {
 	
 	Normalizer norm;
-	Utils utils;
+	Utils_deprecated utils;
 	
 	// hand made mapping between TRACER anatomy terms and EMAPA ids. See e-mail thread Fwd: [Phenoimageshare] Call 6 February 2014
 	Map<String, String> labels = new HashMap<String, String>(); 
 	Map<String, String> emapIds = new HashMap<String, String>(); 
 	public TracerImporter(){
 		norm = new Normalizer();
-		utils = new Utils(OntologyMapperPredefinedTypes.MA_MP);
+		utils = new Utils_deprecated(OntologyMapperPredefinedTypes.MA_MP);
 		labels.put("cranial ganglia", "cranial ganglion"); emapIds.put("cranial ganglia", "EMAPA:16659");
 		labels.put("digestive", "alimentary system"); emapIds.put("digestive", "EMAPA:16246");
 		labels.put("dorsal root ganglia", "dorsal root ganglion"); emapIds.put("dorsal root ganglia", "EMAPA:16668");
@@ -118,7 +115,7 @@ public class TracerImporter {
 //	    		channel.appendChild(utils.getNewElement(JsonFields.DOCUMENT_TYPE, "channel", channelDoc));
 	    			    		
 	    		// in TRACER there are no regions of interest so I need to set the default whole image ROI
-	    		Map<String, Integer> dimensions = utils.getImageMeasuresFromUrl(url);
+	    		Map<String, Integer> dimensions = EnrichingUtils.getImageMeasuresFromUrl(url);
 	    		if (dimensions != null && res.getString("mgi_id") != null){// the image could be loaded 
 	    			Element expressedAnatomyList = utils.getNewElement(JsonFields.EXPRESSED_ANATOMY_ANN_LIST, "", imageDoc);
 	    			ArrayList<Object> x = new ArrayList<Object>();
