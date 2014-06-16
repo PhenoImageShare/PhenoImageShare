@@ -22,10 +22,13 @@ public class main {
 //		System.out.println("\t\t " + mapper.getAnatomyLabel("MA_0000003"));
 		try {
 
-			BatchXmlReader reader = new BatchXmlReader();
-			System.out.println(reader.validate("tracerExport.xml"));
-			System.out.println(reader.validate("sangerExport.xml"));
-			System.out.println(reader.convertXmlToObjects("sangerExport.xml"));
+			OntologyMapper om = new OntologyMapper();
+			
+			
+//			BatchXmlReader reader = new BatchXmlReader();
+//			System.out.println(reader.validate("tracerExport.xml"));
+//			System.out.println(reader.validate("sangerExport.xml"));
+//			System.out.println(reader.convertXmlToObjects("sangerExport.xml"));
 //			SangerXmlGenerator sg = new SangerXmlGenerator();
 //			sg.read();
 			

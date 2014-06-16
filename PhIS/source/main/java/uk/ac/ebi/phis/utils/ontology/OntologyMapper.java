@@ -3,7 +3,6 @@ package uk.ac.ebi.phis.utils.ontology;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,25 +11,18 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 import org.obolibrary.oboformat.parser.OBOFormatParserException;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.OWLPropertyExpression;
 
-import owltools.graph.OWLGraphEdge;
 import owltools.graph.OWLGraphWrapper;
 import owltools.io.ParserWrapper;
 
@@ -43,10 +35,18 @@ public class OntologyMapper {
 	private String ONTOLOGY_IRI;
 	private static OWLGraphWrapper graph;
 	private static ArrayList<String> overProperties = null;
-	
+	private ArrayList<String> anatomyOntologies = new ArrayList<String>();
+	private ArrayList<String> phenotypeOntologies = new ArrayList<String>();
 	
 	private OWLGraphWrapper anatomyGraph ;
 	private static String maBaseUrl;
+	
+	// Hashes <termId, termLabel>
+	private HashMap<String, String> anatomyTerms = new HashMap<>();
+	private HashMap<String, String> phenotypeTerms = new HashMap<>();
+	private HashMap<String, String> imTerms = new HashMap<>();
+	private HashMap<String, String> spTerms = new HashMap<>();
+	private HashMap<String, String> vmTerms = new HashMap<>();
 	
 	
 	public OntologyMapper(OntologyMapperPredefinedTypes type){
@@ -60,10 +60,10 @@ public class OntologyMapper {
 			maBaseUrl = "http://purl.obolibrary.org/obo";
 			try{
 				anatomyGraph = readOntology("http://www.berkeleybop.org/ontologies/ma.owl");
-				}catch(Exception e){
-					e.printStackTrace();
-					logger.error(e.getMessage());
-				}
+			}catch(Exception e){
+				e.printStackTrace();
+				logger.error(e.getMessage());
+			}
 		}
 		try{
 			
@@ -77,17 +77,13 @@ public class OntologyMapper {
 	}
 	
 	
-	public OntologyMapper(String ontologyUrl){
-		ONTOLOGY_IRI = ontologyUrl;
-		try{
-			graph = readOntology(ONTOLOGY_IRI);
-		}catch(Exception e){
-			e.printStackTrace();
-			logger.error(e.getMessage());
-		}
-		
+	public OntologyMapper(){
+		anatomyOntologies.add("http://purl.obolibrary.org/obo/ma.obo");
+		anatomyOntologies.add("http://purl.obolibrary.org/obo/emapa.owl");
+		anatomyOntologies.add("http://purl.obolibrary.org/obo/emap.owl");
+		loadHashes();
 	}
-	
+		
 	public void setOverProperties(ArrayList<String> properties){
 		overProperties = properties;
 	}
@@ -100,8 +96,39 @@ public class OntologyMapper {
 		return graph.getLabel(graph.getOWLObjectByIdentifier(id));
 	}
 	
+	/**
+	 * Fills all ontology hashes, i.e. anatomyTerms, spTerms, phenotypeTerms etc.
+	 * @return true if all ontologies could be loaded, false otherwise
+	 * @throws IOException 
+	 * @throws OBOFormatParserException 
+	 * @throws OWLOntologyCreationException 
+	 */
+	private boolean loadHashes(){
+
+		OWLGraphWrapper gr;
+		try {
+			for (String path: anatomyOntologies){
+				System.out.println(path);
+				gr = readOntology(path);
+				
+				Set<OWLClass> classes = gr.getAllOWLClasses();
+				for (OWLClass cls : classes){
+					anatomyTerms.put(gr.getIdentifier(cls), gr.getLabel(cls));
+					System.out.println(gr.getIdentifier(cls) + "   " + gr.getLabel(cls));
+				}
+			}
+		} catch (OWLOntologyCreationException e) {
+			e.printStackTrace();
+		} catch (OBOFormatParserException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return false;
+		
+	}
 	
-	// Two methods to read ontologies from HTTP URLs
+	// Read ontologies from HTTP URLs
 	protected  String getStringFromInputStream(InputStream is) {
 		BufferedReader br = null;
 		StringBuilder sb = new StringBuilder();
