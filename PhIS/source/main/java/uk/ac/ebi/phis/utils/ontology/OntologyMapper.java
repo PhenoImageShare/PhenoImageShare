@@ -35,18 +35,10 @@ public class OntologyMapper {
 	private String ONTOLOGY_IRI;
 	private static OWLGraphWrapper graph;
 	private static ArrayList<String> overProperties = null;
-	private ArrayList<String> anatomyOntologies = new ArrayList<String>();
-	private ArrayList<String> phenotypeOntologies = new ArrayList<String>();
 	
 	private OWLGraphWrapper anatomyGraph ;
 	private static String maBaseUrl;
 	
-	// Hashes <termId, termLabel>
-	private HashMap<String, String> anatomyTerms = new HashMap<>();
-	private HashMap<String, String> phenotypeTerms = new HashMap<>();
-	private HashMap<String, String> imTerms = new HashMap<>();
-	private HashMap<String, String> spTerms = new HashMap<>();
-	private HashMap<String, String> vmTerms = new HashMap<>();
 	
 	
 	public OntologyMapper(OntologyMapperPredefinedTypes type){
@@ -76,13 +68,6 @@ public class OntologyMapper {
 		
 	}
 	
-	
-	public OntologyMapper(){
-		anatomyOntologies.add("http://purl.obolibrary.org/obo/ma.obo");
-		anatomyOntologies.add("http://purl.obolibrary.org/obo/emapa.owl");
-		anatomyOntologies.add("http://purl.obolibrary.org/obo/emap.owl");
-		loadHashes();
-	}
 		
 	public void setOverProperties(ArrayList<String> properties){
 		overProperties = properties;
@@ -94,38 +79,6 @@ public class OntologyMapper {
 
 	public String idToName(String id){
 		return graph.getLabel(graph.getOWLObjectByIdentifier(id));
-	}
-	
-	/**
-	 * Fills all ontology hashes, i.e. anatomyTerms, spTerms, phenotypeTerms etc.
-	 * @return true if all ontologies could be loaded, false otherwise
-	 * @throws IOException 
-	 * @throws OBOFormatParserException 
-	 * @throws OWLOntologyCreationException 
-	 */
-	private boolean loadHashes(){
-
-		OWLGraphWrapper gr;
-		try {
-			for (String path: anatomyOntologies){
-				System.out.println(path);
-				gr = readOntology(path);
-				
-				Set<OWLClass> classes = gr.getAllOWLClasses();
-				for (OWLClass cls : classes){
-					anatomyTerms.put(gr.getIdentifier(cls), gr.getLabel(cls));
-					System.out.println(gr.getIdentifier(cls) + "   " + gr.getLabel(cls));
-				}
-			}
-		} catch (OWLOntologyCreationException e) {
-			e.printStackTrace();
-		} catch (OBOFormatParserException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return false;
-		
 	}
 	
 	// Read ontologies from HTTP URLs
@@ -166,6 +119,7 @@ public class OntologyMapper {
 			e.printStackTrace();
 			logger.error(e.getMessage());
 		}
+		System.out.println();
 		return content;
 	}
 
@@ -231,6 +185,8 @@ public class OntologyMapper {
 		}
 		return results;
 	}
+	
+	
 	
 	private OWLGraphWrapper readOntology (String ontIri) throws IOException, OWLOntologyCreationException, OBOFormatParserException{
 		ParserWrapper pw = new ParserWrapper();

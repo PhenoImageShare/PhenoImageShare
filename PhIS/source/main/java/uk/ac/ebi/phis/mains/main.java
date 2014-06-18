@@ -8,6 +8,7 @@ import org.apache.solr.client.solrj.SolrServerException;
 import uk.ac.ebi.phis.importer.BatchXmlReader;
 import uk.ac.ebi.phis.utils.ontology.OntologyMapper;
 import uk.ac.ebi.phis.utils.ontology.OntologyMapperPredefinedTypes;
+import uk.ac.ebi.phis.utils.ontology.OntologyUtils;
 import uk.ac.ebi.phis.xmlDump.SangerImagesImporter;
 import uk.ac.ebi.phis.xmlDump.SangerXmlGenerator;
 import uk.ac.ebi.phis.xmlDump.TracerImporter;
@@ -22,9 +23,8 @@ public class main {
 //		System.out.println("\t\t " + mapper.getAnatomyLabel("MA_0000003"));
 		try {
 
-			OntologyMapper om = new OntologyMapper();
-			
-			
+			OntologyUtils ou = new OntologyUtils();
+			System.out.println(ou.isAnatomyId("EMAP:7442"));
 //			BatchXmlReader reader = new BatchXmlReader();
 //			System.out.println(reader.validate("tracerExport.xml"));
 //			System.out.println(reader.validate("sangerExport.xml"));
