@@ -217,7 +217,6 @@ public class SangerXmlGenerator {
 			jaxbMarshaller.marshal(doc, file);
 			jaxbMarshaller.marshal(doc, System.out);
 					
-			
 			}catch (ParserConfigurationException pce) {
 				pce.printStackTrace();
 			} catch (TransformerException tfe) {

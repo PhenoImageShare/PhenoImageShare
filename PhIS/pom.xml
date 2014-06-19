@@ -3,6 +3,7 @@
    <groupId>uk.ac.ebi.phenotype</groupId>
   <artifactId>PhenoImageShare</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+  
   <build>
     <sourceDirectory>src</sourceDirectory>
     <plugins>
@@ -17,7 +18,12 @@
     </plugins>
   </build>
   
-     
+  <properties>
+		<baseUrl>http://??</baseUrl>
+		<solrUrl>http://wwwdev.ebi.ac.uk/mi/phis</solrUrl>
+		<internalSolrUrl>http://ves-ebi-d0.ebi.ac.uk:8090/mi/phis/images</internalSolrUrl>
+	</properties>
+  
      
    <!--	DEPENDENCIES -->
 	<dependencies>

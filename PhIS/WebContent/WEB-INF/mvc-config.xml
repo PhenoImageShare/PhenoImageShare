@@ -12,6 +12,15 @@
   <mvc:resources mapping="/documentation/**" location="/resources/documentation/" />
   <mvc:resources mapping="/dalliance/**" location="/resources/dalliance/" />
     
+    
+  <bean id="propertyPlaceholderConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:config.properties</value>
+			</list>
+		</property>
+	</bean>
   
 	<context:component-scan base-package="uk.ac.ebi.phis.web.controller" />  
     

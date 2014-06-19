@@ -11,9 +11,35 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
 		">
 
-<import resource="db-config.xml"/>
+	<import resource="db-config.xml"/>
 
 
 	<context:component-scan base-package="uk.ac.ebi" />
 
+	
+	<bean id="imageService" class="uk.ac.ebi.phis.service.ImageService">
+		<constructor-arg  value="${internalSolrUrl}/images" />
+	</bean>
+
+  <bean id="propertyPlaceholderConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:config.properties</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="globalConfiguration" class="org.springframework.beans.factory.config.MapFactoryBean">
+		<property name="targetMapClass">
+			<value>java.util.HashMap</value>
+		</property>
+		<property name="sourceMap">
+			<map>
+				<entry key="baseUrl" value="${baseUrl}" />
+				<entry key="solrUrl" value="${solrUrl}" />
+				<entry key="internalSolrUrl" value="${internalSolrUrl}" />
+			</map>
+		</property>
+	</bean>
 </beans>
