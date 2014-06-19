@@ -23,19 +23,17 @@ public class SolrWrapperController {
 	@Autowired
 	ImageService is;
 	
-	@RequestMapping(value="/*", method=RequestMethod.GET)	
+	@RequestMapping(value="/getImages", method=RequestMethod.GET)	
     public String getExperimentalData(
-            @RequestParam(value = "phenotypeId", required = false) String phenotypeId,
+            @RequestParam(value = "phenotype", required = false) String phenotype,
             @RequestParam(value = "anatomyId", required = false) String anatomyId,
             @RequestParam(value = "geneId", required = false) String geneId,
 
     		Model model
             ) throws SolrServerException, IOException, URISyntaxException {
 		
-
-		is.getImageByPhenotype("MP:0010254");
-		
-		model.addAttribute("res", "Loook, here's what you were looking for!");
+	
+		model.addAttribute("res", "Loook, here's what you were looking for!\n "+ is.getImageByPhenotypeGeneAnatomy(phenotype, geneId, anatomyId));
 		return "solrQuery";
     }
 }

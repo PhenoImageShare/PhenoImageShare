@@ -23,7 +23,40 @@
 		<solrUrl>http://wwwdev.ebi.ac.uk/mi/phis</solrUrl>
 		<internalSolrUrl>http://ves-ebi-d0.ebi.ac.uk:8090/mi/phis/images</internalSolrUrl>
 	</properties>
-  
+
+
+	<profiles>
+		<profile>
+			<id>external-dev</id>
+
+			<properties>
+				<baseUrl>http://??</baseUrl>
+				<solrUrl>http://wwwdev.ebi.ac.uk/mi/phis</solrUrl>
+				<internalSolrUrl>http://ves-ebi-d0.ebi.ac.uk:8090/mi/phis/images</internalSolrUrl>
+			</properties>
+
+
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<version>2.4.2</version>
+						<configuration>
+							<skipTests>true</skipTests>
+							<!-- excludes>
+								<exclude>**PageTest.java</exclude>
+								<exclude>**/org/mousephenotype/www/**</exclude>
+							</excludes-->
+						</configuration>
+					</plugin>
+
+				</plugins>
+			</build>
+
+		</profile>
+	</profiles>
+     
      
    <!--	DEPENDENCIES -->
 	<dependencies>
@@ -192,6 +225,13 @@
         <version>4.0.5.RELEASE</version>
 				<type>jar</type>
 				<scope>compile</scope>
+				<!-- Exclude Commons Logging in favor of SLF4j -->
+				<exclusions>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
     </dependency>
     
 		<dependency>

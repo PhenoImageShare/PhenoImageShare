@@ -31,7 +31,7 @@ import owltools.io.ParserWrapper;
  */
 public class OntologyMapper {
 
-	transient Logger logger = Logger.getLogger(OntologyMapper.class);
+	Logger logger = Logger.getLogger(OntologyMapper.class);
 	private String ONTOLOGY_IRI;
 	private static OWLGraphWrapper graph;
 	private static ArrayList<String> overProperties = null;

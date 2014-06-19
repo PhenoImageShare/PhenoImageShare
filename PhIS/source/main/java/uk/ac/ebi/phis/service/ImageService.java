@@ -15,6 +15,8 @@ public class ImageService {
 
 	public static final class ImageField {
 		public final static String PHENOTYPE_ANN_BAG = "phenotype_ann_bag";
+		public final static String ANATOMY = "anatomy_id";
+		public final static String GENE = "gene_id";
 	}
 	
 
@@ -23,11 +25,19 @@ public class ImageService {
 
 	}
 	
-	public String getImageByPhenotype(String phenotype) throws SolrServerException{
+	public String getImageByPhenotypeGeneAnatomy(String phenotype, String gene, String anatomy) throws SolrServerException{
 
 		SolrQuery solrQuery = new SolrQuery();
-		String queryString = ImageField.PHENOTYPE_ANN_BAG + ":\""+ phenotype + "\"";
-		solrQuery.setQuery(queryString);
+		solrQuery.setQuery("*:*");
+		if (phenotype != null){
+			solrQuery.setFilterQueries(ImageField.PHENOTYPE_ANN_BAG + ":\""+ phenotype + "\"");
+		}
+		if (gene != null){
+			solrQuery.setFilterQueries(ImageField.GENE + ":\""+ gene + "\"");		
+		}
+		if (anatomy != null){
+			solrQuery.setFilterQueries(ImageField.ANATOMY + ":\""+ anatomy + "\"");
+		}
 		solrQuery.setRows(1000000);
 //		solrQuery.setFields(GeneField.MGI_ACCESSION_ID);
 		System.out.println("-----------------------" + solr.getBaseURL() + "/select?" + solrQuery);
@@ -35,5 +45,8 @@ public class ImageService {
 		rsp = solr.query(solrQuery);
 		SolrDocumentList res = rsp.getResults();
 		return solr.getBaseURL() + "/select?" + solrQuery;
+		
 	}
+	
+	
 }

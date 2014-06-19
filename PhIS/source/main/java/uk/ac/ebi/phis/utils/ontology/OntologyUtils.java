@@ -26,7 +26,7 @@ public class OntologyUtils {
 	private HashMap<String, String> spTerms = new HashMap<>();
 	private HashMap<String, String> vmTerms = new HashMap<>();
 
-	transient Logger logger = Logger.getLogger(OntologyMapper.class);
+	Logger logger = Logger.getLogger(OntologyMapper.class);
 
 	private String FBBI = "http://www.berkeleybop.org/ontologies/fbbi.owl";
 	
