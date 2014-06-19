@@ -23,14 +23,14 @@ public class main {
 //		System.out.println("\t\t " + mapper.getAnatomyLabel("MA_0000003"));
 		try {
 
-			OntologyUtils ou = new OntologyUtils();
-			System.out.println(ou.isAnatomyId("EMAP:7442"));
+//			OntologyUtils ou = new OntologyUtils();
+//			System.out.println(ou.isAnatomyId("EMAP:7442"));
 //			BatchXmlReader reader = new BatchXmlReader();
 //			System.out.println(reader.validate("tracerExport.xml"));
 //			System.out.println(reader.validate("sangerExport.xml"));
 //			System.out.println(reader.convertXmlToObjects("sangerExport.xml"));
-//			SangerXmlGenerator sg = new SangerXmlGenerator();
-//			sg.read();
+			SangerXmlGenerator sg = new SangerXmlGenerator();
+			sg.read();
 			
 //			TracerXmlGenerator tg = new TracerXmlGenerator();
 //			tg.read();

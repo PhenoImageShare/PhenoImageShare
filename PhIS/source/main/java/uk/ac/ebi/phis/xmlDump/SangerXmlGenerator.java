@@ -129,9 +129,7 @@ public class SangerXmlGenerator {
 			    		GeneticTraitArray gta = new GeneticTraitArray();
 			    		gta.getEl().add(gt);
 			    		image.setMutantGenotypeTraits(gta);
-			    		
-			    		
-				        
+			    		        
 				        
 				        /* 	Channel 	*/
 			    		String imageType = norm.getImageType(res.getString("procedure_name"));
@@ -206,7 +204,6 @@ public class SangerXmlGenerator {
 		    		}
 	        	}
 	    		i++;
-	    		System.out.println(i);
 //	    		if (i==1000) break;
 	        }
 			
