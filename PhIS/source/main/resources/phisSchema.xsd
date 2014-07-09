@@ -12,6 +12,7 @@
 										<enumeration value="Unsexed"></enumeration>
 									</restriction>
 								</simpleType>
+
 								<simpleType name="Zygosity">
 									<restriction base="string">
 										<enumeration value="homozygous"></enumeration>
@@ -166,6 +167,14 @@
 									</restriction>
 								</simpleType>
 																
+								<simpleType name="YesNo">
+									<restriction base="string">
+										<enumeration value="Yes"></enumeration>
+										<enumeration value="No"></enumeration>
+									</restriction>
+								</simpleType>
+																								
+																
 								<complexType name="Annotation">
 									<all minOccurs="1">
 						  	  		<element name="ontology_term" type="x:OntologyTerm" minOccurs="0" maxOccurs="1"/>
@@ -180,7 +189,7 @@
 						    		</sequence>
 								</complexType>
 								
-								<complexType name="GeneticTrait">
+								<complexType name="GenotypeComponent">
 									<all>
 						  	  		<element name="gene_id" type="string" minOccurs="0" maxOccurs="1"/>
 						  	  		<element name="gene_symbol" type="string" minOccurs="0" maxOccurs="1"/>
@@ -189,12 +198,13 @@
                				<element name="genetic_feature_ensembl_id" type="string" minOccurs="0" maxOccurs="1"/>
                				<element name="genomic_location" type="x:GenomicLocation" minOccurs="0" maxOccurs="1"/>
 						  	  		<element name="zygosity" type="x:Zygosity" minOccurs="0" maxOccurs="1"/>
+						  	  		<element name="marker" type="string" minOccurs="0" maxOccurs="1"/> <!-- Carried on the genetic feature -->
 						  	  </all>
 								</complexType>
 								
-								<complexType name="GeneticTraitArray">
+								<complexType name="Genotype">
 										<sequence>
-						    			<element name="el" type="x:GeneticTrait" minOccurs="1" maxOccurs="unbounded"/>
+						    			<element name="el" type="x:GenotypeComponent" minOccurs="1" maxOccurs="unbounded"/>
 						    		</sequence>
 								</complexType>
 								
@@ -205,12 +215,12 @@
 						  	  		<element name="id" type="string" minOccurs="1" maxOccurs="1"/>
 						  	  		<element name="organism" type="x:Organism" minOccurs="1" maxOccurs="1"/>
 						  	  		<element name="image_description" type="x:ImageDescription" minOccurs="1" maxOccurs="1"/>
-						  	  		<element name="mutant_genotype_traits" type="x:GeneticTraitArray"  minOccurs="0" maxOccurs="1"/> <!-- Mutant genetic features. Expressed ones should be associated to the channel, not the image itself! -->
+						  	  		<element name="mutant_genotype_traits" type="x:Genotype"  minOccurs="0" maxOccurs="1"/> <!-- Mutant genetic features. Expressed ones should be associated to the channel, not the image itself! -->
 						  	  		<element name="conditions"	type="string" minOccurs="0" maxOccurs="1"/>		
 						  	  		<element name="observations"	type="x:StringArray" minOccurs="0" maxOccurs="1"/>
 						  	  		<element name="associated_roi" type="x:StringArray" minOccurs="0" maxOccurs="1"/>
 						  	   		<element name="associated_channel" type="x:StringArray" minOccurs="0" maxOccurs="1"/>
-						  	  		<element name="depicted_anatomical_structure" type="x:AnnotationArray" minOccurs="0" maxOccurs="1"/>								  	  					  	  		
+						  	  		<element name="depicted_anatomical_structure" type="x:Annotation" minOccurs="0" maxOccurs="1"/>		<!--  Use most general anatomy term -->					  	  					  	  		
 						  	  </all>
 						  	</complexType>
 						  	
@@ -221,9 +231,11 @@
 						  	  		<element name="id" type="string" minOccurs="1" maxOccurs="1"/> 
 						  	  		<element name="associated_image" type="string" minOccurs="1" maxOccurs="1"/>
 						  	  		<element name="associated_roi" type="x:StringArray" minOccurs="0" maxOccurs="1"/>
-											<element name="expressed_genotype_trait" type="x:GeneticTraitArray" minOccurs="0" maxOccurs="1" />
+											<element name="depicts_expression_of" type="x:GenotypeComponent" minOccurs="0" maxOccurs="1" />
 						  		</all>
 						  	</complexType>
+						  	
+						  	
 						  	
 						  	
 						  	<!-- Main Region Of Interest (ROI) document -->
@@ -235,9 +247,12 @@
 						  	  		<!-- Roi coordinates. Current assumption is thar Rois are either rectangles or points -->
 						  	  		<element name="coordinates" type="x:Coordinates" minOccurs="1" maxOccurs="1"/>
 						  	  		<!--  Annotations -->
-						  	  		<element name="anatomy_expression_annotations" type="x:AnnotationArray" minOccurs="0" maxOccurs="1"/>	
-						  	  		<element name="anatomical_part_with_phenotype" type="x:AnnotationArray" minOccurs="0" maxOccurs="1"/>		
-						  	  		<element name="anatomical_part_of_interest" type="x:AnnotationArray" minOccurs="0" maxOccurs="1"/>		
+						  	  		
+						  	  		<!-- element name="depicts_label_in" type="x:AnnotationArray" minOccurs="0" maxOccurs="1"/-->	
+						  	  		<element name="depicted_anatomical_structure" type="x:AnnotationArray" minOccurs="0" maxOccurs="1"/>	
+						  	  		<element name="is_expression_pattern" type="x:YesNo" minOccurs="1" maxOccurs="1"/>
+						  	  		<element name="abnormality_in_anatomical_structure" type="x:AnnotationArray" minOccurs="0" maxOccurs="1"/>						  	  		
+						  	  		<element name="has_phenotype_in" type="x:AnnotationArray" minOccurs="0" maxOccurs="1"/>	
 						  	  		<element name="phenotype_annotations" type="x:AnnotationArray" minOccurs="0" maxOccurs="1"/>				
 						  	  		<element name="observations" type="x:StringArray" minOccurs="0" maxOccurs="1"/>
 						  		</all>

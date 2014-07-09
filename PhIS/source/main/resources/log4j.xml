@@ -11,11 +11,6 @@
 		</layout>
 	</appender>
 
-	<!-- Application logger -->
-	<logger name="komp2">
-		<level value="info" />
-	</logger>
-
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework.beans">
 		<level value="warn" />
@@ -34,10 +29,6 @@
 	</logger>
 
 	<logger name="org.springframework.web">
-		<level value="warn" />
-	</logger>
-	
-	<logger name="o.s.b.f.s">
 		<level value="warn" />
 	</logger>
 	

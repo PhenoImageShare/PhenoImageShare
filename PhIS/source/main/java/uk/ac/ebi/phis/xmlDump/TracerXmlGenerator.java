@@ -143,8 +143,7 @@ public class TracerXmlGenerator {
 	    			image.setAssociatedChannel(new StringArray());
 	    			image.getAssociatedChannel().getEl().add(channelId);
 	    			
-	    			channel.setExpressedGenotypeTrait(new GeneticTraitArray());
-	    			GeneticTrait expressed = new GeneticTrait();
+	    			GenotypeComponent expressed = new GenotypeComponent();
 	    			GenomicLocation gl = new GenomicLocation();
 	    			gl.setChromosone(res.getString("chr_name"));
 	    			gl.setStartPos(Integer.parseInt(res.getString("position")));
@@ -152,7 +151,7 @@ public class TracerXmlGenerator {
 	    			gl.setStrand(res.getString("strand"));
 	    			expressed.setGenomicLocation(gl);
 	    			
-	    			channel.getExpressedGenotypeTrait().getEl().add(expressed);
+	    			channel.setDepictsExpressionOf(expressed);
 	    			Roi roi = null;
 	    			
 	    			ArrayList<String> addedAnnoations = new ArrayList<>();
@@ -170,8 +169,8 @@ public class TracerXmlGenerator {
 		    	    			roi.setId(roiId);
 		    	    			roi.setAssociatedChannel(new StringArray());
 		    	    			roi.getAssociatedChannel().getEl().add(channelId);
-		    	    			roi.setAssociatedImmage(internalId);
-		    	    			roi.setAnatomyExpressionAnnotations(new AnnotationArray());
+		    	    			roi.setAssociatedImage(internalId);
+		    	    			roi.setDepictedAnatomicalStructure(new AnnotationArray());
 		    	    			// set coordinates
 		    	    			Coordinates coords = new Coordinates();
 		    	    			PercentArray xcoords = new PercentArray();
@@ -197,7 +196,7 @@ public class TracerXmlGenerator {
 			    						Annotation automatedAnn = new Annotation();
 			    						automatedAnn.setOntologyTerm(getOntologyTerm(getAnatomyLabels(anat, a), getAnatomyId(anat, a)));
 			    						automatedAnn.setAnnotationMode(AnnotationMode.AUTOMATED); 		
-			    						roi.getAnatomyExpressionAnnotations().getEl().add(automatedAnn);
+			    						roi.getDepictedAnatomicalStructure().getEl().add(automatedAnn);
 			    					}
 			    				} catch (JSONException e) {
 			    					e.printStackTrace();
@@ -205,7 +204,7 @@ public class TracerXmlGenerator {
 			    					e.printStackTrace();
 			    				}
 			    			}
-			    			roi.getAnatomyExpressionAnnotations().getEl().add(anatomy);
+			    			roi.getDepictedAnatomicalStructure().getEl().add(anatomy);
 		    				anatomy.setAnnotationMode(AnnotationMode.MANUAL);
 		        		}
 		        				    			

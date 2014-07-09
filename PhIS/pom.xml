@@ -1,9 +1,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-   <groupId>uk.ac.ebi.phenotype</groupId>
+  <groupId>uk.ac.ebi.phis</groupId>
   <artifactId>PhenoImageShare</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  
+  <version>0.0.1</version>
+	<packaging>war</packaging>
+	<name>PhenoImageShare</name>
+	<description>PhenoImageShare Project</description>
+	
   <build>
     <sourceDirectory>src</sourceDirectory>
     <plugins>
@@ -15,8 +18,77 @@
           <target>1.7</target>
         </configuration>
       </plugin>
-    </plugins>
-  </build>
+      
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<!-- 2.2 => 2.0.1 -->
+				<version>2.2</version>
+				<executions>
+					<!-- added for making the replace plugin run in the exploded phase -->
+					<execution>
+						<id>prepare-war</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>exploded</goal>
+						</goals>
+					</execution>
+				</executions>
+
+				<configuration>
+
+					<!-- Overiddes default Maven configuration for Admin Tools -->
+					<warSourceDirectory>WebContent</warSourceDirectory>
+
+					<!-- excluded because these resources are minified -->
+					<warSourceExcludes>
+						<!-- **/bootstrap.min.css ,**/bootstrap-responsive.min.css -->
+						<!-- **/searchAndFacet.css ,**/searchAndFacet/searchAndFacetConfig.js 
+							,**/vendor/DataTables-1.9.4/jquery.dataTables.js ,**/vendor/DataTables-1.9.4/core.filter.js 
+							,**/vendor/DataTables-1.9.4/TableTools.min.js ,**/utils/tools.js ,**/searchAndFacet/geneFacetWidget.js 
+							,**/searchAndFacet/mpFacetWidget.js ,**/searchAndFacet/pipelineFacetWidget.js 
+							,**/searchAndFacet/imagesFacetWidget.js ,**/searchAndFacet/search.js ,**/searchAndFacet/searchAndFacet_primer.js -->
+					</warSourceExcludes>
+
+					<webResources>
+						<resource>
+							<directory>${basedir}/WebContent/WEB-INF</directory>
+							<filtering>true</filtering>
+							<targetPath>WEB-INF</targetPath>
+							<includes>
+								<include>**/web.xml</include>
+								<include>**/app-config.xml</include>
+								<include>**/views/404.jsp</include>
+							</includes>
+						</resource>
+					</webResources>
+
+					<archive>
+						<addMavenDescriptor>true</addMavenDescriptor>
+						<manifest>
+							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+							<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+						</manifest>
+					</archive>
+
+				</configuration>
+			</plugin>
+
+			<!-- Ensures we are compiling at 1.7 level -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+					<excludes>
+						<exclude>${project.basedir}/src/test/java/**/*.java</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
   
   <properties>
 		<baseUrl>http://??</baseUrl>

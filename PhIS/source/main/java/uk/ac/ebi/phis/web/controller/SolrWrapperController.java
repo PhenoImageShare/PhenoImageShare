@@ -36,4 +36,12 @@ public class SolrWrapperController {
 		model.addAttribute("res", "Loook, here's what you were looking for!\n "+ is.getImageByPhenotypeGeneAnatomy(phenotype, geneId, anatomyId));
 		return "solrQuery";
     }
+	
+
+	@RequestMapping(value="/*", method=RequestMethod.GET)	
+    public String showSomething( Model model ) throws SolrServerException, IOException, URISyntaxException {
+	
+		model.addAttribute("res", "Try /getImages .");
+		return "home";
+    }
 }

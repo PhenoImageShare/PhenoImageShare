@@ -32,7 +32,7 @@ public class SangerXmlGenerator {
 		norm = new Normalizer();
 	}
 	
-	public void read() throws IOException{
+	public void exportImages() throws IOException{
 		
         ApplicationContext ac = new ClassPathXmlApplicationContext("app-config.xml");
 		DataSource dataSource = (DataSource) ac.getBean("komp2DataSource");
@@ -119,14 +119,14 @@ public class SangerXmlGenerator {
 			    		organism.setTaxon("Mus musculus");
 			    		image.setOrganism(organism);
 			    		
-			    		GeneticTrait gt = new GeneticTrait();
+			    		GenotypeComponent gt = new GenotypeComponent();
 			    		gt.setGeneId(res.getString("gf_acc"));
 			    		gt.setGeneSymbol(res.getString("GENE"));
 			    		gt.setGeneticFeatureId(res.getString("acc"));
 			    		gt.setGeneticFeatureName(res.getString("ALLELE"));
 			    		Zygosity zyg = Zygosity.fromValue(norm.normalizeZygosity(res.getString("GENOTYPE")));
 			    		gt.setZygosity(zyg);
-			    		GeneticTraitArray gta = new GeneticTraitArray();
+			    		Genotype gta = new Genotype();
 			    		gta.getEl().add(gt);
 			    		image.setMutantGenotypeTraits(gta);
 			    		        
@@ -141,7 +141,7 @@ public class SangerXmlGenerator {
 					        channel.setAssociatedImage(internalId);
 				    		channelId = internalId.replace("komp2_", "komp2_channel_") + "_" + 0; // we know that for Sanger data there is at most one channel.
 				    		channel.setId(channelId);
-				    		channel.setExpressedGenotypeTrait(gta);
+				    		channel.setDepictsExpressionOf(gt);
 		    			}
 			    			    			
 
@@ -153,7 +153,7 @@ public class SangerXmlGenerator {
 				    		Roi roi = new Roi();
 				    		String roiId = internalId.replace("komp2_", "komp2_roi_") + "_" + k;
 				    		roi.setId(roiId);
-				    		roi.setAssociatedImmage(internalId);
+				    		roi.setAssociatedImage(internalId);
 				    		// Need to decide first if we associate annotations to a ROI or to the whole image
 				    		// 1. Phenotypes should always be associated to a region of interest
 				    		// 2. Existing ROI should be kept if the coordinates != 0 
@@ -178,8 +178,7 @@ public class SangerXmlGenerator {
 				    			if (!res.getString("TAG_VALUE").equalsIgnoreCase("null")){
 									image.getObservations().getEl().add(res.getString("TAG_NAME") + ": " + res.getString("TAG_VALUE"));
 								}
-				    			image.setDepictedAnatomicalStructure(getAnnotationArray(new AnnotationArray(), res.getString("TERM_ID").toString(),
-										res.getString("TERM_NAME").toString(), null, AnnotationMode.MANUAL));
+				    			image.setDepictedAnatomicalStructure(getAnnotation(res.getString("TERM_ID").toString(), res.getString("TERM_NAME").toString(), null, AnnotationMode.MANUAL));
 				    			roi = null;
 				    		}
 				    		
@@ -242,12 +241,12 @@ public class SangerXmlGenerator {
 				if (res.getString("ONTOLOGY_DICT_ID").toString().equalsIgnoreCase("2") || res.getString("ONTOLOGY_DICT_ID").toString().equalsIgnoreCase("4")){ //2=EMAP, 4=MA
 					if (isExpressionImg){
 						// we have expression in the annotated anatomy term
-						roi.setAnatomyExpressionAnnotations(getAnnotationArray(new AnnotationArray(), res.getString("TERM_ID").toString(),
+						roi.setDepictedAnatomicalStructure(addToAnnotationArray(new AnnotationArray(), res.getString("TERM_ID").toString(),
 								res.getString("TERM_NAME").toString(), null, AnnotationMode.MANUAL));
 					}
 					else { 
 						// we have somthin interesting but not expression in the anatomy term
-						roi.setAnatomicalPartOfInterest(getAnnotationArray(new AnnotationArray(), res.getString("TERM_ID").toString(),
+						roi.setDepictedAnatomicalStructure(addToAnnotationArray(new AnnotationArray(), res.getString("TERM_ID").toString(),
 								res.getString("TERM_NAME").toString(), null, AnnotationMode.MANUAL));
 					}
 				}
@@ -255,7 +254,7 @@ public class SangerXmlGenerator {
 				else if (res.getString("ONTOLOGY_DICT_ID").toString().equalsIgnoreCase("1") ){ // 1 = MP
 					
 					// we know there's only one phenotype associated so we don't need to check if the array is empty					
-					roi.setPhenotypeAnnotations(getAnnotationArray(new AnnotationArray(), res.getString("TERM_ID").toString(), res.getString("TERM_NAME").toString(), null, AnnotationMode.MANUAL));
+					roi.setPhenotypeAnnotations(addToAnnotationArray(new AnnotationArray(), res.getString("TERM_ID").toString(), res.getString("TERM_NAME").toString(), null, AnnotationMode.MANUAL));
 				}
 				
 	        	Coordinates coord = new Coordinates();
@@ -372,7 +371,31 @@ public class SangerXmlGenerator {
 	 }
 	 
 	 
-	 AnnotationArray getAnnotationArray(AnnotationArray pa, String id, String label, String freetext, AnnotationMode annMode){
+	 /**
+	  * 
+	  * @param pa
+	  * @param id
+	  * @param label
+	  * @param freetext
+	  * @param annMode
+	  * @return Creates an annotation and adds it to the given array. Returns the modified array & follows the XSD
+	  */
+	 AnnotationArray addToAnnotationArray(AnnotationArray pa, String id, String label, String freetext, AnnotationMode annMode){
+		
+		 Annotation p = getAnnotation(id, label, freetext, annMode);
+		 pa.getEl().add(p);
+		 return pa;
+	 }
+	 
+	 /**
+	  * 
+	  * @param id
+	  * @param label
+	  * @param freetext
+	  * @param annMode
+	  * @return Annotation object matching the description in XSD
+	  */
+	 Annotation getAnnotation( String id, String label, String freetext, AnnotationMode annMode){
 		 Annotation p = new Annotation();
 		 
 		 if (label != null && id != null)
@@ -381,13 +404,17 @@ public class SangerXmlGenerator {
 		 if (freetext != null)
 			 p.setAnatomyFreetext(freetext);
 		 p.setAnnotationMode(annMode);
-		 
-		 pa.getEl().add(p);
-		 return pa;
+		 return p;
 	 }
 	 
-	 // On live procedures the age is not relevant and we should not import it. It does not mean it's the age at which the picture was taken.
-	 // See David's document https://docs.google.com/spreadsheet/ccc?key=0AmK8olNJT0Z7dEN2MklCX2g1TmhJWTk0N3VlUERVaVE&usp=drive_web#gid=0
+	 /**
+	  * On live procedures the age is not relevant and we should not import it. It does not mean it's the age at which the picture was taken.
+	  *  See David's document https://docs.google.com/spreadsheet/ccc?key=0AmK8olNJT0Z7dEN2MklCX2g1TmhJWTk0N3VlUERVaVE&usp=drive_web#gid=0. 
+	  * This is only relevant for Sanger direct image import.
+	  * @param procedure
+	  * @return 
+	  */
+	 // 
 	 boolean ageIsRelevant(String procedure){
 		 if (procedure.equalsIgnoreCase("Dysmorphology") ||
 				 procedure.equalsIgnoreCase("Xray") ||
@@ -397,6 +424,11 @@ public class SangerXmlGenerator {
 		 else return true;
 	 }
 	 
+	 /**
+	  * This is only relevant for Sanger images. Mapping done by David after discussion wit Mark.
+	  * @param procedure
+	  * @return
+	  */
 	 OntologyTerm getStageFromProcedure(String procedure){
 		 OntologyTerm ot = null;
 		 if (procedure.equalsIgnoreCase("Dysmorphology") ||

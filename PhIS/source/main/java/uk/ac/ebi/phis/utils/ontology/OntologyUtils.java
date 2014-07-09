@@ -104,19 +104,16 @@ public class OntologyUtils {
 			Set<OWLClass> classes = gr.getOWLClassDescendants(sp);
 			for (OWLClass cls : classes){
 				spTerms.put(gr.getIdentifier(cls), gr.getLabel(cls));
-				System.out.println(gr.getIdentifier(cls) + "  " + gr.getLabel(cls));
 			}
 			
 			classes = gr.getOWLClassDescendants(vm);
 			for (OWLClass cls : classes){
 				vmTerms.put(gr.getIdentifier(cls), gr.getLabel(cls));
-				System.out.println(gr.getIdentifier(cls) + "  " + gr.getLabel(cls));
 			}
 			
 			classes = gr.getOWLClassDescendants(im);
 			for (OWLClass cls : classes){
 				imTerms.put(gr.getIdentifier(cls), gr.getLabel(cls));
-				System.out.println(gr.getIdentifier(cls) + "  " + gr.getLabel(cls));
 			}
 		} catch (OWLOntologyCreationException e) {
 			e.printStackTrace();

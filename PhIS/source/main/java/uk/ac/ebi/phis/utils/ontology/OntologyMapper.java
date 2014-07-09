@@ -138,7 +138,6 @@ public class OntologyMapper {
 						while (m.find()){
 							// add axiom if the object is MA
 							if (m.group(1).contains("MA_")){
-								System.out.println("1 " + m.group(1));
 								results.add(m.group(1).split("/")[m.group(1).split("/").length-1]);
 							}
 						}
