@@ -14,31 +14,31 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for AnnotationMode.
+ * <p>Java class for YesNo.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * <p>
  * <pre>
- * &lt;simpleType name="AnnotationMode">
+ * &lt;simpleType name="YesNo">
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *     &lt;enumeration value="Manual"/>
- *     &lt;enumeration value="Automated"/>
+ *     &lt;enumeration value="Yes"/>
+ *     &lt;enumeration value="No"/>
  *   &lt;/restriction>
  * &lt;/simpleType>
  * </pre>
  * 
  */
-@XmlType(name = "AnnotationMode")
+@XmlType(name = "YesNo")
 @XmlEnum
-public enum AnnotationMode {
+public enum YesNo {
 
-    @XmlEnumValue("Manual")
-    MANUAL("Manual"),
-    @XmlEnumValue("Automated")
-    AUTOMATED("Automated");
+    @XmlEnumValue("Yes")
+    YES("Yes"),
+    @XmlEnumValue("No")
+    NO("No");
     private final String value;
 
-    AnnotationMode(String v) {
+    YesNo(String v) {
         value = v;
     }
 
@@ -46,8 +46,8 @@ public enum AnnotationMode {
         return value;
     }
 
-    public static AnnotationMode fromValue(String v) {
-        for (AnnotationMode c: AnnotationMode.values()) {
+    public static YesNo fromValue(String v) {
+        for (YesNo c: YesNo.values()) {
             if (c.value.equals(v)) {
                 return c;
             }

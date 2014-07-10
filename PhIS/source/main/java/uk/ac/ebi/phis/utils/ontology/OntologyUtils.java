@@ -9,9 +9,12 @@ import org.apache.log4j.Logger;
 import org.obolibrary.oboformat.parser.OBOFormatParserException;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.springframework.stereotype.Service;
 
 import owltools.graph.OWLGraphWrapper;
 import owltools.io.ParserWrapper;
+
+
 
 public class OntologyUtils {
 

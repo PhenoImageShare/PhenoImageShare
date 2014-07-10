@@ -203,7 +203,7 @@ public class SangerXmlGenerator {
 		    		}
 	        	}
 	    		i++;
-//	    		if (i==1000) break;
+	    		if (i==1000) break;
 	        }
 			
 	        File file = new File("source/main/resources/sangerExport.xml");
@@ -214,7 +214,7 @@ public class SangerXmlGenerator {
 			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
 			jaxbMarshaller.marshal(doc, file);
-			jaxbMarshaller.marshal(doc, System.out);
+//			jaxbMarshaller.marshal(doc, System.out);
 					
 			}catch (ParserConfigurationException pce) {
 				pce.printStackTrace();

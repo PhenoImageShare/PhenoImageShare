@@ -22,35 +22,29 @@ public class main {
 //		mapper.getMappings("http://purl.obolibrary.org/obo/MP_0003684", "MA");
 //		System.out.println("\t\t " + mapper.getAnatomyLabel("MA_0000003"));
 		try {
-
-			SangerXmlGenerator sg = new SangerXmlGenerator();
-			sg.exportImages();
+			long time = System.currentTimeMillis();
+//			SangerXmlGenerator sg = new SangerXmlGenerator();
+//			sg.exportImages();
+			System.out.println("Generating xml for Sanger took " + (System.currentTimeMillis() - time));
 			
+			time = System.currentTimeMillis();
 //			TracerXmlGenerator tg = new TracerXmlGenerator();
+			System.out.println("Generating XML for Tracer took " + (System.currentTimeMillis() - time));
 			
 			BatchXmlReader reader = new BatchXmlReader();
+
+			time = System.currentTimeMillis();
 //			System.out.println(reader.validate("tracerExport.xml"));
-			System.out.println(reader.validate("sangerExport.xml"));
-//			System.out.println(reader.convertXmlToObjects("sangerExport.xml"));
-//			tg.read();
-			
-			/*		
-			SangerImagesImporter sanger = new SangerImagesImporter();
-			sanger.read();
-				
-			TracerImporter tracer = new TracerImporter();
-			tracer.read();
-	*/
+			System.out.println("Validating Tracer XML took " + (System.currentTimeMillis() - time));
+
+			time = System.currentTimeMillis();
+			System.out.println("Is valid? " + reader.validate("sangerExport.xml"));
+			System.out.println("Validating Sanger XML took " + (System.currentTimeMillis() - time));
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 				
-		/*		
-		Komp2Importer komp = new Komp2Importer();
-		komp.downloadAndParseToXml();
-		*/
-		
 	}
 
 }
