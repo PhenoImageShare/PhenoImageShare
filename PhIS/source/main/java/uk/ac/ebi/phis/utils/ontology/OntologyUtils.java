@@ -15,7 +15,7 @@ import owltools.graph.OWLGraphWrapper;
 import owltools.io.ParserWrapper;
 
 
-
+@Service
 public class OntologyUtils {
 
 	private ArrayList<String> anatomyOntologies = new ArrayList<String>();
@@ -51,7 +51,7 @@ public class OntologyUtils {
 
 
 	// isAnatomyId(String id)
-	public boolean isAnatomyId(String id){
+	public boolean isAnatomy(String id){
 		return anatomyTerms.containsKey(id) || anatomyTerms.containsKey(id.replace(":", "_"));
 	}
 	

@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import org.apache.solr.client.solrj.SolrServerException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import uk.ac.ebi.phis.importer.BatchXmlReader;
 import uk.ac.ebi.phis.utils.ontology.OntologyMapper;
@@ -14,17 +16,21 @@ import uk.ac.ebi.phis.xmlDump.SangerXmlGenerator;
 import uk.ac.ebi.phis.xmlDump.TracerImporter;
 import uk.ac.ebi.phis.xmlDump.TracerXmlGenerator;
 
+
+@Component
 public class main {
 
+	
 	public static void main(String[] args) throws SolrServerException {
 		
 //		OntologyMapper mapper = new OntologyMapper(OntologyMapperPredefinedTypes.MA_MP);
 //		mapper.getMappings("http://purl.obolibrary.org/obo/MP_0003684", "MA");
 //		System.out.println("\t\t " + mapper.getAnatomyLabel("MA_0000003"));
+		
 		try {
 			long time = System.currentTimeMillis();
-//			SangerXmlGenerator sg = new SangerXmlGenerator();
-//			sg.exportImages();
+			SangerXmlGenerator sg = new SangerXmlGenerator();
+			sg.exportImages();
 			System.out.println("Generating xml for Sanger took " + (System.currentTimeMillis() - time));
 			
 			time = System.currentTimeMillis();

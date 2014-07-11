@@ -104,12 +104,12 @@ public class BatchXmlReader {
 
 		for (Image img : imageIdMap.values()){
 
-			//TODO check ontoloy fields contain ontology IDs and they are from the right ontology
-			if (!vu.validateOntologyTerms(img)){
+			// Check ontoloy fields contain ontology IDs and they are from the right ontology
+			// Check label & id match
+			if (!vu.hasValidOntologyTerms(img)){
 				System.out.println("there was something wrong with the ontology terms for img id = " + img.getId());
 				
 			}
-			//TODO Check label & id match
 			
 			// positive dimensions
 			if (! vu.hasPositieDimensions(img.getImageDescription().getImageDimensions())){
@@ -121,12 +121,17 @@ public class BatchXmlReader {
 		
 		for (Roi roi : roiIdMap.values()){
 			
-
 			// percentages
 			if(! vu.arePercentagesOk(roi.getCoordinates())){
 				return false;
+			}			
+
+			// Check ontoloy fields contain ontology IDs and they are from the right ontology
+			// Check label & id match
+			if (!vu.isValidOntologyTerms(roi)){
+				System.out.println("there was something wrong with the ontology terms for roi id = " + roi.getId());
+				
 			}
-			
 		}
 		return true;
 	}

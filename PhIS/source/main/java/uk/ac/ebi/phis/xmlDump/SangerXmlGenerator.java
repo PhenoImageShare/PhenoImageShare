@@ -113,7 +113,7 @@ public class SangerXmlGenerator {
 			    		}
 			    		OntologyTerm stageOt = getStageFromProcedure(procedure);
 			    		if (stageOt != null){
-			    			organism.setStageOntologyTerm(stageOt);
+			    			organism.setStage(stageOt);
 			    		}
 			    			
 			    		organism.setTaxon("Mus musculus");
@@ -214,17 +214,15 @@ public class SangerXmlGenerator {
 			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
 			jaxbMarshaller.marshal(doc, file);
-//			jaxbMarshaller.marshal(doc, System.out);
+			jaxbMarshaller.marshal(doc, System.out);
 					
 			}catch (ParserConfigurationException pce) {
 				pce.printStackTrace();
 			} catch (TransformerException tfe) {
 				tfe.printStackTrace();
 			} catch (DOMException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
         
