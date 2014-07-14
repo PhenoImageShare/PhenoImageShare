@@ -139,7 +139,7 @@
 									<all>
 						  	  		<element name="age" type="x:Age" minOccurs="0" maxOccurs="1"/>
 						  	  		<element name="taxon" type="string" minOccurs="1" maxOccurs="1"/>
-						   		 		<element name="sex" type="x:Sex" minOccurs="0" maxOccurs="1"/>
+						   		 	<element name="sex" type="x:Sex" minOccurs="0" maxOccurs="1"/>
 						  	  		<element name="ncbi_taxon_id"	type="string" minOccurs="0" maxOccurs="1"/>
 						  	  		<element name="stage" type="x:OntologyTerm" minOccurs="0" maxOccurs="1"/>
 						  	  </all>

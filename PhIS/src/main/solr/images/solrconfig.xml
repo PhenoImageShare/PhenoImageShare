@@ -15,11 +15,11 @@
   <schemaFactory class="ClassicIndexSchemaFactory"/>
 
 
-<requestHandler name="/dataimport" class="solr.DataImportHandler">
+<!-- requestHandler name="/dataimport" class="solr.DataImportHandler">
     <lst name="defaults">
         <str name="config">data-config.xml</str>
     </lst>
-</requestHandler>
+</requestHandler-->
 
 <requestHandler name="/update" class="solr.UpdateRequestHandler"/>
 
