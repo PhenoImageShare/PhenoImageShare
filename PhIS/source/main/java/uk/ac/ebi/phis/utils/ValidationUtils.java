@@ -57,24 +57,53 @@ public class ValidationUtils {
 		Annotation ann = img.getDepictedAnatomicalStructure();
 		// depicted anatomy
 		res = res && checkOntologyTerm(ann, "anatomy");
+		if (!res){
+			System.out.println(">>> Ontology term is not a velid entry for anatomy.");
+			return false;
+		}
 		// stage
-		res = res && checkOntologyTerm(img.getOrganism().getStage(), "stage");
-		List<OntologyTerm> ota = img.getImageDescription().getSamplePreparation().getEl();
-		if  (ota != null){
-			for (OntologyTerm ot : ota){
-				res = res && checkOntologyTerm(ot, "samplePreparation");
+		if (img.getOrganism().getStage() != null){
+			res = res && checkOntologyTerm(img.getOrganism().getStage(), "stage");
+			if (!res){
+				System.out.println(">>> Ontology term " + img.getOrganism().getStage().getTermId() + "(" + img.getOrganism().getStage().getTermLabel() + ") is not a velid entry for stage.");
+				return false;
 			}
 		}
-		ota = img.getImageDescription().getVisualisationMethod().getEl();
-		if  (ota != null){
-			for (OntologyTerm ot : ota){
-				res = res && checkOntologyTerm(ot, "visualisationMethod");
+		List<OntologyTerm> ontologyTermArray;
+		if (img.getImageDescription().getSamplePreparation() != null){
+			ontologyTermArray = img.getImageDescription().getSamplePreparation().getEl();
+			if  (ontologyTermArray != null){
+				for (OntologyTerm ot : ontologyTermArray){
+					res = res && checkOntologyTerm(ot, "samplePreparation");
+					if (!res){
+						System.out.println(">>> Ontology term " + ot.getTermId() + "(" + ot.getTermLabel() + ") is not a velid entry for samplePreparation.");
+						return false;
+					}
+				}
 			}
 		}
-		ota = img.getImageDescription().getImagingMethod().getEl();
-		if  (ota != null){
-			for (OntologyTerm ot : ota){
-				res = res && checkOntologyTerm(ot, "imagingMethod");
+		if (img.getImageDescription().getVisualisationMethod() != null){
+			ontologyTermArray = img.getImageDescription().getVisualisationMethod().getEl();
+			if  (ontologyTermArray != null){
+				for (OntologyTerm ot : ontologyTermArray){
+					res = res && checkOntologyTerm(ot, "visualisationMethod");
+					if (!res){
+						System.out.println(">>> Ontology term " + ot.getTermId() + "(" + ot.getTermLabel() + ") is not a velid entry for visualisationMethod.");
+						return false;
+					}
+				}
+			}
+		}
+		if (img.getImageDescription().getImagingMethod() != null){
+			ontologyTermArray = img.getImageDescription().getImagingMethod().getEl();
+			if  (ontologyTermArray != null){
+				for (OntologyTerm ot : ontologyTermArray){
+					res = res && checkOntologyTerm(ot, "imagingMethod");
+					if (!res){
+						System.out.println(">>> Ontology term " + ot.getTermId() + "(" + ot.getTermLabel() + ") is not a velid entry for imagingMethod.");
+						return false;
+					}
+				}
 			}
 		}
 		return res;
@@ -82,27 +111,31 @@ public class ValidationUtils {
 	
 	
 	public boolean isValidOntologyTerms(Roi roi){
-		
-		// Do anatomy terms first
-		List<Annotation> annList = roi.getAbnormalityInAnatomicalStructure().getEl();
-		annList.addAll(roi.getDepictedAnatomicalStructure().getEl());
+		List<Annotation> annList;
 		boolean res = true;
-		// Check if any ids present
-		if (annList != null){
-			for (Annotation ann : annList){
-				res = res && checkOntologyTerm(ann, "anatomy");
+		if (roi.getAbnormalityInAnatomicalStructure() != null){
+			// Do anatomy terms first
+			annList = roi.getAbnormalityInAnatomicalStructure().getEl();
+			annList.addAll(roi.getDepictedAnatomicalStructure().getEl());
+			// Check if any ids present
+			if (annList != null){
+				for (Annotation ann : annList){
+					res = res && checkOntologyTerm(ann, "anatomy");
+				}
 			}
 		}
 		
+
+		if (roi.getPhenotypeAnnotations() != null){
 		// Phenotype terms
-		annList = roi.getPhenotypeAnnotations().getEl();
-		// Check if any ids present
-		if (annList != null){
-			for (Annotation ann : annList){
-				res = res && checkOntologyTerm(ann, "phenotype");
+			annList = roi.getPhenotypeAnnotations().getEl();
+			// Check if any ids present
+			if (annList != null){
+				for (Annotation ann : annList){
+					res = res && checkOntologyTerm(ann, "phenotype");
+				}
 			}
-		}
-				
+		}		
 		return res;
 	}	
 	
@@ -127,23 +160,30 @@ public class ValidationUtils {
 					return false;
 				}else if (ot.getTermId() != null){
 					// check they are from the right ontology
-					boolean result = true;
+					boolean isValid = true;
 					if (type.equalsIgnoreCase("anatomy")){
-						result = ou.isAnatomy(ot.getTermId());
+						isValid = ou.isAnatomy(ot.getTermId());
 					} else if (type.equalsIgnoreCase("phenotype")){
-						result = ou.isPhenotype(ot.getTermId());
+						isValid = ou.isPhenotype(ot.getTermId());
 					} else if (type.equalsIgnoreCase("stage")){
-						result = ou.isStage(ot.getTermId());
+						isValid = ou.isStage(ot.getTermId());
+					} else if (type.equalsIgnoreCase("samplePreparation")){
+						isValid = ou.isSamplePreparation(ot.getTermId());
+					} else if (type.equalsIgnoreCase("visualisationMethod")){
+						isValid = ou.isImaveVisualization(ot.getTermId());
+					} else if (type.equalsIgnoreCase("imagingMethod")){
+						isValid = ou.isImagingMethod(ot.getTermId());
 					}
 					// check label and id match
-					result = result && ou.labelMatchesId(ot.getTermLabel(), ot.getTermId());
-					if (!result){
-						System.out.println("Label is from the right ontology : " + ou.isAnatomy(ot.getTermId()) + " label matches id : " + ou.labelMatchesId(ot.getTermLabel(), ot.getTermId()));
+					isValid = isValid && ou.labelMatchesId(ot.getTermLabel(), ot.getTermId());
+					if (!isValid){
+						System.out.println(">> Label matches id? " + ou.labelMatchesId(ot.getTermLabel(), ot.getTermId()) + " for " + ot.getTermId() + " " + ot.getTermLabel() 
+					+ "\n>> Or the term is not present in the ontologies known for this field. "); 
 					}
-					return result;
+					return isValid;
 				}
 			}
-		return true;
+		return false;
 	}
 	
 }

@@ -203,7 +203,7 @@ public class SangerXmlGenerator {
 		    		}
 	        	}
 	    		i++;
-	    		if (i==1000) break;
+	    		if (i==10) break;
 	        }
 			
 	        File file = new File("source/main/resources/sangerExport.xml");

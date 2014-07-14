@@ -52,45 +52,58 @@ public class OntologyUtils {
 
 	// isAnatomyId(String id)
 	public boolean isAnatomy(String id){
-		return anatomyTerms.containsKey(id) || anatomyTerms.containsKey(id.replace(":", "_"));
+		return anatomyTerms.containsKey(id) || anatomyTerms.containsKey(id.replace("_", ":"));
 	}
 	
 	// isPhenotype(String id)
 	public boolean isPhenotype(String id){
-		return phenotypeTerms.containsKey(id) || phenotypeTerms.containsKey(id.replace(":", "_"));
+		return phenotypeTerms.containsKey(id) || phenotypeTerms.containsKey(id.replace("_", ":"));
 	}
 	
 	// isStage(String id)
 	public boolean isStage(String id){
-		return stageTerms.containsKey(id) || stageTerms.containsKey(id.replace(":", "_"));
+		return stageTerms.containsKey(id) || stageTerms.containsKey(id.replace("_", ":"));
 	}
 	
 	// isImaveVisualization (String id)
 	public boolean isImaveVisualization(String id){
-		return imTerms.containsKey(id) || imTerms.containsKey(id.replace(":", "_"));
+		return imTerms.containsKey(id) || imTerms.containsKey(id.replace("_", ":"));
 	}
 	
 	// isSamplePreparation(String id)
 	public boolean isSamplePreparation(String id){
-		return spTerms.containsKey(id) || spTerms.containsKey(id.replace(":", "_"));
+		return spTerms.containsKey(id) || spTerms.containsKey(id.replace("_", ":"));
 	}
 	
 	// isImaginfMethod(String id)
-	public boolean isImaginfMethod(String id){
-		return imTerms.containsKey(id) || imTerms.containsKey(id.replace(":", "_"));
+	public boolean isImagingMethod(String id){
+		return imTerms.containsKey(id) || imTerms.containsKey(id.replace("_", ":"));
 	}
 	
 		
 	// labelMatchesId(String label, String id)
-	public boolean labelMatchesId(String label, String id){
+	public boolean labelMatchesId(String label, String termId){
 		boolean res = false;
+		String id = termId.replace("_",  ":");
 		if (anatomyTerms.containsKey(id)){
-			res = anatomyTerms.get(id).equalsIgnoreCase(label);
+			res = (anatomyTerms.get(id).equalsIgnoreCase(label) );
 		}
 		else if (phenotypeTerms.containsKey(id)){
-			res = phenotypeTerms.get(id).equalsIgnoreCase(label);
+			res = (phenotypeTerms.get(id).equalsIgnoreCase(label) );
 		}
-		//TODO add FBBI, stage ontology
+		else if (stageTerms.containsKey(id)){
+			res = (stageTerms.get(id).equalsIgnoreCase(label) );
+		}
+		else if (imTerms.containsKey(id)){
+			res = (imTerms.get(id).equalsIgnoreCase(label) );
+		}
+		else if (vmTerms.containsKey(id)){
+			res = (vmTerms.get(id).equalsIgnoreCase(label) );
+		}
+		else if (spTerms.containsKey(id)){
+			res = (spTerms.get(id).equalsIgnoreCase(label) );
+		}
+		
 		return res;
 	}
 	
@@ -145,6 +158,7 @@ public class OntologyUtils {
 		}
 		for (String path: stageOntologies){
 			fillHashesFor(path, stageTerms);
+			System.out.println("Is MmusDv:0000024 in there ? " + stageTerms.get("MmusDv:0000092"));
 		}
 		return false;
 		

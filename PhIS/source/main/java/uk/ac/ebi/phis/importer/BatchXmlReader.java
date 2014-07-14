@@ -130,7 +130,7 @@ public class BatchXmlReader {
 			// Check label & id match
 			if (!vu.isValidOntologyTerms(roi)){
 				System.out.println("there was something wrong with the ontology terms for roi id = " + roi.getId());
-				
+				return false;
 			}
 		}
 		return true;
