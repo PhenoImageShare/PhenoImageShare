@@ -7,7 +7,7 @@ import org.apache.solr.client.solrj.SolrServerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import uk.ac.ebi.phis.importer.BatchXmlReader;
+import uk.ac.ebi.phis.importer.BatchXmlUploader;
 import uk.ac.ebi.phis.utils.ontology.OntologyMapper;
 import uk.ac.ebi.phis.utils.ontology.OntologyMapperPredefinedTypes;
 import uk.ac.ebi.phis.utils.ontology.OntologyUtils;
@@ -37,7 +37,7 @@ public class main {
 //			TracerXmlGenerator tg = new TracerXmlGenerator();
 			System.out.println("Generating XML for Tracer took " + (System.currentTimeMillis() - time));
 			
-			BatchXmlReader reader = new BatchXmlReader();
+			BatchXmlUploader reader = new BatchXmlUploader();
 
 			time = System.currentTimeMillis();
 //			System.out.println(reader.validate("tracerExport.xml"));

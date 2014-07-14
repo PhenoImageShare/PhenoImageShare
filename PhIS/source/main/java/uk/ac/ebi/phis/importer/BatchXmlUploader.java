@@ -23,7 +23,7 @@ import org.xml.sax.SAXException;
 
 import uk.ac.ebi.phis.utils.ValidationUtils;
 
-public class BatchXmlReader {
+public class BatchXmlUploader {
 
 
 	HashMap<String, Image> imageIdMap = new HashMap<>();
@@ -34,7 +34,7 @@ public class BatchXmlReader {
 	
 	ValidationUtils vu = new ValidationUtils();
 	
-	public BatchXmlReader(){
+	public BatchXmlUploader(){
 		classloader = Thread.currentThread().getContextClassLoader();	
 	}
 		
