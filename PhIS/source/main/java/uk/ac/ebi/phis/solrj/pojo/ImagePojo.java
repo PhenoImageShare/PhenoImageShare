@@ -6,998 +6,975 @@ import org.apache.solr.client.solrj.beans.Field;
 
 public class ImagePojo {
 
-	@Field("associated_roi" )
-	private static String associatedRoi;
-	
-	@Field("associated_channel")  
-	private static String associatedChannel;
-	
-	@Field("data_source")
-	private static String dataSource;
-	
-	@Field("depth" ) 
-	private static Integer gepth ;
-	
-	@Field("format")
-	private static String format;
-	
-	@Field("height" )  
-	private static Integer height ;
-	
-	@Field("host_url" )
-	private static String hostUrl;
-	
-	@Field("host_name" ) 
-	private static String hostName;
-	
-	@Field("image_generated_by")
-	private static String imageGeneratedBy;
-	
-	@Field("image_url" )
-	private static String imageUrl;
-	
-	@Field("image_context_url")
-	private static String imageContextUrl;
-	
-	@Field("image_type" )
-	private static String imageType;
-	
-	@Field("imaging_method" )
-	private static String imagingMethod;
-	
-	@Field("sample_preparation" )
-	private static String samplePreparation;
-	
-	@Field("visualisation_method" )
-	private static String visualisationMethod;
-	
-	@Field("machine")
-	private static String machine;
-	
-	@Field("original_image_id")
-	private static String originalImageId;
-	
-	@Field("thumbnail_path")
-	private static String thumbnailPath;
-	
-	@Field("width")  
-	private static String width;
-	
-	// Sample 
-	
-	@Field("age_since_birth")  
-	private static String ageSinceBirth;
-	
-	@Field("sample_generated_by")
-	private static String sampleGeneratedBy;
-	
-	@Field("taxon")
-	private static String taxon;
-	
-	@Field("ncbi_taxon_id")  
-	private static String ncbiTaxonId;
-	
-	@Field("sex")
-	private static String sex;
-	
-	@Field("stage")   
-	private static String stage;
-	
-	@Field("embryonic_age")  
-	private static String embryonicAge;
-	
-	// annotations -->
-	
-	@Field("anatomy_id")
-	private static String anatomyId;
-	
-	@Field("anatomy_term")   
-	private static String anatomyTerm;
-	
-	@Field("anatomy_freetext")   
-	private static String anatomyFreetext;
-	
-	// field name="anatomy_computed_id"   /-->
-	// field name="anatomy_computed_term"   /-->
-	// field name="anatomy_ann_bag"   /-->
-	// field name="other_ann_bag"   /-->
-	// field name="phenotype_ann_bag"   /-->
-	
-	@Field("observations")
-	private static List<String> observations;
-	
-	@Field("conditions")
-	private static List<String> conditions;
-	
-	// genetic features -->
-	
-	@Field("gene_id")
-	private static List<String> geneIds;
-	
-	@Field("gene_symbol")  
-	private static List<String> geneSymbols;
-	
-	@Field("genetic_feature_id")   
-	private static List<String> geneticFeatureIds ;
-	
-	@Field("genetic_feature_symbol")   
-	private static List<String> geneticFeatureSymbols ;
-	
-	@Field("genetic_feature_ensembl_id")  
-	private static List<String> genetifFeatureEnsemlIds ;
-		
-	// field name="expressed_gf_bag"   /-->
-	// field name="expressed_anatomy_bag"   /-->
-	
-	@Field("chromosome")
-	private static List<String> chromosome ;
-	
-	@Field("insertion_site") 
-	private static List<Long> insertionSite ;
-	
-	@Field("start_pos")
-	private static List<Long>  startPosition;
-	
-	@Field("end_pos")
-	private static List<Long> endPosition ;
-	
-	@Field("strand")
-	private static List<String> strand ;
-	
-	@Field("zygosity")
-	private static List<String> zygosity ;
+	@Field("id")
+	private String id;
 
-	
-	
+	@Field("associated_roi")
+	private String associatedRoi;
+
+	@Field("associated_channel")
+	private String associatedChannel;
+
+	@Field("data_source")
+	private String dataSource;
+
+	@Field("depth")
+	private Integer gepth;
+
+	@Field("format")
+	private String format;
+
+	@Field("height")
+	private Integer height;
+
+	@Field("host_url")
+	private String hostUrl;
+
+	@Field("host_name")
+	private String hostName;
+
+	@Field("image_generated_by")
+	private String imageGeneratedBy;
+
+	@Field("image_url")
+	private String imageUrl;
+
+	@Field("image_context_url")
+	private String imageContextUrl;
+
+	@Field("image_type")
+	private String imageType;
+
+	@Field("imaging_method")
+	private String imagingMethod;
+
+	@Field("sample_preparation")
+	private String samplePreparation;
+
+	@Field("visualisation_method")
+	private String visualisationMethod;
+
+	@Field("machine")
+	private String machine;
+
+	@Field("original_image_id")
+	private String originalImageId;
+
+	@Field("thumbnail_path")
+	private String thumbnailPath;
+
+	@Field("width")
+	private String width;
+
+	// Sample
+
+	@Field("age_since_birth")
+	private String ageSinceBirth;
+
+	@Field("sample_generated_by")
+	private String sampleGeneratedBy;
+
+	@Field("taxon")
+	private String taxon;
+
+	@Field("ncbi_taxon_id")
+	private String ncbiTaxonId;
+
+	@Field("sex")
+	private String sex;
+
+	@Field("stage")
+	private String stage;
+
+	@Field("embryonic_age")
+	private String embryonicAge;
+
+	// annotations -->
+
+	@Field("anatomy_id")
+	private String anatomyId;
+
+	@Field("anatomy_term")
+	private String anatomyTerm;
+
+	@Field("anatomy_freetext")
+	private String anatomyFreetext;
+
+	// field name="anatomy_computed_id" /-->
+	// field name="anatomy_computed_term" /-->
+	// field name="anatomy_ann_bag" /-->
+	// field name="other_ann_bag" /-->
+	// field name="phenotype_ann_bag" /-->
+
+	@Field("observations")
+	private List<String> observations;
+
+	@Field("conditions")
+	private List<String> conditions;
+
+	// genetic features -->
+
+	@Field("gene_id")
+	private List<String> geneIds;
+
+	@Field("gene_symbol")
+	private List<String> geneSymbols;
+
+	@Field("genetic_feature_id")
+	private List<String> geneticFeatureIds;
+
+	@Field("genetic_feature_symbol")
+	private List<String> geneticFeatureSymbols;
+
+	@Field("genetic_feature_ensembl_id")
+	private List<String> genetifFeatureEnsemlIds;
+
+	// field name="expressed_gf_bag" /-->
+	// field name="expressed_anatomy_bag" /-->
+
+	@Field("chromosome")
+	private List<String> chromosome;
+
+	@Field("insertion_site")
+	private List<Long> insertionSite;
+
+	@Field("start_pos")
+	private List<Long> startPosition;
+
+	@Field("end_pos")
+	private List<Long> endPosition;
+
+	@Field("strand")
+	private List<String> strand;
+
+	@Field("zygosity")
+	private List<String> zygosity;
+
+
 	/**
 	 * @return the associatedRoi
 	 */
-	public static String getAssociatedRoi() {
+	public String getAssociatedRoi() {
+
 		return associatedRoi;
 	}
 
 
-
-
 	/**
-	 * @param associatedRoi the associatedRoi to set
+	 * @param associatedRoi
+	 *            the associatedRoi to set
 	 */
-	public static void setAssociatedRoi(String associatedRoi) {
-		ImagePojo.associatedRoi = associatedRoi;
+	public void setAssociatedRoi(String associatedRoi) {
+
+		this.associatedRoi = associatedRoi;
 	}
-
-
 
 
 	/**
 	 * @return the associatedChannel
 	 */
-	public static String getAssociatedChannel() {
+	public String getAssociatedChannel() {
+
 		return associatedChannel;
 	}
 
 
-
-
 	/**
-	 * @param associatedChannel the associatedChannel to set
+	 * @param associatedChannel
+	 *            the associatedChannel to set
 	 */
-	public static void setAssociatedChannel(String associatedChannel) {
-		ImagePojo.associatedChannel = associatedChannel;
+	public void setAssociatedChannel(String associatedChannel) {
+
+		this.associatedChannel = associatedChannel;
 	}
-
-
 
 
 	/**
 	 * @return the dataSource
 	 */
-	public static String getDataSource() {
+	public String getDataSource() {
+
 		return dataSource;
 	}
 
 
-
-
 	/**
-	 * @param dataSource the dataSource to set
+	 * @param dataSource
+	 *            the dataSource to set
 	 */
-	public static void setDataSource(String dataSource) {
-		ImagePojo.dataSource = dataSource;
+	public void setDataSource(String dataSource) {
+
+		this.dataSource = dataSource;
 	}
-
-
 
 
 	/**
 	 * @return the gepth
 	 */
-	public static Integer getGepth() {
+	public Integer getGepth() {
+
 		return gepth;
 	}
 
 
-
-
 	/**
-	 * @param gepth the gepth to set
+	 * @param gepth
+	 *            the gepth to set
 	 */
-	public static void setGepth(Integer gepth) {
-		ImagePojo.gepth = gepth;
+	public void setGepth(Integer gepth) {
+
+		this.gepth = gepth;
 	}
-
-
 
 
 	/**
 	 * @return the format
 	 */
-	public static String getFormat() {
+	public String getFormat() {
+
 		return format;
 	}
 
 
-
-
 	/**
-	 * @param format the format to set
+	 * @param format
+	 *            the format to set
 	 */
-	public static void setFormat(String format) {
-		ImagePojo.format = format;
+	public void setFormat(String format) {
+
+		this.format = format;
 	}
-
-
 
 
 	/**
 	 * @return the height
 	 */
-	public static Integer getHeight() {
+	public Integer getHeight() {
+
 		return height;
 	}
 
 
-
-
 	/**
-	 * @param height the height to set
+	 * @param height
+	 *            the height to set
 	 */
-	public static void setHeight(Integer height) {
-		ImagePojo.height = height;
+	public void setHeight(Integer height) {
+
+		this.height = height;
 	}
-
-
 
 
 	/**
 	 * @return the hostUrl
 	 */
-	public static String getHostUrl() {
+	public String getHostUrl() {
+
 		return hostUrl;
 	}
 
 
-
-
 	/**
-	 * @param hostUrl the hostUrl to set
+	 * @param hostUrl
+	 *            the hostUrl to set
 	 */
-	public static void setHostUrl(String hostUrl) {
-		ImagePojo.hostUrl = hostUrl;
+	public void setHostUrl(String hostUrl) {
+
+		this.hostUrl = hostUrl;
 	}
-
-
 
 
 	/**
 	 * @return the hostName
 	 */
-	public static String getHostName() {
+	public String getHostName() {
+
 		return hostName;
 	}
 
 
-
-
 	/**
-	 * @param hostName the hostName to set
+	 * @param hostName
+	 *            the hostName to set
 	 */
-	public static void setHostName(String hostName) {
-		ImagePojo.hostName = hostName;
+	public void setHostName(String hostName) {
+
+		this.hostName = hostName;
 	}
-
-
 
 
 	/**
 	 * @return the imageGeneratedBy
 	 */
-	public static String getImageGeneratedBy() {
+	public String getImageGeneratedBy() {
+
 		return imageGeneratedBy;
 	}
 
 
-
-
 	/**
-	 * @param imageGeneratedBy the imageGeneratedBy to set
+	 * @param imageGeneratedBy
+	 *            the imageGeneratedBy to set
 	 */
-	public static void setImageGeneratedBy(String imageGeneratedBy) {
-		ImagePojo.imageGeneratedBy = imageGeneratedBy;
+	public void setImageGeneratedBy(String imageGeneratedBy) {
+
+		this.imageGeneratedBy = imageGeneratedBy;
 	}
-
-
 
 
 	/**
 	 * @return the imageUrl
 	 */
-	public static String getImageUrl() {
+	public String getImageUrl() {
+
 		return imageUrl;
 	}
 
 
-
-
 	/**
-	 * @param imageUrl the imageUrl to set
+	 * @param imageUrl
+	 *            the imageUrl to set
 	 */
-	public static void setImageUrl(String imageUrl) {
-		ImagePojo.imageUrl = imageUrl;
+	public void setImageUrl(String imageUrl) {
+
+		this.imageUrl = imageUrl;
 	}
-
-
 
 
 	/**
 	 * @return the imageContextUrl
 	 */
-	public static String getImageContextUrl() {
+	public String getImageContextUrl() {
+
 		return imageContextUrl;
 	}
 
 
-
-
 	/**
-	 * @param imageContextUrl the imageContextUrl to set
+	 * @param imageContextUrl
+	 *            the imageContextUrl to set
 	 */
-	public static void setImageContextUrl(String imageContextUrl) {
-		ImagePojo.imageContextUrl = imageContextUrl;
+	public void setImageContextUrl(String imageContextUrl) {
+
+		this.imageContextUrl = imageContextUrl;
 	}
-
-
 
 
 	/**
 	 * @return the imageType
 	 */
-	public static String getImageType() {
+	public String getImageType() {
+
 		return imageType;
 	}
 
 
-
-
 	/**
-	 * @param imageType the imageType to set
+	 * @param imageType
+	 *            the imageType to set
 	 */
-	public static void setImageType(String imageType) {
-		ImagePojo.imageType = imageType;
+	public void setImageType(String imageType) {
+
+		this.imageType = imageType;
 	}
-
-
 
 
 	/**
 	 * @return the imagingMethod
 	 */
-	public static String getImagingMethod() {
+	public String getImagingMethod() {
+
 		return imagingMethod;
 	}
 
 
-
-
 	/**
-	 * @param imagingMethod the imagingMethod to set
+	 * @param imagingMethod
+	 *            the imagingMethod to set
 	 */
-	public static void setImagingMethod(String imagingMethod) {
-		ImagePojo.imagingMethod = imagingMethod;
+	public void setImagingMethod(String imagingMethod) {
+
+		this.imagingMethod = imagingMethod;
 	}
-
-
 
 
 	/**
 	 * @return the samplePreparation
 	 */
-	public static String getSamplePreparation() {
+	public String getSamplePreparation() {
+
 		return samplePreparation;
 	}
 
 
-
-
 	/**
-	 * @param samplePreparation the samplePreparation to set
+	 * @param samplePreparation
+	 *            the samplePreparation to set
 	 */
-	public static void setSamplePreparation(String samplePreparation) {
-		ImagePojo.samplePreparation = samplePreparation;
+	public void setSamplePreparation(String samplePreparation) {
+
+		this.samplePreparation = samplePreparation;
 	}
-
-
 
 
 	/**
 	 * @return the visualisationMethod
 	 */
-	public static String getVisualisationMethod() {
+	public String getVisualisationMethod() {
+
 		return visualisationMethod;
 	}
 
 
-
-
 	/**
-	 * @param visualisationMethod the visualisationMethod to set
+	 * @param visualisationMethod
+	 *            the visualisationMethod to set
 	 */
-	public static void setVisualisationMethod(String visualisationMethod) {
-		ImagePojo.visualisationMethod = visualisationMethod;
+	public void setVisualisationMethod(String visualisationMethod) {
+
+		this.visualisationMethod = visualisationMethod;
 	}
-
-
 
 
 	/**
 	 * @return the machine
 	 */
-	public static String getMachine() {
+	public String getMachine() {
+
 		return machine;
 	}
 
 
-
-
 	/**
-	 * @param machine the machine to set
+	 * @param machine
+	 *            the machine to set
 	 */
-	public static void setMachine(String machine) {
-		ImagePojo.machine = machine;
+	public void setMachine(String machine) {
+
+		this.machine = machine;
 	}
-
-
 
 
 	/**
 	 * @return the originalImageId
 	 */
-	public static String getOriginalImageId() {
+	public String getOriginalImageId() {
+
 		return originalImageId;
 	}
 
 
-
-
 	/**
-	 * @param originalImageId the originalImageId to set
+	 * @param originalImageId
+	 *            the originalImageId to set
 	 */
-	public static void setOriginalImageId(String originalImageId) {
-		ImagePojo.originalImageId = originalImageId;
+	public void setOriginalImageId(String originalImageId) {
+
+		this.originalImageId = originalImageId;
 	}
-
-
 
 
 	/**
 	 * @return the thumbnailPath
 	 */
-	public static String getThumbnailPath() {
+	public String getThumbnailPath() {
+
 		return thumbnailPath;
 	}
 
 
-
-
 	/**
-	 * @param thumbnailPath the thumbnailPath to set
+	 * @param thumbnailPath
+	 *            the thumbnailPath to set
 	 */
-	public static void setThumbnailPath(String thumbnailPath) {
-		ImagePojo.thumbnailPath = thumbnailPath;
+	public void setThumbnailPath(String thumbnailPath) {
+
+		this.thumbnailPath = thumbnailPath;
 	}
-
-
 
 
 	/**
 	 * @return the width
 	 */
-	public static String getWidth() {
+	public String getWidth() {
+
 		return width;
 	}
 
 
-
-
 	/**
-	 * @param width the width to set
+	 * @param width
+	 *            the width to set
 	 */
-	public static void setWidth(String width) {
-		ImagePojo.width = width;
+	public void setWidth(String width) {
+
+		this.width = width;
 	}
-
-
 
 
 	/**
 	 * @return the ageSinceBirth
 	 */
-	public static String getAgeSinceBirth() {
+	public String getAgeSinceBirth() {
+
 		return ageSinceBirth;
 	}
 
 
-
-
 	/**
-	 * @param ageSinceBirth the ageSinceBirth to set
+	 * @param ageSinceBirth
+	 *            the ageSinceBirth to set
 	 */
-	public static void setAgeSinceBirth(String ageSinceBirth) {
-		ImagePojo.ageSinceBirth = ageSinceBirth;
+	public void setAgeSinceBirth(String ageSinceBirth) {
+
+		this.ageSinceBirth = ageSinceBirth;
 	}
-
-
 
 
 	/**
 	 * @return the sampleGeneratedBy
 	 */
-	public static String getSampleGeneratedBy() {
+	public String getSampleGeneratedBy() {
+
 		return sampleGeneratedBy;
 	}
 
 
-
-
 	/**
-	 * @param sampleGeneratedBy the sampleGeneratedBy to set
+	 * @param sampleGeneratedBy
+	 *            the sampleGeneratedBy to set
 	 */
-	public static void setSampleGeneratedBy(String sampleGeneratedBy) {
-		ImagePojo.sampleGeneratedBy = sampleGeneratedBy;
+	public void setSampleGeneratedBy(String sampleGeneratedBy) {
+
+		this.sampleGeneratedBy = sampleGeneratedBy;
 	}
-
-
 
 
 	/**
 	 * @return the taxon
 	 */
-	public static String getTaxon() {
+	public String getTaxon() {
+
 		return taxon;
 	}
 
 
-
-
 	/**
-	 * @param taxon the taxon to set
+	 * @param taxon
+	 *            the taxon to set
 	 */
-	public static void setTaxon(String taxon) {
-		ImagePojo.taxon = taxon;
+	public void setTaxon(String taxon) {
+
+		this.taxon = taxon;
 	}
-
-
 
 
 	/**
 	 * @return the ncbiTaxonId
 	 */
-	public static String getNcbiTaxonId() {
+	public String getNcbiTaxonId() {
+
 		return ncbiTaxonId;
 	}
 
 
-
-
 	/**
-	 * @param ncbiTaxonId the ncbiTaxonId to set
+	 * @param ncbiTaxonId
+	 *            the ncbiTaxonId to set
 	 */
-	public static void setNcbiTaxonId(String ncbiTaxonId) {
-		ImagePojo.ncbiTaxonId = ncbiTaxonId;
+	public void setNcbiTaxonId(String ncbiTaxonId) {
+
+		this.ncbiTaxonId = ncbiTaxonId;
 	}
-
-
 
 
 	/**
 	 * @return the sex
 	 */
-	public static String getSex() {
+	public String getSex() {
+
 		return sex;
 	}
 
 
-
-
 	/**
-	 * @param sex the sex to set
+	 * @param sex
+	 *            the sex to set
 	 */
-	public static void setSex(String sex) {
-		ImagePojo.sex = sex;
+	public void setSex(String sex) {
+
+		this.sex = sex;
 	}
-
-
 
 
 	/**
 	 * @return the stage
 	 */
-	public static String getStage() {
+	public String getStage() {
+
 		return stage;
 	}
 
 
-
-
 	/**
-	 * @param stage the stage to set
+	 * @param stage
+	 *            the stage to set
 	 */
-	public static void setStage(String stage) {
-		ImagePojo.stage = stage;
+	public void setStage(String stage) {
+
+		this.stage = stage;
 	}
-
-
 
 
 	/**
 	 * @return the embryonicAge
 	 */
-	public static String getEmbryonicAge() {
+	public String getEmbryonicAge() {
+
 		return embryonicAge;
 	}
 
 
-
-
 	/**
-	 * @param embryonicAge the embryonicAge to set
+	 * @param embryonicAge
+	 *            the embryonicAge to set
 	 */
-	public static void setEmbryonicAge(String embryonicAge) {
-		ImagePojo.embryonicAge = embryonicAge;
+	public void setEmbryonicAge(String embryonicAge) {
+
+		this.embryonicAge = embryonicAge;
 	}
-
-
 
 
 	/**
 	 * @return the anatomyId
 	 */
-	public static String getAnatomyId() {
+	public String getAnatomyId() {
+
 		return anatomyId;
 	}
 
 
-
-
 	/**
-	 * @param anatomyId the anatomyId to set
+	 * @param anatomyId
+	 *            the anatomyId to set
 	 */
-	public static void setAnatomyId(String anatomyId) {
-		ImagePojo.anatomyId = anatomyId;
+	public void setAnatomyId(String anatomyId) {
+
+		this.anatomyId = anatomyId;
 	}
-
-
 
 
 	/**
 	 * @return the anatomyTerm
 	 */
-	public static String getAnatomyTerm() {
+	public String getAnatomyTerm() {
+
 		return anatomyTerm;
 	}
 
 
-
-
 	/**
-	 * @param anatomyTerm the anatomyTerm to set
+	 * @param anatomyTerm
+	 *            the anatomyTerm to set
 	 */
-	public static void setAnatomyTerm(String anatomyTerm) {
-		ImagePojo.anatomyTerm = anatomyTerm;
+	public void setAnatomyTerm(String anatomyTerm) {
+
+		this.anatomyTerm = anatomyTerm;
 	}
-
-
 
 
 	/**
 	 * @return the anatomyFreetext
 	 */
-	public static String getAnatomyFreetext() {
+	public String getAnatomyFreetext() {
+
 		return anatomyFreetext;
 	}
 
 
-
-
 	/**
-	 * @param anatomyFreetext the anatomyFreetext to set
+	 * @param anatomyFreetext
+	 *            the anatomyFreetext to set
 	 */
-	public static void setAnatomyFreetext(String anatomyFreetext) {
-		ImagePojo.anatomyFreetext = anatomyFreetext;
+	public void setAnatomyFreetext(String anatomyFreetext) {
+
+		this.anatomyFreetext = anatomyFreetext;
 	}
-
-
 
 
 	/**
 	 * @return the observations
 	 */
-	public static List<String> getObservations() {
+	public List<String> getObservations() {
+
 		return observations;
 	}
 
 
-
-
 	/**
-	 * @param observations the observations to set
+	 * @param observations
+	 *            the observations to set
 	 */
-	public static void setObservations(List<String> observations) {
-		ImagePojo.observations = observations;
+	public void setObservations(List<String> observations) {
+
+		this.observations = observations;
 	}
-
-
 
 
 	/**
 	 * @return the conditions
 	 */
-	public static List<String> getConditions() {
+	public List<String> getConditions() {
+
 		return conditions;
 	}
 
 
-
-
 	/**
-	 * @param conditions the conditions to set
+	 * @param conditions
+	 *            the conditions to set
 	 */
-	public static void setConditions(List<String> conditions) {
-		ImagePojo.conditions = conditions;
+	public void setConditions(List<String> conditions) {
+
+		this.conditions = conditions;
 	}
-
-
 
 
 	/**
 	 * @return the geneIds
 	 */
-	public static List<String> getGeneIds() {
+	public List<String> getGeneIds() {
+
 		return geneIds;
 	}
 
 
-
-
 	/**
-	 * @param geneIds the geneIds to set
+	 * @param geneIds
+	 *            the geneIds to set
 	 */
-	public static void setGeneIds(List<String> geneIds) {
-		ImagePojo.geneIds = geneIds;
+	public void setGeneIds(List<String> geneIds) {
+
+		this.geneIds = geneIds;
 	}
-
-
 
 
 	/**
 	 * @return the geneSymbols
 	 */
-	public static List<String> getGeneSymbols() {
+	public List<String> getGeneSymbols() {
+
 		return geneSymbols;
 	}
 
 
-
-
 	/**
-	 * @param geneSymbols the geneSymbols to set
+	 * @param geneSymbols
+	 *            the geneSymbols to set
 	 */
-	public static void setGeneSymbols(List<String> geneSymbols) {
-		ImagePojo.geneSymbols = geneSymbols;
+	public void setGeneSymbols(List<String> geneSymbols) {
+
+		this.geneSymbols = geneSymbols;
 	}
-
-
 
 
 	/**
 	 * @return the geneticFeatureIds
 	 */
-	public static List<String> getGeneticFeatureIds() {
+	public List<String> getGeneticFeatureIds() {
+
 		return geneticFeatureIds;
 	}
 
 
-
-
 	/**
-	 * @param geneticFeatureIds the geneticFeatureIds to set
+	 * @param geneticFeatureIds
+	 *            the geneticFeatureIds to set
 	 */
-	public static void setGeneticFeatureIds(List<String> geneticFeatureIds) {
-		ImagePojo.geneticFeatureIds = geneticFeatureIds;
+	public void setGeneticFeatureIds(List<String> geneticFeatureIds) {
+
+		this.geneticFeatureIds = geneticFeatureIds;
 	}
-
-
 
 
 	/**
 	 * @return the geneticFeatureSymbols
 	 */
-	public static List<String> getGeneticFeatureSymbols() {
+	public List<String> getGeneticFeatureSymbols() {
+
 		return geneticFeatureSymbols;
 	}
 
 
-
-
 	/**
-	 * @param geneticFeatureSymbols the geneticFeatureSymbols to set
+	 * @param geneticFeatureSymbols
+	 *            the geneticFeatureSymbols to set
 	 */
-	public static void setGeneticFeatureSymbols(List<String> geneticFeatureSymbols) {
-		ImagePojo.geneticFeatureSymbols = geneticFeatureSymbols;
+	public void setGeneticFeatureSymbols(List<String> geneticFeatureSymbols) {
+
+		this.geneticFeatureSymbols = geneticFeatureSymbols;
 	}
-
-
 
 
 	/**
 	 * @return the genetifFeatureEnsemlIds
 	 */
-	public static List<String> getGenetifFeatureEnsemlIds() {
+	public List<String> getGenetifFeatureEnsemlIds() {
+
 		return genetifFeatureEnsemlIds;
 	}
 
 
-
-
 	/**
-	 * @param genetifFeatureEnsemlIds the genetifFeatureEnsemlIds to set
+	 * @param genetifFeatureEnsemlIds
+	 *            the genetifFeatureEnsemlIds to set
 	 */
-	public static void setGenetifFeatureEnsemlIds(
-			List<String> genetifFeatureEnsemlIds) {
-		ImagePojo.genetifFeatureEnsemlIds = genetifFeatureEnsemlIds;
+	public void setGenetifFeatureEnsemlIds(List<String> genetifFeatureEnsemlIds) {
+
+		this.genetifFeatureEnsemlIds = genetifFeatureEnsemlIds;
 	}
-
-
 
 
 	/**
 	 * @return the chromosome
 	 */
-	public static List<String> getChromosome() {
+	public List<String> getChromosome() {
+
 		return chromosome;
 	}
 
 
-
-
 	/**
-	 * @param chromosome the chromosome to set
+	 * @param chromosome
+	 *            the chromosome to set
 	 */
-	public static void setChromosome(List<String> chromosome) {
-		ImagePojo.chromosome = chromosome;
+	public void setChromosome(List<String> chromosome) {
+
+		this.chromosome = chromosome;
 	}
-
-
 
 
 	/**
 	 * @return the insertionSite
 	 */
-	public static List<Long> getInsertionSite() {
+	public List<Long> getInsertionSite() {
+
 		return insertionSite;
 	}
 
 
-
-
 	/**
-	 * @param insertionSite the insertionSite to set
+	 * @param insertionSite
+	 *            the insertionSite to set
 	 */
-	public static void setInsertionSite(List<Long> insertionSite) {
-		ImagePojo.insertionSite = insertionSite;
+	public void setInsertionSite(List<Long> insertionSite) {
+
+		this.insertionSite = insertionSite;
 	}
-
-
 
 
 	/**
 	 * @return the startPosition
 	 */
-	public static List<Long> getStartPosition() {
+	public List<Long> getStartPosition() {
+
 		return startPosition;
 	}
 
 
-
-
 	/**
-	 * @param startPosition the startPosition to set
+	 * @param startPosition
+	 *            the startPosition to set
 	 */
-	public static void setStartPosition(List<Long> startPosition) {
-		ImagePojo.startPosition = startPosition;
+	public void setStartPosition(List<Long> startPosition) {
+
+		this.startPosition = startPosition;
 	}
-
-
 
 
 	/**
 	 * @return the endPosition
 	 */
-	public static List<Long> getEndPosition() {
+	public List<Long> getEndPosition() {
+
 		return endPosition;
 	}
 
 
-
-
 	/**
-	 * @param endPosition the endPosition to set
+	 * @param endPosition
+	 *            the endPosition to set
 	 */
-	public static void setEndPosition(List<Long> endPosition) {
-		ImagePojo.endPosition = endPosition;
+	public void setEndPosition(List<Long> endPosition) {
+
+		this.endPosition = endPosition;
 	}
-
-
 
 
 	/**
 	 * @return the strand
 	 */
-	public static List<String> getStrand() {
+	public List<String> getStrand() {
+
 		return strand;
 	}
 
 
-
-
 	/**
-	 * @param strand the strand to set
+	 * @param strand
+	 *            the strand to set
 	 */
-	public static void setStrand(List<String> strand) {
-		ImagePojo.strand = strand;
+	public void setStrand(List<String> strand) {
+
+		this.strand = strand;
 	}
-
-
 
 
 	/**
 	 * @return the zygosity
 	 */
-	public static List<String> getZygosity() {
+	public List<String> getZygosity() {
+
 		return zygosity;
 	}
 
 
-
-
 	/**
-	 * @param zygosity the zygosity to set
+	 * @param zygosity
+	 *            the zygosity to set
 	 */
-	public static void setZygosity(List<String> zygosity) {
-		ImagePojo.zygosity = zygosity;
+	public void setZygosity(List<String> zygosity) {
+
+		this.zygosity = zygosity;
 	}
-
-
 
 
 	@Override
 	public String toString() {
+
 		return "ImagePojo []";
 	}
-	
-	
+
 
 	
+	/**
+	 * @return the id
+	 */
+	public String getId() {
+	
+		return id;
+	}
+
+
+	
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(String id) {
+	
+		this.id = id;
+	}
+
 	
 	
 }
