@@ -70,7 +70,7 @@ public class ImagePojo {
 	// Sample
 
 	@Field("age_since_birth")
-	private String ageSinceBirth;
+	private Float ageSinceBirth;
 
 	@Field("sample_generated_by")
 	private String sampleGeneratedBy;
@@ -87,8 +87,11 @@ public class ImagePojo {
 	@Field("stage")
 	private String stage;
 
+	@Field("stage_id")
+	private String stageId;
+
 	@Field("embryonic_age")
-	private String embryonicAge;
+	private Float embryonicAge;
 
 	// annotations -->
 
@@ -151,26 +154,44 @@ public class ImagePojo {
 	@Field("zygosity")
 	private List<String> zygosity;
 
-	@Field ("depth")
+	@Field("depth")
 	private long depth;
-	
 
-	
+
 	/**
 	 * @return the depth
 	 */
 	public long getDepth() {
-	
+
 		return depth;
 	}
 
 
-	
 	/**
-	 * @param depth the depth to set
+	 * @return the stageId
+	 */
+	public String getStageId() {
+
+		return stageId;
+	}
+
+
+	/**
+	 * @param stageId
+	 *            the stageId to set
+	 */
+	public void setStageId(String stageId) {
+
+		this.stageId = stageId;
+	}
+
+
+	/**
+	 * @param depth
+	 *            the depth to set
 	 */
 	public void setDepth(long depth) {
-	
+
 		this.depth = depth;
 	}
 
@@ -345,136 +366,119 @@ public class ImagePojo {
 		this.imageContextUrl = imageContextUrl;
 	}
 
-	
+
 	/**
 	 * @return the imagingMethodId
 	 */
 	public String getImagingMethodId() {
-	
+
 		return imagingMethodId;
 	}
 
 
-
-	
 	/**
-	 * @param imagingMethodId the imagingMethodId to set
+	 * @param imagingMethodId
+	 *            the imagingMethodId to set
 	 */
 	public void setImagingMethodId(String imagingMethodId) {
-	
+
 		this.imagingMethodId = imagingMethodId;
 	}
 
 
-
-	
 	/**
 	 * @return the samplePreparationId
 	 */
 	public String getSamplePreparationId() {
-	
+
 		return samplePreparationId;
 	}
 
 
-
-	
 	/**
-	 * @param samplePreparationId the samplePreparationId to set
+	 * @param samplePreparationId
+	 *            the samplePreparationId to set
 	 */
 	public void setSamplePreparationId(String samplePreparationId) {
-	
+
 		this.samplePreparationId = samplePreparationId;
 	}
 
 
-
-	
 	/**
 	 * @return the visualisationMethodId
 	 */
 	public String getVisualisationMethodId() {
-	
+
 		return visualisationMethodId;
 	}
 
 
-
-	
 	/**
-	 * @param visualisationMethodId the visualisationMethodId to set
+	 * @param visualisationMethodId
+	 *            the visualisationMethodId to set
 	 */
 	public void setVisualisationMethodId(String visualisationMethodId) {
-	
+
 		this.visualisationMethodId = visualisationMethodId;
 	}
 
 
-
-	
 	/**
 	 * @return the imagingMethodLabel
 	 */
 	public String getImagingMethodLabel() {
-	
+
 		return imagingMethodLabel;
 	}
 
 
-
-	
 	/**
-	 * @param imagingMethodLabel the imagingMethodLabel to set
+	 * @param imagingMethodLabel
+	 *            the imagingMethodLabel to set
 	 */
 	public void setImagingMethodLabel(String imagingMethodLabel) {
-	
+
 		this.imagingMethodLabel = imagingMethodLabel;
 	}
 
 
-
-	
 	/**
 	 * @return the samplePreparationLabel
 	 */
 	public String getSamplePreparationLabel() {
-	
+
 		return samplePreparationLabel;
 	}
 
 
-
-	
 	/**
-	 * @param samplePreparationLabel the samplePreparationLabel to set
+	 * @param samplePreparationLabel
+	 *            the samplePreparationLabel to set
 	 */
 	public void setSamplePreparationLabel(String samplePreparationLabel) {
-	
+
 		this.samplePreparationLabel = samplePreparationLabel;
 	}
 
 
-
-	
 	/**
 	 * @return the visualisationMethodLabel
 	 */
 	public String getVisualisationMethodLabel() {
-	
+
 		return visualisationMethodLabel;
 	}
 
 
-
-	
 	/**
-	 * @param visualisationMethodLabel the visualisationMethodLabel to set
+	 * @param visualisationMethodLabel
+	 *            the visualisationMethodLabel to set
 	 */
 	public void setVisualisationMethodLabel(String visualisationMethodLabel) {
-	
+
 		this.visualisationMethodLabel = visualisationMethodLabel;
 	}
-
 
 
 	/**
@@ -556,7 +560,7 @@ public class ImagePojo {
 	/**
 	 * @return the ageSinceBirth
 	 */
-	public String getAgeSinceBirth() {
+	public Float getAgeSinceBirth() {
 
 		return ageSinceBirth;
 	}
@@ -566,7 +570,7 @@ public class ImagePojo {
 	 * @param ageSinceBirth
 	 *            the ageSinceBirth to set
 	 */
-	public void setAgeSinceBirth(String ageSinceBirth) {
+	public void setAgeSinceBirth(Float ageSinceBirth) {
 
 		this.ageSinceBirth = ageSinceBirth;
 	}
@@ -670,7 +674,7 @@ public class ImagePojo {
 	/**
 	 * @return the embryonicAge
 	 */
-	public String getEmbryonicAge() {
+	public Float getEmbryonicAge() {
 
 		return embryonicAge;
 	}
@@ -680,7 +684,7 @@ public class ImagePojo {
 	 * @param embryonicAge
 	 *            the embryonicAge to set
 	 */
-	public void setEmbryonicAge(String embryonicAge) {
+	public void setEmbryonicAge(Float embryonicAge) {
 
 		this.embryonicAge = embryonicAge;
 	}
@@ -997,25 +1001,22 @@ public class ImagePojo {
 	}
 
 
-	
 	/**
 	 * @return the id
 	 */
 	public String getId() {
-	
+
 		return id;
 	}
 
 
-	
 	/**
-	 * @param id the id to set
+	 * @param id
+	 *            the id to set
 	 */
 	public void setId(String id) {
-	
+
 		this.id = id;
 	}
 
-	
-	
 }

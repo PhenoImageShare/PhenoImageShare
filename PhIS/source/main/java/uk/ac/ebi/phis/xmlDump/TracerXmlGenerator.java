@@ -48,7 +48,7 @@ public class TracerXmlGenerator {
 		emapLabels.put("somites", "somite group"); emapIds.put("somites", "EMAPA:31169");
 	}
 	
-	public void read() throws IOException{
+	public void exportImages() throws IOException{
     
         ApplicationContext ac = new ClassPathXmlApplicationContext("app-config.xml");
 		DataSource dataSource = (DataSource) ac.getBean("tracerDB");
@@ -146,8 +146,8 @@ public class TracerXmlGenerator {
 	    			GenotypeComponent expressed = new GenotypeComponent();
 	    			GenomicLocation gl = new GenomicLocation();
 	    			gl.setChromosone(res.getString("chr_name"));
-	    			gl.setStartPos(Integer.parseInt(res.getString("position")));
-	    			gl.setEndPos(Integer.parseInt(res.getString("position")));
+	    			gl.setStartPos(Long.getLong(res.getString("position")));
+	    			gl.setEndPos(Long.getLong(res.getString("position")));
 	    			gl.setStrand(res.getString("strand"));
 	    			expressed.setGenomicLocation(gl);
 	    			
@@ -240,7 +240,7 @@ public class TracerXmlGenerator {
 			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
 			jaxbMarshaller.marshal(doc, file);
-			jaxbMarshaller.marshal(doc, System.out);
+//			jaxbMarshaller.marshal(doc, System.out);
 	        
 	        }catch(Exception e){
 	        	e.printStackTrace();

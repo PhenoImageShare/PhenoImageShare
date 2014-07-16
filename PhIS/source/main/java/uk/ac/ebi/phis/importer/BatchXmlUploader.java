@@ -2,14 +2,18 @@ package uk.ac.ebi.phis.importer;
 
 import j.Channel;
 import j.Doc;
+import j.Genotype;
+import j.GenotypeComponent;
 import j.Image;
 import j.ImageDescription;
 import j.OntologyTerm;
+import j.Organism;
 import j.Roi;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -138,12 +142,17 @@ public class BatchXmlUploader {
 			bean.setImageContextUrl(desc.getImageContextUrl());
 		}
 
+		if (img.getAssociatedRoi() != null){
+			bean.setAssociatedRoi(img.getAssociatedRoi().getEl());
+		}
+
+		if (img.getAssociatedChannel() != null){
+			bean.setAssociatedChannel(img.getAssociatedChannel().getEl());
+		}
 		
-		bean.setAssociatedRoi(img.getAssociatedRoi().getEl());;
-
-		bean.setAssociatedChannel(img.getAssociatedChannel().getEl());;
-
-		bean.setDepth(desc.getImageDimensions().getImageDepth());
+		if (desc.getImageDimensions().getImageDepth() != null){
+			bean.setDepth(desc.getImageDimensions().getImageDepth());
+		}
 
 		bean.setHeight(desc.getImageDimensions().getImageHeight());
 
@@ -176,26 +185,41 @@ public class BatchXmlUploader {
 
 		// Sample
 		
-		if (img.getOrganism().getAge() != null){
-			if (img.getOrganism().getAge().getAgeSinceBirth() != null){
-				bean.setAgeSinceBirth(img.getOrganism().getAge().getAgeSinceBirth());
+		Organism org = img.getOrganism();
+		
+		if (org.getAge() != null){
+			if (org.getAge().getAgeSinceBirth() != null){
+				bean.setAgeSinceBirth(org.getAge().getAgeSinceBirth());
+			}
+			if (org.getAge().getEmbryonicAge() != null){
+				bean.setAgeSinceBirth(org.getAge().getEmbryonicAge());
 			}
 		}
 
-		bean.setNcbiTaxonId(ncbiTaxonId);
+		if (org.getNcbiTaxonId() != null){
+			bean.setNcbiTaxonId(org.getNcbiTaxonId());
+		}
 
-		bean.setSex(sex);
+		if (org.getSex() != null){
+			bean.setSex(org.getSex().name());
+		}
 
-		bean.setStage(stage);
-
+		if (org.getStage() != null){
+			bean.setStage(org.getStage().getTermLabel());
+			bean.setStageId(org.getStage().getTermId());
+		}
 
 		// annotations -->
-
-		bean.setAnatomyId(anatomyId);
-
-		bean.setAnatomyTerm(anatomyTerm);
-
-		bean.setAnatomyFreetext(anatomyFreetext);
+		if (img.getDepictedAnatomicalStructure() != null){
+			if (img.getDepictedAnatomicalStructure().getAnatomyFreetext() != null){
+				bean.setAnatomyFreetext(img.getDepictedAnatomicalStructure().getAnatomyFreetext());
+			}
+			if (img.getDepictedAnatomicalStructure().getOntologyTerm() != null){
+				bean.setAnatomyId(img.getDepictedAnatomicalStructure().getOntologyTerm().getTermId());
+				bean.setAnatomyTerm(img.getDepictedAnatomicalStructure().getOntologyTerm().getTermLabel());
+			}
+			
+		}
 
 		// field name="anatomy_computed_id" /-->
 		// field name="anatomy_computed_term" /-->
@@ -203,36 +227,63 @@ public class BatchXmlUploader {
 		// field name="other_ann_bag" /-->
 		// field name="phenotype_ann_bag" /-->
 
-		bean.setObservations(observations);
+		if (img.getObservations() != null){
+			bean.setObservations(img.getObservations().getEl());
+		}
 
-		bean.setConditions(conditions);
-
+		if (img.getConditions() != null ){
+			bean.setConditions(img.getConditions().getEl());
+		}
+		
 		// genetic features -->
 
-		bean.setGeneIds(geneIds);
-
-		bean.setGeneSymbols(geneSymbols);
-
-		bean.setGeneticFeatureIds(geneticFeatureIds);
-
-		bean.setGeneticFeatureSymbols(geneticFeatureSymbols);
-
-		bean.setGenetifFeatureEnsemlIds(genetifFeatureEnsemlIds);
+		if (img.getMutantGenotypeTraits() != null){
+			ArrayList<String> geneIds = new ArrayList<>();
+			ArrayList<String> geneSymbols = new ArrayList<>();
+			ArrayList<String> gfEnsembl = new ArrayList<>();
+			ArrayList<String> gfIds = new ArrayList<>();
+			ArrayList<String> gfSymbols = new ArrayList<>();
+			ArrayList<String> chromosome = new ArrayList<>();
+			ArrayList<Long> insertionSite = new ArrayList<>();
+			ArrayList<Long> startPosition = new ArrayList<>();
+			ArrayList<Long> endPosition = new ArrayList<>();
+			ArrayList<String> strand = new ArrayList<>();
+			ArrayList<String> zygosity = new ArrayList<>();
+			
+			for (GenotypeComponent g : img.getMutantGenotypeTraits().getEl()){
+				//TODO maybe add empty strings if null? Test first if this works for the empty fields.
+				// We need to fill all of these arrays because they need to be parallel
+				geneIds.add(g.getGeneId());
+				geneSymbols.add(g.getGeneSymbol());
+				gfEnsembl.add(g.getGeneticFeatureEnsemblId());
+				gfIds.add(g.getGeneticFeatureId());
+				gfSymbols.add(g.getGeneSymbol());
+				if (g.getGenomicLocation() != null){
+					chromosome.add(g.getGenomicLocation().getChromosone());
+					startPosition.add(g.getGenomicLocation().getStartPos());
+					endPosition.add(g.getGenomicLocation().getEndPos());
+					strand.add(g.getGenomicLocation().getStrand());
+				}
+				zygosity.add(g.getZygosity().name());
+			}
+			
+			bean.setGeneIds(geneIds);
+			bean.setGeneSymbols(geneSymbols);
+			bean.setGeneticFeatureIds(gfIds);
+			bean.setGenetifFeatureEnsemlIds(gfEnsembl);
+			bean.setGeneticFeatureSymbols(gfSymbols);
+			
+			bean.setChromosome(chromosome);
+			bean.setInsertionSite(insertionSite);
+			bean.setStartPosition(startPosition);
+			bean.setEndPosition(endPosition);
+			bean.setStrand(strand);
+			bean.setZygosity(zygosity);
+			
+		}
 
 		// field name="expressed_gf_bag" /-->
 		// field name="expressed_anatomy_bag" /-->
-		bean.setChromosome(chromosome);
-
-		bean.setInsertionSite(insertionSite);
-
-		bean.setStartPosition(startPosition);
-
-		bean.setEndPosition(endPosition);
-
-		bean.setStrand(strand);
-
-		bean.setZygosity(zygosity);
-		
 		return bean;
 	}
 

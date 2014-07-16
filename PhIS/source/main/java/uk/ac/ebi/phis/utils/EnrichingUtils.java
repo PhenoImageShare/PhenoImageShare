@@ -78,8 +78,8 @@ public class EnrichingUtils {
 		JSONObject json = readJsonFromUrl(url);
 		GenomicLocation loc = new GenomicLocation();
 		loc.setChromosone(json.getString("seq_region_name"));
-		loc.setEndPos(json.getInt("end"));
-		loc.setStartPos(json.getInt("start"));
+		loc.setEndPos(json.getLong("end"));
+		loc.setStartPos(json.getLong("start"));
 		loc.setStrand(json.getString("strand"));
 		return loc;
 	}

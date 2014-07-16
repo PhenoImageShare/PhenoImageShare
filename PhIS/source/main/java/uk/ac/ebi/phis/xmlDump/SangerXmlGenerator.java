@@ -123,7 +123,7 @@ public class SangerXmlGenerator {
 			    		gt.setGeneId(res.getString("gf_acc"));
 			    		gt.setGeneSymbol(res.getString("GENE"));
 			    		gt.setGeneticFeatureId(res.getString("acc"));
-			    		gt.setGeneticFeatureName(res.getString("ALLELE"));
+			    		gt.setGeneticFeatureSymbol(res.getString("ALLELE"));
 			    		Zygosity zyg = Zygosity.fromValue(norm.normalizeZygosity(res.getString("GENOTYPE")));
 			    		gt.setZygosity(zyg);
 			    		Genotype gta = new Genotype();

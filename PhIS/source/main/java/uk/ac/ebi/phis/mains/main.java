@@ -30,22 +30,23 @@ public class main {
 
 		try {
 			long time = System.currentTimeMillis();
-			SangerXmlGenerator sg = new SangerXmlGenerator();
-			sg.exportImages();
+//			SangerXmlGenerator sg = new SangerXmlGenerator();
+//			sg.exportImages();
 			System.out.println("Generating xml for Sanger took " + (System.currentTimeMillis() - time));
 
 			time = System.currentTimeMillis();
-			// TracerXmlGenerator tg = new TracerXmlGenerator();
+			TracerXmlGenerator tg = new TracerXmlGenerator();
+			tg.exportImages();
 			System.out.println("Generating XML for Tracer took " + (System.currentTimeMillis() - time));
 
 			BatchXmlUploader reader = new BatchXmlUploader();
 
 			time = System.currentTimeMillis();
-			// System.out.println(reader.validate("tracerExport.xml"));
+			System.out.println(reader.validateAndUpload("tracerExport.xml"));
 			System.out.println("Validating Tracer XML took " + (System.currentTimeMillis() - time));
 
 			time = System.currentTimeMillis();
-			System.out.println("Is valid? " + reader.validateAndUpload("sangerExport.xml"));
+		//	System.out.println("Is valid? " + reader.validateAndUpload("sangerExport.xml"));
 			System.out.println("Validating Sanger XML took " + (System.currentTimeMillis() - time));
 
 		} catch (Exception e) {

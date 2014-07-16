@@ -43,14 +43,15 @@
    <field name="taxon" type="string" indexed="true" stored="true" required="true"/>
    <field name="ncbi_taxon_id" type="string" indexed="true" stored="true"/>
    <field name="sex" type="string" indexed="true" stored="true"/>
-   <field name="stage" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="stage_id" type="string" indexed="true" stored="true"/>
+   <field name="stage" type="string" indexed="true" stored="true"/>
    <field name="embryonic_age" type="float" indexed="true" stored="true"/>
    
    <!-- annotations -->
    
-   <field name="anatomy_id" type="string" indexed="true" stored="true" multiValued="true"/>
-   <field name="anatomy_term" type="string" indexed="true" stored="true" multiValued="true"/>
-   <field name="anatomy_freetext" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="anatomy_id" type="string" indexed="true" stored="true" multiValued="false"/>
+   <field name="anatomy_term" type="string" indexed="true" stored="true" multiValued="false"/>
+   <field name="anatomy_freetext" type="string" indexed="true" stored="true" multiValued="false"/>
    <!-- field name="anatomy_computed_id" type="string" indexed="true" stored="true" multiValued="true"/-->
    <!-- field name="anatomy_computed_term" type="string" indexed="true" stored="true" multiValued="true"/-->
    <!-- field name="anatomy_ann_bag" type="string" indexed="true" stored="true" multiValued="true"/-->
