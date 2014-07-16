@@ -124,6 +124,9 @@ public class BatchXmlUploader {
 		solrImage.commit();
 	}
 
+	//TODO fillRoiPojo
+	
+	//TODO fillChannelPojo
 
 	private ImagePojo fillPojo(Image img) {
 

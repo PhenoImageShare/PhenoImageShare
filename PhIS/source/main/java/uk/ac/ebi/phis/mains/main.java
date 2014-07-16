@@ -19,8 +19,7 @@ import uk.ac.ebi.phis.xmlDump.TracerXmlGenerator;
 @Component
 public class main {
 
-	public static void main(String[] args)
-	throws SolrServerException {
+	public static void main(String[] args){
 
 		// OntologyMapper mapper = new
 		// OntologyMapper(OntologyMapperPredefinedTypes.MA_MP);

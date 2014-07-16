@@ -250,8 +250,7 @@
 						  	  		<!-- element name="depicts_label_in" type="x:AnnotationArray" minOccurs="0" maxOccurs="1"/-->	
 						  	  		<element name="depicted_anatomical_structure" type="x:AnnotationArray" minOccurs="0" maxOccurs="1"/>	
 						  	  		<element name="is_expression_pattern" type="x:YesNo" minOccurs="0" maxOccurs="1"/>
-						  	  		<element name="abnormality_in_anatomical_structure" type="x:AnnotationArray" minOccurs="0" maxOccurs="1"/>						  	  		
-						  	  		<element name="has_phenotype_in" type="x:AnnotationArray" minOccurs="0" maxOccurs="1"/>	
+						  	  		<element name="abnormality_in_anatomical_structure" type="x:AnnotationArray" minOccurs="0" maxOccurs="1"/>	
 						  	  		<element name="phenotype_annotations" type="x:AnnotationArray" minOccurs="0" maxOccurs="1"/>				
 						  	  		<element name="observations" type="x:StringArray" minOccurs="0" maxOccurs="1"/>
 						  		</all>
