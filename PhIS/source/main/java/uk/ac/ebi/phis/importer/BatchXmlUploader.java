@@ -4,6 +4,7 @@ import j.Channel;
 import j.Doc;
 import j.Image;
 import j.ImageDescription;
+import j.OntologyTerm;
 import j.Roi;
 
 import java.io.FileNotFoundException;
@@ -96,15 +97,15 @@ public class BatchXmlUploader {
 	private void doBatchSubmission(Doc doc)
 	throws IOException, SolrServerException {
 
+		solrImage.deleteByQuery("*:*");
 		addImageDocuments(doc.getImage());
 		solrImage.commit();
+		
 	}
 
 
 	private void addImageDocuments(List<Image> images)
 	throws IOException, SolrServerException {
-
-		solrImage.deleteByQuery("*:*");
 		
 		int i = 0;
 		for (Image img : images) {
@@ -113,7 +114,6 @@ public class BatchXmlUploader {
 			// flush every 1000 docs
 			if (i++ % 1000 == 0) {
 				solrImage.commit();
-				i = 0;
 			}
 		}
 
@@ -123,22 +123,117 @@ public class BatchXmlUploader {
 
 	private ImagePojo fillPojo(Image img) {
 
-		ImagePojo testImg = new ImagePojo();
-		testImg.setTaxon(img.getOrganism().getTaxon());
-		testImg.setId(img.getId());
+		ImagePojo bean = new ImagePojo();
+		bean.setTaxon(img.getOrganism().getTaxon());
+		bean.setId(img.getId());
 
 		ImageDescription desc = img.getImageDescription();
-		testImg.setImageGeneratedBy(desc.getImageGeneratedBy());
-		testImg.setSampleGeneratedBy(desc.getOrganismGeneratedBy());
-		testImg.setHostName(desc.getHostName());
-		testImg.setHostUrl(desc.getHostUrl());
-		testImg.setImageUrl(desc.getImageUrl());
-		testImg.setOriginalImageId(desc.getOriginalImageId());
+		bean.setImageGeneratedBy(desc.getImageGeneratedBy());
+		bean.setSampleGeneratedBy(desc.getOrganismGeneratedBy());
+		bean.setHostName(desc.getHostName());
+		bean.setHostUrl(desc.getHostUrl());
+		bean.setImageUrl(desc.getImageUrl());
+		bean.setOriginalImageId(desc.getOriginalImageId());
 		if (desc.getImageContextUrl() != null){
-			testImg.setImageContextUrl(desc.getImageContextUrl());
+			bean.setImageContextUrl(desc.getImageContextUrl());
 		}
-				
-		return testImg;
+
+		
+		bean.setAssociatedRoi(img.getAssociatedRoi().getEl());;
+
+		bean.setAssociatedChannel(img.getAssociatedChannel().getEl());;
+
+		bean.setDepth(desc.getImageDimensions().getImageDepth());
+
+		bean.setHeight(desc.getImageDimensions().getImageHeight());
+
+		bean.setWidth(desc.getImageDimensions().getImageWidth());
+
+		if (desc.getImagingMethod() != null){
+			for (OntologyTerm im: desc.getImagingMethod().getEl()){
+				bean.setImagingMethodId(im.getTermId());
+				bean.setImagingMethodLabel(im.getTermLabel());
+			}
+		}
+		if (desc.getSamplePreparation() != null){
+			for (OntologyTerm sp: desc.getSamplePreparation().getEl()){
+				bean.setSamplePreparationId(sp.getTermId());
+				bean.setSamplePreparationLabel(sp.getTermLabel());
+			}
+		}
+		if (desc.getVisualisationMethod() != null){
+			for (OntologyTerm vm: desc.getVisualisationMethod().getEl()){
+				bean.setVisualisationMethodId(vm.getTermId());
+				bean.setVisualisationMethodLabel(vm.getTermLabel());
+			}
+		}
+		
+		if (desc.getMachine() != null){
+			bean.setMachine(desc.getMachine());			
+		}
+
+		// TODO bean.setThumbnailPath(thumbnailPath);;
+
+		// Sample
+		
+		if (img.getOrganism().getAge() != null){
+			if (img.getOrganism().getAge().getAgeSinceBirth() != null){
+				bean.setAgeSinceBirth(img.getOrganism().getAge().getAgeSinceBirth());
+			}
+		}
+
+		bean.setNcbiTaxonId(ncbiTaxonId);
+
+		bean.setSex(sex);
+
+		bean.setStage(stage);
+
+
+		// annotations -->
+
+		bean.setAnatomyId(anatomyId);
+
+		bean.setAnatomyTerm(anatomyTerm);
+
+		bean.setAnatomyFreetext(anatomyFreetext);
+
+		// field name="anatomy_computed_id" /-->
+		// field name="anatomy_computed_term" /-->
+		// field name="anatomy_ann_bag" /-->
+		// field name="other_ann_bag" /-->
+		// field name="phenotype_ann_bag" /-->
+
+		bean.setObservations(observations);
+
+		bean.setConditions(conditions);
+
+		// genetic features -->
+
+		bean.setGeneIds(geneIds);
+
+		bean.setGeneSymbols(geneSymbols);
+
+		bean.setGeneticFeatureIds(geneticFeatureIds);
+
+		bean.setGeneticFeatureSymbols(geneticFeatureSymbols);
+
+		bean.setGenetifFeatureEnsemlIds(genetifFeatureEnsemlIds);
+
+		// field name="expressed_gf_bag" /-->
+		// field name="expressed_anatomy_bag" /-->
+		bean.setChromosome(chromosome);
+
+		bean.setInsertionSite(insertionSite);
+
+		bean.setStartPosition(startPosition);
+
+		bean.setEndPosition(endPosition);
+
+		bean.setStrand(strand);
+
+		bean.setZygosity(zygosity);
+		
+		return bean;
 	}
 
 

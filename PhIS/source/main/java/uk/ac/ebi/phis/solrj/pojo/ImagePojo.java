@@ -1,5 +1,6 @@
 package uk.ac.ebi.phis.solrj.pojo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.solr.client.solrj.beans.Field;
@@ -10,19 +11,13 @@ public class ImagePojo {
 	private String id;
 
 	@Field("associated_roi")
-	private String associatedRoi;
+	private List<String> associatedRoi;
 
 	@Field("associated_channel")
-	private String associatedChannel;
-
-	@Field("data_source")
-	private String dataSource;
+	private List<String> associatedChannel;
 
 	@Field("depth")
 	private Integer gepth;
-
-	@Field("format")
-	private String format;
 
 	@Field("height")
 	private Integer height;
@@ -42,17 +37,23 @@ public class ImagePojo {
 	@Field("image_context_url")
 	private String imageContextUrl;
 
-	@Field("image_type")
-	private String imageType;
+	@Field("imaging_method_id")
+	private String imagingMethodId;
 
-	@Field("imaging_method")
-	private String imagingMethod;
+	@Field("sample_preparation_id")
+	private String samplePreparationId;
 
-	@Field("sample_preparation")
-	private String samplePreparation;
+	@Field("visualisation_method_id")
+	private String visualisationMethodId;
 
-	@Field("visualisation_method")
-	private String visualisationMethod;
+	@Field("imaging_method_label")
+	private String imagingMethodLabel;
+
+	@Field("sample_preparation_label")
+	private String samplePreparationLabel;
+
+	@Field("visualisation_method_label")
+	private String visualisationMethodLabel;
 
 	@Field("machine")
 	private String machine;
@@ -64,7 +65,7 @@ public class ImagePojo {
 	private String thumbnailPath;
 
 	@Field("width")
-	private String width;
+	private Integer width;
 
 	// Sample
 
@@ -150,11 +151,34 @@ public class ImagePojo {
 	@Field("zygosity")
 	private List<String> zygosity;
 
+	@Field ("depth")
+	private long depth;
+	
+
+	
+	/**
+	 * @return the depth
+	 */
+	public long getDepth() {
+	
+		return depth;
+	}
+
+
+	
+	/**
+	 * @param depth the depth to set
+	 */
+	public void setDepth(long depth) {
+	
+		this.depth = depth;
+	}
+
 
 	/**
 	 * @return the associatedRoi
 	 */
-	public String getAssociatedRoi() {
+	public List<String> getAssociatedRoi() {
 
 		return associatedRoi;
 	}
@@ -164,7 +188,7 @@ public class ImagePojo {
 	 * @param associatedRoi
 	 *            the associatedRoi to set
 	 */
-	public void setAssociatedRoi(String associatedRoi) {
+	public void setAssociatedRoi(List<String> associatedRoi) {
 
 		this.associatedRoi = associatedRoi;
 	}
@@ -173,7 +197,7 @@ public class ImagePojo {
 	/**
 	 * @return the associatedChannel
 	 */
-	public String getAssociatedChannel() {
+	public List<String> getAssociatedChannel() {
 
 		return associatedChannel;
 	}
@@ -183,28 +207,9 @@ public class ImagePojo {
 	 * @param associatedChannel
 	 *            the associatedChannel to set
 	 */
-	public void setAssociatedChannel(String associatedChannel) {
+	public void setAssociatedChannel(List<String> associatedChannel) {
 
 		this.associatedChannel = associatedChannel;
-	}
-
-
-	/**
-	 * @return the dataSource
-	 */
-	public String getDataSource() {
-
-		return dataSource;
-	}
-
-
-	/**
-	 * @param dataSource
-	 *            the dataSource to set
-	 */
-	public void setDataSource(String dataSource) {
-
-		this.dataSource = dataSource;
 	}
 
 
@@ -224,25 +229,6 @@ public class ImagePojo {
 	public void setGepth(Integer gepth) {
 
 		this.gepth = gepth;
-	}
-
-
-	/**
-	 * @return the format
-	 */
-	public String getFormat() {
-
-		return format;
-	}
-
-
-	/**
-	 * @param format
-	 *            the format to set
-	 */
-	public void setFormat(String format) {
-
-		this.format = format;
 	}
 
 
@@ -359,81 +345,136 @@ public class ImagePojo {
 		this.imageContextUrl = imageContextUrl;
 	}
 
-
+	
 	/**
-	 * @return the imageType
+	 * @return the imagingMethodId
 	 */
-	public String getImageType() {
-
-		return imageType;
+	public String getImagingMethodId() {
+	
+		return imagingMethodId;
 	}
 
 
-	/**
-	 * @param imageType
-	 *            the imageType to set
-	 */
-	public void setImageType(String imageType) {
 
-		this.imageType = imageType;
+	
+	/**
+	 * @param imagingMethodId the imagingMethodId to set
+	 */
+	public void setImagingMethodId(String imagingMethodId) {
+	
+		this.imagingMethodId = imagingMethodId;
 	}
 
 
-	/**
-	 * @return the imagingMethod
-	 */
-	public String getImagingMethod() {
 
-		return imagingMethod;
+	
+	/**
+	 * @return the samplePreparationId
+	 */
+	public String getSamplePreparationId() {
+	
+		return samplePreparationId;
 	}
 
 
-	/**
-	 * @param imagingMethod
-	 *            the imagingMethod to set
-	 */
-	public void setImagingMethod(String imagingMethod) {
 
-		this.imagingMethod = imagingMethod;
+	
+	/**
+	 * @param samplePreparationId the samplePreparationId to set
+	 */
+	public void setSamplePreparationId(String samplePreparationId) {
+	
+		this.samplePreparationId = samplePreparationId;
 	}
 
 
-	/**
-	 * @return the samplePreparation
-	 */
-	public String getSamplePreparation() {
 
-		return samplePreparation;
+	
+	/**
+	 * @return the visualisationMethodId
+	 */
+	public String getVisualisationMethodId() {
+	
+		return visualisationMethodId;
 	}
 
 
-	/**
-	 * @param samplePreparation
-	 *            the samplePreparation to set
-	 */
-	public void setSamplePreparation(String samplePreparation) {
 
-		this.samplePreparation = samplePreparation;
+	
+	/**
+	 * @param visualisationMethodId the visualisationMethodId to set
+	 */
+	public void setVisualisationMethodId(String visualisationMethodId) {
+	
+		this.visualisationMethodId = visualisationMethodId;
 	}
 
 
-	/**
-	 * @return the visualisationMethod
-	 */
-	public String getVisualisationMethod() {
 
-		return visualisationMethod;
+	
+	/**
+	 * @return the imagingMethodLabel
+	 */
+	public String getImagingMethodLabel() {
+	
+		return imagingMethodLabel;
 	}
 
 
-	/**
-	 * @param visualisationMethod
-	 *            the visualisationMethod to set
-	 */
-	public void setVisualisationMethod(String visualisationMethod) {
 
-		this.visualisationMethod = visualisationMethod;
+	
+	/**
+	 * @param imagingMethodLabel the imagingMethodLabel to set
+	 */
+	public void setImagingMethodLabel(String imagingMethodLabel) {
+	
+		this.imagingMethodLabel = imagingMethodLabel;
 	}
+
+
+
+	
+	/**
+	 * @return the samplePreparationLabel
+	 */
+	public String getSamplePreparationLabel() {
+	
+		return samplePreparationLabel;
+	}
+
+
+
+	
+	/**
+	 * @param samplePreparationLabel the samplePreparationLabel to set
+	 */
+	public void setSamplePreparationLabel(String samplePreparationLabel) {
+	
+		this.samplePreparationLabel = samplePreparationLabel;
+	}
+
+
+
+	
+	/**
+	 * @return the visualisationMethodLabel
+	 */
+	public String getVisualisationMethodLabel() {
+	
+		return visualisationMethodLabel;
+	}
+
+
+
+	
+	/**
+	 * @param visualisationMethodLabel the visualisationMethodLabel to set
+	 */
+	public void setVisualisationMethodLabel(String visualisationMethodLabel) {
+	
+		this.visualisationMethodLabel = visualisationMethodLabel;
+	}
+
 
 
 	/**
@@ -496,7 +537,7 @@ public class ImagePojo {
 	/**
 	 * @return the width
 	 */
-	public String getWidth() {
+	public Integer getWidth() {
 
 		return width;
 	}
@@ -506,7 +547,7 @@ public class ImagePojo {
 	 * @param width
 	 *            the width to set
 	 */
-	public void setWidth(String width) {
+	public void setWidth(Integer width) {
 
 		this.width = width;
 	}
