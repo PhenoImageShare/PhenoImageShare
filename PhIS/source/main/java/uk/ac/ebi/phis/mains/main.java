@@ -1,20 +1,13 @@
 package uk.ac.ebi.phis.mains;
 
-import java.io.IOException;
-import java.util.ArrayList;
+import java.util.Map;
 
-import org.apache.solr.client.solrj.SolrServerException;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 
 import uk.ac.ebi.phis.importer.BatchXmlUploader;
-import uk.ac.ebi.phis.utils.ontology.OntologyMapper;
-import uk.ac.ebi.phis.utils.ontology.OntologyMapperPredefinedTypes;
-import uk.ac.ebi.phis.utils.ontology.OntologyUtils;
-import uk.ac.ebi.phis.xmlDump.SangerImagesImporter;
-import uk.ac.ebi.phis.xmlDump.SangerXmlGenerator;
-import uk.ac.ebi.phis.xmlDump.TracerImporter;
-import uk.ac.ebi.phis.xmlDump.TracerXmlGenerator;
+import uk.ac.ebi.phis.service.ImageService;
 
 @Component
 public class main {
@@ -27,6 +20,8 @@ public class main {
 		// "MA");
 		// System.out.println("\t\t " + mapper.getAnatomyLabel("MA_0000003"));
 
+	    ApplicationContext applicationContext = new ClassPathXmlApplicationContext("app-config.xml");
+		
 		try {
 			long time = System.currentTimeMillis();
 //			SangerXmlGenerator sg = new SangerXmlGenerator();
@@ -34,11 +29,13 @@ public class main {
 			System.out.println("Generating xml for Sanger took " + (System.currentTimeMillis() - time));
 
 			time = System.currentTimeMillis();
-			TracerXmlGenerator tg = new TracerXmlGenerator();
-			tg.exportImages();
+//			TracerXmlGenerator tg = new TracerXmlGenerator();
+//			tg.exportImages();
 			System.out.println("Generating XML for Tracer took " + (System.currentTimeMillis() - time));
 
-			BatchXmlUploader reader = new BatchXmlUploader();
+			Map<String, String> config = (Map<String, String>) applicationContext.getBean("globalConfiguration");
+			ImageService is = (ImageService) applicationContext.getBean("imageService");
+			BatchXmlUploader reader = new BatchXmlUploader(is);
 
 			time = System.currentTimeMillis();
 			System.out.println(reader.validateAndUpload("tracerExport.xml"));

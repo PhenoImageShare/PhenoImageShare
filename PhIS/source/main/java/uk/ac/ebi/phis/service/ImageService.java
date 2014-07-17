@@ -1,11 +1,16 @@
 package uk.ac.ebi.phis.service;
 
+import java.io.IOException;
+import java.util.List;
+
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.HttpSolrServer;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocumentList;
 import org.springframework.stereotype.Service;
+
+import uk.ac.ebi.phis.solrj.pojo.ImagePojo;
 
 @Service
 public class ImageService {
@@ -48,5 +53,25 @@ public class ImageService {
 		
 	}
 	
+	
+	public void addBeans(List<ImagePojo> imageDocs){
+		try {
+			solr.addBeans(imageDocs);
+			solr.commit();
+		} catch (SolrServerException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
+	/**
+	 * Removes all documents from the core
+	 * @throws IOException 
+	 * @throws SolrServerException 
+	 */
+	public void clear() throws SolrServerException, IOException{
+		solr.deleteByQuery("*:*");
+	}
 	
 }

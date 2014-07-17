@@ -2,7 +2,6 @@ package uk.ac.ebi.phis.importer;
 
 import j.Channel;
 import j.Doc;
-import j.Genotype;
 import j.GenotypeComponent;
 import j.Image;
 import j.ImageDescription;
@@ -27,9 +26,9 @@ import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 
 import org.apache.solr.client.solrj.SolrServerException;
-import org.apache.solr.client.solrj.impl.HttpSolrServer;
 import org.xml.sax.SAXException;
 
+import uk.ac.ebi.phis.service.ImageService;
 import uk.ac.ebi.phis.solrj.pojo.ImagePojo;
 import uk.ac.ebi.phis.utils.ValidationUtils;
 
@@ -40,17 +39,17 @@ public class BatchXmlUploader {
 	HashMap<String, Roi> roiIdMap = new HashMap<>();
 
 	ClassLoader classloader;
-	HttpSolrServer solrImage;
 
-	String solrImageBaseUrl = "http://localhost:8983/solr/collection1";
+	
+//	String solrImageBaseUrl = "http://localhost:8983/solr/collection1";
+//	String solrImageBaseUrl; // = "http://localhost:8086/solr-example/images";
 
 	ValidationUtils vu = new ValidationUtils();
+	ImageService is;
 
-
-	public BatchXmlUploader() {
-
+	public BatchXmlUploader(ImageService is) {
 		classloader = Thread.currentThread().getContextClassLoader();
-		solrImage = new HttpSolrServer(solrImageBaseUrl);
+		this.is = is;
 	}
 
 
@@ -101,10 +100,11 @@ public class BatchXmlUploader {
 	private void doBatchSubmission(Doc doc)
 	throws IOException, SolrServerException {
 
-		solrImage.deleteByQuery("*:*");
-		addImageDocuments(doc.getImage());
-		solrImage.commit();
 		
+		addImageDocuments(doc.getImage());
+		//TODO rois
+		
+		//TODO channels
 	}
 
 
@@ -112,16 +112,17 @@ public class BatchXmlUploader {
 	throws IOException, SolrServerException {
 		
 		int i = 0;
+		List<ImagePojo> imageDocs = new ArrayList<>();
 		for (Image img : images) {
 			// add it
-			solrImage.addBean(fillPojo(img));
+			imageDocs.add(fillPojo(img));
 			// flush every 1000 docs
 			if (i++ % 1000 == 0) {
-				solrImage.commit();
+				is.addBeans(imageDocs);
+				imageDocs = new ArrayList<>();
 			}
 		}
-
-		solrImage.commit();
+		is.addBeans(imageDocs);
 	}
 
 	//TODO fillRoiPojo
