@@ -20,6 +20,14 @@
 	<bean id="imageService" class="uk.ac.ebi.phis.service.ImageService">
 		<constructor-arg  value="${internalSolrUrl}/images" />
 	</bean>
+	
+	<bean id="roiService" class="uk.ac.ebi.phis.service.RoiService">
+		<constructor-arg  value="${internalSolrUrl}/rois" />
+	</bean>
+	
+	<bean id="channelService" class="uk.ac.ebi.phis.service.ChannelService">
+		<constructor-arg  value="${internalSolrUrl}/channels" />
+	</bean>
 
   <bean id="propertyPlaceholderConfigurer"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">

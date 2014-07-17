@@ -18,19 +18,19 @@
    <field name="associated_roi" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="associated_image" type="string" indexed="true" stored="true" required="true"/>
    
-
-    <!-- genetic features -->
-   <field name="gene_id" type="string" indexed="true" stored="true" multiValued="true"/>
-   <field name="gene_symbol" type="string" indexed="true" stored="true" multiValued="true"/>
-   <field name="genetic_feature_id" type="string" indexed="true" stored="true" multiValued="true"/>
-   <field name="genetic_feature_symbol" type="string" indexed="true" stored="true" multiValued="true"/>
-   <field name="genetic_feature_ensembl_id" type="string" indexed="true" stored="true" multiValued="true"/>
+    <!-- EXPRESSED genetic features -->
+   <field name="gene_id" type="string" indexed="true" stored="true" multiValued="false"/>
+   <field name="gene_symbol" type="string" indexed="true" stored="true" multiValued="false"/>
+   <field name="genetic_feature_id" type="string" indexed="true" stored="true" multiValued="false"/>
+   <field name="genetic_feature_symbol" type="string" indexed="true" stored="true" multiValued="false"/>
+   <field name="genetic_feature_ensembl_id" type="string" indexed="true" stored="true" multiValued="false"/>
    
-   <field name="chromosome" type="string" indexed="true" stored="true" multiValued="true"/>
-   <field name="start_pos" type="string" indexed="true" stored="true" multiValued="true"/>
-   <field name="end_pos" type="string" indexed="true" stored="true" multiValued="true"/>
-   <field name="strand" type="string" indexed="true" stored="true" multiValued="true"/>
-   <field name="zygosity" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="chromosome" type="string" indexed="true" stored="true" multiValued="false"/>
+   <field name="start_pos" type="string" indexed="true" stored="true" multiValued="false"/>
+   <field name="end_pos" type="string" indexed="true" stored="true" multiValued="false"/>
+   <field name="strand" type="string" indexed="true" stored="true" multiValued="false"/>
+   <field name="zygosity" type="string" indexed="true" stored="true" multiValued="false"/>
+   <field name="marker" type="string" indexed="true" stored="true" multiValued="false"/><!-- Carried on the genetic feature -->
    
 
  </fields>

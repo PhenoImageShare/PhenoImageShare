@@ -1,5 +1,7 @@
 package uk.ac.ebi.phis.importer;
 
+import j.Annotation;
+import j.AnnotationMode;
 import j.Channel;
 import j.Doc;
 import j.GenotypeComponent;
@@ -29,7 +31,9 @@ import org.apache.solr.client.solrj.SolrServerException;
 import org.xml.sax.SAXException;
 
 import uk.ac.ebi.phis.service.ImageService;
+import uk.ac.ebi.phis.service.RoiService;
 import uk.ac.ebi.phis.solrj.pojo.ImagePojo;
+import uk.ac.ebi.phis.solrj.pojo.RoiPojo;
 import uk.ac.ebi.phis.utils.ValidationUtils;
 
 public class BatchXmlUploader {
@@ -45,11 +49,15 @@ public class BatchXmlUploader {
 //	String solrImageBaseUrl; // = "http://localhost:8086/solr-example/images";
 
 	ValidationUtils vu = new ValidationUtils();
-	ImageService is;
 
-	public BatchXmlUploader(ImageService is) {
+	ImageService is;
+	RoiService rs;
+	
+	
+	public BatchXmlUploader(ImageService is, RoiService rs) {
 		classloader = Thread.currentThread().getContextClassLoader();
 		this.is = is;
+		this.rs = rs;
 	}
 
 
@@ -100,10 +108,11 @@ public class BatchXmlUploader {
 	private void doBatchSubmission(Doc doc)
 	throws IOException, SolrServerException {
 
-		
+		is.clear();
+		rs.clear();
 		addImageDocuments(doc.getImage());
 		//TODO rois
-		
+		addRoiDocuments(doc.getRoi());
 		//TODO channels
 	}
 
@@ -124,8 +133,148 @@ public class BatchXmlUploader {
 		}
 		is.addBeans(imageDocs);
 	}
+	
+	private void addRoiDocuments(List<Roi> rois)
+	throws IOException, SolrServerException {
+		
+		int i = 0;
+		List<RoiPojo> roiDocs = new ArrayList<>();
+		for (Roi roi : rois) {
+			// add it
+			roiDocs.add(fillPojo(roi));
+			// flush every 1000 docs
+			if (i++ % 1000 == 0) {
+				rs.addBeans(roiDocs);
+				roiDocs = new ArrayList<>();
+			}
+		}
+		rs.addBeans(roiDocs);
+	}
 
 	//TODO fillRoiPojo
+	private RoiPojo fillPojo(Roi roi){
+		
+		RoiPojo bean = new RoiPojo();
+		
+		bean.setId(roi.getId());
+
+		bean.setAssociatedImage(roi.getAssociatedImage());
+		
+		if (roi.getAssociatedChannel() != null){
+			bean.setAssociatedChannel(roi.getAssociatedChannel().getEl());
+		}
+		
+		if (roi.getDepictedAnatomicalStructure() != null){
+			
+			List<String> ids = new ArrayList<>(); // || with labels
+			List<String> labels = new ArrayList<>(); // || with ids
+			List<String> freetext = new ArrayList<>();
+			List<String> computedIds = new ArrayList<>(); // || with computedLabels
+			List<String> computedLabels = new ArrayList<>(); // || with computedId
+			
+			// Depicted anatomy
+			// TODO have to check if it's expression (from channel)
+			for ( Annotation ann: roi.getDepictedAnatomicalStructure().getEl()){
+				if (ann.getAnatomyFreetext() != null){
+					freetext.add(ann.getAnatomyFreetext());
+				}
+				if (ann.getOntologyTerm() != null){
+					if (ann.getAnnotationMode() != null && (ann.getAnnotationMode() == AnnotationMode.AUTOMATED)){
+						computedIds.add(ann.getOntologyTerm().getTermId());
+						computedLabels.add(ann.getOntologyTerm().getTermLabel());
+					}
+					else {
+						ids.add(ann.getOntologyTerm().getTermId());
+						labels.add(ann.getOntologyTerm().getTermLabel());
+					}
+				}
+			}
+			if (ids.size() > 0){
+				bean.setDepictedAnatomyId(ids);
+				bean.setDepictedAnatomyTerm(labels);
+			}
+			if (freetext.size() > 0){
+				bean.setDepictedAnatomyFreetext(freetext);
+			}
+			if (computedIds.size() > 0){
+				bean.setComputedDepictedAnatomyId(computedIds);
+				bean.setComputedDepictedAnatomyTerm(computedLabels);
+			}
+		}
+		
+		if (roi.getAbnormalityInAnatomicalStructure() != null){
+			
+			List<String> ids = new ArrayList<>(); // || with labels
+			List<String> labels = new ArrayList<>(); // || with ids
+			List<String> freetext = new ArrayList<>();
+			List<String> computedIds = new ArrayList<>(); // || with computedLabels
+			List<String> computedLabels = new ArrayList<>(); // || with computedId
+			// Abnormality in anatomical part
+			for ( Annotation ann: roi.getAbnormalityInAnatomicalStructure().getEl()){
+				if (ann.getAnatomyFreetext() != null){
+					freetext.add(ann.getAnatomyFreetext());
+				}
+				if (ann.getOntologyTerm() != null){
+					if (ann.getAnnotationMode() != null && (ann.getAnnotationMode() == AnnotationMode.AUTOMATED)){
+						computedIds.add(ann.getOntologyTerm().getTermId());
+						computedLabels.add(ann.getOntologyTerm().getTermLabel());
+					}
+					else {
+						ids.add(ann.getOntologyTerm().getTermId());
+						labels.add(ann.getOntologyTerm().getTermLabel());
+					}
+				}
+			}
+			if (ids.size() > 0){
+				bean.setAbnormalityAnatomyId(ids);
+				bean.setAbnormalityAnatomyTerm(labels);
+			}
+			if (freetext.size() > 0){
+				bean.setAbnormalityAnatomyFreetext(freetext);
+			}
+			if (computedIds.size() > 0){
+				bean.setComputedAbnormalityAnatomyId(computedIds);
+				bean.setComputedAbnormalityAnatomyTerm(computedLabels);
+			}
+		}
+		
+		if (roi.getPhenotypeAnnotations() != null){
+			// Phenotypes
+			//TODO copy this to ann_bag in images
+			List<String> ids = new ArrayList<>(); // || with labels
+			List<String> labels = new ArrayList<>(); // || with ids
+			List<String> freetext = new ArrayList<>();
+			for ( Annotation ann: roi.getPhenotypeAnnotations().getEl()){
+				if (ann.getAnatomyFreetext() != null){
+					freetext.add(ann.getAnatomyFreetext());
+				}
+				if (ann.getOntologyTerm() != null){
+					ids.add(ann.getOntologyTerm().getTermId());
+					labels.add(ann.getOntologyTerm().getTermLabel());
+				}
+			}
+			if (ids.size() > 0){
+				bean.setPhenotypeId(ids);
+				bean.setPhenotypeTerm(labels);
+			}
+			if (freetext.size() > 0){
+				bean.setPhenotypeFreetext(freetext);
+			}
+		}
+		
+		if (roi.getObservations() != null){
+			bean.setObservations(roi.getObservations().getEl());
+		}
+
+		bean.setXCoordinates(roi.getCoordinates().getXCoordinates().getEl());
+		bean.setYCoordinates(roi.getCoordinates().getYCoordinates().getEl());
+		if (roi.getCoordinates().getZCoordinates() != null){
+			bean.setZCoordinates(roi.getCoordinates().getZCoordinates().getEl());
+		}
+		
+		return bean;
+	}
+	
 	
 	//TODO fillChannelPojo
 

@@ -7,7 +7,9 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 
 import uk.ac.ebi.phis.importer.BatchXmlUploader;
+import uk.ac.ebi.phis.service.ChannelService;
 import uk.ac.ebi.phis.service.ImageService;
+import uk.ac.ebi.phis.service.RoiService;
 
 @Component
 public class main {
@@ -33,9 +35,10 @@ public class main {
 //			tg.exportImages();
 			System.out.println("Generating XML for Tracer took " + (System.currentTimeMillis() - time));
 
-			Map<String, String> config = (Map<String, String>) applicationContext.getBean("globalConfiguration");
 			ImageService is = (ImageService) applicationContext.getBean("imageService");
-			BatchXmlUploader reader = new BatchXmlUploader(is);
+			RoiService rs = (RoiService) applicationContext.getBean("roiService");
+			ChannelService cs = (ChannelService) applicationContext.getBean("channelService"); 
+			BatchXmlUploader reader = new BatchXmlUploader(is, rs);
 
 			time = System.currentTimeMillis();
 			System.out.println(reader.validateAndUpload("tracerExport.xml"));
