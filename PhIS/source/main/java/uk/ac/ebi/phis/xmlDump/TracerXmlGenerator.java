@@ -63,7 +63,7 @@ public class TracerXmlGenerator {
         		+ "WHERE"
         		+ " sl.sb_id=si.sb_id AND sl.lab_id=l.lab_id AND si.chr_id=c.chr_id AND si.insertion_type_id=it.insertion_type_id "
         		+ "AND sl.sb_id=ei.sb_id AND ei.exp_image_id=eid.exp_image_id AND eid.exp_domain_id=ed.exp_domain_id AND "
-        		+ "ei.display_mode='public' AND sbg.sb_id=sl.sb_id AND sl.display_mode='public'";
+        		+ "ei.display_mode='public' AND sbg.sb_id=sl.sb_id AND sl.display_mode='public' LIMIT 10000000";
         
        // List<Map<String, Object>> results = jdbcTemplate.queryForList(command);
         
@@ -146,8 +146,8 @@ public class TracerXmlGenerator {
 	    			GenotypeComponent expressed = new GenotypeComponent();
 	    			GenomicLocation gl = new GenomicLocation();
 	    			gl.setChromosone(res.getString("chr_name"));
-	    			gl.setStartPos(Long.getLong(res.getString("position")));
-	    			gl.setEndPos(Long.getLong(res.getString("position")));
+	    			gl.setStartPos(res.getLong("position"));
+	    			gl.setEndPos(res.getLong("position"));
 	    			gl.setStrand(res.getString("strand"));
 	    			expressed.setGenomicLocation(gl);
 	    			
@@ -240,7 +240,7 @@ public class TracerXmlGenerator {
 			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
 			jaxbMarshaller.marshal(doc, file);
-//			jaxbMarshaller.marshal(doc, System.out);
+			jaxbMarshaller.marshal(doc, System.out);
 	        
 	        }catch(Exception e){
 	        	e.printStackTrace();

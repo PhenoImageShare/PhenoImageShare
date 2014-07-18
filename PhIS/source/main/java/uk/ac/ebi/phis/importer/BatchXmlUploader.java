@@ -30,8 +30,10 @@ import javax.xml.validation.Validator;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.xml.sax.SAXException;
 
+import uk.ac.ebi.phis.service.ChannelService;
 import uk.ac.ebi.phis.service.ImageService;
 import uk.ac.ebi.phis.service.RoiService;
+import uk.ac.ebi.phis.solrj.pojo.ChannelPojo;
 import uk.ac.ebi.phis.solrj.pojo.ImagePojo;
 import uk.ac.ebi.phis.solrj.pojo.RoiPojo;
 import uk.ac.ebi.phis.utils.ValidationUtils;
@@ -52,12 +54,13 @@ public class BatchXmlUploader {
 
 	ImageService is;
 	RoiService rs;
+	ChannelService cs;
 	
-	
-	public BatchXmlUploader(ImageService is, RoiService rs) {
+	public BatchXmlUploader(ImageService is, RoiService rs, ChannelService cs) {
 		classloader = Thread.currentThread().getContextClassLoader();
 		this.is = is;
 		this.rs = rs;
+		this.cs = cs;
 	}
 
 
@@ -110,10 +113,12 @@ public class BatchXmlUploader {
 
 		is.clear();
 		rs.clear();
+		cs.clear();
 		addImageDocuments(doc.getImage());
 		//TODO rois
 		addRoiDocuments(doc.getRoi());
 		//TODO channels
+		addChannelDocuments(doc.getChannel());
 	}
 
 
@@ -133,7 +138,7 @@ public class BatchXmlUploader {
 		}
 		is.addBeans(imageDocs);
 	}
-	
+
 	private void addRoiDocuments(List<Roi> rois)
 	throws IOException, SolrServerException {
 		
@@ -151,7 +156,24 @@ public class BatchXmlUploader {
 		rs.addBeans(roiDocs);
 	}
 
-	//TODO fillRoiPojo
+	private void addChannelDocuments(List<Channel> channels)
+	throws IOException, SolrServerException {
+		
+		int i = 0;
+		List<ChannelPojo> chDocs = new ArrayList<>();
+		for (Channel channel : channels) {
+			// add it
+			chDocs.add(fillPojo(channel));
+			// flush every 1000 docs
+			if (i++ % 1000 == 0) {
+				cs.addBeans(chDocs);
+				chDocs = new ArrayList<>();
+			}
+		}
+		cs.addBeans(chDocs);
+	}
+
+	// fillRoiPojo
 	private RoiPojo fillPojo(Roi roi){
 		
 		RoiPojo bean = new RoiPojo();
@@ -276,7 +298,48 @@ public class BatchXmlUploader {
 	}
 	
 	
-	//TODO fillChannelPojo
+	// fillChannelPojo
+	private ChannelPojo fillPojo(Channel channel) {
+
+		ChannelPojo bean = new ChannelPojo();
+		
+		bean.setId(channel.getId());
+		bean.setAssociatedImage(channel.getAssociatedImage());
+		if (channel.getAssociatedRoi() != null){
+			bean.setAssociatedRoi(channel.getAssociatedRoi().getEl());
+		}
+		if (channel.getDepictsExpressionOf() != null){
+			GenotypeComponent gc = channel.getDepictsExpressionOf();
+			if (gc.getGeneId() != null){
+				bean.setGeneId(gc.getGeneId());
+				bean.setGeneSymbol(gc.getGeneSymbol());
+			}
+			if (gc.getGeneticFeatureEnsemblId() != null){
+				bean.setGeneticFeatureEnsemlId(gc.getGeneticFeatureEnsemblId());
+			}
+			if (gc.getGeneticFeatureId() != null){
+				bean.setGeneticFeatureId(gc.getGeneticFeatureId());
+				bean.setGeneticFeatureSymbol(gc.getGeneticFeatureSymbol());
+			}
+			if (gc.getMarker() != null){
+				bean.setMarker(gc.getMarker());
+			}
+			if (gc.getZygosity() != null){
+				bean.setZygosity(gc.getZygosity().name());
+			}
+			if (gc.getGenomicLocation() != null){
+				bean.setStartPos(gc.getGenomicLocation().getStartPos());
+				if (gc.getGenomicLocation().getEndPos() != null){
+					bean.setEndPos(gc.getGenomicLocation().getEndPos());
+				}
+				bean.setChromosome(gc.getGenomicLocation().getChromosone());
+				bean.setStrand(gc.getGenomicLocation().getStrand());
+			}
+		}
+		
+		return bean;
+	
+	}
 
 	private ImagePojo fillPojo(Image img) {
 

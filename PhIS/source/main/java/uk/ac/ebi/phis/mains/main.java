@@ -1,7 +1,5 @@
 package uk.ac.ebi.phis.mains;
 
-import java.util.Map;
-
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
@@ -10,6 +8,7 @@ import uk.ac.ebi.phis.importer.BatchXmlUploader;
 import uk.ac.ebi.phis.service.ChannelService;
 import uk.ac.ebi.phis.service.ImageService;
 import uk.ac.ebi.phis.service.RoiService;
+import uk.ac.ebi.phis.xmlDump.TracerXmlGenerator;
 
 @Component
 public class main {
@@ -31,14 +30,14 @@ public class main {
 			System.out.println("Generating xml for Sanger took " + (System.currentTimeMillis() - time));
 
 			time = System.currentTimeMillis();
-//			TracerXmlGenerator tg = new TracerXmlGenerator();
-//			tg.exportImages();
+			TracerXmlGenerator tg = new TracerXmlGenerator();
+			tg.exportImages();
 			System.out.println("Generating XML for Tracer took " + (System.currentTimeMillis() - time));
 
 			ImageService is = (ImageService) applicationContext.getBean("imageService");
 			RoiService rs = (RoiService) applicationContext.getBean("roiService");
 			ChannelService cs = (ChannelService) applicationContext.getBean("channelService"); 
-			BatchXmlUploader reader = new BatchXmlUploader(is, rs);
+			BatchXmlUploader reader = new BatchXmlUploader(is, rs, cs);
 
 			time = System.currentTimeMillis();
 			System.out.println(reader.validateAndUpload("tracerExport.xml"));

@@ -158,7 +158,6 @@ public class OntologyUtils {
 		}
 		for (String path: stageOntologies){
 			fillHashesFor(path, stageTerms);
-			System.out.println("Is MmusDv:0000024 in there ? " + stageTerms.get("MmusDv:0000092"));
 		}
 		return false;
 		
