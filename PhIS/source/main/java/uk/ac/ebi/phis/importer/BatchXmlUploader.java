@@ -645,6 +645,7 @@ public class BatchXmlUploader {
 		try {
 			JAXBContext jaxbContext = JAXBContext.newInstance(Doc.class);
 			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+			System.out.println(">>>>>>" + xmlFullPathLocation);
 			Doc doc = (Doc) jaxbUnmarshaller.unmarshal(classloader.getResourceAsStream(xmlFullPathLocation));
 			return doc;
 		} catch (JAXBException e) {
