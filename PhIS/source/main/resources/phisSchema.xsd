@@ -177,7 +177,7 @@
 								<complexType name="Annotation">
 									<all minOccurs="1">
 						  	  		<element name="ontology_term" type="x:OntologyTerm" minOccurs="0" maxOccurs="1"/>
-						  	  		<element name="anatomy_freetext" type="string" minOccurs="0" maxOccurs="1"/>
+						  	  		<element name="annotation_freetext" type="string" minOccurs="0" maxOccurs="1"/>
 						  	  		<element name="annotationMode" type="x:AnnotationMode" minOccurs="0" maxOccurs="1"/>
 									</all>						
 								</complexType>

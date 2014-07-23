@@ -1,12 +1,12 @@
 package uk.ac.ebi.phis.utils;
 
-import j.Annotation;
-import j.Coordinates;
-import j.Dimensions;
-import j.Image;
-import j.OntologyTerm;
-import j.OntologyTermArray;
-import j.Roi;
+import uk.ac.ebi.phis.jaxb.Annotation;
+import uk.ac.ebi.phis.jaxb.Coordinates;
+import uk.ac.ebi.phis.jaxb.Dimensions;
+import uk.ac.ebi.phis.jaxb.Image;
+import uk.ac.ebi.phis.jaxb.OntologyTerm;
+import uk.ac.ebi.phis.jaxb.OntologyTermArray;
+import uk.ac.ebi.phis.jaxb.Roi;
 
 import java.util.List;
 

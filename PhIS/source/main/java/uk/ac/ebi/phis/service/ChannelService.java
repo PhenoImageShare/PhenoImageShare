@@ -6,7 +6,7 @@ import java.util.List;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.HttpSolrServer;
 
-import uk.ac.ebi.phis.solrj.pojo.ChannelPojo;
+import uk.ac.ebi.phis.solrj.dto.ChannelPojo;
 
 public class ChannelService {
 

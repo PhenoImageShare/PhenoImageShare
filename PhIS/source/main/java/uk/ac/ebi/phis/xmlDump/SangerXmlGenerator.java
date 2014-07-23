@@ -1,6 +1,6 @@
 package uk.ac.ebi.phis.xmlDump;
 
-import j.*;
+import uk.ac.ebi.phis.jaxb.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -400,7 +400,7 @@ public class SangerXmlGenerator {
 			 p.setOntologyTerm(getOntologyTerm(label, id));
 
 		 if (freetext != null)
-			 p.setAnatomyFreetext(freetext);
+			 p.setAnnotationFreetext(freetext);
 		 p.setAnnotationMode(annMode);
 		 return p;
 	 }

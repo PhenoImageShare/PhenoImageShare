@@ -1,15 +1,15 @@
 package uk.ac.ebi.phis.importer;
 
-import j.Annotation;
-import j.AnnotationMode;
-import j.Channel;
-import j.Doc;
-import j.GenotypeComponent;
-import j.Image;
-import j.ImageDescription;
-import j.OntologyTerm;
-import j.Organism;
-import j.Roi;
+import uk.ac.ebi.phis.jaxb.Annotation;
+import uk.ac.ebi.phis.jaxb.AnnotationMode;
+import uk.ac.ebi.phis.jaxb.Channel;
+import uk.ac.ebi.phis.jaxb.Doc;
+import uk.ac.ebi.phis.jaxb.GenotypeComponent;
+import uk.ac.ebi.phis.jaxb.Image;
+import uk.ac.ebi.phis.jaxb.ImageDescription;
+import uk.ac.ebi.phis.jaxb.OntologyTerm;
+import uk.ac.ebi.phis.jaxb.Organism;
+import uk.ac.ebi.phis.jaxb.Roi;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -33,9 +33,9 @@ import org.xml.sax.SAXException;
 import uk.ac.ebi.phis.service.ChannelService;
 import uk.ac.ebi.phis.service.ImageService;
 import uk.ac.ebi.phis.service.RoiService;
-import uk.ac.ebi.phis.solrj.pojo.ChannelPojo;
-import uk.ac.ebi.phis.solrj.pojo.ImagePojo;
-import uk.ac.ebi.phis.solrj.pojo.RoiPojo;
+import uk.ac.ebi.phis.solrj.dto.ChannelPojo;
+import uk.ac.ebi.phis.solrj.dto.ImagePojo;
+import uk.ac.ebi.phis.solrj.dto.RoiPojo;
 import uk.ac.ebi.phis.utils.ValidationUtils;
 
 public class BatchXmlUploader {
@@ -197,8 +197,8 @@ public class BatchXmlUploader {
 			// Depicted anatomy
 			// TODO have to check if it's expression (from channel)
 			for ( Annotation ann: roi.getDepictedAnatomicalStructure().getEl()){
-				if (ann.getAnatomyFreetext() != null){
-					freetext.add(ann.getAnatomyFreetext());
+				if (ann.getAnnotationFreetext() != null){
+					freetext.add(ann.getAnnotationFreetext());
 				}
 				if (ann.getOntologyTerm() != null){
 					if (ann.getAnnotationMode() != null && (ann.getAnnotationMode() == AnnotationMode.AUTOMATED)){
@@ -233,8 +233,8 @@ public class BatchXmlUploader {
 			List<String> computedLabels = new ArrayList<>(); // || with computedId
 			// Abnormality in anatomical part
 			for ( Annotation ann: roi.getAbnormalityInAnatomicalStructure().getEl()){
-				if (ann.getAnatomyFreetext() != null){
-					freetext.add(ann.getAnatomyFreetext());
+				if (ann.getAnnotationFreetext() != null){
+					freetext.add(ann.getAnnotationFreetext());
 				}
 				if (ann.getOntologyTerm() != null){
 					if (ann.getAnnotationMode() != null && (ann.getAnnotationMode() == AnnotationMode.AUTOMATED)){
@@ -267,8 +267,8 @@ public class BatchXmlUploader {
 			List<String> labels = new ArrayList<>(); // || with ids
 			List<String> freetext = new ArrayList<>();
 			for ( Annotation ann: roi.getPhenotypeAnnotations().getEl()){
-				if (ann.getAnatomyFreetext() != null){
-					freetext.add(ann.getAnatomyFreetext());
+				if (ann.getAnnotationFreetext() != null){
+					freetext.add(ann.getAnnotationFreetext());
 				}
 				if (ann.getOntologyTerm() != null){
 					ids.add(ann.getOntologyTerm().getTermId());
@@ -360,6 +360,8 @@ public class BatchXmlUploader {
 
 		if (img.getAssociatedRoi() != null){
 			bean.setAssociatedRoi(img.getAssociatedRoi().getEl());
+			// Need to copy some fields for search purposes
+			bean = copyFieldsFromRoi(img, bean);
 		}
 
 		if (img.getAssociatedChannel() != null){
@@ -427,8 +429,8 @@ public class BatchXmlUploader {
 
 		// annotations -->
 		if (img.getDepictedAnatomicalStructure() != null){
-			if (img.getDepictedAnatomicalStructure().getAnatomyFreetext() != null){
-				bean.setAnatomyFreetext(img.getDepictedAnatomicalStructure().getAnatomyFreetext());
+			if (img.getDepictedAnatomicalStructure().getAnnotationFreetext() != null){
+				bean.setAnatomyFreetext(img.getDepictedAnatomicalStructure().getAnnotationFreetext());
 			}
 			if (img.getDepictedAnatomicalStructure().getOntologyTerm() != null){
 				bean.setAnatomyId(img.getDepictedAnatomicalStructure().getOntologyTerm().getTermId());
@@ -460,7 +462,6 @@ public class BatchXmlUploader {
 			ArrayList<String> gfIds = new ArrayList<>();
 			ArrayList<String> gfSymbols = new ArrayList<>();
 			ArrayList<String> chromosome = new ArrayList<>();
-			ArrayList<Long> insertionSite = new ArrayList<>();
 			ArrayList<Long> startPosition = new ArrayList<>();
 			ArrayList<Long> endPosition = new ArrayList<>();
 			ArrayList<String> strand = new ArrayList<>();
@@ -490,7 +491,6 @@ public class BatchXmlUploader {
 			bean.setGeneticFeatureSymbols(gfSymbols);
 			
 			bean.setChromosome(chromosome);
-			bean.setInsertionSite(insertionSite);
 			bean.setStartPosition(startPosition);
 			bean.setEndPosition(endPosition);
 			bean.setStrand(strand);
@@ -498,12 +498,135 @@ public class BatchXmlUploader {
 			
 		}
 
-		// field name="expressed_gf_bag" /-->
-		// field name="expressed_anatomy_bag" /-->
 		return bean;
 	}
 
+	/**
+	 * 
+	 * @param img
+	 * @return The passed image with added annotations copied from the ROI
+	 */
+	private ImagePojo copyFieldsFromRoi(Image img, ImagePojo pojo){
+		
+		ImagePojo res = pojo;
 
+		ArrayList<String> phenotypeFreetext = new ArrayList<>();
+		ArrayList<String> phenotypeIds = new ArrayList<>();
+		ArrayList<String> phenotypeLabels = new ArrayList<>();
+		ArrayList<String> depictedAnatomyFreetext = new ArrayList<>();
+		ArrayList<String> depictedAnatomyIds = new ArrayList<>();
+		ArrayList<String> depictedAnatomyLabels = new ArrayList<>();
+		ArrayList<String> expressionInAnatomyFreetext = new ArrayList<>();
+		ArrayList<String> expressionInAnatomyIds = new ArrayList<>();
+		ArrayList<String> expressionInAnatomyLabels = new ArrayList<>();
+		ArrayList<String> abnormalityInAnatomyFreetext = new ArrayList<>();
+		ArrayList<String> abnormalityInAnatomyIds = new ArrayList<>();
+		ArrayList<String> abnormalityInAnatomyLabels = new ArrayList<>();
+		ArrayList<String> observations = new ArrayList<>();
+		
+		// For all associated ROIs, check available annotations and copy them as needed in the bag fields
+		for (String roiId : img.getAssociatedRoi().getEl()){
+			
+			Roi roi = roiIdMap.get(roiId);		
+			
+			// phenotype annotations
+			if (roi.getPhenotypeAnnotations() != null){
+				for (Annotation ann: roi.getPhenotypeAnnotations().getEl()){
+					if (ann.getAnnotationFreetext() != null){
+						phenotypeFreetext.add(ann.getAnnotationFreetext());
+					}
+					if (ann.getOntologyTerm() != null){
+						phenotypeIds.add(ann.getOntologyTerm().getTermId());
+						phenotypeLabels.add(ann.getOntologyTerm().getTermLabel());
+					}
+				}
+			}
+			
+			// depicted anatomy annotations
+			// expression in anatomy annotation 
+			if (roi.getDepictedAnatomicalStructure() != null){
+				
+				boolean expression = false;
+				if (roi.getAssociatedChannel() != null){
+					for (String channelId : roi.getAssociatedChannel().getEl()){
+						if (channelIdMap.get(channelId).getDepictsExpressionOf() != null ){
+							expression = true;
+							break;
+						}
+					}
+				}
+				
+				for (Annotation ann: roi.getDepictedAnatomicalStructure().getEl()){
+					if (ann.getAnnotationFreetext() != null){
+						if (expression){
+							expressionInAnatomyFreetext.add(ann.getAnnotationFreetext());
+						}
+						else {
+							depictedAnatomyFreetext.add(ann.getAnnotationFreetext());
+						}
+					}
+					if (ann.getOntologyTerm() != null){
+						if (expression){
+							expressionInAnatomyIds.add(ann.getOntologyTerm().getTermId());
+							expressionInAnatomyLabels.add(ann.getOntologyTerm().getTermLabel());
+						}
+						else{
+							phenotypeIds.add(ann.getOntologyTerm().getTermId());
+							phenotypeLabels.add(ann.getOntologyTerm().getTermLabel());
+						}
+					}
+				}
+			}
+			
+			//anatomy with abnormality
+			if (roi.getAbnormalityInAnatomicalStructure() != null){
+				for (Annotation ann: roi.getAbnormalityInAnatomicalStructure().getEl()){
+					if (ann.getAnnotationFreetext() != null){
+						abnormalityInAnatomyFreetext.add(ann.getAnnotationFreetext());
+					}
+					if (ann.getOntologyTerm() != null){
+						abnormalityInAnatomyIds.add(ann.getOntologyTerm().getTermId());
+						abnormalityInAnatomyLabels.add(ann.getOntologyTerm().getTermLabel());
+					}
+				}
+			}
+			
+			// observations
+			if (roi.getObservations() != null){
+				for (String obs : roi.getObservations().getEl()){
+					observations.add(obs);
+				}
+			}
+		}
+		
+		res.setDepictedAnatomyFreetextBag(depictedAnatomyFreetext);
+		res.setDepictedAnatomyIdBag(depictedAnatomyIds);
+		res.setDepictedAnatomyTermBag(depictedAnatomyLabels);
+		
+//		res.setAnatomyComputedIdBag(anatomyComputedIdBag);
+//		res.setAnatomyComputedLabelBag(anatomyComputedLabelBag);
+		
+		res.setAbnormalAnatomyFreetextBag(abnormalityInAnatomyFreetext);
+		res.setAbnormalAnatomyIdBag(abnormalityInAnatomyIds);
+		res.setAbnormalAnatomyTermBag(abnormalityInAnatomyLabels);
+		
+		// TODO get this from channel
+//		res.setExpressedGfIdBag(expressedGfIdBag);
+//		res.setExpressedGfSymbolBag(expressedGfSymbolBag);
+		
+		res.setExpressionInFreetextBag(expressionInAnatomyFreetext);
+		res.setExpressionInIdBag(expressionInAnatomyIds);
+		res.setExpressionInLabelBag(expressionInAnatomyLabels);
+		
+		res.setPhenotypeFreetextBag(phenotypeFreetext);
+		res.setPhenotypeIdBag(phenotypeIds);
+		res.setPhenotypeLabelBag(phenotypeLabels);
+		
+		res.setObservationBag(observations);
+		
+		return res;
+	}
+	
 	boolean validateAgainstXSD(InputStream xml, InputStream xsd) {
 
 		try {
