@@ -31,16 +31,22 @@ public class OntologyUtils {
 
 	Logger logger = Logger.getLogger(OntologyMapper.class);
 
-	private String FBBI = "http://www.berkeleybop.org/ontologies/fbbi.owl";
+	//http://www.berkeleybop.org/ontologies/fbbi.owl
+	private String FBBI = System.getProperty("user.home") + "/phis_ontologies/fbbi.owl";
 	
 	public OntologyUtils(){
-		anatomyOntologies.add("http://purl.obolibrary.org/obo/ma.owl");
-		anatomyOntologies.add("http://purl.obolibrary.org/obo/emapa.owl");
-		anatomyOntologies.add("http://purl.obolibrary.org/obo/emap.owl");
+		//http://purl.obolibrary.org/obo/ma.owl
+		anatomyOntologies.add(System.getProperty("user.home") + "/phis_ontologies/ma.owl");
+		//http://purl.obolibrary.org/obo/emapa.owl
+		anatomyOntologies.add(System.getProperty("user.home") + "/phis_ontologies/emapa.owl");
+		//http://purl.obolibrary.org/obo/emap.owl
+		anatomyOntologies.add(System.getProperty("user.home") + "/phis_ontologies/emap.owl");
 		
-		phenotypeOntologies.add("http://purl.obolibrary.org/obo/mp.owl");
+		//http://purl.obolibrary.org/obo/mp.owl
+		phenotypeOntologies.add(System.getProperty("user.home") + "/phis_ontologies/mp.owl");
 		
-		stageOntologies.add("http://www.berkeleybop.org/ontologies/mmusdv.owl");
+		//http://www.berkeleybop.org/ontologies/mmusdv.owl
+		stageOntologies.add(System.getProperty("user.home") + "/phis_ontologies/mmusdv.owl");
 		
 		long time = System.currentTimeMillis();
 		loadHashes();

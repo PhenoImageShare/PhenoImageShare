@@ -11,7 +11,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -44,14 +43,14 @@ public class OntologyMapper {
 	public OntologyMapper(OntologyMapperPredefinedTypes type){
 		switch (type){
 		case MA_MP:
-			ONTOLOGY_IRI = "http://phenotype-ontologies.googlecode.com/svn/trunk/src/ontology/mp/mp-ext-merged.owl";
+			ONTOLOGY_IRI = System.getProperty("user.home") + "/phis_ontologies/mp-ext-merged.owl";
 			overProperties = new ArrayList<String>();
 			overProperties.add("http://purl.obolibrary.org/obo/BFO_0000052");
 			overProperties.add("http://purl.obolibrary.org/obo/BFO_0000070");
 			overProperties.add("http://purl.obolibrary.org/obo/mp/mp-logical-definitions#inheres_in_part_of");
 			maBaseUrl = "http://purl.obolibrary.org/obo";
 			try{
-				anatomyGraph = readOntology("http://www.berkeleybop.org/ontologies/ma.owl");
+				anatomyGraph = readOntology(System.getProperty("user.home") + "/phis_ontologies/ma.owl");
 			}catch(Exception e){
 				e.printStackTrace();
 				logger.error(e.getMessage());
@@ -189,13 +188,14 @@ public class OntologyMapper {
 	
 	private OWLGraphWrapper readOntology (String ontIri) throws IOException, OWLOntologyCreationException, OBOFormatParserException{
 		ParserWrapper pw = new ParserWrapper();
-		File temp = File.createTempFile("tempfile", ontIri.substring(ontIri.lastIndexOf(".")));
-		BufferedWriter bw = new BufferedWriter(new FileWriter(temp));
-		bw.write(getFTPAsString());
-		bw.close();
+//		File temp = File.createTempFile("tempfile", ontIri.substring(ontIri.lastIndexOf(".")));
+//		BufferedWriter bw = new BufferedWriter(new FileWriter(temp));
+//		bw.write(getFTPAsString());
+//		bw.close();
 
-		OWLGraphWrapper graph = pw.parseToOWLGraph(temp.getAbsolutePath());
-		temp.delete();
+//		OWLGraphWrapper graph = pw.parseToOWLGraph(temp.getAbsolutePath());
+//		temp.delete();
+		OWLGraphWrapper graph = pw.parseToOWLGraph(ontIri);
 		logger.debug("OWL file parsed and graph is created");
 		logger.info("Ontology is initialised completely");
 		return graph;
