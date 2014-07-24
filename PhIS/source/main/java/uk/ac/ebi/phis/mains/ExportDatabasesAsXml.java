@@ -4,14 +4,11 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 
-import uk.ac.ebi.phis.importer.BatchXmlUploader;
-import uk.ac.ebi.phis.service.ChannelService;
-import uk.ac.ebi.phis.service.ImageService;
-import uk.ac.ebi.phis.service.RoiService;
+import uk.ac.ebi.phis.xmlDump.SangerXmlGenerator;
 import uk.ac.ebi.phis.xmlDump.TracerXmlGenerator;
 
 @Component
-public class main {
+public class ExportDatabasesAsXml {
 
 	public static void main(String[] args){
 
@@ -33,19 +30,6 @@ public class main {
 			TracerXmlGenerator tg = new TracerXmlGenerator();
 			tg.exportImages();
 			System.out.println("Generating XML for Tracer took " + (System.currentTimeMillis() - time));
-
-			ImageService is = (ImageService) applicationContext.getBean("imageService");
-			RoiService rs = (RoiService) applicationContext.getBean("roiService");
-			ChannelService cs = (ChannelService) applicationContext.getBean("channelService"); 
-			BatchXmlUploader reader = new BatchXmlUploader(is, rs, cs);
-
-			time = System.currentTimeMillis();
-			System.out.println(reader.validateAndUpload("tracerExport.xml"));
-			System.out.println("Validating Tracer XML took " + (System.currentTimeMillis() - time));
-
-			time = System.currentTimeMillis();
-		//	System.out.println("Is valid? " + reader.validateAndUpload("sangerExport.xml"));
-			System.out.println("Validating Sanger XML took " + (System.currentTimeMillis() - time));
 
 		} catch (Exception e) {
 			e.printStackTrace();

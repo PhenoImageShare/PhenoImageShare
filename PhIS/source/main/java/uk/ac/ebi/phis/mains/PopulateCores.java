@@ -49,7 +49,7 @@ public class PopulateCores {
 			System.out.println("Validating Tracer XML took " + (System.currentTimeMillis() - time));
 
 			time = System.currentTimeMillis();
-//			System.out.println("Is valid? " + reader.validateAndUpload("sangerExport.xml"));
+			System.out.println("Is valid? " + reader.validateAndUpload("sangerExport.xml"));
 			System.out.println("Validating Sanger XML took " + (System.currentTimeMillis() - time));
 		} catch (Exception e) {
 			e.printStackTrace();
