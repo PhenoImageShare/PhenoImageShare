@@ -30,7 +30,7 @@
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
 			<list>
-				<value>classpath:pisAppConfig.properties</value>
+      	<value>file:${user.home}/configfiles/pisAppConfig.properties</value>
 			</list>
 		</property>
 	</bean>

@@ -61,7 +61,6 @@
 							<includes>
 								<include>**/web.xml</include>
 								<include>**/app-config.xml</include>
-								<include>**/db-config.xml</include>
 								<include>**/views/404.jsp</include>
 							</includes>
 						</resource>
