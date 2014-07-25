@@ -8,6 +8,6 @@
 </head>
 <body>
 <h1>Yey, PhIS restful service is up.</h1>
-<h2>For the rest service go here : <a href="/rest/getImages?geneId=MGI:1891295">/rest/getImages?geneId=MGI:1891295</a></h2>
+<h2>For the rest service go here : <a href="/rest/getImages?geneId=MGI:1891295">rest/getImages?geneId=MGI:1891295</a></h2>
 </body>
 </html>
