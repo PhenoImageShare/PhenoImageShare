@@ -63,7 +63,7 @@ public class SolrWrapperController {
 	 * @throws IOException
 	 * @throws URISyntaxException
 	 */
-	@RequestMapping(value="/*", method=RequestMethod.GET)	
+	@RequestMapping(value="/", method=RequestMethod.GET)	
     public String showSomething( Model model ) throws SolrServerException, IOException, URISyntaxException {
 	
 		System.out.println("Try /getImages .");
