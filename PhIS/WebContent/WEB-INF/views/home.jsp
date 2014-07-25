@@ -4,10 +4,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
-<title>Insert title here</title>
+<title> PhIS rest </title>
 </head>
 <body>
-<h1>so here it is...</h1>
-<h2>${res}</h2>
+<h1>Yey, PhIS restful service is up.</h1>
+<h2>For the rest service go here : <a href="/rest/getImages?geneId=MGI:1891295">/rest/getImages?geneId=MGI:1891295</a></h2>
 </body>
 </html>

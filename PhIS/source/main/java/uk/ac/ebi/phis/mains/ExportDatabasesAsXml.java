@@ -17,13 +17,11 @@ public class ExportDatabasesAsXml {
 		// mapper.getMappings("http://purl.obolibrary.org/obo/MP_0003684",
 		// "MA");
 		// System.out.println("\t\t " + mapper.getAnatomyLabel("MA_0000003"));
-
-	    ApplicationContext applicationContext = new ClassPathXmlApplicationContext("app-config.xml");
 		
 		try {
 			long time = System.currentTimeMillis();
-//			SangerXmlGenerator sg = new SangerXmlGenerator();
-//			sg.exportImages();
+			SangerXmlGenerator sg = new SangerXmlGenerator();
+			sg.exportImages();
 			System.out.println("Generating xml for Sanger took " + (System.currentTimeMillis() - time));
 
 			time = System.currentTimeMillis();

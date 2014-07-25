@@ -91,26 +91,28 @@ public class ImageService {
 
 	}
 	
-	public String getImageByPhenotypeGeneAnatomy(String phenotype, String gene, String anatomy) throws SolrServerException{
+	public SolrDocumentList getImageByPhenotypeGeneAnatomy(String phenotype, String mutantGene, String anatomy, Integer rows) throws SolrServerException{
 
 		SolrQuery solrQuery = new SolrQuery();
 		solrQuery.setQuery("*:*");
 		if (phenotype != null){
 			solrQuery.setFilterQueries(ImageField.PHENOTYPE_ID_BAG + ":\""+ phenotype + "\"");
 		}
-		if (gene != null){
-			solrQuery.setFilterQueries(ImageField.GENE_ID + ":\""+ gene + "\"");		
+		if (mutantGene != null){
+			solrQuery.setFilterQueries(ImageField.GENE_ID + ":\""+ mutantGene + "\"");		
 		}
 		if (anatomy != null){
 			solrQuery.setFilterQueries(ImageField.ANATOMY_ID + ":\""+ anatomy + "\"");
 		}
-		solrQuery.setRows(1000000);
+		if (rows != null)
+			solrQuery.setRows(rows);
+		else solrQuery.setRows(1000000);
 //		solrQuery.setFields(GeneField.MGI_ACCESSION_ID);
 		System.out.println("-----------------------" + solr.getBaseURL() + "/select?" + solrQuery);
 		QueryResponse rsp = null;
 		rsp = solr.query(solrQuery);
 		SolrDocumentList res = rsp.getResults();
-		return solr.getBaseURL() + "/select?" + solrQuery;
+		return res;
 		
 	}
 	
