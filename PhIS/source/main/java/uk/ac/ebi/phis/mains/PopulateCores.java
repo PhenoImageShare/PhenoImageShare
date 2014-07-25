@@ -46,7 +46,7 @@ public class PopulateCores {
 
 			//TODO use full path to the file!!
 			long time = System.currentTimeMillis();			;
-			System.out.println(reader.validateAndUpload(applicationContext.getResource("classpath:ontologyResources/tracerExport.xml").getFile().getParentFile().getAbsolutePath()));
+			System.out.println(reader.validateAndUpload(applicationContext.getResource("classpath:tracerExport.xml").getFile().getParentFile().getAbsolutePath()));
 			System.out.println("Validating Tracer XML took " + (System.currentTimeMillis() - time));
 
 			time = System.currentTimeMillis();
