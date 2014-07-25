@@ -11,6 +11,7 @@ import uk.ac.ebi.phis.jaxb.OntologyTerm;
 import uk.ac.ebi.phis.jaxb.Organism;
 import uk.ac.ebi.phis.jaxb.Roi;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -64,12 +65,12 @@ public class BatchXmlUploader {
 	}
 
 
-	public boolean validateAndUpload(String xmlLocation) {
+	public boolean validateAndUpload(String xmlLocationFullPath) {
 
 		Doc doc;
 		// Unmarshal XML
-		doc = convertXmlToObjects(xmlLocation);
-		boolean isValid = validate(xmlLocation, doc);
+		doc = convertXmlToObjects(xmlLocationFullPath);
+		boolean isValid = validate(xmlLocationFullPath, doc);
 		upload(doc);
 		return isValid;
 	}
@@ -94,7 +95,7 @@ public class BatchXmlUploader {
 		boolean isValid = false;
 		try {
 			xsd = classloader.getResourceAsStream("phisSchema.xsd");
-			xml = classloader.getResourceAsStream(xmlLocation);
+			xml = new FileInputStream(xmlLocation);
 			isValid = validateAgainstXSD(xml, xsd);
 			xsd.close();
 			xml.close();
@@ -763,15 +764,17 @@ public class BatchXmlUploader {
 	}
 
 
-	private Doc convertXmlToObjects(String xmlFullPathLocation) {
+	private Doc convertXmlToObjects(String xmlFullPathLocation){
 
 		try {
 			JAXBContext jaxbContext = JAXBContext.newInstance(Doc.class);
 			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-			System.out.println(">>>>>>" + xmlFullPathLocation);
-			Doc doc = (Doc) jaxbUnmarshaller.unmarshal(classloader.getResourceAsStream(xmlFullPathLocation));
+			System.out.println(">>>>>>" + xmlFullPathLocation + "  " + (jaxbUnmarshaller != null));
+			Doc doc = (Doc) jaxbUnmarshaller.unmarshal(new FileInputStream(xmlFullPathLocation));
 			return doc;
 		} catch (JAXBException e) {
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 		return null;

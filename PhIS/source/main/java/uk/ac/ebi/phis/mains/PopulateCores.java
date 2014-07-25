@@ -19,10 +19,14 @@ public class PopulateCores {
 		
 		OptionParser parser = new OptionParser();
 		parser.accepts( "context" ).withRequiredArg();
+		parser.accepts( "dataDir" ).withRequiredArg();
 
 		OptionSet options = parser.parse( args );
 
 		if (!options.has("context")) {
+			help();
+		}
+		if (!options.has("dataDir")) {
 			help();
 		}
     	// pass the context file
@@ -32,6 +36,13 @@ public class PopulateCores {
 		File f = new File(contextFile);
 		if (!f.isFile() || !f.canRead()) {
 			System.err.println("Context file " + contextFile + " not readable.");
+			help();
+		}
+		// Check data dir exists
+		String dataDir = (String) options.valueOf("dataDir");
+		File d = new File(dataDir);
+		if (!d.isDirectory() || !d.canRead()) {
+			System.err.println("dataDir file " + dataDir + " not readable.");
 			help();
 		}
 
@@ -45,12 +56,12 @@ public class PopulateCores {
 			BatchXmlUploader reader = new BatchXmlUploader(is, rs, cs);
 
 			//TODO use full path to the file!!
-			long time = System.currentTimeMillis();			;
-			System.out.println(reader.validateAndUpload(applicationContext.getResource("tracerExport.xml").getFile().getAbsolutePath()));
+			long time = System.currentTimeMillis();	
+			System.out.println(reader.validateAndUpload(dataDir + "/tracerExport.xml"));
 			System.out.println("Validating Tracer XML took " + (System.currentTimeMillis() - time));
 
 			time = System.currentTimeMillis();
-			System.out.println("Is valid? " + reader.validateAndUpload("sangerExport.xml"));
+			System.out.println("Is valid? " + reader.validateAndUpload(dataDir + "/sangerExport.xml"));
 			System.out.println("Validating Sanger XML took " + (System.currentTimeMillis() - time));
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -63,6 +74,8 @@ public class PopulateCores {
 		buffer.append("PopulateCores usage:\n\n");
 		buffer.append("PopulateCores --context <Spring context>\n");
 		buffer.append("\t--context|-c\tSpring application context configuration file\n");
+		buffer.append("PopulateCores --dataDir <Spring context>\n");
+		buffer.append("\t--dataDir|-d\tFull path to the directory containing all the xml files to be used for the Solr index.\n");
 		System.out.println(buffer);
 		System.exit(1);
 	}
