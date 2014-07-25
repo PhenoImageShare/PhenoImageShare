@@ -43,9 +43,10 @@ public class PopulateCores {
 			RoiService rs = (RoiService) applicationContext.getBean("roiService");
 			ChannelService cs = (ChannelService) applicationContext.getBean("channelService"); 
 			BatchXmlUploader reader = new BatchXmlUploader(is, rs, cs);
-
+			
+			// TODO use full path to the file!!
 			long time = System.currentTimeMillis();
-			System.out.println(reader.validateAndUpload("tracerExport.xml"));
+			applicationContext.getResource("classpath:tracerExport.xml").getFile().getParentFile().getAbsolutePath();
 			System.out.println("Validating Tracer XML took " + (System.currentTimeMillis() - time));
 
 			time = System.currentTimeMillis();
