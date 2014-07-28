@@ -8,6 +8,77 @@ import org.apache.solr.client.solrj.beans.Field;
 import uk.ac.ebi.phis.service.ImageService;
 
 public class ImagePojo {
+	
+
+
+	public static final class ImageField {
+		public final static String ANATOMY_ID = "anatomy_id";
+		public final static String GENE_ID = "gene_id";
+		public final static String ZYGOSITY = "zygosity";
+		public final static String DEPTH = "depth";
+		public final static String STRAND = "strand";
+		public final static String END_POS = "end_pos";
+		public final static String START_POS = "start_pos";
+		public final static String INSERTCHROMOSOME = "chromosome";
+		public final static String GF_ENEMBL_ID = "genetic_feature_ensembl_id";
+		public final static String GF_SYMBOL = "genetic_feature_symbol";
+		public final static String GF_ID = "genetic_feature_id";
+		public final static String GENE_SYMBOL = "gene_symbol";
+		public final static String CONDITIONS = "conditions";
+		public final static String OBSERVATIONS = "observations";
+		public final static String ANATOMY_FREETEXT = "anatomy_freetext";
+		public final static String ANATOMY_TERM = "anatomy_term";
+		public final static String EMBRYONIC_AGE = "embryonic_age";
+		public final static String STAGE_ID = "stage_id";
+		public final static String STAGE = "stage";
+		public final static String SEX = "sex";
+		public final static String NCBI_TAXON_ID = "ncbi_taxon_id";
+		public final static String TAXON = "taxon";
+		public final static String SAMPLE_GENERATED_BY = "sample_generated_by";
+		public final static String AGE_SINCE_BIRTH = "age_since_birth";
+		public final static String WIDTH = "width";
+		public final static String THUMBNAIL_PATH = "thumbnail_path";
+		public final static String ORIGINAL_IMAGE_ID = "original_image_id";
+		public final static String MACHINE = "machine";
+		public final static String VISUALISATION_METHOD_LABEL = "visualisation_method_label";
+		public final static String VISUALISATION_METHOD_ID = "visualisation_method_id";
+		public final static String SAMPLE_PREPARATION_LABEL = "sample_preparation_label";
+		public final static String SAMPLE_PREPARATION_ID = "sample_preparation_id";
+		public final static String IMAGING_METHOD_ID = "imaging_method_id";
+		public final static String IMAGING_METHOD_LABEL = "imaging_method_label";
+		public final static String IMAGE_CONTEXT_URL = "image_context_url";
+		public final static String IMAGE_URL = "image_url";
+		public final static String IMAGE_GENERATED_BY = "image_generated_by";
+		public final static String HOST_NAME = "host_name";
+		public final static String HOST_URL = "host_url";
+		public final static String HEIGHT = "height";
+		public final static String ASSOCIATED_CHANNEL = "associated_channel";
+		public final static String ASSOCIATED_ROI = "associated_roi";
+		public final static String ID = "id";
+		
+		public final static String ANATOMY_COMPUTED_ID_BAG = "anatomy_computed_id_bag";
+		public final static String ANATOMY_COMPUTED_TERM_BAG = "anatomy_computed_term_bag";
+		public final static String DEPICTED_ANATOMY_ID_BAG = "depicted_anatomy_id_bag";
+		public final static String DEPICTED_ANATOMY_TERM_BAG = "depicted_anatomy_term_bag";
+		public final static String DEPICTED_ANATOMY_FREETEXT_BAG = "depicted_anatomy_freetext_bag";
+		public final static String ABNORMAL_ANATOMY_ID_BAG = "abnornal_anatomy_id_bag";
+		public final static String ABNORMAL_ANATOMY_TERM_BAG = "abnornal_anatomy_term_bag";
+		public final static String ABNORMAL_ANATOMY_FREETEXT_BAG = "abnornal_anatomy_freetext_bag";
+		public final static String EXPRESSION_IN_ID_BAG = "expression_in_id_bag";
+		public final static String EXPRESSION_IN_LABEL_BAG = "expression_in_label_bag";
+		public final static String EXPRESSION_IN_FREETEXT_BAG = "expression_in_freetext_bag";
+		public final static String OBSERVATION_BAG = "observation_bag";
+		public final static String MUTANT_GENE_ID_BAG = "mutant_gene_id_bag";
+		public final static String MUTANT_GENE_SYMBOL_BAG = "mutant_gene_symbol_bag";
+		public final static String EXPRESSED_GF_ID_BAG = "expressed_gf_id_bag";
+		public final static String EXPRESSED_GF_SYMBOL_BAG = "expressed_gf_symbol_bag";
+		public final static String PHENOTYPE_ID_BAG = "phenotype_id_bag";
+		public final static String PHENOTYPE_LABEL_BAG = "phenotype_label_bag";
+		public final static String PHENOTYPE_FREETEXT_BAG = "phenotype_freetext_bag";
+		
+	}
+	
+	
 
 	@Field("id")
 	private String id;
@@ -142,61 +213,61 @@ public class ImagePojo {
 	@Field("depth")
 	private long depth;
 
-	@Field(ImageService.ImageField.ANATOMY_COMPUTED_ID_BAG)
+	@Field(ImageField.ANATOMY_COMPUTED_ID_BAG)
 	private ArrayList<String> anatomyComputedIdBag;
 
-	@Field(ImageService.ImageField.ANATOMY_COMPUTED_TERM_BAG)
+	@Field(ImageField.ANATOMY_COMPUTED_TERM_BAG)
 	private ArrayList<String> anatomyComputedLabelBag;
 
-	@Field(ImageService.ImageField.DEPICTED_ANATOMY_ID_BAG)
+	@Field(ImageField.DEPICTED_ANATOMY_ID_BAG)
 	private ArrayList<String> depictedAnatomyIdBag;
 
-	@Field(ImageService.ImageField.DEPICTED_ANATOMY_TERM_BAG)
+	@Field(ImageField.DEPICTED_ANATOMY_TERM_BAG)
 	private ArrayList<String> depictedAnatomyTermBag;
 	
-	@Field(ImageService.ImageField.DEPICTED_ANATOMY_FREETEXT_BAG)
+	@Field(ImageField.DEPICTED_ANATOMY_FREETEXT_BAG)
 	private ArrayList<String> depictedAnatomyFreetextBag;
 	
-	@Field(ImageService.ImageField.ABNORMAL_ANATOMY_ID_BAG)
+	@Field(ImageField.ABNORMAL_ANATOMY_ID_BAG)
 	private ArrayList<String> abnormalAnatomyIdBag;
 
-	@Field(ImageService.ImageField.ABNORMAL_ANATOMY_TERM_BAG)
+	@Field(ImageField.ABNORMAL_ANATOMY_TERM_BAG)
 	private ArrayList<String> abnormalAnatomyTermBag;
 	
-	@Field(ImageService.ImageField.ABNORMAL_ANATOMY_FREETEXT_BAG)
+	@Field(ImageField.ABNORMAL_ANATOMY_FREETEXT_BAG)
 	private ArrayList<String> abnormalAnatomyFreetextBag;
 
-	@Field(ImageService.ImageField.EXPRESSED_GF_ID_BAG)
+	@Field(ImageField.EXPRESSED_GF_ID_BAG)
 	private ArrayList<String> expressedGfIdBag;
 
-	@Field(ImageService.ImageField.EXPRESSED_GF_SYMBOL_BAG)
+	@Field(ImageField.EXPRESSED_GF_SYMBOL_BAG)
 	private ArrayList<String> expressedGfSymbolBag;
 
-	@Field(ImageService.ImageField.EXPRESSION_IN_ID_BAG)
+	@Field(ImageField.EXPRESSION_IN_ID_BAG)
 	private ArrayList<String> expressionInIdBag;
 
-	@Field(ImageService.ImageField.EXPRESSION_IN_LABEL_BAG)
+	@Field(ImageField.EXPRESSION_IN_LABEL_BAG)
 	private ArrayList<String> ExpressionInLabelBag;
 	
-	@Field(ImageService.ImageField.EXPRESSION_IN_FREETEXT_BAG)
+	@Field(ImageField.EXPRESSION_IN_FREETEXT_BAG)
 	private ArrayList<String> ExpressionInFreetextBag;
 
-	@Field(ImageService.ImageField.MUTANT_GENE_ID_BAG)
+	@Field(ImageField.MUTANT_GENE_ID_BAG)
 	private ArrayList<String> mutantGeneIdBag;
 
-	@Field(ImageService.ImageField.MUTANT_GENE_SYMBOL_BAG)
+	@Field(ImageField.MUTANT_GENE_SYMBOL_BAG)
 	private ArrayList<String> mutantGeneSymbolBag;
 
-	@Field(ImageService.ImageField.OBSERVATION_BAG)
+	@Field(ImageField.OBSERVATION_BAG)
 	private ArrayList<String> observationBag;
 
-	@Field(ImageService.ImageField.PHENOTYPE_ID_BAG)
+	@Field(ImageField.PHENOTYPE_ID_BAG)
 	private ArrayList<String> phenotypeIdBag;
 
-	@Field(ImageService.ImageField.PHENOTYPE_LABEL_BAG)
+	@Field(ImageField.PHENOTYPE_LABEL_BAG)
 	private ArrayList<String> phenotypeLabelBag;
 	
-	@Field(ImageService.ImageField.PHENOTYPE_FREETEXT_BAG)
+	@Field(ImageField.PHENOTYPE_FREETEXT_BAG)
 	private ArrayList<String> phenotypeFreetextBag;
 
 

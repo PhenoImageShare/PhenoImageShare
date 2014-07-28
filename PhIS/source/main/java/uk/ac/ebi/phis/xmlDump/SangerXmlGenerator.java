@@ -168,7 +168,9 @@ public class SangerXmlGenerator {
 				    			roi = fillRoi(roi, res, d, imageType.equalsIgnoreCase("expression"));
 				    			roi.setAssociatedChannel(new StringArray());
 				    			roi.getAssociatedChannel().getEl().add(channelId);
-				    			channel.setAssociatedRoi(new StringArray());
+				    			if (channel.getAssociatedRoi() == null){
+					    			channel.setAssociatedRoi(new StringArray());
+				    			}
 				    			channel.getAssociatedRoi().getEl().add(roiId);
 				    		}
 				    		// Otherwise associate annotation to the whole image
@@ -190,6 +192,10 @@ public class SangerXmlGenerator {
 					        }
 					        
 					        if (roi != null){
+					        	if (image.getAssociatedRoi() == null){
+					    			image.setAssociatedRoi(new StringArray());
+					        	}
+					        	image.getAssociatedRoi().getEl().add(roi.getId());
 					        	doc.getRoi().add(roi);
 					        }
 			    		}
@@ -202,7 +208,7 @@ public class SangerXmlGenerator {
 		    		}
 	        	}
 	    		i++;
-//	    		if (i==1000) break;
+	    //		if (i==1000) break;
 	        }
 			
 	        File file = new File("source/main/resources/sangerExport.xml");
@@ -213,7 +219,7 @@ public class SangerXmlGenerator {
 			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
 			jaxbMarshaller.marshal(doc, file);
-			jaxbMarshaller.marshal(doc, System.out);
+		//	jaxbMarshaller.marshal(doc, System.out);
 					
 			}catch (ParserConfigurationException pce) {
 				pce.printStackTrace();

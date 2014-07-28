@@ -34,7 +34,7 @@
 				<td><var>String</var></td>
 				<td>Images depicting the phenotype term passed.</td>
 				<td><var> * </var></td>
-				<td><var></var><br></td>
+				<td><var>MP:0010254</var><br></td>
 			</tr>
 
 			<tr>
@@ -65,10 +65,10 @@
 	</table>
 
 
-	<h2>Getting ROIs & annotations</h2>
+	<!-- h2>Getting ROIs & annotations</h2-->
 
 
-	<h2>Getting channel information</h2>
+	<!-- h2>Getting channel information</h2-->
 	
 	
 </body>

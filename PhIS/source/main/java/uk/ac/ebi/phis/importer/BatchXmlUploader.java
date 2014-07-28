@@ -71,20 +71,12 @@ public class BatchXmlUploader {
 		// Unmarshal XML
 		doc = convertXmlToObjects(xmlLocationFullPath);
 		boolean isValid = validate(xmlLocationFullPath, doc);
-		upload(doc);
-		return isValid;
-	}
-
-
-	private void upload(Doc doc) {
-
 		try {
 			doBatchSubmission(doc);
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (SolrServerException e) {
+		} catch (IOException | SolrServerException e) {
 			e.printStackTrace();
 		}
+		return isValid;
 	}
 
 
@@ -563,8 +555,8 @@ public class BatchXmlUploader {
 							expressionInAnatomyLabels.add(ann.getOntologyTerm().getTermLabel());
 						}
 						else{
-							phenotypeIds.add(ann.getOntologyTerm().getTermId());
-							phenotypeLabels.add(ann.getOntologyTerm().getTermLabel());
+							depictedAnatomyIds.add(ann.getOntologyTerm().getTermId());
+							depictedAnatomyLabels.add(ann.getOntologyTerm().getTermLabel());
 						}
 					}
 				}
