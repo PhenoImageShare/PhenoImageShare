@@ -317,9 +317,6 @@ public class BatchXmlUploader {
 				bean.setGeneticFeatureId(gc.getGeneticFeatureId());
 				bean.setGeneticFeatureSymbol(gc.getGeneticFeatureSymbol());
 			}
-			if (gc.getMarker() != null){
-				bean.setMarker(gc.getMarker());
-			}
 			if (gc.getZygosity() != null){
 				bean.setZygosity(gc.getZygosity().name());
 			}
@@ -349,7 +346,6 @@ public class BatchXmlUploader {
 		bean.setHostName(desc.getHostName());
 		bean.setHostUrl(desc.getHostUrl());
 		bean.setImageUrl(desc.getImageUrl());
-		bean.setOriginalImageId(desc.getOriginalImageId());
 		if (desc.getImageContextUrl() != null){
 			bean.setImageContextUrl(desc.getImageContextUrl());
 		}

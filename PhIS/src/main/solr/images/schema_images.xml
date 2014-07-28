@@ -33,7 +33,6 @@
    <field name="visualisation_method_id" type="string" indexed="true" stored="true" multiValued="true"/>
    
    <field name="machine" type="string" indexed="true" stored="true"/>
-   <field name="original_image_id" type="string" indexed="true" stored="true" required="true"/>
    <field name="thumbnail_path" type="string" indexed="true" stored="true"/>
 
    <!-- Sample -->

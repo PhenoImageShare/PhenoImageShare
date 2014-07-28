@@ -60,9 +60,6 @@ public class ImagePojo {
 	@Field("machine")
 	private String machine;
 
-	@Field("original_image_id")
-	private String originalImageId;
-
 	@Field("thumbnail_path")
 	private String thumbnailPath;
 
@@ -543,26 +540,6 @@ public class ImagePojo {
 
 		this.machine = machine;
 	}
-
-
-	/**
-	 * @return the originalImageId
-	 */
-	public String getOriginalImageId() {
-
-		return originalImageId;
-	}
-
-
-	/**
-	 * @param originalImageId
-	 *            the originalImageId to set
-	 */
-	public void setOriginalImageId(String originalImageId) {
-
-		this.originalImageId = originalImageId;
-	}
-
 
 	/**
 	 * @return the thumbnailPath

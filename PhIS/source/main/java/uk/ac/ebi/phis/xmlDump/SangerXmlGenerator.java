@@ -67,7 +67,7 @@ public class SangerXmlGenerator {
     				
 		        	boolean sameImage = true;
 		        	
-		        	String internalId =  "komp2_" + i;
+		        	String internalId =  "komp2_" + res.getString("ID");
 		        	
 		        	String imageId = res.getString("ID");		        
 		    		
@@ -84,7 +84,6 @@ public class SangerXmlGenerator {
 		    			d.setImageWidth(dimensions.get("width"));
 			    		ImageDescription imageDesc = new ImageDescription();
 			    		imageDesc.setImageUrl(url);
-			    		imageDesc.setOriginalImageId(res.getString("ID"));
 			    		imageDesc.setImageDimensions(d);
 			      		imageDesc.setOrganismGeneratedBy("WTSI");
 			    		imageDesc.setImageGeneratedBy("WTSI");

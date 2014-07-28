@@ -96,7 +96,6 @@ public class TracerXmlGenerator {
 	    			d.setImageWidth(dimensions.get("width"));
 		    		ImageDescription imageDesc = new ImageDescription();
 		    		imageDesc.setImageUrl(url);
-		    		imageDesc.setOriginalImageId(res.getString("sb_id"));
 		    		imageDesc.setImageDimensions(d);
 		      		imageDesc.setOrganismGeneratedBy("Spitz Lab, EMBL");
 		    		imageDesc.setImageGeneratedBy("Spitz Lab, EMBL");
