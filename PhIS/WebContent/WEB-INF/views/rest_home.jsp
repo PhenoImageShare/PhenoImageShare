@@ -9,7 +9,9 @@
 <body>
 
 <h1>PhIS RESTful Sevice Documentation</h1>
-
+<p>
+Base URL for dev website is http://dev.phenoimageshare.org/data/rest .
+</p>
 <h2>/getImages</h2>
 
 
