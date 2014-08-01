@@ -5,6 +5,9 @@ import java.util.List;
 import org.apache.solr.client.solrj.beans.Field;
 
 public class RoiPojo {
+	
+	
+	public static final String ID="id";
 
 	@Field("id")
 	String id;

@@ -149,15 +149,12 @@
 			<version>20131018</version>
 		</dependency>
 
-
-		<!-- A Java library for parsing command line options -->
 		<dependency>
 			<groupId>net.sf.jopt-simple</groupId>
 			<artifactId>jopt-simple</artifactId>
 			<version>4.3</version>
 		</dependency>
-
-
+		
 		<!--  OWL Depenencies -->
 		<dependency>
 	   	  <groupId>org.bbop</groupId>

@@ -1,6 +1,7 @@
 package uk.ac.ebi.phis.service;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.List;
 
 import org.apache.solr.client.solrj.SolrQuery;
@@ -11,6 +12,7 @@ import org.apache.solr.common.SolrDocumentList;
 import org.springframework.stereotype.Service;
 
 import uk.ac.ebi.phis.solrj.dto.ImagePojo;
+import uk.ac.ebi.phis.utils.web.JSONRestUtil;
 
 @Service
 public class ImageService {
@@ -24,29 +26,42 @@ public class ImageService {
 
 	}
 	
-	public SolrDocumentList getImageByPhenotypeGeneAnatomy(String phenotype, String mutantGene, String anatomy, Integer rows) throws SolrServerException{
+	public String getImageByPhenotypeGeneAnatomy(String phenotype, String mutantGene, String anatomy, Integer rows, Integer start) throws SolrServerException{
 
 		SolrQuery solrQuery = new SolrQuery();
 		solrQuery.setQuery("*:*");
 		if (phenotype != null){
 			solrQuery.setFilterQueries(ImagePojo.ImageField.PHENOTYPE_ID_BAG + ":\""+ phenotype + "\"");
 		}
+		
 		if (mutantGene != null){
 			solrQuery.setFilterQueries(ImagePojo.ImageField.GENE_ID + ":\""+ mutantGene + "\"");		
 		}
+		
 		if (anatomy != null){
 			solrQuery.setFilterQueries(ImagePojo.ImageField.ANATOMY_ID + ":\""+ anatomy + "\"");
 		}
-		if (rows != null)
-			solrQuery.setRows(rows);
-		else solrQuery.setRows(10);
-//		solrQuery.setFields(GeneField.MGI_ACCESSION_ID);
-		System.out.println("-----------------------" + solr.getBaseURL() + "/select?" + solrQuery);
-		QueryResponse rsp = null;
-		rsp = solr.query(solrQuery);
-		SolrDocumentList res = rsp.getResults();
-		return res;
 		
+		if (rows != null){
+			solrQuery.setRows(rows);
+		}
+		else solrQuery.setRows(10);
+		
+		if (start != null){
+			solrQuery.set("start", start);
+		}
+		solrQuery.set("wt", "json");
+			
+
+		try {
+			return JSONRestUtil.getResults(getQueryUrl(solrQuery)).toString();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+		
+		return "Couldn't get anything back from solr.";
 	}
 	
 	public String getSolrUrl () {
@@ -71,6 +86,11 @@ public class ImageService {
 	 */
 	public void clear() throws SolrServerException, IOException{
 		solr.deleteByQuery("*:*");
+	}
+	
+
+	public String getQueryUrl(SolrQuery q){
+		return solr.getBaseURL() + "/select?" + q.toString();
 	}
 	
 }

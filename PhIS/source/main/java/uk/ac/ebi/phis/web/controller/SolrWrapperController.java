@@ -3,6 +3,7 @@ package uk.ac.ebi.phis.web.controller;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
+import org.apache.solr.client.solrj.SolrResponse;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.common.SolrDocumentList;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import uk.ac.ebi.phis.service.ChannelService;
 import uk.ac.ebi.phis.service.ImageService;
 import uk.ac.ebi.phis.service.RoiService;
-import uk.ac.ebi.phis.solrj.dto.ChannelPojo;
 
 @Controller
 @RequestMapping("/rest")
@@ -47,15 +47,16 @@ public class SolrWrapperController {
 	 * @throws URISyntaxException
 	 */
 	@RequestMapping(value="/getImages", method=RequestMethod.GET)	
-    public @ResponseBody SolrDocumentList getExperimentalData(
+    public @ResponseBody String getExperimentalData(
             @RequestParam(value = "phenotypeId", required = false) String phenotypeId,
             @RequestParam(value = "anatomyId", required = false) String anatomyId,
             @RequestParam(value = "geneId", required = false) String geneId,
             @RequestParam(value = "resultNo", required = false) Integer resultNo,
+            @RequestParam(value = "start", required = false) Integer start,
     		Model model
             ) throws SolrServerException, IOException, URISyntaxException {
 				
-		return is.getImageByPhenotypeGeneAnatomy(phenotypeId, geneId, anatomyId, resultNo);
+		return is.getImageByPhenotypeGeneAnatomy(phenotypeId, geneId, anatomyId, resultNo, start);
     }
 	/**
 	 * 
@@ -68,17 +69,15 @@ public class SolrWrapperController {
 	 * @throws IOException
 	 * @throws URISyntaxException
 	 */
-/*	@RequestMapping(value="/getRois", method=RequestMethod.GET)	
-    public @ResponseBody SolrDocumentList getRoi(
-            @RequestParam(value = "roiId", required = true) String phenotypeId,
-            @RequestParam(value = "start", required = false) Integer start,
-            @RequestParam(value = "resultNo", required = false) Integer resultNo,
+	@RequestMapping(value="/getRois", method=RequestMethod.GET)	
+    public @ResponseBody String getRoi(
+            @RequestParam(value = "roiId", required = true) String roiId,
     		Model model
             ) throws SolrServerException, IOException, URISyntaxException {
 				
-		return rs.getImageByPhenotypeGeneAnatomy(phenotypeId, start, resultNo);
+		return rs.getRoiAsJsonString(roiId);
     }
-	*/
+
 	/**
 	 * 
 	 * @param phenotypeId
@@ -91,12 +90,12 @@ public class SolrWrapperController {
 	 * @throws URISyntaxException
 	 */
 	@RequestMapping(value="/getChannels", method=RequestMethod.GET)	
-    public @ResponseBody ChannelPojo getChannel(
+    public @ResponseBody String getChannel(
             @RequestParam(value = "channelId", required = false) String channelId,
     		Model model
             ) throws SolrServerException, IOException, URISyntaxException {
 			
-		return cs.getChannel(channelId);
+		return cs.getChannelAsJsonString(channelId);
     }
 	
 	

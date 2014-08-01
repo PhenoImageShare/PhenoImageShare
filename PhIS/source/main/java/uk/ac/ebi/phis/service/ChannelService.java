@@ -1,16 +1,15 @@
 package uk.ac.ebi.phis.service;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.List;
 
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.HttpSolrServer;
-import org.apache.solr.client.solrj.response.QueryResponse;
-import org.apache.solr.common.SolrDocumentList;
 
 import uk.ac.ebi.phis.solrj.dto.ChannelPojo;
-import uk.ac.ebi.phis.solrj.dto.ImagePojo;
+import uk.ac.ebi.phis.utils.web.JSONRestUtil;
 
 public class ChannelService {
 
@@ -23,21 +22,23 @@ public class ChannelService {
 	}
 
 	
-	public ChannelPojo getChannel(String channelId){
+	public String getChannelAsJsonString(String channelId){
 		SolrQuery solrQuery = new SolrQuery();
 		solrQuery.setQuery("*:*");
 		solrQuery.setFilterQueries(ChannelPojo.ID + ":\""+ channelId + "\"");
-		System.out.println("------ ChannelPojo" + solr.getBaseURL() + "/select?" + solrQuery);
-		QueryResponse rsp = null;
+		solrQuery.set("wt", "json");
+		
+		System.out.println("------ ChannelPojo" + getQueryUrl(solrQuery));
+
 		try {
-			rsp = solr.query(solrQuery);
-			List<ChannelPojo> res = rsp.getBeans(ChannelPojo.class);
-			if (res.size() > 0)
-				return res.get(0);
-		} catch (SolrServerException e) {
+			return JSONRestUtil.getResults(getQueryUrl(solrQuery)).toString();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
 			e.printStackTrace();
 		}
-		return null;
+		
+		return "Couldn't get anything back from solr.";
 	}
 	
 
@@ -52,6 +53,10 @@ public class ChannelService {
 		}
 	}
 
+	public String getQueryUrl(SolrQuery q){
+		return solr.getBaseURL() + "/select?" + q.toString();
+	}
+	
 
 	/**
 	 * Removes all documents from the core
