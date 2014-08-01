@@ -109,7 +109,7 @@
 				<td>roiId</td>
 				<td><var>String</var></td>
 				<td> true</td>
-				<td>Images depicting the phenotype term passed.</td>
+				<td>ROI with the specified id.</td>
 				<td><var> - </var></td>
 				<td><var>komp2_roi_112003_0</var><br></td>
 			</tr>
@@ -145,9 +145,9 @@
 				<td>channelId</td>
 				<td><var>String</var></td>
 				<td> true</td>
-				<td>Images depicting the phenotype term passed.</td>
-				<td><var> * </var></td>
-				<td><var>MP:0010254</var><br></td>
+				<td>Channel with the specified id.</td>
+				<td><var> - </var></td>
+				<td><var>komp2_channel_112003_0</var><br></td>
 			</tr>
 
 
