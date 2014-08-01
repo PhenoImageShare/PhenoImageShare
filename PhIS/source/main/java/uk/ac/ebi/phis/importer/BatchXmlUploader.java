@@ -608,8 +608,6 @@ public class BatchXmlUploader {
 		
 		res.setObservationBag(observations);
 		
-		if ((phenotypeIds.size() + expressionInAnatomyIds.size() + depictedAnatomyIds.size() + observations.size()) > 0)
-			System.out.println("++ should have phenotype bag" + res.getId());
 		return res;
 	}
 	

@@ -49,6 +49,9 @@ public class ImageService {
 		
 	}
 	
+	public String getSolrUrl () {
+		return solr.getBaseURL();
+	}
 	
 	public void addBeans(List<ImagePojo> imageDocs){
 		try {

@@ -64,7 +64,7 @@
 				<entry key="solrUrl" value="${solrUrl}" />
 				<entry key="internalSolrUrl" value="${internalSolrUrl}" />
 				<entry key="tracerDBPass" value="${tracerDBPass}" />
-				<entry key="kompDBPass" value="${${kompDBPass}" />
+				<entry key="kompDBPass" value="${kompDBPass}" />
 			</map>
 		</property>
 	</bean>

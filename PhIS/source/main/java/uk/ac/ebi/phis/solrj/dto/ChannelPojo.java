@@ -9,33 +9,52 @@ import uk.ac.ebi.phis.service.ChannelService;
 
 public class ChannelPojo {
 
-	@Field(ChannelService.ChannelField.ID)
+	
+
+	public final static String ID = "id";
+	public final static String ASSOCIATED_ROI = "associated_roi";
+	public final static String ASSOCIATED_IMAGE = "associated_image";
+	public final static String GENE_ID = "gene_id";
+	public final static String GENE_SYMBOL = "gene_symbol";
+	public final static String GENETIC_FEATURE_ID = "genetic_feature_id";
+	public final static String GENETIC_FEATURE_SYMBOL = "genetic_feature_symbol";
+	public final static String GENETIC_FEATURE_ENSEML_ID = "genetic_feature_ensembl_id";
+	public final static String CHROMOSOME = "chromosome";
+	public final static String START_POS = "start_pos";
+	public final static String END_POS = "end_pos";
+	public final static String STRAND = "strand";
+	public final static String ZYGOSITY = "zygosity";
+	public final static String MARKER = "marker";
+
+	
+	
+	@Field(ChannelPojo.ID)
 	String id;
-	@Field(ChannelService.ChannelField.ASSOCIATED_IMAGE)
+	@Field(ChannelPojo.ASSOCIATED_IMAGE)
 	String associatedImage;
-	@Field(ChannelService.ChannelField.ASSOCIATED_ROI)
+	@Field(ChannelPojo.ASSOCIATED_ROI)
 	List<String> associatedRoi;
-	@Field(ChannelService.ChannelField.CHROMOSOME)
+	@Field(ChannelPojo.CHROMOSOME)
 	String chromosome;
-	@Field(ChannelService.ChannelField.END_POS)
+	@Field(ChannelPojo.END_POS)
 	long endPos;
-	@Field(ChannelService.ChannelField.GENE_ID)
+	@Field(ChannelPojo.GENE_ID)
 	String geneId;
-	@Field(ChannelService.ChannelField.GENE_SYMBOL)
+	@Field(ChannelPojo.GENE_SYMBOL)
 	String geneSymbol;
-	@Field(ChannelService.ChannelField.GENETIC_FEATURE_ENSEML_ID)
+	@Field(ChannelPojo.GENETIC_FEATURE_ENSEML_ID)
 	String geneticFeatureEnsemlId;
-	@Field(ChannelService.ChannelField.GENETIC_FEATURE_ID)
+	@Field(ChannelPojo.GENETIC_FEATURE_ID)
 	String geneticFeatureId;
-	@Field(ChannelService.ChannelField.GENETIC_FEATURE_SYMBOL)
+	@Field(ChannelPojo.GENETIC_FEATURE_SYMBOL)
 	String geneticFeatureSymbol;
-	@Field(ChannelService.ChannelField.MARKER)
+	@Field(ChannelPojo.MARKER)
 	String marker;
-	@Field(ChannelService.ChannelField.START_POS)
+	@Field(ChannelPojo.START_POS)
 	long startPos;
-	@Field(ChannelService.ChannelField.STRAND)
+	@Field(ChannelPojo.STRAND)
 	String strand;
-	@Field(ChannelService.ChannelField.ZYGOSITY)
+	@Field(ChannelPojo.ZYGOSITY)
 	String zygosity;
 	
 	/**

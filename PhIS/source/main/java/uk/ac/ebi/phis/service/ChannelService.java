@@ -3,39 +3,43 @@ package uk.ac.ebi.phis.service;
 import java.io.IOException;
 import java.util.List;
 
+import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.HttpSolrServer;
+import org.apache.solr.client.solrj.response.QueryResponse;
+import org.apache.solr.common.SolrDocumentList;
 
 import uk.ac.ebi.phis.solrj.dto.ChannelPojo;
+import uk.ac.ebi.phis.solrj.dto.ImagePojo;
 
 public class ChannelService {
 
-	public static final class ChannelField {
-
-		public final static String ID = "id";
-		public final static String ASSOCIATED_ROI = "associated_roi";
-		public final static String ASSOCIATED_IMAGE = "associated_image";
-		public final static String GENE_ID = "gene_id";
-		public final static String GENE_SYMBOL = "gene_symbol";
-		public final static String GENETIC_FEATURE_ID = "genetic_feature_id";
-		public final static String GENETIC_FEATURE_SYMBOL = "genetic_feature_symbol";
-		public final static String GENETIC_FEATURE_ENSEML_ID = "genetic_feature_ensembl_id";
-		public final static String CHROMOSOME = "chromosome";
-		public final static String START_POS = "start_pos";
-		public final static String END_POS = "end_pos";
-		public final static String STRAND = "strand";
-		public final static String ZYGOSITY = "zygosity";
-		public final static String MARKER = "marker";
-
-	}
-
 	private HttpSolrServer solr;
+
 
 	public ChannelService(String solrUrl) {
 
 		solr = new HttpSolrServer(solrUrl);
 	}
 
+	
+	public ChannelPojo getChannel(String channelId){
+		SolrQuery solrQuery = new SolrQuery();
+		solrQuery.setQuery("*:*");
+		solrQuery.setFilterQueries(ChannelPojo.ID + ":\""+ channelId + "\"");
+		System.out.println("------ ChannelPojo" + solr.getBaseURL() + "/select?" + solrQuery);
+		QueryResponse rsp = null;
+		try {
+			rsp = solr.query(solrQuery);
+			List<ChannelPojo> res = rsp.getBeans(ChannelPojo.class);
+			if (res.size() > 0)
+				return res.get(0);
+		} catch (SolrServerException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 
 	public void addBeans(List<ChannelPojo> docs) {
 

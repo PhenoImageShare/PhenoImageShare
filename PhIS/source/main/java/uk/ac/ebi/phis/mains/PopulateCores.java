@@ -54,7 +54,7 @@ public class PopulateCores {
 			RoiService rs = (RoiService) applicationContext.getBean("roiService");
 			ChannelService cs = (ChannelService) applicationContext.getBean("channelService"); 
 			
-			// TODO delete everything in the cores. This will likely change as we might wwant to do updates only.
+			// TODO delete everything in the cores. This will likely change as we might want to do updates only.
 			is.clear();
 			rs.clear();
 			cs.clear();
@@ -69,6 +69,9 @@ public class PopulateCores {
 			time = System.currentTimeMillis();
 			System.out.println("Is valid? " + reader.validateAndUpload(dataDir + "/sangerExport.xml"));
 			System.out.println("Validating Sanger XML took " + (System.currentTimeMillis() - time));
+			
+			System.out.println("Solr url is : " + is.getSolrUrl());
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

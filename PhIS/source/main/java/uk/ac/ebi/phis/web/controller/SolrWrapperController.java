@@ -3,8 +3,6 @@ package uk.ac.ebi.phis.web.controller;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.common.SolrDocumentList;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import uk.ac.ebi.phis.service.ChannelService;
 import uk.ac.ebi.phis.service.ImageService;
+import uk.ac.ebi.phis.service.RoiService;
+import uk.ac.ebi.phis.solrj.dto.ChannelPojo;
 
 @Controller
 @RequestMapping("/rest")
@@ -25,6 +25,14 @@ public class SolrWrapperController {
 
 	@Autowired
 	ImageService is;
+	
+
+	@Autowired
+	RoiService rs;
+	
+
+	@Autowired
+	ChannelService cs;
 	
 	/**
 	 * 
@@ -46,14 +54,51 @@ public class SolrWrapperController {
             @RequestParam(value = "resultNo", required = false) Integer resultNo,
     		Model model
             ) throws SolrServerException, IOException, URISyntaxException {
-		
-	
-	//	model.addAttribute("res", "Loook, here's what you were looking for!\n "+ is.getImageByPhenotypeGeneAnatomy(phenotypeId, geneId, anatomyId));
-		
-	//	return "solrQuery";
-		
+				
 		return is.getImageByPhenotypeGeneAnatomy(phenotypeId, geneId, anatomyId, resultNo);
     }
+	/**
+	 * 
+	 * @param phenotypeId
+	 * @param start
+	 * @param resultNo
+	 * @param model
+	 * @return
+	 * @throws SolrServerException
+	 * @throws IOException
+	 * @throws URISyntaxException
+	 */
+/*	@RequestMapping(value="/getRois", method=RequestMethod.GET)	
+    public @ResponseBody SolrDocumentList getRoi(
+            @RequestParam(value = "roiId", required = true) String phenotypeId,
+            @RequestParam(value = "start", required = false) Integer start,
+            @RequestParam(value = "resultNo", required = false) Integer resultNo,
+    		Model model
+            ) throws SolrServerException, IOException, URISyntaxException {
+				
+		return rs.getImageByPhenotypeGeneAnatomy(phenotypeId, start, resultNo);
+    }
+	*/
+	/**
+	 * 
+	 * @param phenotypeId
+	 * @param start
+	 * @param resultNo
+	 * @param model
+	 * @return
+	 * @throws SolrServerException
+	 * @throws IOException
+	 * @throws URISyntaxException
+	 */
+	@RequestMapping(value="/getChannels", method=RequestMethod.GET)	
+    public @ResponseBody ChannelPojo getChannel(
+            @RequestParam(value = "channelId", required = false) String channelId,
+    		Model model
+            ) throws SolrServerException, IOException, URISyntaxException {
+			
+		return cs.getChannel(channelId);
+    }
+	
 	
 	/**
 	 * 

@@ -26,8 +26,8 @@
    <field name="genetic_feature_ensembl_id" type="string" indexed="true" stored="true" multiValued="false"/>
    
    <field name="chromosome" type="string" indexed="true" stored="true" multiValued="false"/>
-   <field name="start_pos" type="string" indexed="true" stored="true" multiValued="false"/>
-   <field name="end_pos" type="string" indexed="true" stored="true" multiValued="false"/>
+   <field name="start_pos" type="long" indexed="true" stored="true" multiValued="false"/>
+   <field name="end_pos" type="long" indexed="true" stored="true" multiValued="false"/>
    <field name="strand" type="string" indexed="true" stored="true" multiValued="false"/>
    <field name="zygosity" type="string" indexed="true" stored="true" multiValued="false"/>
    <field name="marker" type="string" indexed="true" stored="true" multiValued="false"/><!-- Carried on the genetic feature -->
