@@ -29,32 +29,22 @@ public class ImageService {
 	public String getImage(String phenotype, String mutantGene, String anatomy,  Integer rows, Integer start) throws SolrServerException{
 
 		SolrQuery solrQuery = new SolrQuery();
-//		solrQuery.setQuery("*:*");
+		solrQuery.setQuery("*:*");
 		if (phenotype != null){
-/*			solrQuery.setFilterQueries(ImagePojo.ImageField.PHENOTYPE_ID_BAG + ":\""+ phenotype + "\" OR " + 
-				ImagePojo.ImageField.PHENOTYPE_FREETEXT_BAG + ":\""+ phenotype + "\" OR " + 
-				ImagePojo.ImageField.PHENOTYPE_LABEL_BAG + ":\""+ phenotype + "\"");
-	*/
-
-			solrQuery.setQuery(ImagePojo.ImageField.PHENOTYPE_ID_BAG + ":\""+ phenotype + "\" OR " + 
+			solrQuery.setFilterQueries(ImagePojo.ImageField.PHENOTYPE_ID_BAG + ":\""+ phenotype + "\" OR " + 
 				ImagePojo.ImageField.PHENOTYPE_FREETEXT_BAG + ":\""+ phenotype + "\" OR " + 
 				ImagePojo.ImageField.PHENOTYPE_LABEL_BAG + ":\""+ phenotype + "\"");
 		}
 		
 		if (mutantGene != null){
-//			solrQuery.setFilterQueries(ImagePojo.ImageField.GENE_ID + ":\""+ mutantGene + "\" OR " +
-//				ImagePojo.ImageField.GENE_SYMBOL + ":\""+ mutantGene + "\"");
-			solrQuery.setQuery(ImagePojo.ImageField.GENE_ID + ":\""+ mutantGene + "\" OR " +
-				ImagePojo.ImageField.GENE_SYMBOL + ":\""+ mutantGene + "\"");
+			solrQuery.setFilterQueries(ImagePojo.ImageField.GENE_ID + ":\""+ mutantGene + "\" OR " +
+				ImagePojo.ImageField.GENE_SYMBOL + ":\""+ mutantGene + "\"");		
 		}
 		
 		if (anatomy != null){
-//			solrQuery.setFilterQueries(ImagePojo.ImageField.ANATOMY_ID + ":\""+ anatomy + "\" OR " + 
-//				ImagePojo.ImageField.ANATOMY_TERM + ":\""+ anatomy + "\" OR " + 
-//				ImagePojo.ImageField.ANATOMY_FREETEXT + ":\""+ anatomy + "\"" );
-			solrQuery.setQuery(ImagePojo.ImageField.ANATOMY_ID + ":\""+ anatomy + "\" OR " + 
+			solrQuery.setFilterQueries(ImagePojo.ImageField.ANATOMY_ID + ":\""+ anatomy + "\" OR " + 
 				ImagePojo.ImageField.ANATOMY_TERM + ":\""+ anatomy + "\" OR " + 
-				ImagePojo.ImageField.ANATOMY_FREETEXT + ":\""+ anatomy + "\"");
+				ImagePojo.ImageField.ANATOMY_FREETEXT + ":\""+ anatomy + "\"" );
 		}
 		
 		if (rows != null){
