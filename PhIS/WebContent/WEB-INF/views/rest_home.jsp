@@ -66,7 +66,7 @@
 				<td><var>Integer</var></td>
 				<td>false</td>
 				<td>Number of result objects to be returned back.</td>
-				<td><var>10</var></td>
+				<td><var>100</var></td>
 				<td><var></var><br></td>
 			</tr>
 			
