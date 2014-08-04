@@ -350,6 +350,8 @@ public class BatchXmlUploader {
 
 		if (img.getAssociatedChannel() != null){
 			bean.setAssociatedChannel(img.getAssociatedChannel().getEl());
+			// Need to copy some fields for search purposes
+			bean = copyFieldsFromChannel(img, bean);
 		}
 		
 		if (desc.getImageDimensions().getImageDepth() != null){
@@ -610,6 +612,50 @@ public class BatchXmlUploader {
 		
 		return res;
 	}
+	
+	
+private ImagePojo copyFieldsFromChannel(Image img, ImagePojo pojo){
+		
+		ImagePojo res = pojo;
+
+		System.out.println("I get in copyFieldsFromChannel.");
+		
+		ArrayList<String> expressedGfBag = new ArrayList<>();
+		
+		// For all associated ROIs, check available annotations and copy them as needed in the bag fields
+		for (String channelId : img.getAssociatedChannel().getEl()){
+			
+			System.out.println("I get In for loop.");
+			
+			Channel channel = channelIdMap.get(channelId);		
+			
+			// expressed features
+			if (channel.getDepictsExpressionOf() != null){
+				GenotypeComponent gf = channel.getDepictsExpressionOf();
+				if (gf.getGeneId() != null){
+					expressedGfBag.add(gf.getGeneId());
+				}
+				if (gf.getGeneSymbol() != null){
+					expressedGfBag.add(gf.getGeneSymbol());
+				}
+				if (gf.getGeneticFeatureId() != null){
+					expressedGfBag.add(gf.getGeneticFeatureId());
+				}
+				if (gf.getGeneticFeatureEnsemblId() != null){
+					expressedGfBag.add(gf.getGeneticFeatureEnsemblId());
+				}
+				if (gf.getGeneticFeatureSymbol() != null){
+					expressedGfBag.add(gf.getGeneticFeatureSymbol());
+				}	
+				System.out.println("\n\n\n\n " + img.getId() + " found expression of\n\n\n\n");
+				break;
+			}
+		}
+
+		res.setExpressedGfIdBag(expressedGfBag);
+		return res;
+	}
+	
 	
 	boolean validateAgainstXSD(InputStream xml, InputStream xsd) {
 

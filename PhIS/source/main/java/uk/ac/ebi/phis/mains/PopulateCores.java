@@ -63,7 +63,7 @@ public class PopulateCores {
 
 			//TODO use full path to the file!!
 			long time = System.currentTimeMillis();	
-			System.out.println(reader.validateAndUpload(dataDir + "/tracerExport.xml"));
+	//		System.out.println(reader.validateAndUpload(dataDir + "/tracerExport.xml"));
 			System.out.println("Validating Tracer XML took " + (System.currentTimeMillis() - time));
 
 			time = System.currentTimeMillis();

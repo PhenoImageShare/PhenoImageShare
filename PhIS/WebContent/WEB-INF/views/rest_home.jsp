@@ -34,7 +34,7 @@
 
 
 			<tr>
-				<td>phenotypeId</td>
+				<td>phenotype</td>
 				<td><var>String</var></td>
 				<td>false</td>
 				<td>Images depicting the phenotype term passed.</td>
@@ -43,22 +43,22 @@
 			</tr>
 
 			<tr>
-				<td>anatomyId</td>
+				<td>anatomy</td>
 				<td><var>String</var></td>
 				<td>false</td>
 				<td>Images depicting the given anatomical structure, regardless
 					of abnormalities.</td>
 				<td><var> * </var></td>
-				<td><var>MA:0000261</var></td>
+				<td><var>MA:0000261, eye</var></td>
 			</tr>
 
 			<tr>
-				<td>geneId</td>
+				<td>gene</td>
 				<td><var>String</var></td>
 				<td>false</td>
 				<td>Filters for samples with a mutation in the specified gene.</td>
 				<td><var> * </var></td>
-				<td><var>MGI:1891295</var></td>
+				<td><var>MGI:1891295, Spns2</var></td>
 			</tr>
 
 			<tr>

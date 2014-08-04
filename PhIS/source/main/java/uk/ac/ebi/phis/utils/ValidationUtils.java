@@ -59,14 +59,14 @@ public class ValidationUtils {
 		// depicted anatomy
 		res = res && checkOntologyTerm(ann, "anatomy");
 		if (!res) {
-			System.out.println(">>> Ontology term is not a valid entry for anatomy.");
+//			System.out.println(">>> Ontology term is not a valid entry for anatomy.");
 			return false;
 		}
 		// stage
 		if (img.getOrganism().getStage() != null) {
 			res = res && checkOntologyTerm(img.getOrganism().getStage(), "stage");
 			if (!res) {
-				System.out.println(">>> Ontology term " + img.getOrganism().getStage().getTermId() + "(" + img.getOrganism().getStage().getTermLabel() + ") is not a valid entry for stage.");
+//				System.out.println(">>> Ontology term " + img.getOrganism().getStage().getTermId() + "(" + img.getOrganism().getStage().getTermLabel() + ") is not a valid entry for stage.");
 				return false;
 			}
 		}
@@ -77,7 +77,7 @@ public class ValidationUtils {
 				for (OntologyTerm ot : ontologyTermArray) {
 					res = res && checkOntologyTerm(ot, "samplePreparation");
 					if (!res) {
-						System.out.println(">>> Ontology term " + ot.getTermId() + "(" + ot.getTermLabel() + ") is not a valid entry for samplePreparation.");
+//						System.out.println(">>> Ontology term " + ot.getTermId() + "(" + ot.getTermLabel() + ") is not a valid entry for samplePreparation.");
 						return false;
 					}
 				}
@@ -89,7 +89,7 @@ public class ValidationUtils {
 				for (OntologyTerm ot : ontologyTermArray) {
 					res = res && checkOntologyTerm(ot, "visualisationMethod");
 					if (!res) {
-						System.out.println(">>> Ontology term " + ot.getTermId() + "(" + ot.getTermLabel() + ") is not a valid entry for visualisationMethod.");
+//						System.out.println(">>> Ontology term " + ot.getTermId() + "(" + ot.getTermLabel() + ") is not a valid entry for visualisationMethod.");
 						return false;
 					}
 				}

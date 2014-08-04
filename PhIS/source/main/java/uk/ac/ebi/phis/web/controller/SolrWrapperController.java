@@ -48,9 +48,9 @@ public class SolrWrapperController {
 	 */
 	@RequestMapping(value="/getImages", method=RequestMethod.GET)	
     public @ResponseBody String getExperimentalData(
-            @RequestParam(value = "phenotypeId", required = false) String phenotypeId,
-            @RequestParam(value = "anatomyId", required = false) String anatomyId,
-            @RequestParam(value = "geneId", required = false) String geneId,
+            @RequestParam(value = "phenotype", required = false) String phenotypeId,
+            @RequestParam(value = "anatomy", required = false) String anatomyId,
+            @RequestParam(value = "gene", required = false) String geneId,
             @RequestParam(value = "resultNo", required = false) Integer resultNo,
             @RequestParam(value = "start", required = false) Integer start,
     		Model model
