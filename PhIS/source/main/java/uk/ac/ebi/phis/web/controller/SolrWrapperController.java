@@ -56,7 +56,7 @@ public class SolrWrapperController {
     		Model model
             ) throws SolrServerException, IOException, URISyntaxException {
 				
-		return is.getImageByPhenotypeGeneAnatomy(phenotypeId, geneId, anatomyId, resultNo, start);
+		return is.getImage(phenotypeId, geneId, anatomyId, resultNo, start);
     }
 	/**
 	 * 

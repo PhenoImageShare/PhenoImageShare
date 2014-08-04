@@ -26,7 +26,7 @@ public class ImageService {
 
 	}
 	
-	public String getImageByPhenotypeGeneAnatomy(String phenotype, String mutantGene, String anatomy, Integer rows, Integer start) throws SolrServerException{
+	public String getImage(String phenotype, String mutantGene, String anatomy, Integer rows, Integer start) throws SolrServerException{
 
 		SolrQuery solrQuery = new SolrQuery();
 		solrQuery.setQuery("*:*");
@@ -45,7 +45,7 @@ public class ImageService {
 		if (rows != null){
 			solrQuery.setRows(rows);
 		}
-		else solrQuery.setRows(10);
+		else solrQuery.setRows(100);
 		
 		if (start != null){
 			solrQuery.set("start", start);
