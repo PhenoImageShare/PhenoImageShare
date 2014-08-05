@@ -41,6 +41,23 @@ public class ChannelService {
 		return "Couldn't get anything back from solr.";
 	}
 	
+	public String getChannels(String imageId){
+		SolrQuery solrQuery = new SolrQuery();
+		solrQuery.setQuery("*:*");
+		solrQuery.setFilterQueries(ChannelDTO.ASSOCIATED_IMAGE + ":\""+ imageId + "\"");
+		solrQuery.set("wt", "json");
+		
+		try {
+			return JSONRestUtil.getResults(getQueryUrl(solrQuery)).toString();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+		
+		return "getChannels : Couldn't get anything back from solr.";
+	}
+	
 
 	public void addBeans(List<ChannelDTO> docs) {
 

@@ -79,11 +79,18 @@ public class SolrWrapperController {
 	 */
 	@RequestMapping(value="/getRois", method=RequestMethod.GET)	
     public @ResponseBody String getRoi(
-            @RequestParam(value = "roiId", required = true) String roiId,
+    		@RequestParam(value = "roiId", required = false) String roiId,
+    		@RequestParam(value = "imageId", required = false) String imageId,
     		Model model
             ) throws SolrServerException, IOException, URISyntaxException {
 				
-		return rs.getRoiAsJsonString(roiId);
+		if (roiId != null){
+			return rs.getRoiAsJsonString(roiId);
+		}
+		else if (imageId != null){
+			return rs.getRois(imageId);
+		}
+		return "";
     }
 
 	/**
@@ -100,10 +107,16 @@ public class SolrWrapperController {
 	@RequestMapping(value="/getChannels", method=RequestMethod.GET)	
     public @ResponseBody String getChannel(
             @RequestParam(value = "channelId", required = false) String channelId,
+    		@RequestParam(value = "imageId", required = false) String imageId,
     		Model model
             ) throws SolrServerException, IOException, URISyntaxException {
-			
-		return cs.getChannelAsJsonString(channelId);
+		
+		if (channelId != null){
+			return cs.getChannelAsJsonString(channelId);
+		}else if (imageId != null){
+			return cs.getChannels(imageId);
+		}
+		return "";
     }
 	
 	

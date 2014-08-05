@@ -26,10 +26,10 @@ public class RoiService {
 		solr = new HttpSolrServer(solrUrl);
 	}
 	
-	public String getRoiAsJsonString(String channelId){
+	public String getRoiAsJsonString(String roiId){
 		SolrQuery solrQuery = new SolrQuery();
 		solrQuery.setQuery("*:*");
-		solrQuery.setFilterQueries(RoiDTO.ID + ":\""+ channelId + "\"");
+		solrQuery.setFilterQueries(RoiDTO.ID + ":\""+ roiId + "\"");
 		solrQuery.set("wt", "json");
 		
 		System.out.println("------ ROI" + getQueryUrl(solrQuery));
@@ -45,6 +45,26 @@ public class RoiService {
 		return "Couldn't get anything back from solr.";
 	}	
 
+
+	public String getRois(String imageId){
+		
+		SolrQuery solrQuery = new SolrQuery();
+		solrQuery.setQuery("*:*");
+		solrQuery.setFilterQueries(RoiDTO.ASSOCIATED_IMAGE_ID + ":\""+ imageId + "\"");
+		solrQuery.set("wt", "json");
+		
+
+		try {
+			return JSONRestUtil.getResults(getQueryUrl(solrQuery)).toString();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+		
+		return "Couldn't get anything back from solr.";
+	}	
+	
 	public void addBeans(List<RoiDTO> docs){
 		try {
 			solr.addBeans(docs);

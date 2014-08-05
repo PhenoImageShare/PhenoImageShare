@@ -8,7 +8,8 @@ public class RoiDTO {
 	
 	
 	public static final String ID="id";
-
+	public static final String  ASSOCIATED_IMAGE_ID = "associated_image";
+	
 	@Field("id")
 	String id;
 
