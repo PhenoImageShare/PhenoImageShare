@@ -101,7 +101,7 @@ public class ValidationUtils {
 				for (OntologyTerm ot : ontologyTermArray) {
 					res = res && checkOntologyTerm(ot, "imagingMethod");
 					if (!res) {
-						System.out.println(">>> Ontology term " + ot.getTermId() + "(" + ot.getTermLabel() + ") is not a valid entry for imagingMethod.");
+//						System.out.println(">>> Ontology term " + ot.getTermId() + "(" + ot.getTermLabel() + ") is not a valid entry for imagingMethod.");
 						return false;
 					}
 				}
@@ -181,7 +181,7 @@ public class ValidationUtils {
 				// check label and id match
 				isValid = isValid && ou.labelMatchesId(ot.getTermLabel(), ot.getTermId());
 				if (!isValid) {
-					System.out.println(">> Label matches id? " + ou.labelMatchesId(ot.getTermLabel(), ot.getTermId()) + " for " + ot.getTermId() + " " + ot.getTermLabel() + "\n>> Or the term is not present in the ontologies known for this field. ");
+//					System.out.println(">> Label matches id? " + ou.labelMatchesId(ot.getTermLabel(), ot.getTermId()) + " for " + ot.getTermId() + " " + ot.getTermLabel() + "\n>> Or the term is not present in the ontologies known for this field. ");
 				}
 				return isValid;
 			}

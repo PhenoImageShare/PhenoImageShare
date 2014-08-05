@@ -1,12 +1,11 @@
 package uk.ac.ebi.phis.xmlDump;
 
-import uk.ac.ebi.phis.jaxb.*;
-
 import java.io.File;
 import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Map;
 
 import javax.sql.DataSource;
@@ -19,10 +18,28 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.w3c.dom.DOMException;
 
+import uk.ac.ebi.phis.jaxb.Age;
+import uk.ac.ebi.phis.jaxb.Annotation;
+import uk.ac.ebi.phis.jaxb.AnnotationArray;
+import uk.ac.ebi.phis.jaxb.AnnotationMode;
+import uk.ac.ebi.phis.jaxb.Channel;
+import uk.ac.ebi.phis.jaxb.Coordinates;
+import uk.ac.ebi.phis.jaxb.Dimensions;
+import uk.ac.ebi.phis.jaxb.Doc;
+import uk.ac.ebi.phis.jaxb.Genotype;
+import uk.ac.ebi.phis.jaxb.GenotypeComponent;
+import uk.ac.ebi.phis.jaxb.Image;
+import uk.ac.ebi.phis.jaxb.ImageDescription;
+import uk.ac.ebi.phis.jaxb.OntologyTerm;
+import uk.ac.ebi.phis.jaxb.OntologyTermArray;
+import uk.ac.ebi.phis.jaxb.Organism;
+import uk.ac.ebi.phis.jaxb.PercentArray;
+import uk.ac.ebi.phis.jaxb.Roi;
+import uk.ac.ebi.phis.jaxb.Sex;
+import uk.ac.ebi.phis.jaxb.StringArray;
+import uk.ac.ebi.phis.jaxb.Zygosity;
 import uk.ac.ebi.phis.utils.EnrichingUtils;
 import uk.ac.ebi.phis.utils.Normalizer;
-import uk.ac.ebi.phis.utils.Utils_deprecated;
-import uk.ac.ebi.phis.utils.ontology.OntologyMapperPredefinedTypes;
 
 public class SangerXmlGenerator {
 	
@@ -135,10 +152,13 @@ public class SangerXmlGenerator {
 			    		Channel channel = null;
 			    		String channelId = "";
 			    		if (imageType.equalsIgnoreCase("expression")){
-					    
+			    			channelId = internalId.replace("komp2_", "komp2_channel_") + "_" + 0; // we know that for Sanger data there is at most one channel.
 			    			channel = new Channel();
 					        channel.setAssociatedImage(internalId);
-				    		channelId = internalId.replace("komp2_", "komp2_channel_") + "_" + 0; // we know that for Sanger data there is at most one channel.
+					        // KOMP2 always has at most 1 channel
+					        StringArray c = new StringArray();
+					        c.getEl().add(channelId);
+					        image.setAssociatedChannel(c);
 				    		channel.setId(channelId);
 				    		channel.setDepictsExpressionOf(gt);
 		    			}

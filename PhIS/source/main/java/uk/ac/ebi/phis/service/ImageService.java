@@ -26,7 +26,7 @@ public class ImageService {
 
 	}
 	
-	public String getImage(String phenotype, String mutantGene, String anatomy,  Integer rows, Integer start) throws SolrServerException{
+	public String getImage(String phenotype, String mutantGene, String anatomy, String expressedGene, Integer rows, Integer start) throws SolrServerException{
 
 		SolrQuery solrQuery = new SolrQuery();
 		solrQuery.setQuery("*:*");
@@ -45,6 +45,9 @@ public class ImageService {
 			solrQuery.setFilterQueries(ImagePojo.ImageField.ANATOMY_ID + ":\""+ anatomy + "\" OR " + 
 				ImagePojo.ImageField.ANATOMY_TERM + ":\""+ anatomy + "\" OR " + 
 				ImagePojo.ImageField.ANATOMY_FREETEXT + ":\""+ anatomy + "\"" );
+		}
+		if (expressedGene != null){
+			solrQuery.setFilterQueries(ImagePojo.ImageField.EXPRESSED_GF_ID_BAG + ":\"" + expressedGene + "\"");
 		}
 		
 		if (rows != null){

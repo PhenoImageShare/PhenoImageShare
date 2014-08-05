@@ -60,6 +60,15 @@
 				<td><var> * </var></td>
 				<td><var>MGI:1891295, Spns2</var></td>
 			</tr>
+			
+			<tr>
+				<td>expressedFeature</td>
+				<td><var>String</var></td>
+				<td>false</td>
+				<td>Filters for images depicting expression of the specified feature (gene or allele symbol or id).</td>
+				<td><var> * </var></td>
+				<td><var> Akt2</var></td>
+			</tr>
 
 			<tr>
 				<td>resultNo</td>

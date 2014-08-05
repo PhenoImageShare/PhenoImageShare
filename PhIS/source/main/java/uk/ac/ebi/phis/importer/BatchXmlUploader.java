@@ -349,6 +349,7 @@ public class BatchXmlUploader {
 		}
 
 		if (img.getAssociatedChannel() != null){
+			System.out.println("\t channel not null");
 			bean.setAssociatedChannel(img.getAssociatedChannel().getEl());
 			// Need to copy some fields for search purposes
 			bean = copyFieldsFromChannel(img, bean);
