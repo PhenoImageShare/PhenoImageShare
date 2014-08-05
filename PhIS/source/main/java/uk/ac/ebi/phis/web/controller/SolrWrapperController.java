@@ -52,12 +52,13 @@ public class SolrWrapperController {
             @RequestParam(value = "anatomy", required = false) String anatomy,
             @RequestParam(value = "gene", required = false) String gene,
             @RequestParam(value = "expressedFeature", required = false) String expressedGene,
+            @RequestParam(value = "sex", required = false) String sex,
             @RequestParam(value = "resultNo", required = false) Integer resultNo,
             @RequestParam(value = "start", required = false) Integer start,
     		Model model
             ) throws SolrServerException, IOException, URISyntaxException {
 				
-		return is.getImage(phenotype, gene, anatomy, expressedGene, resultNo, start);
+		return is.getImage(phenotype, gene, anatomy, expressedGene, sex, resultNo, start);
     }
 	/**
 	 * 

@@ -67,7 +67,16 @@
 				<td>false</td>
 				<td>Filters for images depicting expression of the specified feature (gene or allele symbol or id).</td>
 				<td><var> * </var></td>
-				<td><var> Akt2</var></td>
+				<td><var> Sesn3 </var></td>
+			</tr>
+			
+			<tr>
+				<td>sex</td>
+				<td><var>String</var></td>
+				<td>false</td>
+				<td>Returns only images of samples with the specified sex.</td>
+				<td><var> * </var></td>
+				<td><var> FEMALE / MALE </var> </td>
 			</tr>
 
 			<tr>
