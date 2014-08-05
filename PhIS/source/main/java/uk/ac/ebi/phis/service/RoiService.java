@@ -8,8 +8,8 @@ import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.HttpSolrServer;
 
-import uk.ac.ebi.phis.solrj.dto.ChannelPojo;
-import uk.ac.ebi.phis.solrj.dto.RoiPojo;
+import uk.ac.ebi.phis.solrj.dto.ChannelDTO;
+import uk.ac.ebi.phis.solrj.dto.RoiDTO;
 import uk.ac.ebi.phis.utils.web.JSONRestUtil;
 
 
@@ -29,7 +29,7 @@ public class RoiService {
 	public String getRoiAsJsonString(String channelId){
 		SolrQuery solrQuery = new SolrQuery();
 		solrQuery.setQuery("*:*");
-		solrQuery.setFilterQueries(RoiPojo.ID + ":\""+ channelId + "\"");
+		solrQuery.setFilterQueries(RoiDTO.ID + ":\""+ channelId + "\"");
 		solrQuery.set("wt", "json");
 		
 		System.out.println("------ ROI" + getQueryUrl(solrQuery));
@@ -45,7 +45,7 @@ public class RoiService {
 		return "Couldn't get anything back from solr.";
 	}	
 
-	public void addBeans(List<RoiPojo> docs){
+	public void addBeans(List<RoiDTO> docs){
 		try {
 			solr.addBeans(docs);
 			solr.commit();

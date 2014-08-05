@@ -8,7 +8,7 @@ import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.HttpSolrServer;
 
-import uk.ac.ebi.phis.solrj.dto.ChannelPojo;
+import uk.ac.ebi.phis.solrj.dto.ChannelDTO;
 import uk.ac.ebi.phis.utils.web.JSONRestUtil;
 
 public class ChannelService {
@@ -25,7 +25,7 @@ public class ChannelService {
 	public String getChannelAsJsonString(String channelId){
 		SolrQuery solrQuery = new SolrQuery();
 		solrQuery.setQuery("*:*");
-		solrQuery.setFilterQueries(ChannelPojo.ID + ":\""+ channelId + "\"");
+		solrQuery.setFilterQueries(ChannelDTO.ID + ":\""+ channelId + "\"");
 		solrQuery.set("wt", "json");
 		
 		System.out.println("------ ChannelPojo" + getQueryUrl(solrQuery));
@@ -42,7 +42,7 @@ public class ChannelService {
 	}
 	
 
-	public void addBeans(List<ChannelPojo> docs) {
+	public void addBeans(List<ChannelDTO> docs) {
 
 		try {
 			solr.addBeans(docs);

@@ -34,9 +34,9 @@ import org.xml.sax.SAXException;
 import uk.ac.ebi.phis.service.ChannelService;
 import uk.ac.ebi.phis.service.ImageService;
 import uk.ac.ebi.phis.service.RoiService;
-import uk.ac.ebi.phis.solrj.dto.ChannelPojo;
-import uk.ac.ebi.phis.solrj.dto.ImagePojo;
-import uk.ac.ebi.phis.solrj.dto.RoiPojo;
+import uk.ac.ebi.phis.solrj.dto.ChannelDTO;
+import uk.ac.ebi.phis.solrj.dto.ImageDTO;
+import uk.ac.ebi.phis.solrj.dto.RoiDTO;
 import uk.ac.ebi.phis.utils.ValidationUtils;
 
 public class BatchXmlUploader {
@@ -114,7 +114,7 @@ public class BatchXmlUploader {
 	throws IOException, SolrServerException {
 		
 		int i = 0;
-		List<ImagePojo> imageDocs = new ArrayList<>();
+		List<ImageDTO> imageDocs = new ArrayList<>();
 		for (Image img : images) {
 			// add it
 			imageDocs.add(fillPojo(img));
@@ -131,7 +131,7 @@ public class BatchXmlUploader {
 	throws IOException, SolrServerException {
 		
 		int i = 0;
-		List<RoiPojo> roiDocs = new ArrayList<>();
+		List<RoiDTO> roiDocs = new ArrayList<>();
 		for (Roi roi : rois) {
 			// add it
 			roiDocs.add(fillPojo(roi));
@@ -148,7 +148,7 @@ public class BatchXmlUploader {
 	throws IOException, SolrServerException {
 		
 		int i = 0;
-		List<ChannelPojo> chDocs = new ArrayList<>();
+		List<ChannelDTO> chDocs = new ArrayList<>();
 		for (Channel channel : channels) {
 			// add it
 			chDocs.add(fillPojo(channel));
@@ -162,9 +162,9 @@ public class BatchXmlUploader {
 	}
 
 	// fillRoiPojo
-	private RoiPojo fillPojo(Roi roi){
+	private RoiDTO fillPojo(Roi roi){
 		
-		RoiPojo bean = new RoiPojo();
+		RoiDTO bean = new RoiDTO();
 		
 		bean.setId(roi.getId());
 
@@ -287,9 +287,9 @@ public class BatchXmlUploader {
 	
 	
 	// fillChannelPojo
-	private ChannelPojo fillPojo(Channel channel) {
+	private ChannelDTO fillPojo(Channel channel) {
 
-		ChannelPojo bean = new ChannelPojo();
+		ChannelDTO bean = new ChannelDTO();
 		
 		bean.setId(channel.getId());
 		bean.setAssociatedImage(channel.getAssociatedImage());
@@ -326,9 +326,9 @@ public class BatchXmlUploader {
 	
 	}
 
-	private ImagePojo fillPojo(Image img) {
+	private ImageDTO fillPojo(Image img) {
 
-		ImagePojo bean = new ImagePojo();
+		ImageDTO bean = new ImageDTO();
 		bean.setTaxon(img.getOrganism().getTaxon());
 		bean.setId(img.getId());
 
@@ -493,9 +493,9 @@ public class BatchXmlUploader {
 	 * @param img
 	 * @return The passed image with added annotations copied from the ROI
 	 */
-	private ImagePojo copyFieldsFromRoi(Image img, ImagePojo pojo){
+	private ImageDTO copyFieldsFromRoi(Image img, ImageDTO pojo){
 		
-		ImagePojo res = pojo;
+		ImageDTO res = pojo;
 
 		ArrayList<String> phenotypeFreetext = new ArrayList<>();
 		ArrayList<String> phenotypeIds = new ArrayList<>();
@@ -615,9 +615,9 @@ public class BatchXmlUploader {
 	}
 	
 	
-private ImagePojo copyFieldsFromChannel(Image img, ImagePojo pojo){
+private ImageDTO copyFieldsFromChannel(Image img, ImageDTO pojo){
 		
-		ImagePojo res = pojo;
+		ImageDTO res = pojo;
 
 		System.out.println("I get in copyFieldsFromChannel.");
 		

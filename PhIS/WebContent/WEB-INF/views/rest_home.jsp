@@ -80,6 +80,51 @@
 			</tr>
 
 			<tr>
+				<td>taxon</td>
+				<td><var>String</var></td>
+				<td>false</td>
+				<td>NCBI id or text / label of a taxon.</td>
+				<td><var> * </var></td>
+				<td><var> Mus musculus </var> </td>
+			</tr>
+
+			<tr>
+				<td>stage</td>
+				<td><var>String</var></td>
+				<td>false</td>
+				<td>Stage ontology id or text.</td>
+				<td><var> * </var></td>
+				<td><var> postnatal stage / MmusDv_0000092 </var> </td>
+			</tr>
+
+			<!-- tr>
+				<td>visualisationMethod</td>
+				<td><var>String</var></td>
+				<td>false</td>
+				<td>Label or id of a child of Visualisation Method in FBBI ontology.</td>
+				<td><var> * </var></td>
+				<td><var> FEMALE / MALE </var> </td>
+			</tr-->
+			
+			<tr>
+				<td>samplePreparation</td>
+				<td><var>String</var></td>
+				<td>false</td>
+				<td>Label or id of a child of Sample Preparation in FBBI ontology.</td>
+				<td><var> * </var></td>
+				<td><var> living tissue </var> </td>
+			</tr>
+			
+			<tr>
+				<td>imagingMethod</td>
+				<td><var>String</var></td>
+				<td>false</td>
+				<td>Label or id of a child of Imaging Method in FBBI ontology..</td>
+				<td><var> * </var></td>
+				<td><var> macroscopy </var> </td>
+			</tr>
+			
+			<tr>
 				<td>resultNo</td>
 				<td><var>Integer</var></td>
 				<td>false</td>

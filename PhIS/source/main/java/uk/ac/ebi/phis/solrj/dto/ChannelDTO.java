@@ -7,7 +7,7 @@ import org.apache.solr.client.solrj.beans.Field;
 import uk.ac.ebi.phis.service.ChannelService;
 
 
-public class ChannelPojo {
+public class ChannelDTO {
 
 	
 
@@ -28,33 +28,33 @@ public class ChannelPojo {
 
 	
 	
-	@Field(ChannelPojo.ID)
+	@Field(ChannelDTO.ID)
 	String id;
-	@Field(ChannelPojo.ASSOCIATED_IMAGE)
+	@Field(ChannelDTO.ASSOCIATED_IMAGE)
 	String associatedImage;
-	@Field(ChannelPojo.ASSOCIATED_ROI)
+	@Field(ChannelDTO.ASSOCIATED_ROI)
 	List<String> associatedRoi;
-	@Field(ChannelPojo.CHROMOSOME)
+	@Field(ChannelDTO.CHROMOSOME)
 	String chromosome;
-	@Field(ChannelPojo.END_POS)
+	@Field(ChannelDTO.END_POS)
 	long endPos;
-	@Field(ChannelPojo.GENE_ID)
+	@Field(ChannelDTO.GENE_ID)
 	String geneId;
-	@Field(ChannelPojo.GENE_SYMBOL)
+	@Field(ChannelDTO.GENE_SYMBOL)
 	String geneSymbol;
-	@Field(ChannelPojo.GENETIC_FEATURE_ENSEML_ID)
+	@Field(ChannelDTO.GENETIC_FEATURE_ENSEML_ID)
 	String geneticFeatureEnsemlId;
-	@Field(ChannelPojo.GENETIC_FEATURE_ID)
+	@Field(ChannelDTO.GENETIC_FEATURE_ID)
 	String geneticFeatureId;
-	@Field(ChannelPojo.GENETIC_FEATURE_SYMBOL)
+	@Field(ChannelDTO.GENETIC_FEATURE_SYMBOL)
 	String geneticFeatureSymbol;
-	@Field(ChannelPojo.MARKER)
+	@Field(ChannelDTO.MARKER)
 	String marker;
-	@Field(ChannelPojo.START_POS)
+	@Field(ChannelDTO.START_POS)
 	long startPos;
-	@Field(ChannelPojo.STRAND)
+	@Field(ChannelDTO.STRAND)
 	String strand;
-	@Field(ChannelPojo.ZYGOSITY)
+	@Field(ChannelDTO.ZYGOSITY)
 	String zygosity;
 	
 	/**
