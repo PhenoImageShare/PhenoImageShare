@@ -4,11 +4,10 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.HttpSolrServer;
-import org.apache.solr.client.solrj.response.QueryResponse;
-import org.apache.solr.common.SolrDocumentList;
 import org.springframework.stereotype.Service;
 
 import uk.ac.ebi.phis.solrj.dto.ImageDTO;
@@ -19,7 +18,7 @@ public class ImageService {
 
 	private HttpSolrServer solr;
 
-	
+	private static final Logger log = Logger.getLogger(ImageService.class);
 
 	public ImageService(String solrUrl) {
 		solr = new HttpSolrServer(solrUrl);
@@ -85,6 +84,7 @@ public class ImageService {
 		solrQuery.set("wt", "json");
 			
 		System.out.println("Solr URL : " + solr.getBaseURL() + "/select?" + solrQuery);
+		log.info("Solr URL in getImages : " + solr.getBaseURL() + "/select?" + solrQuery);
 		try {
 			return JSONRestUtil.getResults(getQueryUrl(solrQuery)).toString();
 		} catch (IOException e) {
