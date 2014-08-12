@@ -84,7 +84,7 @@ public class ImageService {
 		}
 		solrQuery.set("wt", "json");
 			
-
+		System.out.println("Solr URL : " + solr.getBaseURL() + "/select?" + solrQuery);
 		try {
 			return JSONRestUtil.getResults(getQueryUrl(solrQuery)).toString();
 		} catch (IOException e) {
