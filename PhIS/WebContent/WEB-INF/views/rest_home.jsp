@@ -34,6 +34,16 @@
 
 
 			<tr>
+				<td>term</td>
+				<td><var>String</var></td>
+				<td>false</td>
+				<td>Term to search in any searchable field. Can be id or text for any field accessible. These are anatomy, gene and phenotype fields as well as image source and image visualization method, sample preparation.</td>
+				<td><var> * </var></td>
+				<td><var>eye</var><br></td>
+			</tr>
+
+
+			<tr>
 				<td>phenotype</td>
 				<td><var>String</var></td>
 				<td>false</td>

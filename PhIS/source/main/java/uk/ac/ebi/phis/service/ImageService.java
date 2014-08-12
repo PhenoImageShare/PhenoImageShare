@@ -25,11 +25,38 @@ public class ImageService {
 
 	}
 	
-	public String getImage(String phenotype, String mutantGene, String anatomy, String expressedGene, String sex, String taxon, 
+	public String getImage(String term, String phenotype, String mutantGene, String anatomy, String expressedGene, String sex, String taxon, 
 	String stage, String visualisationMethod, String samplePreparation, String imagingMethod, Integer rows, Integer start) throws SolrServerException{
 
 		SolrQuery solrQuery = new SolrQuery();
 		solrQuery.setQuery("*:*");
+		
+		if (term != null){
+			solrQuery.setFilterQueries(ImageDTO.PHENOTYPE_ID_BAG + ":\""+ term + "\" OR " + 
+				ImageDTO.PHENOTYPE_FREETEXT_BAG + ":\""+ term + "\" OR " + 
+				ImageDTO.ANATOMY_COMPUTED_ID_BAG + ":\""+ term + "\" OR " + 
+				ImageDTO.ANATOMY_COMPUTED_TERM_BAG + ":\""+ term + "\" OR " + 
+				ImageDTO.ANATOMY_FREETEXT + ":\""+ term + "\" OR " + 
+				ImageDTO.ANATOMY_ID + ":\""+ term + "\" OR " + 
+				ImageDTO.ANATOMY_TERM + ":\""+ term + "\" OR " + 
+				ImageDTO.GENE_ID + ":\""+ term + "\" OR " + 
+				ImageDTO.GENE_SYMBOL + ":\""+ term + "\" OR " + 
+				ImageDTO.EXPRESSED_GF_ID_BAG + ":\""+ term + "\" OR " + 
+				ImageDTO.EXPRESSED_GF_SYMBOL_BAG + ":\""+ term + "\" OR " + 
+				ImageDTO.EXPRESSION_IN_FREETEXT_BAG + ":\""+ term + "\" OR " + 
+				ImageDTO.EXPRESSION_IN_ID_BAG + ":\""+ term + "\" OR " + 
+				ImageDTO.EXPRESSION_IN_LABEL_BAG + ":\""+ term + "\" OR " + 
+				ImageDTO.IMAGE_GENERATED_BY + ":\""+ term + "\" OR " + 
+				ImageDTO.IMAGING_METHOD_ID + ":\""+ term + "\" OR " + 
+				ImageDTO.IMAGING_METHOD_LABEL + ":\""+ term + "\" OR " + 
+				ImageDTO.VISUALISATION_METHOD_ID + ":\""+ term + "\" OR " + 
+				ImageDTO.VISUALISATION_METHOD_LABEL + ":\""+ term + "\" OR " + 
+				ImageDTO.SAMPLE_GENERATED_BY + ":\""+ term + "\" OR " + 
+				ImageDTO.SAMPLE_PREPARATION_ID + ":\""+ term + "\" OR " + 
+				ImageDTO.SAMPLE_PREPARATION_LABEL + ":\""+ term + "\" OR " + 
+				ImageDTO.PHENOTYPE_LABEL_BAG + ":\""+ term + "\"");
+		}
+		
 		if (phenotype != null){
 			solrQuery.setFilterQueries(ImageDTO.PHENOTYPE_ID_BAG + ":\""+ phenotype + "\" OR " + 
 				ImageDTO.PHENOTYPE_FREETEXT_BAG + ":\""+ phenotype + "\" OR " + 

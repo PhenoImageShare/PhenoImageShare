@@ -48,7 +48,8 @@ public class SolrWrapperController {
 	 */
 	@RequestMapping(value="/getImages", method=RequestMethod.GET)	
     public @ResponseBody String getExperimentalData(
-            @RequestParam(value = "phenotype", required = false) String phenotype,
+    		@RequestParam(value = "term", required = false) String term,
+    		@RequestParam(value = "phenotype", required = false) String phenotype,
             @RequestParam(value = "anatomy", required = false) String anatomy,
             @RequestParam(value = "gene", required = false) String gene,
             @RequestParam(value = "expressedFeature", required = false) String expressedGene,
@@ -63,7 +64,7 @@ public class SolrWrapperController {
     		Model model
             ) throws SolrServerException, IOException, URISyntaxException {
 				
-		return is.getImage(phenotype, gene, anatomy, expressedGene, sex, taxon, stage, visualisationMethod, 
+		return is.getImage(term, phenotype, gene, anatomy, expressedGene, sex, taxon, stage, visualisationMethod, 
 						samplePreparation, imagingMethod, resultNo, start);
     }
 	/**
@@ -135,3 +136,5 @@ public class SolrWrapperController {
 		return "rest_home";
     }
 }
+
+
