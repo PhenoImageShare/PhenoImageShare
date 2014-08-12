@@ -67,18 +67,42 @@ public class SolrWrapperController {
 		return is.getImage(term, phenotype, gene, anatomy, expressedGene, sex, taxon, stage, visualisationMethod, 
 						samplePreparation, imagingMethod, resultNo, start);
     }
-	/**
-	 * 
-	 * @param phenotypeId
-	 * @param start
-	 * @param resultNo
-	 * @param model
-	 * @return
-	 * @throws SolrServerException
-	 * @throws IOException
-	 * @throws URISyntaxException
-	 */
+	
+	
 	@RequestMapping(value="/getRois", method=RequestMethod.GET)	
+    public @ResponseBody String getRois(
+    		@RequestParam(value = "roiId", required = false) String roiId,
+    		@RequestParam(value = "imageId", required = false) String imageId,
+    		Model model
+            ) throws SolrServerException, IOException, URISyntaxException {
+				
+		if (roiId != null){
+			return rs.getRoiAsJsonString(roiId);
+		}
+		else if (imageId != null){
+			return rs.getRois(imageId);
+		}
+		return "";
+    }
+
+	
+	@RequestMapping(value="/getChannels", method=RequestMethod.GET)	
+    public @ResponseBody String getChannels(
+            @RequestParam(value = "channelId", required = false) String channelId,
+    		@RequestParam(value = "imageId", required = false) String imageId,
+    		Model model
+            ) throws SolrServerException, IOException, URISyntaxException {
+		
+		if (channelId != null){
+			return cs.getChannelAsJsonString(channelId);
+		}else if (imageId != null){
+			return cs.getChannels(imageId);
+		}
+		return "";
+    }
+	
+	
+	@RequestMapping(value="/getRoi", method=RequestMethod.GET)	
     public @ResponseBody String getRoi(
     		@RequestParam(value = "roiId", required = false) String roiId,
     		@RequestParam(value = "imageId", required = false) String imageId,
@@ -94,18 +118,7 @@ public class SolrWrapperController {
 		return "";
     }
 
-	/**
-	 * 
-	 * @param phenotypeId
-	 * @param start
-	 * @param resultNo
-	 * @param model
-	 * @return
-	 * @throws SolrServerException
-	 * @throws IOException
-	 * @throws URISyntaxException
-	 */
-	@RequestMapping(value="/getChannels", method=RequestMethod.GET)	
+	@RequestMapping(value="/getChannel", method=RequestMethod.GET)	
     public @ResponseBody String getChannel(
             @RequestParam(value = "channelId", required = false) String channelId,
     		@RequestParam(value = "imageId", required = false) String imageId,
@@ -119,7 +132,6 @@ public class SolrWrapperController {
 		}
 		return "";
     }
-	
 	
 	/**
 	 * 
