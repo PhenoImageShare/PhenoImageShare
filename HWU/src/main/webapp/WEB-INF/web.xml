@@ -1,0 +1,49 @@
+<web-app
+        version="3.0"
+        xmlns="http://java.sun.com/xml/ns/javaee"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+    <display-name>IQS</display-name>
+    <servlet>
+        <servlet-name>GetImages</servlet-name>
+        <servlet-class>uk.ac.hw.macs.bisel.phis.iqs.GetImages</servlet-class> 
+    </servlet>
+    <servlet>
+        <servlet-name>GetROIs</servlet-name>
+        <servlet-class>uk.ac.hw.macs.bisel.phis.iqs.GetROIs</servlet-class> 
+    </servlet>
+    <servlet>
+        <servlet-name>GetChannels</servlet-name>
+        <servlet-class>uk.ac.hw.macs.bisel.phis.iqs.GetChannels</servlet-class> 
+    </servlet>    
+    <servlet-mapping>
+        <servlet-name>GetImages</servlet-name>
+        <url-pattern>/GetImages</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetImages</servlet-name>
+        <url-pattern>/getimages</url-pattern>
+    </servlet-mapping>    
+    <servlet-mapping>
+        <servlet-name>GetROIs</servlet-name>
+        <url-pattern>/GetROI</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetROIs</servlet-name>
+        <url-pattern>/getroi</url-pattern>
+    </servlet-mapping>   
+    <servlet-mapping>
+        <servlet-name>GetChannels</servlet-name>
+        <url-pattern>/GetChannel</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetChannels</servlet-name>
+        <url-pattern>/getchannel</url-pattern>
+    </servlet-mapping>     
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+</web-app>
+
