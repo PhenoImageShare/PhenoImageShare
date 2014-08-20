@@ -1,6 +1,6 @@
 package uk.ac.ebi.phis.utils;
 
-import j.GenomicLocation;
+import uk.ac.ebi.phis.jaxb.GenomicLocation;
 
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;

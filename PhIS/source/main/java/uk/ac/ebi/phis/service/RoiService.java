@@ -1,12 +1,16 @@
 package uk.ac.ebi.phis.service;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.List;
 
+import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.HttpSolrServer;
 
-import uk.ac.ebi.phis.solrj.pojo.RoiPojo;
+import uk.ac.ebi.phis.solrj.dto.ChannelDTO;
+import uk.ac.ebi.phis.solrj.dto.RoiDTO;
+import uk.ac.ebi.phis.utils.web.JSONRestUtil;
 
 
 public class RoiService {
@@ -17,19 +21,55 @@ public class RoiService {
 	public static final class RoiField {
 		
 	}
-	
 
 	public RoiService(String solrUrl) {
 		solr = new HttpSolrServer(solrUrl);
 	}
 	
+	public String getRoiAsJsonString(String roiId){
+		SolrQuery solrQuery = new SolrQuery();
+		solrQuery.setQuery("*:*");
+		solrQuery.setFilterQueries(RoiDTO.ID + ":\""+ roiId + "\"");
+		solrQuery.set("wt", "json");
+		
+		System.out.println("------ ROI" + getQueryUrl(solrQuery));
 
-	public void addBeans(List<RoiPojo> docs){
+		try {
+			return JSONRestUtil.getResults(getQueryUrl(solrQuery)).toString();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+		
+		return "Couldn't get anything back from solr.";
+	}	
+
+
+	public String getRois(String imageId){
+		
+		SolrQuery solrQuery = new SolrQuery();
+		solrQuery.setQuery("*:*");
+		solrQuery.setFilterQueries(RoiDTO.ASSOCIATED_IMAGE_ID + ":\""+ imageId + "\"");
+		solrQuery.set("wt", "json");
+		
+
+		try {
+			return JSONRestUtil.getResults(getQueryUrl(solrQuery)).toString();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+		
+		return "Couldn't get anything back from solr.";
+	}	
+	
+	public void addBeans(List<RoiDTO> docs){
 		try {
 			solr.addBeans(docs);
 			solr.commit();
 		} catch (SolrServerException | IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -42,6 +82,11 @@ public class RoiService {
 	 */
 	public void clear() throws SolrServerException, IOException{
 		solr.deleteByQuery("*:*");
+	}
+	
+
+	public String getQueryUrl(SolrQuery q){
+		return solr.getBaseURL() + "/select?" + q.toString();
 	}
 	
 }

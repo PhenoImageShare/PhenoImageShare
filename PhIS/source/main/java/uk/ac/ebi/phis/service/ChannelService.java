@@ -1,43 +1,65 @@
 package uk.ac.ebi.phis.service;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.List;
 
+import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.HttpSolrServer;
 
-import uk.ac.ebi.phis.solrj.pojo.ChannelPojo;
+import uk.ac.ebi.phis.solrj.dto.ChannelDTO;
+import uk.ac.ebi.phis.utils.web.JSONRestUtil;
 
 public class ChannelService {
 
-	public static final class ChannelField {
-
-		public final static String ID = "id";
-		public final static String ASSOCIATED_ROI = "associated_roi";
-		public final static String ASSOCIATED_IMAGE = "associated_image";
-		public final static String GENE_ID = "gene_id";
-		public final static String GENE_SYMBOL = "gene_symbol";
-		public final static String GENETIC_FEATURE_ID = "genetic_feature_id";
-		public final static String GENETIC_FEATURE_SYMBOL = "genetic_feature_symbol";
-		public final static String GENETIC_FEATURE_ENSEML_ID = "genetic_feature_ensembl_id";
-		public final static String CHROMOSOME = "chromosome";
-		public final static String START_POS = "start_pos";
-		public final static String END_POS = "end_pos";
-		public final static String STRAND = "strand";
-		public final static String ZYGOSITY = "zygosity";
-		public final static String MARKER = "marker";
-
-	}
-
 	private HttpSolrServer solr;
+
 
 	public ChannelService(String solrUrl) {
 
 		solr = new HttpSolrServer(solrUrl);
 	}
 
+	
+	public String getChannelAsJsonString(String channelId){
+		SolrQuery solrQuery = new SolrQuery();
+		solrQuery.setQuery("*:*");
+		solrQuery.setFilterQueries(ChannelDTO.ID + ":\""+ channelId + "\"");
+		solrQuery.set("wt", "json");
+		
+		System.out.println("------ ChannelPojo" + getQueryUrl(solrQuery));
 
-	public void addBeans(List<ChannelPojo> docs) {
+		try {
+			return JSONRestUtil.getResults(getQueryUrl(solrQuery)).toString();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+		
+		return "Couldn't get anything back from solr.";
+	}
+	
+	public String getChannels(String imageId){
+		SolrQuery solrQuery = new SolrQuery();
+		solrQuery.setQuery("*:*");
+		solrQuery.setFilterQueries(ChannelDTO.ASSOCIATED_IMAGE + ":\""+ imageId + "\"");
+		solrQuery.set("wt", "json");
+		
+		try {
+			return JSONRestUtil.getResults(getQueryUrl(solrQuery)).toString();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+		
+		return "getChannels : Couldn't get anything back from solr.";
+	}
+	
+
+	public void addBeans(List<ChannelDTO> docs) {
 
 		try {
 			solr.addBeans(docs);
@@ -48,6 +70,10 @@ public class ChannelService {
 		}
 	}
 
+	public String getQueryUrl(SolrQuery q){
+		return solr.getBaseURL() + "/select?" + q.toString();
+	}
+	
 
 	/**
 	 * Removes all documents from the core

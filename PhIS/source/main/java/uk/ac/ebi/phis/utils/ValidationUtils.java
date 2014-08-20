@@ -1,12 +1,12 @@
 package uk.ac.ebi.phis.utils;
 
-import j.Annotation;
-import j.Coordinates;
-import j.Dimensions;
-import j.Image;
-import j.OntologyTerm;
-import j.OntologyTermArray;
-import j.Roi;
+import uk.ac.ebi.phis.jaxb.Annotation;
+import uk.ac.ebi.phis.jaxb.Coordinates;
+import uk.ac.ebi.phis.jaxb.Dimensions;
+import uk.ac.ebi.phis.jaxb.Image;
+import uk.ac.ebi.phis.jaxb.OntologyTerm;
+import uk.ac.ebi.phis.jaxb.OntologyTermArray;
+import uk.ac.ebi.phis.jaxb.Roi;
 
 import java.util.List;
 
@@ -59,14 +59,14 @@ public class ValidationUtils {
 		// depicted anatomy
 		res = res && checkOntologyTerm(ann, "anatomy");
 		if (!res) {
-			System.out.println(">>> Ontology term is not a velid entry for anatomy.");
+//			System.out.println(">>> Ontology term is not a valid entry for anatomy.");
 			return false;
 		}
 		// stage
 		if (img.getOrganism().getStage() != null) {
 			res = res && checkOntologyTerm(img.getOrganism().getStage(), "stage");
 			if (!res) {
-				System.out.println(">>> Ontology term " + img.getOrganism().getStage().getTermId() + "(" + img.getOrganism().getStage().getTermLabel() + ") is not a velid entry for stage.");
+//				System.out.println(">>> Ontology term " + img.getOrganism().getStage().getTermId() + "(" + img.getOrganism().getStage().getTermLabel() + ") is not a valid entry for stage.");
 				return false;
 			}
 		}
@@ -77,7 +77,7 @@ public class ValidationUtils {
 				for (OntologyTerm ot : ontologyTermArray) {
 					res = res && checkOntologyTerm(ot, "samplePreparation");
 					if (!res) {
-						System.out.println(">>> Ontology term " + ot.getTermId() + "(" + ot.getTermLabel() + ") is not a velid entry for samplePreparation.");
+//						System.out.println(">>> Ontology term " + ot.getTermId() + "(" + ot.getTermLabel() + ") is not a valid entry for samplePreparation.");
 						return false;
 					}
 				}
@@ -89,7 +89,7 @@ public class ValidationUtils {
 				for (OntologyTerm ot : ontologyTermArray) {
 					res = res && checkOntologyTerm(ot, "visualisationMethod");
 					if (!res) {
-						System.out.println(">>> Ontology term " + ot.getTermId() + "(" + ot.getTermLabel() + ") is not a velid entry for visualisationMethod.");
+//						System.out.println(">>> Ontology term " + ot.getTermId() + "(" + ot.getTermLabel() + ") is not a valid entry for visualisationMethod.");
 						return false;
 					}
 				}
@@ -101,7 +101,7 @@ public class ValidationUtils {
 				for (OntologyTerm ot : ontologyTermArray) {
 					res = res && checkOntologyTerm(ot, "imagingMethod");
 					if (!res) {
-						System.out.println(">>> Ontology term " + ot.getTermId() + "(" + ot.getTermLabel() + ") is not a velid entry for imagingMethod.");
+//						System.out.println(">>> Ontology term " + ot.getTermId() + "(" + ot.getTermLabel() + ") is not a valid entry for imagingMethod.");
 						return false;
 					}
 				}
@@ -181,7 +181,7 @@ public class ValidationUtils {
 				// check label and id match
 				isValid = isValid && ou.labelMatchesId(ot.getTermLabel(), ot.getTermId());
 				if (!isValid) {
-					System.out.println(">> Label matches id? " + ou.labelMatchesId(ot.getTermLabel(), ot.getTermId()) + " for " + ot.getTermId() + " " + ot.getTermLabel() + "\n>> Or the term is not present in the ontologies known for this field. ");
+//					System.out.println(">> Label matches id? " + ou.labelMatchesId(ot.getTermLabel(), ot.getTermId()) + " for " + ot.getTermId() + " " + ot.getTermLabel() + "\n>> Or the term is not present in the ontologies known for this field. ");
 				}
 				return isValid;
 			}

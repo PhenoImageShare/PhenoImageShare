@@ -124,7 +124,6 @@
 						  	  		<element name="image_context_url" type="string" minOccurs="0" maxOccurs="1"/> <!-- URL linking back to the image page on the original website, if they have single image pages -->
 						  	  		<element name="image_dimensions"	type="x:Dimensions" minOccurs="1" maxOccurs="1"/>	
 						  	  		<element name="machine"	type="string" minOccurs="0" maxOccurs="1"/>
-						  	  		<element name="original_image_id" type="string" minOccurs="1" maxOccurs="1"/>
 						  	  		<element name="image_generated_by" type="string" minOccurs="1" /> <!-- Lab/center/institute that produced the images -->
 						  	  		<element name="organism_generated_by" type="string" minOccurs="1" maxOccurs="1"/> <!-- Lab/center/institute that produced the organism -->
 						  	  		<element name="host_url"  type="string" minOccurs="1" maxOccurs="1"/> <!-- URL to the website where all the images are accessible -->
@@ -177,7 +176,7 @@
 								<complexType name="Annotation">
 									<all minOccurs="1">
 						  	  		<element name="ontology_term" type="x:OntologyTerm" minOccurs="0" maxOccurs="1"/>
-						  	  		<element name="anatomy_freetext" type="string" minOccurs="0" maxOccurs="1"/>
+						  	  		<element name="annotation_freetext" type="string" minOccurs="0" maxOccurs="1"/>
 						  	  		<element name="annotationMode" type="x:AnnotationMode" minOccurs="0" maxOccurs="1"/>
 									</all>						
 								</complexType>
@@ -197,7 +196,7 @@
                				<element name="genetic_feature_ensembl_id" type="string" minOccurs="0" maxOccurs="1"/>
                				<element name="genomic_location" type="x:GenomicLocation" minOccurs="0" maxOccurs="1"/>
 						  	  		<element name="zygosity" type="x:Zygosity" minOccurs="0" maxOccurs="1"/>
-						  	  		<element name="marker" type="string" minOccurs="0" maxOccurs="1"/> <!-- Carried on the genetic feature -->
+						  	  		<!-- element name="marker" type="string" minOccurs="0" maxOccurs="1"/--> <!-- Carried on the genetic feature -->
 						  	  </all>
 								</complexType>
 								

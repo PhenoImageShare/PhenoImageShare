@@ -1,12 +1,11 @@
 package uk.ac.ebi.phis.xmlDump;
 
-import j.*;
-
 import java.io.File;
 import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Map;
 
 import javax.sql.DataSource;
@@ -19,10 +18,28 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.w3c.dom.DOMException;
 
+import uk.ac.ebi.phis.jaxb.Age;
+import uk.ac.ebi.phis.jaxb.Annotation;
+import uk.ac.ebi.phis.jaxb.AnnotationArray;
+import uk.ac.ebi.phis.jaxb.AnnotationMode;
+import uk.ac.ebi.phis.jaxb.Channel;
+import uk.ac.ebi.phis.jaxb.Coordinates;
+import uk.ac.ebi.phis.jaxb.Dimensions;
+import uk.ac.ebi.phis.jaxb.Doc;
+import uk.ac.ebi.phis.jaxb.Genotype;
+import uk.ac.ebi.phis.jaxb.GenotypeComponent;
+import uk.ac.ebi.phis.jaxb.Image;
+import uk.ac.ebi.phis.jaxb.ImageDescription;
+import uk.ac.ebi.phis.jaxb.OntologyTerm;
+import uk.ac.ebi.phis.jaxb.OntologyTermArray;
+import uk.ac.ebi.phis.jaxb.Organism;
+import uk.ac.ebi.phis.jaxb.PercentArray;
+import uk.ac.ebi.phis.jaxb.Roi;
+import uk.ac.ebi.phis.jaxb.Sex;
+import uk.ac.ebi.phis.jaxb.StringArray;
+import uk.ac.ebi.phis.jaxb.Zygosity;
 import uk.ac.ebi.phis.utils.EnrichingUtils;
 import uk.ac.ebi.phis.utils.Normalizer;
-import uk.ac.ebi.phis.utils.Utils_deprecated;
-import uk.ac.ebi.phis.utils.ontology.OntologyMapperPredefinedTypes;
 
 public class SangerXmlGenerator {
 	
@@ -67,7 +84,7 @@ public class SangerXmlGenerator {
     				
 		        	boolean sameImage = true;
 		        	
-		        	String internalId =  "komp2_" + i;
+		        	String internalId =  "komp2_" + res.getString("ID");
 		        	
 		        	String imageId = res.getString("ID");		        
 		    		
@@ -84,7 +101,6 @@ public class SangerXmlGenerator {
 		    			d.setImageWidth(dimensions.get("width"));
 			    		ImageDescription imageDesc = new ImageDescription();
 			    		imageDesc.setImageUrl(url);
-			    		imageDesc.setOriginalImageId(res.getString("ID"));
 			    		imageDesc.setImageDimensions(d);
 			      		imageDesc.setOrganismGeneratedBy("WTSI");
 			    		imageDesc.setImageGeneratedBy("WTSI");
@@ -136,10 +152,13 @@ public class SangerXmlGenerator {
 			    		Channel channel = null;
 			    		String channelId = "";
 			    		if (imageType.equalsIgnoreCase("expression")){
-					    
+			    			channelId = internalId.replace("komp2_", "komp2_channel_") + "_" + 0; // we know that for Sanger data there is at most one channel.
 			    			channel = new Channel();
 					        channel.setAssociatedImage(internalId);
-				    		channelId = internalId.replace("komp2_", "komp2_channel_") + "_" + 0; // we know that for Sanger data there is at most one channel.
+					        // KOMP2 always has at most 1 channel
+					        StringArray c = new StringArray();
+					        c.getEl().add(channelId);
+					        image.setAssociatedChannel(c);
 				    		channel.setId(channelId);
 				    		channel.setDepictsExpressionOf(gt);
 		    			}
@@ -169,7 +188,9 @@ public class SangerXmlGenerator {
 				    			roi = fillRoi(roi, res, d, imageType.equalsIgnoreCase("expression"));
 				    			roi.setAssociatedChannel(new StringArray());
 				    			roi.getAssociatedChannel().getEl().add(channelId);
-				    			channel.setAssociatedRoi(new StringArray());
+				    			if (channel.getAssociatedRoi() == null){
+					    			channel.setAssociatedRoi(new StringArray());
+				    			}
 				    			channel.getAssociatedRoi().getEl().add(roiId);
 				    		}
 				    		// Otherwise associate annotation to the whole image
@@ -191,6 +212,10 @@ public class SangerXmlGenerator {
 					        }
 					        
 					        if (roi != null){
+					        	if (image.getAssociatedRoi() == null){
+					    			image.setAssociatedRoi(new StringArray());
+					        	}
+					        	image.getAssociatedRoi().getEl().add(roi.getId());
 					        	doc.getRoi().add(roi);
 					        }
 			    		}
@@ -203,7 +228,7 @@ public class SangerXmlGenerator {
 		    		}
 	        	}
 	    		i++;
-	    		if (i==10) break;
+	    //		if (i==1000) break;
 	        }
 			
 	        File file = new File("source/main/resources/sangerExport.xml");
@@ -214,7 +239,7 @@ public class SangerXmlGenerator {
 			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
 			jaxbMarshaller.marshal(doc, file);
-			jaxbMarshaller.marshal(doc, System.out);
+		//	jaxbMarshaller.marshal(doc, System.out);
 					
 			}catch (ParserConfigurationException pce) {
 				pce.printStackTrace();
@@ -400,7 +425,7 @@ public class SangerXmlGenerator {
 			 p.setOntologyTerm(getOntologyTerm(label, id));
 
 		 if (freetext != null)
-			 p.setAnatomyFreetext(freetext);
+			 p.setAnnotationFreetext(freetext);
 		 p.setAnnotationMode(annMode);
 		 return p;
 	 }
