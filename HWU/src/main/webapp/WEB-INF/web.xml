@@ -10,12 +10,20 @@
     </servlet>
     <servlet>
         <servlet-name>GetROI</servlet-name>
+        <servlet-class>uk.ac.hw.macs.bisel.phis.iqs.GetROI</servlet-class> 
+    </servlet>
+    <servlet>
+        <servlet-name>GetROIs</servlet-name>
         <servlet-class>uk.ac.hw.macs.bisel.phis.iqs.GetROIs</servlet-class> 
     </servlet>
     <servlet>
         <servlet-name>GetChannel</servlet-name>
-        <servlet-class>uk.ac.hw.macs.bisel.phis.iqs.GetChannels</servlet-class> 
+        <servlet-class>uk.ac.hw.macs.bisel.phis.iqs.GetChannel</servlet-class> 
     </servlet>    
+    <servlet>
+        <servlet-name>GetChannels</servlet-name>
+        <servlet-class>uk.ac.hw.macs.bisel.phis.iqs.GetChannels</servlet-class> 
+    </servlet>      
     <servlet-mapping>
         <servlet-name>GetImages</servlet-name>
         <url-pattern>/GetImages</url-pattern>
@@ -33,6 +41,14 @@
         <url-pattern>/getroi</url-pattern>
     </servlet-mapping>   
     <servlet-mapping>
+        <servlet-name>GetROIs</servlet-name>
+        <url-pattern>/GetROIs</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetROIs</servlet-name>
+        <url-pattern>/getrois</url-pattern>
+    </servlet-mapping>     
+    <servlet-mapping>
         <servlet-name>GetChannel</servlet-name>
         <url-pattern>/GetChannel</url-pattern>
     </servlet-mapping>
@@ -40,6 +56,14 @@
         <servlet-name>GetChannel</servlet-name>
         <url-pattern>/getchannel</url-pattern>
     </servlet-mapping>     
+    <servlet-mapping>
+        <servlet-name>GetChannels</servlet-name>
+        <url-pattern>/GetChannels</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetChannels</servlet-name>
+        <url-pattern>/getchannels</url-pattern>
+    </servlet-mapping>    
     <session-config>
         <session-timeout>
             30
