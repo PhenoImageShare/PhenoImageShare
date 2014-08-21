@@ -16,6 +16,7 @@ All parameters are optional
 <li>start - first result to be returned, default is 0</li>
 </ol>
 
+<!--
 Examples:
 <ol>
 <li>http://lxbisel.macs.hw.ac.uk:8080/IQS/getimages?phenotype=MP:0010254</li>
@@ -24,8 +25,8 @@ Examples:
 <li>http://lxbisel.macs.hw.ac.uk:8080/IQS/getimages?phenotype=cataracts</li>
 <li>http://lxbisel.macs.hw.ac.uk:8080/IQS/getimages?anatomy=eye</li>
 <li>http://lxbisel.macs.hw.ac.uk:8080/IQS/getimages?gene=Spns2</li>
-
 </ol>
+-->
 </div>
 
 <div>
@@ -36,24 +37,27 @@ Parameter is mandatory
 <li>id - ROI ID, e.g. komp2_roi_112003_0</li>
 </ol>
 
+<!--
 Example:
 <ol>
 <li>http://lxbisel.macs.hw.ac.uk:8080/IQS/getroi?id=komp2_roi_112003_0</li>
 </ol>
+-->
 </div>
 
 <div>
 <h3>/getchannel</h3>
-Parameter is mandatory
 <h4>parameters</h4>
+Parameter is mandatory
 <ol>
 <li>id - Channel ID, e.g., komp2_channel_112003_0</li>
 </ol>
-
+<!--
 Example:
 <ol>
 <li>http://lxbisel.macs.hw.ac.uk:8080/IQS/getchannel?id=komp2_channel_112003_0</li>
 </ol>
+-->
 </div>
 
 </div>
