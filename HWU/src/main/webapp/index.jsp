@@ -46,11 +46,49 @@ Example:
 </div>
 
 <div>
+<h3>/getrois</h3>
+Get all the ROIs in a particular image
+<h4>parameters</h4>
+Parameter is mandatory
+<ol>
+<li>imageId - image ID, e.g. komp2_112003</li>
+<li>num - number of results to be returned, default is 100</li>
+<li>start - first result to be returned, default is 0</li>
+</ol>
+
+<!--
+Example:
+<ol>
+<li>http://lxbisel.macs.hw.ac.uk:8080/IQS/getroi?id=komp2_roi_112003_0</li>
+</ol>
+-->
+</div>
+
+
+<div>
 <h3>/getchannel</h3>
 <h4>parameters</h4>
 Parameter is mandatory
 <ol>
 <li>id - Channel ID, e.g., komp2_channel_112003_0</li>
+</ol>
+<!--
+Example:
+<ol>
+<li>http://lxbisel.macs.hw.ac.uk:8080/IQS/getchannel?id=komp2_channel_112003_0</li>
+</ol>
+-->
+</div>
+
+<div>
+<h3>/getchannels</h3>
+Find all the channels in a particular image
+<h4>parameters</h4>
+Parameter is mandatory
+<ol>
+<li>imageId - Image ID, e.g., komp2_112003</li>
+<li>num - number of results to be returned, default is 100</li>
+<li>start - first result to be returned, default is 0</li>
 </ol>
 <!--
 Example:
