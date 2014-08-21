@@ -1,18 +1,15 @@
 package uk.ac.hw.macs.bisel.phis.iqs;
 
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Enumeration;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
-//import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,10 +20,9 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author kcm
  */
-//@WebServlet(name = "GetImages", urlPatterns = {"/GetImages"})
 public class GetImages extends HttpServlet {
 
-    private static final String url = "http://dev.phenoimageshare.org/data/rest/getImages?"; // stem of every SOLR query
+    private static final String url = "http://beta.phenoimageshare.org/data/rest/getImages?"; // stem of every SOLR query
     private static final Logger logger = Logger.getLogger(System.class.getName());
     /**
      * Enables discovery of images that meet the user's requirements.
@@ -69,8 +65,7 @@ public class GetImages extends HttpServlet {
         // set response type to JS and allow programs from other servers to send and receive
         response.setContentType("application/json;charset=UTF-8");
         response.setHeader("Access-Control-Allow-Origin", "*");
-
-        boolean test = false; // still alive test
+       
         boolean error = false; // has an error been detected?
         String solrResult = ""; // JSON doc sent back to UI
 
@@ -116,7 +111,18 @@ public class GetImages extends HttpServlet {
                     queryURL += "&"; 
                 }
                 queryURL += "gene="+params.get("gId")[0];
-                first = false;                
+                first = false; 
+                
+            // generic free text    
+            } else if (param.equals("term")) {
+                if(!first) {
+                    queryURL += "&"; 
+                }
+                queryURL += "term="+params.get("term")[0];
+                first = false;             
+                
+                
+            // pagination    
             } else if (param.equalsIgnoreCase("start")) { // number of initial result
             	if(!first) {
             		queryURL += "&";
@@ -128,9 +134,8 @@ public class GetImages extends HttpServlet {
             		queryURL += "&";
             	}
             	queryURL += "resultNo="+params.get("num")[0];
-            } else if(param.equalsIgnoreCase("alive")) {
-                test = true;
-                solrResult = "{\"alive\" : \"true\"}";                
+                
+            // error handling    
             } else { // parameter was not recognised, send error
                 error = true; // error has been detected
                 logger.log(Level.WARNING, "Client sent invalid parameter: "+param);
@@ -141,7 +146,7 @@ public class GetImages extends HttpServlet {
         // should write query to log?                
 
         // run solr query
-        if (!error && !test) { // if no error detected && not a test
+        if (!error) { // if no error detected && not a test
             BufferedReader in = null;
             try {
                 // connect to SOLR and run query
