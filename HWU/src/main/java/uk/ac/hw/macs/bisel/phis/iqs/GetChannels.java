@@ -86,7 +86,7 @@ public class GetChannels extends HttpServlet {
                     queryURL += "&";
                 }
 
-                queryURL += "imageId=" + params.get("id")[0]; // extend stem with parameter
+                queryURL += "imageId=" + params.get("imageId")[0]; // extend stem with parameter
                 first = false; // next time you need a separator
 
             // pagination    
