@@ -92,13 +92,13 @@ public class GetImages extends HttpServlet {
                 if(!first) {
                     queryURL += "&";
                 }
-                queryURL += "anatomy="+params.get("anatomy")[0];
+                queryURL += "anatomy="+params.get("anatomy")[0].replaceAll(" ", "%20");
                 first = false;
             } else if (param.equalsIgnoreCase("aId")) { // deal with anatomy 
                 if(!first) {
                     queryURL += "&";
                 }
-                queryURL += "anatomy="+params.get("aId")[0];
+                queryURL += "anatomy="+params.get("aId")[0].replaceAll(" ", "%20");
                 first = false;                
             } else if (param.equalsIgnoreCase("gene")) { // deal with genes
                 if(!first) {
@@ -118,7 +118,7 @@ public class GetImages extends HttpServlet {
                 if(!first) {
                     queryURL += "&"; 
                 }
-                queryURL += "term="+params.get("term")[0];
+                queryURL += "term="+params.get("term")[0].replaceAll(" ", "%20");
                 first = false;             
                 
                 
