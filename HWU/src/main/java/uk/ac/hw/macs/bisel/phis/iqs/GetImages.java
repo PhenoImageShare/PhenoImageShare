@@ -15,8 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet connects client (presumably a GUI) to the SOLR API that wraps the SOLR repository
- * for images
+ * Servlet connects client (presumably a GUI) to the SOLR API that wraps the
+ * SOLR repository for images
  *
  * @author kcm
  */
@@ -24,33 +24,36 @@ public class GetImages extends HttpServlet {
 
     private static final String url = "http://beta.phenoimageshare.org/data/rest/getImages?"; // stem of every SOLR query
     private static final Logger logger = Logger.getLogger(System.class.getName());
+
     /**
-     * Enables discovery of images that meet the user's requirements.
-     * Handles requests from the PhIS UI by simply forwarding them to the SOLR API and 
-     * then returning the result directly to the UI.  Provides very basic error handling
-     * (only deals with unknown parameters).
+     * Enables discovery of images that meet the user's requirements. Handles
+     * requests from the PhIS UI by simply forwarding them to the SOLR API and
+     * then returning the result directly to the UI. Provides very basic error
+     * handling (only deals with unknown parameters).
      *
-     * Queries the SOLR API, not the SOLR core.  Use the pagination facilities offered by the SOLR API
-     * 
+     * Queries the SOLR API, not the SOLR core. Use the pagination facilities
+     * offered by the SOLR API
+     *
      * Parameters expected:
      * <ol>
      * <li>ptId = phenotype ID, i.e., a MP ID</li>
      * <li>aId = EMAPA or MA ID</li>
      * <li>gId = MGI gene ID, e.g., MGI:12344567</li>
      * <li>start = pagination, the first result that should be returned>/li>
-     * <li>num = pagination, the total number of results that should be returned</li>
+     * <li>num = pagination, the total number of results that should be
+     * returned</li>
      * </ol>
-     * 
+     *
      * Future versions will:
      * <ol>
-     * <li>send queries to the SIS, and then integrate the results
-     * with those from SOLR</li>  
+     * <li>send queries to the SIS, and then integrate the results with those
+     * from SOLR</li>
      * <li>likely to include sorting the results</li>
      * <li>include a wider range of query parameters</li>
      * <li>provide access to the "OLS" functionality from SOLR</li>
      * </ol>
-     * 
-     * 
+     *
+     *
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
      *
@@ -61,11 +64,11 @@ public class GetImages extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
+
         // set response type to JS and allow programs from other servers to send and receive
         response.setContentType("application/json;charset=UTF-8");
         response.setHeader("Access-Control-Allow-Origin", "*");
-       
+
         boolean error = false; // has an error been detected?
         String solrResult = ""; // JSON doc sent back to UI
 
@@ -89,62 +92,101 @@ public class GetImages extends HttpServlet {
                 queryURL += "phenotype=" + params.get("ptId")[0]; // extend stem with parameter
                 first = false; // next time you need a separator                
             } else if (param.equalsIgnoreCase("anatomy")) { // deal with anatomy 
-                if(!first) {
+                if (!first) {
                     queryURL += "&";
                 }
-                queryURL += "anatomy="+params.get("anatomy")[0].replaceAll(" ", "%20");
+                queryURL += "anatomy=" + params.get("anatomy")[0].replaceAll(" ", "%20");
                 first = false;
             } else if (param.equalsIgnoreCase("aId")) { // deal with anatomy 
-                if(!first) {
+                if (!first) {
                     queryURL += "&";
                 }
-                queryURL += "anatomy="+params.get("aId")[0].replaceAll(" ", "%20");
-                first = false;                
+                queryURL += "anatomy=" + params.get("aId")[0].replaceAll(" ", "%20");
+                first = false;
             } else if (param.equalsIgnoreCase("gene")) { // deal with genes
-                if(!first) {
-                    queryURL += "&"; 
+                if (!first) {
+                    queryURL += "&";
                 }
-                queryURL += "gene="+params.get("gene")[0];
+                queryURL += "gene=" + params.get("gene")[0];
                 first = false;
             } else if (param.equalsIgnoreCase("gId")) { // deal with genes
-                if(!first) {
-                    queryURL += "&"; 
+                if (!first) {
+                    queryURL += "&";
                 }
-                queryURL += "gene="+params.get("gId")[0];
-                first = false; 
-                
-            // generic free text    
+                queryURL += "gene=" + params.get("gId")[0];
+                first = false;
+
+                // generic free text    
             } else if (param.equals("term")) {
-                if(!first) {
-                    queryURL += "&"; 
+                if (!first) {
+                    queryURL += "&";
                 }
-                queryURL += "term="+params.get("term")[0].replaceAll(" ", "%20");
-                first = false;             
+                queryURL += "term=" + params.get("term")[0].replaceAll(" ", "%20");
+                first = false;
+
+                // 2014-08-28
+                // params not really needed but added to comply with EBI SOLR API
+            } else if (param.equals("expressedFeature")) {
+                if (!first) {
+                    queryURL += "&";
+                }
+                queryURL += "expressedFeature=" + params.get("expressedFeature")[0].replaceAll(" ", "%20");
+                first = false;
+            } else if (param.equals("sex")) {
+                if (!first) {
+                    queryURL += "&";
+                }
+                queryURL += "sex=" + params.get("sex")[0];
+                first = false;
+            } else if (param.equals("taxon")) {
+                if (!first) {
+                    queryURL += "&";
+                }
+                queryURL += "taxon=" + params.get("taxon")[0];
+                first = false;
+            } else if (param.equals("stage")) {
+                if (!first) {
+                    queryURL += "&";
+                }
+                queryURL += "stage=" + params.get("stage")[0].replaceAll(" ", "%20");
+                first = false;
+            } else if (param.equals("samplePreparation")) {
+                if (!first) {
+                    queryURL += "&";
+                }
+                queryURL += "samplePreparation=" + params.get("samplePreparation")[0].replaceAll(" ", "%20");
+                first = false;
+            } else if (param.equals("imagingMethod")) {
+                if (!first) {
+                    queryURL += "&";
+                }
+                queryURL += "imagingMethod=" + params.get("imagingMethod")[0].replaceAll(" ", "%20");
+                first = false;
                 
-                
-            // pagination    
+
+                // pagination    
             } else if (param.equalsIgnoreCase("start")) { // number of initial result
-            	if(!first) {
-            		queryURL += "&";
-            	}    
-            	queryURL += "start="+params.get("start")[0];
-            	first = false;
+                if (!first) {
+                    queryURL += "&";
+                }
+                queryURL += "start=" + params.get("start")[0];
+                first = false;
             } else if (param.equalsIgnoreCase("num")) { // number of results to return
-            	if(!first) {
-            		queryURL += "&";
-            	}
-            	queryURL += "resultNo="+params.get("num")[0];
+                if (!first) {
+                    queryURL += "&";
+                }
+                queryURL += "resultNo=" + params.get("num")[0];
+
                 
-            // error handling    
+                // error handling    
             } else { // parameter was not recognised, send error
                 error = true; // error has been detected
-                logger.log(Level.WARNING, "Client sent invalid parameter: "+param);
+                logger.log(Level.WARNING, "Client sent invalid parameter: " + param);
                 solrResult = "{\"invalid_paramater\": \"" + param + "\"}";
             }
         }
-        
-        // should write query to log?                
 
+        // should write query to log?                
         // run solr query
         if (!error) { // if no error detected && not a test
             BufferedReader in = null;
@@ -157,11 +199,11 @@ public class GetImages extends HttpServlet {
                 String inputLine;
                 if ((inputLine = in.readLine()) != null) { // should only be 1 line of result
                     // can currently return the API result unchanged
-		    		solrResult = inputLine;
+                    solrResult = inputLine;
                 }
             } catch (IOException e) {
                 logger.log(Level.WARNING, e.getMessage());
-                solrResult = "{\"server_error\": \""+e.getMessage()+"\"}"; 
+                solrResult = "{\"server_error\": \"" + e.getMessage() + "\"}";
             }
         }
 
@@ -170,10 +212,9 @@ public class GetImages extends HttpServlet {
         try {
             out.println(solrResult); // may be error or genuine result
         } finally {
-            out.close();            
+            out.close();
         }
     }
-
 
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -214,4 +255,3 @@ public class GetImages extends HttpServlet {
     }// </editor-fold>
 
 }
-
