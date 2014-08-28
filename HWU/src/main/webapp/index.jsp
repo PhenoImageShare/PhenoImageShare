@@ -13,6 +13,12 @@ All parameters are optional
 <li>phenotype - phenotype ID or term, e.g. MP:0010254 or cataracts</li>
 <li>anatomy - anatomy ID or term, e.g. MA:0000261 or eye</li>
 <li>gene - gene ID or symbol, e.g. MGI:1891295 or Spns2</li>
+<li>expressedFeature - gene (or allele) symbol or ID, e.g., Sesn3</li>
+<li>sex - i.e., MALE/FEMALE</li>
+<li>taxon - NCBI ID or text/label, e.g., Mus Musculus</li>
+<li>stage - stage ontology ID or text, e.g., postnatal stage/ MmusDv_0000092</li>
+<li>samplePreparation - label or term ID below "sample preparation" in the FBBI ontology, e.g., living tissue</li>
+<li>imagingMethod - label or term ID below "imaging method" in the FBBI ontology, e.g., macroscopy</li>
 <li>num - number of results to be returned, default is 100</li>
 <li>start - first result to be returned, default is 0</li>
 </ol>
