@@ -1,19 +1,15 @@
 package uk.ac.hw.macs.bisel.phis.iqs;
 
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Enumeration;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
-//import javax.servlet.annotation.WebServlet;
-
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,23 +20,24 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author kcm
  */
-//@WebServlet(name = "GetROIs", urlPatterns = {"/GetROIs"})
 public class GetROIs extends HttpServlet {
 
     private static final String url = "http://dev.phenoimageshare.org/data/rest/getRois?"; // stem of every SOLR query
     private static final Logger logger = Logger.getLogger(System.class.getName());
     /**
-     * Enables discovery of ROI information for a single ROI.
+     * Enables discovery of ROI information for multiple ROIs.
      * Handles requests from the PhIS UI by simply forwarding them to the SOLR API and 
      * then returning the result directly to the UI.  Provides very basic error handling
      * (only deals with unknown parameters).
      * 
      * Parameters expected:
      * <ol>
-     * <li>id = ROI ID, e.g., komp2_roi_112003_0</li>
+     * <li>imageId = image ID, e.g., komp2_roi_112003</li>
+     * <li>start = pagination, the first result that should be returned</li>
+     * <li>num = pagination, the total number of results that should be
+     * returned</li>
      * </ol>
-     * 
-     * Should be no need for pagination as the query returns just a single ROI at a time
+     *      
      *
      * Future versions will:
      * <ol>
@@ -77,13 +74,28 @@ public class GetROIs extends HttpServlet {
         Enumeration<String> allParams = request.getParameterNames(); // get a list of parameter names
         if (allParams.hasMoreElements()) {
             String param = allParams.nextElement();
-            if (param.equalsIgnoreCase("id")) { // deal with phenotypes
+            if (param.equalsIgnoreCase("imageId")) { // deal with phenotypes
                 if (!first) { // if this is not the first parameter added to queryURL include separator
                     queryURL += "&";
                 }
                 
-                queryURL += "roiId=" + params.get("id")[0]; // extend stem with parameter
+                queryURL += "imageId=" + params.get("imageId")[0]; // extend stem with parameter
                 first = false; // next time you need a seperator
+                
+            // pagination    
+            } else if (param.equalsIgnoreCase("start")) { // number of initial result
+            	if(!first) {
+            		queryURL += "&";
+            	}    
+            	queryURL += "start="+params.get("start")[0];
+            	first = false;
+            } else if (param.equalsIgnoreCase("num")) { // number of results to return
+            	if(!first) {
+            		queryURL += "&";
+            	}
+            	queryURL += "resultNo="+params.get("num")[0];
+                
+            // error handling                    
             } else { // parameter was not recognised, send error
                 error = true; // error has been detected
                 logger.log(Level.WARNING, "Client sent invalid parameter: "+param);
