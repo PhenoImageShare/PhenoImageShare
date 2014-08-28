@@ -69,6 +69,14 @@ public class SolrWrapperController {
     }
 	
 	
+	@RequestMapping(value="/getAutosuggest", method=RequestMethod.GET)
+	public  @ResponseBody String getSuggestions(
+			@RequestParam(value = "term", required = false) String term,
+			@RequestParam(value = "resultNo", required = false) Integer resultNo,
+			Model model){
+		return is.getAutosuggest(term, resultNo);
+	}
+	
 	@RequestMapping(value="/getRois", method=RequestMethod.GET)	
     public @ResponseBody String getRois(
     		@RequestParam(value = "roiId", required = false) String roiId,

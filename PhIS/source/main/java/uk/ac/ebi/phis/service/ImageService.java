@@ -2,12 +2,17 @@ package uk.ac.ebi.phis.service;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.HttpSolrServer;
+import org.apache.solr.client.solrj.response.QueryResponse;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
 import uk.ac.ebi.phis.solrj.dto.ImageDTO;
@@ -23,6 +28,60 @@ public class ImageService {
 	public ImageService(String solrUrl) {
 		solr = new HttpSolrServer(solrUrl);
 
+	}
+	
+	public String getAutosuggest(String term, Integer rows){
+
+		SolrQuery solrQuery = new SolrQuery();
+		ArrayList<String> suggestions = new ArrayList<>();
+		Integer suggestionNumber = 10;
+		
+		if (term.length() < 1)
+			return "";
+		// Build the query
+		solrQuery.setQuery(ImageDTO.TERM_AUTOSUGGEST + ":" + term);
+		solrQuery.setFields(ImageDTO.TERM_AUTOSUGGEST);
+		solrQuery.addHighlightField(ImageDTO.TERM_AUTOSUGGEST);
+		solrQuery.setHighlight(true);
+		solrQuery.setHighlightRequireFieldMatch(true);
+		solrQuery.set("f.term_autosuggest_analysed.hl.preserveMulti", true);
+		solrQuery.set("hl.simple.pre", "<b>");
+		solrQuery.set("hl.simple.post", "</b>");
+		
+		
+		if (rows != null){
+			solrQuery.setRows(rows*10);
+			suggestionNumber = rows;
+		}
+		else solrQuery.setRows(100);
+		
+		System.out.println("Solr URL : " + solr.getBaseURL() + "/select?" + solrQuery);
+		log.info("Solr URL in getImages : " + solr.getBaseURL() + "/select?" + solrQuery);
+		
+		// Parse results to filter out un-highlighted entries and duplicates
+		try {
+			Map<String, Map<String, List<String>>> highlights = solr.query(solrQuery).getHighlighting();
+			OUTERMOST: for (Map<String, List<String>> suggests : highlights.values()){
+				for (List<String> suggestLists : suggests.values()){
+					for(String highlighted : suggestLists){
+						if (highlighted.contains("<b>") && !suggestions.contains(highlighted)){
+							System.out.println(highlighted + "  " + highlighted.replaceAll("<\\\\", "<"));
+							suggestions.add(highlighted);
+							if (suggestions.size() == suggestionNumber){
+								break OUTERMOST;
+							}
+						}
+					}
+				}
+			}
+		} catch (SolrServerException e) {
+			e.printStackTrace();
+		}
+		
+		// Return in JSON format
+		JSONObject returnObj = new JSONObject();
+		returnObj.put("response", new JSONObject().put("suggestions", new JSONArray(suggestions)));
+		return returnObj.toString().replaceAll("<\\\\", "<");
 	}
 	
 	public String getImage(String term, String phenotype, String mutantGene, String anatomy, String expressedGene, String sex, String taxon, 

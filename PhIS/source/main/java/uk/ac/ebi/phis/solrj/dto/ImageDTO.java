@@ -73,6 +73,8 @@ public class ImageDTO {
 	public final static String PHENOTYPE_LABEL_BAG = "phenotype_label_bag";
 	public final static String PHENOTYPE_FREETEXT_BAG = "phenotype_freetext_bag";
 
+	public final static String TERM_AUTOSUGGEST = "term_autosuggest";
+	
 	@Field("id")
 	private String id;
 

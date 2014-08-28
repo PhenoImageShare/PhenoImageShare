@@ -122,6 +122,7 @@ public class BatchXmlUploader {
 			if (i++ % 1000 == 0) {
 				is.addBeans(imageDocs);
 				imageDocs = new ArrayList<>();
+				System.out.println(i + " image documents submitted.");
 			}
 		}
 		is.addBeans(imageDocs);
@@ -139,6 +140,7 @@ public class BatchXmlUploader {
 			if (i++ % 1000 == 0) {
 				rs.addBeans(roiDocs);
 				roiDocs = new ArrayList<>();
+				System.out.println(i + " rois documents submitted.");
 			}
 		}
 		rs.addBeans(roiDocs);
@@ -156,6 +158,7 @@ public class BatchXmlUploader {
 			if (i++ % 1000 == 0) {
 				cs.addBeans(chDocs);
 				chDocs = new ArrayList<>();
+				System.out.println(i + " channle documents submitted.");
 			}
 		}
 		cs.addBeans(chDocs);
