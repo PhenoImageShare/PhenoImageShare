@@ -329,5 +329,39 @@
 
 	</table>
 
+
+	<h2>/getAutosuggest</h2>
+	<h3>Parameters</h3>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Type</th>
+				<th>Required</th>
+				<th>Description</th>
+				<th>Default</th>
+				<th>Example Values</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>term</td>
+				<td><var>String</var></td>
+				<td> true</td>
+				<td>Return list of suggestions containing the passedstring, with the containing words highlighted.</td>
+				<td><var> - </var></td>
+				<td><var>abn</var><br></td>
+			</tr>
+			<tr>
+				<td>resultNo</td>
+				<td><var>Integer</var></td>
+				<td> false</td>
+				<td>Max number of suggestions to be returned.</td>
+				<td><var> 10 </var></td>
+				<td><var>100</var><br></td>
+			</tr>
+		</tbody>
+	</table>
+
 </body>
 </html>
