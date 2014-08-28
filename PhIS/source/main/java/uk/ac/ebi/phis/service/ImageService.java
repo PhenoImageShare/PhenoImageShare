@@ -35,9 +35,64 @@ public class ImageService {
 		SolrQuery solrQuery = new SolrQuery();
 		ArrayList<String> suggestions = new ArrayList<>();
 		Integer suggestionNumber = 10;
+		Integer solrRows = 100;
 		
 		if (term.length() < 1)
 			return "";
+		// Build the query
+		solrQuery.setQuery(ImageDTO.TERM_AUTOSUGGEST + ":" + term);
+		solrQuery.setFields(ImageDTO.TERM_AUTOSUGGEST);
+		solrQuery.addHighlightField(ImageDTO.TERM_AUTOSUGGEST);
+		solrQuery.setHighlight(true);
+		solrQuery.setHighlightRequireFieldMatch(true);
+		solrQuery.set("f.term_autosuggest_analysed.hl.preserveMulti", true);
+		solrQuery.set("hl.simple.pre", "<b>");
+		solrQuery.set("hl.simple.post", "</b>");
+		
+		
+		if (rows != null){
+			solrRows = rows*10;
+			suggestionNumber = rows;
+		}
+		solrQuery.setRows(solrRows);
+		
+		System.out.println("Solr URL : " + solr.getBaseURL() + "/select?" + solrQuery);
+		log.info("Solr URL in getImages : " + solr.getBaseURL() + "/select?" + solrQuery);
+		
+		// Parse results to filter out un-highlighted entries and duplicates
+		try {
+			int i = 1;
+			while ((suggestions.size() < suggestionNumber && solr.query(solrQuery).getResults().getNumFound() > i*solrRows) || i == 1){
+				Map<String, Map<String, List<String>>> highlights = solr.query(solrQuery).getHighlighting();
+				OUTERMOST: for (Map<String, List<String>> suggests : highlights.values()){
+					for (List<String> suggestLists : suggests.values()){
+						for(String highlighted : suggestLists){
+							if (highlighted.contains("<b>") && !suggestions.contains(highlighted)){
+								System.out.println(highlighted + "  " + highlighted.replaceAll("<\\\\", "<"));
+								suggestions.add(highlighted);
+								if (suggestions.size() == suggestionNumber){
+									break OUTERMOST;
+								}
+							}
+						}
+					}
+				}
+				solrQuery.setStart(i++*solrRows);
+			}
+		} catch (SolrServerException e) {
+			e.printStackTrace();
+		}
+		
+		// Return in JSON format
+		JSONObject returnObj = new JSONObject();
+		returnObj.put("response", new JSONObject().put("suggestions", new JSONArray(suggestions)));
+		return returnObj.toString().replaceAll("<\\\\", "<");
+	}
+	
+	private ArrayList<String> getSuggestions(String term, Integer rows, Integer from, Integer suggestionNumber, ArrayList<String> addTo){
+		
+		SolrQuery solrQuery = new SolrQuery();
+		
 		// Build the query
 		solrQuery.setQuery(ImageDTO.TERM_AUTOSUGGEST + ":" + term);
 		solrQuery.setFields(ImageDTO.TERM_AUTOSUGGEST);
@@ -64,10 +119,10 @@ public class ImageService {
 			OUTERMOST: for (Map<String, List<String>> suggests : highlights.values()){
 				for (List<String> suggestLists : suggests.values()){
 					for(String highlighted : suggestLists){
-						if (highlighted.contains("<b>") && !suggestions.contains(highlighted)){
+						if (highlighted.contains("<b>") && !addTo.contains(highlighted)){
 							System.out.println(highlighted + "  " + highlighted.replaceAll("<\\\\", "<"));
-							suggestions.add(highlighted);
-							if (suggestions.size() == suggestionNumber){
+							addTo.add(highlighted);
+							if (addTo.size() == suggestionNumber){
 								break OUTERMOST;
 							}
 						}
@@ -77,11 +132,7 @@ public class ImageService {
 		} catch (SolrServerException e) {
 			e.printStackTrace();
 		}
-		
-		// Return in JSON format
-		JSONObject returnObj = new JSONObject();
-		returnObj.put("response", new JSONObject().put("suggestions", new JSONArray(suggestions)));
-		return returnObj.toString().replaceAll("<\\\\", "<");
+		return addTo;
 	}
 	
 	public String getImage(String term, String phenotype, String mutantGene, String anatomy, String expressedGene, String sex, String taxon, 

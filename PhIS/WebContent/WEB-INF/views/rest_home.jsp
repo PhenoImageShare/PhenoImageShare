@@ -356,9 +356,9 @@
 				<td>resultNo</td>
 				<td><var>Integer</var></td>
 				<td> false</td>
-				<td>Max number of suggestions to be returned.</td>
+				<td>Max number of suggestions to be returned. It is not recommended to put a bigger number than you actually need as the time cost increses quite significanlty with it.</td>
 				<td><var> 10 </var></td>
-				<td><var>100</var><br></td>
+				<td><var>20</var><br></td>
 			</tr>
 		</tbody>
 	</table>
