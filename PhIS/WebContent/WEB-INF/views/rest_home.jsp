@@ -331,11 +331,7 @@
 
 
 	<h2>/getAutosuggest</h2>
-
-
 	<h3>Parameters</h3>
-
-
 	<table class="table table-striped">
 		<thead>
 			<tr>
@@ -348,8 +344,6 @@
 			</tr>
 		</thead>
 		<tbody>
-
-
 			<tr>
 				<td>term</td>
 				<td><var>String</var></td>
@@ -366,7 +360,6 @@
 				<td><var> 10 </var></td>
 				<td><var>100</var><br></td>
 			</tr>
-
 		</tbody>
 	</table>
 
