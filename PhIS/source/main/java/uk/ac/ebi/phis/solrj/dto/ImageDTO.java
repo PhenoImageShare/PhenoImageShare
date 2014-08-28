@@ -43,6 +43,7 @@ public class ImageDTO {
 	public final static String SAMPLE_PREPARATION_ID = "sample_preparation_id";
 	public final static String IMAGING_METHOD_ID = "imaging_method_id";
 	public final static String IMAGING_METHOD_LABEL = "imaging_method_label";
+	public final static String IMAGING_METHOD_LABEL_ANALYSED = "imaging_method_label_analysed";
 	public final static String IMAGE_CONTEXT_URL = "image_context_url";
 	public final static String IMAGE_URL = "image_url";
 	public final static String IMAGE_GENERATED_BY = "image_generated_by";

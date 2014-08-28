@@ -158,7 +158,7 @@ public class ImageService {
 				ImageDTO.EXPRESSION_IN_LABEL_BAG + ":\""+ term + "\" OR " + 
 				ImageDTO.IMAGE_GENERATED_BY + ":\""+ term + "\" OR " + 
 				ImageDTO.IMAGING_METHOD_ID + ":\""+ term + "\" OR " + 
-				ImageDTO.IMAGING_METHOD_LABEL + ":\""+ term + "\" OR " + 
+				ImageDTO.IMAGING_METHOD_LABEL_ANALYSED + ":\""+ term + "\" OR " + 
 				ImageDTO.VISUALISATION_METHOD_ID + ":\""+ term + "\" OR " + 
 				ImageDTO.VISUALISATION_METHOD_LABEL + ":\""+ term + "\" OR " + 
 				ImageDTO.SAMPLE_GENERATED_BY + ":\""+ term + "\" OR " + 
@@ -203,7 +203,7 @@ public class ImageService {
 				ImageDTO.SAMPLE_PREPARATION_LABEL + ":\"" + samplePreparation + "\"");
 		}
 		if (samplePreparation != null){
-			solrQuery.setFilterQueries(ImageDTO.IMAGING_METHOD_LABEL + ":\"" + imagingMethod + "\" OR " + 
+			solrQuery.setFilterQueries(ImageDTO.IMAGING_METHOD_LABEL_ANALYSED + ":\"" + imagingMethod + "\" OR " + 
 			ImageDTO.IMAGING_METHOD_ID + ":\"" + imagingMethod + "\"");
 		}
 		if (sex != null){
@@ -219,9 +219,17 @@ public class ImageService {
 			solrQuery.set("start", start);
 		}
 		solrQuery.set("wt", "json");
-			
+		solrQuery.setFacet(true);
+		solrQuery.addFacetField(ImageDTO.STAGE);
+		solrQuery.addFacetField(ImageDTO.IMAGING_METHOD_LABEL);
+		solrQuery.addFacetField(ImageDTO.TAXON);
+		solrQuery.setFacetMinCount(1);
+		
 		System.out.println("Solr URL : " + solr.getBaseURL() + "/select?" + solrQuery);
 		log.info("Solr URL in getImages : " + solr.getBaseURL() + "/select?" + solrQuery);
+		
+		
+		
 		try {
 			return JSONRestUtil.getResults(getQueryUrl(solrQuery)).toString();
 		} catch (IOException e) {
