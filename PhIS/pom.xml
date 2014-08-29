@@ -161,7 +161,7 @@
 				<baseUrl>http://??</baseUrl>
 				<solrUrl>http://???</solrUrl>
 				<!-- internalSolrUrl>http://ves-ebi-d1.ebi.ac.uk:8120/mi/phis/beta</internalSolrUrl-->
-				<internalSolrUrl>http://ves-ebi-d2.ebi.ac.uk:8120/mi/phis/beta</internalSolrUrl> <!--  This will do on d1 when called from d1 and d2 from d2. -->
+				<internalSolrUrl>http://ves-ebi-d1.ebi.ac.uk:8120/mi/phis/beta</internalSolrUrl> <!--  This will do on d1 when called from d1 and d2 from d2. -->
 				<java.version>1.7</java.version>
 			</properties>
 			<build>
