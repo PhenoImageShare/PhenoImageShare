@@ -13,12 +13,10 @@
 	<h1>PhIS RESTful Sevice Documentation</h1>
 	<p>Base URL for dev website is
 		http://dev.phenoimageshare.org/data/rest .</p>
+		
+	<br/>
 	<h2>/getImages</h2>
-
-
 	<h3>Parameters</h3>
-
-
 	<table class="table table-striped">
 		<thead>
 			<tr>
@@ -31,8 +29,6 @@
 			</tr>
 		</thead>
 		<tbody>
-
-
 			<tr>
 				<td>term</td>
 				<td><var>String</var></td>
@@ -41,8 +37,6 @@
 				<td><var> * </var></td>
 				<td><var>eye</var><br></td>
 			</tr>
-
-
 			<tr>
 				<td>phenotype</td>
 				<td><var>String</var></td>
@@ -51,7 +45,6 @@
 				<td><var> * </var></td>
 				<td><var>MP:0010254</var><br></td>
 			</tr>
-
 			<tr>
 				<td>anatomy</td>
 				<td><var>String</var></td>
@@ -61,16 +54,22 @@
 				<td><var> * </var></td>
 				<td><var>MA:0000261, eye</var></td>
 			</tr>
-
-			<tr>
+			<tr style="background-color: grey;">
 				<td>gene</td>
+				<td><var>String</var></td>
+				<td>false</td>
+				<td> [TO BE DEPRECATED] Use mutantGene instead. Filters for samples with a mutation in the specified gene.</td>
+				<td><var> * </var></td>
+				<td><var>MGI:1891295, Spns2</var></td>
+			</tr>			
+			<tr>
+				<td>mutantGene</td>
 				<td><var>String</var></td>
 				<td>false</td>
 				<td>Filters for samples with a mutation in the specified gene.</td>
 				<td><var> * </var></td>
 				<td><var>MGI:1891295, Spns2</var></td>
-			</tr>
-			
+			</tr>			
 			<tr>
 				<td>expressedFeature</td>
 				<td><var>String</var></td>
@@ -78,8 +77,7 @@
 				<td>Filters for images depicting expression of the specified feature (gene or allele symbol or id).</td>
 				<td><var> * </var></td>
 				<td><var> Sesn3 </var></td>
-			</tr>
-			
+			</tr>			
 			<tr>
 				<td>sex</td>
 				<td><var>String</var></td>
@@ -88,7 +86,6 @@
 				<td><var> * </var></td>
 				<td><var> FEMALE / MALE </var> </td>
 			</tr>
-
 			<tr>
 				<td>taxon</td>
 				<td><var>String</var></td>
@@ -97,7 +94,6 @@
 				<td><var> * </var></td>
 				<td><var> Mus musculus </var> </td>
 			</tr>
-
 			<tr>
 				<td>stage</td>
 				<td><var>String</var></td>
@@ -123,8 +119,7 @@
 				<td>Label or id of a child of Sample Preparation in FBBI ontology.</td>
 				<td><var> * </var></td>
 				<td><var> living tissue </var> </td>
-			</tr>
-			
+			</tr>			
 			<tr>
 				<td>imagingMethod</td>
 				<td><var>String</var></td>
@@ -132,8 +127,7 @@
 				<td>Label or id of a child of Imaging Method in FBBI ontology..</td>
 				<td><var> * </var></td>
 				<td><var> macroscopy </var> </td>
-			</tr>
-			
+			</tr>			
 			<tr>
 				<td>resultNo</td>
 				<td><var>Integer</var></td>
@@ -141,8 +135,7 @@
 				<td>Number of result objects to be returned back.</td>
 				<td><var>100</var></td>
 				<td><var></var><br></td>
-			</tr>
-			
+			</tr>			
 			<tr>
 				<td>start</td>
 				<td><var>Integer</var></td>
@@ -151,19 +144,15 @@
 				<td><var>0</var></td>
 				<td><var></var><br></td>
 			</tr>
-
 		</tbody>
 	</table>
 
 
 	<!-- h2>Getting ROIs & annotations</h2-->
 
+	<br/>
 	<h2>/getRoi</h2>
-
-
 	<h3>Parameters</h3>
-
-
 	<table class="table table-striped">
 		<thead>
 			<tr>
@@ -176,8 +165,6 @@
 			</tr>
 		</thead>
 		<tbody>
-
-
 			<tr>
 				<td>roiId</td>
 				<td><var>String</var></td>
@@ -186,17 +173,13 @@
 				<td><var> - </var></td>
 				<td><var>komp2_roi_112003_0</var><br></td>
 			</tr>
-
 		</tbody>
 	</table>
 
 	
+	<br/>
 	<h2>/getRois</h2>
-
-
 	<h3>Parameters</h3>
-
-
 	<table class="table table-striped">
 		<thead>
 			<tr>
@@ -209,8 +192,6 @@
 			</tr>
 		</thead>
 		<tbody>
-
-
 			<tr>
 				<td>imageId</td>
 				<td><var>String</var></td>
@@ -219,8 +200,6 @@
 				<td><var> * </var></td>
 				<td><var>komp2_112003</var><br></td>
 			</tr>
-
-
 			<tr>
 				<td>resultNo</td>
 				<td><var>Integer</var></td>
@@ -229,7 +208,6 @@
 				<td><var>100</var></td>
 				<td><var></var><br></td>
 			</tr>
-			
 			<tr>
 				<td>start</td>
 				<td><var>Integer</var></td>
@@ -238,7 +216,6 @@
 				<td><var>0</var></td>
 				<td><var></var><br></td>
 			</tr>
-
 		</tbody>
 	</table>
 	
@@ -246,12 +223,9 @@
 	
 	<!-- h2>Getting channel information</h2-->
 	
+	<br/>
 	<h2>/getChannel</h2>
-
-
 	<h3>Parameters</h3>
-
-
 	<table class="table table-striped">
 		<thead>
 			<tr>
@@ -264,8 +238,6 @@
 			</tr>
 		</thead>
 		<tbody>
-
-
 			<tr>
 				<td>channelId</td>
 				<td><var>String</var></td>
@@ -274,17 +246,13 @@
 				<td><var> - </var></td>
 				<td><var>komp2_channel_112003_0</var><br></td>
 			</tr>
-
-
 		</tbody>
 	</table>
 	
+	
+	<br/>
 	<h2>/getChannels</h2>
-
-
 	<h3>Parameters</h3>
-
-
 	<table class="table table-striped">
 		<thead>
 			<tr>
@@ -329,12 +297,13 @@
 
 	</table>
 
-
+	<br/>
 	<h2>/getAutosuggest</h2>
+	<p>Returns a JSONArray of suggestions fot autosuggest. One of the parameters passing the typed text is required.</p> 
 	<h3>Parameters</h3>
 	<table class="table table-striped">
 		<thead>
-			<tr>
+			<tr style="background-color: green;">
 				<th>Name</th>
 				<th>Type</th>
 				<th>Required</th>
@@ -347,8 +316,32 @@
 			<tr>
 				<td>term</td>
 				<td><var>String</var></td>
-				<td> true</td>
+				<td> false </td>
 				<td>Return list of suggestions containing the passedstring, with the containing words highlighted.</td>
+				<td><var> - </var></td>
+				<td><var>abn</var><br></td>
+			</tr>
+			<tr>
+				<td>mutantGene</td>
+				<td><var>String</var></td>
+				<td> false</td>
+				<td>Suggestions for mutant gene symbols from annotations, with highlights.</td>
+				<td><var> - </var></td>
+				<td><var>a</var><br></td>
+			</tr>
+			<tr>
+				<td>expressedGeneOrAllele</td>
+				<td><var>String</var></td>
+				<td> false </td>
+				<td>Suggestions for expressed gene or allele symbols, with highlights.</td>
+				<td><var> - </var></td>
+				<td><var>m</var><br></td>
+			</tr>
+			<tr>
+				<td>phenotype</td>
+				<td><var>String</var></td>
+				<td> false</td>
+				<td>Suggestions for phenotype labels from annotations, with highlights.</td>
 				<td><var> - </var></td>
 				<td><var>abn</var><br></td>
 			</tr>
