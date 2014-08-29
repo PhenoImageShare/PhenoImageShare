@@ -155,8 +155,9 @@
 				</plugins>
 			</build>
 		</profile>
+		
 		<profile>
-		<id>beta-d1</id>
+		<id>betaD1</id>
 			<properties>
 				<baseUrl>http://??</baseUrl>
 				<solrUrl>http://???</solrUrl>
