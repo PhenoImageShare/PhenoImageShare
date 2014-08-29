@@ -84,6 +84,8 @@
    <field name="sample_preparation_id" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="visualisation_method_label" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="visualisation_method_id" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="image_type" type="string" indexed="true" stored="true" multiValued="true"/> <!-- 2 values only, needed for faceting : Pehnotype/Anatomy and Expression -->
+   <field name="sample_type" type="string" indexed="true" stored="true" multiValued="false"/> <!--  2 possible values, needed for the facets : mutant or wildtype -->
    
    <field name="machine" type="string" indexed="true" stored="true"/>
    <field name="thumbnail_path" type="string" indexed="true" stored="true"/>

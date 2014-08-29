@@ -102,6 +102,12 @@ public class TracerXmlGenerator {
 		    		imageDesc.setHostName("Tracer Database");
 		    		imageDesc.setHostUrl("http://www.ebi.ac.uk/panda-srv/tracer/");
 		    		
+		    		ImageTypeArray ita = new ImageTypeArray();
+		    		ita.getEl().add(ImageType.EXPRESSION);
+		    		imageDesc.setImageType(ita);
+		    		
+		    		imageDesc.setSampleType(SampleType.WILD_TYPE);
+		    		
 		    		OntologyTermArray sp = new OntologyTermArray();
 		    		sp.getEl().add(getOntologyTerm("whole mounted tissue", "FBbi_00000024"));
 		    		imageDesc.setSamplePreparation(sp);
@@ -130,6 +136,10 @@ public class TracerXmlGenerator {
 	    			age.setEmbryonicAge(Float.valueOf(a));
 	    			org.setAge(age);
 	    			org.setTaxon("Mus musculus");
+	    			OntologyTerm stage = new OntologyTerm();
+	    			stage.setTermId("MmusDv_0000002");
+	    			stage.setTermLabel("embryonic mouse stage");
+	    			org.setStage(stage);
 	    			image.setOrganism(org);
 
 	    			// We always have 1 channel

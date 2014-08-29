@@ -14,31 +14,31 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for YesNo.
+ * <p>Java class for SampleType.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * <p>
  * <pre>
- * &lt;simpleType name="YesNo">
+ * &lt;simpleType name="SampleType">
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *     &lt;enumeration value="Yes"/>
- *     &lt;enumeration value="No"/>
+ *     &lt;enumeration value="mutant"/>
+ *     &lt;enumeration value="wild type"/>
  *   &lt;/restriction>
  * &lt;/simpleType>
  * </pre>
  * 
  */
-@XmlType(name = "YesNo")
+@XmlType(name = "SampleType")
 @XmlEnum
-public enum YesNo {
+public enum SampleType {
 
-    @XmlEnumValue("Yes")
-    YES("Yes"),
-    @XmlEnumValue("No")
-    NO("No");
+    @XmlEnumValue("mutant")
+    MUTANT("mutant"),
+    @XmlEnumValue("wild type")
+    WILD_TYPE("wild type");
     private final String value;
 
-    YesNo(String v) {
+    SampleType(String v) {
         value = v;
     }
 
@@ -46,8 +46,8 @@ public enum YesNo {
         return value;
     }
 
-    public static YesNo fromValue(String v) {
-        for (YesNo c: YesNo.values()) {
+    public static SampleType fromValue(String v) {
+        for (SampleType c: SampleType.values()) {
             if (c.value.equals(v)) {
                 return c;
             }

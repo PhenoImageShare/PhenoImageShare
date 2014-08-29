@@ -14,31 +14,31 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for YesNo.
+ * <p>Java class for ImageType.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * <p>
  * <pre>
- * &lt;simpleType name="YesNo">
+ * &lt;simpleType name="ImageType">
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *     &lt;enumeration value="Yes"/>
- *     &lt;enumeration value="No"/>
+ *     &lt;enumeration value="phenotype/anatomy"/>
+ *     &lt;enumeration value="expression"/>
  *   &lt;/restriction>
  * &lt;/simpleType>
  * </pre>
  * 
  */
-@XmlType(name = "YesNo")
+@XmlType(name = "ImageType")
 @XmlEnum
-public enum YesNo {
+public enum ImageType {
 
-    @XmlEnumValue("Yes")
-    YES("Yes"),
-    @XmlEnumValue("No")
-    NO("No");
+    @XmlEnumValue("phenotype/anatomy")
+    PHENOTYPE_ANATOMY("phenotype/anatomy"),
+    @XmlEnumValue("expression")
+    EXPRESSION("expression");
     private final String value;
 
-    YesNo(String v) {
+    ImageType(String v) {
         value = v;
     }
 
@@ -46,8 +46,8 @@ public enum YesNo {
         return value;
     }
 
-    public static YesNo fromValue(String v) {
-        for (YesNo c: YesNo.values()) {
+    public static ImageType fromValue(String v) {
+        for (ImageType c: ImageType.values()) {
             if (c.value.equals(v)) {
                 return c;
             }

@@ -11,6 +11,7 @@ public class ImageDTO {
 
 	public final static String ANATOMY_ID = "anatomy_id";
 	public final static String GENE_ID = "gene_id";
+	public final static String CHROMOSOME = "chromosome";
 	public final static String ZYGOSITY = "zygosity";
 	public final static String DEPTH = "depth";
 	public final static String STRAND = "strand";
@@ -35,6 +36,9 @@ public class ImageDTO {
 	public final static String AGE_SINCE_BIRTH = "age_since_birth";
 	public final static String WIDTH = "width";
 	public final static String THUMBNAIL_PATH = "thumbnail_path";
+	public final static String IMAGE_TYPE = "image_type";
+	public final static String SAMPLE_TYPE = "sample_type";
+	
 	public final static String ORIGINAL_IMAGE_ID = "original_image_id";
 	public final static String MACHINE = "machine";
 	public final static String VISUALISATION_METHOD_LABEL = "visualisation_method_label";
@@ -76,137 +80,143 @@ public class ImageDTO {
 
 	public final static String TERM_AUTOSUGGEST = "term_autosuggest";
 	
-	@Field("id")
+	@Field(ID)
 	private String id;
 
-	@Field("associated_roi")
+	@Field(ASSOCIATED_ROI)
 	private List<String> associatedRoi;
 
-	@Field("associated_channel")
+	@Field(ASSOCIATED_CHANNEL)
 	private List<String> associatedChannel;
 
-	@Field("depth")
+	@Field(DEPTH)
 	private Integer gepth;
 
-	@Field("height")
+	@Field(HEIGHT)
 	private Integer height;
 
-	@Field("host_url")
+	@Field(HOST_URL)
 	private String hostUrl;
 
-	@Field("host_name")
+	@Field(HOST_NAME)
 	private String hostName;
 
-	@Field("image_generated_by")
+	@Field(IMAGE_GENERATED_BY)
 	private String imageGeneratedBy;
 
-	@Field("image_url")
+	@Field(IMAGE_TYPE)
+	private ArrayList<String> imageType;
+	
+	@Field(SAMPLE_TYPE)
+	private String sampleType;
+	
+	@Field(IMAGE_URL)
 	private String imageUrl;
 
-	@Field("image_context_url")
+	@Field(IMAGE_CONTEXT_URL)
 	private String imageContextUrl;
 
-	@Field("imaging_method_id")
+	@Field(IMAGING_METHOD_ID)
 	private String imagingMethodId;
 
-	@Field("sample_preparation_id")
+	@Field(SAMPLE_PREPARATION_ID)
 	private String samplePreparationId;
 
-	@Field("visualisation_method_id")
+	@Field(VISUALISATION_METHOD_ID)
 	private String visualisationMethodId;
 
-	@Field("imaging_method_label")
+	@Field(IMAGING_METHOD_LABEL)
 	private String imagingMethodLabel;
 
-	@Field("sample_preparation_label")
+	@Field(SAMPLE_PREPARATION_LABEL)
 	private String samplePreparationLabel;
 
-	@Field("visualisation_method_label")
+	@Field(VISUALISATION_METHOD_LABEL)
 	private String visualisationMethodLabel;
 
-	@Field("machine")
+	@Field(MACHINE)
 	private String machine;
 
-	@Field("thumbnail_path")
+	@Field(THUMBNAIL_PATH)
 	private String thumbnailPath;
 
-	@Field("width")
+	@Field(WIDTH)
 	private Integer width;
 
 	// Sample
 
-	@Field("age_since_birth")
+	@Field(AGE_SINCE_BIRTH)
 	private Float ageSinceBirth;
 
-	@Field("sample_generated_by")
+	@Field(SAMPLE_GENERATED_BY)
 	private String sampleGeneratedBy;
 
-	@Field("taxon")
+	@Field(TAXON)
 	private String taxon;
 
-	@Field("ncbi_taxon_id")
+	@Field(NCBI_TAXON_ID)
 	private String ncbiTaxonId;
 
-	@Field("sex")
+	@Field(SEX)
 	private String sex;
 
-	@Field("stage")
+	@Field(STAGE)
 	private String stage;
 
-	@Field("stage_id")
+	@Field(STAGE_ID)
 	private String stageId;
 
-	@Field("embryonic_age")
+	@Field(EMBRYONIC_AGE)
 	private Float embryonicAge;
 
 	// annotations -->
 
-	@Field("anatomy_id")
+	@Field(ANATOMY_ID)
 	private String anatomyId;
 
-	@Field("anatomy_term")
+	@Field(ANATOMY_TERM)
 	private String anatomyTerm;
 
-	@Field("anatomy_freetext")
+	@Field(ANATOMY_FREETEXT)
 	private String anatomyFreetext;
 
-	@Field("observations")
+	@Field(OBSERVATIONS)
 	private List<String> observations;
 
-	@Field("conditions")
+	@Field(CONDITIONS)
 	private List<String> conditions;
 
-	@Field("gene_id")
+	@Field(GENE_ID)
 	private List<String> geneIds;
 
-	@Field("gene_symbol")
+	@Field(GENE_SYMBOL)
 	private List<String> geneSymbols;
 
-	@Field("genetic_feature_id")
+	@Field(GF_ID)
 	private List<String> geneticFeatureIds;
 
-	@Field("genetic_feature_symbol")
+	@Field(GF_SYMBOL)
 	private List<String> geneticFeatureSymbols;
 
-	@Field("genetic_feature_ensembl_id")
+	@Field(GF_ENEMBL_ID)
 	private List<String> genetifFeatureEnsemlIds;
 
-	@Field("chromosome")
+	@Field(CHROMOSOME)
 	private List<String> chromosome;
 
-	@Field("start_pos")
+	@Field(START_POS)
 	private List<Long> startPosition;
 
-	@Field("end_pos")
+	@Field(END_POS)
 	private List<Long> endPosition;
 
-	@Field("strand")
+	@Field(STRAND)
 	private List<String> strand;
 
-	@Field("zygosity")
+	@Field(ZYGOSITY)
 	private List<String> zygosity;
 
-	@Field("depth")
+	@Field(DEPTH)
 	private long depth;
 
 	@Field(ANATOMY_COMPUTED_ID_BAG)
@@ -1449,6 +1459,46 @@ public class ImageDTO {
 	public void setAbnormalAnatomyFreetextBag(ArrayList<String> abnormalAnatomyFreetextBag) {
 
 		this.abnormalAnatomyFreetextBag = abnormalAnatomyFreetextBag;
+	}
+
+
+	
+	/**
+	 * @return the imageType
+	 */
+	public ArrayList<String> getImageType() {
+	
+		return imageType;
+	}
+
+
+	
+	/**
+	 * @param imageType the imageType to set
+	 */
+	public void setImageType(ArrayList<String> imageType) {
+	
+		this.imageType = imageType;
+	}
+
+
+	
+	/**
+	 * @return the sampleType
+	 */
+	public String getSampleType() {
+	
+		return sampleType;
+	}
+
+
+	
+	/**
+	 * @param sampleType the sampleType to set
+	 */
+	public void setSampleType(String sampleType) {
+	
+		this.sampleType = sampleType;
 	}
 
 }

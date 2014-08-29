@@ -23,6 +23,27 @@
 									</restriction>
 								</simpleType>
 								
+								<simpleType name="SampleType">
+									<restriction base="string">
+										<enumeration value="mutant"></enumeration>
+										<enumeration value="wild type"></enumeration>
+									</restriction>
+								</simpleType>
+								
+								<simpleType name="ImageType">
+									<restriction base="string">
+										<enumeration value="phenotype/anatomy"></enumeration>
+										<enumeration value="expression"></enumeration>
+									</restriction>
+								</simpleType>
+								
+								
+								<complexType name="ImageTypeArray">
+										<sequence>
+						    			<element name="el" type="x:ImageType" minOccurs="1" maxOccurs="unbounded"/>
+						    		</sequence>
+								</complexType>
+								
 								<complexType name="Age">
 									<choice>
 										<element name="age_since_birth" type="float"></element>
@@ -131,6 +152,8 @@
 						  	  		<element name="imaging_method" type="x:OntologyTermArray"  minOccurs="0" maxOccurs="1" /> <!-- from Fbbi -->
 						  	  		<element name="sample_preparation" type="x:OntologyTermArray"  minOccurs="0" maxOccurs="1" /> <!-- from Fbbi -->
 						  	  		<element name="visualisation_method" type="x:OntologyTermArray"  minOccurs="0" maxOccurs="1" /> <!-- from Fbbi -->
+						  	  		<element name="image_type" type="x:ImageTypeArray"  minOccurs="1" maxOccurs="1" /> 
+						  	  		<element name="sample_type" type="x:SampleType"  minOccurs="1" maxOccurs="1" /> 
 									</all>
 								</complexType>
 								
@@ -138,7 +161,7 @@
 									<all>
 						  	  		<element name="age" type="x:Age" minOccurs="0" maxOccurs="1"/>
 						  	  		<element name="taxon" type="string" minOccurs="1" maxOccurs="1"/>
-						   		 	<element name="sex" type="x:Sex" minOccurs="0" maxOccurs="1"/>
+						   		 		<element name="sex" type="x:Sex" minOccurs="0" maxOccurs="1"/>
 						  	  		<element name="ncbi_taxon_id"	type="string" minOccurs="0" maxOccurs="1"/>
 						  	  		<element name="stage" type="x:OntologyTerm" minOccurs="0" maxOccurs="1"/>
 						  	  </all>

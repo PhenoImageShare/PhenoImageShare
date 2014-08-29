@@ -30,11 +30,14 @@ import uk.ac.ebi.phis.jaxb.Genotype;
 import uk.ac.ebi.phis.jaxb.GenotypeComponent;
 import uk.ac.ebi.phis.jaxb.Image;
 import uk.ac.ebi.phis.jaxb.ImageDescription;
+import uk.ac.ebi.phis.jaxb.ImageType;
+import uk.ac.ebi.phis.jaxb.ImageTypeArray;
 import uk.ac.ebi.phis.jaxb.OntologyTerm;
 import uk.ac.ebi.phis.jaxb.OntologyTermArray;
 import uk.ac.ebi.phis.jaxb.Organism;
 import uk.ac.ebi.phis.jaxb.PercentArray;
 import uk.ac.ebi.phis.jaxb.Roi;
+import uk.ac.ebi.phis.jaxb.SampleType;
 import uk.ac.ebi.phis.jaxb.Sex;
 import uk.ac.ebi.phis.jaxb.StringArray;
 import uk.ac.ebi.phis.jaxb.Zygosity;
@@ -93,27 +96,20 @@ public class SangerXmlGenerator {
 		    		
 		    		if (dimensions != null){// the image could be loaded 	    		
 
-			    		Image image = new Image();
+			    		Boolean expression = false;
+			    		Boolean phenotypeAnatomy = false;
+		    			Boolean isMutant = true;
+			    		
+		    			Image image = new Image();
 			    		image.setId(internalId);
-		    			
-		    			Dimensions d = new Dimensions();
+			    		
+			    		Dimensions d = new Dimensions();
 		    			d.setImageHeight(dimensions.get("height"));
 		    			d.setImageWidth(dimensions.get("width"));
-			    		ImageDescription imageDesc = new ImageDescription();
-			    		imageDesc.setImageUrl(url);
-			    		imageDesc.setImageDimensions(d);
-			      		imageDesc.setOrganismGeneratedBy("WTSI");
-			    		imageDesc.setImageGeneratedBy("WTSI");
-			    		imageDesc.setHostName("Mouse Phenotype");
-			    		imageDesc.setHostUrl("http://www.mousephenotype.org/");
-			    		
 			    		String procedure = res.getString("procedure_name");
-			    		// Parse procedure names to get most info out of htem. Mappings done by David can be found at https://docs.google.com/spreadsheet/ccc?key=0AmK8olNJT0Z7dEN2MklCX2g1TmhJWTk0N3VlUERVaVE&usp=drive_web#gid=0
-			    		imageDesc = setSamplePrep(procedure, imageDesc);
 			    		// store proceudre name as observation
 			    		image.setObservations(new StringArray());
 			    		image.getObservations().getEl().add("Procedure name: " + procedure);
-			    		image.setImageDescription(imageDesc);
 
 			    		Organism organism = new Organism();
 			    		Sex sex = Sex.fromValue(norm.normalizeSex(res.getString("GENDER")));
@@ -127,7 +123,7 @@ public class SangerXmlGenerator {
 				    		}
 				    		organism.setAge(age);
 			    		}
-			    		OntologyTerm stageOt = getStageFromProcedure(procedure);
+			    		OntologyTerm stageOt = getStageFromProcedureOrAge(procedure, res.getString("AGE_IN_WEEKS"));
 			    		if (stageOt != null){
 			    			organism.setStage(stageOt);
 			    		}
@@ -145,13 +141,17 @@ public class SangerXmlGenerator {
 			    		Genotype gta = new Genotype();
 			    		gta.getEl().add(gt);
 			    		image.setMutantGenotypeTraits(gta);
-			    		        
+			    		
+			    		if (res.getString("GENOTYPE").equalsIgnoreCase("WT")){
+			    			isMutant = false;
+			    		}
 				        
 				        /* 	Channel 	*/
 			    		String imageType = norm.getImageType(res.getString("procedure_name"));
 			    		Channel channel = null;
 			    		String channelId = "";
 			    		if (imageType.equalsIgnoreCase("expression")){
+			    			expression = true;
 			    			channelId = internalId.replace("komp2_", "komp2_channel_") + "_" + 0; // we know that for Sanger data there is at most one channel.
 			    			channel = new Channel();
 					        channel.setAssociatedImage(internalId);
@@ -179,9 +179,12 @@ public class SangerXmlGenerator {
 				    		if (res.getString("ONTOLOGY_DICT_ID").equalsIgnoreCase("1") || 
 				    				(Float)res.getFloat("X_START") + (Float) res.getFloat("X_END") + (Float)res.getFloat("Y_START") + (Float)res.getFloat("Y_END") != 0 ){ // 1 = MP
 				    			roi = fillRoi(roi, res, d, imageType.equalsIgnoreCase("expression"));
+				    			if (!imageType.equalsIgnoreCase("expression")){
+				    				phenotypeAnatomy = true;
+				    			}
 				    		}
 				    									       
-				    		// 3. Anatomy from ixpression annotations should always be associated to it's ROI
+				    		// 3. Anatomy from expression annotations should always be associated to it's ROI
 				    		// Sanger expression images: if an anatomy term is associated to the whole expression image it means there is expression in that anatomical structure
 				    		else if (imageType.equalsIgnoreCase("expression"))
 				    		{
@@ -192,6 +195,7 @@ public class SangerXmlGenerator {
 					    			channel.setAssociatedRoi(new StringArray());
 				    			}
 				    			channel.getAssociatedRoi().getEl().add(roiId);
+				    			expression = true;
 				    		}
 				    		// Otherwise associate annotation to the whole image
 				    		else {
@@ -219,7 +223,34 @@ public class SangerXmlGenerator {
 					        	doc.getRoi().add(roi);
 					        }
 			    		}
-			    					    		
+			    		ImageDescription imageDesc = new ImageDescription();
+			    		imageDesc.setImageUrl(url);
+			    		imageDesc.setImageDimensions(d);
+			      		imageDesc.setOrganismGeneratedBy("WTSI");
+			    		imageDesc.setImageGeneratedBy("WTSI");
+			    		imageDesc.setHostName("Mouse Phenotype");
+			    		imageDesc.setHostUrl("http://www.mousephenotype.org/");
+			    		// Parse procedure names to get most info out of htem. Mappings done by David can be found at https://docs.google.com/spreadsheet/ccc?key=0AmK8olNJT0Z7dEN2MklCX2g1TmhJWTk0N3VlUERVaVE&usp=drive_web#gid=0
+			    		imageDesc = setSamplePrep(procedure, imageDesc);
+			    		
+			    		ImageTypeArray  it = new ImageTypeArray();
+			    		if (phenotypeAnatomy){
+			    			it.getEl().add(ImageType.PHENOTYPE_ANATOMY);
+			    		}else if (!expression){
+			    			// this will happen when no phenotype annotation was found or no  anatomy ann with ROI and we just supposed the annotation referes to the whole image. But since we have the image, it must be of some anatomy/phenotype part of interest. 	
+			    			it.getEl().add(ImageType.PHENOTYPE_ANATOMY);		    			
+			    		}
+			    		if (expression){
+			    			it.getEl().add(ImageType.EXPRESSION);
+			    		}
+			    		imageDesc.setImageType(it);
+			    		if (isMutant){
+				    		imageDesc.setSampleType(SampleType.MUTANT);
+			    		}else {
+			    			imageDesc.setSampleType(SampleType.WILD_TYPE);
+			    		}
+			    		image.setImageDescription(imageDesc);
+			    		
 			    		// !!!  Last thing in this block  !!!
 				        doc.getImage().add(image);
 				        if (channel != null){
@@ -228,7 +259,8 @@ public class SangerXmlGenerator {
 		    		}
 	        	}
 	    		i++;
-	    //		if (i==1000) break;
+	    		System.out.println(i);
+	    		if (i==1000) break;
 	        }
 			
 	        File file = new File("source/main/resources/sangerExport.xml");
@@ -452,15 +484,30 @@ public class SangerXmlGenerator {
 	  * @param procedure
 	  * @return
 	  */
-	 OntologyTerm getStageFromProcedure(String procedure){
-		 OntologyTerm ot = null;
-		 if (procedure.equalsIgnoreCase("Dysmorphology") ||
+	 OntologyTerm getStageFromProcedureOrAge(String procedure, String age){
+		 OntologyTerm prenatal = new OntologyTerm();
+		 prenatal.setTermId("MmusDv_0000002");
+		 prenatal.setTermLabel("embryonic mouse stage");
+		 
+		 OntologyTerm postnatal = new OntologyTerm();
+		 postnatal.setTermId("MmusDv_0000092");
+		 postnatal.setTermLabel("postnatal stage");
+			
+		if (procedure.equalsIgnoreCase("Dysmorphology") ||
 				 procedure.equalsIgnoreCase("Xray") ||
 				 procedure.equalsIgnoreCase("Eye Morphology") ){
-			ot = new OntologyTerm();
-			ot.setTermId("MmusDv_0000092");
-			ot.setTermLabel("postnatal stage");
+			return postnatal;
+		}else if (procedure.equalsIgnoreCase("Embryo dysmorphology")){
+			return prenatal;
+		}else {
+			age = age.toLowerCase();
+			if (age.endsWith("w") || age.endsWith("w (at death)")){ 
+				return postnatal;
+			}
+			else if (age.endsWith("e") || age.endsWith("e (at death)") || age.startsWith("e")){
+				return prenatal;
+			}
 		 }
-		 return ot;
+		 return null;
 	 }
 }

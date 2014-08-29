@@ -7,6 +7,7 @@ import uk.ac.ebi.phis.jaxb.Doc;
 import uk.ac.ebi.phis.jaxb.GenotypeComponent;
 import uk.ac.ebi.phis.jaxb.Image;
 import uk.ac.ebi.phis.jaxb.ImageDescription;
+import uk.ac.ebi.phis.jaxb.ImageType;
 import uk.ac.ebi.phis.jaxb.OntologyTerm;
 import uk.ac.ebi.phis.jaxb.Organism;
 import uk.ac.ebi.phis.jaxb.Roi;
@@ -122,7 +123,6 @@ public class BatchXmlUploader {
 			if (i++ % 1000 == 0) {
 				is.addBeans(imageDocs);
 				imageDocs = new ArrayList<>();
-				System.out.println(i + " image documents submitted.");
 			}
 		}
 		is.addBeans(imageDocs);
@@ -132,6 +132,7 @@ public class BatchXmlUploader {
 	throws IOException, SolrServerException {
 		
 		int i = 0;
+		System.out.println("rois list is " + rois.size());
 		List<RoiDTO> roiDocs = new ArrayList<>();
 		for (Roi roi : rois) {
 			// add it
@@ -140,7 +141,6 @@ public class BatchXmlUploader {
 			if (i++ % 1000 == 0) {
 				rs.addBeans(roiDocs);
 				roiDocs = new ArrayList<>();
-				System.out.println(i + " rois documents submitted.");
 			}
 		}
 		rs.addBeans(roiDocs);
@@ -151,6 +151,7 @@ public class BatchXmlUploader {
 		
 		int i = 0;
 		List<ChannelDTO> chDocs = new ArrayList<>();
+		System.out.println("channel list is " + channels.size());
 		for (Channel channel : channels) {
 			// add it
 			chDocs.add(fillPojo(channel));
@@ -158,7 +159,6 @@ public class BatchXmlUploader {
 			if (i++ % 1000 == 0) {
 				cs.addBeans(chDocs);
 				chDocs = new ArrayList<>();
-				System.out.println(i + " channle documents submitted.");
 			}
 		}
 		cs.addBeans(chDocs);
@@ -389,6 +389,15 @@ public class BatchXmlUploader {
 			bean.setMachine(desc.getMachine());			
 		}
 
+		bean.setSampleType(desc.getSampleType().name());
+		ArrayList<String> imageType = new ArrayList<>();
+		for (ImageType it : desc.getImageType().getEl()){
+			if (!imageType.contains(it.name())){
+				imageType.add(it.name());
+			}
+		}
+		bean.setImageType(imageType);
+		
 		// TODO bean.setThumbnailPath(thumbnailPath);;
 
 		// Sample

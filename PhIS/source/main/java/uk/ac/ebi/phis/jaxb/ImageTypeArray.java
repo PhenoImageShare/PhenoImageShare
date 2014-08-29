@@ -12,20 +12,21 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for ZygArray complex type.
+ * <p>Java class for ImageTypeArray complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="ZygArray">
+ * &lt;complexType name="ImageTypeArray">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="el" type="{http://www.example.org/phisSchema}Zygosity" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="el" type="{http://www.example.org/phisSchema}ImageType" maxOccurs="unbounded"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -35,12 +36,13 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "ZygArray", propOrder = {
+@XmlType(name = "ImageTypeArray", propOrder = {
     "el"
 })
-public class ZygArray {
+public class ImageTypeArray {
 
-    protected List<Zygosity> el;
+    @XmlElement(required = true)
+    protected List<ImageType> el;
 
     /**
      * Gets the value of the el property.
@@ -60,13 +62,13 @@ public class ZygArray {
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link Zygosity }
+     * {@link ImageType }
      * 
      * 
      */
-    public List<Zygosity> getEl() {
+    public List<ImageType> getEl() {
         if (el == null) {
-            el = new ArrayList<Zygosity>();
+            el = new ArrayList<ImageType>();
         }
         return this.el;
     }
