@@ -260,7 +260,7 @@ public class SangerXmlGenerator {
 	        	}
 	    		i++;
 	    		System.out.println(i);
-	    		if (i==1000) break;
+	    		if (i==5000) break;
 	        }
 			
 	        File file = new File("source/main/resources/sangerExport.xml");
