@@ -77,7 +77,6 @@ public class ImageService {
 			solrQuery.set("hl.simple.post", "</b>");
 		}
 		else if (phenotype != null){
-			System.out.println("PHENOTYPE!!");
 			if (phenotype.length() < 1)
 				return "";
 			// Build the query
@@ -109,7 +108,6 @@ public class ImageService {
 					for (List<String> suggestLists : suggests.values()){
 						for(String highlighted : suggestLists){
 							if (highlighted.contains("<b>") && !suggestions.contains(highlighted)){
-								System.out.println(highlighted + "  " + highlighted.replaceAll("<\\\\", "<"));
 								suggestions.add(highlighted);
 								if (suggestions.size() == suggestionNumber){
 									break OUTERMOST;

@@ -352,7 +352,6 @@ public class BatchXmlUploader {
 		}
 
 		if (img.getAssociatedChannel() != null){
-			System.out.println("\t channel not null");
 			bean.setAssociatedChannel(img.getAssociatedChannel().getEl());
 			// Need to copy some fields for search purposes
 			bean = copyFieldsFromChannel(img, bean);
@@ -631,15 +630,11 @@ private ImageDTO copyFieldsFromChannel(Image img, ImageDTO pojo){
 		
 		ImageDTO res = pojo;
 
-		System.out.println("I get in copyFieldsFromChannel.");
-
 		ArrayList<String> expressedGfIdBag = new ArrayList<>();
 		ArrayList<String> expressedGfLabelBag = new ArrayList<>();
 		
 		// For all associated ROIs, check available annotations and copy them as needed in the bag fields
 		for (String channelId : img.getAssociatedChannel().getEl()){
-			
-			System.out.println("I get In for loop.");
 			
 			Channel channel = channelIdMap.get(channelId);		
 			
@@ -661,7 +656,6 @@ private ImageDTO copyFieldsFromChannel(Image img, ImageDTO pojo){
 				if (gf.getGeneticFeatureSymbol() != null){
 					expressedGfLabelBag.add(gf.getGeneticFeatureSymbol());
 				}	
-				System.out.println("\n\n\n\n " + img.getId() + " found expression of\n\n\n\n");
 				break;
 			}
 		}

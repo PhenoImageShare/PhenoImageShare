@@ -190,7 +190,6 @@ public class SangerImagesImporter {
 	    			imageRoot.appendChild(image);
 	        	}
 	    		i++;
-		        
 	        }
 			// write the content into xml file
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
