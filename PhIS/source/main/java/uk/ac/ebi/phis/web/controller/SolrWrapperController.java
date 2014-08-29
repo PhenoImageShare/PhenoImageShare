@@ -52,6 +52,7 @@ public class SolrWrapperController {
     		@RequestParam(value = "phenotype", required = false) String phenotype,
             @RequestParam(value = "anatomy", required = false) String anatomy,
             @RequestParam(value = "gene", required = false) String gene,
+            @RequestParam(value = "mutantGene", required = false) String mutantGene,
             @RequestParam(value = "expressedFeature", required = false) String expressedGene,
             @RequestParam(value = "sex", required = false) String sex,
             @RequestParam(value = "taxon", required = false) String taxon,
@@ -64,7 +65,7 @@ public class SolrWrapperController {
     		Model model
             ) throws SolrServerException, IOException, URISyntaxException {
 				
-		return is.getImage(term, phenotype, gene, anatomy, expressedGene, sex, taxon, stage, visualisationMethod, 
+		return is.getImage(term, phenotype, gene, mutantGene, anatomy, expressedGene, sex, taxon, stage, visualisationMethod, 
 						samplePreparation, imagingMethod, resultNo, start);
     }
 	
@@ -73,10 +74,11 @@ public class SolrWrapperController {
 	public  @ResponseBody String getSuggestions(
 			@RequestParam(value = "term", required = false) String term,
 			@RequestParam(value = "mutantGene", required = false) String mutantGene,
+			@RequestParam(value = "expressedGeneOrAllele", required = false) String expressedGeneOrAllele,
 			@RequestParam(value = "phenotype", required = false) String phenotype,
 			@RequestParam(value = "resultNo", required = false) Integer resultNo,
 			Model model){
-		return is.getAutosuggest(term, mutantGene, phenotype, resultNo);
+		return is.getAutosuggest(term, mutantGene, expressedGeneOrAllele, phenotype, resultNo);
 	}
 	
 	@RequestMapping(value="/getRois", method=RequestMethod.GET)	

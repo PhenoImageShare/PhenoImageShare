@@ -30,7 +30,7 @@ public class ImageService {
 
 	}
 	
-	public String getAutosuggest(String term, String gene, String phenotype, Integer rows){
+	public String getAutosuggest(String term, String mutantGene, String expressedGeneOrAllele, String phenotype, Integer rows){
 
 		SolrQuery solrQuery = new SolrQuery();
 		ArrayList<String> suggestions = new ArrayList<>();
@@ -50,11 +50,11 @@ public class ImageService {
 			solrQuery.set("hl.simple.pre", "<b>");
 			solrQuery.set("hl.simple.post", "</b>");
 		}
-		else if (gene != null){
-			if (gene.length() < 1)
+		else if (mutantGene != null){
+			if (mutantGene.length() < 1)
 				return "";
 			// Build the query
-			solrQuery.setQuery(ImageDTO.GENE_SYMBOL + ":" + term);
+			solrQuery.setQuery(ImageDTO.GENE_SYMBOL + ":" + mutantGene);
 			solrQuery.setFields(ImageDTO.GENE_SYMBOL);
 			solrQuery.addHighlightField(ImageDTO.GENE_SYMBOL);
 			solrQuery.setHighlight(true);
@@ -63,11 +63,25 @@ public class ImageService {
 			solrQuery.set("hl.simple.pre", "<b>");
 			solrQuery.set("hl.simple.post", "</b>");
 		}
+		else if (expressedGeneOrAllele != null){
+			if (expressedGeneOrAllele.length() < 1)
+				return "";
+			// Build the query
+			solrQuery.setQuery(ImageDTO.EXPRESSED_GF_SYMBOL_BAG + ":" + expressedGeneOrAllele);
+			solrQuery.setFields(ImageDTO.EXPRESSED_GF_SYMBOL_BAG);
+			solrQuery.addHighlightField(ImageDTO.EXPRESSED_GF_SYMBOL_BAG);
+			solrQuery.setHighlight(true);
+			solrQuery.setHighlightRequireFieldMatch(true);
+			solrQuery.set("f." + ImageDTO.EXPRESSED_GF_SYMBOL_BAG + ".hl.preserveMulti", true);
+			solrQuery.set("hl.simple.pre", "<b>");
+			solrQuery.set("hl.simple.post", "</b>");
+		}
 		else if (phenotype != null){
+			System.out.println("PHENOTYPE!!");
 			if (phenotype.length() < 1)
 				return "";
 			// Build the query
-			solrQuery.setQuery(ImageDTO.PHENOTYPE_LABEL_BAG + ":" + term);
+			solrQuery.setQuery(ImageDTO.PHENOTYPE_LABEL_BAG + ":" + phenotype);
 			solrQuery.setFields(ImageDTO.PHENOTYPE_LABEL_BAG);
 			solrQuery.addHighlightField(ImageDTO.PHENOTYPE_LABEL_BAG);
 			solrQuery.setHighlight(true);
@@ -116,11 +130,15 @@ public class ImageService {
 		return returnObj.toString().replaceAll("<\\\\", "<");
 	}
 		
-	public String getImage(String term, String phenotype, String mutantGene, String anatomy, String expressedGene, String sex, String taxon, 
+	public String getImage(String term, String phenotype, String geneParameterToBeDeleted, String mutantGene, String anatomy, String expressedGene, String sex, String taxon, 
 	String stage, String visualisationMethod, String samplePreparation, String imagingMethod, Integer rows, Integer start) throws SolrServerException{
 
 		SolrQuery solrQuery = new SolrQuery();
 		solrQuery.setQuery("*:*");
+		
+		if ( geneParameterToBeDeleted != null){
+			mutantGene = geneParameterToBeDeleted;
+		}
 		
 		if (term != null){
 			solrQuery.setFilterQueries(ImageDTO.PHENOTYPE_ID_BAG + ":\""+ term + "\" OR " + 

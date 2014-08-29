@@ -632,8 +632,9 @@ private ImageDTO copyFieldsFromChannel(Image img, ImageDTO pojo){
 		ImageDTO res = pojo;
 
 		System.out.println("I get in copyFieldsFromChannel.");
-		
-		ArrayList<String> expressedGfBag = new ArrayList<>();
+
+		ArrayList<String> expressedGfIdBag = new ArrayList<>();
+		ArrayList<String> expressedGfLabelBag = new ArrayList<>();
 		
 		// For all associated ROIs, check available annotations and copy them as needed in the bag fields
 		for (String channelId : img.getAssociatedChannel().getEl()){
@@ -646,26 +647,27 @@ private ImageDTO copyFieldsFromChannel(Image img, ImageDTO pojo){
 			if (channel.getDepictsExpressionOf() != null){
 				GenotypeComponent gf = channel.getDepictsExpressionOf();
 				if (gf.getGeneId() != null){
-					expressedGfBag.add(gf.getGeneId());
+					expressedGfIdBag.add(gf.getGeneId());
 				}
 				if (gf.getGeneSymbol() != null){
-					expressedGfBag.add(gf.getGeneSymbol());
+					expressedGfLabelBag.add(gf.getGeneSymbol());
 				}
 				if (gf.getGeneticFeatureId() != null){
-					expressedGfBag.add(gf.getGeneticFeatureId());
+					expressedGfIdBag.add(gf.getGeneticFeatureId());
 				}
 				if (gf.getGeneticFeatureEnsemblId() != null){
-					expressedGfBag.add(gf.getGeneticFeatureEnsemblId());
+					expressedGfIdBag.add(gf.getGeneticFeatureEnsemblId());
 				}
 				if (gf.getGeneticFeatureSymbol() != null){
-					expressedGfBag.add(gf.getGeneticFeatureSymbol());
+					expressedGfLabelBag.add(gf.getGeneticFeatureSymbol());
 				}	
 				System.out.println("\n\n\n\n " + img.getId() + " found expression of\n\n\n\n");
 				break;
 			}
 		}
 
-		res.setExpressedGfIdBag(expressedGfBag);
+		res.setExpressedGfIdBag(expressedGfIdBag);
+		res.setExpressedGfSymbolBag(expressedGfLabelBag);
 		return res;
 	}
 	
