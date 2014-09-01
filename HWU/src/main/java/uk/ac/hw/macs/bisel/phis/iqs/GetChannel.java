@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * Servlet connects client (presumably a GUI) to the SOLR API that wraps the SOLR repository
+ * Connects client (presumably a GUI) to the SOLR API that wraps the SOLR repository
  * for image channels
  *
  * @author kcm
