@@ -94,6 +94,25 @@
 				<td><var> * </var></td>
 				<td><var> Mus musculus </var> </td>
 			</tr>
+			
+			<tr>
+				<td>sampleType</td>
+				<td><var>String</var></td>
+				<td>false</td>
+				<td>For mutant/wildType facet filtering.</td>
+				<td><var> * </var></td>
+				<td><var> WILD_TYPE </var> or <var>MUTANT</var> </td>
+			</tr>
+			
+			
+			<tr>
+				<td>imageType</td>
+				<td><var>String</var></td>
+				<td>false</td>
+				<td>Filter on expression or anatomy/phenotype images for faceting.</td>
+				<td><var> * </var></td>
+				<td><var> EXPRESSION </var> or <var>PHENOTYPE_ANATOMY </var> </td>
+			</tr>
 			<tr>
 				<td>stage</td>
 				<td><var>String</var></td>

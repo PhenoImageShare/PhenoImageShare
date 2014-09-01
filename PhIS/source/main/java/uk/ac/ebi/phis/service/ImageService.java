@@ -129,7 +129,7 @@ public class ImageService {
 	}
 		
 	public String getImage(String term, String phenotype, String geneParameterToBeDeleted, String mutantGene, String anatomy, String expressedGene, String sex, String taxon, 
-	String stage, String visualisationMethod, String samplePreparation, String imagingMethod, Integer rows, Integer start) throws SolrServerException{
+	String image_type, String sample_type, String stage, String visualisationMethod, String samplePreparation, String imagingMethod, Integer rows, Integer start) throws SolrServerException{
 
 		SolrQuery solrQuery = new SolrQuery();
 		solrQuery.setQuery("*:*");
@@ -186,6 +186,12 @@ public class ImageService {
 		if (taxon != null){
 			solrQuery.setFilterQueries(ImageDTO.TAXON + ":\"" + taxon + "\" OR " + 
 				ImageDTO.NCBI_TAXON_ID + ":\"" + taxon + "\"");
+		}
+		if (image_type != null){
+			solrQuery.setFilterQueries(ImageDTO.IMAGE_TYPE + ":\"" + image_type + "\"");
+		}
+		if (sample_type != null){
+			solrQuery.setFilterQueries(ImageDTO.SAMPLE_TYPE + ":\"" + sample_type + "\"");
 		}
 		if (stage != null){
 			solrQuery.setFilterQueries(ImageDTO.STAGE + ":\"" + stage + "\" OR " + 
