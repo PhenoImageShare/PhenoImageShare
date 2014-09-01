@@ -1,9 +1,27 @@
 <html>
     <body>
         <h2>IQS API summary</h2>
+        
+        <!--
         <div>
             Base URL is <%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>
         </div>
+
+        <hr> 
+        -->
+        <h3>Key</h3>
+        <div style="background-color: grey;">
+            Depreciated parameters or methods are given a grey background colour.
+        </div>
+        <div style="background-color: orange;">
+            New parameters or methods are given an orange background colour.
+        </div>
+        <div>
+            Unchanged parameters or methods are given a normal white background colour.
+        </div>
+
+        <hr>
+
         <div>
             <h3>/getImages</h3>
             <h4>parameters</h4>
@@ -149,7 +167,7 @@
                 </tbody>
             </table>
 
-            Examples:
+            <h4>Examples:</h4>
             <ol>
                 <li><a href="<%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getImages?term=eye"><%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getImages?term=eye</a></li>
                 <li><a href="<%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getImages?phenotype=MP:0010254"><%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getImages?phenotype=MP:0010254</a></li>
@@ -159,8 +177,9 @@
                 <li><a href="<%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getImages?anatomy=eye"><%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getImages?anatomy=eye</a></li>
                 <li><a href="<%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getImages?gene=Spns2"><%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getImages?gene=Spns2</a></li>
             </ol>
-
         </div>
+
+        <hr>                
 
         <div>
             <h3>/getRoi</h3>
@@ -190,11 +209,13 @@
             </table>
 
 
-            Example:
+            <h4>Example:</h4>
             <ol>
                 <li><a href="<%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getRoi?id=komp2_roi_112003_0"><%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getRoi?id=komp2_roi_112003_0</a></li>
             </ol>
         </div>
+
+        <hr>                
 
         <div>
             <h3>/getRois</h3>
@@ -240,13 +261,13 @@
                 </tbody>
             </table>
 
-            Example:
+            <h4>Example:</h4>
             <ol>
                 <li><a href="<%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getRois?imageId=komp2_112003"><%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getRois?imageId=komp2_112003</a></li>
             </ol>
-
         </div>
 
+        <hr>                
 
         <div>
             <h3>/getChannel</h3>
@@ -275,11 +296,13 @@
                 </tbody>
             </table>
 
-            Example:
+            <h4>Example:</h4>
             <ol>
                 <li><a href="<%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getChannel?id=komp2_channel_112003_0"><%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getChannel?id=komp2_channel_112003_0</a></li>
             </ol>
         </div>
+
+        <hr>                
 
         <div>
             <h3>/getChannels</h3>
@@ -330,12 +353,14 @@
 
             </table>
 
-            Example:
+            <h4>Example:</h4>
             <ol>
                 <li><a href="<%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getChannels?imageId=komp2_112003"><%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getChannels?imageId=komp2_112003</a></li>
             </ol>
 
         </div>
+
+        <hr>    
 
         <div>
             <h3 style="background-color: orange;">/getAutosuggest</h3>
