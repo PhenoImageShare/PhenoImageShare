@@ -24,6 +24,10 @@
         <servlet-name>GetChannels</servlet-name>
         <servlet-class>uk.ac.hw.macs.bisel.phis.iqs.GetChannels</servlet-class> 
     </servlet>      
+    <servlet>
+        <servlet-name>AutoSuggest</servlet-name>
+        <servlet-class>uk.ac.hw.macs.bisel.phis.iqs.AutoSuggest</servlet-class> 
+    </servlet>          
     <servlet-mapping>
         <servlet-name>GetImages</servlet-name>
         <url-pattern>/GetImages</url-pattern>
@@ -83,7 +87,15 @@
     <servlet-mapping>
         <servlet-name>GetChannels</servlet-name>
         <url-pattern>/getChannels</url-pattern>
-    </servlet-mapping>     
+    </servlet-mapping>  
+    <servlet-mapping>
+        <servlet-name>AutoSuggest</servlet-name>
+        <url-pattern>/getAutosuggest</url-pattern>
+    </servlet-mapping>       
+    <servlet-mapping>
+        <servlet-name>AutoSuggest</servlet-name>
+        <url-pattern>/GetAutoSuggest</url-pattern>
+    </servlet-mapping>        
     <session-config>
         <session-timeout>
             30
