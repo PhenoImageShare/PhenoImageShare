@@ -62,13 +62,29 @@ public class AutoSuggest extends HttpServlet {
                 queryURL += "term=" + params.get("term")[0]; // extend stem with parameter
                 first = false; // next time you need a separator
             
-                
-            // IT offers a number of paramaters that I do not:
-            // mutantGene
-            // expressedGeneOrAllele
-            // phenotype
-            // I am not sure when these would be used so I have not implemented them    
-                
+            // params that IT added, that I do not understand how they will be used
+            // may need to delete these    
+            } else if (param.equals("mutantGene")) {
+                if (!first) { // at the moment it will always be the first (and only) param
+                    queryURL += "&";
+                }
+
+                queryURL += "mutantGene=" + params.get("mutantGene")[0]; // extend stem with parameter
+                first = false; // next time you need a separator                
+            } else if (param.equals("expressedGeneOrAllele")) {
+                if (!first) { // at the moment it will always be the first (and only) param
+                    queryURL += "&";
+                }
+
+                queryURL += "expressedGeneOrAllele=" + params.get("expressedGeneOrAllele")[0]; // extend stem with parameter
+                first = false; // next time you need a separator                   
+            } else if (param.equals("phenotype")) {
+                if (!first) { // at the moment it will always be the first (and only) param
+                    queryURL += "&";
+                }
+
+                queryURL += "phenotype=" + params.get("phenotype")[0]; // extend stem with parameter
+                first = false; // next time you need a separator                 
                 
             // choose number of results to ask for... lots of results is very costly    
             } else if (param.equals("num")) { // number of results to return
