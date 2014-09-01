@@ -412,7 +412,7 @@
                         <td><var>abn</var><br></td>
                     </tr>
                     <tr>
-                        <td>resultNo</td>
+                        <td>num</td>
                         <td><var>Integer</var></td>
                         <td> false</td>
                         <td>Max number of suggestions to be returned. It is not recommended to put a bigger number than you actually need as the time cost increses quite significanlty with it.</td>
