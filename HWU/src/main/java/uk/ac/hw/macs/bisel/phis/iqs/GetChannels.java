@@ -79,7 +79,7 @@ public class GetChannels extends HttpServlet {
         boolean first = true;
         Map<String, String[]> params = request.getParameterMap(); // get map of parameters and their values
         Enumeration<String> allParams = request.getParameterNames(); // get a list of parameter names
-        if (allParams.hasMoreElements()) {
+        while (allParams.hasMoreElements()) {
             String param = allParams.nextElement();
             if (param.equalsIgnoreCase("imageId")) { // ID of channel
                 if (!first) { // at the moment it will always be the first (and only) param
