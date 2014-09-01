@@ -1,110 +1,403 @@
 <html>
-<body>
-<h2>IQS API summary</h2>
-<div>
-Base URL is <%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI() %>
-</div>
-<div>
-<h3>/getImages</h3>
-<h4>parameters</h4>
-All parameters are optional
-<ol>
-    <li>term - any text or ID</li>
-    <li>phenotype - phenotype ID or term, e.g. MP:0010254 or cataracts</li>
-    <li>anatomy - anatomy ID or term, e.g. MA:0000261 or eye</li>
-    <li>gene - gene ID or symbol, e.g. MGI:1891295 or Spns2</li>
-    <li>expressedFeature - gene (or allele) symbol or ID, e.g., Sesn3</li>
-    <li>sex - i.e., MALE/FEMALE</li>
-    <li>taxon - NCBI ID or text/label, e.g., Mus Musculus</li>
-    <li>stage - stage ontology ID or text, e.g., postnatal stage/ MmusDv_0000092</li>
-    <li>samplePreparation - label or term ID below "sample preparation" in the FBBI ontology, e.g., living tissue</li>
-    <li>imagingMethod - label or term ID below "imaging method" in the FBBI ontology, e.g., macroscopy</li>
-    <li>num - number of results to be returned, default is 100</li>
-    <li>start - first result to be returned, default is 0</li>
-</ol>
+    <body>
+        <h2>IQS API summary</h2>
+        <div>
+            Base URL is <%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>
+        </div>
+        <div>
+            <h3>/getImages</h3>
+            <h4>parameters</h4>
+            All parameters are optional
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Required</th>
+                        <th>Description</th>
+                        <th>Default</th>
+                        <th>Example Values</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>term</td>
+                        <td><var>String</var></td>
+                        <td>false</td>
+                        <td>Term to search in any searchable field. Can be id or text for any field accessible. These are anatomy, gene and phenotype fields as well as image source and image visualization method, sample preparation.</td>
+                        <td><var> * </var></td>
+                        <td><var>eye</var><br></td>
+                    </tr>
+                    <tr>
+                        <td>phenotype</td>
+                        <td><var>String</var></td>
+                        <td>false</td>
+                        <td>Images depicting the phenotype term passed.</td>
+                        <td><var> * </var></td>
+                        <td><var>MP:0010254</var><br></td>
+                    </tr>
+                    <tr>
+                        <td>anatomy</td>
+                        <td><var>String</var></td>
+                        <td>false</td>
+                        <td>Images depicting the given anatomical structure, regardless
+                            of abnormalities.</td>
+                        <td><var> * </var></td>
+                        <td><var>MA:0000261, eye</var></td>
+                    </tr>
+                    <tr style="background-color: grey;">
+                        <td>gene</td>
+                        <td><var>String</var></td>
+                        <td>false</td>
+                        <td> [TO BE DEPRECATED] Use mutantGene instead. Filters for samples with a mutation in the specified gene.</td>
+                        <td><var> * </var></td>
+                        <td><var>MGI:1891295, Spns2</var></td>
+                    </tr>			
+                    <tr style="background-color: orange;">
+                        <td>mutantGene</td>
+                        <td><var>String</var></td>
+                        <td>false</td>
+                        <td>Filters for samples with a mutation in the specified gene.</td>
+                        <td><var> * </var></td>
+                        <td><var>MGI:1891295, Spns2</var></td>
+                    </tr>			
+                    <tr>
+                        <td>expressedFeature</td>
+                        <td><var>String</var></td>
+                        <td>false</td>
+                        <td>Filters for images depicting expression of the specified feature (gene or allele symbol or id).</td>
+                        <td><var> * </var></td>
+                        <td><var> Sesn3 </var></td>
+                    </tr>			
+                    <tr>
+                        <td>sex</td>
+                        <td><var>String</var></td>
+                        <td>false</td>
+                        <td>Returns only images of samples with the specified sex.</td>
+                        <td><var> * </var></td>
+                        <td><var> FEMALE / MALE </var> </td>
+                    </tr>
+                    <tr>
+                        <td>taxon</td>
+                        <td><var>String</var></td>
+                        <td>false</td>
+                        <td>NCBI id or text / label of a taxon.</td>
+                        <td><var> * </var></td>
+                        <td><var> Mus musculus </var> </td>
+                    </tr>
+
+                    <tr>
+                        <td>sampleType</td>
+                        <td><var>String</var></td>
+                        <td>false</td>
+                        <td>For mutant/wildType facet filtering.</td>
+                        <td><var> * </var></td>
+                        <td><var> WILD_TYPE </var> or <var>MUTANT</var> </td>
+                    </tr>
 
 
-Examples:
-<ol>
-    <li><a href="<%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI() %>getImages?term=eye"><%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI() %>getImages?term=eye</a></li>
-    <li><a href="<%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI() %>getImages?phenotype=MP:0010254"><%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI() %>getImages?phenotype=MP:0010254</a></li>
-    <li><a href="<%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI() %>getImages?phenotype=MP:0010254&start=1"><%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI() %>getImages?phenotype=MP:0010254&start=1</a></li>
-    <li><a href="<%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI() %>getImages?phenotype=MP:0010254&num=1"><%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI() %>getImages?phenotype=MP:0010254&num=1</a></li>
-    <li><a href="<%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI() %>getImages?phenotype=cataracts"><%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI() %>getImages?phenotype=cataracts</a?</li>
-    <li><a href="<%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI() %>getImages?anatomy=eye"><%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI() %>getImages?anatomy=eye</a></li>
-    <li><a href="<%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI() %>getImages?gene=Spns2"><%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI() %>getImages?gene=Spns2</a></li>
-</ol>
+                    <tr>
+                        <td>imageType</td>
+                        <td><var>String</var></td>
+                        <td>false</td>
+                        <td>Filter on expression or anatomy/phenotype images for faceting.</td>
+                        <td><var> * </var></td>
+                        <td><var> EXPRESSION </var> or <var>PHENOTYPE_ANATOMY </var> </td>
+                    </tr>
+                    <tr>
+                        <td>stage</td>
+                        <td><var>String</var></td>
+                        <td>false</td>
+                        <td>Stage ontology id or text.</td>
+                        <td><var> * </var></td>
+                        <td><var> postnatal stage / MmusDv_0000092 </var> </td>
+                    </tr>
 
-</div>
+                    <tr>
+                        <td>samplePreparation</td>
+                        <td><var>String</var></td>
+                        <td>false</td>
+                        <td>Label or id of a child of Sample Preparation in FBBI ontology.</td>
+                        <td><var> * </var></td>
+                        <td><var> living tissue </var> </td>
+                    </tr>			
+                    <tr>
+                        <td>imagingMethod</td>
+                        <td><var>String</var></td>
+                        <td>false</td>
+                        <td>Label or id of a child of Imaging Method in FBBI ontology..</td>
+                        <td><var> * </var></td>
+                        <td><var> macroscopy </var> </td>
+                    </tr>			
+                    <tr>
+                        <td>num</td>
+                        <td><var>Integer</var></td>
+                        <td>false</td>
+                        <td>Number of result objects to be returned back.</td>
+                        <td><var>100</var></td>
+                        <td><var></var><br></td>
+                    </tr>			
+                    <tr>
+                        <td>start</td>
+                        <td><var>Integer</var></td>
+                        <td>false</td>
+                        <td>Start position to return the results. Useful for pagination.</td>
+                        <td><var>0</var></td>
+                        <td><var></var><br></td>
+                    </tr>
+                </tbody>
+            </table>
 
-<div>
-<h3>/getRoi</h3>
-<h4>parameters</h4>
-Parameter is mandatory
-<ol>
-    <li>id - ROI ID, e.g. komp2_roi_112003_0</li>
-</ol>
+            Examples:
+            <ol>
+                <li><a href="<%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getImages?term=eye"><%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getImages?term=eye</a></li>
+                <li><a href="<%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getImages?phenotype=MP:0010254"><%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getImages?phenotype=MP:0010254</a></li>
+                <li><a href="<%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getImages?phenotype=MP:0010254&start=1"><%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getImages?phenotype=MP:0010254&start=1</a></li>
+                <li><a href="<%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getImages?phenotype=MP:0010254&num=1"><%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getImages?phenotype=MP:0010254&num=1</a></li>
+                <li><a href="<%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getImages?phenotype=cataracts"><%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getImages?phenotype=cataracts</a?</li>
+                <li><a href="<%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getImages?anatomy=eye"><%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getImages?anatomy=eye</a></li>
+                <li><a href="<%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getImages?gene=Spns2"><%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getImages?gene=Spns2</a></li>
+            </ol>
+
+        </div>
+
+        <div>
+            <h3>/getRoi</h3>
+            <h4>parameters</h4>
+            Parameter is mandatory
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Required</th>
+                        <th>Description</th>
+                        <th>Default</th>
+                        <th>Example Values</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>roiId</td>
+                        <td><var>String</var></td>
+                        <td> true</td>
+                        <td>ROI with the specified id.</td>
+                        <td><var> - </var></td>
+                        <td><var>komp2_roi_112003_0</var><br></td>
+                    </tr>
+                </tbody>
+            </table>
 
 
-Example:
-<ol>
-    <li><a href="<%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI() %>getRoi?id=komp2_roi_112003_0"><%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI() %>getRoi?id=komp2_roi_112003_0</a></li>
-</ol>
-</div>
+            Example:
+            <ol>
+                <li><a href="<%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getRoi?id=komp2_roi_112003_0"><%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getRoi?id=komp2_roi_112003_0</a></li>
+            </ol>
+        </div>
 
-<div>
-<h3>/getRois</h3>
-Get all the ROIs in a particular image
-<h4>parameters</h4>
-Parameter is mandatory
-<ol>
-    <li>imageId - image ID, e.g. komp2_112003</li>
-    <li>num - number of results to be returned, default is 100</li>
-    <li>start - first result to be returned, default is 0</li>
-</ol>
+        <div>
+            <h3>/getRois</h3>
+            Get all the ROIs in a particular image
+            <h4>parameters</h4>
+            Parameter is mandatory
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Required</th>
+                        <th>Description</th>
+                        <th>Default</th>
+                        <th>Example Values</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>imageId</td>
+                        <td><var>String</var></td>
+                        <td> false</td>
+                        <td>ROI associated to the image.</td>
+                        <td><var> * </var></td>
+                        <td><var>komp2_112003</var><br></td>
+                    </tr>
+                    <tr>
+                        <td>num</td>
+                        <td><var>Integer</var></td>
+                        <td>false</td>
+                        <td>Number of result objects to be returned back.</td>
+                        <td><var>100</var></td>
+                        <td><var></var><br></td>
+                    </tr>
+                    <tr>
+                        <td>start</td>
+                        <td><var>Integer</var></td>
+                        <td>false</td>
+                        <td>Start position to return the results. Useful for pagination.</td>
+                        <td><var>0</var></td>
+                        <td><var></var><br></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            Example:
+            <ol>
+                <li><a href="<%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getRois?imageId=komp2_112003"><%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getRois?imageId=komp2_112003</a></li>
+            </ol>
+
+        </div>
 
 
-Example:
-<ol>
-    <li><a href="<%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI() %>getRois?imageId=komp2_112003"><%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI() %>getRois?imageId=komp2_112003</a></li>
-</ol>
+        <div>
+            <h3>/getChannel</h3>
+            <h4>parameters</h4>
+            Parameter is mandatory
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Required</th>
+                        <th>Description</th>
+                        <th>Default</th>
+                        <th>Example Values</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>channelId</td>
+                        <td><var>String</var></td>
+                        <td> true</td>
+                        <td>Channel with the specified id.</td>
+                        <td><var> - </var></td>
+                        <td><var>komp2_channel_112003_0</var><br></td>
+                    </tr>
+                </tbody>
+            </table>
 
-</div>
+            Example:
+            <ol>
+                <li><a href="<%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getChannel?id=komp2_channel_112003_0"><%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getChannel?id=komp2_channel_112003_0</a></li>
+            </ol>
+        </div>
+
+        <div>
+            <h3>/getChannels</h3>
+            Find all the channels in a particular image
+            <h4>parameters</h4>
+            Parameter is mandatory
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Required</th>
+                        <th>Description</th>
+                        <th>Default</th>
+                        <th>Example Values</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>imageId</td>
+                        <td><var>String</var></td>
+                        <td> true</td>
+                        <td>Channel with the specified id.</td>
+                        <td><var> - </var></td>
+                        <td><var>komp2_112003</var><br></td>
+                    </tr>
+
+                    <tr>
+                        <td>num</td>
+                        <td><var>Integer</var></td>
+                        <td>false</td>
+                        <td>Number of result objects to be returned back.</td>
+                        <td><var>100</var></td>
+                        <td><var></var><br></td>
+                    </tr>
+
+                    <tr>
+                        <td>start</td>
+                        <td><var>Integer</var></td>
+                        <td>false</td>
+                        <td>Start position to return the results. Useful for pagination.</td>
+                        <td><var>0</var></td>
+                        <td><var></var><br></td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+            Example:
+            <ol>
+                <li><a href="<%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getChannels?imageId=komp2_112003"><%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getChannels?imageId=komp2_112003</a></li>
+            </ol>
+
+        </div>
+
+        <div>
+            <h3 style="background-color: orange;">/getAutosuggest</h3>
+            Supports auto-complete
+            <h4>parameters</h4>
+            One of the parameters () is required.
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Required</th>
+                        <th>Description</th>
+                        <th>Default</th>
+                        <th>Example Values</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>term</td>
+                        <td><var>String</var></td>
+                        <td> false </td>
+                        <td>Return list of suggestions containing the passedstring, with the containing words highlighted.</td>
+                        <td><var> - </var></td>
+                        <td><var>abn</var><br></td>
+                    </tr>
+                    <tr>
+                        <td>mutantGene</td>
+                        <td><var>String</var></td>
+                        <td> false</td>
+                        <td>Suggestions for mutant gene symbols from annotations, with highlights.</td>
+                        <td><var> - </var></td>
+                        <td><var>a</var><br></td>
+                    </tr>
+                    <tr>
+                        <td>expressedGeneOrAllele</td>
+                        <td><var>String</var></td>
+                        <td> false </td>
+                        <td>Suggestions for expressed gene or allele symbols, with highlights.</td>
+                        <td><var> - </var></td>
+                        <td><var>m</var><br></td>
+                    </tr>
+                    <tr>
+                        <td>phenotype</td>
+                        <td><var>String</var></td>
+                        <td> false</td>
+                        <td>Suggestions for phenotype labels from annotations, with highlights.</td>
+                        <td><var> - </var></td>
+                        <td><var>abn</var><br></td>
+                    </tr>
+                    <tr>
+                        <td>resultNo</td>
+                        <td><var>Integer</var></td>
+                        <td> false</td>
+                        <td>Max number of suggestions to be returned. It is not recommended to put a bigger number than you actually need as the time cost increses quite significanlty with it.</td>
+                        <td><var> 10 </var></td>
+                        <td><var>20</var><br></td>
+                    </tr>
+                </tbody>
+            </table>            
 
 
-<div>
-<h3>/getChannel</h3>
-<h4>parameters</h4>
-Parameter is mandatory
-<ol>
-    <li>id - Channel ID, e.g., komp2_channel_112003_0</li>
-</ol>
-
-Example:
-<ol>
-    <li><a href="<%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI() %>getChannel?id=komp2_channel_112003_0"><%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI() %>getChannel?id=komp2_channel_112003_0</a></li>
-</ol>
-
-</div>
-
-<div>
-<h3>/getChannels</h3>
-Find all the channels in a particular image
-<h4>parameters</h4>
-Parameter is mandatory
-<ol>
-    <li>imageId - Image ID, e.g., komp2_112003</li>
-    <li>num - number of results to be returned, default is 100</li>
-    <li>start - first result to be returned, default is 0</li>
-</ol>
-
-Example:
-<ol>
-    <li><a href="<%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI() %>getChannels?imageId=komp2_112003"><%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI() %>getChannels?imageId=komp2_112003</a></li>
-</ol>
-
-</div>
-
-</div>
-</body>
+        </div>
+    </body>
 </html>
