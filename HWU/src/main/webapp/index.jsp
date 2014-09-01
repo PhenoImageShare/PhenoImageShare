@@ -184,7 +184,7 @@
         <div>
             <h3>/getRoi</h3>
             <h4>parameters</h4>
-            Parameter is mandatory
+            roiId parameter is mandatory
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -221,7 +221,7 @@
             <h3>/getRois</h3>
             Get all the ROIs in a particular image
             <h4>parameters</h4>
-            Parameter is mandatory
+            imageId parameter is mandatory
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -272,7 +272,7 @@
         <div>
             <h3>/getChannel</h3>
             <h4>parameters</h4>
-            Parameter is mandatory
+            channelId parameter is mandatory
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -308,7 +308,7 @@
             <h3>/getChannels</h3>
             Find all the channels in a particular image
             <h4>parameters</h4>
-            Parameter is mandatory
+            imageId parameter is mandatory
             <table class="table table-striped">
                 <thead>
                     <tr>
