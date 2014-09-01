@@ -103,6 +103,16 @@ public class GetImages extends HttpServlet {
                 }
                 queryURL += "anatomy=" + params.get("aId")[0].replaceAll(" ", "%20");
                 first = false;
+            } else if (param.equalsIgnoreCase("mutantGene")) { // deal with genes
+                if (!first) {
+                    queryURL += "&";
+                }
+                queryURL += "mutantGene=" + params.get("mutantGene")[0];
+                first = false;                
+                
+            
+                
+            // depreciated    
             } else if (param.equalsIgnoreCase("gene")) { // deal with genes
                 if (!first) {
                     queryURL += "&";
@@ -115,6 +125,7 @@ public class GetImages extends HttpServlet {
                 }
                 queryURL += "gene=" + params.get("gId")[0];
                 first = false;
+                
 
                 // generic free text    
             } else if (param.equals("term")) {
@@ -150,6 +161,19 @@ public class GetImages extends HttpServlet {
                 }
                 queryURL += "stage=" + params.get("stage")[0].replaceAll(" ", "%20");
                 first = false;
+                
+            } else if (param.equals("sampleType")) {
+                if (!first) {
+                    queryURL += "&";
+                }
+                queryURL += "sampleType=" + params.get("sampleType")[0];
+                first = false;                   
+            } else if(param.equals("imageType")) {
+                if (!first) {
+                    queryURL += "&";
+                }
+                queryURL += "imageType=" + params.get("imageType")[0];
+                first = false;                                   
             } else if (param.equals("samplePreparation")) {
                 if (!first) {
                     queryURL += "&";
