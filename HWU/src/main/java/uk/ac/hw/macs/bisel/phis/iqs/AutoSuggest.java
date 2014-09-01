@@ -101,8 +101,8 @@ public class AutoSuggest extends HttpServlet {
                     solrResult = inputLine;
                     
                     // remove the html tags IT leaves in output of SOLR
-                    solrResult = solrResult.replaceAll("<b>", "");
-                    solrResult = solrResult.replaceAll("</b>", "");
+                    //solrResult = solrResult.replaceAll("<b>", "");
+                    //solrResult = solrResult.replaceAll("</b>", "");
                 }
             } catch (IOException e) {
                 logger.log(Level.WARNING, e.getMessage());
