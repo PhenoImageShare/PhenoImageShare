@@ -422,6 +422,10 @@
                 </tbody>
             </table>            
 
+            <h4>Example:</h4>
+            <ol>
+                <li><a href="<%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getAutosuggest?term=ey"><%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getAutosuggest?term=ey</a></li>
+            </ol>            
 
         </div>
     </body>
