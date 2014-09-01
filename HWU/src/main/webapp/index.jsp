@@ -366,7 +366,7 @@
             <h3 style="background-color: orange;">/getAutosuggest</h3>
             Supports auto-complete
             <h4>parameters</h4>
-            One of the parameters () is required.
+            One of the parameters (term, mutantGene, mutantGene or phenotype) is required.
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -396,7 +396,7 @@
                         <td><var>a</var><br></td>
                     </tr>
                     <tr>
-                        <td>expressedGeneOrAllele</td>
+                        <td>mutantGene</td>
                         <td><var>String</var></td>
                         <td> false </td>
                         <td>Suggestions for expressed gene or allele symbols, with highlights.</td>
