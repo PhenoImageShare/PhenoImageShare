@@ -52,7 +52,7 @@ public class AutoSuggest extends HttpServlet {
         boolean first = true;
         Map<String, String[]> params = request.getParameterMap(); // get map of parameters and their values
         Enumeration<String> allParams = request.getParameterNames(); // get a list of parameter names
-        if (allParams.hasMoreElements()) {
+        while (allParams.hasMoreElements()) {
             String param = allParams.nextElement();
             if (param.equals("term")) { // ID of channel
                 if (!first) { // at the moment it will always be the first (and only) param
@@ -92,7 +92,7 @@ public class AutoSuggest extends HttpServlet {
                     queryURL += "&";
                 }
                 queryURL += "resultNo=" + params.get("num")[0];                
-                
+                first = false;  // next time you need a separator                 
              
             } else { // parameter was not recognised, send error
                 error = true; // error has been detected
@@ -100,6 +100,8 @@ public class AutoSuggest extends HttpServlet {
                 solrResult = "{\"invalid_paramater\": \"" + param + "\"}";
             }
         }
+        
+        logger.log(Level.INFO, queryURL);
 
         // should write query to log?
         // run query against SOLR API
