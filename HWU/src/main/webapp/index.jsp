@@ -202,7 +202,7 @@
                         <td><var>String</var></td>
                         <td> true</td>
                         <td>ROI with the specified id.</td>
-                        <td><var> - </var></td>
+                        <td><var> * </var></td>
                         <td><var>komp2_roi_112003_0</var><br></td>
                     </tr>
                 </tbody>
@@ -290,7 +290,7 @@
                         <td><var>String</var></td>
                         <td> true</td>
                         <td>Channel with the specified id.</td>
-                        <td><var> - </var></td>
+                        <td><var> * </var></td>
                         <td><var>komp2_channel_112003_0</var><br></td>
                     </tr>
                 </tbody>
@@ -327,7 +327,7 @@
                         <td><var>String</var></td>
                         <td> true</td>
                         <td>Channel with the specified id.</td>
-                        <td><var> - </var></td>
+                        <td><var> * </var></td>
                         <td><var>komp2_112003</var><br></td>
                     </tr>
 
@@ -384,7 +384,7 @@
                         <td><var>String</var></td>
                         <td> false </td>
                         <td>Return list of suggestions containing the passedstring, with the containing words highlighted.</td>
-                        <td><var> - </var></td>
+                        <td><var>*</var></td>
                         <td><var>abn</var><br></td>
                     </tr>
                     <tr>
@@ -392,15 +392,15 @@
                         <td><var>String</var></td>
                         <td> false</td>
                         <td>Suggestions for mutant gene symbols from annotations, with highlights.</td>
-                        <td><var> - </var></td>
+                        <td><var>*</var></td>
                         <td><var>a</var><br></td>
                     </tr>
                     <tr>
-                        <td>mutantGene</td>
+                        <td>expressed GeneOrAllele</td>
                         <td><var>String</var></td>
                         <td> false </td>
                         <td>Suggestions for expressed gene or allele symbols, with highlights.</td>
-                        <td><var> - </var></td>
+                        <td><var>*</var></td>
                         <td><var>m</var><br></td>
                     </tr>
                     <tr>
@@ -408,15 +408,15 @@
                         <td><var>String</var></td>
                         <td> false</td>
                         <td>Suggestions for phenotype labels from annotations, with highlights.</td>
-                        <td><var> - </var></td>
+                        <td><var>*</var></td>
                         <td><var>abn</var><br></td>
                     </tr>
                     <tr>
                         <td>num</td>
                         <td><var>Integer</var></td>
                         <td> false</td>
-                        <td>Max number of suggestions to be returned. It is not recommended to put a bigger number than you actually need as the time cost increses quite significanlty with it.</td>
-                        <td><var> 10 </var></td>
+                        <td>Max number of suggestions to be returned.</td>
+                        <td><var>10</var></td>
                         <td><var>20</var><br></td>
                     </tr>
                 </tbody>

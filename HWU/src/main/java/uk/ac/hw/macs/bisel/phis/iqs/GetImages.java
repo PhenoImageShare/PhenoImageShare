@@ -192,7 +192,7 @@ public class GetImages extends HttpServlet {
             } else if (param.equalsIgnoreCase("start")) { // number of initial result
                 if (!first) {
                     queryURL += "&";
-                }
+                }                
                 queryURL += "start=" + params.get("start")[0];
                 first = false;
             } else if (param.equalsIgnoreCase("num")) { // number of results to return
@@ -200,6 +200,7 @@ public class GetImages extends HttpServlet {
                     queryURL += "&";
                 }
                 queryURL += "resultNo=" + params.get("num")[0];
+                first = false;
 
                 
                 // error handling    
