@@ -21,11 +21,14 @@ public class ImageDTO {
 	public final static String GF_ENEMBL_ID = "genetic_feature_ensembl_id";
 	public final static String GF_SYMBOL = "genetic_feature_symbol";
 	public final static String GF_ID = "genetic_feature_id";
+	public final static String GF_SYNONYMS = "genetic_feature_synonyms";
 	public final static String GENE_SYMBOL = "gene_symbol";
+	public final static String GENE_SYNONYMS = "gene_synonyms";
 	public final static String CONDITIONS = "conditions";
 	public final static String OBSERVATIONS = "observations";
 	public final static String ANATOMY_FREETEXT = "anatomy_freetext";
 	public final static String ANATOMY_TERM = "anatomy_term";
+	public final static String ANATOMY_SYNONYMS = "anatomy_synonyms";
 	public final static String EMBRYONIC_AGE = "embryonic_age";
 	public final static String STAGE_ID = "stage_id";
 	public final static String STAGE = "stage";
@@ -43,11 +46,14 @@ public class ImageDTO {
 	public final static String MACHINE = "machine";
 	public final static String VISUALISATION_METHOD_LABEL = "visualisation_method_label";
 	public final static String VISUALISATION_METHOD_ID = "visualisation_method_id";
+	public final static String VISUALISATION_METHOD_SYNONYMS = "visualisation_method_synonyms";
 	public final static String SAMPLE_PREPARATION_LABEL = "sample_preparation_label";
 	public final static String SAMPLE_PREPARATION_ID = "sample_preparation_id";
+	public final static String SAMPLE_PREPARATION_SYNONYMS = "sample_preparation_synonyms";
 	public final static String IMAGING_METHOD_ID = "imaging_method_id";
 	public final static String IMAGING_METHOD_LABEL = "imaging_method_label";
 	public final static String IMAGING_METHOD_LABEL_ANALYSED = "imaging_method_label_analysed";
+	public final static String IMAGING_METHOD_SYNONYMS = "imaging_method_synonym";
 	public final static String IMAGE_CONTEXT_URL = "image_context_url";
 	public final static String IMAGE_URL = "image_url";
 	public final static String IMAGE_GENERATED_BY = "image_generated_by";
@@ -60,23 +66,30 @@ public class ImageDTO {
 
 	public final static String ANATOMY_COMPUTED_ID_BAG = "anatomy_computed_id_bag";
 	public final static String ANATOMY_COMPUTED_TERM_BAG = "anatomy_computed_term_bag";
+	public final static String ANATOMY_COMPUTED_SYNONYMS_BAG = "anatomy_computed_synonyms_bag";
 	public final static String DEPICTED_ANATOMY_ID_BAG = "depicted_anatomy_id_bag";
 	public final static String DEPICTED_ANATOMY_TERM_BAG = "depicted_anatomy_term_bag";
 	public final static String DEPICTED_ANATOMY_FREETEXT_BAG = "depicted_anatomy_freetext_bag";
+	public final static String DEPICTED_ANATOMY_SYNONYMS_BAG = "depicted_anatomy_synonyms_bag";
 	public final static String ABNORMAL_ANATOMY_ID_BAG = "abnornal_anatomy_id_bag";
 	public final static String ABNORMAL_ANATOMY_TERM_BAG = "abnornal_anatomy_term_bag";
 	public final static String ABNORMAL_ANATOMY_FREETEXT_BAG = "abnornal_anatomy_freetext_bag";
+	public final static String ABNORMAL_ANATOMY_SYNONYMS_BAG = "abnormal_anatomy_synonyms_bag";
 	public final static String EXPRESSION_IN_ID_BAG = "expression_in_id_bag";
 	public final static String EXPRESSION_IN_LABEL_BAG = "expression_in_label_bag";
 	public final static String EXPRESSION_IN_FREETEXT_BAG = "expression_in_freetext_bag";
+	public final static String EXPRESSION_IN_SYNONYMS_BAG = "expression_in_synonyms_bag";
 	public final static String OBSERVATION_BAG = "observation_bag";
 	public final static String MUTANT_GENE_ID_BAG = "mutant_gene_id_bag";
 	public final static String MUTANT_GENE_SYMBOL_BAG = "mutant_gene_symbol_bag";
+	public final static String MUTANT_GENE_SYNONYMS_BAG = "mutant_gene_synonyms_bag";
 	public final static String EXPRESSED_GF_ID_BAG = "expressed_gf_id_bag";
 	public final static String EXPRESSED_GF_SYMBOL_BAG = "expressed_gf_symbol_bag";
+	public final static String EXPRESSED_GF_SYNONYMS_BAG = "expressed_gf_synonyms_bag";
 	public final static String PHENOTYPE_ID_BAG = "phenotype_id_bag";
 	public final static String PHENOTYPE_LABEL_BAG = "phenotype_label_bag";
 	public final static String PHENOTYPE_FREETEXT_BAG = "phenotype_freetext_bag";
+	public final static String PHENOTYPE_SYNONYMS_BAG = "phenotype_synonym_bag";
 
 	public final static String TERM_AUTOSUGGEST = "term_autosuggest";
 	
@@ -119,20 +132,29 @@ public class ImageDTO {
 	@Field(IMAGING_METHOD_ID)
 	private String imagingMethodId;
 
-	@Field(SAMPLE_PREPARATION_ID)
-	private String samplePreparationId;
-
-	@Field(VISUALISATION_METHOD_ID)
-	private String visualisationMethodId;
-
 	@Field(IMAGING_METHOD_LABEL)
 	private String imagingMethodLabel;
+	
+	@Field(IMAGING_METHOD_SYNONYMS)
+	private String imagingMethodSynonyms;
+
+	@Field(SAMPLE_PREPARATION_ID)
+	private String samplePreparationId;
 
 	@Field(SAMPLE_PREPARATION_LABEL)
 	private String samplePreparationLabel;
 
+	@Field(SAMPLE_PREPARATION_SYNONYMS)
+	private String samplePreparationSynonyms;
+	
+	@Field(VISUALISATION_METHOD_ID)
+	private String visualisationMethodId;
+
 	@Field(VISUALISATION_METHOD_LABEL)
 	private String visualisationMethodLabel;
+	
+	@Field(VISUALISATION_METHOD_SYNONYMS)
+	private String visualisationMethodSynonyms;
 
 	@Field(MACHINE)
 	private String machine;
@@ -180,6 +202,9 @@ public class ImageDTO {
 	@Field(ANATOMY_FREETEXT)
 	private String anatomyFreetext;
 
+	@Field(ANATOMY_SYNONYMS)
+	private String anatomySynonyms;
+
 	@Field(OBSERVATIONS)
 	private List<String> observations;
 
@@ -191,12 +216,18 @@ public class ImageDTO {
 
 	@Field(GENE_SYMBOL)
 	private List<String> geneSymbols;
+	
+	@Field(GENE_SYNONYMS)
+	private List<String> geneSynonyms;
 
 	@Field(GF_ID)
 	private List<String> geneticFeatureIds;
 
 	@Field(GF_SYMBOL)
 	private List<String> geneticFeatureSymbols;
+	
+	@Field(GF_SYNONYMS)
+	private List<String> geneticFeatureSynonyms;
 
 	@Field(GF_ENEMBL_ID)
 	private List<String> genetifFeatureEnsemlIds;
@@ -224,6 +255,9 @@ public class ImageDTO {
 
 	@Field(ANATOMY_COMPUTED_TERM_BAG)
 	private ArrayList<String> anatomyComputedLabelBag;
+	
+	@Field(ANATOMY_COMPUTED_SYNONYMS_BAG)
+	private ArrayList<String> anatomyComputedSynonymsBag;
 
 	@Field(DEPICTED_ANATOMY_ID_BAG)
 	private ArrayList<String> depictedAnatomyIdBag;
@@ -234,6 +268,9 @@ public class ImageDTO {
 	@Field(DEPICTED_ANATOMY_FREETEXT_BAG)
 	private ArrayList<String> depictedAnatomyFreetextBag;
 
+	@Field(DEPICTED_ANATOMY_SYNONYMS_BAG)
+	private ArrayList<String> depictedAnatomySynonymsBag;
+
 	@Field(ABNORMAL_ANATOMY_ID_BAG)
 	private ArrayList<String> abnormalAnatomyIdBag;
 
@@ -242,12 +279,18 @@ public class ImageDTO {
 
 	@Field(ABNORMAL_ANATOMY_FREETEXT_BAG)
 	private ArrayList<String> abnormalAnatomyFreetextBag;
+	
+	@Field(ABNORMAL_ANATOMY_SYNONYMS_BAG)
+	private ArrayList<String> abnormalAnatomySynonymsBag;
 
 	@Field(EXPRESSED_GF_ID_BAG)
 	private ArrayList<String> expressedGfIdBag;
 
 	@Field(EXPRESSED_GF_SYMBOL_BAG)
 	private ArrayList<String> expressedGfSymbolBag;
+
+	@Field(EXPRESSED_GF_SYNONYMS_BAG)
+	private ArrayList<String> expressedGfSynonymsBag;
 
 	@Field(EXPRESSION_IN_ID_BAG)
 	private ArrayList<String> expressionInIdBag;
@@ -258,11 +301,17 @@ public class ImageDTO {
 	@Field(EXPRESSION_IN_FREETEXT_BAG)
 	private ArrayList<String> ExpressionInFreetextBag;
 
+	@Field(EXPRESSION_IN_SYNONYMS_BAG)
+	private ArrayList<String> ExpressionInSynonymsBag;
+
 	@Field(MUTANT_GENE_ID_BAG)
 	private ArrayList<String> mutantGeneIdBag;
 
 	@Field(MUTANT_GENE_SYMBOL_BAG)
 	private ArrayList<String> mutantGeneSymbolBag;
+	
+	@Field(MUTANT_GENE_SYNONYMS_BAG)
+	private ArrayList<String> mutantGeneSynonymsBag;
 
 	@Field(OBSERVATION_BAG)
 	private ArrayList<String> observationBag;
@@ -275,6 +324,269 @@ public class ImageDTO {
 
 	@Field(PHENOTYPE_FREETEXT_BAG)
 	private ArrayList<String> phenotypeFreetextBag;
+
+	@Field(PHENOTYPE_SYNONYMS_BAG)
+	private ArrayList<String> phenotypeSynonymsBag;
+
+
+	
+	/**
+	 * @return the imagingMethodSynonyms
+	 */
+	public String getImagingMethodSynonyms() {
+	
+		return imagingMethodSynonyms;
+	}
+
+
+	
+	/**
+	 * @param imagingMethodSynonyms the imagingMethodSynonyms to set
+	 */
+	public void setImagingMethodSynonyms(String imagingMethodSynonyms) {
+	
+		this.imagingMethodSynonyms = imagingMethodSynonyms;
+	}
+
+
+	
+	/**
+	 * @return the samplePreparationSynonyms
+	 */
+	public String getSamplePreparationSynonyms() {
+	
+		return samplePreparationSynonyms;
+	}
+
+
+	
+	/**
+	 * @param samplePreparationSynonyms the samplePreparationSynonyms to set
+	 */
+	public void setSamplePreparationSynonyms(String samplePreparationSynonyms) {
+	
+		this.samplePreparationSynonyms = samplePreparationSynonyms;
+	}
+
+
+	
+	/**
+	 * @return the visualisationMethodSynonyms
+	 */
+	public String getVisualisationMethodSynonyms() {
+	
+		return visualisationMethodSynonyms;
+	}
+
+
+	
+	/**
+	 * @param visualisationMethodSynonyms the visualisationMethodSynonyms to set
+	 */
+	public void setVisualisationMethodSynonyms(String visualisationMethodSynonyms) {
+	
+		this.visualisationMethodSynonyms = visualisationMethodSynonyms;
+	}
+
+
+	
+	/**
+	 * @return the anatomySynonyms
+	 */
+	public String getAnatomySynonyms() {
+	
+		return anatomySynonyms;
+	}
+
+
+	
+	/**
+	 * @param anatomySynonyms the anatomySynonyms to set
+	 */
+	public void setAnatomySynonyms(String anatomySynonyms) {
+	
+		this.anatomySynonyms = anatomySynonyms;
+	}
+
+
+	
+	/**
+	 * @return the geneSynonyms
+	 */
+	public List<String> getGeneSynonyms() {
+	
+		return geneSynonyms;
+	}
+
+
+	
+	/**
+	 * @param geneSynonyms the geneSynonyms to set
+	 */
+	public void setGeneSynonyms(List<String> geneSynonyms) {
+	
+		this.geneSynonyms = geneSynonyms;
+	}
+
+
+	
+	/**
+	 * @return the geneticFeatureSynonyms
+	 */
+	public List<String> getGeneticFeatureSynonyms() {
+	
+		return geneticFeatureSynonyms;
+	}
+
+
+	
+	/**
+	 * @param geneticFeatureSynonyms the geneticFeatureSynonyms to set
+	 */
+	public void setGeneticFeatureSynonyms(List<String> geneticFeatureSynonyms) {
+	
+		this.geneticFeatureSynonyms = geneticFeatureSynonyms;
+	}
+
+
+	
+	/**
+	 * @return the anatomyComputedSynonymsBag
+	 */
+	public ArrayList<String> getAnatomyComputedSynonymsBag() {
+	
+		return anatomyComputedSynonymsBag;
+	}
+
+
+	
+	/**
+	 * @param anatomyComputedSynonymsBag the anatomyComputedSynonymsBag to set
+	 */
+	public void setAnatomyComputedSynonymsBag(ArrayList<String> anatomyComputedSynonymsBag) {
+	
+		this.anatomyComputedSynonymsBag = anatomyComputedSynonymsBag;
+	}
+
+
+	
+	/**
+	 * @return the depictedAnatomySynonymsBag
+	 */
+	public ArrayList<String> getDepictedAnatomySynonymsBag() {
+	
+		return depictedAnatomySynonymsBag;
+	}
+
+
+	
+	/**
+	 * @param depictedAnatomySynonymsBag the depictedAnatomySynonymsBag to set
+	 */
+	public void setDepictedAnatomySynonymsBag(ArrayList<String> depictedAnatomySynonymsBag) {
+	
+		this.depictedAnatomySynonymsBag = depictedAnatomySynonymsBag;
+	}
+
+
+	
+	/**
+	 * @return the abnormalAnatomySynonymsBag
+	 */
+	public ArrayList<String> getAbnormalAnatomySynonymsBag() {
+	
+		return abnormalAnatomySynonymsBag;
+	}
+
+
+	
+	/**
+	 * @param abnormalAnatomySynonymsBag the abnormalAnatomySynonymsBag to set
+	 */
+	public void setAbnormalAnatomySynonymsBag(ArrayList<String> abnormalAnatomySynonymsBag) {
+	
+		this.abnormalAnatomySynonymsBag = abnormalAnatomySynonymsBag;
+	}
+
+
+	
+	/**
+	 * @return the expressedGfSynonymsBag
+	 */
+	public ArrayList<String> getExpressedGfSynonymsBag() {
+	
+		return expressedGfSynonymsBag;
+	}
+
+
+	
+	/**
+	 * @param expressedGfSynonymsBag the expressedGfSynonymsBag to set
+	 */
+	public void setExpressedGfSynonymsBag(ArrayList<String> expressedGfSynonymsBag) {
+	
+		this.expressedGfSynonymsBag = expressedGfSynonymsBag;
+	}
+
+
+	
+	/**
+	 * @return the expressionInSynonymsBag
+	 */
+	public ArrayList<String> getExpressionInSynonymsBag() {
+	
+		return ExpressionInSynonymsBag;
+	}
+
+
+	
+	/**
+	 * @param expressionInSynonymsBag the expressionInSynonymsBag to set
+	 */
+	public void setExpressionInSynonymsBag(ArrayList<String> expressionInSynonymsBag) {
+	
+		ExpressionInSynonymsBag = expressionInSynonymsBag;
+	}
+
+
+	
+	/**
+	 * @return the mutantGeneSynonymsBag
+	 */
+	public ArrayList<String> getMutantGeneSynonymsBag() {
+	
+		return mutantGeneSynonymsBag;
+	}
+
+
+	
+	/**
+	 * @param mutantGeneSynonymsBag the mutantGeneSynonymsBag to set
+	 */
+	public void setMutantGeneSynonymsBag(ArrayList<String> mutantGeneSynonymsBag) {
+	
+		this.mutantGeneSynonymsBag = mutantGeneSynonymsBag;
+	}
+
+
+	
+	/**
+	 * @return the phenotypeSynonymsBag
+	 */
+	public ArrayList<String> getPhenotypeSynonymsBag() {
+	
+		return phenotypeSynonymsBag;
+	}
+
+
+	
+	/**
+	 * @param phenotypeSynonymsBag the phenotypeSynonymsBag to set
+	 */
+	public void setPhenotypeSynonymsBag(ArrayList<String> phenotypeSynonymsBag) {
+	
+		this.phenotypeSynonymsBag = phenotypeSynonymsBag;
+	}
 
 
 	/**

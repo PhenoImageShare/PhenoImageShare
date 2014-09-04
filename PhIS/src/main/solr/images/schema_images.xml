@@ -78,12 +78,15 @@
    <field name="image_url" type="string" indexed="true" stored="true" required="true"/>
    <field name="image_context_url" type="string" indexed="true" stored="true"/>
    <field name="imaging_method_label" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="imaging_method_synonym" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="imaging_method_label_analysed" type="textCaseInsensitive" indexed="true" stored="false" multiValued="true"/>
    <field name="imaging_method_id" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="sample_preparation_label" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="sample_preparation_id" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="sample_preparation_synonyms" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="visualisation_method_label" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="visualisation_method_id" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="visualisation_method_synonyms" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="image_type" type="string" indexed="true" stored="true" multiValued="true"/> <!-- 2 values only, needed for faceting : Pehnotype/Anatomy and Expression -->
    <field name="sample_type" type="string" indexed="true" stored="true" multiValued="false"/> <!--  2 possible values, needed for the facets : mutant or wildtype -->
    
@@ -106,6 +109,7 @@
    <field name="anatomy_id" type="string" indexed="true" stored="true" multiValued="false"/>
    <field name="anatomy_term" type="string" indexed="true" stored="true" multiValued="false"/>
    <field name="anatomy_freetext" type="string" indexed="true" stored="true" multiValued="false"/>
+   <field name="anatomy_synonyms" type="string" indexed="true" stored="true" multiValued="false"/>
    
    <!-- field name="phenotype_ann_bag" type="string" indexed="true" stored="true" multiValued="true"/-->
    
@@ -115,9 +119,11 @@
 
    <!-- genetic features -->
    <field name="gene_id" type="string" indexed="true" stored="true" multiValued="true"/>
-   <field name="gene_symbol" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true" termVectors="true" termPositions="true" termOffsets="true"/>
+   <field name="gene_symbol" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true" />
+   <field name="gene_synonyms" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true" />
    <field name="genetic_feature_id" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="genetic_feature_symbol" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
+   <field name="genetic_feature_synonyms" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
    <field name="genetic_feature_ensembl_id" type="string" indexed="true" stored="true" multiValued="true"/>
    
    <field name="chromosome" type="string" indexed="true" stored="true" multiValued="true"/>
@@ -130,31 +136,38 @@
   
    <!--  Annotation/gene info bags -->
    <field name="anatomy_computed_id_bag" type="string" indexed="true" stored="true" multiValued="true"/>
-   <field name="anatomy_computed_term_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
+   <field name="anatomy_computed_term_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/> 
+   <field name="anatomy_computed_synonyms_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/> 
    
    <field name="depicted_anatomy_id_bag" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="depicted_anatomy_term_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
    <field name="depicted_anatomy_freetext_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
+   <field name="depicted_anatomy_synonyms_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
    
    <field name="abnormal_anatomy_id_bag" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="abnormal_anatomy_term_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
    <field name="abnormal_anatomy_freetext_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
+   <field name="abnormal_anatomy_synonyms_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
    
    <field name="expression_in_id_bag" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="expression_in_label_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
    <field name="expression_in_freetext_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
+   <field name="expression_in_synonyms_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
    
    <field name="observation_bag" type="string" indexed="true" stored="true" multiValued="true"/>
    
    <field name="mutant_gene_id_bag" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="mutant_gene_symbol_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
+   <field name="mutant_gene_synonyms_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
    
    <field name="expressed_gf_id_bag" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="expressed_gf_symbol_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
+   <field name="expressed_gf_synonyms_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
    
    <field name="phenotype_id_bag" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="phenotype_freetext_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
    <field name="phenotype_label_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true" termVectors="true" termPositions="true" termOffsets="true"/>
+   <field name="phenotype_synonym_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true" termVectors="true" termPositions="true" termOffsets="true"/>
    
    <!-- Autosuggest fields -->
    <!-- field name="term_autosuggest_analysed" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true" termVectors="true" termPositions="true" termOffsets="true"/-->

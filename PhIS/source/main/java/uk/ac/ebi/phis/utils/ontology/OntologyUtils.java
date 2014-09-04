@@ -8,6 +8,7 @@ import java.util.Set;
 import org.apache.log4j.Logger;
 import org.obolibrary.oboformat.parser.OBOFormatParserException;
 import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.springframework.stereotype.Service;
 
@@ -22,12 +23,12 @@ public class OntologyUtils {
 	private ArrayList<String> phenotypeOntologies = new ArrayList<String>();
 	private ArrayList<String> stageOntologies = new ArrayList<>();
 	// Hashes <termId, termLabel>
-	private HashMap<String, String> anatomyTerms = new HashMap<>();
-	private HashMap<String, String> phenotypeTerms = new HashMap<>();
-	private HashMap<String, String> stageTerms = new HashMap<>();
-	private HashMap<String, String> imTerms = new HashMap<>();
-	private HashMap<String, String> spTerms = new HashMap<>();
-	private HashMap<String, String> vmTerms = new HashMap<>();
+	private HashMap<String, OntologyObject> anatomyTerms = new HashMap<>();
+	private HashMap<String, OntologyObject> phenotypeTerms = new HashMap<>();
+	private HashMap<String, OntologyObject> stageTerms = new HashMap<>();
+	private HashMap<String, OntologyObject> imTerms = new HashMap<>();
+	private HashMap<String, OntologyObject> spTerms = new HashMap<>();
+	private HashMap<String, OntologyObject> vmTerms = new HashMap<>();
 
 	Logger logger = Logger.getLogger(OntologyMapper.class);
 
@@ -92,22 +93,22 @@ public class OntologyUtils {
 		boolean res = false;
 		String id = termId.replace("_",  ":");
 		if (anatomyTerms.containsKey(id)){
-			res = (anatomyTerms.get(id).equalsIgnoreCase(label) );
+			res = (anatomyTerms.get(id).getLabel().equalsIgnoreCase(label) );
 		}
 		else if (phenotypeTerms.containsKey(id)){
-			res = (phenotypeTerms.get(id).equalsIgnoreCase(label) );
+			res = (phenotypeTerms.get(id).getLabel().equalsIgnoreCase(label) );
 		}
 		else if (stageTerms.containsKey(id)){
-			res = (stageTerms.get(id).equalsIgnoreCase(label) );
+			res = (stageTerms.get(id).getLabel().equalsIgnoreCase(label) );
 		}
 		else if (imTerms.containsKey(id)){
-			res = (imTerms.get(id).equalsIgnoreCase(label) );
+			res = (imTerms.get(id).getLabel().equalsIgnoreCase(label) );
 		}
 		else if (vmTerms.containsKey(id)){
-			res = (vmTerms.get(id).equalsIgnoreCase(label) );
+			res = (vmTerms.get(id).getLabel().equalsIgnoreCase(label) );
 		}
 		else if (spTerms.containsKey(id)){
-			res = (spTerms.get(id).equalsIgnoreCase(label) );
+			res = (spTerms.get(id).getLabel().equalsIgnoreCase(label) );
 		}
 		
 		return res;
@@ -123,19 +124,29 @@ public class OntologyUtils {
 			OWLClass vm = gr.getOWLClass("http://purl.obolibrary.org/obo/FBbi_00000031");
 			OWLClass im = gr.getOWLClass("http://purl.obolibrary.org/obo/FBbi_00000222");
 			
+			
 			Set<OWLClass> classes = gr.getOWLClassDescendants(sp);
 			for (OWLClass cls : classes){
-				spTerms.put(gr.getIdentifier(cls), gr.getLabel(cls));
+				OntologyObject temp = new OntologyObject();
+				temp.setId(gr.getIdentifier(cls));
+				temp.setLabel(gr.getLabel(cls));
+				spTerms.put(gr.getIdentifier(cls), temp);
 			}
 			
 			classes = gr.getOWLClassDescendants(vm);
 			for (OWLClass cls : classes){
-				vmTerms.put(gr.getIdentifier(cls), gr.getLabel(cls));
+				OntologyObject temp = new OntologyObject();
+				temp.setId(gr.getIdentifier(cls));
+				temp.setLabel(gr.getLabel(cls));
+				vmTerms.put(gr.getIdentifier(cls), temp);
 			}
 			
 			classes = gr.getOWLClassDescendants(im);
 			for (OWLClass cls : classes){
-				imTerms.put(gr.getIdentifier(cls), gr.getLabel(cls));
+				OntologyObject temp = new OntologyObject();
+				temp.setId(gr.getIdentifier(cls));
+				temp.setLabel(gr.getLabel(cls));
+				imTerms.put(gr.getIdentifier(cls), temp);
 			}
 		} catch (OWLOntologyCreationException e) {
 			e.printStackTrace();
@@ -169,7 +180,7 @@ public class OntologyUtils {
 		
 	}
 	
-	private void fillHashesFor(String path, HashMap<String, String> idLabelMap){
+	private void fillHashesFor(String path, HashMap<String, OntologyObject> idLabelMap){
 
 		try {
 			OWLGraphWrapper gr;
@@ -178,8 +189,21 @@ public class OntologyUtils {
 			
 			Set<OWLClass> classes = gr.getAllOWLClasses();
 			for (OWLClass cls : classes){
-				idLabelMap.put(gr.getIdentifier(cls), gr.getLabel(cls));
+				OntologyObject temp = new OntologyObject();
+				temp.setId(gr.getIdentifier(cls));
+				temp.setLabel(gr.getLabel(cls));
+				idLabelMap.put(gr.getIdentifier(cls), temp);
 			}
+			// link parents / ancestors
+			for (OWLClass cls : classes){
+				OntologyObject temp = idLabelMap.get(gr.getIdentifier(cls));
+				for (OWLObject obj: gr.getNamedAncestors(cls)){
+					temp.getIntermediateTerms().add(idLabelMap.get(gr.getIdentifier(cls)));
+				}
+				System.out.println(temp.getIntermediateTerms().size());
+				idLabelMap.put(gr.getIdentifier(cls), temp);
+			}
+			
 		} catch (OWLOntologyCreationException e) {
 			e.printStackTrace();
 		} catch (OBOFormatParserException e) {
