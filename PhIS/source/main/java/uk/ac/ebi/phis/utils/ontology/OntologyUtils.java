@@ -1,23 +1,41 @@
 package uk.ac.ebi.phis.utils.ontology;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
+import org.apache.tools.ant.taskdefs.Length;
 import org.obolibrary.oboformat.parser.OBOFormatParserException;
+import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnnotationSubject;
 import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.springframework.stereotype.Service;
 
 import owltools.graph.OWLGraphWrapper;
 import owltools.io.ParserWrapper;
+import uk.ac.ebi.phis.jaxb.OntologyTerm;
 
 
-@Service
+//@Service
 public class OntologyUtils {
+	
+	final static OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
+	final static OWLDataFactory factory = manager.getOWLDataFactory();
+	static ArrayList<String> synonymRelations = new ArrayList<>();
 
 	private ArrayList<String> anatomyOntologies = new ArrayList<String>();
 	private ArrayList<String> phenotypeOntologies = new ArrayList<String>();
@@ -36,16 +54,20 @@ public class OntologyUtils {
 	private String FBBI = System.getProperty("user.home") + "/phis_ontologies/fbbi.owl";
 	
 	public OntologyUtils(){
+
+		synonymRelations.add("http://www.geneontology.org/formats/oboInOwl#hasExactSynonym");
+		synonymRelations.add("http://www.geneontology.org/formats/oboInOwl#hasNarrowSynonym");
+		synonymRelations.add("http://www.geneontology.org/formats/oboInOwl#hasRelatedSynonym");
+		synonymRelations.add("http://www.geneontology.org/formats/oboInOwl#hasBroadSynonym");
+		
 		//http://purl.obolibrary.org/obo/ma.owl
 		anatomyOntologies.add(System.getProperty("user.home") + "/phis_ontologies/ma.owl");
 		//http://purl.obolibrary.org/obo/emapa.owl
 		anatomyOntologies.add(System.getProperty("user.home") + "/phis_ontologies/emapa.owl");
 		//http://purl.obolibrary.org/obo/emap.owl
 		anatomyOntologies.add(System.getProperty("user.home") + "/phis_ontologies/emap.owl");
-		
 		//http://purl.obolibrary.org/obo/mp.owl
 		phenotypeOntologies.add(System.getProperty("user.home") + "/phis_ontologies/mp.owl");
-		
 		//http://www.berkeleybop.org/ontologies/mmusdv.owl
 		stageOntologies.add(System.getProperty("user.home") + "/phis_ontologies/mmusdv.owl");
 		
@@ -92,6 +114,7 @@ public class OntologyUtils {
 	public boolean labelMatchesId(String label, String termId){
 		boolean res = false;
 		String id = termId.replace("_",  ":");
+		
 		if (anatomyTerms.containsKey(id)){
 			res = (anatomyTerms.get(id).getLabel().equalsIgnoreCase(label) );
 		}
@@ -185,13 +208,27 @@ public class OntologyUtils {
 		try {
 			OWLGraphWrapper gr;
 			logger.info("Lading: " + path);
+			System.out.println("Lading: " + path);
 			gr = readOntologyFronUrl(path);
+			OWLOntology ontology = manager.loadOntologyFromOntologyDocument(IRI.create(new File(path))); 
 			
 			Set<OWLClass> classes = gr.getAllOWLClasses();
+			System.out.println(classes.size() + " classes loaded");
 			for (OWLClass cls : classes){
 				OntologyObject temp = new OntologyObject();
 				temp.setId(gr.getIdentifier(cls));
 				temp.setLabel(gr.getLabel(cls));
+								
+				for (String synonymType : synonymRelations){
+					OWLAnnotationProperty label = factory.getOWLAnnotationProperty(IRI.create(synonymType));	
+					// Get the annotations on the class that use the label property
+					for (OWLAnnotation annotation : cls.getAnnotations(ontology, label)) {
+						if (annotation.getValue() instanceof OWLLiteral) {
+							OWLLiteral val = (OWLLiteral) annotation.getValue();
+							temp.addSynonym(val.getLiteral());
+						}
+					}
+				}
 				idLabelMap.put(gr.getIdentifier(cls), temp);
 			}
 			// link parents / ancestors
@@ -200,7 +237,7 @@ public class OntologyUtils {
 				for (OWLObject obj: gr.getNamedAncestors(cls)){
 					temp.getIntermediateTerms().add(idLabelMap.get(gr.getIdentifier(cls)));
 				}
-				System.out.println(temp.getIntermediateTerms().size());
+		//		System.out.println("int terms: " + temp.getIntermediateTerms().size());
 				idLabelMap.put(gr.getIdentifier(cls), temp);
 			}
 			
@@ -212,10 +249,41 @@ public class OntologyUtils {
 			e.printStackTrace();
 		}
 	}
+	
+	public OntologyObject getOntologyTermById(String id){
+		if (anatomyTerms.containsKey(id)){
+			return anatomyTerms.get(id);
+		}
+		else if (phenotypeTerms.containsKey(id)){
+			return phenotypeTerms.get(id);
+		}
+		else if (stageTerms.containsKey(id)){
+			return stageTerms.get(id);
+		}
+		else if (imTerms.containsKey(id)){
+			return imTerms.get(id);
+		}
+		else if (vmTerms.containsKey(id)){
+			return vmTerms.get(id);
+		}
+		else if (spTerms.containsKey(id)){
+			return spTerms.get(id);
+		}
+		return null;
+	}
+	
+	public ArrayList<String> getSynonyms (String id){
+		
+		OntologyObject oo = getOntologyTermById(id);
+		if (oo != null){
+			return oo.getSynonyms();
+		}
+		return null;
+	}
+	
 
 	private OWLGraphWrapper readOntologyFronUrl (String ontIri) throws IOException, OWLOntologyCreationException, OBOFormatParserException{
 		ParserWrapper pw = new ParserWrapper();
-
 		OWLGraphWrapper graph = pw.parseToOWLGraph(ontIri);
 		logger.debug("OWL file parsed and graph is created");
 		logger.info("Ontology is initialised completely");

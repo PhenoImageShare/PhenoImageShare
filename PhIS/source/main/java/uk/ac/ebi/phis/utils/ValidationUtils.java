@@ -14,11 +14,10 @@ import uk.ac.ebi.phis.utils.ontology.OntologyUtils;
 
 public class ValidationUtils {
 
-	private OntologyUtils ou;
+	public OntologyUtils ou;
 
 
 	public ValidationUtils() {
-
 		ou = new OntologyUtils();
 	}
 
