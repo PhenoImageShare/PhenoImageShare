@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * Facilitates auto complete services from the SOLR API
- * 
+ *
  * @author kcm
  */
 public class AutoSuggest extends HttpServlet {
@@ -61,9 +61,9 @@ public class AutoSuggest extends HttpServlet {
 
                 queryURL += "term=" + params.get("term")[0]; // extend stem with parameter
                 first = false; // next time you need a separator
-            
+
             // params that IT added, that I do not understand how they will be used
-            // may need to delete these    
+                // may need to delete these    
             } else if (param.equals("mutantGene")) {
                 if (!first) { // at the moment it will always be the first (and only) param
                     queryURL += "&";
@@ -85,47 +85,51 @@ public class AutoSuggest extends HttpServlet {
 
                 queryURL += "phenotype=" + params.get("phenotype")[0]; // extend stem with parameter
                 first = false; // next time you need a separator                 
-                
-            // choose number of results to ask for... lots of results is very costly    
+
+                // choose number of results to ask for... lots of results is very costly    
             } else if (param.equals("num")) { // number of results to return
                 if (!first) {
                     queryURL += "&";
                 }
-                queryURL += "resultNo=" + params.get("num")[0];                
+                queryURL += "resultNo=" + params.get("num")[0];
                 first = false;  // next time you need a separator                 
-             
+
             } else { // parameter was not recognised, send error
                 error = true; // error has been detected
                 logger.log(Level.WARNING, "Client sent invalid parameter: " + param);
                 solrResult = "{\"invalid_paramater\": \"" + param + "\"}";
             }
         }
-        
+
         logger.log(Level.INFO, queryURL);
 
         // should write query to log?
         // run query against SOLR API
         if (!error) { // if no error detected
-            BufferedReader in = null;
-            try {
-                // connect to SOLR API and run query
-                URL url = new URL(queryURL);
-                in = new BufferedReader(new InputStreamReader(url.openStream()));
+//            BufferedReader in = null;
+//            try {
+//                // connect to SOLR API and run query
+//                URL url = new URL(queryURL);
+//                in = new BufferedReader(new InputStreamReader(url.openStream()));
+//
+//                // read JSON result
+//                String inputLine;
+//                if ((inputLine = in.readLine()) != null) { // should only be 1 line of result
+//                    // send result directly to client, should be no need to process (at the moment)
+//                    solrResult = inputLine;
+//                    
+//                    // remove the html tags IT leaves in output of SOLR
+//                    //solrResult = solrResult.replaceAll("<b>", "");
+//                    //solrResult = solrResult.replaceAll("</b>", "");
+//                }
+//            } catch (IOException e) {
+//                logger.log(Level.WARNING, e.getMessage());
+//                solrResult = "{\"server_error\": \"" + e.getMessage() + "\"}";
+//            }
 
-                // read JSON result
-                String inputLine;
-                if ((inputLine = in.readLine()) != null) { // should only be 1 line of result
-                    // send result directly to client, should be no need to process (at the moment)
-                    solrResult = inputLine;
-                    
-                    // remove the html tags IT leaves in output of SOLR
-                    //solrResult = solrResult.replaceAll("<b>", "");
-                    //solrResult = solrResult.replaceAll("</b>", "");
-                }
-            } catch (IOException e) {
-                logger.log(Level.WARNING, e.getMessage());
-                solrResult = "{\"server_error\": \"" + e.getMessage() + "\"}";
-            }
+            CommunicateWithSolr cws = new CommunicateWithSolr();
+            solrResult = cws.talk(queryURL);
+
         }
 
         // send result to client (UI)

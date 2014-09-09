@@ -95,22 +95,25 @@ public class GetChannel extends HttpServlet {
 
         // run query against SOLR API
         if (!error) { // if no error detected
-            BufferedReader in = null;
-            try {
-                // connect to SOLR API and run query
-                URL url = new URL(queryURL);
-                in = new BufferedReader(new InputStreamReader(url.openStream()));
-
-                // read JSON result
-                String inputLine;
-                if ((inputLine = in.readLine()) != null) { // should only be 1 line of result
-                	// send result directly to client, should be no need to process (at the moment)
-				    solrResult = inputLine;
-                }
-            } catch (IOException e) {
-                logger.log(Level.WARNING, e.getMessage());
-                solrResult = "{\"server_error\": \""+e.getMessage()+"\"}"; 
-            }
+//            BufferedReader in = null;
+//            try {
+//                // connect to SOLR API and run query
+//                URL url = new URL(queryURL);
+//                in = new BufferedReader(new InputStreamReader(url.openStream()));
+//
+//                // read JSON result
+//                String inputLine;
+//                if ((inputLine = in.readLine()) != null) { // should only be 1 line of result
+//                	// send result directly to client, should be no need to process (at the moment)
+//				    solrResult = inputLine;
+//                }
+//            } catch (IOException e) {
+//                logger.log(Level.WARNING, e.getMessage());
+//                solrResult = "{\"server_error\": \""+e.getMessage()+"\"}"; 
+//            }
+            
+            CommunicateWithSolr cws = new CommunicateWithSolr();
+            solrResult = cws.talk(queryURL);                    
         }
 
         // send result to client (UI)
