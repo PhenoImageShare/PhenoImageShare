@@ -13,3 +13,6 @@ hs_err_pid*
 
 # mac specific crap
 .DS_Store
+
+# build files
+HWU/target
