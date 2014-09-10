@@ -262,7 +262,7 @@
 						  	<!-- Main Region Of Interest (ROI) document -->
 						  	<complexType name="Roi">
 						  		<all>
-						  	  		<element name="id" type="string" minOccurs="1" maxOccurs="1"/> 
+						  	  		<element name="id" type="string" minOccurs="1" maxOccurs="1"/>  <!-- Must be consistent over different data exports -->
 						  	  		<element name="associated_image" type="string" minOccurs="1" maxOccurs="1"/> <!-- Must always be associated to the right image -->
 						  	  		<element name="associated_channel" type="x:StringArray" minOccurs="0" maxOccurs="1"/>
 						  	  		<!-- Roi coordinates. Current assumption is thar Rois are either rectangles or points -->

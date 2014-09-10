@@ -7,14 +7,11 @@ import java.util.HashMap;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
-import org.apache.tools.ant.taskdefs.Length;
 import org.obolibrary.oboformat.parser.OBOFormatParserException;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAnnotationSubject;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLLiteral;
@@ -22,24 +19,25 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
-import org.springframework.stereotype.Service;
+import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
 import owltools.graph.OWLGraphWrapper;
 import owltools.io.ParserWrapper;
-import uk.ac.ebi.phis.jaxb.OntologyTerm;
+import uk.ac.manchester.cs.jfact.JFactFactory;
 
 
 //@Service
 public class OntologyUtils {
 	
-	final static OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-	final static OWLDataFactory factory = manager.getOWLDataFactory();
-	static ArrayList<String> synonymRelations = new ArrayList<>();
-
+	private static final OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
+	private static final OWLDataFactory factory = manager.getOWLDataFactory();
+	public static final OWLAnnotationProperty LABEL_ANNOTATION = factory.getRDFSLabel();	
+	private static ArrayList<String> synonymRelations = new ArrayList<>();
+	
 	private ArrayList<String> anatomyOntologies = new ArrayList<String>();
 	private ArrayList<String> phenotypeOntologies = new ArrayList<String>();
 	private ArrayList<String> stageOntologies = new ArrayList<>();
+	
 	// Hashes <termId, termLabel>
 	private HashMap<String, OntologyObject> anatomyTerms = new HashMap<>();
 	private HashMap<String, OntologyObject> phenotypeTerms = new HashMap<>();
@@ -59,15 +57,15 @@ public class OntologyUtils {
 		synonymRelations.add("http://www.geneontology.org/formats/oboInOwl#hasNarrowSynonym");
 		synonymRelations.add("http://www.geneontology.org/formats/oboInOwl#hasRelatedSynonym");
 		synonymRelations.add("http://www.geneontology.org/formats/oboInOwl#hasBroadSynonym");
-		
-		//http://purl.obolibrary.org/obo/ma.owl
-		anatomyOntologies.add(System.getProperty("user.home") + "/phis_ontologies/ma.owl");
+
+		//http://purl.obolibrary.org/obo/mp.owl
+		phenotypeOntologies.add(System.getProperty("user.home") + "/phis_ontologies/mp.owl");
 		//http://purl.obolibrary.org/obo/emapa.owl
 		anatomyOntologies.add(System.getProperty("user.home") + "/phis_ontologies/emapa.owl");
 		//http://purl.obolibrary.org/obo/emap.owl
 		anatomyOntologies.add(System.getProperty("user.home") + "/phis_ontologies/emap.owl");
-		//http://purl.obolibrary.org/obo/mp.owl
-		phenotypeOntologies.add(System.getProperty("user.home") + "/phis_ontologies/mp.owl");
+		//http://purl.obolibrary.org/obo/ma.owl
+		anatomyOntologies.add(System.getProperty("user.home") + "/phis_ontologies/ma.owl");
 		//http://www.berkeleybop.org/ontologies/mmusdv.owl
 		stageOntologies.add(System.getProperty("user.home") + "/phis_ontologies/mmusdv.owl");
 		
@@ -190,11 +188,11 @@ public class OntologyUtils {
 	 */
 	private boolean loadHashes(){
 
-		for (String path: anatomyOntologies){
-			fillHashesFor(path, anatomyTerms);
-		}
 		for (String path: phenotypeOntologies){
 			fillHashesFor(path, phenotypeTerms);				
+		}
+		for (String path: anatomyOntologies){
+			fillHashesFor(path, anatomyTerms);
 		}
 		for (String path: stageOntologies){
 			fillHashesFor(path, stageTerms);
@@ -204,20 +202,19 @@ public class OntologyUtils {
 	}
 	
 	private void fillHashesFor(String path, HashMap<String, OntologyObject> idLabelMap){
-
+		  
 		try {
-			OWLGraphWrapper gr;
 			logger.info("Lading: " + path);
 			System.out.println("Lading: " + path);
-			gr = readOntologyFronUrl(path);
-			OWLOntology ontology = manager.loadOntologyFromOntologyDocument(IRI.create(new File(path))); 
+			OWLOntology ontology = manager.loadOntologyFromOntologyDocument(IRI.create(new File(path)));
+			OWLReasoner reasoner = (new JFactFactory()).createReasoner(ontology);
 			
-			Set<OWLClass> classes = gr.getAllOWLClasses();
-			System.out.println(classes.size() + " classes loaded");
+			Set<OWLClass> classes = ontology.getClassesInSignature();
+			
 			for (OWLClass cls : classes){
 				OntologyObject temp = new OntologyObject();
-				temp.setId(gr.getIdentifier(cls));
-				temp.setLabel(gr.getLabel(cls));
+				temp.setId(getIdentifierShortForm(cls));
+				temp.setLabel(((OWLLiteral)cls.getAnnotations(ontology, LABEL_ANNOTATION).iterator().next().getValue()).getLiteral());
 								
 				for (String synonymType : synonymRelations){
 					OWLAnnotationProperty label = factory.getOWLAnnotationProperty(IRI.create(synonymType));	
@@ -229,28 +226,36 @@ public class OntologyUtils {
 						}
 					}
 				}
-				idLabelMap.put(gr.getIdentifier(cls), temp);
+				idLabelMap.put(getIdentifierShortForm(cls), temp);
 			}
 			// link parents / ancestors
 			for (OWLClass cls : classes){
-				OntologyObject temp = idLabelMap.get(gr.getIdentifier(cls));
-				for (OWLObject obj: gr.getNamedAncestors(cls)){
-					temp.getIntermediateTerms().add(idLabelMap.get(gr.getIdentifier(cls)));
+				OntologyObject temp = idLabelMap.get(getIdentifierShortForm(cls));
+				for (OWLObject obj: getAncestors(reasoner, cls)){
+					temp.getIntermediateTerms().add(idLabelMap.get(getIdentifierShortForm(cls)));
 				}
-		//		System.out.println("int terms: " + temp.getIntermediateTerms().size());
-				idLabelMap.put(gr.getIdentifier(cls), temp);
+				if (getIdentifierShortForm(cls).contains("MP_0012765"))
+					System.out.println("YES, it was added the second time " + getIdentifierShortForm(cls));
+				idLabelMap.put(getIdentifierShortForm(cls), temp);
 			}
 			
 		} catch (OWLOntologyCreationException e) {
 			e.printStackTrace();
-		} catch (OBOFormatParserException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
 	}
 	
+	public Set<OWLClass> getAncestors(OWLReasoner reasoner, OWLClass cls){
+		return reasoner.getSuperClasses(cls, false).getFlattened();
+	}
+	
+	public String getIdentifierShortForm(OWLClass cls){
+		String id = cls.getIRI().toString();
+		return id.split("/|#")[id.split("/|#").length-1];
+	}
+	
 	public OntologyObject getOntologyTermById(String id){
+		id = id.replace(":", "_");
+		System.out.println(id);
 		if (anatomyTerms.containsKey(id)){
 			return anatomyTerms.get(id);
 		}

@@ -545,9 +545,9 @@ public class BatchXmlUploader {
 					if (ann.getOntologyTerm() != null){
 						phenotypeIds.add(ann.getOntologyTerm().getTermId());
 						phenotypeLabels.add(ann.getOntologyTerm().getTermLabel());
-						OntologyObject oo = ou.getOntologyTermById(ann.getOntologyTerm().getTermId());
+						OntologyObject oo = ou.getOntologyTermById(ann.getOntologyTerm().getTermId().trim());
 						if (oo == null){
-							System.out.println("Ontology id not found in hash!! -> " + ann.getOntologyTerm().getTermId());
+							System.out.println("Ontology id not found in hash!! -> " + ann.getOntologyTerm().getTermId().trim());
 						}
 						res.addPhenotypeSynonymsBag(oo.getSynonyms());
 						for (OntologyObject anc : oo.getIntermediateTerms()){
