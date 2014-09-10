@@ -90,22 +90,24 @@ public class GetROI extends HttpServlet {
 	
         // run solr query
         if (!error) { // if no error detected
-            BufferedReader in = null;
-            try {
-                // connect to SOLR and run query
-                URL url = new URL(queryURL);
-                in = new BufferedReader(new InputStreamReader(url.openStream()));
-
-                // read JSON result
-                String inputLine;
-                if ((inputLine = in.readLine()) != null) { // should only be 1 line of result
-                	// no need to process result, simply return	
-        		    solrResult = inputLine;
-                }
-            } catch (IOException e) {
-                logger.log(Level.WARNING, e.getMessage());
-                solrResult = "{\"server_error\": \""+e.getMessage()+"\"}"; 
-            }
+//            BufferedReader in = null;
+//            try {
+//                // connect to SOLR and run query
+//                URL url = new URL(queryURL);
+//                in = new BufferedReader(new InputStreamReader(url.openStream()));
+//
+//                // read JSON result
+//                String inputLine;
+//                if ((inputLine = in.readLine()) != null) { // should only be 1 line of result
+//                	// no need to process result, simply return	
+//        		    solrResult = inputLine;
+//                }
+//            } catch (IOException e) {
+//                logger.log(Level.WARNING, e.getMessage());
+//                solrResult = "{\"server_error\": \""+e.getMessage()+"\"}"; 
+//            }
+            CommunicateWithSolr cws = new CommunicateWithSolr();
+            solrResult = cws.talk(queryURL);                    
         }
 
         // send result to client (UI)
