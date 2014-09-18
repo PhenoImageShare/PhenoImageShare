@@ -4,7 +4,7 @@
 <!-- Change image_type to 3 fields as in David's document -->
 <!-- add production center, source project name, source project url, analysis center -->
 
-								<simpleType name="Sex">
+								<simpleType name="Sex"> <!--  Could use Caro for sexes -->
 									<restriction base="string">
 										<enumeration value="Male"></enumeration>
 										<enumeration value="Female"></enumeration>
@@ -46,8 +46,8 @@
 								
 								<complexType name="Age">
 									<choice>
-										<element name="age_since_birth" type="float"></element>
-										<element name="embryonic_age"  type="float"></element>
+										<element name="age_since_birth" type="float"></element> <!--  days -->
+										<element name="embryonic_age"  type="float"></element> <!--  days -->
 									</choice>
 								</complexType>
 															
@@ -145,10 +145,10 @@
 						  	  		<element name="image_context_url" type="string" minOccurs="0" maxOccurs="1"/> <!-- URL linking back to the image page on the original website, if they have single image pages -->
 						  	  		<element name="image_dimensions"	type="x:Dimensions" minOccurs="1" maxOccurs="1"/>	
 						  	  		<element name="machine"	type="string" minOccurs="0" maxOccurs="1"/>
-						  	  		<element name="image_generated_by" type="string" minOccurs="1" /> <!-- Lab/center/institute that produced the images -->
-						  	  		<element name="organism_generated_by" type="string" minOccurs="1" maxOccurs="1"/> <!-- Lab/center/institute that produced the organism -->
-						  	  		<element name="host_url"  type="string" minOccurs="1" maxOccurs="1"/> <!-- URL to the website where all the images are accessible -->
-						  	  		<element name="host_name" type="string" minOccurs="1" maxOccurs="1"/>
+						  	  		<element name="image_generated_by" type="x:Link" minOccurs="1" /> <!-- Lab/center/institute that produced the images -->
+						  	  		<element name="image_processed_by" type="x:LinkArray" minOccurs="0" />
+						  	  		<element name="organism_generated_by" type="x:Link" minOccurs="1" maxOccurs="1"/> <!-- Lab/center/institute that produced the organism -->
+						  	  		<element name="host"  type="x:Link" minOccurs="1" maxOccurs="1"/> <!-- URL to the website where all the images are accessible -->
 						  	  		<element name="imaging_method" type="x:OntologyTermArray"  minOccurs="0" maxOccurs="1" /> <!-- from Fbbi -->
 						  	  		<element name="sample_preparation" type="x:OntologyTermArray"  minOccurs="0" maxOccurs="1" /> <!-- from Fbbi -->
 						  	  		<element name="visualisation_method" type="x:OntologyTermArray"  minOccurs="0" maxOccurs="1" /> <!-- from Fbbi -->
@@ -170,7 +170,7 @@
 								<complexType name="OntologyTerm">
 									<all>
 										<element name="termLabel" type="string" minOccurs="1" maxOccurs="1"/>
-										<element name="termId" type="string" minOccurs="1" maxOccurs="1"/>
+										<element name="termId" type="string" minOccurs="1" maxOccurs="1"/> <!--  OWL style, with underscores after namespace not colon -->
 									</all>
 								</complexType>
 								
@@ -229,7 +229,19 @@
 						    		</sequence>
 								</complexType>
 								
-								
+								<complexType name="Link">
+									<all>
+						  	  		<element name="display_name" type="string" minOccurs="1" maxOccurs="1"/>
+						  	  		<element name="url" type="string" minOccurs="0" maxOccurs="1"/>
+						  	  	</all>
+						  	 </complexType>
+						  	 
+						  	 <complexType name="LinkArray">
+									<sequence>
+						    			<element name="el" type="x:Link" minOccurs="1" maxOccurs="unbounded"/>
+						    	</sequence>
+						  	 </complexType>
+						  	 
 								<!-- Main image document -->
 						    <complexType name="Image">
 						   		<all>
