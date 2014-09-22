@@ -17,7 +17,7 @@ import pyxb  # Probably using pyxb in a rather basal way...
 # minimal vars to set (for now):
 # image_id, image URL, source links; expressed feature (+ its type - gene or transgene); classification of struc & overlapped region
 
-ont = { "FBbi_00000251": "confocal microscopy",  "FBbi_00000024": "whole mounted tissue", "FBbi_00000002": "chemically fixed tissue", "FBbi_00000156" : "primary antibody plus labeled secondary antibody" }
+ont = { "FBdv_00005369": "adult stage", "FBbt_00003624" : "adult brain", "FBbi_00000251": "confocal microscopy",  "FBbi_00000024": "whole mounted tissue", "FBbi_00000002": "chemically fixed tissue", "FBbi_00000156" : "primary antibody plus labeled secondary antibody" }
 
 # TODO, add validation.  Should this be on individual elements?
 
@@ -76,36 +76,36 @@ class VFB_image():
         self.roi2 = phisSchema.Roi()
         
         # bind root objects to doc  (Could shift outside of class)
-        self.doc.append(image)
-        self.doc.append(channel1)
-        self.doc.append(channel2)
-        self.doc.append(roi1)
-        self.doc.append(roi2)
+        self.doc.append(self.image)
+        self.doc.append(self.channel1)
+        self.doc.append(self.channel2)
+        self.doc.append(self.roi1)
+        self.doc.append(self.roi2)
         
         # Populate IDs
         id = "image_" + self.vfb_image_id
-        self.channel1.id = "channel_" + self.vfb_image.id + "-a"
-        self.channel2.id = "channel_" + elf.vfb_image.id + "-b"
-        self.roi1.id  = "roi_" + elf.vfb_image.id + "-a"
-        self.roi2.id = "roi_" + elf.vfb_image.id + "-b"
+        self.channel1.id = "channel_" + self.vfb_image_id + "-a"
+        self.channel2.id = "channel_" + self.vfb_image_id + "-b"
+        self.roi1.id  = "roi_" + self.vfb_image_id + "-a"
+        self.roi2.id = "roi_" + self.vfb_image_id + "-b"
         self.image.associated_roi = pyxb.BIND()  # Special magic
-        self.image.associated_roi.el.append(roi1.id) # Is this correct, or should I be populating a string array and appending that?  
-        self.image.associated_roi.el.append(roi2.id)
+        self.image.associated_roi.el.append(self.roi1.id) # Is this correct, or should I be populating a string array and appending that?  
+        self.image.associated_roi.el.append(self.roi2.id)
         self.image.associated_channel = pyxb.BIND()
-        self.image.associated_channel.el.append(channel1.id)
-        self.image.associated_channel.el.append(channel2.id)
-        self.channel1.associated_image = image.id
-        self.channel2.associated_image = image.id
-        self.roi1.associated_image = image.id
-        self.roi2.associated_image = image.id
+        self.image.associated_channel.el.append(self.channel1.id)
+        self.image.associated_channel.el.append(self.channel2.id)
+        self.channel1.associated_image = self.image.id
+        self.channel2.associated_image = self.image.id
+        self.roi1.associated_image = self.image.id
+        self.roi2.associated_image = self.image.id
         self.roi1.associated_channel = pyxb.BIND()
-        self.roi1.associated_channel.el.append(channel1.id)
+        self.roi1.associated_channel.el.append(self.channel1.id)
         self.roi2.associated_channel = pyxb.BIND()
-        self.roi2.associated_channel.el.append(channel2.id)
+        self.roi2.associated_channel.el.append(self.channel2.id)
         self.channel1.associated_roi = pyxb.BIND()
-        self.channel1.associated_roi.el.append(roi1.id)
+        self.channel1.associated_roi.el.append(self.roi1.id)
         self.channel2.associated_roi = pyxb.BIND()
-        self.channel2.associated_roi.el.append(roi2.id)
+        self.channel2.associated_roi.el.append(self.roi2.id)
         
         # Expansions.  Add more here as needed.
         self.image.image_description = phisSchema.ImageDescription()
@@ -118,12 +118,12 @@ class VFB_image():
 # Method 1 - intermediate node and directly bind
         imaging_methods = phisSchema.OntologyTermArray()
         self.image.image_description.imaging_method = imaging_methods # But remember - this is only possible because of an earlier pyxB expansion
-        imaging_methods.append(gen_ont_term(fbbi, "FBbi_00000251"))
+        imaging_methods.append(gen_ont_term(self.ont, "FBbi_00000251"))
 
 # Method 2 - pyxB.BIND() expansion                      
         self.image.image_description.sample_preparation = pyxb.BIND()
-        self.image.image_description.sample_preparation.append(gen_ont_term(fbbi, "FBbi_00000024")) # whole mount tissue
-        self.image.image_description.sample_preparation.append(gen_ont_term(fbbi, "FBbi_00000002")) # chemically fixed
+        self.image.image_description.sample_preparation.append(gen_ont_term(self.ont, "FBbi_00000024")) # whole mount tissue
+        self.image.image_description.sample_preparation.append(gen_ont_term(self.ont, "FBbi_00000002")) # chemically fixed
         
     def set_dimensions(self, x, y, z=0):
         """x, y and z are dimensions in pixels. Z is optional (default 0)""" 
@@ -152,13 +152,13 @@ class VFB_image():
         
     def set_background_depicted_entity(self, sfid):
         # By convention, background channel is always roi1
-        dep = roi1.depicted_anatomical_structure.el
+        dep = self.roi1.depicted_anatomical_structure.el
         dep.append(gen_ont_term(self.ont, sfid))
     
     def populate_depicted_anatomy_exp(self, classDict):
         ### By convention roi2 is signal channel.  # Hmmm - better to have this be in main code?
         """classDict is a name: ID dict of ontology classes to list under depicted anatomical structure on roi"""
-        dep = roi2.depicted_anatomical_structure.el
+        dep = self.roi2.depicted_anatomical_structure.el
         for Id, Name in classDict:
             depicted = phisSchema.OntologyTerm() # Not using generic method here, as assuming name and ID come in from source data.
             depicted.Termid = Id       
@@ -183,7 +183,6 @@ class VFB_wt_adult_brain_image(VFB_image):
     """Assume wt adult adult brain image. Dimensions default = 512,512,512"""
     
     # Consider ditching this subclass if don't find a bunch of more specific things to say.  Might be better to have subclasses for neuron, clone and expression pattern
-    stage = gen_ont_term("adult stage", self.ont)
 # One doc for all images.
     def __init__(self, ont, doc, vfb_image_id, image_url):
         """ont is a name_id dict lookup for ontology terms. 
@@ -191,17 +190,23 @@ class VFB_wt_adult_brain_image(VFB_image):
         vfb_image_id is an id string for the image
         image_url is also a string"""
         self.doc = doc
+        self.ont = ont
+        stage = gen_ont_term(ont, "FBdv_00005369")  # Hmmmm - global!
         self.vfb_image_id = vfb_image_id
         self._initialise_image()
         self.image.image_description.image_url = image_url
         self.set_dimensions(512, 512, 512) # Sets default - can be overridden
-        self.set_background_depicted_entity("FBbt_00003624") # adult brain
+        #self.set_background_depicted_entity("FBbt_00003624") # adult brain
     
     def set_sex(self, sex):
         set_organism(stage, sex)
     
+# Test
 
-
+d = phisSchema.Doc()
+print ont["FBdv_00005369"]
+x = VFB_wt_adult_brain_image(ont, d, "fubar", "http://fu.bar")
+print d.image.organism.toxml()
 # Each branch of the schema must be expanded via pyxb.BIND() to reveal attributes:
 
         
