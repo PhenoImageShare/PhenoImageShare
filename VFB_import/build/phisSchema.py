@@ -1,7 +1,7 @@
 # ./phisSchema.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:4a11b7f056635b900095d2a98a5d7168825518c5
-# Generated 2014-09-18 13:21:05.370159 by PyXB version 1.2.3
+# Generated 2014-09-26 12:13:25.956681 by PyXB version 1.2.3
 # Namespace http://www.example.org/phisSchema
 
 import pyxb
@@ -13,7 +13,7 @@ import pyxb.utils.domutils
 import sys
 
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:42f86ab5-3f2e-11e4-b75f-10ddb1f09160')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:22ac74c7-456e-11e4-90d9-10ddb1f09160')
 
 # Version of PyXB used to generate the bindings
 _PyXBVersion = '1.2.3'
