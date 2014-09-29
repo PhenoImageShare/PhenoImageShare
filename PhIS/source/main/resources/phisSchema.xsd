@@ -151,7 +151,6 @@
 						  	  		<element name="host"  type="x:Link" minOccurs="1" maxOccurs="1"/> <!-- URL to the website where all the images are accessible -->
 						  	  		<element name="imaging_method" type="x:OntologyTermArray"  minOccurs="0" maxOccurs="1" /> <!-- from Fbbi -->
 						  	  		<element name="sample_preparation" type="x:OntologyTermArray"  minOccurs="0" maxOccurs="1" /> <!-- from Fbbi -->
-						  	  		<element name="visualisation_method" type="x:OntologyTermArray"  minOccurs="0" maxOccurs="1" /> <!-- from Fbbi -->
 						  	  		<element name="image_type" type="x:ImageTypeArray"  minOccurs="1" maxOccurs="1" /> 
 						  	  		<element name="sample_type" type="x:SampleType"  minOccurs="1" maxOccurs="1" /> 
 									</all>
@@ -260,7 +259,8 @@
 						  	
 						  	<!-- Main Channel document. Must be associated to the right image and ROI. -->
 						  	<complexType name="Channel">
-						  		<all>
+						  		<all>	
+						  				<element name="visualisation_method" type="x:OntologyTermArray"  minOccurs="0" maxOccurs="1" /> <!-- from Fbbi -->
 						  	  		<element name="id" type="string" minOccurs="1" maxOccurs="1"/> 
 						  	  		<element name="associated_image" type="string" minOccurs="1" maxOccurs="1"/>
 						  	  		<element name="associated_roi" type="x:StringArray" minOccurs="0" maxOccurs="1"/>
