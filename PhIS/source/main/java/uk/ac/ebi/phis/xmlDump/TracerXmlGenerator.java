@@ -97,10 +97,18 @@ public class TracerXmlGenerator {
 		    		ImageDescription imageDesc = new ImageDescription();
 		    		imageDesc.setImageUrl(url);
 		    		imageDesc.setImageDimensions(d);
-		      		imageDesc.setOrganismGeneratedBy("Spitz Lab, EMBL");
-		    		imageDesc.setImageGeneratedBy("Spitz Lab, EMBL");
-		    		imageDesc.setHostName("Tracer Database");
-		    		imageDesc.setHostUrl("http://www.ebi.ac.uk/panda-srv/tracer/");
+		    		Link ogb = new Link();
+		    		ogb.setDisplayName("Spitz Lab, EMBL");
+		    		ogb.setUrl("http://www.embl.de/research/units/dev_biology/spitz/");
+		      		imageDesc.setOrganismGeneratedBy(ogb);
+		    		Link igb = new Link();
+		    		igb.setDisplayName("Spitz Lab, EMBL");
+		    		igb.setUrl("http://www.embl.de/research/units/dev_biology/spitz/");
+		    		imageDesc.setImageGeneratedBy(igb);
+		    		Link host = new Link();
+		    		host.setDisplayName("Tracer Database");
+		    		host.setUrl("http://www.ebi.ac.uk/panda-srv/tracer/");
+		    		imageDesc.setHost(host);
 		    		
 		    		ImageTypeArray ita = new ImageTypeArray();
 		    		ita.getEl().add(ImageType.EXPRESSION);
@@ -111,10 +119,6 @@ public class TracerXmlGenerator {
 		    		OntologyTermArray sp = new OntologyTermArray();
 		    		sp.getEl().add(getOntologyTerm("whole mounted tissue", "FBbi_00000024"));
 		    		imageDesc.setSamplePreparation(sp);
-		    		
-		    		OntologyTermArray vm = new OntologyTermArray();
-		    		vm.getEl().add(getOntologyTerm("visualisation of genetically encoded beta-galactosidase", "FBbi_00000077"));
-		    		imageDesc.setVisualisationMethod(vm);
 		    		
 		    		OntologyTermArray im = new OntologyTermArray();
 		    		im.getEl().add(getOntologyTerm("light microscopy", "FBbi_00000345"));
@@ -148,6 +152,9 @@ public class TracerXmlGenerator {
 	    			channel.setId(channelId);
 	    			// Link it to the image
 	    			channel.setAssociatedImage(internalId);
+		    		OntologyTermArray vm = new OntologyTermArray();
+		    		vm.getEl().add(getOntologyTerm("visualisation of genetically encoded beta-galactosidase", "FBbi_00000077"));
+		    		channel.setVisualisationMethod(vm);
 	    			// Link image to channel too
 	    			image.setAssociatedChannel(new StringArray());
 	    			image.getAssociatedChannel().getEl().add(channelId);
