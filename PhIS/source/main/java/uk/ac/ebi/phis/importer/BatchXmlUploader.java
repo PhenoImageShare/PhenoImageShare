@@ -338,10 +338,10 @@ public class BatchXmlUploader {
 		bean.setId(img.getId());
 
 		ImageDescription desc = img.getImageDescription();
-		bean.setImageGeneratedBy(desc.getImageGeneratedBy());
-		bean.setSampleGeneratedBy(desc.getOrganismGeneratedBy());
-		bean.setHostName(desc.getHostName());
-		bean.setHostUrl(desc.getHostUrl());
+		bean.setImageGeneratedBy(desc.getImageGeneratedBy().getDisplayName());
+		bean.setSampleGeneratedBy(desc.getOrganismGeneratedBy().getDisplayName());
+		bean.setHostName(desc.getHost().getDisplayName());
+		bean.setHostUrl(desc.getHost().getUrl());
 		bean.setImageUrl(desc.getImageUrl());
 		if (desc.getImageContextUrl() != null){
 			bean.setImageContextUrl(desc.getImageContextUrl());
@@ -379,13 +379,6 @@ public class BatchXmlUploader {
 				bean.setSamplePreparationId(sp.getTermId());
 				bean.setSamplePreparationLabel(sp.getTermLabel());
 				bean.addSamplePreparationSynonyms(ou.getSynonyms(sp.getTermId()));
-			}
-		}
-		if (desc.getVisualisationMethod() != null){
-			for (OntologyTerm vm: desc.getVisualisationMethod().getEl()){
-				bean.setVisualisationMethodId(vm.getTermId());
-				bean.setVisualisationMethodLabel(vm.getTermLabel());
-				bean.addVisualisationMethodSynonyms(ou.getSynonyms(vm.getTermId()));
 			}
 		}
 		
@@ -679,6 +672,13 @@ private ImageDTO copyFieldsFromChannel(Image img, ImageDTO pojo){
 		for (String channelId : img.getAssociatedChannel().getEl()){
 			
 			Channel channel = channelIdMap.get(channelId);		
+			if (channel.getVisualisationMethod() != null){
+				for (OntologyTerm vm: channel.getVisualisationMethod().getEl()){
+					res.addVisualisationMethodId(vm.getTermId());
+					res.addVisualisationMethodLabel(vm.getTermLabel());
+					res.addVisualisationMethodSynonyms(ou.getSynonyms(vm.getTermId()));
+				}
+			}
 			
 			// expressed features
 			if (channel.getDepictsExpressionOf() != null){

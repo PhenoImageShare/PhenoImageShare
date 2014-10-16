@@ -171,10 +171,10 @@ public class ImageDTO {
 	private ArrayList<String> samplePreparationSynonyms;
 
 	@Field(VISUALISATION_METHOD_ID)
-	private String visualisationMethodId;
+	private ArrayList<String> visualisationMethodId;
 
 	@Field(VISUALISATION_METHOD_LABEL)
-	private String visualisationMethodLabel;
+	private ArrayList<String> visualisationMethodLabel;
 
 	@Field(VISUALISATION_METHOD_SYNONYMS)
 	private ArrayList<String> visualisationMethodSynonyms;
@@ -1303,7 +1303,7 @@ public class ImageDTO {
 	/**
 	 * @return the visualisationMethodId
 	 */
-	public String getVisualisationMethodId() {
+	public ArrayList<String> getVisualisationMethodId() {
 
 		return visualisationMethodId;
 	}
@@ -1313,9 +1313,11 @@ public class ImageDTO {
 	 * @param visualisationMethodId
 	 *            the visualisationMethodId to set
 	 */
-	public void setVisualisationMethodId(String visualisationMethodId) {
-
-		this.visualisationMethodId = visualisationMethodId;
+	public void addVisualisationMethodId(String visualisationMethodId) {
+		if (this.visualisationMethodId == null){
+			this.visualisationMethodId = new ArrayList<>();
+		}
+		this.visualisationMethodId.add(visualisationMethodId);
 	}
 
 
@@ -1360,7 +1362,7 @@ public class ImageDTO {
 	/**
 	 * @return the visualisationMethodLabel
 	 */
-	public String getVisualisationMethodLabel() {
+	public ArrayList<String> getVisualisationMethodLabel() {
 
 		return visualisationMethodLabel;
 	}
@@ -1370,9 +1372,11 @@ public class ImageDTO {
 	 * @param visualisationMethodLabel
 	 *            the visualisationMethodLabel to set
 	 */
-	public void setVisualisationMethodLabel(String visualisationMethodLabel) {
-
-		this.visualisationMethodLabel = visualisationMethodLabel;
+	public void addVisualisationMethodLabel(String visualisationMethodLabel) {
+		if (this.visualisationMethodLabel == null){
+			this.visualisationMethodLabel = new ArrayList<>();
+		}
+		this.visualisationMethodLabel.add(visualisationMethodLabel);
 	}
 
 
