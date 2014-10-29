@@ -1,17 +1,5 @@
 package uk.ac.ebi.phis.importer;
 
-import uk.ac.ebi.phis.jaxb.Annotation;
-import uk.ac.ebi.phis.jaxb.AnnotationMode;
-import uk.ac.ebi.phis.jaxb.Channel;
-import uk.ac.ebi.phis.jaxb.Doc;
-import uk.ac.ebi.phis.jaxb.GenotypeComponent;
-import uk.ac.ebi.phis.jaxb.Image;
-import uk.ac.ebi.phis.jaxb.ImageDescription;
-import uk.ac.ebi.phis.jaxb.ImageType;
-import uk.ac.ebi.phis.jaxb.OntologyTerm;
-import uk.ac.ebi.phis.jaxb.Organism;
-import uk.ac.ebi.phis.jaxb.Roi;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -32,6 +20,17 @@ import javax.xml.validation.Validator;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.xml.sax.SAXException;
 
+import uk.ac.ebi.phis.jaxb.Annotation;
+import uk.ac.ebi.phis.jaxb.AnnotationMode;
+import uk.ac.ebi.phis.jaxb.Channel;
+import uk.ac.ebi.phis.jaxb.Doc;
+import uk.ac.ebi.phis.jaxb.GenotypeComponent;
+import uk.ac.ebi.phis.jaxb.Image;
+import uk.ac.ebi.phis.jaxb.ImageDescription;
+import uk.ac.ebi.phis.jaxb.ImageType;
+import uk.ac.ebi.phis.jaxb.OntologyTerm;
+import uk.ac.ebi.phis.jaxb.Organism;
+import uk.ac.ebi.phis.jaxb.Roi;
 import uk.ac.ebi.phis.service.ChannelService;
 import uk.ac.ebi.phis.service.ImageService;
 import uk.ac.ebi.phis.service.RoiService;
@@ -39,6 +38,8 @@ import uk.ac.ebi.phis.solrj.dto.ChannelDTO;
 import uk.ac.ebi.phis.solrj.dto.ImageDTO;
 import uk.ac.ebi.phis.solrj.dto.RoiDTO;
 import uk.ac.ebi.phis.utils.ValidationUtils;
+import uk.ac.ebi.phis.utils.ontology.OntologyObject;
+import uk.ac.ebi.phis.utils.ontology.OntologyUtils;
 
 public class BatchXmlUploader {
 
@@ -53,6 +54,7 @@ public class BatchXmlUploader {
 //	String solrImageBaseUrl; // = "http://localhost:8086/solr-example/images";
 
 	ValidationUtils vu = new ValidationUtils();
+	OntologyUtils ou = vu.ou;
 
 	ImageService is;
 	RoiService rs;
@@ -336,10 +338,10 @@ public class BatchXmlUploader {
 		bean.setId(img.getId());
 
 		ImageDescription desc = img.getImageDescription();
-		bean.setImageGeneratedBy(desc.getImageGeneratedBy());
-		bean.setSampleGeneratedBy(desc.getOrganismGeneratedBy());
-		bean.setHostName(desc.getHostName());
-		bean.setHostUrl(desc.getHostUrl());
+		bean.setImageGeneratedBy(desc.getImageGeneratedBy().getDisplayName());
+		bean.setSampleGeneratedBy(desc.getOrganismGeneratedBy().getDisplayName());
+		bean.setHostName(desc.getHost().getDisplayName());
+		bean.setHostUrl(desc.getHost().getUrl());
 		bean.setImageUrl(desc.getImageUrl());
 		if (desc.getImageContextUrl() != null){
 			bean.setImageContextUrl(desc.getImageContextUrl());
@@ -369,18 +371,14 @@ public class BatchXmlUploader {
 			for (OntologyTerm im: desc.getImagingMethod().getEl()){
 				bean.setImagingMethodId(im.getTermId());
 				bean.setImagingMethodLabel(im.getTermLabel());
+				bean.addImagingMethodSynonyms(ou.getSynonyms(im.getTermId()));
 			}
 		}
 		if (desc.getSamplePreparation() != null){
 			for (OntologyTerm sp: desc.getSamplePreparation().getEl()){
 				bean.setSamplePreparationId(sp.getTermId());
 				bean.setSamplePreparationLabel(sp.getTermLabel());
-			}
-		}
-		if (desc.getVisualisationMethod() != null){
-			for (OntologyTerm vm: desc.getVisualisationMethod().getEl()){
-				bean.setVisualisationMethodId(vm.getTermId());
-				bean.setVisualisationMethodLabel(vm.getTermLabel());
+				bean.addSamplePreparationSynonyms(ou.getSynonyms(sp.getTermId()));
 			}
 		}
 		
@@ -433,6 +431,7 @@ public class BatchXmlUploader {
 			if (img.getDepictedAnatomicalStructure().getOntologyTerm() != null){
 				bean.setAnatomyId(img.getDepictedAnatomicalStructure().getOntologyTerm().getTermId());
 				bean.setAnatomyTerm(img.getDepictedAnatomicalStructure().getOntologyTerm().getTermLabel());
+				bean.addAnatomySynonyms(ou.getSynonyms(img.getDepictedAnatomicalStructure().getOntologyTerm().getTermId()));
 			}
 			
 		}
@@ -456,9 +455,11 @@ public class BatchXmlUploader {
 		if (img.getMutantGenotypeTraits() != null){
 			ArrayList<String> geneIds = new ArrayList<>();
 			ArrayList<String> geneSymbols = new ArrayList<>();
+			ArrayList<String> geneSynonymsAndNames = new ArrayList<>();
 			ArrayList<String> gfEnsembl = new ArrayList<>();
 			ArrayList<String> gfIds = new ArrayList<>();
 			ArrayList<String> gfSymbols = new ArrayList<>();
+			ArrayList<String> gfSynonymsAndNames = new ArrayList<>();
 			ArrayList<String> chromosome = new ArrayList<>();
 			ArrayList<Long> startPosition = new ArrayList<>();
 			ArrayList<Long> endPosition = new ArrayList<>();
@@ -470,6 +471,7 @@ public class BatchXmlUploader {
 				// We need to fill all of these arrays because they need to be parallel
 				geneIds.add(g.getGeneId());
 				geneSymbols.add(g.getGeneSymbol());
+				//TODO add synonyms and names from ENSEMBL
 				gfEnsembl.add(g.getGeneticFeatureEnsemblId());
 				gfIds.add(g.getGeneticFeatureId());
 				gfSymbols.add(g.getGeneSymbol());
@@ -536,6 +538,16 @@ public class BatchXmlUploader {
 					if (ann.getOntologyTerm() != null){
 						phenotypeIds.add(ann.getOntologyTerm().getTermId());
 						phenotypeLabels.add(ann.getOntologyTerm().getTermLabel());
+						OntologyObject oo = ou.getOntologyTermById(ann.getOntologyTerm().getTermId().trim());
+						if (oo == null){
+							System.out.println("Ontology id not found in hash!! -> " + ann.getOntologyTerm().getTermId().trim());
+						}
+						res.addPhenotypeSynonymsBag(oo.getSynonyms());
+						for (OntologyObject anc : oo.getIntermediateTerms()){
+							res.addPhenotypeAncestorsIdBag(anc.getId());
+							res.addPhenotypeAncestorsSynonymsBag(anc.getSynonyms());
+							res.addPhenotypeAncestorsTermBag(anc.getLabel());
+						}
 					}
 				}
 			}
@@ -567,10 +579,24 @@ public class BatchXmlUploader {
 						if (expression){
 							expressionInAnatomyIds.add(ann.getOntologyTerm().getTermId());
 							expressionInAnatomyLabels.add(ann.getOntologyTerm().getTermLabel());
+							OntologyObject oo = ou.getOntologyTermById(ann.getOntologyTerm().getTermId());
+							res.addExpressedGfSynonymsBag(oo.getSynonyms());
+							for (OntologyObject anc : oo.getIntermediateTerms()){
+								res.addExpressionInAncestorsIdBag(anc.getId());
+								res.addExpressionInAncestorsSynonymsBag(anc.getSynonyms());
+								res.addExpressionInAncestorsTermBag(anc.getLabel());
+							}
 						}
 						else{
 							depictedAnatomyIds.add(ann.getOntologyTerm().getTermId());
 							depictedAnatomyLabels.add(ann.getOntologyTerm().getTermLabel());
+							OntologyObject oo = ou.getOntologyTermById(ann.getOntologyTerm().getTermId());
+							res.addDepictedAnatomySynonymsBag(oo.getSynonyms());
+							for (OntologyObject anc : oo.getIntermediateTerms()){
+								res.addDepictedAnatomyAncestorsIdBag(anc.getId());
+								res.addDepictedAnatomyAncestorsSynonymsBag(anc.getSynonyms());
+								res.addDepictedAnatomyAncestorsTermBag(anc.getLabel());
+							}
 						}
 					}
 				}
@@ -585,6 +611,13 @@ public class BatchXmlUploader {
 					if (ann.getOntologyTerm() != null){
 						abnormalityInAnatomyIds.add(ann.getOntologyTerm().getTermId());
 						abnormalityInAnatomyLabels.add(ann.getOntologyTerm().getTermLabel());
+						OntologyObject oo = ou.getOntologyTermById(ann.getOntologyTerm().getTermId());
+						res.addAbnormalAnatomySynonymsBag(oo.getSynonyms());
+						for (OntologyObject anc : oo.getIntermediateTerms()){
+							res.addAbnormalAnatomyAncestorsIdBag(anc.getId());
+							res.addAbnormalAnatomyAncestorsSynonymsBag(anc.getSynonyms());
+							res.addAbnormalAnatomyAncestorsTermBag(anc.getLabel());
+						}
 					}
 				}
 			}
@@ -600,7 +633,6 @@ public class BatchXmlUploader {
 		res.setDepictedAnatomyFreetextBag(depictedAnatomyFreetext);
 		res.setDepictedAnatomyIdBag(depictedAnatomyIds);
 		res.setDepictedAnatomyTermBag(depictedAnatomyLabels);
-		
 //		res.setAnatomyComputedIdBag(anatomyComputedIdBag);
 //		res.setAnatomyComputedLabelBag(anatomyComputedLabelBag);
 		
@@ -632,11 +664,21 @@ private ImageDTO copyFieldsFromChannel(Image img, ImageDTO pojo){
 
 		ArrayList<String> expressedGfIdBag = new ArrayList<>();
 		ArrayList<String> expressedGfLabelBag = new ArrayList<>();
+		ArrayList<String> expressedGfSynonymBag = new ArrayList<>();
+		
+		//TODO fill gf synonyms and name from ENSEMBL
 		
 		// For all associated ROIs, check available annotations and copy them as needed in the bag fields
 		for (String channelId : img.getAssociatedChannel().getEl()){
 			
 			Channel channel = channelIdMap.get(channelId);		
+			if (channel.getVisualisationMethod() != null){
+				for (OntologyTerm vm: channel.getVisualisationMethod().getEl()){
+					res.addVisualisationMethodId(vm.getTermId());
+					res.addVisualisationMethodLabel(vm.getTermLabel());
+					res.addVisualisationMethodSynonyms(ou.getSynonyms(vm.getTermId()));
+				}
+			}
 			
 			// expressed features
 			if (channel.getDepictsExpressionOf() != null){

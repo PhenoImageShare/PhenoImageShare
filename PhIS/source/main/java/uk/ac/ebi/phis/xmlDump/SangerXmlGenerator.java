@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Map;
 
 import javax.sql.DataSource;
@@ -32,6 +31,7 @@ import uk.ac.ebi.phis.jaxb.Image;
 import uk.ac.ebi.phis.jaxb.ImageDescription;
 import uk.ac.ebi.phis.jaxb.ImageType;
 import uk.ac.ebi.phis.jaxb.ImageTypeArray;
+import uk.ac.ebi.phis.jaxb.Link;
 import uk.ac.ebi.phis.jaxb.OntologyTerm;
 import uk.ac.ebi.phis.jaxb.OntologyTermArray;
 import uk.ac.ebi.phis.jaxb.Organism;
@@ -226,10 +226,16 @@ public class SangerXmlGenerator {
 			    		ImageDescription imageDesc = new ImageDescription();
 			    		imageDesc.setImageUrl(url);
 			    		imageDesc.setImageDimensions(d);
-			      		imageDesc.setOrganismGeneratedBy("WTSI");
-			    		imageDesc.setImageGeneratedBy("WTSI");
-			    		imageDesc.setHostName("Mouse Phenotype");
-			    		imageDesc.setHostUrl("http://www.mousephenotype.org/");
+			    		Link ogb = new Link();
+			    		ogb.setDisplayName("WTSI");
+			      		imageDesc.setOrganismGeneratedBy(ogb);
+			    		Link igb = new Link();
+			    		ogb.setDisplayName("WTSI");
+			    		imageDesc.setImageGeneratedBy(igb);
+			    		Link host = new Link();
+			    		host.setDisplayName("Mouse Phenotype");
+			    		host.setUrl("http://www.mousephenotype.org/");
+			    		imageDesc.setHost(host);
 			    		// Parse procedure names to get most info out of htem. Mappings done by David can be found at https://docs.google.com/spreadsheet/ccc?key=0AmK8olNJT0Z7dEN2MklCX2g1TmhJWTk0N3VlUERVaVE&usp=drive_web#gid=0
 			    		imageDesc = setSamplePrep(procedure, imageDesc);
 			    		
@@ -254,6 +260,7 @@ public class SangerXmlGenerator {
 			    		// !!!  Last thing in this block  !!!
 				        doc.getImage().add(image);
 				        if (channel != null){
+				        	channel = setVisualizationMethod(procedure, channel);
 				        	doc.getChannel().add(channel);
 				        }
 		    		}
@@ -352,10 +359,35 @@ public class SangerXmlGenerator {
 	        return roi;
      }
 	 
+	 Channel setVisualizationMethod(String procedure , Channel channel){
+
+			OntologyTermArray vm = new OntologyTermArray();
+
+			if (procedure.equalsIgnoreCase("Expression")){
+				vm.getEl().add(getOntologyTerm("visualisation of genetically encoded beta-galactosidase", "FBbi_00000077"));
+			}
+			else if (procedure.equalsIgnoreCase("Tail Epidermis Wholemount")){
+				vm.getEl().add(getOntologyTerm("fluorescent protein tag", "FBbi_00000405"));
+			}
+			else if (procedure.equalsIgnoreCase("Histology Slide")){
+				vm.getEl().add(getOntologyTerm("optically dense stain", "FBbi_00000567"));
+			}
+	/*		else if (procedure.equalsIgnoreCase("Histology Slide")){
+				
+			}
+			*/
+			else if (procedure.equalsIgnoreCase("Brain Histopathology")){
+				vm.getEl().add(getOntologyTerm("fluorescent protein tag", "FBbi_00000405"));
+			}
+			if (vm.getEl().size() > 0){
+				channel.setVisualisationMethod(vm);
+			}
+			return channel;
+	 }
+	 
 	 ImageDescription setSamplePrep (String procedure, ImageDescription desc){
 			OntologyTermArray sp = new OntologyTermArray();
 			OntologyTermArray im = new OntologyTermArray();
-			OntologyTermArray vm = new OntologyTermArray();
 			
 		if (procedure.equalsIgnoreCase("Dysmorphology")){
 			sp.getEl().add(getOntologyTerm("living tissue" , "FBbi_00000025"));
@@ -385,16 +417,13 @@ public class SangerXmlGenerator {
 		else if (procedure.equalsIgnoreCase("Expression")){
 			sp.getEl().add(getOntologyTerm("whole mounted tissue" , "FBbi_00000024"));
 			im.getEl().add(getOntologyTerm("bright-field microscopy", "FBbi_00000243"));
-			vm.getEl().add(getOntologyTerm("visualisation of genetically encoded beta-galactosidase", "FBbi_00000077"));
 		}
 		else if (procedure.equalsIgnoreCase("Tail Epidermis Wholemount")){
 			sp.getEl().add(getOntologyTerm("whole mounted tissue" , "FBbi_00000024"));
 			im.getEl().add(getOntologyTerm("confocal microscopy", "FBbi_00000251"));
-			vm.getEl().add(getOntologyTerm("fluorescent protein tag", "FBbi_00000405"));
 		}
 		else if (procedure.equalsIgnoreCase("Histology Slide")){
 			im.getEl().add(getOntologyTerm("bright-field microscopy", "FBbi_00000243"));
-			vm.getEl().add(getOntologyTerm("optically dense stain", "FBbi_00000567"));
 		}
 /*		else if (procedure.equalsIgnoreCase("Histology Slide")){
 			
@@ -403,7 +432,6 @@ public class SangerXmlGenerator {
 		else if (procedure.equalsIgnoreCase("Brain Histopathology")){
 			sp.getEl().add(getOntologyTerm("sectioned tissue" , "FBbi_00000026"));
 			im.getEl().add(getOntologyTerm("confocal microscopy", "FBbi_00000251"));
-			vm.getEl().add(getOntologyTerm("fluorescent protein tag", "FBbi_00000405"));
 		}
 		
 		if (sp.getEl().size() > 0){
@@ -411,9 +439,6 @@ public class SangerXmlGenerator {
 		}
 		if (im.getEl().size() > 0){
 			desc.setImagingMethod(im);
-		}
-		if (vm.getEl().size() > 0){
-			desc.setVisualisationMethod(vm);
 		}
 		return desc;
 	 }

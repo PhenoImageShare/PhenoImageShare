@@ -108,8 +108,8 @@
    
    <field name="anatomy_id" type="string" indexed="true" stored="true" multiValued="false"/>
    <field name="anatomy_term" type="string" indexed="true" stored="true" multiValued="false"/>
-   <field name="anatomy_freetext" type="string" indexed="true" stored="true" multiValued="false"/>
-   <field name="anatomy_synonyms" type="string" indexed="true" stored="true" multiValued="false"/>
+   <field name="anatomy_freetext" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="anatomy_synonyms" type="string" indexed="true" stored="true" multiValued="true"/>
    
    <!-- field name="phenotype_ann_bag" type="string" indexed="true" stored="true" multiValued="true"/-->
    
@@ -138,21 +138,33 @@
    <field name="anatomy_computed_id_bag" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="anatomy_computed_term_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/> 
    <field name="anatomy_computed_synonyms_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/> 
+   <field name="anatomy_computed_ancestors_synonyms_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/> 
+   <field name="anatomy_computed_ancestors_id_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/> 
+   <field name="anatomy_computed_ancestors_term_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/> 
    
    <field name="depicted_anatomy_id_bag" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="depicted_anatomy_term_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
    <field name="depicted_anatomy_freetext_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
    <field name="depicted_anatomy_synonyms_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
+   <field name="depicted_anatomy_ancestors_synonyms_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
+   <field name="depicted_anatomy_ancestors_id_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
+   <field name="depicted_anatomy_ancestors_term_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
    
    <field name="abnormal_anatomy_id_bag" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="abnormal_anatomy_term_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
    <field name="abnormal_anatomy_freetext_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
    <field name="abnormal_anatomy_synonyms_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
+   <field name="abnormal_anatomy_ancestors_synonyms_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
+   <field name="abnormal_anatomy_ancestors_id_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
+   <field name="abnormal_anatomy_ancestors_term_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
    
    <field name="expression_in_id_bag" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="expression_in_label_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
    <field name="expression_in_freetext_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
    <field name="expression_in_synonyms_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
+   <field name="expression_in_ancestors_synonyms_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
+   <field name="expression_in_ancestors_id_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
+   <field name="expression_in_ancestors_term_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
    
    <field name="observation_bag" type="string" indexed="true" stored="true" multiValued="true"/>
    
@@ -167,7 +179,10 @@
    <field name="phenotype_id_bag" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="phenotype_freetext_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
    <field name="phenotype_label_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true" termVectors="true" termPositions="true" termOffsets="true"/>
-   <field name="phenotype_synonym_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true" termVectors="true" termPositions="true" termOffsets="true"/>
+   <field name="phenotype_synonyms_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true" termVectors="true" termPositions="true" termOffsets="true"/>
+  <field name="phenotype_ancestors_synonyms_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true" termVectors="true" termPositions="true" termOffsets="true"/>
+  <field name="phenotype_ancestors_term_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true" termVectors="true" termPositions="true" termOffsets="true"/>
+  <field name="phenotype_ancestors_id_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true" termVectors="true" termPositions="true" termOffsets="true"/>
    
    <!-- Autosuggest fields -->
    <!-- field name="term_autosuggest_analysed" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true" termVectors="true" termPositions="true" termOffsets="true"/-->

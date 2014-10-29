@@ -15,18 +15,18 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Age complex type.
+ * <p>Java class for Link complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="Age">
+ * &lt;complexType name="Link">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;choice>
- *         &lt;element name="age_since_birth" type="{http://www.w3.org/2001/XMLSchema}float"/>
- *         &lt;element name="embryonic_age" type="{http://www.w3.org/2001/XMLSchema}float"/>
- *       &lt;/choice>
+ *       &lt;all>
+ *         &lt;element name="display_name" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="url" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *       &lt;/all>
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -35,63 +35,61 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Age", propOrder = {
-    "ageSinceBirth",
-    "embryonicAge"
+@XmlType(name = "Link", propOrder = {
+
 })
-public class Age {
+public class Link {
 
-    @XmlElement(name = "age_since_birth")
-    protected Float ageSinceBirth;
-    @XmlElement(name = "embryonic_age")
-    protected Float embryonicAge;
+    @XmlElement(name = "display_name", required = true)
+    protected String displayName;
+    protected String url;
 
     /**
-     * Gets the value of the ageSinceBirth property.
+     * Gets the value of the displayName property.
      * 
      * @return
      *     possible object is
-     *     {@link Float }
+     *     {@link String }
      *     
      */
-    public Float getAgeSinceBirth() {
-        return ageSinceBirth;
+    public String getDisplayName() {
+        return displayName;
     }
 
     /**
-     * Sets the value of the ageSinceBirth property.
+     * Sets the value of the displayName property.
      * 
      * @param value
      *     allowed object is
-     *     {@link Float }
+     *     {@link String }
      *     
      */
-    public void setAgeSinceBirth(Float value) {
-        this.ageSinceBirth = value;
+    public void setDisplayName(String value) {
+        this.displayName = value;
     }
 
     /**
-     * Gets the value of the embryonicAge property.
+     * Gets the value of the url property.
      * 
      * @return
      *     possible object is
-     *     {@link Float }
+     *     {@link String }
      *     
      */
-    public Float getEmbryonicAge() {
-        return embryonicAge;
+    public String getUrl() {
+        return url;
     }
 
     /**
-     * Sets the value of the embryonicAge property.
+     * Sets the value of the url property.
      * 
      * @param value
      *     allowed object is
-     *     {@link Float }
+     *     {@link String }
      *     
      */
-    public void setEmbryonicAge(Float value) {
-        this.embryonicAge = value;
+    public void setUrl(String value) {
+        this.url = value;
     }
 
 }

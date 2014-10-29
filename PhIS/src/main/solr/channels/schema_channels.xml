@@ -31,6 +31,9 @@
    <field name="strand" type="string" indexed="true" stored="true" multiValued="false"/>
    <field name="zygosity" type="string" indexed="true" stored="true" multiValued="false"/>
    <field name="marker" type="string" indexed="true" stored="true" multiValued="false"/><!-- Carried on the genetic feature -->
+   <field name="visualisation_method_label" type="string" indexed="true" stored="true" multiValued="false"/>
+   <field name="visualisation_method_id" type="string" indexed="true" stored="true" multiValued="false"/>
+   <field name="visualisation_method_synonyms" type="string" indexed="true" stored="true" multiValued="true"/>
    
 
  </fields>

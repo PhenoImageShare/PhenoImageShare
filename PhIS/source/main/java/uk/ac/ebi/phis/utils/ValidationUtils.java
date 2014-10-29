@@ -1,24 +1,22 @@
 package uk.ac.ebi.phis.utils;
 
+import java.util.List;
+
 import uk.ac.ebi.phis.jaxb.Annotation;
+import uk.ac.ebi.phis.jaxb.Channel;
 import uk.ac.ebi.phis.jaxb.Coordinates;
 import uk.ac.ebi.phis.jaxb.Dimensions;
 import uk.ac.ebi.phis.jaxb.Image;
 import uk.ac.ebi.phis.jaxb.OntologyTerm;
-import uk.ac.ebi.phis.jaxb.OntologyTermArray;
 import uk.ac.ebi.phis.jaxb.Roi;
-
-import java.util.List;
-
 import uk.ac.ebi.phis.utils.ontology.OntologyUtils;
 
 public class ValidationUtils {
 
-	private OntologyUtils ou;
+	public OntologyUtils ou;
 
 
 	public ValidationUtils() {
-
 		ou = new OntologyUtils();
 	}
 
@@ -83,18 +81,7 @@ public class ValidationUtils {
 				}
 			}
 		}
-		if (img.getImageDescription().getVisualisationMethod() != null) {
-			ontologyTermArray = img.getImageDescription().getVisualisationMethod().getEl();
-			if (ontologyTermArray != null) {
-				for (OntologyTerm ot : ontologyTermArray) {
-					res = res && checkOntologyTerm(ot, "visualisationMethod");
-					if (!res) {
-//						System.out.println(">>> Ontology term " + ot.getTermId() + "(" + ot.getTermLabel() + ") is not a valid entry for visualisationMethod.");
-						return false;
-					}
-				}
-			}
-		}
+	
 		if (img.getImageDescription().getImagingMethod() != null) {
 			ontologyTermArray = img.getImageDescription().getImagingMethod().getEl();
 			if (ontologyTermArray != null) {
@@ -110,6 +97,28 @@ public class ValidationUtils {
 		return res;
 	}
 
+
+	public boolean isValidOntologyTerms(Channel channel) {
+
+		List<Annotation> annList;
+		boolean res = true;
+		List<OntologyTerm> ontologyTermArray;
+		if (channel.getVisualisationMethod() != null) {
+			ontologyTermArray = channel.getVisualisationMethod().getEl();
+			if (ontologyTermArray != null) {
+				for (OntologyTerm ot : ontologyTermArray) {
+					res = res && checkOntologyTerm(ot, "visualisationMethod");
+					if (!res) {
+						// System.out.println(">>> Ontology term " +
+						// ot.getTermId() + "(" + ot.getTermLabel() +
+						// ") is not a valid entry for visualisationMethod.");
+						return false;
+					}
+				}
+			}
+		}
+		return res;
+	}
 
 	public boolean isValidOntologyTerms(Roi roi) {
 

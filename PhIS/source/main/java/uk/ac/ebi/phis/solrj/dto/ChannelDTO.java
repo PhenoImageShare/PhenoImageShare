@@ -1,10 +1,9 @@
 package uk.ac.ebi.phis.solrj.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.solr.client.solrj.beans.Field;
-
-import uk.ac.ebi.phis.service.ChannelService;
 
 
 public class ChannelDTO {
@@ -25,6 +24,9 @@ public class ChannelDTO {
 	public final static String STRAND = "strand";
 	public final static String ZYGOSITY = "zygosity";
 	public final static String MARKER = "marker";
+	public final static String VISUALISATION_METHOD_LABEL = "visualisation_method_label";
+	public final static String VISUALISATION_METHOD_ID = "visualisation_method_id";
+	public final static String VISUALISATION_METHOD_SYNONYMS = "visualisation_method_synonyms";
 
 	
 	
@@ -56,6 +58,12 @@ public class ChannelDTO {
 	String strand;
 	@Field(ChannelDTO.ZYGOSITY)
 	String zygosity;
+	@Field(ChannelDTO.VISUALISATION_METHOD_ID)
+	String vizualisationMethodId;
+	@Field(ChannelDTO.VISUALISATION_METHOD_LABEL)
+	String vizualisationMethodLabel;
+	@Field(ChannelDTO.VISUALISATION_METHOD_SYNONYMS)
+	ArrayList<String> vizualisationMethodSynonyms;
 	
 	/**
 	 * @return the id
@@ -73,6 +81,62 @@ public class ChannelDTO {
 		this.id = id;
 	}
 	
+	
+	/**
+	 * @return the vizualisationMethodId
+	 */
+	public String getVizualisationMethodId() {
+	
+		return vizualisationMethodId;
+	}
+
+	
+	/**
+	 * @param vizualisationMethodId the vizualisationMethodId to set
+	 */
+	public void setVizualisationMethodId(String vizualisationMethodId) {
+	
+		this.vizualisationMethodId = vizualisationMethodId;
+	}
+
+	
+	/**
+	 * @return the vizualisationMethodLabel
+	 */
+	public String getVizualisationMethodLabel() {
+	
+		return vizualisationMethodLabel;
+	}
+
+	
+	/**
+	 * @param vizualisationMethodLabel the vizualisationMethodLabel to set
+	 */
+	public void setVizualisationMethodLabel(String vizualisationMethodLabel) {
+	
+		this.vizualisationMethodLabel = vizualisationMethodLabel;
+	}
+
+	
+	/**
+	 * @return the vizualisationMethodSynonyms
+	 */
+	public ArrayList<String> getVizualisationMethodSynonyms() {
+	
+		return vizualisationMethodSynonyms;
+	}
+
+	
+	/**
+	 * @param vizualisationMethodSynonyms the vizualisationMethodSynonyms to set
+	 */
+	public void addVizualisationMethodSynonyms(String vizualisationMethodSynonyms) {
+		if (this.vizualisationMethodSynonyms == null){
+			this.vizualisationMethodSynonyms = new ArrayList<>();
+		}
+		this.vizualisationMethodSynonyms.add(vizualisationMethodSynonyms);
+	}
+
 	/**
 	 * @return the associatedImage
 	 */
