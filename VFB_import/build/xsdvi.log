@@ -168,3 +168,13 @@ Sep 26, 2014 12:13:25 PM xsdvi.XsdVi main
 INFO: Drawing SVG phisSchema.svg...
 Sep 26, 2014 12:13:25 PM xsdvi.XsdVi main
 INFO: Done.
+Nov 14, 2014 8:35:39 AM xsdvi.XsdVi main
+INFO: The style will be embodied
+Nov 14, 2014 8:35:39 AM xsdvi.XsdVi main
+INFO: Parsing ../../PhIS/source/main/resources/phisSchema.xsd...
+Nov 14, 2014 8:35:39 AM xsdvi.XsdVi main
+INFO: Processing XML Schema model...
+Nov 14, 2014 8:35:39 AM xsdvi.XsdVi main
+INFO: Drawing SVG phisSchema.svg...
+Nov 14, 2014 8:35:39 AM xsdvi.XsdVi main
+INFO: Done.
