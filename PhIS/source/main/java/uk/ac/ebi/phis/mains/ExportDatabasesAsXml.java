@@ -20,13 +20,13 @@ public class ExportDatabasesAsXml {
 		
 		try {
 			long time = System.currentTimeMillis();
-//			SangerXmlGenerator sg = new SangerXmlGenerator();
-//			sg.exportImages();
+			SangerXmlGenerator sg = new SangerXmlGenerator();
+			sg.exportImages();
 			System.out.println("Generating xml for Sanger took " + (System.currentTimeMillis() - time));
 
 			time = System.currentTimeMillis();
-			TracerXmlGenerator tg = new TracerXmlGenerator();
-			tg.exportImages();
+//			TracerXmlGenerator tg = new TracerXmlGenerator();
+//			tg.exportImages();
 			System.out.println("Generating XML for Tracer took " + (System.currentTimeMillis() - time));
 
 		} catch (Exception e) {

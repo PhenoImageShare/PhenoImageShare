@@ -245,6 +245,9 @@ public class TracerXmlGenerator {
 			        	doc.getChannel().add(channel);
 			        }
 	    		} 
+	    		if (i == 50 ){
+	    			break;
+	    		}
 	    	}// end while ( res.next())
 	        
 

@@ -60,16 +60,16 @@ public class SangerXmlGenerator {
         String command = "SELECT iir.ID, iir.LARGE_THUMBNAIL_FILE_PATH, iir.PUBLISHED_STATUS_ID, " +
         					"iit.TAG_NAME, iit.TAG_VALUE, iit.X_START, iit.X_END, iit.Y_START, iit.Y_END, " +
         					"aa.TERM_ID, aa.TERM_NAME, aa.ONTOLOGY_DICT_ID, " +
-        					"imam.MOUSE_ID, imam.MOUSE_NAME,	imam.GENDER, imam.AGE_IN_WEEKS, imam.GENE, imam.ALLELE, imam.GENOTYPE, " +
+        					"imam.MOUSE_ID, imam.MOUSE_NAME, imam.GENDER, imam.AGE_IN_WEEKS, imam.GENE, imam.ALLELE, imam.GENOTYPE, " +
         					"ied.NAME as procedure_name, " +
         					"allele.symbol, allele.name, allele.acc, allele.gf_acc " +
-        				"FROM komp2.IMA_IMAGE_RECORD iir " +
-        					"INNER JOIN IMA_IMAGE_TAG iit ON iit.IMAGE_RECORD_ID=iir.ID " +
-        					"INNER JOIN ANN_ANNOTATION aa ON aa.FOREIGN_KEY_ID=iit.ID " +
-        					"INNER JOIN IMPC_MOUSE_ALLELE_MV imam on imam.MOUSE_ID=iir.FOREIGN_KEY_ID " +
-        					"INNER JOIN IMA_SUBCONTEXT isub ON iir.subcontext_id=isub.id " +
-        					"INNER JOIN IMA_EXPERIMENT_DICT ied ON isub.experiment_dict_id=ied.id " +
-        					"INNER JOIN allele ON allele.symbol=imam.ALLELE " + 
+        				"FROM IMA_IMAGE_RECORD iir " +
+        					"LEFT OUTER JOIN IMA_IMAGE_TAG iit ON iit.IMAGE_RECORD_ID=iir.ID " +
+        					"LEFT OUTER JOIN ANN_ANNOTATION aa ON aa.FOREIGN_KEY_ID=iit.ID " +
+        					"LEFT OUTER JOIN IMPC_MOUSE_ALLELE_MV imam on imam.MOUSE_ID=iir.FOREIGN_KEY_ID " +
+        					"LEFT OUTER JOIN IMA_SUBCONTEXT isub ON iir.subcontext_id=isub.id " +
+        					"LEFT OUTER JOIN IMA_EXPERIMENT_DICT ied ON isub.experiment_dict_id=ied.id " +
+        					"LEFT OUTER JOIN allele ON allele.symbol=imam.ALLELE " + 
         				"WHERE ied.NAME != 'Mouse Necropsy' " +
         				"ORDER BY iir.ID;";
         
@@ -114,6 +114,7 @@ public class SangerXmlGenerator {
 			    		Organism organism = new Organism();
 			    		Sex sex = Sex.fromValue(norm.normalizeSex(res.getString("GENDER")));
 			    		organism.setSex(sex);
+			    		organism.setOrganismId(res.getString("MOUSE_NAME"));
 			    		Age age = new Age();
 			    		if (ageIsRelevant(procedure)){
 			    			if (norm.isEmbryonicAge(res.getString("AGE_IN_WEEKS"))){
@@ -169,59 +170,62 @@ public class SangerXmlGenerator {
 			    		// Go through all annotations for the same image
 			    		while(sameImage){
 			    			
-				    		Roi roi = new Roi();
-				    		String roiId = internalId.replace("komp2_", "komp2_roi_") + "_" + k;
-				    		roi.setId(roiId);
-				    		roi.setAssociatedImage(internalId);
-				    		// Need to decide first if we associate annotations to a ROI or to the whole image
-				    		// 1. Phenotypes should always be associated to a region of interest
-				    		// 2. Existing ROI should be kept if the coordinates != 0 
-				    		if (res.getString("ONTOLOGY_DICT_ID").equalsIgnoreCase("1") || 
-				    				(Float)res.getFloat("X_START") + (Float) res.getFloat("X_END") + (Float)res.getFloat("Y_START") + (Float)res.getFloat("Y_END") != 0 ){ // 1 = MP
-				    			roi = fillRoi(roi, res, d, imageType.equalsIgnoreCase("expression"));
-				    			if (!imageType.equalsIgnoreCase("expression")){
-				    				phenotypeAnatomy = true;
-				    			}
-				    		}
-				    									       
-				    		// 3. Anatomy from expression annotations should always be associated to it's ROI
-				    		// Sanger expression images: if an anatomy term is associated to the whole expression image it means there is expression in that anatomical structure
-				    		else if (imageType.equalsIgnoreCase("expression"))
-				    		{
-				    			roi = fillRoi(roi, res, d, imageType.equalsIgnoreCase("expression"));
-				    			roi.setAssociatedChannel(new StringArray());
-				    			roi.getAssociatedChannel().getEl().add(channelId);
-				    			if (channel.getAssociatedRoi() == null){
-					    			channel.setAssociatedRoi(new StringArray());
-				    			}
-				    			channel.getAssociatedRoi().getEl().add(roiId);
-				    			expression = true;
-				    		}
-				    		// Otherwise associate annotation to the whole image
-				    		else {
-				    			// Add annotation to the whole image
-				    			if (!res.getString("TAG_VALUE").equalsIgnoreCase("null")){
-									image.getObservations().getEl().add(res.getString("TAG_NAME") + ": " + res.getString("TAG_VALUE"));
+			    			if (res.getString("ONTOLOGY_DICT_ID") != null){
+					    		Roi roi = new Roi();
+					    		String roiId = internalId.replace("komp2_", "komp2_roi_") + "_" + k;
+					    		roi.setId(roiId);
+					    		roi.setAssociatedImage(internalId);
+					    		// Need to decide first if we associate annotations to a ROI or to the whole image
+					    		// 1. Phenotypes should always be associated to a region of interest
+					    		// 2. Existing ROI should be kept if the coordinates != 0 
+					    		if ( res.getString("ONTOLOGY_DICT_ID").equalsIgnoreCase("1") || 
+					    				(Float)res.getFloat("X_START") + (Float) res.getFloat("X_END") + (Float)res.getFloat("Y_START") + (Float)res.getFloat("Y_END") != 0 ){ // 1 = MP
+					    			roi = fillRoi(roi, res, d, imageType.equalsIgnoreCase("expression"));
+					    			if (!imageType.equalsIgnoreCase("expression")){
+					    				phenotypeAnatomy = true;
+					    			}
+					    		}
+					    									       
+					    		// 3. Anatomy from expression annotations should always be associated to it's ROI
+					    		// Sanger expression images: if an anatomy term is associated to the whole expression image it means there is expression in that anatomical structure
+					    		else if (imageType.equalsIgnoreCase("expression"))
+					    		{
+					    			roi = fillRoi(roi, res, d, imageType.equalsIgnoreCase("expression"));
+					    			roi.setAssociatedChannel(new StringArray());
+					    			roi.getAssociatedChannel().getEl().add(channelId);
+					    			if (channel.getAssociatedRoi() == null){
+						    			channel.setAssociatedRoi(new StringArray());
+					    			}
+					    			channel.getAssociatedRoi().getEl().add(roiId);
+					    			expression = true;
+					    		}
+					    		// Otherwise associate annotation to the whole image
+					    		else {
+					    			if (res.getString("TERM_ID") != null && res.getString("TERM_NAME") != null){
+						    			// Add annotation to the whole image
+						    			if (!res.getString("TAG_VALUE").equalsIgnoreCase("null")){
+											image.getObservations().getEl().add(res.getString("TAG_NAME") + ": " + res.getString("TAG_VALUE"));
+										}
+						    			image.setDepictedAnatomicalStructure(getAnnotation(res.getString("TERM_ID").toString(), res.getString("TERM_NAME").toString(), null, AnnotationMode.MANUAL));
+						    			roi = null;
+					    			}
+					    		}
+					    		
+						        if (res.next() && imageId.equalsIgnoreCase(res.getString("ID"))){
+							        k++;	
 								}
-				    			image.setDepictedAnatomicalStructure(getAnnotation(res.getString("TERM_ID").toString(), res.getString("TERM_NAME").toString(), null, AnnotationMode.MANUAL));
-				    			roi = null;
-				    		}
-				    		
-					        if (res.next() && imageId.equalsIgnoreCase(res.getString("ID"))){
-						        k++;	
-							}
-					        else {
-					        	sameImage=false;
-					        	res.previous();
-					        }
-					        
-					        if (roi != null){
-					        	if (image.getAssociatedRoi() == null){
-					    			image.setAssociatedRoi(new StringArray());
-					        	}
-					        	image.getAssociatedRoi().getEl().add(roi.getId());
-					        	doc.getRoi().add(roi);
-					        }
+						        else {
+						        	sameImage=false;
+						        	res.previous();
+						        }
+						        
+						        if (roi != null){
+						        	if (image.getAssociatedRoi() == null){
+						    			image.setAssociatedRoi(new StringArray());
+						        	}
+						        	image.getAssociatedRoi().getEl().add(roi.getId());
+						        	doc.getRoi().add(roi);
+						        }
 			    		}
 			    		ImageDescription imageDesc = new ImageDescription();
 			    		imageDesc.setImageUrl(url);
@@ -230,7 +234,8 @@ public class SangerXmlGenerator {
 			    		ogb.setDisplayName("WTSI");
 			      		imageDesc.setOrganismGeneratedBy(ogb);
 			    		Link igb = new Link();
-			    		ogb.setDisplayName("WTSI");
+			    		igb.setDisplayName("WTSI");
+			    		igb.setUrl("http://www.sanger.ac.uk");
 			    		imageDesc.setImageGeneratedBy(igb);
 			    		Link host = new Link();
 			    		host.setDisplayName("Mouse Phenotype");
@@ -259,17 +264,22 @@ public class SangerXmlGenerator {
 			    		
 			    		// !!!  Last thing in this block  !!!
 				        doc.getImage().add(image);
+			    		i++;
+			    		if (i%100 == 0) {
+				    		System.out.println(i);
+				    		if (i==1000){
+				    			break;
+				    		}
+			    		}
 				        if (channel != null){
 				        	channel = setVisualizationMethod(procedure, channel);
 				        	doc.getChannel().add(channel);
 				        }
 		    		}
 	        	}
-	    		i++;
-	    		if (i%100 == 0) 
-		    		System.out.println(i);
+	    		
 	        }
-			
+	        }
 	        File file = new File("source/main/resources/sangerExport.xml");
 			JAXBContext jaxbContext = JAXBContext.newInstance(Doc.class);
 			Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
@@ -295,64 +305,71 @@ public class SangerXmlGenerator {
 	 private Roi fillRoi(Roi roi, ResultSet res, Dimensions d, Boolean isExpressionImg){
      		// From TAG NAMES  & VALUES  I need to make observations
 			try {
-				if (!res.getString("TAG_VALUE").equalsIgnoreCase("null")){
+				 if (res.getString("TAG_VALUE") == null && res.getString("ONTOLOGY_DICT_ID") == null ){
+					 System.out.println(res.getString("ID"));
+					 return null;
+				 }
+				
+				if (res.getString("TAG_VALUE") != null && res.getString("TAG_NAME") != null && !res.getString("TAG_VALUE").equalsIgnoreCase("null")){
+					if (roi.getObservations() == null)
+						roi.setObservations(new StringArray());
 					roi.getObservations().getEl().add(res.getString("TAG_NAME") + ": " + res.getString("TAG_VALUE"));
 				}
 		
 				// Add anat. terms
-				if (res.getString("ONTOLOGY_DICT_ID").toString().equalsIgnoreCase("2") || res.getString("ONTOLOGY_DICT_ID").toString().equalsIgnoreCase("4")){ //2=EMAP, 4=MA
-					if (isExpressionImg){
-						// we have expression in the annotated anatomy term
-						roi.setDepictedAnatomicalStructure(addToAnnotationArray(new AnnotationArray(), res.getString("TERM_ID").toString(),
-								res.getString("TERM_NAME").toString(), null, AnnotationMode.MANUAL));
+				if (res.getString("ONTOLOGY_DICT_ID") != null){
+					if (res.getString("ONTOLOGY_DICT_ID").toString().equalsIgnoreCase("2") || res.getString("ONTOLOGY_DICT_ID").toString().equalsIgnoreCase("4")){ //2=EMAP, 4=MA
+						if (isExpressionImg){
+							// we have expression in the annotated anatomy term
+							roi.setDepictedAnatomicalStructure(addToAnnotationArray(new AnnotationArray(), res.getString("TERM_ID").toString(),
+									res.getString("TERM_NAME").toString(), null, AnnotationMode.MANUAL));
+						}
+						else { 
+							// we have somthin interesting but not expression in the anatomy term
+							roi.setDepictedAnatomicalStructure(addToAnnotationArray(new AnnotationArray(), res.getString("TERM_ID").toString(),
+									res.getString("TERM_NAME").toString(), null, AnnotationMode.MANUAL));
+						}
 					}
-					else { 
-						// we have somthin interesting but not expression in the anatomy term
-						roi.setDepictedAnatomicalStructure(addToAnnotationArray(new AnnotationArray(), res.getString("TERM_ID").toString(),
-								res.getString("TERM_NAME").toString(), null, AnnotationMode.MANUAL));
+					// Add phenotuype terms
+					else if (res.getString("ONTOLOGY_DICT_ID").toString().equalsIgnoreCase("1") ){ // 1 = MP
+						
+						// we know there's only one phenotype associated so we don't need to check if the array is empty					
+						roi.setPhenotypeAnnotations(addToAnnotationArray(new AnnotationArray(), res.getString("TERM_ID").toString(), res.getString("TERM_NAME").toString(), null, AnnotationMode.MANUAL));
 					}
 				}
-				// Add phenotuype terms
-				else if (res.getString("ONTOLOGY_DICT_ID").toString().equalsIgnoreCase("1") ){ // 1 = MP
-					
-					// we know there's only one phenotype associated so we don't need to check if the array is empty					
-					roi.setPhenotypeAnnotations(addToAnnotationArray(new AnnotationArray(), res.getString("TERM_ID").toString(), res.getString("TERM_NAME").toString(), null, AnnotationMode.MANUAL));
-				}
-				
-	        	Coordinates coord = new Coordinates();
-	        	PercentArray xCoord = new PercentArray();
-	        	PercentArray yCoord = new PercentArray();
-	        	
-		        // Add coordinates
-		        if ( (Float) res.getFloat("X_START") + (Float) res.getFloat("X_END") + (Float)res.getFloat("Y_START") + (Float)res.getFloat("Y_END") != 0 ){
-		        	// we have coordinates 
-		        	// Order is important: (start, end)
-		        	// Sanger stores percentages so no need to compute them here, we just copy 
-		        	xCoord.getEl().add((Float) res.getFloat("X_START") ); 
-		        	xCoord.getEl().add((Float) res.getFloat("X_END") );
-		        	coord.setXCoordinates(xCoord);
+		        	Coordinates coord = new Coordinates();
+		        	PercentArray xCoord = new PercentArray();
+		        	PercentArray yCoord = new PercentArray();
 		        	
-		        	// Order is important: (start, end)
-		        	yCoord.getEl().add((Float) res.getFloat("Y_START") ); 
-		        	yCoord.getEl().add((Float) res.getFloat("Y_END") );
-		        	coord.setYCoordinates(yCoord);
-		        }	
-		        else  {
-		        	float zero = 0; 
-		        	float hunderd = 100;
-		        	// create the coordinates
-		        	xCoord.getEl().add(zero); 
-		        	xCoord.getEl().add(hunderd);
-		        	coord.setXCoordinates(xCoord);
-		        	
-		        	// Order is important: (start, end)
-		        	yCoord.getEl().add(zero); 
-		        	yCoord.getEl().add(hunderd);
-		        	coord.setYCoordinates(yCoord);
-		        }
-		        
-		        roi.setCoordinates(coord);
-		        
+			        // Add coordinates
+			        if ( (Float) res.getFloat("X_START") + (Float) res.getFloat("X_END") + (Float)res.getFloat("Y_START") + (Float)res.getFloat("Y_END") != 0 ){
+			        	// we have coordinates 
+			        	// Order is important: (start, end)
+			        	// Sanger stores percentages so no need to compute them here, we just copy 
+			        	xCoord.getEl().add((Float) res.getFloat("X_START") ); 
+			        	xCoord.getEl().add((Float) res.getFloat("X_END") );
+			        	coord.setXCoordinates(xCoord);
+			        	
+			        	// Order is important: (start, end)
+			        	yCoord.getEl().add((Float) res.getFloat("Y_START") ); 
+			        	yCoord.getEl().add((Float) res.getFloat("Y_END") );
+			        	coord.setYCoordinates(yCoord);
+			        }	
+			        else  {
+			        	float zero = 0; 
+			        	float hunderd = 100;
+			        	// create the coordinates
+			        	xCoord.getEl().add(zero); 
+			        	xCoord.getEl().add(hunderd);
+			        	coord.setXCoordinates(xCoord);
+			        	
+			        	// Order is important: (start, end)
+			        	yCoord.getEl().add(zero); 
+			        	yCoord.getEl().add(hunderd);
+			        	coord.setYCoordinates(yCoord);
+			        }
+			        
+			        roi.setCoordinates(coord);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

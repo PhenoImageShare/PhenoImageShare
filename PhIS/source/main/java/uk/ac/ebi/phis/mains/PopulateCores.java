@@ -55,19 +55,22 @@ public class PopulateCores {
 			ChannelService cs = (ChannelService) applicationContext.getBean("channelService"); 
 			
 			// TODO delete everything in the cores. This will likely change as we might want to do updates only.
-//			is.clear();
-//			rs.clear();
-//			cs.clear();
+			is.clear();
+			rs.clear();
+			cs.clear();
 			
 			BatchXmlUploader reader = new BatchXmlUploader(is, rs, cs);
 
+			boolean itWorked = false;
 			//TODO use full path to the file!!
 			long time = System.currentTimeMillis();	
-			System.out.println(reader.validateAndUpload(dataDir + "/tracerExport.xml"));
+	//		itWorked = reader.validateAndUpload(dataDir + "/tracerExport.xml");
+			System.out.println(itWorked);
 			System.out.println("Validating Tracer XML took " + (System.currentTimeMillis() - time));
 
 			time = System.currentTimeMillis();
-	//		System.out.println("Is valid? " + reader.validateAndUpload(dataDir + "/sangerExport.xml"));
+			itWorked = reader.validateAndUpload(dataDir + "/sangerExport.xml");
+			System.out.println("Is valid? " + itWorked);
 			System.out.println("Validating Sanger XML took " + (System.currentTimeMillis() - time));
 			
 			System.out.println("Solr url is : " + is.getSolrUrl());
