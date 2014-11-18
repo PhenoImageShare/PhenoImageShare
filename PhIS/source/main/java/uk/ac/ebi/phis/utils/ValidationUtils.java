@@ -57,17 +57,17 @@ public class ValidationUtils {
 		// depicted anatomy
 		res = res && checkOntologyTerm(ann, "anatomy");
 		if (!res) {
-//			System.out.println(">>> Ontology term is not a valid entry for anatomy.");
+			System.out.println(">>> anatomy >>> " + ann.getOntologyTerm().getTermId() );
 			return false;
 		}
 		// stage
 		if (img.getOrganism().getStage() != null) {
 			res = res && checkOntologyTerm(img.getOrganism().getStage(), "stage");
 			if (!res) {
-//				System.out.println(">>> Ontology term " + img.getOrganism().getStage().getTermId() + "(" + img.getOrganism().getStage().getTermLabel() + ") is not a valid entry for stage.");
+				System.out.println(">>> stage " + img.getOrganism().getStage().getTermId() + "(" + img.getOrganism().getStage().getTermLabel() + ") is not a valid entry for stage.");
 				return false;
 			}
-		}
+		}		
 		List<OntologyTerm> ontologyTermArray;
 		if (img.getImageDescription().getSamplePreparation() != null) {
 			ontologyTermArray = img.getImageDescription().getSamplePreparation().getEl();
@@ -75,20 +75,19 @@ public class ValidationUtils {
 				for (OntologyTerm ot : ontologyTermArray) {
 					res = res && checkOntologyTerm(ot, "samplePreparation");
 					if (!res) {
-//						System.out.println(">>> Ontology term " + ot.getTermId() + "(" + ot.getTermLabel() + ") is not a valid entry for samplePreparation.");
+						System.out.println(">>> sample prep " + ot.getTermId() + "(" + ot.getTermLabel() + ") is not a valid entry for samplePreparation.");
 						return false;
 					}
 				}
 			}
-		}
-	
+		}	
 		if (img.getImageDescription().getImagingMethod() != null) {
 			ontologyTermArray = img.getImageDescription().getImagingMethod().getEl();
 			if (ontologyTermArray != null) {
 				for (OntologyTerm ot : ontologyTermArray) {
 					res = res && checkOntologyTerm(ot, "imagingMethod");
 					if (!res) {
-//						System.out.println(">>> Ontology term " + ot.getTermId() + "(" + ot.getTermLabel() + ") is not a valid entry for imagingMethod.");
+						System.out.println(">>> imaging method " + ot.getTermId() + "(" + ot.getTermLabel() + ") is not a valid entry for imagingMethod.");
 						return false;
 					}
 				}
@@ -187,12 +186,12 @@ public class ValidationUtils {
 				} else if (type.equalsIgnoreCase("imagingMethod")) {
 					isValid = ou.isImagingMethod(ot.getTermId());
 				}
-				// check label and id match
-				isValid = isValid && ou.labelMatchesId(ot.getTermLabel(), ot.getTermId());
+				// Removed check to see if label & id match. If label doesn't match we'll add it from 
+/*				isValid = isValid && ou.labelMatchesId(ot.getTermLabel(), ot.getTermId());
 				if (!isValid) {
 //					System.out.println(">> Label matches id? " + ou.labelMatchesId(ot.getTermLabel(), ot.getTermId()) + " for " + ot.getTermId() + " " + ot.getTermLabel() + "\n>> Or the term is not present in the ontologies known for this field. ");
 				}
-				return isValid;
+*/				return isValid;
 			}
 		}
 		return false;

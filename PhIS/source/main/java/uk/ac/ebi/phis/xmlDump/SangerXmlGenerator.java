@@ -207,18 +207,10 @@ public class SangerXmlGenerator {
 											image.getObservations().getEl().add(res.getString("TAG_NAME") + ": " + res.getString("TAG_VALUE"));
 										}
 						    			image.setDepictedAnatomicalStructure(getAnnotation(res.getString("TERM_ID").toString(), res.getString("TERM_NAME").toString(), null, AnnotationMode.MANUAL));
-						    			roi = null;
 					    			}
+					    			roi = null;
 					    		}
-					    		
-						        if (res.next() && imageId.equalsIgnoreCase(res.getString("ID"))){
-							        k++;	
-								}
-						        else {
-						        	sameImage=false;
-						        	res.previous();
-						        }
-						        
+					    								        
 						        if (roi != null){
 						        	if (image.getAssociatedRoi() == null){
 						    			image.setAssociatedRoi(new StringArray());
@@ -226,247 +218,277 @@ public class SangerXmlGenerator {
 						        	image.getAssociatedRoi().getEl().add(roi.getId());
 						        	doc.getRoi().add(roi);
 						        }
-			    		}
-			    		ImageDescription imageDesc = new ImageDescription();
-			    		imageDesc.setImageUrl(url);
-			    		imageDesc.setImageDimensions(d);
-			    		Link ogb = new Link();
-			    		ogb.setDisplayName("WTSI");
-			      		imageDesc.setOrganismGeneratedBy(ogb);
-			    		Link igb = new Link();
-			    		igb.setDisplayName("WTSI");
-			    		igb.setUrl("http://www.sanger.ac.uk");
-			    		imageDesc.setImageGeneratedBy(igb);
-			    		Link host = new Link();
-			    		host.setDisplayName("Mouse Phenotype");
-			    		host.setUrl("http://www.mousephenotype.org/");
-			    		imageDesc.setHost(host);
-			    		// Parse procedure names to get most info out of htem. Mappings done by David can be found at https://docs.google.com/spreadsheet/ccc?key=0AmK8olNJT0Z7dEN2MklCX2g1TmhJWTk0N3VlUERVaVE&usp=drive_web#gid=0
-			    		imageDesc = setSamplePrep(procedure, imageDesc);
+			    			}
+			    			
+			    			if (res.next() && imageId.equalsIgnoreCase(res.getString("ID"))){
+						        k++;	
+							}
+					        else {
+					        	sameImage=false;
+					        	res.previous();
+					        }
+						}
 			    		
-			    		ImageTypeArray  it = new ImageTypeArray();
-			    		if (phenotypeAnatomy){
-			    			it.getEl().add(ImageType.PHENOTYPE_ANATOMY);
-			    		}else if (!expression){
-			    			// this will happen when no phenotype annotation was found or no  anatomy ann with ROI and we just supposed the annotation referes to the whole image. But since we have the image, it must be of some anatomy/phenotype part of interest. 	
-			    			it.getEl().add(ImageType.PHENOTYPE_ANATOMY);		    			
-			    		}
-			    		if (expression){
-			    			it.getEl().add(ImageType.EXPRESSION);
-			    		}
-			    		imageDesc.setImageType(it);
-			    		if (isMutant){
-				    		imageDesc.setSampleType(SampleType.MUTANT);
-			    		}else {
-			    			imageDesc.setSampleType(SampleType.WILD_TYPE);
-			    		}
-			    		image.setImageDescription(imageDesc);
-			    		
-			    		// !!!  Last thing in this block  !!!
-				        doc.getImage().add(image);
-			    		i++;
-			    		if (i%100 == 0) {
-				    		System.out.println(i);
-				    		if (i==1000){
-				    			break;
-				    		}
-			    		}
-				        if (channel != null){
-				        	channel = setVisualizationMethod(procedure, channel);
-				        	doc.getChannel().add(channel);
-				        }
-		    		}
-	        	}
-	    		
+						ImageDescription imageDesc = new ImageDescription();
+						imageDesc.setImageUrl(url);
+						imageDesc.setImageDimensions(d);
+						Link ogb = new Link();
+						ogb.setDisplayName("WTSI");
+						imageDesc.setOrganismGeneratedBy(ogb);
+						Link igb = new Link();
+						igb.setDisplayName("WTSI");
+						igb.setUrl("http://www.sanger.ac.uk");
+						imageDesc.setImageGeneratedBy(igb);
+						Link host = new Link();
+						host.setDisplayName("Mouse Phenotype");
+						host.setUrl("http://www.mousephenotype.org/");
+						imageDesc.setHost(host);
+						// Parse procedure names to get most info out of htem.
+						// Mappings done by David can be found at
+						// https://docs.google.com/spreadsheet/ccc?key=0AmK8olNJT0Z7dEN2MklCX2g1TmhJWTk0N3VlUERVaVE&usp=drive_web#gid=0
+						imageDesc = setSamplePrep(procedure, imageDesc);
+
+						ImageTypeArray it = new ImageTypeArray();
+						if (phenotypeAnatomy) {
+							it.getEl().add(ImageType.PHENOTYPE_ANATOMY);
+						} else if (!expression) {
+							// this will happen when no phenotype annotation was
+							// found or no anatomy ann with ROI and we just
+							// supposed the annotation referes to the whole
+							// image. But since we have the image, it must be of
+							// some anatomy/phenotype part of interest.
+							it.getEl().add(ImageType.PHENOTYPE_ANATOMY);
+						}
+						if (expression) {
+							it.getEl().add(ImageType.EXPRESSION);
+						}
+						imageDesc.setImageType(it);
+						if (isMutant) {
+							imageDesc.setSampleType(SampleType.MUTANT);
+						} else {
+							imageDesc.setSampleType(SampleType.WILD_TYPE);
+						}
+						image.setImageDescription(imageDesc);
+
+						// !!! Last thing in this block !!!
+						doc.getImage().add(image);
+
+						if (channel != null) {
+							channel = setVisualizationMethod(procedure, channel);
+							doc.getChannel().add(channel);
+						}
+					}
 	        }
-	        }
-	        File file = new File("source/main/resources/sangerExport.xml");
+
+				i++;
+				if (i % 100 == 0) {
+					System.out.println(i);
+					if (i == 1000) {
+						break;
+					}
+				}
+			}
+			File file = new File("source/main/resources/sangerExport.xml");
 			JAXBContext jaxbContext = JAXBContext.newInstance(Doc.class);
 			Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-	 
+
 			// output pretty printed
 			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
 			jaxbMarshaller.marshal(doc, file);
-		//	jaxbMarshaller.marshal(doc, System.out);
-					
-			}catch (ParserConfigurationException pce) {
-				pce.printStackTrace();
-			} catch (TransformerException tfe) {
-				tfe.printStackTrace();
-			} catch (DOMException e) {
-				e.printStackTrace();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-        
-       
+			// jaxbMarshaller.marshal(doc, System.out);
+
+		} catch (ParserConfigurationException pce) {
+			pce.printStackTrace();
+		} catch (TransformerException tfe) {
+			tfe.printStackTrace();
+		} catch (DOMException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
-	 private Roi fillRoi(Roi roi, ResultSet res, Dimensions d, Boolean isExpressionImg){
-     		// From TAG NAMES  & VALUES  I need to make observations
-			try {
-				 if (res.getString("TAG_VALUE") == null && res.getString("ONTOLOGY_DICT_ID") == null ){
-					 System.out.println(res.getString("ID"));
-					 return null;
-				 }
-				
-				if (res.getString("TAG_VALUE") != null && res.getString("TAG_NAME") != null && !res.getString("TAG_VALUE").equalsIgnoreCase("null")){
-					if (roi.getObservations() == null)
-						roi.setObservations(new StringArray());
-					roi.getObservations().getEl().add(res.getString("TAG_NAME") + ": " + res.getString("TAG_VALUE"));
-				}
-		
-				// Add anat. terms
-				if (res.getString("ONTOLOGY_DICT_ID") != null){
-					if (res.getString("ONTOLOGY_DICT_ID").toString().equalsIgnoreCase("2") || res.getString("ONTOLOGY_DICT_ID").toString().equalsIgnoreCase("4")){ //2=EMAP, 4=MA
-						if (isExpressionImg){
-							// we have expression in the annotated anatomy term
-							roi.setDepictedAnatomicalStructure(addToAnnotationArray(new AnnotationArray(), res.getString("TERM_ID").toString(),
-									res.getString("TERM_NAME").toString(), null, AnnotationMode.MANUAL));
-						}
-						else { 
-							// we have somthin interesting but not expression in the anatomy term
-							roi.setDepictedAnatomicalStructure(addToAnnotationArray(new AnnotationArray(), res.getString("TERM_ID").toString(),
-									res.getString("TERM_NAME").toString(), null, AnnotationMode.MANUAL));
-						}
+
+
+	private Roi fillRoi(Roi roi, ResultSet res, Dimensions d, Boolean isExpressionImg) {
+
+		// From TAG NAMES & VALUES I need to make observations
+		try {
+			if (res.getString("TAG_VALUE") == null && res.getString("ONTOLOGY_DICT_ID") == null) {
+				System.out.println(res.getString("ID"));
+				return null;
+			}
+
+			if (res.getString("TAG_VALUE") != null && res.getString("TAG_NAME") != null && !res.getString("TAG_VALUE").equalsIgnoreCase("null")) {
+				if (roi.getObservations() == null)
+					roi.setObservations(new StringArray());
+				roi.getObservations().getEl().add(res.getString("TAG_NAME") + ": " + res.getString("TAG_VALUE"));
+			}
+
+			// Add anat. terms
+			if (res.getString("ONTOLOGY_DICT_ID") != null) {
+				if (res.getString("ONTOLOGY_DICT_ID").toString().equalsIgnoreCase("2") || res.getString("ONTOLOGY_DICT_ID").toString().equalsIgnoreCase("4")) { // 2=EMAP,
+																																								// 4=MA
+					if (isExpressionImg) {
+						// we have expression in the annotated anatomy term
+						roi.setDepictedAnatomicalStructure(addToAnnotationArray(new AnnotationArray(), res.getString("TERM_ID").toString(),
+						res.getString("TERM_NAME").toString(), null, AnnotationMode.MANUAL));
 					}
-					// Add phenotuype terms
-					else if (res.getString("ONTOLOGY_DICT_ID").toString().equalsIgnoreCase("1") ){ // 1 = MP
-						
-						// we know there's only one phenotype associated so we don't need to check if the array is empty					
-						roi.setPhenotypeAnnotations(addToAnnotationArray(new AnnotationArray(), res.getString("TERM_ID").toString(), res.getString("TERM_NAME").toString(), null, AnnotationMode.MANUAL));
+					else {
+						// we have somthin interesting but not expression in the
+						// anatomy term
+						roi.setDepictedAnatomicalStructure(addToAnnotationArray(new AnnotationArray(), res.getString("TERM_ID").toString(),
+						res.getString("TERM_NAME").toString(), null, AnnotationMode.MANUAL));
 					}
 				}
-		        	Coordinates coord = new Coordinates();
-		        	PercentArray xCoord = new PercentArray();
-		        	PercentArray yCoord = new PercentArray();
-		        	
-			        // Add coordinates
-			        if ( (Float) res.getFloat("X_START") + (Float) res.getFloat("X_END") + (Float)res.getFloat("Y_START") + (Float)res.getFloat("Y_END") != 0 ){
-			        	// we have coordinates 
-			        	// Order is important: (start, end)
-			        	// Sanger stores percentages so no need to compute them here, we just copy 
-			        	xCoord.getEl().add((Float) res.getFloat("X_START") ); 
-			        	xCoord.getEl().add((Float) res.getFloat("X_END") );
-			        	coord.setXCoordinates(xCoord);
-			        	
-			        	// Order is important: (start, end)
-			        	yCoord.getEl().add((Float) res.getFloat("Y_START") ); 
-			        	yCoord.getEl().add((Float) res.getFloat("Y_END") );
-			        	coord.setYCoordinates(yCoord);
-			        }	
-			        else  {
-			        	float zero = 0; 
-			        	float hunderd = 100;
-			        	// create the coordinates
-			        	xCoord.getEl().add(zero); 
-			        	xCoord.getEl().add(hunderd);
-			        	coord.setXCoordinates(xCoord);
-			        	
-			        	// Order is important: (start, end)
-			        	yCoord.getEl().add(zero); 
-			        	yCoord.getEl().add(hunderd);
-			        	coord.setYCoordinates(yCoord);
-			        }
-			        
-			        roi.setCoordinates(coord);
-			} catch (SQLException e) {
-				e.printStackTrace();
+				// Add phenotuype terms
+				else if (res.getString("ONTOLOGY_DICT_ID").toString().equalsIgnoreCase("1")) { 
+					// 1 = MP
+					// we know there's only one phenotype associated so we don't
+					// need to check if the array is empty
+					roi.setPhenotypeAnnotations(addToAnnotationArray(new AnnotationArray(), res.getString("TERM_ID").toString(), res.getString("TERM_NAME").toString(), null, AnnotationMode.MANUAL));
+				}
 			}
-	        return roi;
-     }
-	 
-	 Channel setVisualizationMethod(String procedure , Channel channel){
+			Coordinates coord = new Coordinates();
+			PercentArray xCoord = new PercentArray();
+			PercentArray yCoord = new PercentArray();
 
-			OntologyTermArray vm = new OntologyTermArray();
+			// Add coordinates
+			if ((Float) res.getFloat("X_START") + (Float) res.getFloat("X_END") + (Float) res.getFloat("Y_START") + (Float) res.getFloat("Y_END") != 0) {
+				// we have coordinates
+				// Order is important: (start, end)
+				// Sanger stores percentages so no need to compute them here, we
+				// just copy
+				xCoord.getEl().add((Float) res.getFloat("X_START"));
+				xCoord.getEl().add((Float) res.getFloat("X_END"));
+				coord.setXCoordinates(xCoord);
 
-			if (procedure.equalsIgnoreCase("Expression")){
-				vm.getEl().add(getOntologyTerm("visualisation of genetically encoded beta-galactosidase", "FBbi_00000077"));
+				// Order is important: (start, end)
+				yCoord.getEl().add((Float) res.getFloat("Y_START"));
+				yCoord.getEl().add((Float) res.getFloat("Y_END"));
+				coord.setYCoordinates(yCoord);
 			}
-			else if (procedure.equalsIgnoreCase("Tail Epidermis Wholemount")){
-				vm.getEl().add(getOntologyTerm("fluorescent protein tag", "FBbi_00000405"));
+			else {
+				float zero = 0;
+				float hunderd = 100;
+				// create the coordinates
+				xCoord.getEl().add(zero);
+				xCoord.getEl().add(hunderd);
+				coord.setXCoordinates(xCoord);
+
+				// Order is important: (start, end)
+				yCoord.getEl().add(zero);
+				yCoord.getEl().add(hunderd);
+				coord.setYCoordinates(yCoord);
 			}
-			else if (procedure.equalsIgnoreCase("Histology Slide")){
-				vm.getEl().add(getOntologyTerm("optically dense stain", "FBbi_00000567"));
-			}
-	/*		else if (procedure.equalsIgnoreCase("Histology Slide")){
-				
-			}
-			*/
-			else if (procedure.equalsIgnoreCase("Brain Histopathology")){
-				vm.getEl().add(getOntologyTerm("fluorescent protein tag", "FBbi_00000405"));
-			}
-			if (vm.getEl().size() > 0){
-				channel.setVisualisationMethod(vm);
-			}
-			return channel;
-	 }
+
+			roi.setCoordinates(coord);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return roi;
+	}
 	 
-	 ImageDescription setSamplePrep (String procedure, ImageDescription desc){
-			OntologyTermArray sp = new OntologyTermArray();
-			OntologyTermArray im = new OntologyTermArray();
-			
-		if (procedure.equalsIgnoreCase("Dysmorphology")){
-			sp.getEl().add(getOntologyTerm("living tissue" , "FBbi_00000025"));
-			sp.getEl().add(getOntologyTerm("whole mounted tissue" , "FBbi_00000024"));
+
+	Channel setVisualizationMethod(String procedure, Channel channel) {
+
+		OntologyTermArray vm = new OntologyTermArray();
+
+		if (procedure.equalsIgnoreCase("Expression")) {
+			vm.getEl().add(getOntologyTerm("visualisation of genetically encoded beta-galactosidase", "FBbi_00000077"));
+		}
+		else if (procedure.equalsIgnoreCase("Tail Epidermis Wholemount")) {
+			vm.getEl().add(getOntologyTerm("fluorescent protein tag", "FBbi_00000405"));
+		}
+		else if (procedure.equalsIgnoreCase("Histology Slide")) {
+			vm.getEl().add(getOntologyTerm("optically dense stain", "FBbi_00000567"));
+		}
+		/*
+		 * else if (procedure.equalsIgnoreCase("Histology Slide")){
+		 * 
+		 * }
+		 */
+		else if (procedure.equalsIgnoreCase("Brain Histopathology")) {
+			vm.getEl().add(getOntologyTerm("fluorescent protein tag", "FBbi_00000405"));
+		}
+		if (vm.getEl().size() > 0) {
+			channel.setVisualisationMethod(vm);
+		}
+		return channel;
+	}
+
+
+	ImageDescription setSamplePrep(String procedure, ImageDescription desc) {
+
+		OntologyTermArray sp = new OntologyTermArray();
+		OntologyTermArray im = new OntologyTermArray();
+
+		if (procedure.equalsIgnoreCase("Dysmorphology")) {
+			sp.getEl().add(getOntologyTerm("living tissue", "FBbi_00000025"));
+			sp.getEl().add(getOntologyTerm("whole mounted tissue", "FBbi_00000024"));
 			im.getEl().add(getOntologyTerm("macroscopy", "FBbi_00000240"));
 		}
-		else if (procedure.equalsIgnoreCase("Embryo dysmorphology")){
-			sp.getEl().add(getOntologyTerm("whole mounted tissue" , "FBbi_00000024"));
+		else if (procedure.equalsIgnoreCase("Embryo dysmorphology")) {
+			sp.getEl().add(getOntologyTerm("whole mounted tissue", "FBbi_00000024"));
 			im.getEl().add(getOntologyTerm("bright-field microscopy", "FBbi_00000243"));
 		}
-		else if (procedure.equalsIgnoreCase("Xray")){
-			sp.getEl().add(getOntologyTerm("whole mounted tissue" , "FBbi_00000024"));
-			sp.getEl().add(getOntologyTerm("living tissue" , "FBbi_00000025"));
+		else if (procedure.equalsIgnoreCase("Xray")) {
+			sp.getEl().add(getOntologyTerm("whole mounted tissue", "FBbi_00000024"));
+			sp.getEl().add(getOntologyTerm("living tissue", "FBbi_00000025"));
 			im.getEl().add(getOntologyTerm("X-ray radiography", "FBbi_00001001"));
 		}
-		else if (procedure.equalsIgnoreCase("Eye Morphology")){ // &&  slit lamp
-			sp.getEl().add(getOntologyTerm("whole mounted tissue" , "FBbi_00000024"));
-			sp.getEl().add(getOntologyTerm("living tissue" , "FBbi_00000025"));
+		else if (procedure.equalsIgnoreCase("Eye Morphology")) { // && slit lamp
+			sp.getEl().add(getOntologyTerm("whole mounted tissue", "FBbi_00000024"));
+			sp.getEl().add(getOntologyTerm("living tissue", "FBbi_00000025"));
 			im.getEl().add(getOntologyTerm("macroscopy", "FBbi_00000240"));
 		}
-/*		else if (procedure.equalsIgnoreCase("Eye Morphology")){ // && TEFI
-			sp.getEl().add(getOntologyTerm("whole mounted tissue" , "FBbi_00000024"));
-			sp.getEl().add(getOntologyTerm("living tissue" , "FBbi_00000025"));
-			im.getEl().add(getOntologyTerm("light microscopy", "FBbi_00000345"));
-		}
-		*/
-		else if (procedure.equalsIgnoreCase("Expression")){
-			sp.getEl().add(getOntologyTerm("whole mounted tissue" , "FBbi_00000024"));
+		/*
+		 * else if (procedure.equalsIgnoreCase("Eye Morphology")){ // && TEFI
+		 * sp.getEl().add(getOntologyTerm("whole mounted tissue" ,
+		 * "FBbi_00000024")); sp.getEl().add(getOntologyTerm("living tissue" ,
+		 * "FBbi_00000025")); im.getEl().add(getOntologyTerm("light microscopy",
+		 * "FBbi_00000345")); }
+		 */
+		else if (procedure.equalsIgnoreCase("Expression")) {
+			sp.getEl().add(getOntologyTerm("whole mounted tissue", "FBbi_00000024"));
 			im.getEl().add(getOntologyTerm("bright-field microscopy", "FBbi_00000243"));
 		}
-		else if (procedure.equalsIgnoreCase("Tail Epidermis Wholemount")){
-			sp.getEl().add(getOntologyTerm("whole mounted tissue" , "FBbi_00000024"));
+		else if (procedure.equalsIgnoreCase("Tail Epidermis Wholemount")) {
+			sp.getEl().add(getOntologyTerm("whole mounted tissue", "FBbi_00000024"));
 			im.getEl().add(getOntologyTerm("confocal microscopy", "FBbi_00000251"));
 		}
-		else if (procedure.equalsIgnoreCase("Histology Slide")){
+		else if (procedure.equalsIgnoreCase("Histology Slide")) {
 			im.getEl().add(getOntologyTerm("bright-field microscopy", "FBbi_00000243"));
 		}
-/*		else if (procedure.equalsIgnoreCase("Histology Slide")){
-			
-		}
-		*/
-		else if (procedure.equalsIgnoreCase("Brain Histopathology")){
-			sp.getEl().add(getOntologyTerm("sectioned tissue" , "FBbi_00000026"));
+		/*
+		 * else if (procedure.equalsIgnoreCase("Histology Slide")){
+		 * 
+		 * }
+		 */
+		else if (procedure.equalsIgnoreCase("Brain Histopathology")) {
+			sp.getEl().add(getOntologyTerm("sectioned tissue", "FBbi_00000026"));
 			im.getEl().add(getOntologyTerm("confocal microscopy", "FBbi_00000251"));
 		}
-		
-		if (sp.getEl().size() > 0){
+
+		if (sp.getEl().size() > 0) {
 			desc.setSamplePreparation(sp);
 		}
-		if (im.getEl().size() > 0){
+		if (im.getEl().size() > 0) {
 			desc.setImagingMethod(im);
 		}
 		return desc;
-	 }
-	 
-	 OntologyTerm getOntologyTerm (String label, String id){
-		 OntologyTerm term = new OntologyTerm();
-		 term.setTermId(id);
-		 term.setTermLabel(label);
-		 return term;
-	 }
-	 
+	}
+
+
+	OntologyTerm getOntologyTerm(String label, String id) {
+
+		OntologyTerm term = new OntologyTerm();
+		term.setTermId(id);
+		term.setTermLabel(label);
+		return term;
+	}
+
 	 
 	 /**
 	  * 

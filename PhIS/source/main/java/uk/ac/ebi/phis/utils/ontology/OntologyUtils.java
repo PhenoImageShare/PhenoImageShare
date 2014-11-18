@@ -71,7 +71,7 @@ public class OntologyUtils {
 		
 		long time = System.currentTimeMillis();
 		loadHashes();
-		loadFbbi();
+//		loadFbbi();
 		logger.info("Loading all ontologies took " + (System.currentTimeMillis() - time) + "ms.");
 	}
 	
@@ -79,32 +79,32 @@ public class OntologyUtils {
 
 	// isAnatomyId(String id)
 	public boolean isAnatomy(String id){
-		return anatomyTerms.containsKey(id) || anatomyTerms.containsKey(id.replace("_", ":"));
+		return anatomyTerms.containsKey(id) || anatomyTerms.containsKey(id.replace(":", "_"));
 	}
 	
 	// isPhenotype(String id)
 	public boolean isPhenotype(String id){
-		return phenotypeTerms.containsKey(id) || phenotypeTerms.containsKey(id.replace("_", ":"));
+		return phenotypeTerms.containsKey(id) || phenotypeTerms.containsKey(id.replace(":", "_"));
 	}
 	
 	// isStage(String id)
 	public boolean isStage(String id){
-		return stageTerms.containsKey(id) || stageTerms.containsKey(id.replace("_", ":"));
+		return stageTerms.containsKey(id) || stageTerms.containsKey(id.replace(":", "_"));
 	}
 	
 	// isImaveVisualization (String id)
 	public boolean isImaveVisualization(String id){
-		return imTerms.containsKey(id) || imTerms.containsKey(id.replace("_", ":"));
+		return imTerms.containsKey(id) || imTerms.containsKey(id.replace(":", "_"));
 	}
 	
 	// isSamplePreparation(String id)
 	public boolean isSamplePreparation(String id){
-		return spTerms.containsKey(id) || spTerms.containsKey(id.replace("_", ":"));
+		return spTerms.containsKey(id) || spTerms.containsKey(id.replace(":", "_"));
 	}
 	
 	// isImaginfMethod(String id)
 	public boolean isImagingMethod(String id){
-		return imTerms.containsKey(id) || imTerms.containsKey(id.replace("_", ":"));
+		return imTerms.containsKey(id) || imTerms.containsKey(id.replace(":", "_"));
 	}
 	
 		
@@ -134,7 +134,8 @@ public class OntologyUtils {
 		
 		return res;
 	}
-	
+
+	/*	
 
 	private void loadFbbi(){
 		try {
@@ -144,14 +145,13 @@ public class OntologyUtils {
 			OWLClass sp = gr.getOWLClass("http://purl.obolibrary.org/obo/FBbi_00000001");
 			OWLClass vm = gr.getOWLClass("http://purl.obolibrary.org/obo/FBbi_00000031");
 			OWLClass im = gr.getOWLClass("http://purl.obolibrary.org/obo/FBbi_00000222");
-			
-			
 			Set<OWLClass> classes = gr.getOWLClassDescendants(sp);
 			for (OWLClass cls : classes){
 				OntologyObject temp = new OntologyObject();
 				temp.setId(gr.getIdentifier(cls));
 				temp.setLabel(gr.getLabel(cls));
 				spTerms.put(gr.getIdentifier(cls), temp);
+				System.out.println("SP : " + spTerms.size());
 			}
 			
 			classes = gr.getOWLClassDescendants(vm);
@@ -160,6 +160,7 @@ public class OntologyUtils {
 				temp.setId(gr.getIdentifier(cls));
 				temp.setLabel(gr.getLabel(cls));
 				vmTerms.put(gr.getIdentifier(cls), temp);
+				System.out.println("VM : " + vmTerms);
 			}
 			
 			classes = gr.getOWLClassDescendants(im);
@@ -168,7 +169,9 @@ public class OntologyUtils {
 				temp.setId(gr.getIdentifier(cls));
 				temp.setLabel(gr.getLabel(cls));
 				imTerms.put(gr.getIdentifier(cls), temp);
+				System.out.println("IM : " + imTerms);
 			}
+			
 		} catch (OWLOntologyCreationException e) {
 			e.printStackTrace();
 		} catch (OBOFormatParserException e) {
@@ -178,7 +181,8 @@ public class OntologyUtils {
 		}
 	}
 	
-	
+	*/
+	/*
 	/**
 	 * Fills all ontology hashes, i.e. anatomyTerms, spTerms, phenotypeTerms etc.
 	 * @return true if all ontologies could be loaded, false otherwise
@@ -188,61 +192,88 @@ public class OntologyUtils {
 	 */
 	private boolean loadHashes(){
 
+		fillHashesFor(FBBI, spTerms, "http://purl.obolibrary.org/obo/FBbi_00000001"); 
+		fillHashesFor(FBBI, vmTerms, "http://purl.obolibrary.org/obo/FBbi_00000031"); 
+		fillHashesFor(FBBI, imTerms, "http://purl.obolibrary.org/obo/FBbi_00000222"); 
+		
 		for (String path: phenotypeOntologies){
-			fillHashesFor(path, phenotypeTerms);				
+			fillHashesFor(path, phenotypeTerms, null);				
 		}
 		for (String path: anatomyOntologies){
-			fillHashesFor(path, anatomyTerms);
+			fillHashesFor(path, anatomyTerms, null);
 		}
 		for (String path: stageOntologies){
-			fillHashesFor(path, stageTerms);
+			fillHashesFor(path, stageTerms, null);
 		}
 		return false;
 		
 	}
 	
-	private void fillHashesFor(String path, HashMap<String, OntologyObject> idLabelMap){
+	private void fillHashesFor(String path, HashMap<String, OntologyObject> idLabelMap, String rootId){
 		  
 		try {
 			logger.info("Lading: " + path);
 			System.out.println("Lading: " + path);
 			OWLOntology ontology = manager.loadOntologyFromOntologyDocument(IRI.create(new File(path)));
 			OWLReasoner reasoner = (new JFactFactory()).createReasoner(ontology);
+			OWLGraphWrapper gr = readOntologyFronUrl(path);
+			Set<OWLClass> classesSubSet;
 			
-			Set<OWLClass> classes = ontology.getClassesInSignature();
+			if (rootId != null){
+				OWLClass root = gr.getOWLClassByIdentifier(rootId);
+				classesSubSet = reasoner.getSubClasses(root, false).getFlattened();
+			}else {
+				classesSubSet = ontology.getClassesInSignature();
+			}
 			
-			for (OWLClass cls : classes){
-				OntologyObject temp = new OntologyObject();
-				temp.setId(getIdentifierShortForm(cls));
-				temp.setLabel(((OWLLiteral)cls.getAnnotations(ontology, LABEL_ANNOTATION).iterator().next().getValue()).getLiteral());
-								
-				for (String synonymType : synonymRelations){
-					OWLAnnotationProperty label = factory.getOWLAnnotationProperty(IRI.create(synonymType));	
-					// Get the annotations on the class that use the label property
-					for (OWLAnnotation annotation : cls.getAnnotations(ontology, label)) {
-						if (annotation.getValue() instanceof OWLLiteral) {
-							OWLLiteral val = (OWLLiteral) annotation.getValue();
-							temp.addSynonym(val.getLiteral());
+			for (OWLClass cls : classesSubSet){
+				if (!cls.getIRI().isNothing()){
+					OntologyObject temp = new OntologyObject();
+					temp.setId(getIdentifierShortForm(cls));
+					System.out.println(cls.isOWLClass() + "  " + cls.getIRI() + "   " + cls.getAnnotations(ontology));
+					System.out.println(cls.getAnnotations(ontology, LABEL_ANNOTATION));
+					temp.setLabel(((OWLLiteral)cls.getAnnotations(ontology, LABEL_ANNOTATION).iterator().next().getValue()).getLiteral());
+									
+					for (String synonymType : synonymRelations){
+						OWLAnnotationProperty label = factory.getOWLAnnotationProperty(IRI.create(synonymType));	
+						// Get the annotations on the class that use the label property
+						for (OWLAnnotation annotation : cls.getAnnotations(ontology, label)) {
+							if (annotation.getValue() instanceof OWLLiteral) {
+								OWLLiteral val = (OWLLiteral) annotation.getValue();
+								temp.addSynonym(val.getLiteral());
+							}
 						}
 					}
+					idLabelMap.put(getIdentifierShortForm(cls), temp);
 				}
-				idLabelMap.put(getIdentifierShortForm(cls), temp);
 			}
 			// link parents / ancestors
-			for (OWLClass cls : classes){
-				OntologyObject temp = idLabelMap.get(getIdentifierShortForm(cls));
-				for (OWLObject obj: getAncestors(reasoner, cls)){
-					temp.getIntermediateTerms().add(idLabelMap.get(getIdentifierShortForm(cls)));
+			for (OWLClass cls : classesSubSet) {
+				if (!cls.getIRI().isNothing()) {
+					OntologyObject temp = idLabelMap.get(getIdentifierShortForm(cls));
+					Set<OWLClass> ancestorsInSubTree = getAncestors(reasoner, cls);
+					ancestorsInSubTree.retainAll(classesSubSet);
+					for (OWLObject obj : ancestorsInSubTree) {
+						temp.getIntermediateTerms().add(idLabelMap.get(getIdentifierShortForm(cls)));
+					}
+					if (getIdentifierShortForm(cls).contains("MA_0000261")) {
+						System.out.println("YES, it was added the second time " + getIdentifierShortForm(cls));
+					}
+					idLabelMap.put(getIdentifierShortForm(cls), temp);
 				}
-				if (getIdentifierShortForm(cls).contains("MP_0012765"))
-					System.out.println("YES, it was added the second time " + getIdentifierShortForm(cls));
-				idLabelMap.put(getIdentifierShortForm(cls), temp);
 			}
-			
+	
 		} catch (OWLOntologyCreationException e) {
 			e.printStackTrace();
+		} catch (OBOFormatParserException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
+		
+		System.out.println("populated map contains  MA_0000261 " + idLabelMap.containsKey("MA_0000261"));
 	}
+
 	
 	public Set<OWLClass> getAncestors(OWLReasoner reasoner, OWLClass cls){
 		return reasoner.getSuperClasses(cls, false).getFlattened();
@@ -255,7 +286,6 @@ public class OntologyUtils {
 	
 	public OntologyObject getOntologyTermById(String id){
 		id = id.replace(":", "_");
-		System.out.println(id);
 		if (anatomyTerms.containsKey(id)){
 			return anatomyTerms.get(id);
 		}

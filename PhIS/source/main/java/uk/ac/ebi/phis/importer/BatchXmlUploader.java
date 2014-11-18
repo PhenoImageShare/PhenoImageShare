@@ -75,7 +75,9 @@ public class BatchXmlUploader {
 		doc = convertXmlToObjects(xmlLocationFullPath);
 		boolean isValid = validate(xmlLocationFullPath, doc);
 		try {
-			doBatchSubmission(doc);
+			if (isValid){
+				doBatchSubmission(doc);
+			}
 		} catch (IOException | SolrServerException e) {
 			e.printStackTrace();
 		}
@@ -92,6 +94,7 @@ public class BatchXmlUploader {
 			xsd = classloader.getResourceAsStream("phisSchema.xsd");
 			xml = new FileInputStream(xmlLocation);
 			isValid = validateAgainstXSD(xml, xsd);
+			
 			xsd.close();
 			xml.close();
 			isValid = (isValid && checkInformation(doc));
@@ -755,7 +758,6 @@ private ImageDTO copyFieldsFromChannel(Image img, ImageDTO pojo){
 			// Check label & id match
 			if (!vu.hasValidOntologyTerms(img)) {
 				System.out.println("there was something wrong with the ontology terms for img id = " + img.getId());
-
 			}
 
 			// positive dimensions

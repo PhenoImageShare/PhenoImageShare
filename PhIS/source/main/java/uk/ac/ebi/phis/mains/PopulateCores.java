@@ -54,7 +54,7 @@ public class PopulateCores {
 			RoiService rs = (RoiService) applicationContext.getBean("roiService");
 			ChannelService cs = (ChannelService) applicationContext.getBean("channelService"); 
 			
-			// TODO delete everything in the cores. This will likely change as we might want to do updates only.
+			// delete everything in the cores. This will likely change as we might want to do updates only.
 			is.clear();
 			rs.clear();
 			cs.clear();
@@ -62,7 +62,6 @@ public class PopulateCores {
 			BatchXmlUploader reader = new BatchXmlUploader(is, rs, cs);
 
 			boolean itWorked = false;
-			//TODO use full path to the file!!
 			long time = System.currentTimeMillis();	
 	//		itWorked = reader.validateAndUpload(dataDir + "/tracerExport.xml");
 			System.out.println(itWorked);
