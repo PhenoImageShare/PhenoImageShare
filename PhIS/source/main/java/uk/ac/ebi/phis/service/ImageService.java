@@ -38,57 +38,46 @@ public class ImageService {
 		Integer solrRows = 100;
 		
 		if (term != null){
-			if (term.length() < 1)
+			if (term.length() < 1){
 				return "";
-			// Build the query
+			}
 			solrQuery.setQuery(ImageDTO.TERM_AUTOSUGGEST + ":" + term);
 			solrQuery.setFields(ImageDTO.TERM_AUTOSUGGEST);
 			solrQuery.addHighlightField(ImageDTO.TERM_AUTOSUGGEST);
-			solrQuery.setHighlight(true);
-			solrQuery.setHighlightRequireFieldMatch(true);
 			solrQuery.set("f.term_autosuggest_analysed.hl.preserveMulti", true);
-			solrQuery.set("hl.simple.pre", "<b>");
-			solrQuery.set("hl.simple.post", "</b>");
 		}
 		else if (mutantGene != null){
-			if (mutantGene.length() < 1)
+			if (mutantGene.length() < 1){
 				return "";
-			// Build the query
+			}
 			solrQuery.setQuery(ImageDTO.GENE_SYMBOL + ":" + mutantGene);
 			solrQuery.setFields(ImageDTO.GENE_SYMBOL);
 			solrQuery.addHighlightField(ImageDTO.GENE_SYMBOL);
-			solrQuery.setHighlight(true);
-			solrQuery.setHighlightRequireFieldMatch(true);
 			solrQuery.set("f." + ImageDTO.GENE_SYMBOL + ".hl.preserveMulti", true);
-			solrQuery.set("hl.simple.pre", "<b>");
-			solrQuery.set("hl.simple.post", "</b>");
 		}
 		else if (expressedGeneOrAllele != null){
-			if (expressedGeneOrAllele.length() < 1)
+			if (expressedGeneOrAllele.length() < 1){
 				return "";
-			// Build the query
+			}
 			solrQuery.setQuery(ImageDTO.EXPRESSED_GF_SYMBOL_BAG + ":" + expressedGeneOrAllele);
 			solrQuery.setFields(ImageDTO.EXPRESSED_GF_SYMBOL_BAG);
 			solrQuery.addHighlightField(ImageDTO.EXPRESSED_GF_SYMBOL_BAG);
-			solrQuery.setHighlight(true);
-			solrQuery.setHighlightRequireFieldMatch(true);
 			solrQuery.set("f." + ImageDTO.EXPRESSED_GF_SYMBOL_BAG + ".hl.preserveMulti", true);
-			solrQuery.set("hl.simple.pre", "<b>");
-			solrQuery.set("hl.simple.post", "</b>");
 		}
 		else if (phenotype != null){
-			if (phenotype.length() < 1)
+			if (phenotype.length() < 1){
 				return "";
-			// Build the query
+			}
 			solrQuery.setQuery(ImageDTO.PHENOTYPE_LABEL_BAG + ":" + phenotype);
 			solrQuery.setFields(ImageDTO.PHENOTYPE_LABEL_BAG);
 			solrQuery.addHighlightField(ImageDTO.PHENOTYPE_LABEL_BAG);
-			solrQuery.setHighlight(true);
-			solrQuery.setHighlightRequireFieldMatch(true);
 			solrQuery.set("f." + ImageDTO.PHENOTYPE_LABEL_BAG + ".hl.preserveMulti", true);
-			solrQuery.set("hl.simple.pre", "<b>");
-			solrQuery.set("hl.simple.post", "</b>");
 		}
+
+		solrQuery.setHighlight(true);
+		solrQuery.setHighlightRequireFieldMatch(true);
+		solrQuery.set("hl.simple.pre", "<b>");
+		solrQuery.set("hl.simple.post", "</b>");
 		
 		if (rows != null){
 			solrRows = rows*10;
@@ -139,7 +128,7 @@ public class ImageService {
 		}
 		
 		if (term != null){
-			solrQuery.setFilterQueries(ImageDTO.PHENOTYPE_ID_BAG + ":\""+ term + "\" OR " + 
+			solrQuery.addFilterQuery(ImageDTO.PHENOTYPE_ID_BAG + ":\""+ term + "\" OR " + 
 				ImageDTO.PHENOTYPE_FREETEXT_BAG + ":\""+ term + "\" OR " + 
 				ImageDTO.ANATOMY_COMPUTED_ID_BAG + ":\""+ term + "\" OR " + 
 				ImageDTO.ANATOMY_COMPUTED_TERM_BAG + ":\""+ term + "\" OR " + 
@@ -165,52 +154,52 @@ public class ImageService {
 		}
 		
 		if (phenotype != null){
-			solrQuery.setFilterQueries(ImageDTO.PHENOTYPE_ID_BAG + ":\""+ phenotype + "\" OR " + 
+			solrQuery.addFilterQuery(ImageDTO.PHENOTYPE_ID_BAG + ":\""+ phenotype + "\" OR " + 
 				ImageDTO.PHENOTYPE_FREETEXT_BAG + ":\""+ phenotype + "\" OR " + 
 				ImageDTO.PHENOTYPE_LABEL_BAG + ":\""+ phenotype + "\"");
 		}
 		
 		if (mutantGene != null){
-			solrQuery.setFilterQueries(ImageDTO.GENE_ID + ":\""+ mutantGene + "\" OR " +
+			solrQuery.addFilterQuery(ImageDTO.GENE_ID + ":\""+ mutantGene + "\" OR " +
 				ImageDTO.GENE_SYMBOL + ":\""+ mutantGene + "\"");		
 		}
 		
 		if (anatomy != null){
-			solrQuery.setFilterQueries(ImageDTO.ANATOMY_ID + ":\""+ anatomy + "\" OR " + 
+			solrQuery.addFilterQuery(ImageDTO.ANATOMY_ID + ":\""+ anatomy + "\" OR " + 
 				ImageDTO.ANATOMY_TERM + ":\""+ anatomy + "\" OR " + 
 				ImageDTO.ANATOMY_FREETEXT + ":\""+ anatomy + "\"" );
 		}
 		if (expressedGene != null){
-			solrQuery.setFilterQueries(ImageDTO.EXPRESSED_GF_ID_BAG + ":\"" + expressedGene + "\"");
+			solrQuery.addFilterQuery(ImageDTO.EXPRESSED_GF_ID_BAG + ":\"" + expressedGene + "\"");
 		}
 		if (taxon != null){
-			solrQuery.setFilterQueries(ImageDTO.TAXON + ":\"" + taxon + "\" OR " + 
+			solrQuery.addFilterQuery(ImageDTO.TAXON + ":\"" + taxon + "\" OR " + 
 				ImageDTO.NCBI_TAXON_ID + ":\"" + taxon + "\"");
 		}
 		if (image_type != null){
-			solrQuery.setFilterQueries(ImageDTO.IMAGE_TYPE + ":\"" + image_type + "\"");
+			solrQuery.addFilterQuery(ImageDTO.IMAGE_TYPE + ":\"" + image_type + "\"");
 		}
 		if (sample_type != null){
-			solrQuery.setFilterQueries(ImageDTO.SAMPLE_TYPE + ":\"" + sample_type + "\"");
+			solrQuery.addFilterQuery(ImageDTO.SAMPLE_TYPE + ":\"" + sample_type + "\"");
 		}
 		if (stage != null){
-			solrQuery.setFilterQueries(ImageDTO.STAGE + ":\"" + stage + "\" OR " + 
+			solrQuery.addFilterQuery(ImageDTO.STAGE + ":\"" + stage + "\" OR " + 
 				ImageDTO.STAGE_ID + ":\"" + stage + "\"");
 		}
 		if (visualisationMethod != null){
-			solrQuery.setFilterQueries(ImageDTO.VISUALISATION_METHOD_ID + ":\"" + visualisationMethod + "\" OR " + 
+			solrQuery.addFilterQuery(ImageDTO.VISUALISATION_METHOD_ID + ":\"" + visualisationMethod + "\" OR " + 
 				ImageDTO.VISUALISATION_METHOD_LABEL + ":\"" + visualisationMethod + "\"");
 		}
 		if (samplePreparation != null){
-			solrQuery.setFilterQueries(ImageDTO.SAMPLE_PREPARATION_ID + ":\"" + samplePreparation + "\" OR " + 
+			solrQuery.addFilterQuery(ImageDTO.SAMPLE_PREPARATION_ID + ":\"" + samplePreparation + "\" OR " + 
 				ImageDTO.SAMPLE_PREPARATION_LABEL + ":\"" + samplePreparation + "\"");
 		}
 		if (samplePreparation != null){
-			solrQuery.setFilterQueries(ImageDTO.IMAGING_METHOD_LABEL_ANALYSED + ":\"" + imagingMethod + "\" OR " + 
+			solrQuery.addFilterQuery(ImageDTO.IMAGING_METHOD_LABEL_ANALYSED + ":\"" + imagingMethod + "\" OR " + 
 			ImageDTO.IMAGING_METHOD_ID + ":\"" + imagingMethod + "\"");
 		}
 		if (sex != null){
-			solrQuery.setFilterQueries(ImageDTO.SEX + ":\"" + sex + "\"");
+			solrQuery.addFilterQuery(ImageDTO.SEX + ":\"" + sex + "\"");
 		}
 		
 		if (rows != null){
