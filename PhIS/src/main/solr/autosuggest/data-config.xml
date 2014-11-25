@@ -1,0 +1,41 @@
+<dataConfig>
+
+	
+ 		<dataSource name="images_core" type="HttpDataSource" baseUrl="http://localhost:8086/solr-example/images/select?" encoding="UTF-8"  connectionTimeout="10000" readTimeout="10000"/>
+   	
+	 	<document name="docs">
+			
+			<entity dataSource="images_core" name="imageDoc" 
+				stream="true" 
+				url="q=*:*&amp;wt=normal&amp;rows=9999999"
+	      processor="XPathEntityProcessor" 
+	      forEach="/response/result/doc/"
+	      readTimeout="10000" 
+	      connectionTimeout="10000" 
+	      rootEntity="false">      
+	      
+	      // get id
+	      // entity foreach doc with xpath     /response/result/doc/term_autosuggest/arr/ and q = "" AND doc_id=$id               
+		
+				<field column="id" xpath="/response/result/doc/str[@name='id']" />	
+				<field column="associated_roi" xpath="/response/result/doc/arr[@name='associated_roi']" />	
+				<field column="associated_channel" xpath="/response/result/doc/arr[@name='associated_channel']" />	
+				<field column="depth" xpath="/response/result/doc/float[@name='depth']" />	
+				<field column="height" xpath="/response/result/doc/float[@name='height']" />	
+				<field column="host_url" xpath="/response/result/doc/str[@name='host_url']" />	
+				
+					
+						<!-- entity dataSource="images_core" name="autosuggestTerm" 
+							stream="true" 
+							url="q=id:'${imageDoc.id}'&amp;wt=normal&amp;rows=9999999"
+							processor="XPathEntityProcessor" 
+							forEach="/response/result/doc/" onError="continue"							
+							readTimeout="10000" connectionTimeout="10000" 
+	     				rootEntity="true" >
+						
+							<field column="host_url" xpath="/response/result/doc/str[@name='host_url']" />	
+							
+						</entity-->	
+			</entity>		
+	    </document>       
+</dataConfig>

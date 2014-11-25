@@ -75,40 +75,30 @@ public class OntologyUtils {
 		logger.info("Loading all ontologies took " + (System.currentTimeMillis() - time) + "ms.");
 	}
 	
-
-
-	// isAnatomyId(String id)
 	public boolean isAnatomy(String id){
 		return anatomyTerms.containsKey(id) || anatomyTerms.containsKey(id.replace(":", "_"));
 	}
 	
-	// isPhenotype(String id)
 	public boolean isPhenotype(String id){
 		return phenotypeTerms.containsKey(id) || phenotypeTerms.containsKey(id.replace(":", "_"));
 	}
 	
-	// isStage(String id)
 	public boolean isStage(String id){
 		return stageTerms.containsKey(id) || stageTerms.containsKey(id.replace(":", "_"));
 	}
 	
-	// isImaveVisualization (String id)
 	public boolean isImaveVisualization(String id){
 		return imTerms.containsKey(id) || imTerms.containsKey(id.replace(":", "_"));
 	}
 	
-	// isSamplePreparation(String id)
 	public boolean isSamplePreparation(String id){
 		return spTerms.containsKey(id) || spTerms.containsKey(id.replace(":", "_"));
 	}
 	
-	// isImaginfMethod(String id)
 	public boolean isImagingMethod(String id){
 		return imTerms.containsKey(id) || imTerms.containsKey(id.replace(":", "_"));
 	}
 	
-		
-	// labelMatchesId(String label, String id)
 	public boolean labelMatchesId(String label, String termId){
 		boolean res = false;
 		String id = termId.replace("_",  ":");
@@ -135,53 +125,6 @@ public class OntologyUtils {
 		return res;
 	}
 
-	/*	
-
-	private void loadFbbi(){
-		try {
-			OWLGraphWrapper gr;
-			logger.info("Lading: " + FBBI);
-			gr = readOntologyFronUrl(FBBI);
-			OWLClass sp = gr.getOWLClass("http://purl.obolibrary.org/obo/FBbi_00000001");
-			OWLClass vm = gr.getOWLClass("http://purl.obolibrary.org/obo/FBbi_00000031");
-			OWLClass im = gr.getOWLClass("http://purl.obolibrary.org/obo/FBbi_00000222");
-			Set<OWLClass> classes = gr.getOWLClassDescendants(sp);
-			for (OWLClass cls : classes){
-				OntologyObject temp = new OntologyObject();
-				temp.setId(gr.getIdentifier(cls));
-				temp.setLabel(gr.getLabel(cls));
-				spTerms.put(gr.getIdentifier(cls), temp);
-				System.out.println("SP : " + spTerms.size());
-			}
-			
-			classes = gr.getOWLClassDescendants(vm);
-			for (OWLClass cls : classes){
-				OntologyObject temp = new OntologyObject();
-				temp.setId(gr.getIdentifier(cls));
-				temp.setLabel(gr.getLabel(cls));
-				vmTerms.put(gr.getIdentifier(cls), temp);
-				System.out.println("VM : " + vmTerms);
-			}
-			
-			classes = gr.getOWLClassDescendants(im);
-			for (OWLClass cls : classes){
-				OntologyObject temp = new OntologyObject();
-				temp.setId(gr.getIdentifier(cls));
-				temp.setLabel(gr.getLabel(cls));
-				imTerms.put(gr.getIdentifier(cls), temp);
-				System.out.println("IM : " + imTerms);
-			}
-			
-		} catch (OWLOntologyCreationException e) {
-			e.printStackTrace();
-		} catch (OBOFormatParserException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	*/
 	/*
 	/**
 	 * Fills all ontology hashes, i.e. anatomyTerms, spTerms, phenotypeTerms etc.
@@ -230,8 +173,6 @@ public class OntologyUtils {
 				if (!cls.getIRI().isNothing()){
 					OntologyObject temp = new OntologyObject();
 					temp.setId(getIdentifierShortForm(cls));
-					System.out.println(cls.isOWLClass() + "  " + cls.getIRI() + "   " + cls.getAnnotations(ontology));
-					System.out.println(cls.getAnnotations(ontology, LABEL_ANNOTATION));
 					temp.setLabel(((OWLLiteral)cls.getAnnotations(ontology, LABEL_ANNOTATION).iterator().next().getValue()).getLiteral());
 									
 					for (String synonymType : synonymRelations){
@@ -262,7 +203,8 @@ public class OntologyUtils {
 					idLabelMap.put(getIdentifierShortForm(cls), temp);
 				}
 			}
-	
+			
+			manager.removeOntology(ontology);
 		} catch (OWLOntologyCreationException e) {
 			e.printStackTrace();
 		} catch (OBOFormatParserException e) {
@@ -324,4 +266,33 @@ public class OntologyUtils {
 		logger.info("Ontology is initialised completely");
 		return graph;
 	}
+	
+	public HashMap<String, OntologyObject> getAnatomyTerms() {
+		
+		return anatomyTerms;
+	}
+
+	public HashMap<String, OntologyObject> getPhenotypeTerms() {
+	
+		return phenotypeTerms;
+	}
+
+	public HashMap<String, OntologyObject> getStageTerms() {
+	
+		return stageTerms;
+	}
+
+	public HashMap<String, OntologyObject> getImTerms() {	
+		return imTerms;
+	}
+	
+	public HashMap<String, OntologyObject> getSpTerms() {	
+		return spTerms;
+	}
+
+	public HashMap<String, OntologyObject> getVmTerms() {
+		return vmTerms;
+	}
+
+
 }

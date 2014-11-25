@@ -283,7 +283,7 @@ public class SangerXmlGenerator {
 				i++;
 				if (i % 100 == 0) {
 					System.out.println(i);
-					if (i == 1000) {
+					if (i==10000){
 						break;
 					}
 				}
@@ -436,7 +436,7 @@ public class SangerXmlGenerator {
 		else if (procedure.equalsIgnoreCase("Xray")) {
 			sp.getEl().add(getOntologyTerm("whole mounted tissue", "FBbi_00000024"));
 			sp.getEl().add(getOntologyTerm("living tissue", "FBbi_00000025"));
-			im.getEl().add(getOntologyTerm("X-ray radiography", "FBbi_00001001"));
+			im.getEl().add(getOntologyTerm("X-ray illumination", "FBbi_00000342"));
 		}
 		else if (procedure.equalsIgnoreCase("Eye Morphology")) { // && slit lamp
 			sp.getEl().add(getOntologyTerm("whole mounted tissue", "FBbi_00000024"));

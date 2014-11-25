@@ -122,7 +122,6 @@ public class BatchXmlUploader {
 		int i = 0;
 		List<ImageDTO> imageDocs = new ArrayList<>();
 		for (Image img : images) {
-			// add it
 			imageDocs.add(fillPojo(img));
 			// flush every 1000 docs
 			if (i++ % 1000 == 0) {
@@ -373,14 +372,14 @@ public class BatchXmlUploader {
 		if (desc.getImagingMethod() != null){
 			for (OntologyTerm im: desc.getImagingMethod().getEl()){
 				bean.setImagingMethodId(im.getTermId());
-				bean.setImagingMethodLabel(im.getTermLabel());
+				bean.setImagingMethodLabel(ou.getOntologyTermById(im.getTermId()).getLabel()); 
 				bean.addImagingMethodSynonyms(ou.getSynonyms(im.getTermId()));
 			}
 		}
 		if (desc.getSamplePreparation() != null){
 			for (OntologyTerm sp: desc.getSamplePreparation().getEl()){
 				bean.setSamplePreparationId(sp.getTermId());
-				bean.setSamplePreparationLabel(sp.getTermLabel());
+				bean.setSamplePreparationLabel(ou.getOntologyTermById(sp.getTermId()).getId());
 				bean.addSamplePreparationSynonyms(ou.getSynonyms(sp.getTermId()));
 			}
 		}
@@ -433,7 +432,7 @@ public class BatchXmlUploader {
 			}
 			if (img.getDepictedAnatomicalStructure().getOntologyTerm() != null){
 				bean.setAnatomyId(img.getDepictedAnatomicalStructure().getOntologyTerm().getTermId());
-				bean.setAnatomyTerm(img.getDepictedAnatomicalStructure().getOntologyTerm().getTermLabel());
+				bean.setAnatomyTerm(ou.getOntologyTermById(img.getDepictedAnatomicalStructure().getOntologyTerm().getTermId()).getLabel());
 				bean.addAnatomySynonyms(ou.getSynonyms(img.getDepictedAnatomicalStructure().getOntologyTerm().getTermId()));
 			}
 			
@@ -540,8 +539,8 @@ public class BatchXmlUploader {
 					}
 					if (ann.getOntologyTerm() != null){
 						phenotypeIds.add(ann.getOntologyTerm().getTermId());
-						phenotypeLabels.add(ann.getOntologyTerm().getTermLabel());
 						OntologyObject oo = ou.getOntologyTermById(ann.getOntologyTerm().getTermId().trim());
+						phenotypeLabels.add(oo.getLabel());
 						if (oo == null){
 							System.out.println("Ontology id not found in hash!! -> " + ann.getOntologyTerm().getTermId().trim());
 						}
@@ -581,8 +580,8 @@ public class BatchXmlUploader {
 					if (ann.getOntologyTerm() != null){
 						if (expression){
 							expressionInAnatomyIds.add(ann.getOntologyTerm().getTermId());
-							expressionInAnatomyLabels.add(ann.getOntologyTerm().getTermLabel());
 							OntologyObject oo = ou.getOntologyTermById(ann.getOntologyTerm().getTermId());
+							expressionInAnatomyLabels.add(oo.getLabel());
 							res.addExpressedGfSynonymsBag(oo.getSynonyms());
 							for (OntologyObject anc : oo.getIntermediateTerms()){
 								res.addExpressionInAncestorsIdBag(anc.getId());
@@ -592,8 +591,8 @@ public class BatchXmlUploader {
 						}
 						else{
 							depictedAnatomyIds.add(ann.getOntologyTerm().getTermId());
-							depictedAnatomyLabels.add(ann.getOntologyTerm().getTermLabel());
 							OntologyObject oo = ou.getOntologyTermById(ann.getOntologyTerm().getTermId());
+							depictedAnatomyLabels.add(oo.getLabel());
 							res.addDepictedAnatomySynonymsBag(oo.getSynonyms());
 							for (OntologyObject anc : oo.getIntermediateTerms()){
 								res.addDepictedAnatomyAncestorsIdBag(anc.getId());
@@ -613,8 +612,8 @@ public class BatchXmlUploader {
 					}
 					if (ann.getOntologyTerm() != null){
 						abnormalityInAnatomyIds.add(ann.getOntologyTerm().getTermId());
-						abnormalityInAnatomyLabels.add(ann.getOntologyTerm().getTermLabel());
 						OntologyObject oo = ou.getOntologyTermById(ann.getOntologyTerm().getTermId());
+						abnormalityInAnatomyLabels.add(oo.getLabel());
 						res.addAbnormalAnatomySynonymsBag(oo.getSynonyms());
 						for (OntologyObject anc : oo.getIntermediateTerms()){
 							res.addAbnormalAnatomyAncestorsIdBag(anc.getId());
@@ -752,30 +751,18 @@ private ImageDTO copyFieldsFromChannel(Image img, ImageDTO pojo){
 		if (!res) { return false; }
 
 		for (Image img : imageIdMap.values()) {
-
-			// Check ontoloy fields contain ontology IDs and they are from the
-			// right ontology
-			// Check label & id match
 			if (!vu.hasValidOntologyTerms(img)) {
 				System.out.println("there was something wrong with the ontology terms for img id = " + img.getId());
 			}
-
-			// positive dimensions
 			if (!vu.hasPositieDimensions(img.getImageDescription().getImageDimensions())) {
 				System.out.println("Dimensions are not positive! Validation failed.");
 				return false;
 			}
-
 		}
 
 		for (Roi roi : roiIdMap.values()) {
 
-			// percentages
 			if (!vu.arePercentagesOk(roi.getCoordinates())) { return false; }
-
-			// Check ontoloy fields contain ontology IDs and they are from the
-			// right ontology
-			// Check label & id match
 			if (!vu.isValidOntologyTerms(roi)) {
 				System.out.println("there was something wrong with the ontology terms for roi id = " + roi.getId());
 				return false;
