@@ -110,7 +110,12 @@
 		</lst>
 	</requestHandler>
 	
-
+	<requestHandler name="/dataimport" class="org.apache.solr.handler.dataimport.DataImportHandler">
+    <lst name="defaults">
+      <str name="config">data-config.xml</str>
+    </lst>
+  </requestHandler>
+  
 	<!-- config for the admin interface -->
 	<admin>
 		<defaultQuery>solr</defaultQuery>

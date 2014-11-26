@@ -283,9 +283,9 @@ public class SangerXmlGenerator {
 				i++;
 				if (i % 100 == 0) {
 					System.out.println(i);
-					if (i==10000){
-						break;
-					}
+		//			if (i==10000){
+		//				break;
+		//			}
 				}
 			}
 			File file = new File("source/main/resources/sangerExport.xml");
