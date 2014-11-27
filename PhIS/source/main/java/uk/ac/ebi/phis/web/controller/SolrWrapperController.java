@@ -3,9 +3,7 @@ package uk.ac.ebi.phis.web.controller;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import org.apache.solr.client.solrj.SolrResponse;
 import org.apache.solr.client.solrj.SolrServerException;
-import org.apache.solr.common.SolrDocumentList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import uk.ac.ebi.phis.service.AutosuggestService;
 import uk.ac.ebi.phis.service.ChannelService;
 import uk.ac.ebi.phis.service.ImageService;
 import uk.ac.ebi.phis.service.RoiService;
@@ -25,14 +24,15 @@ public class SolrWrapperController {
 
 	@Autowired
 	ImageService is;
-	
 
 	@Autowired
 	RoiService rs;
-	
 
 	@Autowired
 	ChannelService cs;
+
+	@Autowired
+	AutosuggestService as;
 	
 	/**
 	 * 
@@ -80,7 +80,12 @@ public class SolrWrapperController {
 			@RequestParam(value = "phenotype", required = false) String phenotype,
 			@RequestParam(value = "resultNo", required = false) Integer resultNo,
 			Model model){
-		return is.getAutosuggest(term, mutantGene, expressedGeneOrAllele, phenotype, resultNo);
+		if (mutantGene != null || expressedGeneOrAllele != null || phenotype != null ){
+			return is.getAutosuggest(term, mutantGene, expressedGeneOrAllele, phenotype, resultNo);
+		}
+		else {
+			return as.getAutosuggest(term, resultNo);
+		}
 	}
 	
 	@RequestMapping(value="/getRois", method=RequestMethod.GET)	

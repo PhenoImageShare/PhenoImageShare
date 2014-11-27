@@ -18,6 +18,10 @@
 		<constructor-arg  value="${internalSolrUrl}/images" />
 	</bean>
 	
+	<bean id="autosuggestService" class="uk.ac.ebi.phis.service.AutosuggestService">
+		<constructor-arg  value="${internalSolrUrl}/autosuggest" />
+	</bean>
+	
 	<bean id="roiService" class="uk.ac.ebi.phis.service.RoiService">
 		<constructor-arg  value="${internalSolrUrl}/rois" />
 	</bean>

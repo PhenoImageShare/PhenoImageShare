@@ -340,27 +340,27 @@
 				<td><var> - </var></td>
 				<td><var>abn</var><br></td>
 			</tr>
-			<tr>
+			<tr style="background-color: grey;">
 				<td>mutantGene</td>
 				<td><var>String</var></td>
 				<td> false</td>
-				<td>Suggestions for mutant gene symbols from annotations, with highlights.</td>
+				<td>[TO BE DEPRECATED] Suggestions for mutant gene symbols from annotations, with highlights.</td>
 				<td><var> - </var></td>
 				<td><var>a</var><br></td>
 			</tr>
-			<tr>
+			<tr style="background-color: grey;">
 				<td>expressedGeneOrAllele</td>
 				<td><var>String</var></td>
 				<td> false </td>
-				<td>Suggestions for expressed gene or allele symbols, with highlights.</td>
+				<td>[TO BE DEPRECATED] Suggestions for expressed gene or allele symbols, with highlights.</td>
 				<td><var> - </var></td>
 				<td><var>m</var><br></td>
 			</tr>
-			<tr>
+			<tr style="background-color: grey;">
 				<td>phenotype</td>
 				<td><var>String</var></td>
 				<td> false</td>
-				<td>Suggestions for phenotype labels from annotations, with highlights.</td>
+				<td>[TO BE DEPRECATED] Suggestions for phenotype labels from annotations, with highlights.</td>
 				<td><var> - </var></td>
 				<td><var>abn</var><br></td>
 			</tr>
