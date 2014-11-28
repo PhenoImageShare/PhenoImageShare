@@ -220,11 +220,10 @@ public class ImageService {
 		
 		// add pivot facets to get the number of image types per 
 		solrQuery.set("facet.pivot", ImageDTO.SAMPLE_TYPE + "," + ImageDTO.IMAGE_TYPE);	
+		solrQuery.set("facet.pivot", ImageDTO.IMAGE_TYPE + "," + ImageDTO.SAMPLE_TYPE);	
 		
 		System.out.println("Solr URL : " + solr.getBaseURL() + "/select?" + solrQuery);
 		log.info("Solr URL in getImages : " + solr.getBaseURL() + "/select?" + solrQuery);
-		
-		
 		
 		try {
 			return JSONRestUtil.getResults(getQueryUrl(solrQuery)).toString();

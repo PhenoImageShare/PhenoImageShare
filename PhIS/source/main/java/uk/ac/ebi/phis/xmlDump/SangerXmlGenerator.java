@@ -107,7 +107,7 @@ public class SangerXmlGenerator {
 		    			d.setImageHeight(dimensions.get("height"));
 		    			d.setImageWidth(dimensions.get("width"));
 			    		String procedure = res.getString("procedure_name");
-			    		// store proceudre name as observation
+			    		// store procedure name as observation
 			    		image.setObservations(new StringArray());
 			    		image.getObservations().getEl().add("Procedure name: " + procedure);
 
@@ -179,7 +179,7 @@ public class SangerXmlGenerator {
 					    		// 1. Phenotypes should always be associated to a region of interest
 					    		// 2. Existing ROI should be kept if the coordinates != 0 
 					    		if ( res.getString("ONTOLOGY_DICT_ID").equalsIgnoreCase("1") || 
-					    				(Float)res.getFloat("X_START") + (Float) res.getFloat("X_END") + (Float)res.getFloat("Y_START") + (Float)res.getFloat("Y_END") != 0 ){ // 1 = MP
+					    				notZeroCoordinates(res) ){ // 1 = MP
 					    			roi = fillRoi(roi, res, d, imageType.equalsIgnoreCase("expression"));
 					    			if (!imageType.equalsIgnoreCase("expression")){
 					    				phenotypeAnatomy = true;
@@ -326,36 +326,32 @@ public class SangerXmlGenerator {
 				roi.getObservations().getEl().add(res.getString("TAG_NAME") + ": " + res.getString("TAG_VALUE"));
 			}
 
-			// Add anat. terms
 			if (res.getString("ONTOLOGY_DICT_ID") != null) {
-				if (res.getString("ONTOLOGY_DICT_ID").toString().equalsIgnoreCase("2") || res.getString("ONTOLOGY_DICT_ID").toString().equalsIgnoreCase("4")) { // 2=EMAP,
-																																								// 4=MA
+				if (isAnatomy(res)) {																																								// 4=MA
 					if (isExpressionImg) {
 						// we have expression in the annotated anatomy term
-						roi.setDepictedAnatomicalStructure(addToAnnotationArray(new AnnotationArray(), res.getString("TERM_ID").toString(),
-						res.getString("TERM_NAME").toString(), null, AnnotationMode.MANUAL));
+						roi.setDepictedAnatomicalStructure(addToAnnotationArray(new AnnotationArray(), res.getString("TERM_ID").toString().trim(),
+							res.getString("TERM_NAME").toString(), null, AnnotationMode.MANUAL));
 					}
 					else {
 						// we have somthin interesting but not expression in the
 						// anatomy term
-						roi.setDepictedAnatomicalStructure(addToAnnotationArray(new AnnotationArray(), res.getString("TERM_ID").toString(),
-						res.getString("TERM_NAME").toString(), null, AnnotationMode.MANUAL));
+						roi.setDepictedAnatomicalStructure(addToAnnotationArray(new AnnotationArray(), res.getString("TERM_ID").toString().trim(),
+							res.getString("TERM_NAME").toString(), null, AnnotationMode.MANUAL));
 					}
 				}
-				// Add phenotuype terms
-				else if (res.getString("ONTOLOGY_DICT_ID").toString().equalsIgnoreCase("1")) { 
-					// 1 = MP
+				else if (isMp(res)) { 
 					// we know there's only one phenotype associated so we don't
 					// need to check if the array is empty
-					roi.setPhenotypeAnnotations(addToAnnotationArray(new AnnotationArray(), res.getString("TERM_ID").toString(), res.getString("TERM_NAME").toString(), null, AnnotationMode.MANUAL));
+					roi.setPhenotypeAnnotations(addToAnnotationArray(new AnnotationArray(), res.getString("TERM_ID").toString().trim(), 
+						res.getString("TERM_NAME").toString(), null, AnnotationMode.MANUAL));
 				}
 			}
 			Coordinates coord = new Coordinates();
 			PercentArray xCoord = new PercentArray();
 			PercentArray yCoord = new PercentArray();
 
-			// Add coordinates
-			if ((Float) res.getFloat("X_START") + (Float) res.getFloat("X_END") + (Float) res.getFloat("Y_START") + (Float) res.getFloat("Y_END") != 0) {
+			if (notZeroCoordinates(res)) {
 				// we have coordinates
 				// Order is important: (start, end)
 				// Sanger stores percentages so no need to compute them here, we
@@ -388,6 +384,24 @@ public class SangerXmlGenerator {
 			e.printStackTrace();
 		}
 		return roi;
+	}
+
+	private boolean notZeroCoordinates(ResultSet res)
+	throws SQLException {
+
+		return (Float) res.getFloat("X_START") + (Float) res.getFloat("X_END") + (Float) res.getFloat("Y_START") + (Float) res.getFloat("Y_END") != 0;
+	}
+
+	private boolean isAnatomy(ResultSet res)
+	throws SQLException {
+
+		return res.getString("ONTOLOGY_DICT_ID").toString().equalsIgnoreCase("2") || res.getString("ONTOLOGY_DICT_ID").toString().equalsIgnoreCase("4");
+	}
+
+	private boolean isMp(ResultSet res)
+	throws SQLException {
+
+		return res.getString("ONTOLOGY_DICT_ID").toString().equalsIgnoreCase("1");
 	}
 	 
 
