@@ -33,7 +33,7 @@
 						<id>prepare-war</id>
 						<phase>prepare-package</phase>
 						<goals>
-							<goal>exploded</goal>
+							<goal>war</goal>
 						</goals>
 					</execution>
 				</executions>
@@ -107,7 +107,7 @@
 			<properties>
 				<baseUrl>http://??</baseUrl>
 				<solrUrl>http://wwwdev.ebi.ac.uk/mi/phis</solrUrl>
-				<internalSolrUrl>http://ves-ebi-d0.ebi.ac.uk:8090/mi/phis</internalSolrUrl>
+				<internalSolrUrl>http://ves-ebi-d0.ebi.ac.uk:8090/mi/phis-v0.0.3</internalSolrUrl>
 				<java.version>1.7</java.version>
 			</properties>
 			<build>
