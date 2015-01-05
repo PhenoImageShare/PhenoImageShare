@@ -1,8 +1,9 @@
 package uk.ac.ebi.phis.mains;
 
+import java.io.File;
+
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
-import java.io.File;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
@@ -77,6 +78,8 @@ public class PopulateCores {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		
 	}
 	
 

@@ -1,7 +1,9 @@
 package uk.ac.ebi.phis.solrj.dto;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.solr.client.solrj.beans.Field;
 
@@ -115,6 +117,7 @@ public class ImageDTO {
 	public final static String PHENOTYPE_ANCESTORS_ID_BAG = "phenotype_ancestors_id_bag";
 
 	public final static String TERM_AUTOSUGGEST = "term_autosuggest";
+	public final static String GENERIC_SEARCH = "generic_search";
 
 	@Field(ID)
 	private String id;
@@ -388,13 +391,13 @@ public class ImageDTO {
 	private ArrayList<String> phenotypeSynonymsBag;
 
 	@Field(PHENOTYPE_ANCESTORS_ID_BAG)
-	private ArrayList<String> phenotypeAncestorsIdBag;
+	private HashSet<String> phenotypeAncestorsIdBag;
 
 	@Field(PHENOTYPE_ANCESTORS_SYNONYMS_BAG)
-	private ArrayList<String> phenotypeAncestorsSynonymsBag;
+	private HashSet<String> phenotypeAncestorsSynonymsBag;
 
 	@Field(PHENOTYPE_ANCESTORS_TERM_BAG)
-	private ArrayList<String> phenotypeAncestorsTermBag;
+	private HashSet<String> phenotypeAncestorsTermBag;
 
 
 	/**
@@ -684,7 +687,7 @@ public class ImageDTO {
 	/**
 	 * @return the phenotypeAncestorsIdBag
 	 */
-	public ArrayList<String> getPhenotypeAncestorsIdBag() {
+	public Set<String> getPhenotypeAncestorsIdBag() {
 
 		return phenotypeAncestorsIdBag;
 	}
@@ -697,7 +700,7 @@ public class ImageDTO {
 	public void addPhenotypeAncestorsIdBag(String phenotypeAncestorId) {
 
 		if (this.phenotypeAncestorsIdBag == null){
-			this.phenotypeAncestorsIdBag = new ArrayList<>();
+			this.phenotypeAncestorsIdBag = new HashSet<>();
 		}
 		if (!this.phenotypeAncestorsIdBag.contains(phenotypeAncestorId)){
 			this.phenotypeAncestorsIdBag.add(phenotypeAncestorId);
@@ -708,7 +711,7 @@ public class ImageDTO {
 	/**
 	 * @return the phenotypeAncestorsSynonymsBag
 	 */
-	public ArrayList<String> getPhenotypeAncestorsSynonymsBag() {
+	public Set<String> getPhenotypeAncestorsSynonymsBag() {
 
 		return phenotypeAncestorsSynonymsBag;
 	}
@@ -721,7 +724,7 @@ public class ImageDTO {
 	public void addPhenotypeAncestorsSynonymsBag(ArrayList<String> phenotypeAncestorSynonyms) {
 
 		if (this.phenotypeAncestorsSynonymsBag == null){
-			this.phenotypeAncestorsSynonymsBag = new ArrayList<>();
+			this.phenotypeAncestorsSynonymsBag = new HashSet<>();
 		}
 		if (phenotypeAncestorSynonyms != null && !this.phenotypeAncestorsSynonymsBag.contains(phenotypeAncestorSynonyms)){
 			this.phenotypeAncestorsSynonymsBag.addAll(phenotypeAncestorSynonyms);
@@ -732,7 +735,7 @@ public class ImageDTO {
 	/**
 	 * @return the phenotypeAncestorsTermBag
 	 */
-	public ArrayList<String> getPhenotypeAncestorsTermBag() {
+	public Set<String> getPhenotypeAncestorsTermBag() {
 
 		return phenotypeAncestorsTermBag;
 	}
@@ -745,7 +748,7 @@ public class ImageDTO {
 	public void addPhenotypeAncestorsTermBag(String phenotypeAncestorTerm) {
 
 		if (this.phenotypeAncestorsTermBag == null){
-			this.phenotypeAncestorsTermBag = new ArrayList<>();
+			this.phenotypeAncestorsTermBag = new HashSet<>();
 		}
 		if (phenotypeAncestorTerm != null && !this.phenotypeAncestorsTermBag.contains(phenotypeAncestorTerm)){
 			this.phenotypeAncestorsTermBag.add(phenotypeAncestorTerm);

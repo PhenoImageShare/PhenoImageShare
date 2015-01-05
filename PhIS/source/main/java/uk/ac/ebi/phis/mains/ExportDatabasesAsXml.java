@@ -1,7 +1,5 @@
 package uk.ac.ebi.phis.mains;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 
 import uk.ac.ebi.phis.xmlDump.SangerXmlGenerator;
@@ -25,8 +23,8 @@ public class ExportDatabasesAsXml {
 			System.out.println("Generating xml for Sanger took " + (System.currentTimeMillis() - time));
 
 			time = System.currentTimeMillis();
-	//		TracerXmlGenerator tg = new TracerXmlGenerator();
-	//		tg.exportImages();
+			TracerXmlGenerator tg = new TracerXmlGenerator();
+			tg.exportImages();
 			System.out.println("Generating XML for Tracer took " + (System.currentTimeMillis() - time));
 
 		} catch (Exception e) {

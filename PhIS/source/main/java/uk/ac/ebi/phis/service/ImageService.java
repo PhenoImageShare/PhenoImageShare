@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.activemq.filter.function.splitFunction;
 import org.apache.log4j.Logger;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
@@ -14,6 +15,8 @@ import org.apache.solr.client.solrj.response.QueryResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
+
+import com.mysql.jdbc.StringUtils;
 
 import uk.ac.ebi.phis.solrj.dto.ImageDTO;
 import uk.ac.ebi.phis.utils.web.JSONRestUtil;
@@ -128,7 +131,18 @@ public class ImageService {
 		}
 		
 		if (term != null){
-			solrQuery.addFilterQuery(ImageDTO.PHENOTYPE_ID_BAG + ":\""+ term + "\" OR " + 
+			System.out.println("term is .." + term + "..");
+			if (term.contains(" ")){
+				String[] splittedQuery = term.split(" ");
+				String query = ImageDTO.GENERIC_SEARCH + ":" + org.apache.commons.lang3.StringUtils.join(splittedQuery, "^1 " + ImageDTO.GENERIC_SEARCH + ":");		
+				solrQuery.set("defType", "edismax");
+				solrQuery.set("qf",  ImageDTO.GENERIC_SEARCH);
+				solrQuery.set("bq", ImageDTO.GENERIC_SEARCH + ":\"" + term + "\"^10 " + query);
+			
+			}else{
+				solrQuery.addFilterQuery(ImageDTO.GENERIC_SEARCH + ":"+ term);
+			}
+/*			solrQuery.addFilterQuery(ImageDTO.PHENOTYPE_ID_BAG + ":\""+ term + "\" OR " + 
 				ImageDTO.PHENOTYPE_FREETEXT_BAG + ":\""+ term + "\" OR " + 
 				ImageDTO.ANATOMY_COMPUTED_ID_BAG + ":\""+ term + "\" OR " + 
 				ImageDTO.ANATOMY_COMPUTED_TERM_BAG + ":\""+ term + "\" OR " + 
@@ -151,7 +165,8 @@ public class ImageService {
 				ImageDTO.SAMPLE_PREPARATION_ID + ":\""+ term + "\" OR " + 
 				ImageDTO.SAMPLE_PREPARATION_LABEL + ":\""+ term + "\" OR " + 
 				ImageDTO.PHENOTYPE_LABEL_BAG + ":\""+ term + "\"");
-		}
+	*/	}
+		
 		
 		if (phenotype != null){
 			solrQuery.addFilterQuery(ImageDTO.PHENOTYPE_ID_BAG + ":\""+ phenotype + "\" OR " + 
@@ -221,7 +236,7 @@ public class ImageService {
 		// add pivot facets to get the number of image types per 
 		solrQuery.set("facet.pivot", ImageDTO.SAMPLE_TYPE + "," + ImageDTO.IMAGE_TYPE);	
 		
-		System.out.println("Solr URL : " + solr.getBaseURL() + "/select?" + solrQuery);
+		System.out.println("\nSolr URL : " + solr.getBaseURL() + "/select?" + solrQuery);
 		log.info("Solr URL in getImages : " + solr.getBaseURL() + "/select?" + solrQuery);
 		
 		try {
