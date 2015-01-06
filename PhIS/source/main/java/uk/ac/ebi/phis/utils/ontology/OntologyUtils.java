@@ -32,6 +32,7 @@ public class OntologyUtils {
 	private static final OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
 	private static final OWLDataFactory factory = manager.getOWLDataFactory();
 	public static final OWLAnnotationProperty LABEL_ANNOTATION = factory.getRDFSLabel();	
+	public static final OWLAnnotationProperty ALT_ID = factory.getOWLAnnotationProperty(IRI.create("http://www.geneontology.org/formats/oboInOwl#hasAlternativeId"));	
 	private static ArrayList<String> synonymRelations = new ArrayList<>();
 	
 	private ArrayList<String> anatomyOntologies = new ArrayList<String>();
@@ -45,6 +46,8 @@ public class OntologyUtils {
 	private HashMap<String, OntologyObject> imTerms = new HashMap<>();
 	private HashMap<String, OntologyObject> spTerms = new HashMap<>();
 	private HashMap<String, OntologyObject> vmTerms = new HashMap<>();
+	
+	private HashMap<String, String> alternateIds = new HashMap<>();
 
 	Logger logger = Logger.getLogger(OntologyMapper.class);
 
@@ -57,7 +60,7 @@ public class OntologyUtils {
 		synonymRelations.add("http://www.geneontology.org/formats/oboInOwl#hasNarrowSynonym");
 		synonymRelations.add("http://www.geneontology.org/formats/oboInOwl#hasRelatedSynonym");
 		synonymRelations.add("http://www.geneontology.org/formats/oboInOwl#hasBroadSynonym");
-
+		
 		//http://purl.obolibrary.org/obo/mp.owl
 		phenotypeOntologies.add(System.getProperty("user.home") + "/phis_ontologies/mp.owl");
 		//http://purl.obolibrary.org/obo/emapa.owl
@@ -148,8 +151,36 @@ public class OntologyUtils {
 		for (String path: stageOntologies){
 			fillHashesFor(path, stageTerms, null);
 		}
+		
+		alternateIds.putAll(getAlternateIds(anatomyOntologies));
+		alternateIds.putAll(getAlternateIds(phenotypeOntologies));
+		alternateIds.putAll(getAlternateIds(stageOntologies));
+		
 		return false;
 		
+	}
+	
+	private HashMap<String, String> getAlternateIds(ArrayList<String> ontologies){
+		HashMap<String, String> res = new HashMap<>();
+		for(String path: ontologies){
+			try {
+				logger.info("Lading: " + path);
+				System.out.println("Lading: " + path);
+				OWLOntology ontology = manager.loadOntologyFromOntologyDocument(IRI.create(new File(path)));
+				Set<OWLClass> classesSubSet = ontology.getClassesInSignature();
+				for (OWLClass cls : classesSubSet){
+					if (!cls.getIRI().isNothing() && cls.getAnnotations(ontology, ALT_ID) != null){
+						for (OWLAnnotation annotation : cls.getAnnotations(ontology, ALT_ID)) {
+							if (annotation.getValue() instanceof OWLLiteral) {
+								OWLLiteral val = (OWLLiteral) annotation.getValue();
+								res.put(val.getLiteral().replace(":", "_"), getIdentifierShortForm(cls));
+							}
+						}
+					}
+				}
+			}catch(Exception e){e.printStackTrace();}
+		}
+		return res;
 	}
 	
 	private void fillHashesFor(String path, HashMap<String, OntologyObject> idLabelMap, String rootId){
@@ -197,9 +228,6 @@ public class OntologyUtils {
 					for (OWLObject obj : ancestorsInSubTree) {
 						temp.getIntermediateTerms().add(idLabelMap.get(getIdentifierShortForm(cls)));
 					}
-					if (getIdentifierShortForm(cls).contains("MA_0000261")) {
-						System.out.println("YES, it was added the second time " + getIdentifierShortForm(cls));
-					}
 					idLabelMap.put(getIdentifierShortForm(cls), temp);
 				}
 			}
@@ -245,6 +273,10 @@ public class OntologyUtils {
 		}
 		else if (spTerms.containsKey(id)){
 			return spTerms.get(id);
+		}
+		// Id was not found until here so it might be deprecated
+		if (alternateIds.containsKey(id)){
+			return getOntologyTermById(alternateIds.get(id));
 		}
 		return null;
 	}

@@ -580,7 +580,6 @@ public class BatchXmlUploader {
 					if (ann.getOntologyTerm() != null){
 						if (expression){
 							expressionInAnatomyIds.add(ann.getOntologyTerm().getTermId());
-							System.out.println("term id ++ " + ann.getOntologyTerm().getTermId());
 							OntologyObject oo = ou.getOntologyTermById(ann.getOntologyTerm().getTermId());
 							expressionInAnatomyLabels.add(oo.getLabel());
 							res.addExpressedGfSynonymsBag(oo.getSynonyms());
