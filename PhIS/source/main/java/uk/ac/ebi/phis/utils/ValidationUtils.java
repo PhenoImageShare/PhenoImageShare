@@ -97,7 +97,7 @@ public class ValidationUtils {
 	}
 
 
-	public boolean isValidOntologyTerms(Channel channel) {
+	public boolean hasValidOntologyTerms(Channel channel) {
 
 		List<Annotation> annList;
 		boolean res = true;
@@ -119,7 +119,7 @@ public class ValidationUtils {
 		return res;
 	}
 
-	public boolean isValidOntologyTerms(Roi roi) {
+	public boolean hasValidOntologyTerms(Roi roi) {
 
 		List<Annotation> annList;
 		boolean res = true;

@@ -747,7 +747,7 @@ private ImageDTO copyFieldsFromChannel(Image img, ImageDTO pojo){
 
 		// Check associated image/channel/roi ids are valid a) they exist , b)
 		// the link is reflezive
-		boolean res = checkIdsReferenceEWxistingObjects();
+		boolean res = checkIdsReferenceExistingObjects();
 		if (!res) { return false; }
 
 		for (Image img : imageIdMap.values()) {
@@ -763,7 +763,7 @@ private ImageDTO copyFieldsFromChannel(Image img, ImageDTO pojo){
 		for (Roi roi : roiIdMap.values()) {
 
 			if (!vu.arePercentagesOk(roi.getCoordinates())) { return false; }
-			if (!vu.isValidOntologyTerms(roi)) {
+			if (!vu.hasValidOntologyTerms(roi)) {
 				System.out.println("there was something wrong with the ontology terms for roi id = " + roi.getId());
 				return false;
 			}
@@ -772,7 +772,7 @@ private ImageDTO copyFieldsFromChannel(Image img, ImageDTO pojo){
 	}
 
 
-	private boolean checkIdsReferenceEWxistingObjects() {
+	private boolean checkIdsReferenceExistingObjects() {
 
 		// Associated roi & channel for image really exist
 		for (Image img : imageIdMap.values()) {
