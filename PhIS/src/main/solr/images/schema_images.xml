@@ -233,6 +233,9 @@
    <copyField source="anatomy_computed_id_bag" dest="generic_search"/>
    <copyField source="anatomy_computed_term_bag" dest="generic_search"/>
    <copyField source="anatomy_computed_synonyms_bag" dest="generic_search"/>
+   <copyField source="anatomy_id" dest="generic_search"/>
+   <copyField source="anatomy_term" dest="generic_search"/>
+   <copyField source="anatomy_freetext" dest="generic_search"/>
    <copyField source="depicted_anatomy_term_bag" dest="generic_search"/>
    <copyField source="depicted_anatomy_freetext_bag" dest="generic_search"/>
    <copyField source="depicted_anatomy_term_bag" dest="generic_search"/>
