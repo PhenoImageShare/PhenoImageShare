@@ -210,7 +210,7 @@ public class ImageService {
 				ImageDTO.SAMPLE_PREPARATION_LABEL + ":\"" + samplePreparation + "\"");
 		}
 		if (imagingMethod != null){
-			solrQuery.addFilterQuery(ImageDTO.IMAGING_METHOD_LABEL_ANALYSED + ":\"" + imagingMethod + "\" OR " + 
+			solrQuery.addFilterQuery(ImageDTO.IMAGING_METHOD_LABEL + ":\"" + imagingMethod + "\" OR " + 
 			ImageDTO.IMAGING_METHOD_ID + ":\"" + imagingMethod + "\"");
 		}
 		if (sex != null){

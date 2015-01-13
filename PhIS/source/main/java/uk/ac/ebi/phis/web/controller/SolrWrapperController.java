@@ -67,9 +67,12 @@ public class SolrWrapperController {
     		Model model
             ) throws SolrServerException, IOException, URISyntaxException {
 				
+		
+//		System.out.println("imagingMethod ----- " + imagingMethod);
 		return is.getImage(term, phenotype, gene, mutantGene, anatomy, expressedGene, sex, taxon, image_type, sample_type, stage, visualisationMethod, 
 						samplePreparation, imagingMethod, resultNo, start);
-    }
+    
+	}
 	
 	
 	@RequestMapping(value="/getAutosuggest", method=RequestMethod.GET)
