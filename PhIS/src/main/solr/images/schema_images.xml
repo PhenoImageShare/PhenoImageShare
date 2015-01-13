@@ -218,7 +218,6 @@
    <copyField source="phenotype_label_bag" dest="term_autosuggest"/>
    <copyField source="imaging_method_label" dest="term_autosuggest"/>
 
-
    <copyField source="gene_id" dest="generic_search"/>
    <copyField source="gene_symbol" dest="generic_search"/>
    <copyField source="gene_synonyms" dest="generic_search"/>   
@@ -231,6 +230,9 @@
    <copyField source="expression_in_label_bag" dest="generic_search"/>
    <copyField source="expression_in_freetext_bag" dest="generic_search"/>
    <copyField source="anatomy_computed_id_bag" dest="generic_search"/>
+   <copyField source="anatomy_freetext" dest="generic_search"/>
+   <copyField source="anatomy_id" dest="generic_search"/>
+   <copyField source="anatomy_term" dest="generic_search"/>
    <copyField source="anatomy_computed_term_bag" dest="generic_search"/>
    <copyField source="anatomy_computed_synonyms_bag" dest="generic_search"/>
    <copyField source="depicted_anatomy_term_bag" dest="generic_search"/>
