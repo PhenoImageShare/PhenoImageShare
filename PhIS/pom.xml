@@ -214,11 +214,6 @@
 	<dependencies>
 
 
-		<dependency>
-			<groupId>net.sourceforge.owlapi</groupId>
-			<artifactId>owlapi-apibinding</artifactId>
-			<version>3.5.1</version>
-		</dependency>
 
 		<dependency>
 			<artifactId>solr-solrj</artifactId>
@@ -253,6 +248,11 @@
 	    <groupId>net.sourceforge.owlapi</groupId>
 	    <artifactId>owlapi-api</artifactId>
 	    <version>3.4.10</version>
+		</dependency>
+		<dependency>
+			<groupId>net.sourceforge.owlapi</groupId>
+			<artifactId>owlapi-apibinding</artifactId>
+			<version>3.5.1</version>
 		</dependency>
 
   	<!-- HTTP components Dependencies -->
