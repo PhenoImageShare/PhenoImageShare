@@ -62,12 +62,12 @@ public class Neo4jAccessUtils {
 	}
 	
 	
-	public String createAnnotation( String userId, String anntoationId, String associatedImageId, float[] xCoordinates,
-    float[] yCoordinates, float[] zCoordinates, String associatedChannel, String depictedAnatomyId, String depictedAnatomyLabel,
+	public void createAnnotation( String userId, String anntoationId, String associatedImageId, float[] xCoordinates,
+    float[] yCoordinates, float[] zCoordinates, String associatedChannelId, String depictedAnatomyId, String depictedAnatomyLabel,
     String abnInAnatomyId, String abnInAnatomyLabel, String phenotypeId, String phenotypeLabel, String observation,	Model model    ) throws Exception {
 	
 		Node user;
-		Node channel;
+		Node channel = null;
 		Node image;
 		Node annotation;
 		
@@ -84,34 +84,33 @@ public class Neo4jAccessUtils {
 			throw getNoAnnotationException();
 		}
 		
-		
-		if (existsId(userId, userLabel)){
-			user = getNodeById(userId);
-		} else {
-			user = addUser(userId);
-		}
-		
-		if (existsId(associatedImageId, imageLabel)){
-			image = getNodeById(associatedImageId);
-		}else {
-			image = addImage(associatedImageId);
-		}
-		
-		if (associatedChannel != null){
-			if (existsId(associatedChannel, channelLabel)){
-				channel = getNodeById(associatedChannel);
-			} else {
-				channel = addChannel(associatedChannel);
-			}
+		user = getOrCreateNode(userId, userLabel);
+		image = getOrCreateNode(associatedImageId, imageLabel);
+				
+		if (associatedChannelId != null){
+			channel = getOrCreateNode(associatedChannelId, channelLabel);
 		}
 		
 		annotation = addAnnotation(anntoationId, observation, today, xCoordinates, yCoordinates, zCoordinates);
 		
+		addBidirectionalRelation(annotation, Neo4jRelationship.HAS_ASSOCIATED_IMAGE, image);
+		addBidirectionalRelation(annotation, Neo4jRelationship.CREATED_BY, user);
+		
+		if (channel != null){
+			addBidirectionalRelation(annotation, Neo4jRelationship.HAS_ASSOCIATED_CHANNEL, channel);
+		}		
 		if (depictedAnatomyId != null){
 			Node ot = getOrCreateNode(depictedAnatomyId, ontologyTermLabel);
 			addBidirectionalRelation(annotation, Neo4jRelationship.DEPICTS, ot);
 		}
-		return "" ;
+		if (abnInAnatomyId != null){
+			Node ot = getOrCreateNode(abnInAnatomyId, ontologyTermLabel);
+			addBidirectionalRelation(annotation, Neo4jRelationship.DEPICTS_ABNORMALITY_IN, ot);
+		}
+		if (phenotypeId != null){
+			Node ot = getOrCreateNode(phenotypeId, ontologyTermLabel);
+			addBidirectionalRelation(annotation, Neo4jRelationship.DEPICTS_PHENOTYPE, ot);
+		}
 	}
 	
 	public void addBidirectionalRelation(Node fromNode, Neo4jRelationship relation, Node toNode) throws Exception{
@@ -297,7 +296,7 @@ public class Neo4jAccessUtils {
 		if ( existsId(id, label) ){
 			res = getNodeById(id);
 		} else {
-			res = addOntologyTerm(id, null);
+			res = createNode(id, label);
 		}
 		return res;
 	}
