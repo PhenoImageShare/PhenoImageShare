@@ -19,9 +19,5 @@ import uk.ac.ebi.neo4jUtils.Neo4jAccessUtils;
 
 public class DatabaseController {
 
-	
-	@Autowired
-	Neo4jAccessUtils neo;
-	
-	
+		
 }

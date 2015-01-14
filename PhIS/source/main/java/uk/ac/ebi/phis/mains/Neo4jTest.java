@@ -29,9 +29,10 @@ public class Neo4jTest {
 //			neo.addOntologyTerm("BLAH:00003", "heart");
 //			neo.addOntologyTerm("BLAH:00004", "Abnormal morphology");
 //			neo.addUser("user_2wq1");
-			Node user1 = neo.getNodeById("user_1");
-			Node annotation1 = neo.getNodeById("1");
-			neo.addBidirectionalRelation(annotation1, Neo4jRelationship.CREATED_BY, user1);
+//			Node image = neo.getNodeById("i_sq121");
+//			Node annotation1 = neo.getNodeById("1");
+//			neo.addBidirectionalRelation(annotation1, Neo4jRelationship.HAS_ASSOCIATED_IMAGE, image);
+//			neo.deleteNodeWithRelations("ann_0546156");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

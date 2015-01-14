@@ -112,37 +112,22 @@ public class Neo4jAccessUtils {
 			addBidirectionalRelation(annotation, Neo4jRelationship.DEPICTS_PHENOTYPE, ot);
 		}
 	}
-	
-	public void addUnidirectionalRelation(Node fromNode, Neo4jRelationship relation, Node toNode) throws Exception{
-
-		String testQuery = "MATCH (from {id:\"" + fromNode.getProperty("id") + "\"})-[:" + relation + "]->(to {id:\"" + toNode.getProperty("id") + "\"}) RETURN to";
-		if (existsUnidirectionalRelationship(fromNode, relation, toNode)){
-			throw new Exception(RELATIONSHIP_EXISTS_EXCEPTION);
-		}
-		try ( Transaction tx = db.beginTx() )
-        {		
-			Relationship relationship = fromNode.createRelationshipTo( toNode, relation );
-			for (Relationship rel: fromNode.getRelationships()){
-				System.out.println(" Found this rel : " + rel + " of type " + rel.getType() + " from " + rel.getStartNode() + " to " + rel.getEndNode());
-			}
-			tx.success();
-			tx.close();
-        }   
-	}
-	
-	
+		
 	public void addBidirectionalRelation(Node fromNode, Neo4jRelationship relation, Node toNode) throws Exception{
 
-		
-		System.out.println(" parameter ::: " + fromNode + "  " + relation + "   " + toNode);
-		String testQuery = "MATCH (from {id:\"" + "sa" + "\"})-[:" + "sa" + "]-(to {id:\"" + "sa" + "\"}) RETURN to";
-		if (existsUnidirectionalRelationship(fromNode, relation, toNode)){
+		Boolean toRight = existsUnidirectionalRelationship(fromNode, relation, toNode);
+		Boolean toLeft = existsUnidirectionalRelationship(toNode, relation, fromNode);
+		if ( toRight && toLeft){
 			throw new Exception(RELATIONSHIP_EXISTS_EXCEPTION);
 		}
 		try ( Transaction tx = db.beginTx() )
         {				
-			Relationship relationship = fromNode.createRelationshipTo( toNode, relation );
-			relationship.setProperty( "message", "brave Neo4j " );
+			if (!toRight){
+				fromNode.createRelationshipTo( toNode, relation );
+			}
+			if (!toLeft){
+				toNode.createRelationshipTo( fromNode, relation );
+			}
 			for (Relationship r: fromNode.getRelationships()){
 				System.out.println(" Found this rel : " + r + " of type " + r.getType() + " from " + r.getStartNode() + " to " + r.getEndNode());
 			}
@@ -151,18 +136,14 @@ public class Neo4jAccessUtils {
         }   
 	}
 	
-	public void addUnidirectionalRelation(String fromNodeId, Neo4jRelationship relation, String toNodeId) throws Exception{
-
-		Node fromNode = getNodeById(fromNodeId);
-		Node toNode = getNodeById(toNodeId);
+	public void addUnidirectionalRelation(Node fromNode, Neo4jRelationship relation, Node toNode) throws Exception{
 		
 		if (existsUnidirectionalRelationship(fromNode, relation, toNode)){
 			throw new Exception(RELATIONSHIP_EXISTS_EXCEPTION);
 		}
 		try ( Transaction tx = db.beginTx() )
         {
-			Relationship relationship = fromNode.createRelationshipTo( toNode, relation );
-			relationship.setProperty( "message", "brave Neo4j " );
+			fromNode.createRelationshipTo( toNode, relation );
 			for (Relationship rel: fromNode.getRelationships()){
 				System.out.println(" Found this rel : " + rel + " of type " + rel.getType() + " from " + rel.getStartNode() + " to " + rel.getEndNode());
 			}
@@ -356,7 +337,6 @@ public class Neo4jAccessUtils {
 	}
 	
 	public String readThisQuery(String query){
-		ExecutionResult result;
         try ( Transaction ignored = db.beginTx() )
         {
             resultString = engine.execute( query ).dumpToString();
@@ -385,6 +365,22 @@ public class Neo4jAccessUtils {
 	 	return (engine.execute( testQuery ).iterator().hasNext());
 	}
 	
+	public void deleteNodeWithRelations(String nodeId){
+		try ( Transaction tx = db.beginTx() )
+        {
+			String query = "MATCH (n {id:'" + nodeId + "'})-[r]-() DELETE n,r";
+			System.out.println("DELETE query is : " + query);
+			engine.execute( query );
+			tx.success();
+			tx.close();
+        }
+	}
+	
+	public boolean canDelete(String userId, String nodeId){
+		Node node = getNodeById(nodeId);
+		Node user = getNodeById(userId);
+		return existsUnidirectionalRelationship(node, Neo4jRelationship.CREATED_BY, user);
+	}
 	
 	public void closeDb(){
 		db.shutdown();

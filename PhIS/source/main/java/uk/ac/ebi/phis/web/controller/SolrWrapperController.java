@@ -201,8 +201,26 @@ public class SolrWrapperController {
 		}
 		
 		return "";
-
     }
+	
+	@RequestMapping(value="/deleteAnnotation", method=RequestMethod.GET)	
+    public @ResponseBody String createAnnotation(
+    		@RequestParam(value = "userId", required = true) String userId,
+            @RequestParam(value = "anntoationId", required = true) String anntoationId,
+    		Model model
+            ) {
+		try {
+			
+			if (neo.canDelete(userId, anntoationId)){
+				neo.deleteNodeWithRelations(anntoationId);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "";
+    }
+	
 	
 }
 

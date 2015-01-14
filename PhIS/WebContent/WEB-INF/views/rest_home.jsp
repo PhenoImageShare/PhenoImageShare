@@ -472,5 +472,38 @@
 	</table>
 
 
+<h1>/deleteAnnotation</h1>
+	<table>
+		<tbody>
+		<thead>
+			<tr style="background-color: green;">
+				<th>Name</th>
+				<th>Type</th>
+				<th>Required</th>
+				<th>Description</th>
+				<th>Default</th>
+				<th>Example Values</th>
+			</tr>
+		</thead>
+		<tbody>
+   		<tr>
+				<td>userId</td>
+				<td><var>String</var></td>
+				<td> true </td>
+				<td>Unique user id. Must be the same user who created the image, otherwise permission is not granted.</td>
+				<td><var>-</var></td>
+				<td><var>user_021897401</var><br></td>
+			</tr>
+			<tr>
+				<td>anntoationId</td>
+				<td><var>String</var></td>
+				<td> true </td>
+				<td>Unique id of the annotation to be deleted.</td>
+				<td><var></var></td>
+				<td><var></var><br></td>
+			</tr>			
+		</tbody>
+	</table>
+
 </body>
 </html>
