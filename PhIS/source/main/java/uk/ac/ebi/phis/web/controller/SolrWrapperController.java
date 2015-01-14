@@ -179,7 +179,6 @@ public class SolrWrapperController {
             @RequestParam(value = "associatedImageId", required = true) String associatedImageId,
             @RequestParam(value = "xCoordinates", required = true) float[] xCoordinates,
             @RequestParam(value = "yCoordinates", required = true) float[] yCoordinates,
-            
             @RequestParam(value = "zCoordinates", required = false) float[] zCoordinates,
     		@RequestParam(value = "associatedChannel", required = false) String associatedChannel,
             @RequestParam(value = "depictedAnatomyId", required = false) String depictedAnatomyId,
@@ -192,8 +191,6 @@ public class SolrWrapperController {
     		Model model
             ) {
 			
-		
-		System.out.println("GOT CALLED!!");
 		try {
 			neo.createAnnotation(userId, anntoationId, associatedImageId, xCoordinates, yCoordinates, zCoordinates, associatedChannel, depictedAnatomyId, depictedAnatomyLabel, abnInAnatomyId, abnInAnatomyLabel, phenotypeId, phenotypeLabel, observation, model);
 		} catch (Exception e) {
@@ -217,7 +214,6 @@ public class SolrWrapperController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 		return "";
     }
 	

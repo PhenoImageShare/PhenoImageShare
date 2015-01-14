@@ -19,7 +19,7 @@
 	<h3>Parameters</h3>
 	<table class="table table-striped">
 		<thead>
-			<tr>
+			<tr  style="background-color: lightSteelBlue;">
 				<th>Name</th>
 				<th>Type</th>
 				<th>Required</th>
@@ -54,14 +54,14 @@
 				<td><var> * </var></td>
 				<td><var>MA:0000261, eye</var></td>
 			</tr>
-			<tr style="background-color: grey;">
+			<!-- tr style="background-color: grey;">
 				<td>gene</td>
 				<td><var>String</var></td>
 				<td>false</td>
 				<td> [TO BE DEPRECATED] Use mutantGene instead. Filters for samples with a mutation in the specified gene.</td>
 				<td><var> * </var></td>
 				<td><var>MGI:1891295, Spns2</var></td>
-			</tr>			
+			</tr-->			
 			<tr>
 				<td>mutantGene</td>
 				<td><var>String</var></td>
@@ -174,7 +174,7 @@
 	<h3>Parameters</h3>
 	<table class="table table-striped">
 		<thead>
-			<tr>
+			<tr style="background-color: lightSteelBlue;">
 				<th>Name</th>
 				<th>Type</th>
 				<th>Required</th>
@@ -201,7 +201,7 @@
 	<h3>Parameters</h3>
 	<table class="table table-striped">
 		<thead>
-			<tr>
+			<tr style="background-color: lightSteelBlue;">
 				<th>Name</th>
 				<th>Type</th>
 				<th>Required</th>
@@ -247,7 +247,7 @@
 	<h3>Parameters</h3>
 	<table class="table table-striped">
 		<thead>
-			<tr>
+			<tr style="background-color: lightSteelBlue;">
 				<th>Name</th>
 				<th>Type</th>
 				<th>Required</th>
@@ -274,7 +274,7 @@
 	<h3>Parameters</h3>
 	<table class="table table-striped">
 		<thead>
-			<tr>
+			<tr style="background-color: lightSteelBlue;">
 				<th>Name</th>
 				<th>Type</th>
 				<th>Required</th>
@@ -322,7 +322,7 @@
 	<h3>Parameters</h3>
 	<table class="table table-striped">
 		<thead>
-			<tr style="background-color: green;">
+			<tr style="background-color: lightSteelBlue;">
 				<th>Name</th>
 				<th>Type</th>
 				<th>Required</th>
@@ -340,27 +340,27 @@
 				<td><var> - </var></td>
 				<td><var>abn</var><br></td>
 			</tr>
-			<tr style="background-color: grey;">
+			<tr>
 				<td>mutantGene</td>
 				<td><var>String</var></td>
 				<td> false</td>
-				<td>[TO BE DEPRECATED] Suggestions for mutant gene symbols from annotations, with highlights.</td>
+				<td>Suggestions for mutant gene symbols from annotations, with highlights.</td>
 				<td><var> - </var></td>
 				<td><var>a</var><br></td>
 			</tr>
-			<tr style="background-color: grey;">
+			<tr>
 				<td>expressedGeneOrAllele</td>
 				<td><var>String</var></td>
 				<td> false </td>
-				<td>[TO BE DEPRECATED] Suggestions for expressed gene or allele symbols, with highlights.</td>
+				<td>Suggestions for expressed gene or allele symbols, with highlights.</td>
 				<td><var> - </var></td>
 				<td><var>m</var><br></td>
 			</tr>
-			<tr style="background-color: grey;">
+			<tr>
 				<td>phenotype</td>
 				<td><var>String</var></td>
 				<td> false</td>
-				<td>[TO BE DEPRECATED] Suggestions for phenotype labels from annotations, with highlights.</td>
+				<td>Suggestions for phenotype labels from annotations, with highlights.</td>
 				<td><var> - </var></td>
 				<td><var>abn</var><br></td>
 			</tr>

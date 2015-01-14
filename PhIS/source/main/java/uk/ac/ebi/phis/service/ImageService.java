@@ -131,6 +131,7 @@ public class ImageService {
 		}
 		
 		if (term != null){
+			solrQuery.setQuery(ImageDTO.GENERIC_SEARCH + ":" + term);
 			System.out.println("term is .." + term + "..");
 			if (term.contains(" ")){
 				String[] splittedQuery = term.split(" ");
