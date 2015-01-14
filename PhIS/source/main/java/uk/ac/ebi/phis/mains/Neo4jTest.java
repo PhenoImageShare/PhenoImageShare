@@ -20,15 +20,15 @@ public class Neo4jTest {
 		float[] z = {};
 		
 		try {
-//			neo.addAnnotation("0", "All looks normal", new Date(), new Date(), x, y, z);
-//			neo.addAnnotation("1", "See phenotype annotation.", new Date(), new Date(), x, y, z);
+//			neo.addAnnotation("0", "All looks normal", new Date(), x, y, z);
+//			neo.addAnnotation("1", "See phenotype annotation.", new Date(), x, y, z);
 //			neo.addChannel("c_0");
-//			neo.addImage("i_1");
+//			neo.addImage("i_sq121");
 //			neo.addOntologyTerm("BLAH:00001", "Mage up ontology term");
 //			neo.addOntologyTerm("BLAH:00006", "big head");
 //			neo.addOntologyTerm("BLAH:00003", "heart");
 //			neo.addOntologyTerm("BLAH:00004", "Abnormal morphology");
-//			neo.addUser("user_1");
+//			neo.addUser("user_2wq1");
 			Node user1 = neo.getNodeById("user_1");
 			Node annotation1 = neo.getNodeById("1");
 			neo.addBidirectionalRelation(annotation1, Neo4jRelationship.CREATED_BY, user1);

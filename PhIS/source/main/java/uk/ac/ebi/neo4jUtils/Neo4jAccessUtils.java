@@ -57,7 +57,7 @@ public class Neo4jAccessUtils {
         imageLabel = createLabel("Image");
         userLabel = createLabel("User");
 
-        addUniqueIdConstraint(annLabel);
+ //       addUniqueIdConstraint(annLabel);
         
 	}
 	
@@ -113,18 +113,38 @@ public class Neo4jAccessUtils {
 		}
 	}
 	
-	public void addBidirectionalRelation(Node fromNode, Neo4jRelationship relation, Node toNode) throws Exception{
+	public void addUnidirectionalRelation(Node fromNode, Neo4jRelationship relation, Node toNode) throws Exception{
 
-		String testQuery = "MATCH (from {id:\"" + fromNode.getProperty("id") + "\"})-[:" + relation + "]-(to {id:\"" + toNode.getProperty("id") + "\"}) RETURN to";
-		if (existsRelationship(testQuery)){
+		String testQuery = "MATCH (from {id:\"" + fromNode.getProperty("id") + "\"})-[:" + relation + "]->(to {id:\"" + toNode.getProperty("id") + "\"}) RETURN to";
+		if (existsUnidirectionalRelationship(fromNode, relation, toNode)){
 			throw new Exception(RELATIONSHIP_EXISTS_EXCEPTION);
 		}
 		try ( Transaction tx = db.beginTx() )
         {		
 			Relationship relationship = fromNode.createRelationshipTo( toNode, relation );
-			relationship.setProperty( "message", "brave Neo4j " );
 			for (Relationship rel: fromNode.getRelationships()){
 				System.out.println(" Found this rel : " + rel + " of type " + rel.getType() + " from " + rel.getStartNode() + " to " + rel.getEndNode());
+			}
+			tx.success();
+			tx.close();
+        }   
+	}
+	
+	
+	public void addBidirectionalRelation(Node fromNode, Neo4jRelationship relation, Node toNode) throws Exception{
+
+		
+		System.out.println(" parameter ::: " + fromNode + "  " + relation + "   " + toNode);
+		String testQuery = "MATCH (from {id:\"" + "sa" + "\"})-[:" + "sa" + "]-(to {id:\"" + "sa" + "\"}) RETURN to";
+		if (existsUnidirectionalRelationship(fromNode, relation, toNode)){
+			throw new Exception(RELATIONSHIP_EXISTS_EXCEPTION);
+		}
+		try ( Transaction tx = db.beginTx() )
+        {				
+			Relationship relationship = fromNode.createRelationshipTo( toNode, relation );
+			relationship.setProperty( "message", "brave Neo4j " );
+			for (Relationship r: fromNode.getRelationships()){
+				System.out.println(" Found this rel : " + r + " of type " + r.getType() + " from " + r.getStartNode() + " to " + r.getEndNode());
 			}
 			tx.success();
 			tx.close();
@@ -135,8 +155,8 @@ public class Neo4jAccessUtils {
 
 		Node fromNode = getNodeById(fromNodeId);
 		Node toNode = getNodeById(toNodeId);
-		String testQuery = "MATCH (from {id:\"" + fromNodeId + "\"})-[:" + relation + "]->(to {id:\"" + toNodeId + "\"}) RETURN to";
-		if (existsRelationship(testQuery)){
+		
+		if (existsUnidirectionalRelationship(fromNode, relation, toNode)){
 			throw new Exception(RELATIONSHIP_EXISTS_EXCEPTION);
 		}
 		try ( Transaction tx = db.beginTx() )
@@ -173,10 +193,12 @@ public class Neo4jAccessUtils {
             	myNode.setProperty( "observation", observation );
             }
             myNode.setProperty( "creationDate", DATE_FORMAT.format(creationDate) );
-//            myNode.setProperty( "lastModifiedDate", DATE_FORMAT.format(lastModifiedDate) );
+//          myNode.setProperty( "lastModifiedDate", DATE_FORMAT.format(lastModifiedDate) );
             myNode.setProperty( "xCoordinates", xCoordinates );
             myNode.setProperty( "yCoordinates", yCoordinates );
-            myNode.setProperty( "zCoordinates", zCoordinates );
+            if (zCoordinates != null){
+            	myNode.setProperty( "zCoordinates", zCoordinates );
+            }
             tx.success();
             tx.close();
         }
@@ -210,10 +232,11 @@ public class Neo4jAccessUtils {
 	
 	private Node createNode(String id, Label label) throws Exception{
 		Node myNode;
+		System.out.println("Label + " + label);
 		if (id == null || id.equals("")){
 			throw getEmptyIdException();
 		} 
-		else if (existsId(id, channelLabel)){
+		else if (existsId(id, label)){
 			throw getIdAlreadyExists(id);
 		}
 		try ( Transaction tx = db.beginTx() )
@@ -314,7 +337,7 @@ public class Neo4jAccessUtils {
 	public Label createLabel(String label){
 		Label l = null;
 		try ( Transaction tx = db.beginTx(); ){
-			l = DynamicLabel.label("Annotation");
+			l = DynamicLabel.label(label);
 			tx.close();
 		}
 		return l;
@@ -348,9 +371,18 @@ public class Neo4jAccessUtils {
 		return readThisQuery(query);
 	}
 	
-	public boolean existsRelationship(String query){
-		System.out.println("Query:: " + query);
-		return (engine.execute( query ).iterator().hasNext());
+	public boolean existsUnidirectionalRelationship(Node fromNode, Neo4jRelationship relation, Node toNode){
+		String rel;
+		String from; 
+		String to;
+		try ( Transaction tx = db.beginTx() )
+        {
+			from = fromNode.getProperty("id").toString();
+			to = toNode.getProperty("id").toString();
+			rel = relation.name();
+        }
+		String testQuery = "MATCH (from {id:\"" + from + "\"})-[:" + rel + "]->(to {id:\"" + to + "\"}) RETURN to";
+	 	return (engine.execute( testQuery ).iterator().hasNext());
 	}
 	
 	

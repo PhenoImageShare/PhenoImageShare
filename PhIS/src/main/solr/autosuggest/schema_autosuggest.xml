@@ -210,10 +210,10 @@
    
    <!-- Autosuggest fields -->
    <!-- field name="term_autosuggest_analysed" type="textWhitespaceEdge" indexed="true" stored="true" multiValued="true" termVectors="true" termPositions="true" termOffsets="true"/-->
-   <field name="term_autosuggest" type="textWhitespaceEdge" indexed="true" stored="true" multiValued="false"  omitTermFreqAndPositions="true" omitNorms="false"/>
-   <field name="term_autosuggest_na" type="string" indexed="true" stored="true" multiValued="false"  omitTermFreqAndPositions="true" omitNorms="false"/>
-   <field name="term_autosuggest_ws" type="textWhitespace" indexed="true" stored="true" multiValued="false"  omitTermFreqAndPositions="true" omitNorms="false"/>
-   <field name="term_autosuggest_e" type="textEdge" indexed="true" stored="true" multiValued="false"  omitTermFreqAndPositions="true" omitNorms="false"/>
+   <field name="term_autosuggest" type="textWhitespaceEdge" indexed="true" stored="true" multiValued="false" />
+   <field name="term_autosuggest_na" type="string" indexed="true" stored="true" multiValued="false" />
+   <field name="term_autosuggest_ws" type="textWhitespace" indexed="true" stored="true" multiValued="false"/>
+   <field name="term_autosuggest_e" type="textEdge" indexed="true" stored="true" multiValued="false" />
   
  </fields>
  
