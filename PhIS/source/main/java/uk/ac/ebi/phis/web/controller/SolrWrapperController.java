@@ -167,7 +167,6 @@ public class SolrWrapperController {
 		System.out.println("Try /getImages .");
 		return "rest_home";
     }	
-	
 }
 
 

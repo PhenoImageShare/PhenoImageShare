@@ -45,19 +45,24 @@ import uk.ac.ebi.neo4jUtils.Neo4jAccessUtils;
 	            @RequestParam(value = "xCoordinates", required = true) float[] xCoordinates,
 	            @RequestParam(value = "yCoordinates", required = true) float[] yCoordinates,
 	            @RequestParam(value = "zCoordinates", required = false) float[] zCoordinates,
-	    		@RequestParam(value = "associatedChannel", required = false) String associatedChannel,
+	    		@RequestParam(value = "associatedChannelId", required = false) String associatedChannelId,
 	            @RequestParam(value = "depictedAnatomyId", required = false) String depictedAnatomyId,
-	            @RequestParam(value = "depictedAnatomyLabel", required = false) String depictedAnatomyLabel,
+	            @RequestParam(value = "depictedAnatomyFreetext", required = false) String depictedAnatomyFreetext,
+	            @RequestParam(value = "expressionInAnatomyId", required = false) String expressionInAnatomyId,
+	            @RequestParam(value = "expressionInAnatomyFreetext", required = false) String expressionInAnatomyFreetext,
 	            @RequestParam(value = "abnInAnatomyId", required = false) String abnInAnatomyId,
-	            @RequestParam(value = "abnInAnatomyLabel", required = false) String abnInAnatomyLabel,
+	            @RequestParam(value = "abnInAnatomyFreetext", required = false) String abnInAnatomyFreetext,
 	            @RequestParam(value = "phenotypeId", required = false) String phenotypeId,
-	            @RequestParam(value = "phenotypeLabel", required = false) String phenotypeLabel,
+	            @RequestParam(value = "phenotypeFreetext", required = false) String phenotypeFreetext,
 	            @RequestParam(value = "observation", required = false) String observation,
 	    		Model model
 	            ) {
 				
 			try {
-				neo.createAnnotation(userId, anntoationId, associatedImageId, xCoordinates, yCoordinates, zCoordinates, associatedChannel, depictedAnatomyId, depictedAnatomyLabel, abnInAnatomyId, abnInAnatomyLabel, phenotypeId, phenotypeLabel, observation, model);
+				neo.createAnnotation(userId, anntoationId, associatedImageId, xCoordinates, yCoordinates, zCoordinates, 
+					associatedChannelId, depictedAnatomyId, depictedAnatomyFreetext, abnInAnatomyId, abnInAnatomyFreetext, phenotypeId, 
+					phenotypeFreetext, observation, expressionInAnatomyId, expressionInAnatomyFreetext, model);
+
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -68,24 +73,28 @@ import uk.ac.ebi.neo4jUtils.Neo4jAccessUtils;
 		@RequestMapping(value="/updateAnnotation", method=RequestMethod.GET)	
 	    public @ResponseBody String updateAnnotation(
 	    		@RequestParam(value = "userId", required = true) String userId,
-	            @RequestParam(value = "anntoationId", required = true) String anntoationId,
+	            @RequestParam(value = "anntoationId", required = true) String annotationId,
 	            @RequestParam(value = "associatedImageId", required = true) String associatedImageId,
 	            @RequestParam(value = "xCoordinates", required = true) float[] xCoordinates,
 	            @RequestParam(value = "yCoordinates", required = true) float[] yCoordinates,
 	            @RequestParam(value = "zCoordinates", required = false) float[] zCoordinates,
-	    		@RequestParam(value = "associatedChannel", required = false) String associatedChannel,
+	    		@RequestParam(value = "associatedChannelId", required = false) String associatedChannelId,
 	            @RequestParam(value = "depictedAnatomyId", required = false) String depictedAnatomyId,
-	            @RequestParam(value = "depictedAnatomyLabel", required = false) String depictedAnatomyLabel,
+	            @RequestParam(value = "depictedAnatomyLabel", required = false) String depictedAnatomyFreetext,
 	            @RequestParam(value = "abnInAnatomyId", required = false) String abnInAnatomyId,
-	            @RequestParam(value = "abnInAnatomyLabel", required = false) String abnInAnatomyLabel,
+	            @RequestParam(value = "abnInAnatomyLabel", required = false) String abnInAnatomyFreetext,
+	            @RequestParam(value = "expressionInAnatomyId", required = false) String expressionInAnatomyId,
+	            @RequestParam(value = "expressionInAnatomyFreetext", required = false) String expressionInAnatomyFreetext,
 	            @RequestParam(value = "phenotypeId", required = false) String phenotypeId,
-	            @RequestParam(value = "phenotypeLabel", required = false) String phenotypeLabel,
+	            @RequestParam(value = "phenotypeLabel", required = false) String phenotypeFreetext,
 	            @RequestParam(value = "observation", required = false) String observation,
 	    		Model model
 	            ) {
 				
 			try {
-				neo.createAnnotation(userId, anntoationId, associatedImageId, xCoordinates, yCoordinates, zCoordinates, associatedChannel, depictedAnatomyId, depictedAnatomyLabel, abnInAnatomyId, abnInAnatomyLabel, phenotypeId, phenotypeLabel, observation, model);
+				neo.updateAnnotation(annotationId, userId, associatedImageId, xCoordinates, yCoordinates, zCoordinates, associatedChannelId,
+					depictedAnatomyId, depictedAnatomyFreetext, abnInAnatomyId, abnInAnatomyFreetext, phenotypeId, expressionInAnatomyFreetext, 
+					expressionInAnatomyId, phenotypeFreetext, observation);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
