@@ -64,15 +64,22 @@ public class Neo4jAccessUtils {
 	
 	public void createAnnotation( String userId, String anntoationId, String associatedImageId, float[] xCoordinates,
     float[] yCoordinates, float[] zCoordinates, String associatedChannelId, String depictedAnatomyId, String depictedAnatomyLabel,
-    String abnInAnatomyId, String abnInAnatomyLabel, String phenotypeId, String phenotypeLabel, String observation,	Model model    ) throws Exception {
+    String abnInAnatomyId, String abnInAnatomyLabel, String phenotypeId, String phenotypeLabel, String observation,	Model model ) throws IllegalArgumentException {
+	
+		Date today = new Date();
+		createAnnotationWithDates(userId, anntoationId, associatedImageId, today, null, xCoordinates, yCoordinates, zCoordinates, associatedChannelId, 
+			depictedAnatomyId, depictedAnatomyLabel, abnInAnatomyId, abnInAnatomyLabel, phenotypeId, phenotypeLabel, observation);
+	}
+	
+	public void createAnnotationWithDates( String userId, String anntoationId, String associatedImageId, Date creationDate, Date lastModifiedDate, float[] xCoordinates,
+    float[] yCoordinates, float[] zCoordinates, String associatedChannelId, String depictedAnatomyId, String depictedAnatomyLabel,
+    String abnInAnatomyId, String abnInAnatomyLabel, String phenotypeId, String phenotypeLabel, String observation) throws IllegalArgumentException {
 	
 		Node user;
 		Node channel = null;
 		Node image;
 		Node annotation;
-		
-		Date today = new Date();
-		
+				
 		// Don't create another object with the same ID
 		if (existsId(anntoationId, imageLabel)){
 			throw getEmptyIdException();
@@ -91,7 +98,7 @@ public class Neo4jAccessUtils {
 			channel = getOrCreateNode(associatedChannelId, channelLabel);
 		}
 		
-		annotation = addAnnotation(anntoationId, observation, today, xCoordinates, yCoordinates, zCoordinates);
+		annotation = addAnnotationNode(anntoationId, observation, creationDate, lastModifiedDate, xCoordinates, yCoordinates, zCoordinates);
 		
 		addBidirectionalRelation(annotation, Neo4jRelationship.HAS_ASSOCIATED_IMAGE, image);
 		addBidirectionalRelation(annotation, Neo4jRelationship.CREATED_BY, user);
@@ -113,12 +120,12 @@ public class Neo4jAccessUtils {
 		}
 	}
 		
-	public void addBidirectionalRelation(Node fromNode, Neo4jRelationship relation, Node toNode) throws Exception{
+	public void addBidirectionalRelation(Node fromNode, Neo4jRelationship relation, Node toNode) throws IllegalArgumentException{
 
 		Boolean toRight = existsUnidirectionalRelationship(fromNode, relation, toNode);
 		Boolean toLeft = existsUnidirectionalRelationship(toNode, relation, fromNode);
 		if ( toRight && toLeft){
-			throw new Exception(RELATIONSHIP_EXISTS_EXCEPTION);
+			throw new IllegalArgumentException(RELATIONSHIP_EXISTS_EXCEPTION);
 		}
 		try ( Transaction tx = db.beginTx() )
         {				
@@ -152,33 +159,34 @@ public class Neo4jAccessUtils {
         }   
 	}
 	
-	public Node addAnnotation(String id, String observation, Date creationDate, float[] xCoordinates, 
-	float[] yCoordinates, float[] zCoordinates) throws Exception{
+	public Node addAnnotationNode(String id, String observation, Date creationDate, Date lastModifiedDate, float[] xCoordinates, 
+	float[] yCoordinates, float[] zCoordinates) throws IllegalArgumentException{
 		
 		Node myNode = null;
 		if (id == null || id.equals("")){
-			throw new Exception(EMPTY_ID_EXCEPTION_MESSAGE);
+			throw getEmptyIdException();
 		} 
 		else if (existsId(id, annLabel)){
-			throw new Exception(EXISTING_ID_EXCEPTION_MESSAGE + id);
+			throw getIdAlreadyExists(id);
 		}
 		else if (xCoordinates == null || yCoordinates == null){
-
-			throw new Exception(NO_COORDINATES_EXCEPTION);
+			throw new IllegalArgumentException(NO_COORDINATES_EXCEPTION);
 		}
 		try ( Transaction tx = db.beginTx() )
         {
             myNode = db.createNode(annLabel);
-            myNode.setProperty( "id", id );
+            myNode.setProperty( AnnotationProperties.id.name(), id );
             if (observation != null){
-            	myNode.setProperty( "observation", observation );
+            	myNode.setProperty( AnnotationProperties.OBSERVATION.name(), observation );
             }
-            myNode.setProperty( "creationDate", DATE_FORMAT.format(creationDate) );
-//          myNode.setProperty( "lastModifiedDate", DATE_FORMAT.format(lastModifiedDate) );
-            myNode.setProperty( "xCoordinates", xCoordinates );
-            myNode.setProperty( "yCoordinates", yCoordinates );
+            myNode.setProperty( AnnotationProperties.CREATION_DATE.name(), DATE_FORMAT.format(creationDate) );
+            if (lastModifiedDate != null){
+            	myNode.setProperty( AnnotationProperties.LAST_MODIFIED_DATE.name(), DATE_FORMAT.format(lastModifiedDate) );
+            }
+            myNode.setProperty( AnnotationProperties.X_COORDINATES.name(), xCoordinates );
+            myNode.setProperty( AnnotationProperties.Y_COORDINATES.name(), yCoordinates );
             if (zCoordinates != null){
-            	myNode.setProperty( "zCoordinates", zCoordinates );
+            	myNode.setProperty(AnnotationProperties.Z_COORDINATES.name(), zCoordinates );
             }
             tx.success();
             tx.close();
@@ -186,11 +194,11 @@ public class Neo4jAccessUtils {
 		return myNode;
 	}
 	
-	public Node addUser(String id) throws Exception{
+	public Node addUser(String id) throws IllegalArgumentException{
 		return createNode(id, userLabel);	
 	}
 	
-	public Node addOntologyTerm(String id, String termLabel) throws Exception{
+	public Node addOntologyTerm(String id, String termLabel) throws IllegalArgumentException{
 		Node ot = createNode(id, ontologyTermLabel);
 		if (termLabel != null){
 			try ( Transaction tx = db.beginTx() )
@@ -203,15 +211,15 @@ public class Neo4jAccessUtils {
         return ot;
 	}
 	
-	public Node addImage(String id) throws Exception{
+	public Node addImage(String id) throws IllegalArgumentException{
 		return createNode(id, imageLabel);
 	}
 	
-	public Node addChannel(String id) throws Exception{
+	public Node addChannel(String id) throws IllegalArgumentException{
 		return createNode(id, channelLabel);
 	}
 	
-	private Node createNode(String id, Label label) throws Exception{
+	private Node createNode(String id, Label label) throws IllegalArgumentException{
 		Node myNode;
 		System.out.println("Label + " + label);
 		if (id == null || id.equals("")){
@@ -231,16 +239,16 @@ public class Neo4jAccessUtils {
 	}
 	
 	
-	private Exception getEmptyIdException(){
-		return new Exception(EMPTY_ID_EXCEPTION_MESSAGE);
+	private IllegalArgumentException getEmptyIdException(){
+		return new IllegalArgumentException(EMPTY_ID_EXCEPTION_MESSAGE);
 	}
 	
-	private Exception getIdAlreadyExists(String id){
-		return new Exception(EXISTING_ID_EXCEPTION_MESSAGE + id);
+	private IllegalArgumentException getIdAlreadyExists(String id){
+		return new IllegalArgumentException(EXISTING_ID_EXCEPTION_MESSAGE + id);
 	}
 	
-	private  Exception getNoAnnotationException(){
-		return new Exception (NO_ANNOTATION_EXCEPTION);
+	private  IllegalArgumentException getNoAnnotationException(){
+		return new IllegalArgumentException (NO_ANNOTATION_EXCEPTION);
 	}
 	
 	public void addSomething(){
@@ -295,7 +303,7 @@ public class Neo4jAccessUtils {
 	}
 	
 	
-	public Node getOrCreateNode(String id, Label label) throws Exception{
+	public Node getOrCreateNode(String id, Label label) throws IllegalArgumentException{
 		Node res ;
 		if ( existsId(id, label) ){
 			res = getNodeById(id);
@@ -376,7 +384,32 @@ public class Neo4jAccessUtils {
         }
 	}
 	
-	public boolean canDelete(String userId, String nodeId){
+	public void updateAnnotation(String annotationId, String userId, String associatedImageId, float[] xCoordinates,
+    float[] yCoordinates, float[] zCoordinates, String associatedChannelId, String depictedAnatomyId, String depictedAnatomyLabel,
+    String abnInAnatomyId, String abnInAnatomyLabel, String phenotypeId, String phenotypeLabel, String observation) throws Exception{
+		Date today = new Date();
+		if (existsId(annotationId, annLabel)){
+			if (hasSameUser(userId, annotationId)){
+				Date createdAt = new Date(getCreationDate(annotationId));
+				deleteNodeWithRelations(annotationId);
+				createAnnotationWithDates(userId, annotationId, associatedImageId, createdAt, today, xCoordinates, yCoordinates, zCoordinates, 
+				associatedChannelId, depictedAnatomyId, depictedAnatomyLabel, abnInAnatomyId, abnInAnatomyLabel, phenotypeId, phenotypeLabel, observation);
+			}
+		}
+	}
+	
+	public String getCreationDate(String annId){		
+		String date = null;
+		try ( Transaction tx = db.beginTx() )
+        {
+			Node ann = getNodeById(annId);
+            date = ann.getProperty(AnnotationProperties.CREATION_DATE.name()).toString();
+            tx.close();
+        }
+		return date;
+	}
+	
+	public boolean hasSameUser(String userId, String nodeId){
 		Node node = getNodeById(nodeId);
 		Node user = getNodeById(userId);
 		return existsUnidirectionalRelationship(node, Neo4jRelationship.CREATED_BY, user);

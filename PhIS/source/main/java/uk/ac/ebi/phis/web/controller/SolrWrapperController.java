@@ -200,6 +200,34 @@ public class SolrWrapperController {
 		return "";
     }
 	
+	@RequestMapping(value="/updateAnnotation", method=RequestMethod.GET)	
+    public @ResponseBody String updateAnnotation(
+    		@RequestParam(value = "userId", required = true) String userId,
+            @RequestParam(value = "anntoationId", required = true) String anntoationId,
+            @RequestParam(value = "associatedImageId", required = true) String associatedImageId,
+            @RequestParam(value = "xCoordinates", required = true) float[] xCoordinates,
+            @RequestParam(value = "yCoordinates", required = true) float[] yCoordinates,
+            @RequestParam(value = "zCoordinates", required = false) float[] zCoordinates,
+    		@RequestParam(value = "associatedChannel", required = false) String associatedChannel,
+            @RequestParam(value = "depictedAnatomyId", required = false) String depictedAnatomyId,
+            @RequestParam(value = "depictedAnatomyLabel", required = false) String depictedAnatomyLabel,
+            @RequestParam(value = "abnInAnatomyId", required = false) String abnInAnatomyId,
+            @RequestParam(value = "abnInAnatomyLabel", required = false) String abnInAnatomyLabel,
+            @RequestParam(value = "phenotypeId", required = false) String phenotypeId,
+            @RequestParam(value = "phenotypeLabel", required = false) String phenotypeLabel,
+            @RequestParam(value = "observation", required = false) String observation,
+    		Model model
+            ) {
+			
+		try {
+			neo.createAnnotation(userId, anntoationId, associatedImageId, xCoordinates, yCoordinates, zCoordinates, associatedChannel, depictedAnatomyId, depictedAnatomyLabel, abnInAnatomyId, abnInAnatomyLabel, phenotypeId, phenotypeLabel, observation, model);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "";
+    }
+	
 	@RequestMapping(value="/deleteAnnotation", method=RequestMethod.GET)	
     public @ResponseBody String createAnnotation(
     		@RequestParam(value = "userId", required = true) String userId,
@@ -208,7 +236,7 @@ public class SolrWrapperController {
             ) {
 		try {
 			
-			if (neo.canDelete(userId, anntoationId)){
+			if (neo.hasSameUser(userId, anntoationId)){
 				neo.deleteNodeWithRelations(anntoationId);
 			}
 		} catch (Exception e) {

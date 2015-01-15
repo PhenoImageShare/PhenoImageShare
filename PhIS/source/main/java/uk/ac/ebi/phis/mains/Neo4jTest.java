@@ -20,7 +20,7 @@ public class Neo4jTest {
 		float[] z = {};
 		
 		try {
-//			neo.addAnnotation("0", "All looks normal", new Date(), x, y, z);
+//			neo.addAnnotation("2", "All looks normal", new Date(), x, y, z);
 //			neo.addAnnotation("1", "See phenotype annotation.", new Date(), x, y, z);
 //			neo.addChannel("c_0");
 //			neo.addImage("i_sq121");
@@ -33,6 +33,7 @@ public class Neo4jTest {
 //			Node annotation1 = neo.getNodeById("1");
 //			neo.addBidirectionalRelation(annotation1, Neo4jRelationship.HAS_ASSOCIATED_IMAGE, image);
 //			neo.deleteNodeWithRelations("ann_0546156");
+//			neo.getCreationDate("2");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
