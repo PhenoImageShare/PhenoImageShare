@@ -4,6 +4,7 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/source/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/source/main/resources"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/WebContent/WEB-INF"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/source/test/java"/>
         <property name="context-root" value="PhenoImageShare"/>
         <property name="java-output-path" value="/PhenoImageShare/target/classes"/>
     </wb-module>

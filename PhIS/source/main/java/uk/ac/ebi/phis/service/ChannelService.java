@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.HttpSolrServer;
+import org.apache.solr.client.solrj.response.QueryResponse;
 
 import uk.ac.ebi.phis.solrj.dto.ChannelDTO;
 import uk.ac.ebi.phis.utils.web.JSONRestUtil;
@@ -14,18 +15,39 @@ import uk.ac.ebi.phis.utils.web.JSONRestUtil;
 public class ChannelService {
 
 	private HttpSolrServer solr;
-
-
+	
 	public ChannelService(String solrUrl) {
 
 		solr = new HttpSolrServer(solrUrl);
 	}
 
 	
+	public void addAssociatedROI(String roiId, String channelId){
+		//TODO
+		
+	}
+	
+	public ChannelDTO getChannelBean(String channelId){
+		ChannelDTO channel = null;
+		
+		SolrQuery solrQuery = new SolrQuery();
+		solrQuery.setQuery(ChannelDTO.ID + ":\""+ channelId + "\"");
+		solrQuery.set("wt", "json");
+		try {
+			QueryResponse result = solr.query(solrQuery);
+			if (result.getBeans(ChannelDTO.class).size() > 0){
+				// should have only one anyway as ids are unique
+				channel = result.getBeans(ChannelDTO.class).get(0);
+			}
+		} catch (SolrServerException e) {
+			e.printStackTrace();
+		}
+		return channel;
+	}
+	
 	public String getChannelAsJsonString(String channelId){
 		SolrQuery solrQuery = new SolrQuery();
-		solrQuery.setQuery("*:*");
-		solrQuery.setFilterQueries(ChannelDTO.ID + ":\""+ channelId + "\"");
+		solrQuery.setQuery(ChannelDTO.ID + ":\""+ channelId + "\"");
 		solrQuery.set("wt", "json");
 		
 		System.out.println("------ ChannelPojo" + getQueryUrl(solrQuery));
@@ -43,8 +65,7 @@ public class ChannelService {
 	
 	public String getChannels(String imageId){
 		SolrQuery solrQuery = new SolrQuery();
-		solrQuery.setQuery("*:*");
-		solrQuery.setFilterQueries(ChannelDTO.ASSOCIATED_IMAGE + ":\""+ imageId + "\"");
+		solrQuery.setQuery(ChannelDTO.ASSOCIATED_IMAGE + ":\""+ imageId + "\"");
 		solrQuery.set("wt", "json");
 		
 		try {

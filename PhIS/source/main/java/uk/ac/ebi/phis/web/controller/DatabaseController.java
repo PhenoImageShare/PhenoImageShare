@@ -95,6 +95,7 @@ import uk.ac.ebi.neo4jUtils.Neo4jAccessUtils;
 				neo.updateAnnotation(annotationId, userId, associatedImageId, xCoordinates, yCoordinates, zCoordinates, associatedChannelId,
 					depictedAnatomyId, depictedAnatomyFreetext, abnInAnatomyId, abnInAnatomyFreetext, phenotypeId, expressionInAnatomyFreetext, 
 					expressionInAnatomyId, phenotypeFreetext, observation);
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
