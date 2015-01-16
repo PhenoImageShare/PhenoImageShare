@@ -2,13 +2,16 @@ package uk.ac.ebi.phis.service;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.HttpSolrServer;
 import org.apache.solr.client.solrj.response.QueryResponse;
+import org.apache.solr.common.SolrInputDocument;
 
+import scala.Array;
 import uk.ac.ebi.phis.solrj.dto.ChannelDTO;
 import uk.ac.ebi.phis.utils.web.JSONRestUtil;
 
@@ -22,9 +25,22 @@ public class ChannelService {
 	}
 
 	
-	public void addAssociatedROI(String roiId, String channelId){
-		//TODO
-		
+	public void deleteAssociatedRoi(String roiId, String channelId){
+		ChannelDTO channel = getChannelBean(channelId);
+		while (channel.getAssociatedRoi().contains(roiId)){
+			channel.getAssociatedRoi().remove(roiId);
+		}
+		List<ChannelDTO> docs = new ArrayList<>();
+		docs.add(channel);
+		addBeans(docs);
+	}
+	
+	public void addAssociatedRoi(String roiId, String channelId){
+		ChannelDTO channel = getChannelBean(channelId);
+		channel.addAssociatedRoi(roiId);
+		List<ChannelDTO> docs = new ArrayList<>();
+		docs.add(channel);
+		addBeans(docs);
 	}
 	
 	public ChannelDTO getChannelBean(String channelId){
