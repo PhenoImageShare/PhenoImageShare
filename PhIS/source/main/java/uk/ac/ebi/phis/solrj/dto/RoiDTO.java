@@ -3,6 +3,7 @@ package uk.ac.ebi.phis.solrj.dto;
 import java.util.List;
 
 import org.apache.solr.client.solrj.beans.Field;
+import org.springframework.web.bind.annotation.RequestParam;
 
 public class RoiDTO {
 	
@@ -77,6 +78,35 @@ public class RoiDTO {
 	List<Float> zCoordinates;
 
 	
+	
+	public RoiDTO(){
+		
+	}
+	
+	public RoiDTO(String id, List<String> associatedChannel, String associatedImage, List<String> depictedAnatomyId, List<String> depictedAnatomyTerm, List<String> depictedAnatomyFreetext, List<String> depictedAnatomyAnnotationSource, List<String> abnormalityAnatomyId, List<String> abnormalityAnatomyTerm, List<String> abnormalityAnatomyFreetext, List<String> abnormalityAnatomyAnnotationSource, List<String> phenotypeId, List<String> phenotypeTerm, List<String> phenotypeFreetext, List<String> observations, List<Float> xCoordinates, List<Float> yCoordinates, List<Float> zCoordinates) {
+
+		super();
+		this.id = id;
+		this.associatedChannel = associatedChannel;
+		this.associatedImage = associatedImage;
+		this.depictedAnatomyId = depictedAnatomyId;
+		this.depictedAnatomyTerm = depictedAnatomyTerm;
+		this.depictedAnatomyFreetext = depictedAnatomyFreetext;
+		this.depictedAnatomyAnnotationSource = depictedAnatomyAnnotationSource;
+		this.abnormalityAnatomyId = abnormalityAnatomyId;
+		this.abnormalityAnatomyTerm = abnormalityAnatomyTerm;
+		this.abnormalityAnatomyFreetext = abnormalityAnatomyFreetext;
+		this.abnormalityAnatomyAnnotationSource = abnormalityAnatomyAnnotationSource;
+		this.phenotypeId = phenotypeId;
+		this.phenotypeTerm = phenotypeTerm;
+		this.phenotypeFreetext = phenotypeFreetext;
+		this.observations = observations;
+		this.xCoordinates = xCoordinates;
+		this.yCoordinates = yCoordinates;
+		this.zCoordinates = zCoordinates;
+	}
+
+
 	/**
 	 * @return the id
 	 */
@@ -479,8 +509,5 @@ public class RoiDTO {
 	
 		this.zCoordinates = zCoordinates;
 	}
-	
-	
-	
 	
 }

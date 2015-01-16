@@ -33,10 +33,14 @@ public class GenericUpdateService {
 		docs.add(roi);
 		rs.addBeans(docs);
 		
-		//TODO update channel core
-		
+		// update list of associated rois in channel core
+		for(String channel: roi.getAssociatedChannel()){
+			cs.addAssociatedRoi(roi.getId(), channel);
+		}
 		
 		//TODO update image core
+		is.updateImageFromRoi(roi);
+		
 		
 		//TODO update autosuggest service
 		

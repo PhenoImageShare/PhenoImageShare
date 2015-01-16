@@ -1111,6 +1111,14 @@ public class ImageDTO {
 
 		this.associatedRoi = associatedRoi;
 	}
+	
+	public void addAssociatedRoi(String associatedRoiId) {
+
+		if (associatedRoi == null){
+			associatedRoi = new ArrayList<>();
+		}
+		this.associatedRoi.add(associatedRoiId);
+	}
 
 
 	/**
@@ -2205,7 +2213,14 @@ public class ImageDTO {
 
 		this.abnormalAnatomyIdBag = abnormalAnatomyIdBag;
 	}
-
+	
+	public void addAbnormalAnatomyIdBag(String abnormalAnatomyId) {
+		if (this.abnormalAnatomyIdBag == null){
+			this.abnormalAnatomyIdBag = new ArrayList<>();
+		}
+		
+		this.abnormalAnatomyIdBag.add(abnormalAnatomyId);
+	}
 
 	/**
 	 * @return the abnormalAnatomyTermBag
@@ -2234,6 +2249,13 @@ public class ImageDTO {
 		return abnormalAnatomyFreetextBag;
 	}
 
+	public void addAbnormalAnatomyFreetextBag(String abnormalAnatomyFreetext) {
+		if (this.abnormalAnatomyFreetextBag == null){
+			this.abnormalAnatomyFreetextBag = new ArrayList<>();
+		}
+		
+		this.abnormalAnatomyFreetextBag.add(abnormalAnatomyFreetext);
+	}
 
 	/**
 	 * @param abnormalAnatomyFreetextBag

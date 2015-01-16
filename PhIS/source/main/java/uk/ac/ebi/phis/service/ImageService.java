@@ -6,19 +6,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.activemq.filter.function.splitFunction;
 import org.apache.log4j.Logger;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.HttpSolrServer;
-import org.apache.solr.client.solrj.response.QueryResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
-import com.mysql.jdbc.StringUtils;
-
 import uk.ac.ebi.phis.solrj.dto.ImageDTO;
+import uk.ac.ebi.phis.solrj.dto.RoiDTO;
 import uk.ac.ebi.phis.utils.web.JSONRestUtil;
 
 @Service
@@ -248,6 +245,46 @@ public class ImageService {
 		}
 		
 		return "Couldn't get anything back from solr.";
+	}
+	
+	/**
+	 * To be used for atomic updates when a user adds a new annotation
+	 * @param roi
+	 */
+	public void updateImageFromRoi(RoiDTO roi){
+		
+		ImageDTO img = getImageById(roi.getAssociatedImage());
+		
+		img.addAssociatedRoi(roi.getId());
+		if (roi.getAbnormalityAnatomyId() != null){
+			img.addAbnormalAnatomyIdBag(roi.getAbnormalityAnatomyId().get(0));
+		}
+		if (roi.getAbnormalityAnatomyFreetext() != null){
+			img.addAbnormalAnatomyFreetextBag(roi.getAbnormalityAnatomyFreetext().get(0));
+		}
+/*		if (roi.getPhenotypeId() != null){
+			img.addPhenotypeIdBag(roi.getPhenotypeId());
+		}
+		if (roi.getPhenotypeFreetext() != null){
+			img.addphen
+		}
+		
+*/		
+		//TODO anatomy
+		
+		//TODO observation
+	}
+	
+	public ImageDTO getImageById(String imageId){
+		ImageDTO img = null;
+		SolrQuery solrQuery = new SolrQuery();
+		solrQuery.setQuery(ImageDTO.ID + ":" + imageId);
+		try {
+			img = solr.query(solrQuery).getBeans(ImageDTO.class).get(0);
+		} catch (SolrServerException e) {
+			e.printStackTrace();
+		}
+		return img;
 	}
 	
 	public String getSolrUrl () {
