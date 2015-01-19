@@ -256,23 +256,32 @@ public class ImageService {
 		ImageDTO img = getImageById(roi.getAssociatedImage());
 		
 		img.addAssociatedRoi(roi.getId());
+		
 		if (roi.getAbnormalityAnatomyId() != null){
+			System.out.println("Adding " + roi.getAbnormalityAnatomyId().get(0));
 			img.addAbnormalAnatomyIdBag(roi.getAbnormalityAnatomyId().get(0));
 		}
 		if (roi.getAbnormalityAnatomyFreetext() != null){
 			img.addAbnormalAnatomyFreetextBag(roi.getAbnormalityAnatomyFreetext().get(0));
 		}
-/*		if (roi.getPhenotypeId() != null){
-			img.addPhenotypeIdBag(roi.getPhenotypeId());
+		if (roi.getPhenotypeId() != null){
+			img.addPhenotypeIdBag((ArrayList<String>) roi.getPhenotypeId());
 		}
 		if (roi.getPhenotypeFreetext() != null){
-			img.addphen
+			img.addPhenotypeFreetextBag((ArrayList<String>) roi.getPhenotypeFreetext());
 		}
-		
-*/		
+		if (roi.getObservations() != null){
+			img.addObservationBag((ArrayList<String>) roi.getObservations());
+		}
+		if (roi.getDepictedAnatomyFreetext() != null){
+			
+		}
 		//TODO anatomy
 		
-		//TODO observation
+		
+		List<ImageDTO> update = new ArrayList<>();
+		update.add(img);
+		addBeans(update);
 	}
 	
 	public ImageDTO getImageById(String imageId){
@@ -280,8 +289,10 @@ public class ImageService {
 		SolrQuery solrQuery = new SolrQuery();
 		solrQuery.setQuery(ImageDTO.ID + ":" + imageId);
 		try {
-			img = solr.query(solrQuery).getBeans(ImageDTO.class).get(0);
-		} catch (SolrServerException e) {
+			List<ImageDTO> images = solr.query(solrQuery).getBeans(ImageDTO.class);
+			System.out.println("List length imageDTOs " + images.size());
+			img = images.get(0);
+		} catch (SolrServerException e) { 
 			e.printStackTrace();
 		}
 		return img;
@@ -296,7 +307,6 @@ public class ImageService {
 			solr.addBeans(imageDocs);
 			solr.commit();
 		} catch (SolrServerException | IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
