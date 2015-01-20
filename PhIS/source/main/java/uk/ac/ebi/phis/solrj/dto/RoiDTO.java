@@ -8,73 +8,105 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class RoiDTO {
 	
 	
-	public static final String ID="id";
+	public static final String  ID="id";
 	public static final String  ASSOCIATED_IMAGE_ID = "associated_image";
+	public static final String  ASSOCIATED_CHANNEL = "associated_channel";
+	public static final String  EXPRESSED_ANATOMY_ID = "expressed_anatomy_id";
+	public static final String  EXPRESSED_ANATOMY_FREETEXT = "expressed_anatomy_freetext";
+	public static final String  EXPRESSED_ANATOMY_TERM = "expressed_anatomy_term";
+	public static final String  DEPICTED_ANATOMY_ID = "depicted_anatomy_id";
+	public static final String  DEPICTED_ANATOMY_TERM = "depicted_anatomy_term";
+	public static final String  DEPICTED_ANATOMY_FREETEXT = "depicted_anatomy_freetext";
+	public static final String  COMPUTED_DEPICTED_ANATOMY_ID = "computed_depicted_anatomy_id";
+	public static final String  COMPUTED_DEPICTED_ANATOMY_TERM = "computed_depicted_anatomy_term";
+	public static final String  DEPICTED_ANATOMY_ANNOTATION_SOURCE = "depicted_anatomy_annotation_source";
+	public static final String  ABNORMALITY_ANATOMY_ID = "abnormality_anatomy_id";
+	public static final String  ABNORMALITY_ANATOMY_TERM = "abnormality_anatomy_term";
+	public static final String  COMPUTED_ABNORMALITY_ANATOMY_ID = "computed_abnormality_anatomy_id";
+	public static final String  COMPUTED_ABNORMALITY_ANATOMY_TERM = "computed_abnormality_anatomy_term";
+	public static final String  ABNORMALITY_ANATOMY_FREETEXT = "abnormality_anatomy_freetext";
+	public static final String  ABNOMALITY_ANATOMY_ANNOTATION_SOURCE = "abnormality_anatomy_annotation_source";
+	public static final String  PHENOTYPE_ID = "phenotype_id";
+	public static final String  PHENOTYPE_TERM = "phenotype_term";
+	public static final String  PHENOTYPE_FREETEXT = "phenotype_freetext";
+	public static final String  OBSERVATIONS = "observations";
+	public static final String  X_COORDINATES = "x_coordinates";
+	public static final String  Y_COORDINATES = "y_coordinates";
+	public static final String  Z_COORDINATES = "z_coordinates";
 	
-	@Field("id")
+	@Field(ID)
 	String id;
 
-	@Field("associated_channel")
+	@Field(ASSOCIATED_CHANNEL)
 	List<String> associatedChannel;
 
-	@Field("associated_image")
+	@Field(ASSOCIATED_IMAGE_ID)
 	String associatedImage;
 
-	@Field("depicted_anatomy_id")
+	@Field(EXPRESSED_ANATOMY_ID)
+	List<String> expressedAnatomyId;
+
+	@Field(EXPRESSED_ANATOMY_FREETEXT)
+	List<String> expressedAnatomyFreetext;
+
+	@Field(EXPRESSED_ANATOMY_TERM)
+	List<String> expressedAnatomyTerm;
+	
+	@Field(DEPICTED_ANATOMY_ID)
 	List<String> depictedAnatomyId;
 
-	@Field("depicted_anatomy_term")
+	@Field(DEPICTED_ANATOMY_TERM)
 	List<String> depictedAnatomyTerm;
 	
-	@Field("computed_depicted_anatomy_id")
+	@Field(COMPUTED_DEPICTED_ANATOMY_ID)
 	List<String> computedDepictedAnatomyId;
 
-	@Field("computed_depicted_anatomy_term")
+	@Field(COMPUTED_DEPICTED_ANATOMY_TERM)
 	List<String> computedDepictedAnatomyTerm;
 
-	@Field("depicted_anatomy_freetext")
+	@Field(DEPICTED_ANATOMY_FREETEXT)
 	List<String> depictedAnatomyFreetext;
 
-	@Field("depicted_anatomy_annotation_source")
+	@Field(DEPICTED_ANATOMY_ANNOTATION_SOURCE)
 	List<String> depictedAnatomyAnnotationSource;
 
-	@Field("abnormality_anatomy_id")
+	@Field(ABNORMALITY_ANATOMY_ID)
 	List<String> abnormalityAnatomyId;
 
-	@Field("abnormality_anatomy_term")
+	@Field(ABNORMALITY_ANATOMY_TERM)
 	List<String> abnormalityAnatomyTerm;
 	
-	@Field("computed_abnormality_anatomy_id")
+	@Field(COMPUTED_ABNORMALITY_ANATOMY_ID)
 	List<String> computedAbnormalityAnatomyId;
 
-	@Field("computed_abnormality_anatomy_term")
+	@Field(COMPUTED_ABNORMALITY_ANATOMY_TERM)
 	List<String> computedAbnormalityAnatomyTerm;
 
-	@Field("abnormality_anatomy_freetext")
+	@Field(ABNORMALITY_ANATOMY_FREETEXT)
 	List<String> abnormalityAnatomyFreetext;
 
-	@Field("abnormality_anatomy_annotation_source")
+	@Field(ABNOMALITY_ANATOMY_ANNOTATION_SOURCE)
 	List<String> abnormalityAnatomyAnnotationSource;
 
-	@Field("phenotype_id")
+	@Field(PHENOTYPE_ID)
 	List<String> phenotypeId;
 
-	@Field("phenotype_term")
+	@Field(PHENOTYPE_TERM)
 	List<String> phenotypeTerm;
 
-	@Field("phenotype_freetext")
+	@Field(PHENOTYPE_FREETEXT)
 	List<String> phenotypeFreetext;
 
-	@Field("observations")
+	@Field(OBSERVATIONS)
 	List<String> observations;
 
-	@Field("x_coordinates")
+	@Field(X_COORDINATES)
 	List<Float> xCoordinates;
 
-	@Field("y_coordinates")
+	@Field(Y_COORDINATES)
 	List<Float> yCoordinates;
 
-	@Field("z_coordinates")
+	@Field(Z_COORDINATES)
 	List<Float> zCoordinates;
 
 	
@@ -106,6 +138,89 @@ public class RoiDTO {
 		this.zCoordinates = zCoordinates;
 	}
 
+	
+	
+
+	
+	/**
+	 * @return the expressedAnatomyId
+	 */
+	public List<String> getExpressedAnatomyId() {
+	
+		return expressedAnatomyId;
+	}
+
+	
+	/**
+	 * @param expressedAnatomyId the expressedAnatomyId to set
+	 */
+	public void setExpressedAnatomyId(List<String> expressedAnatomyId) {
+	
+		this.expressedAnatomyId = expressedAnatomyId;
+	}
+
+	
+	/**
+	 * @return the expressedAnatomyFreetext
+	 */
+	public List<String> getExpressedAnatomyFreetext() {
+	
+		return expressedAnatomyFreetext;
+	}
+
+	
+	/**
+	 * @param expressedAnatomyFreetext the expressedAnatomyFreetext to set
+	 */
+	public void setExpressedAnatomyFreetext(List<String> expressedAnatomyFreetext) {
+	
+		this.expressedAnatomyFreetext = expressedAnatomyFreetext;
+	}
+
+	
+	/**
+	 * @return the expressedAnatomyTerm
+	 */
+	public List<String> getExpressedAnatomyTerm() {
+	
+		return expressedAnatomyTerm;
+	}
+
+	
+	/**
+	 * @param expressedAnatomyTerm the expressedAnatomyTerm to set
+	 */
+	public void setExpressedAnatomyTerm(List<String> expressedAnatomyTerm) {
+	
+		this.expressedAnatomyTerm = expressedAnatomyTerm;
+	}
+
+	
+	/**
+	 * @param xCoordinates the xCoordinates to set
+	 */
+	public void setxCoordinates(List<Float> xCoordinates) {
+	
+		this.xCoordinates = xCoordinates;
+	}
+
+	
+	/**
+	 * @param yCoordinates the yCoordinates to set
+	 */
+	public void setyCoordinates(List<Float> yCoordinates) {
+	
+		this.yCoordinates = yCoordinates;
+	}
+
+	
+	/**
+	 * @param zCoordinates the zCoordinates to set
+	 */
+	public void setzCoordinates(List<Float> zCoordinates) {
+	
+		this.zCoordinates = zCoordinates;
+	}
 
 	/**
 	 * @return the id

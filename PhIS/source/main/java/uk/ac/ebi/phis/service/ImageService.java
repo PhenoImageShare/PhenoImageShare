@@ -273,12 +273,19 @@ public class ImageService {
 		if (roi.getObservations() != null){
 			img.addObservationBag((ArrayList<String>) roi.getObservations());
 		}
-		if (roi.getDepictedAnatomyFreetext() != null){
-			
+		if (roi.getDepictedAnatomyId() != null){
+			img.addDepictedAnatomyIdBag(roi.getDepictedAnatomyId());
 		}
-		//TODO anatomy
-		
-		
+		if (roi.getDepictedAnatomyFreetext() != null){
+			img.addDepictedAnatomyFreetextBag(roi.getDepictedAnatomyFreetext());
+		}
+		if (roi.getExpressedAnatomyFreetext() != null){
+			img.addExpressionInFreetextBag(roi.getExpressedAnatomyFreetext());
+		}
+		if (roi.getExpressedAnatomyId() != null){
+			img.addExpressionInIdBag(roi.getExpressedAnatomyId());
+		}
+				
 		List<ImageDTO> update = new ArrayList<>();
 		update.add(img);
 		addBeans(update);

@@ -80,21 +80,70 @@ public class ImageServiceTest {
 		assertTrue(hasRoiInList(image));
 		assertTrue(phenotypeFieldsGotCopied(image));
 		assertTrue(abnormalityInAnatomyGotCopied(image));
-//		assertTrue(depictedAnatomyFieldsGotCopied(image));
+		assertTrue(depictedAnatomyFieldsGotCopied(image));
 		assertTrue(observationsGotCopied(image));
+		assertTrue(expressedInFieldsGotCopied(image));
+		assertTrue(genericSearchGotFilled(image));
+	}
+	
+	
+	private boolean genericSearchGotFilled(ImageDTO img){
+		boolean copiedRight = true;
+		if (roi.getExpressedAnatomyId() != null){
+			System.out.println(img.toString());
+			copiedRight = img.getGenericSearch().containsAll(roi.getExpressedAnatomyId());
+		}
+		if (roi.getPhenotypeId() != null){
+			copiedRight = copiedRight && img.getGenericSearch().containsAll(roi.getPhenotypeId());
+		}
+		if (roi.getExpressedAnatomyFreetext() != null){
+			System.out.println(img.toString());
+			copiedRight = copiedRight && img.getGenericSearch().containsAll(roi.getExpressedAnatomyFreetext());
+		}
+		if (roi.getPhenotypeFreetext() != null){
+			copiedRight = copiedRight && img.getGenericSearch().containsAll(roi.getPhenotypeFreetext());
+		}
+		if (roi.getDepictedAnatomyId() != null){
+			copiedRight = copiedRight && img.getGenericSearch().containsAll(roi.getDepictedAnatomyId());
+		}
+		if (roi.getDepictedAnatomyFreetext() != null){
+			copiedRight = copiedRight && img.getGenericSearch().containsAll(roi.getDepictedAnatomyFreetext());
+		}
+		if (roi.getObservations() != null){
+			copiedRight = copiedRight && img.getGenericSearch().containsAll(roi.getObservations());			
+		}
+		if (roi.getAbnormalityAnatomyId() != null){ 
+			copiedRight = copiedRight && (img.getGenericSearch().containsAll(roi.getAbnormalityAnatomyId()));	
+		}
+		if(roi.getAbnormalityAnatomyFreetext() != null){
+			copiedRight = copiedRight && img.getGenericSearch().containsAll(roi.getAbnormalityAnatomyFreetext());
+		}
 		
-		//TODO generic search
+		return copiedRight;
 	}
 	
 	private boolean hasRoiInList(ImageDTO img){
 		return img.getAssociatedRoi().contains(roi.getId());
 	}
 	
+	private boolean expressedInFieldsGotCopied(ImageDTO img){
+		boolean copiedRight = true;
+		if (roi.getExpressedAnatomyId() != null){
+			System.out.println(img.toString());
+			copiedRight = img.getExpressionInIdBag().containsAll(roi.getPhenotypeId());
+		}
+		if (roi.getPhenotypeFreetext() != null){
+			copiedRight = copiedRight && img.getPhenotypeFreetextBag().containsAll(roi.getPhenotypeFreetext());
+		}
+		return copiedRight;
+	}
+	
+	
 	private boolean phenotypeFieldsGotCopied(ImageDTO img){
 		boolean copiedRight = true;
 		if (roi.getPhenotypeId() != null){
 			System.out.println(img.toString());
-			copiedRight = copiedRight && img.getPhenotypeIdBag().containsAll(roi.getPhenotypeId());
+			copiedRight = img.getPhenotypeIdBag().containsAll(roi.getPhenotypeId());
 		}
 		if (roi.getPhenotypeFreetext() != null){
 			copiedRight = copiedRight && img.getPhenotypeFreetextBag().containsAll(roi.getPhenotypeFreetext());
@@ -105,10 +154,10 @@ public class ImageServiceTest {
 	private boolean depictedAnatomyFieldsGotCopied(ImageDTO img){
 		boolean copiedRight = true;
 		if (roi.getDepictedAnatomyId() != null){
-			copiedRight = copiedRight && img.getPhenotypeIdBag().containsAll(roi.getDepictedAnatomyId());
+			copiedRight = img.getDepictedAnatomyIdBag().containsAll(roi.getDepictedAnatomyId());
 		}
 		if (roi.getDepictedAnatomyFreetext() != null){
-			copiedRight = copiedRight && img.getPhenotypeFreetextBag().containsAll(roi.getDepictedAnatomyFreetext());
+			copiedRight = copiedRight && img.getDepictedAnatomyFreetextBag().containsAll(roi.getDepictedAnatomyFreetext());
 		}				
 		return copiedRight;
 	}
