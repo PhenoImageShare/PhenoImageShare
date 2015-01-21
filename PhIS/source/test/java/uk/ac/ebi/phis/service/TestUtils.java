@@ -12,7 +12,7 @@ public class TestUtils {
 	public static RoiDTO getTestRoi(){
 		
 		RoiDTO roi;
-		String id = "madeup_ROI_id";
+		String id = "madeup_id";
 		List<String> associatedChannel = new ArrayList<>();
 		associatedChannel.add("komp2_channel_112967_0");
 		String associatedImage = "komp2_112967";

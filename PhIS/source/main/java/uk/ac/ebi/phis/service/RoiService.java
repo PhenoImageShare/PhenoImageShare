@@ -47,7 +47,10 @@ public class RoiService {
 		SolrQuery solrQuery = new SolrQuery();
 		solrQuery.setQuery(RoiDTO.ID + ":\""+ id + "\"");
 		try {
-			return solr.query(solrQuery).getBeans(RoiDTO.class).get(0);
+			List<RoiDTO> results = solr.query(solrQuery).getBeans(RoiDTO.class);
+			if (results.size() > 0){
+				return results.get(0);
+			}
 		} catch (SolrServerException e) {
 			e.printStackTrace();
 		}
@@ -73,6 +76,12 @@ public class RoiService {
 		return "Couldn't get anything back from solr.";
 	}	
 	
+	public void updateRoi(RoiDTO roi){
+		List<RoiDTO> list = new ArrayList<>();
+		list.add(roi);
+		addBeans(list);
+	}
+	
 	public void addRoi(RoiDTO roi){
 		List<RoiDTO> list = new ArrayList<>();
 		list.add(roi);
@@ -88,6 +97,17 @@ public class RoiService {
 		}
 	}
 	
+	
+	public void deleteRoi(String roiId){
+		try {
+			solr.deleteByQuery(RoiDTO.ID + ":" + roiId);
+			solr.commit();
+		} catch (SolrServerException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	/**
 	 * Removes all documents from the core

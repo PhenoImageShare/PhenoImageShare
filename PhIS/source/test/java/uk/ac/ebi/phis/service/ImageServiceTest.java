@@ -29,8 +29,23 @@ public class ImageServiceTest {
 		assertTrue(is.getImageById(imageDocId) != null);
 	}
 	
+	@Test
+	public void testDeleteRoi(){
+		ImageDTO originalImage = is.getImageById(roi.getAssociatedImage());
+		is.deleteRoiRefferences(roi);
+		ImageDTO newImage = is.getImageById(roi.getAssociatedImage());
+		System.out.println("\n\nNew image: " + newImage.toString());
+		assertTrue(phenotypeFieldsGotDeleted(originalImage, newImage));
+		assertTrue(abnormalityInAnatomyGotDeleted(originalImage, newImage));
+		assertTrue(depictedAnatomyFieldsGotDeleted(originalImage, newImage));
+		assertTrue(observationsGotDeleted(originalImage, newImage));
+		assertTrue(expressedInFieldsGotDeleted(originalImage, newImage));
+//		assertTrue(genericSearchGotDeleted(originalImage, newImage));
+
+		assertFalse(hasRoiInList(newImage));
+	}
 	
-	@Test 
+	@Ignore @Test 
 	public void testUpdateFromRoi(){
 		System.out.println(roi.getAssociatedImage());
 		System.out.println(is.getSolrUrl());
@@ -49,18 +64,95 @@ public class ImageServiceTest {
 		assertTrue(genericSearchGotFilled(image));
 	}
 	
+	private boolean observationsGotDeleted(ImageDTO original, ImageDTO img){
+		
+		boolean gotDeleted = true;
+		for (String o : roi.getObservations()){
+			if (img.getObservationBag() != null){
+				gotDeleted = gotDeleted && (img.getObservationBag().lastIndexOf(o) < original.getObservationBag().lastIndexOf(o));
+			}
+		}
+		return gotDeleted;
+	}
+	
+	private boolean expressedInFieldsGotDeleted(ImageDTO original, ImageDTO img){
+		
+		boolean gotDeleted = true;
+		if (roi.getExpressedAnatomyId() != null){
+			for (String o : roi.getExpressedAnatomyId()){
+				if (img.getExpressionInIdBag() != null){
+					gotDeleted = gotDeleted && (img.getExpressionInIdBag().lastIndexOf(o) < original.getExpressionInIdBag().lastIndexOf(o));
+				}
+			}
+		}
+		if (roi.getExpressedAnatomyFreetext() != null){
+			for (String o : roi.getExpressedAnatomyFreetext()){
+				if (img.getExpressionInFreetextBag() != null){
+					gotDeleted = gotDeleted && (img.getExpressionInFreetextBag().lastIndexOf(o) < original.getExpressionInFreetextBag().lastIndexOf(o));
+				}
+			}
+		}
+		return gotDeleted;
+	}
+	
+	private boolean depictedAnatomyFieldsGotDeleted(ImageDTO original, ImageDTO img){
+		
+		boolean gotDeleted = true;
+		for (String o : roi.getDepictedAnatomyId()){
+			if (img.getDepictedAnatomyIdBag() != null){
+				gotDeleted = gotDeleted && (img.getDepictedAnatomyIdBag().lastIndexOf(o) < original.getDepictedAnatomyIdBag().lastIndexOf(o));
+			}
+		}
+		for (String o : roi.getDepictedAnatomyFreetext()){
+			if (img.getDepictedAnatomyFreetextBag() != null){
+				gotDeleted = gotDeleted && (img.getDepictedAnatomyFreetextBag().lastIndexOf(o) < original.getDepictedAnatomyFreetextBag().lastIndexOf(o));
+			}
+		}
+		return gotDeleted;
+	}
+	
+	private boolean phenotypeFieldsGotDeleted(ImageDTO original, ImageDTO img){
+		
+		boolean gotDeleted = true;
+		for (String o : roi.getPhenotypeId()){
+			if (img.getPhenotypeIdBag() != null){
+				gotDeleted = gotDeleted && (img.getPhenotypeIdBag().lastIndexOf(o) < original.getPhenotypeIdBag().lastIndexOf(o));
+			}
+		}
+		for (String o : roi.getPhenotypeFreetext()){
+			if (img.getPhenotypeFreetextBag() != null){
+				gotDeleted = gotDeleted && (img.getPhenotypeFreetextBag().lastIndexOf(o) < original.getPhenotypeFreetextBag().lastIndexOf(o));
+			}
+		}
+		return gotDeleted;
+	}
+	
+
+	private boolean abnormalityInAnatomyGotDeleted(ImageDTO original, ImageDTO img){
+		
+		boolean gotDeleted = true;
+		for (String o : roi.getAbnormalityAnatomyId()){
+			if (img.getAbnormalAnatomyIdBag() != null){
+				gotDeleted = gotDeleted && (img.getAbnormalAnatomyIdBag().lastIndexOf(o) < original.getAbnormalAnatomyIdBag().lastIndexOf(o));
+			}
+		}
+		for (String o : roi.getAbnormalityAnatomyFreetext()){
+			if (img.getAbnormalAnatomyFreetextBag() != null){
+				gotDeleted = gotDeleted && (img.getAbnormalAnatomyFreetextBag().lastIndexOf(o) < original.getAbnormalAnatomyFreetextBag().lastIndexOf(o));
+			}
+		}
+		return gotDeleted;
+	}
 	
 	private boolean genericSearchGotFilled(ImageDTO img){
 		boolean copiedRight = true;
 		if (roi.getExpressedAnatomyId() != null){
-			System.out.println(img.toString());
 			copiedRight = img.getGenericSearch().containsAll(roi.getExpressedAnatomyId());
 		}
 		if (roi.getPhenotypeId() != null){
 			copiedRight = copiedRight && img.getGenericSearch().containsAll(roi.getPhenotypeId());
 		}
 		if (roi.getExpressedAnatomyFreetext() != null){
-			System.out.println(img.toString());
 			copiedRight = copiedRight && img.getGenericSearch().containsAll(roi.getExpressedAnatomyFreetext());
 		}
 		if (roi.getPhenotypeFreetext() != null){

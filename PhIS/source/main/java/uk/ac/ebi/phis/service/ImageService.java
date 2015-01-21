@@ -248,6 +248,64 @@ public class ImageService {
 	}
 	
 	/**
+	 * Delete all refferences to this roi (roi id, annotations from annotations bags)
+	 * @param roi
+	 */
+	public void deleteRoiRefferences(RoiDTO roi){
+		
+		ImageDTO img = getImageById(roi.getAssociatedImage());
+
+		System.out.println("Roi list before " + img.getAssociatedRoi().size() + "  " + img.getAssociatedRoi());
+		List<String> list = img.getAssociatedRoi();
+		list.remove(roi.getId());
+		img.setAssociatedRoi(list);
+		
+		if (roi.getAbnormalityAnatomyId() != null){
+			img.setAbnormalAnatomyIdBag(removeOnce(img.getAbnormalAnatomyIdBag(), (ArrayList<String>) roi.getAbnormalityAnatomyId()));
+		}
+		if (roi.getAbnormalityAnatomyFreetext() != null){
+			img.setAbnormalAnatomyFreetextBag(removeOnce(img.getAbnormalAnatomyFreetextBag(), roi.getAbnormalityAnatomyFreetext()));
+		}
+		if (roi.getPhenotypeId() != null){
+			img.setPhenotypeIdBag(removeOnce(img.getPhenotypeIdBag(), (ArrayList<String>) roi.getPhenotypeId()));
+
+		}
+		if (roi.getPhenotypeFreetext() != null){
+			img.setPhenotypeFreetextBag(removeOnce(img.getPhenotypeFreetextBag(), roi.getPhenotypeFreetext()));
+		}
+		if (roi.getObservations() != null){
+			img.setObservationBag(removeOnce(img.getObservationBag(), roi.getObservations()));
+		}
+		if (roi.getDepictedAnatomyId() != null){
+			img.setDepictedAnatomyIdBag(removeOnce(img.getDepictedAnatomyIdBag(), roi.getDepictedAnatomyId()));
+		}
+		if (roi.getDepictedAnatomyFreetext() != null){
+			img.setDepictedAnatomyFreetextBag(removeOnce(img.getDepictedAnatomyFreetextBag(), roi.getDepictedAnatomyFreetext()));
+		}
+		if (roi.getExpressedAnatomyFreetext() != null){
+			img.setExpressionInFreetextBag(removeOnce(img.getExpressionInFreetextBag(), roi.getExpressedAnatomyFreetext()));
+		}
+		if (roi.getExpressedAnatomyId() != null){
+			img.setExpressionInIdBag(removeOnce(img.getExpressionInFreetextBag(), roi.getExpressedAnatomyId()));
+		}
+		img.setGenericSearch(new ArrayList<String>());
+				
+		List<ImageDTO> update = new ArrayList<>();
+		update.add(img);
+		addBeans(update);
+	}
+	
+	public ArrayList<String> removeOnce(ArrayList<String> from, List<String> whatToDelete){
+		ArrayList<String> res = from;
+		if ( res != null){
+			for(String toRemove : whatToDelete){
+				from.remove(toRemove);
+			}
+		}
+		return from;
+	}
+	
+	/**
 	 * To be used for atomic updates when a user adds a new annotation
 	 * @param roi
 	 */
@@ -286,6 +344,7 @@ public class ImageService {
 			img.addExpressionInIdBag(roi.getExpressedAnatomyId());
 		}
 				
+		img.setGenericSearch(new ArrayList<String>());
 		List<ImageDTO> update = new ArrayList<>();
 		update.add(img);
 		addBeans(update);
@@ -297,7 +356,6 @@ public class ImageService {
 		solrQuery.setQuery(ImageDTO.ID + ":" + imageId);
 		try {
 			List<ImageDTO> images = solr.query(solrQuery).getBeans(ImageDTO.class);
-			System.out.println("List length imageDTOs " + images.size());
 			img = images.get(0);
 		} catch (SolrServerException e) { 
 			e.printStackTrace();
