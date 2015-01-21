@@ -2,6 +2,7 @@ package uk.ac.ebi.phis.service;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.solr.client.solrj.SolrQuery;
@@ -17,11 +18,6 @@ public class RoiService {
 
 	private HttpSolrServer solr;
 	
-
-	public static final class RoiField {
-		
-	}
-
 	public RoiService(String solrUrl) {
 		solr = new HttpSolrServer(solrUrl);
 	}
@@ -46,6 +42,18 @@ public class RoiService {
 	}	
 
 
+	public RoiDTO getRoiById(String id){
+		
+		SolrQuery solrQuery = new SolrQuery();
+		solrQuery.setQuery(RoiDTO.ID + ":\""+ id + "\"");
+		try {
+			return solr.query(solrQuery).getBeans(RoiDTO.class).get(0);
+		} catch (SolrServerException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	public String getRois(String imageId){
 		
 		SolrQuery solrQuery = new SolrQuery();
@@ -64,6 +72,12 @@ public class RoiService {
 		
 		return "Couldn't get anything back from solr.";
 	}	
+	
+	public void addRoi(RoiDTO roi){
+		List<RoiDTO> list = new ArrayList<>();
+		list.add(roi);
+		addBeans(list);
+	}
 	
 	public void addBeans(List<RoiDTO> docs){
 		try {

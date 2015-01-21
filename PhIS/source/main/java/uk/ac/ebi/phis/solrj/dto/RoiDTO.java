@@ -624,5 +624,140 @@ public class RoiDTO {
 	
 		this.zCoordinates = zCoordinates;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+
+		return "RoiDTO [id=" + id + ", associatedChannel=" + associatedChannel + ", associatedImage=" + associatedImage + ", expressedAnatomyId=" + expressedAnatomyId + ", expressedAnatomyFreetext=" + expressedAnatomyFreetext + ", expressedAnatomyTerm=" + expressedAnatomyTerm + ", depictedAnatomyId=" + depictedAnatomyId + ", depictedAnatomyTerm=" + depictedAnatomyTerm + ", computedDepictedAnatomyId=" + computedDepictedAnatomyId + ", computedDepictedAnatomyTerm=" + computedDepictedAnatomyTerm + ", depictedAnatomyFreetext=" + depictedAnatomyFreetext + ", depictedAnatomyAnnotationSource=" + depictedAnatomyAnnotationSource + ", abnormalityAnatomyId=" + abnormalityAnatomyId + ", abnormalityAnatomyTerm=" + abnormalityAnatomyTerm + ", computedAbnormalityAnatomyId=" + computedAbnormalityAnatomyId + ", computedAbnormalityAnatomyTerm=" + computedAbnormalityAnatomyTerm + ", abnormalityAnatomyFreetext=" + abnormalityAnatomyFreetext + ", abnormalityAnatomyAnnotationSource=" + abnormalityAnatomyAnnotationSource + ", phenotypeId=" + phenotypeId + ", phenotypeTerm=" + phenotypeTerm + ", phenotypeFreetext=" + phenotypeFreetext + ", observations=" + observations + ", xCoordinates=" + xCoordinates + ", yCoordinates=" + yCoordinates + ", zCoordinates=" + zCoordinates + "]";
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((abnormalityAnatomyAnnotationSource == null) ? 0 : abnormalityAnatomyAnnotationSource.hashCode());
+		result = prime * result + ((abnormalityAnatomyFreetext == null) ? 0 : abnormalityAnatomyFreetext.hashCode());
+		result = prime * result + ((abnormalityAnatomyId == null) ? 0 : abnormalityAnatomyId.hashCode());
+		result = prime * result + ((abnormalityAnatomyTerm == null) ? 0 : abnormalityAnatomyTerm.hashCode());
+		result = prime * result + ((associatedChannel == null) ? 0 : associatedChannel.hashCode());
+		result = prime * result + ((associatedImage == null) ? 0 : associatedImage.hashCode());
+		result = prime * result + ((computedAbnormalityAnatomyId == null) ? 0 : computedAbnormalityAnatomyId.hashCode());
+		result = prime * result + ((computedAbnormalityAnatomyTerm == null) ? 0 : computedAbnormalityAnatomyTerm.hashCode());
+		result = prime * result + ((computedDepictedAnatomyId == null) ? 0 : computedDepictedAnatomyId.hashCode());
+		result = prime * result + ((computedDepictedAnatomyTerm == null) ? 0 : computedDepictedAnatomyTerm.hashCode());
+		result = prime * result + ((depictedAnatomyAnnotationSource == null) ? 0 : depictedAnatomyAnnotationSource.hashCode());
+		result = prime * result + ((depictedAnatomyFreetext == null) ? 0 : depictedAnatomyFreetext.hashCode());
+		result = prime * result + ((depictedAnatomyId == null) ? 0 : depictedAnatomyId.hashCode());
+		result = prime * result + ((depictedAnatomyTerm == null) ? 0 : depictedAnatomyTerm.hashCode());
+		result = prime * result + ((expressedAnatomyFreetext == null) ? 0 : expressedAnatomyFreetext.hashCode());
+		result = prime * result + ((expressedAnatomyId == null) ? 0 : expressedAnatomyId.hashCode());
+		result = prime * result + ((expressedAnatomyTerm == null) ? 0 : expressedAnatomyTerm.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((observations == null) ? 0 : observations.hashCode());
+		result = prime * result + ((phenotypeFreetext == null) ? 0 : phenotypeFreetext.hashCode());
+		result = prime * result + ((phenotypeId == null) ? 0 : phenotypeId.hashCode());
+		result = prime * result + ((phenotypeTerm == null) ? 0 : phenotypeTerm.hashCode());
+		result = prime * result + ((xCoordinates == null) ? 0 : xCoordinates.hashCode());
+		result = prime * result + ((yCoordinates == null) ? 0 : yCoordinates.hashCode());
+		result = prime * result + ((zCoordinates == null) ? 0 : zCoordinates.hashCode());
+		return result;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+
+		if (this == obj) return true;
+		if (obj == null) return false;
+		if (getClass() != obj.getClass()) return false;
+		RoiDTO other = (RoiDTO) obj;
+		if (abnormalityAnatomyAnnotationSource == null) {
+			if (other.abnormalityAnatomyAnnotationSource != null) return false;
+		} else if (!abnormalityAnatomyAnnotationSource.equals(other.abnormalityAnatomyAnnotationSource)) return false;
+		if (abnormalityAnatomyFreetext == null) {
+			if (other.abnormalityAnatomyFreetext != null) return false;
+		} else if (!abnormalityAnatomyFreetext.equals(other.abnormalityAnatomyFreetext)) return false;
+		if (abnormalityAnatomyId == null) {
+			if (other.abnormalityAnatomyId != null) return false;
+		} else if (!abnormalityAnatomyId.equals(other.abnormalityAnatomyId)) return false;
+		if (abnormalityAnatomyTerm == null) {
+			if (other.abnormalityAnatomyTerm != null) return false;
+		} else if (!abnormalityAnatomyTerm.equals(other.abnormalityAnatomyTerm)) return false;
+		if (associatedChannel == null) {
+			if (other.associatedChannel != null) return false;
+		} else if (!associatedChannel.equals(other.associatedChannel)) return false;
+		if (associatedImage == null) {
+			if (other.associatedImage != null) return false;
+		} else if (!associatedImage.equals(other.associatedImage)) return false;
+		if (computedAbnormalityAnatomyId == null) {
+			if (other.computedAbnormalityAnatomyId != null) return false;
+		} else if (!computedAbnormalityAnatomyId.equals(other.computedAbnormalityAnatomyId)) return false;
+		if (computedAbnormalityAnatomyTerm == null) {
+			if (other.computedAbnormalityAnatomyTerm != null) return false;
+		} else if (!computedAbnormalityAnatomyTerm.equals(other.computedAbnormalityAnatomyTerm)) return false;
+		if (computedDepictedAnatomyId == null) {
+			if (other.computedDepictedAnatomyId != null) return false;
+		} else if (!computedDepictedAnatomyId.equals(other.computedDepictedAnatomyId)) return false;
+		if (computedDepictedAnatomyTerm == null) {
+			if (other.computedDepictedAnatomyTerm != null) return false;
+		} else if (!computedDepictedAnatomyTerm.equals(other.computedDepictedAnatomyTerm)) return false;
+		if (depictedAnatomyAnnotationSource == null) {
+			if (other.depictedAnatomyAnnotationSource != null) return false;
+		} else if (!depictedAnatomyAnnotationSource.equals(other.depictedAnatomyAnnotationSource)) return false;
+		if (depictedAnatomyFreetext == null) {
+			if (other.depictedAnatomyFreetext != null) return false;
+		} else if (!depictedAnatomyFreetext.equals(other.depictedAnatomyFreetext)) return false;
+		if (depictedAnatomyId == null) {
+			if (other.depictedAnatomyId != null) return false;
+		} else if (!depictedAnatomyId.equals(other.depictedAnatomyId)) return false;
+		if (depictedAnatomyTerm == null) {
+			if (other.depictedAnatomyTerm != null) return false;
+		} else if (!depictedAnatomyTerm.equals(other.depictedAnatomyTerm)) return false;
+		if (expressedAnatomyFreetext == null) {
+			if (other.expressedAnatomyFreetext != null) return false;
+		} else if (!expressedAnatomyFreetext.equals(other.expressedAnatomyFreetext)) return false;
+		if (expressedAnatomyId == null) {
+			if (other.expressedAnatomyId != null) return false;
+		} else if (!expressedAnatomyId.equals(other.expressedAnatomyId)) return false;
+		if (expressedAnatomyTerm == null) {
+			if (other.expressedAnatomyTerm != null) return false;
+		} else if (!expressedAnatomyTerm.equals(other.expressedAnatomyTerm)) return false;
+		if (id == null) {
+			if (other.id != null) return false;
+		} else if (!id.equals(other.id)) return false;
+		if (observations == null) {
+			if (other.observations != null) return false;
+		} else if (!observations.equals(other.observations)) return false;
+		if (phenotypeFreetext == null) {
+			if (other.phenotypeFreetext != null) return false;
+		} else if (!phenotypeFreetext.equals(other.phenotypeFreetext)) return false;
+		if (phenotypeId == null) {
+			if (other.phenotypeId != null) return false;
+		} else if (!phenotypeId.equals(other.phenotypeId)) return false;
+		if (phenotypeTerm == null) {
+			if (other.phenotypeTerm != null) return false;
+		} else if (!phenotypeTerm.equals(other.phenotypeTerm)) return false;
+		if (xCoordinates == null) {
+			if (other.xCoordinates != null) return false;
+		} else if (!xCoordinates.equals(other.xCoordinates)) return false;
+		if (yCoordinates == null) {
+			if (other.yCoordinates != null) return false;
+		} else if (!yCoordinates.equals(other.yCoordinates)) return false;
+		if (zCoordinates == null) {
+			if (other.zCoordinates != null) return false;
+		} else if (!zCoordinates.equals(other.zCoordinates)) return false;
+		return true;
+	}
+	
+	
 	
 }
