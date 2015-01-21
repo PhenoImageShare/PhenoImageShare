@@ -3,6 +3,7 @@ package uk.ac.ebi.phis.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.crsh.shell.impl.command.system.repl;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import uk.ac.ebi.phis.solrj.dto.RoiDTO;
@@ -16,36 +17,32 @@ public class GenericUpdateService {
 	
 	@Autowired 
 	ImageService is;
-	
-	@Autowired
-	AutosuggestService as;
-	
+		
 	@Autowired
 	ChannelService cs;
 	
 	@Autowired
 	RoiService rs;
 	
+	
 	public void updateCores(RoiDTO roi){
-		
-		// update roi core
-		List<RoiDTO> docs = new ArrayList<>();
-		docs.add(roi);
-		rs.addBeans(docs);
-		
-		// update list of associated rois in channel core
-		for(String channel: roi.getAssociatedChannel()){
-			cs.addAssociatedRoi(roi.getId(), channel);
-		}
-		
-		//TODO update image core
-		is.addToImageFromRoi(roi);
-		
-		
-		//TODO update autosuggest service
-		
+		RoiDTO roiToReplace  = rs.getRoiById(roi.getId());
+		is.updateImageFromRoi(roiToReplace, roi);
+		rs.updateRoi(roi);
 	}
 	
 	
+	public void addToCores(RoiDTO roi){
+		is.addToImageFromRoi(roi);
+		rs.addRoi(roi);
+		cs.addAssociatedRoi(roi);		
+	}
+	
+	
+	public void deleteFromCores(RoiDTO roi){
+		cs.deleteAssociatedRoi(roi);
+		is.deleteRoiRefferences(roi);
+		rs.deleteRoi(roi.getId());
+	}
 	
 }

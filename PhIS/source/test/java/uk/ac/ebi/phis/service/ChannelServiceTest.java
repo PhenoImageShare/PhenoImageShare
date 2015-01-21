@@ -8,63 +8,76 @@ import org.junit.Test;
 import org.springframework.test.AssertThrows;
 
 import uk.ac.ebi.phis.solrj.dto.ChannelDTO;
+import uk.ac.ebi.phis.solrj.dto.RoiDTO;
 
 public class ChannelServiceTest {
 	
 	ChannelService cs;
 
-	private static final String CHANNEL_ID = "komp2_channel_112967_0";
-	private static final String ROI_ID = "komp2_roi_112967_0_MADE_UP";
-	
+	private RoiDTO roi;
 	
 	public ChannelServiceTest(){
 		cs = new ChannelService("http://localhost:8086/solr-example/channels");
+		roi = TestUtils.getTestRoi();
 	}
 	
 	@Test
 	public void testAddAssociatedRoi(){
 		
-		ChannelDTO channel = cs.getChannelBean(CHANNEL_ID);
-		if(channel != null){
-			List<String> rois = channel.getAssociatedRoi(); 
-			int initialSize = rois.size();
-			System.out.println("\nROIS to add to : " + rois);
-			if (rois.contains(ROI_ID)){
-				// the number of rois should be the same and the id still contained there
-				cs.addAssociatedRoi(ROI_ID, CHANNEL_ID);
-				channel = cs.getChannelBean(CHANNEL_ID);
-				rois = channel.getAssociatedRoi();
-				assertTrue(rois.size() == initialSize && rois.contains(ROI_ID));
-			}else {
-				cs.addAssociatedRoi(ROI_ID, CHANNEL_ID);
-				channel = cs.getChannelBean(CHANNEL_ID);
-				rois = channel.getAssociatedRoi();
-				assertTrue(rois.size() == (1 + initialSize) && rois.contains(ROI_ID));
+		List<String> channels = roi.getAssociatedChannel();
+		String roiId = roi.getId();
+		
+		if(channels != null){
+			for (String channelId : channels){
+				ChannelDTO channel = cs.getChannelBean(channelId);
+				List<String> rois = channel.getAssociatedRoi(); 
+				int initialSize = rois.size();
+				System.out.println("\nROIS to add to : " + rois);
+				if (rois.contains(roiId)){
+					// the number of rois should be the same and the id still contained there
+					cs.addAssociatedRoi(roi);
+					channel = cs.getChannelBean(channelId);
+					rois = channel.getAssociatedRoi();
+					assertTrue(rois.size() == initialSize && rois.contains(roiId));
+				}else {
+					cs.addAssociatedRoi(roi);
+					channel = cs.getChannelBean(channelId);
+					rois = channel.getAssociatedRoi();
+					assertTrue(rois.size() == (1 + initialSize) && rois.contains(roiId));
+				}
+				System.out.println("After adding: " + rois);
 			}
-			System.out.println("After adding: " + rois);
 		}
 	}
 	
 	@Test
 	public void testDeleteAssociatedRoi(){
-		ChannelDTO channel = cs.getChannelBean(CHANNEL_ID);
-		if(channel != null){
-			List<String> rois = channel.getAssociatedRoi(); 
-			int initialSize = rois.size();
-			System.out.println("\nROIS to delete from : " + rois);
-			if (rois.contains(ROI_ID)){
-				// the number of rois should be the same and the id still contained there
-				cs.deleteAssociatedRoi(ROI_ID, CHANNEL_ID);
-				channel = cs.getChannelBean(CHANNEL_ID);
-				rois = channel.getAssociatedRoi();
-				assertTrue(rois.size() == (initialSize - 1) && !rois.contains(ROI_ID));
-			}else {
-				cs.deleteAssociatedRoi(ROI_ID, CHANNEL_ID);
-				channel = cs.getChannelBean(CHANNEL_ID);
-				rois = channel.getAssociatedRoi();
-				assertTrue (rois.size() == initialSize && !rois.contains(ROI_ID));
+		
+		List<String> channels = roi.getAssociatedChannel();
+		String roiId = roi.getId();
+		
+		if(channels != null){
+			for (String channelId : channels){
+				ChannelDTO channel = cs.getChannelBean(channelId);
+				if(channel != null){
+					List<String> rois = channel.getAssociatedRoi(); 
+					int initialSize = rois.size();
+					System.out.println("\nROIS to delete from : " + rois);
+					if (rois.contains(roiId)){
+						// the number of rois should be the same and the id still contained there
+						cs.deleteAssociatedRoi(roi);
+						channel = cs.getChannelBean(channelId);
+						rois = channel.getAssociatedRoi();
+						assertTrue(rois.size() == (initialSize - 1) && !rois.contains(roiId));
+					}else {
+						cs.deleteAssociatedRoi(roi);
+						channel = cs.getChannelBean(channelId);
+						rois = channel.getAssociatedRoi();
+						assertTrue (rois.size() == initialSize && !rois.contains(roiId));
+					}
+					System.out.println("After delete: " + channel.getAssociatedRoi());
+				}
 			}
-			System.out.println("After delete: " + channel.getAssociatedRoi());
 		}
 	}
 

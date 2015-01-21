@@ -13,6 +13,7 @@ import org.apache.solr.common.SolrInputDocument;
 
 import scala.Array;
 import uk.ac.ebi.phis.solrj.dto.ChannelDTO;
+import uk.ac.ebi.phis.solrj.dto.RoiDTO;
 import uk.ac.ebi.phis.utils.web.JSONRestUtil;
 
 public class ChannelService {
@@ -25,22 +26,35 @@ public class ChannelService {
 	}
 
 	
-	public void deleteAssociatedRoi(String roiId, String channelId){
-		ChannelDTO channel = getChannelBean(channelId);
-		while (channel.getAssociatedRoi().contains(roiId)){
-			channel.getAssociatedRoi().remove(roiId);
+	public void deleteAssociatedRoi(RoiDTO roi){
+
+		String roiId = roi.getId();
+		List<String> channelIds = roi.getAssociatedChannel();
+		if (channelIds != null){
+			for(String channelId : channelIds){
+				ChannelDTO channel = getChannelBean(channelId);
+				while (channel.getAssociatedRoi().contains(roiId)){
+					channel.getAssociatedRoi().remove(roiId);
+				}
+				List<ChannelDTO> docs = new ArrayList<>();
+				docs.add(channel);
+				addBeans(docs);
+			}
 		}
-		List<ChannelDTO> docs = new ArrayList<>();
-		docs.add(channel);
-		addBeans(docs);
 	}
 	
-	public void addAssociatedRoi(String roiId, String channelId){
-		ChannelDTO channel = getChannelBean(channelId);
-		channel.addAssociatedRoi(roiId);
-		List<ChannelDTO> docs = new ArrayList<>();
-		docs.add(channel);
-		addBeans(docs);
+	public void addAssociatedRoi(RoiDTO roi){
+		String roiId = roi.getId();
+		List<String> channelIds = roi.getAssociatedChannel();
+		if (channelIds != null){
+			for(String channelId : channelIds){
+				ChannelDTO channel = getChannelBean(channelId);
+				channel.addAssociatedRoi(roiId);
+				List<ChannelDTO> docs = new ArrayList<>();
+				docs.add(channel);
+				addBeans(docs);
+			}
+		}
 	}
 	
 	public ChannelDTO getChannelBean(String channelId){
