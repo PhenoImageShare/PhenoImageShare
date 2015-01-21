@@ -39,7 +39,7 @@ public class GenericUpdateService {
 		}
 		
 		//TODO update image core
-		is.updateImageFromRoi(roi);
+		is.addToImageFromRoi(roi);
 		
 		
 		//TODO update autosuggest service

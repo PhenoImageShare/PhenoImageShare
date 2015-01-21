@@ -248,6 +248,17 @@ public class ImageService {
 	}
 	
 	/**
+	 * 
+	 * @param roiToReplace must exist
+	 * @param roiToAdd must have teh same id as roiToReplace
+	 */
+	public void updateImageFromRoi(RoiDTO roiToReplace, RoiDTO roiToAdd){
+		deleteRoiRefferences(roiToReplace);
+		addToImageFromRoi(roiToAdd);
+	}
+	
+	
+	/**
 	 * Delete all refferences to this roi (roi id, annotations from annotations bags)
 	 * @param roi
 	 */
@@ -261,14 +272,13 @@ public class ImageService {
 		img.setAssociatedRoi(list);
 		
 		if (roi.getAbnormalityAnatomyId() != null){
-			img.setAbnormalAnatomyIdBag(removeOnce(img.getAbnormalAnatomyIdBag(), (ArrayList<String>) roi.getAbnormalityAnatomyId()));
+			img.setAbnormalAnatomyIdBag(removeOnce(img.getAbnormalAnatomyIdBag(), roi.getAbnormalityAnatomyId()));
 		}
 		if (roi.getAbnormalityAnatomyFreetext() != null){
 			img.setAbnormalAnatomyFreetextBag(removeOnce(img.getAbnormalAnatomyFreetextBag(), roi.getAbnormalityAnatomyFreetext()));
 		}
 		if (roi.getPhenotypeId() != null){
-			img.setPhenotypeIdBag(removeOnce(img.getPhenotypeIdBag(), (ArrayList<String>) roi.getPhenotypeId()));
-
+			img.setPhenotypeIdBag(removeOnce(img.getPhenotypeIdBag(), roi.getPhenotypeId()));
 		}
 		if (roi.getPhenotypeFreetext() != null){
 			img.setPhenotypeFreetextBag(removeOnce(img.getPhenotypeFreetextBag(), roi.getPhenotypeFreetext()));
@@ -309,45 +319,47 @@ public class ImageService {
 	 * To be used for atomic updates when a user adds a new annotation
 	 * @param roi
 	 */
-	public void updateImageFromRoi(RoiDTO roi){
+	public void addToImageFromRoi(RoiDTO roi){
 		
 		ImageDTO img = getImageById(roi.getAssociatedImage());
 		
-		img.addAssociatedRoi(roi.getId());
-		
-		if (roi.getAbnormalityAnatomyId() != null){
-			System.out.println("Adding " + roi.getAbnormalityAnatomyId().get(0));
-			img.addAbnormalAnatomyIdBag(roi.getAbnormalityAnatomyId().get(0));
+		if (!img.getAssociatedRoi().contains(roi.getId())){
+			img.addAssociatedRoi(roi.getId());
+			
+			if (roi.getAbnormalityAnatomyId() != null){
+				System.out.println("Adding " + roi.getAbnormalityAnatomyId().get(0));
+				img.addAbnormalAnatomyIdBag(roi.getAbnormalityAnatomyId().get(0));
+			}
+			if (roi.getAbnormalityAnatomyFreetext() != null){
+				img.addAbnormalAnatomyFreetextBag(roi.getAbnormalityAnatomyFreetext().get(0));
+			}
+			if (roi.getPhenotypeId() != null){
+				img.addPhenotypeIdBag((ArrayList<String>) roi.getPhenotypeId());
+			}
+			if (roi.getPhenotypeFreetext() != null){
+				img.addPhenotypeFreetextBag((ArrayList<String>) roi.getPhenotypeFreetext());
+			}
+			if (roi.getObservations() != null){
+				img.addObservationBag((ArrayList<String>) roi.getObservations());
+			}
+			if (roi.getDepictedAnatomyId() != null){
+				img.addDepictedAnatomyIdBag(roi.getDepictedAnatomyId());
+			}
+			if (roi.getDepictedAnatomyFreetext() != null){
+				img.addDepictedAnatomyFreetextBag(roi.getDepictedAnatomyFreetext());
+			}
+			if (roi.getExpressedAnatomyFreetext() != null){
+				img.addExpressionInFreetextBag(roi.getExpressedAnatomyFreetext());
+			}
+			if (roi.getExpressedAnatomyId() != null){
+				img.addExpressionInIdBag(roi.getExpressedAnatomyId());
+			}
+					
+			img.setGenericSearch(new ArrayList<String>());
+			List<ImageDTO> update = new ArrayList<>();
+			update.add(img);
+			addBeans(update);
 		}
-		if (roi.getAbnormalityAnatomyFreetext() != null){
-			img.addAbnormalAnatomyFreetextBag(roi.getAbnormalityAnatomyFreetext().get(0));
-		}
-		if (roi.getPhenotypeId() != null){
-			img.addPhenotypeIdBag((ArrayList<String>) roi.getPhenotypeId());
-		}
-		if (roi.getPhenotypeFreetext() != null){
-			img.addPhenotypeFreetextBag((ArrayList<String>) roi.getPhenotypeFreetext());
-		}
-		if (roi.getObservations() != null){
-			img.addObservationBag((ArrayList<String>) roi.getObservations());
-		}
-		if (roi.getDepictedAnatomyId() != null){
-			img.addDepictedAnatomyIdBag(roi.getDepictedAnatomyId());
-		}
-		if (roi.getDepictedAnatomyFreetext() != null){
-			img.addDepictedAnatomyFreetextBag(roi.getDepictedAnatomyFreetext());
-		}
-		if (roi.getExpressedAnatomyFreetext() != null){
-			img.addExpressionInFreetextBag(roi.getExpressedAnatomyFreetext());
-		}
-		if (roi.getExpressedAnatomyId() != null){
-			img.addExpressionInIdBag(roi.getExpressedAnatomyId());
-		}
-				
-		img.setGenericSearch(new ArrayList<String>());
-		List<ImageDTO> update = new ArrayList<>();
-		update.add(img);
-		addBeans(update);
 	}
 	
 	public ImageDTO getImageById(String imageId){

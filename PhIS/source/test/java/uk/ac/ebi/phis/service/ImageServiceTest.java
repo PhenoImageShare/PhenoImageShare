@@ -15,11 +15,14 @@ import uk.ac.ebi.phis.solrj.dto.RoiDTO;
 public class ImageServiceTest {
 
 	ImageService is;
+	RoiService rs;
 	RoiDTO roi ;
 	String imageDocId;
-
+	
+	
 	public ImageServiceTest(){
 		is = new ImageService("http://localhost:8086/solr-example/images");
+		rs = new RoiService("http://localhost:8086/solr-example/rois");
 		roi = TestUtils.getTestRoi();
 		imageDocId = roi.getAssociatedImage();
 	}
@@ -29,29 +32,43 @@ public class ImageServiceTest {
 		assertTrue(is.getImageById(imageDocId) != null);
 	}
 	
+	@Test 
+	public void testUpdateFromRoi(){
+		is.addToImageFromRoi(roi);
+		RoiDTO roiToReplace = rs.getRoiById(roi.getId());
+		ArrayList<String> abnormalityAnatomyFreetext = new ArrayList<String>();
+		abnormalityAnatomyFreetext.add("OTHER ABNORMALITY TO TEST UPDATES");
+		roi.setAbnormalityAnatomyFreetext(abnormalityAnatomyFreetext);
+		is.updateImageFromRoi(roiToReplace, roi);
+		testAddFromRoi();
+		is.deleteRoiRefferences(roi);
+	}
+	
 	@Test
 	public void testDeleteRoi(){
+		
+		is.addToImageFromRoi(roi);
 		ImageDTO originalImage = is.getImageById(roi.getAssociatedImage());
+		
 		is.deleteRoiRefferences(roi);
 		ImageDTO newImage = is.getImageById(roi.getAssociatedImage());
+		
 		System.out.println("\n\nNew image: " + newImage.toString());
 		assertTrue(phenotypeFieldsGotDeleted(originalImage, newImage));
 		assertTrue(abnormalityInAnatomyGotDeleted(originalImage, newImage));
 		assertTrue(depictedAnatomyFieldsGotDeleted(originalImage, newImage));
 		assertTrue(observationsGotDeleted(originalImage, newImage));
 		assertTrue(expressedInFieldsGotDeleted(originalImage, newImage));
-//		assertTrue(genericSearchGotDeleted(originalImage, newImage));
-
 		assertFalse(hasRoiInList(newImage));
 	}
 	
-	@Ignore @Test 
-	public void testUpdateFromRoi(){
+	@Test 
+	public void testAddFromRoi(){
 		System.out.println(roi.getAssociatedImage());
 		System.out.println(is.getSolrUrl());
 		String imageId = roi.getAssociatedImage();
-		
-		is.updateImageFromRoi(roi);
+				
+		is.addToImageFromRoi(roi);
 		
 		ImageDTO image = is.getImageById(imageId);
 		
@@ -62,6 +79,8 @@ public class ImageServiceTest {
 		assertTrue(observationsGotCopied(image));
 		assertTrue(expressedInFieldsGotCopied(image));
 		assertTrue(genericSearchGotFilled(image));
+		
+		is.deleteRoiRefferences(roi);
 	}
 	
 	private boolean observationsGotDeleted(ImageDTO original, ImageDTO img){
