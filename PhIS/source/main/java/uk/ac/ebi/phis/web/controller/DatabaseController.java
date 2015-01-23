@@ -2,6 +2,8 @@ package uk.ac.ebi.phis.web.controller;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.solr.client.solrj.SolrServerException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import uk.ac.ebi.neo4jUtils.Neo4jAccessUtils;
+import uk.ac.ebi.phis.service.GenericUpdateService;
+import uk.ac.ebi.phis.solrj.dto.RoiDTO;
 
 	@Controller
 	@RequestMapping("/rest/submission")
@@ -20,6 +24,9 @@ import uk.ac.ebi.neo4jUtils.Neo4jAccessUtils;
 
 		@Autowired
 		Neo4jAccessUtils neo;
+		
+		@Autowired 
+		GenericUpdateService gus;
 		
 		/**
 		 * 
@@ -40,28 +47,39 @@ import uk.ac.ebi.neo4jUtils.Neo4jAccessUtils;
 		@RequestMapping(value="/createAnnotation", method=RequestMethod.GET)	
 	    public @ResponseBody String createAnnotation(
 	    		@RequestParam(value = "userId", required = true) String userId,
-	            @RequestParam(value = "anntoationId", required = true) String anntoationId,
+	            @RequestParam(value = "anntoationId", required = true) String annotationId,
 	            @RequestParam(value = "associatedImageId", required = true) String associatedImageId,
-	            @RequestParam(value = "xCoordinates", required = true) float[] xCoordinates,
-	            @RequestParam(value = "yCoordinates", required = true) float[] yCoordinates,
-	            @RequestParam(value = "zCoordinates", required = false) float[] zCoordinates,
-	    		@RequestParam(value = "associatedChannelId", required = false) String associatedChannelId,
-	            @RequestParam(value = "depictedAnatomyId", required = false) String depictedAnatomyId,
-	            @RequestParam(value = "depictedAnatomyFreetext", required = false) String depictedAnatomyFreetext,
-	            @RequestParam(value = "expressionInAnatomyId", required = false) String expressionInAnatomyId,
-	            @RequestParam(value = "expressionInAnatomyFreetext", required = false) String expressionInAnatomyFreetext,
-	            @RequestParam(value = "abnInAnatomyId", required = false) String abnInAnatomyId,
-	            @RequestParam(value = "abnInAnatomyFreetext", required = false) String abnInAnatomyFreetext,
-	            @RequestParam(value = "phenotypeId", required = false) String phenotypeId,
-	            @RequestParam(value = "phenotypeFreetext", required = false) String phenotypeFreetext,
-	            @RequestParam(value = "observation", required = false) String observation,
+	            @RequestParam(value = "xCoordinates", required = true) List<Float> xCoordinates,
+	            @RequestParam(value = "yCoordinates", required = true) List<Float> yCoordinates,
+	            @RequestParam(value = "zCoordinates", required = false) List<Float> zCoordinates,
+	    		@RequestParam(value = "associatedChannelId", required = false) List<String> associatedChannelId,
+	            @RequestParam(value = "depictedAnatomyId", required = false) List<String> depictedAnatomyId,
+	            @RequestParam(value = "depictedAnatomyTerm", required = false) List<String> depictedAnatomyTerm,
+	            @RequestParam(value = "depictedAnatomyFreetext", required = false) List<String> depictedAnatomyFreetext,
+	            @RequestParam(value = "expressionInAnatomyId", required = false) List<String> expressionInAnatomyId,
+	            @RequestParam(value = "expressionInAnatomyTerm", required = false) List<String> expressionInAnatomyTerm,
+	            @RequestParam(value = "expressionInAnatomyFreetext", required = false) List<String> expressionInAnatomyFreetext,
+	            @RequestParam(value = "abnInAnatomyId", required = false) List<String> abnInAnatomyId,
+	            @RequestParam(value = "abnInAnatomyFreetext", required = false) List<String> abnInAnatomyFreetext,
+	            @RequestParam(value = "abnInAnatomyTerm", required = false) List<String> abnInAnatomyTerm,
+	            @RequestParam(value = "phenotypeId", required = false) List<String> phenotypeId,
+	            @RequestParam(value = "phenotypeFreetext", required = false) List<String> phenotypeFreetext,
+	            @RequestParam(value = "phenotypeTerm", required = false) List<String> phenotypeTerm,
+	            @RequestParam(value = "observation", required = false) List<String> observations,
 	    		Model model
 	            ) {
 				
 			try {
-				neo.createAnnotation(userId, anntoationId, associatedImageId, xCoordinates, yCoordinates, zCoordinates, 
-					associatedChannelId, depictedAnatomyId, depictedAnatomyFreetext, abnInAnatomyId, abnInAnatomyFreetext, phenotypeId, 
-					phenotypeFreetext, observation, expressionInAnatomyId, expressionInAnatomyFreetext, model);
+				if (neo.createAnnotation(userId, annotationId, associatedImageId, xCoordinates, yCoordinates, zCoordinates, 
+				associatedChannelId, depictedAnatomyId, depictedAnatomyFreetext, abnInAnatomyId, abnInAnatomyFreetext, phenotypeId, 
+				phenotypeFreetext, observations, expressionInAnatomyId, expressionInAnatomyFreetext, expressionInAnatomyTerm, model)){
+					
+					RoiDTO roi = new RoiDTO(annotationId, associatedChannelId, associatedImageId, depictedAnatomyId, depictedAnatomyTerm, 
+							depictedAnatomyFreetext, abnInAnatomyId, abnInAnatomyTerm, abnInAnatomyFreetext, 
+							phenotypeId, phenotypeTerm, phenotypeFreetext, observations, new ArrayList<Float>(xCoordinates), 
+							new ArrayList<Float>(yCoordinates), new ArrayList<Float>(zCoordinates));
+					gus.addToCores(roi);
+				}
 
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -75,31 +93,35 @@ import uk.ac.ebi.neo4jUtils.Neo4jAccessUtils;
 	    		@RequestParam(value = "userId", required = true) String userId,
 	            @RequestParam(value = "anntoationId", required = true) String annotationId,
 	            @RequestParam(value = "associatedImageId", required = true) String associatedImageId,
-	            @RequestParam(value = "xCoordinates", required = true) float[] xCoordinates,
-	            @RequestParam(value = "yCoordinates", required = true) float[] yCoordinates,
-	            @RequestParam(value = "zCoordinates", required = false) float[] zCoordinates,
-	    		@RequestParam(value = "associatedChannelId", required = false) String associatedChannelId,
-	            @RequestParam(value = "depictedAnatomyId", required = false) String depictedAnatomyId,
-	            @RequestParam(value = "depictedAnatomyLabel", required = false) String depictedAnatomyFreetext,
-	            @RequestParam(value = "abnInAnatomyId", required = false) String abnInAnatomyId,
-	            @RequestParam(value = "abnInAnatomyLabel", required = false) String abnInAnatomyFreetext,
-	            @RequestParam(value = "expressionInAnatomyId", required = false) String expressionInAnatomyId,
-	            @RequestParam(value = "expressionInAnatomyFreetext", required = false) String expressionInAnatomyFreetext,
-	            @RequestParam(value = "phenotypeId", required = false) String phenotypeId,
-	            @RequestParam(value = "phenotypeLabel", required = false) String phenotypeFreetext,
-	            @RequestParam(value = "observation", required = false) String observation,
+	            @RequestParam(value = "xCoordinates", required = true) List<Float> xCoordinates,
+	            @RequestParam(value = "yCoordinates", required = true) List<Float> yCoordinates,
+	            @RequestParam(value = "zCoordinates", required = false) List<Float> zCoordinates,
+	    		@RequestParam(value = "associatedChannelId", required = false) List<String> associatedChannelId,
+	            @RequestParam(value = "depictedAnatomyId", required = false) List<String> depictedAnatomyId,
+	            @RequestParam(value = "depictedAnatomyTerm", required = false) List<String> depictedAnatomyTerm,
+	            @RequestParam(value = "depictedAnatomyFreetext", required = false) List<String> depictedAnatomyFreetext,
+	            @RequestParam(value = "abnInAnatomyId", required = false) List<String> abnInAnatomyId,
+	            @RequestParam(value = "abnInAnatomyTerm", required = false) List<String> abnInAnatomyTerm,
+	            @RequestParam(value = "abnInAnatomyFreetext", required = false) List<String> abnInAnatomyFreetext,
+	            @RequestParam(value = "expressionInAnatomyId", required = false) List<String> expressionInAnatomyId,
+	            @RequestParam(value = "expressionInAnatomyFreetext", required = false) List<String> expressionInAnatomyFreetext,
+	            @RequestParam(value = "expressionInAnatomyTerm", required = false) List<String> expressionInAnatomyTerm,
+	            @RequestParam(value = "phenotypeId", required = false) List<String> phenotypeId,
+	            @RequestParam(value = "phenotypeTerm", required = false) List<String> phenotypeTerm,
+	            @RequestParam(value = "phenotypeFreetext", required = false) List<String> phenotypeFreetext,
+	            @RequestParam(value = "observation", required = false) List<String> observations,
 	    		Model model
 	            ) {
 				
-			try {
-				neo.updateAnnotation(annotationId, userId, associatedImageId, xCoordinates, yCoordinates, zCoordinates, associatedChannelId,
+			if (neo.updateAnnotation(annotationId, userId, associatedImageId, xCoordinates, yCoordinates, zCoordinates, associatedChannelId,
 					depictedAnatomyId, depictedAnatomyFreetext, abnInAnatomyId, abnInAnatomyFreetext, phenotypeId, expressionInAnatomyFreetext, 
-					expressionInAnatomyId, phenotypeFreetext, observation);
-				
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			
+					expressionInAnatomyId, expressionInAnatomyTerm, phenotypeFreetext, observations)){
+				RoiDTO roi = new RoiDTO(annotationId, associatedChannelId, associatedImageId, depictedAnatomyId, depictedAnatomyTerm, 
+				depictedAnatomyFreetext, abnInAnatomyId, abnInAnatomyTerm, abnInAnatomyFreetext, 
+				phenotypeId, phenotypeTerm, phenotypeFreetext, observations, new ArrayList<Float>(xCoordinates), 
+				new ArrayList<Float>(yCoordinates), new ArrayList<Float>(zCoordinates));
+				gus.addToCores(roi);
+			}	
 			return "";
 	    }
 		
@@ -113,6 +135,7 @@ import uk.ac.ebi.neo4jUtils.Neo4jAccessUtils;
 				
 				if (neo.hasSameUser(userId, anntoationId)){
 					neo.deleteNodeWithRelations(anntoationId);
+					gus.deleteFromCores(anntoationId);
 				}
 			} catch (Exception e) {
 				e.printStackTrace();

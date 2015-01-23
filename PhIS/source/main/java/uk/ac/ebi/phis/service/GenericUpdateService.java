@@ -5,10 +5,11 @@ import java.util.List;
 
 import org.crsh.shell.impl.command.system.repl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import uk.ac.ebi.phis.solrj.dto.RoiDTO;
 
-
+@Service
 public class GenericUpdateService {
 	
 	/**
@@ -39,7 +40,8 @@ public class GenericUpdateService {
 	}
 	
 	
-	public void deleteFromCores(RoiDTO roi){
+	public void deleteFromCores(String roiId){
+		RoiDTO roi = rs.getRoiById(roiId);
 		cs.deleteAssociatedRoi(roi);
 		is.deleteRoiRefferences(roi);
 		rs.deleteRoi(roi.getId());

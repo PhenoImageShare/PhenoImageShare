@@ -22,16 +22,16 @@ public class TestUtils {
 		depictedAnatomyTerm.add("some anatomy part");
 		List<String> depictedAnatomyFreetext = new ArrayList<>();
 		depictedAnatomyFreetext.add("some anatomy freetext"); 
-		List<String> depictedAnatomyAnnotationSource = new ArrayList<>();
-		depictedAnatomyAnnotationSource.add("USER_ADDED");
+//		List<String> depictedAnatomyAnnotationSource = new ArrayList<>();
+//		depictedAnatomyAnnotationSource.add("USER_ADDED");
 		List<String> abnormalityAnatomyId = new ArrayList<>();
 		abnormalityAnatomyId.add("MADEUP_0921");
 		List<String> abnormalityAnatomyTerm = new ArrayList<>();
 		abnormalityAnatomyTerm.add("anat made up term No 2");
 		List<String> abnormalityAnatomyFreetext = new ArrayList<>();
 		abnormalityAnatomyFreetext.add("some abnormal anatomy freetext No 2");
-		List<String> abnormalityAnatomyAnnotationSource = new ArrayList<>();
-		abnormalityAnatomyAnnotationSource.add("USER_ADDED"); 
+//		List<String> abnormalityAnatomyAnnotationSource = new ArrayList<>();
+//		abnormalityAnatomyAnnotationSource.add("USER_ADDED"); 
 		List<String> phenotypeId = new ArrayList<>();
 		phenotypeId.add("MADEUP_928013");
 		List<String> phenotypeTerm = new ArrayList<>();
@@ -48,7 +48,7 @@ public class TestUtils {
 		zCoordinates.add((float) 12);
 		
 		roi = new RoiDTO(id, associatedChannel, associatedImage, depictedAnatomyId, depictedAnatomyTerm, depictedAnatomyFreetext, 
-			depictedAnatomyAnnotationSource, abnormalityAnatomyId, abnormalityAnatomyTerm, abnormalityAnatomyFreetext, abnormalityAnatomyAnnotationSource, 
+			abnormalityAnatomyId, abnormalityAnatomyTerm, abnormalityAnatomyFreetext, 
 			phenotypeId, phenotypeTerm, phenotypeFreetext, observations, xCoordinates, yCoordinates, zCoordinates);
 		
 		return roi;

@@ -11,8 +11,7 @@
 <body>
 
 	<h1>PhIS RESTful Sevice Documentation</h1>
-	<p>Base URL for dev website is
-		http://dev.phenoimageshare.org/data/rest/submission .</p>
+	<p>Base URL is http://[dev|beta].phenoimageshare.org/data/rest/submission .</p>
 		
 	<br/>
 
@@ -34,7 +33,7 @@
 				<td>userId</td>
 				<td><var>String</var></td>
 				<td> true </td>
-				<td>Unique user id. If the id does not exist a node will be created</td>
+				<td>Unique user id. If the id does not exist a node will be created.</td>
 				<td><var>-</var></td>
 				<td><var>user_021897401</var><br></td>
 			</tr>
@@ -92,6 +91,22 @@
 				<td><var>MA:0000261</var><br></td>
 			</tr>
 			<tr>
+				<td>depictedAnatomyTerm</td>
+				<td><var>String</var></td>
+				<td> false </td>
+				<td></td>
+				<td><var>-</var></td>
+				<td><var>heart</var><br></td>
+			</tr>
+			<tr>
+				<td>depictedAnatomyFreetext</td>
+				<td><var>String</var></td>
+				<td> false </td>
+				<td></td>
+				<td><var>-</var></td>
+				<td><var>some description of an anatomical part</var><br></td>
+			</tr>
+			<tr>
 				<td>abnInAnatomyId</td>
 				<td><var>String</var></td>
 				<td> false </td>
@@ -100,19 +115,78 @@
 				<td><var>MA:0000261</var><br></td>
 			</tr>
 			<tr>
+				<td>abnInAnatomyTerm</td>
+				<td><var>String</var></td>
+				<td> false </td>
+				<td></td>
+				<td><var>-</var></td>
+				<td><var>heart</var><br></td>
+			</tr>
+			<tr>
+				<td>abnInAnatomyFreetext</td>
+				<td><var>String</var></td>
+				<td> false </td>
+				<td></td>
+				<td><var>-</var></td>
+				<td><var>some description of an anatomical part</var><br></td>
+			</tr>
+			<tr>
 				<td>phenotypeId</td>
 				<td><var>String</var></td>
 				<td> false </td>
 				<td></td>
 				<td><var>-</var></td>
-				<td><var>MP_0001340</var><br></td>
+				<td><var>MP:0010254</var><br></td>
 			</tr>
-			
+			<tr>
+				<td>phenotypeTerm</td>
+				<td><var>String</var></td>
+				<td> false </td>
+				<td></td>
+				<td><var>-</var></td>
+				<td><var>abnormal heart</var><br></td>
+			</tr>
+			<tr>
+				<td>phenotypeFreetext</td>
+				<td><var>String</var></td>
+				<td> false </td>
+				<td></td>
+				<td><var>-</var></td>
+				<td><var>some observation about the phenotype</var><br></td>
+			</tr>
+			<tr>
+				<td>expressionInAnatomyId</td>
+				<td><var>String</var></td>
+				<td> false </td>
+				<td></td>
+				<td><var>-</var></td>
+				<td><var>MA:0000261</var><br></td>
+			</tr>
+			<tr>
+				<td>expressionInAnatomyTerm</td>
+				<td><var>String</var></td>
+				<td> false </td>
+				<td></td>
+				<td><var>-</var></td>
+				<td><var>abnormal heart</var><br></td>
+			</tr>
+			<tr>
+				<td>expressionInAnatomyFreetext</td>
+				<td><var>String</var></td>
+				<td> false </td>
+				<td></td>
+				<td><var>-</var></td>
+				<td><var>some observation about the expression</var><br></td>
+			</tr>
 		</tbody>
 	</table>
 
 
 	<h1>/updateAnnotation</h1>
+	<p> This method should be used only to modify existing annotations. If a field is ommitted (empty) it's value will be deleted from the database  (if it had one). So every single correct parameter should be sent for every update.</p>
+	<p> <b>All parameters from 	/createAnnotation</b> with the following meaning distinction: </p>
+	
+	
 	<table>
 		<tbody>
 		<thead>
@@ -138,70 +212,9 @@
 				<td>anntoationId</td>
 				<td><var>String</var></td>
 				<td> true </td>
-				<td>Unique id of the annotation to be modified.</td>
+				<td>Unique id of the annotation to be modified. If the id does not exist in the database the annotation will not be added. You should call </td>
 				<td><var></var></td>
 				<td><var></var><br></td>
-			</tr>
-			<tr>
-				<td>xCoordinates</td>
-				<td><var>float[]</var></td>
-				<td> true </td>
-				<td>A set of 1 coordinate pair (x,y or x,y,z) -> point. <br/>
-						2 coordinate pairs -> rectangular. <br/>
-						>2 coordinate pairs -> polygon. <br/>
-<!-- 					Multiple shapes can be delimited by a dot (.) on each axis coordinate sets. A dot and a rectangular would look like:<br/>
-						x = ["32",".","10", "22"], y = ["45",".","30", "42"]; -->
-						</td>
-				<td><var>-</var></td>
-				<td><var>??</var><br></td>
-			</tr>
-			<tr>
-				<td>yCoordinates</td>
-				<td><var>float[]</var></td>
-				<td> true </td>
-				<td>See xCoordinates.</td>
-				<td><var>-</var></td>
-				<td><var>??</var><br></td>
-			</tr>
-			<tr>
-				<td>zCoordinates</td>
-				<td><var>string[]</var></td>
-				<td> false </td>
-				<td>See xCoordinates.</td>
-				<td><var>-</var></td>
-				<td><var>??</var><br></td>
-			</tr>
-			<tr>
-				<td>associatedChannel</td>
-				<td><var>String</var></td>
-				<td> false </td>
-				<td></td>
-				<td><var>-</var></td>
-				<td><var></var><br></td>
-			</tr>
-			<tr>
-				<td>depictedAnatomyId</td>
-				<td><var>String</var></td>
-				<td> false </td>
-				<td></td>
-				<td><var>-</var></td>
-				<td><var>MA:0000261</var><br></td>
-			</tr>
-			<tr>
-				<td>abnInAnatomyId</td>
-				<td><var>String</var></td>
-				<td> false </td>
-				<td></td>
-				<td><var>-</var></td>
-				<td><var>MA:0000261</var><br></td>
-			</tr>
-			<tr>
-				<td>phenotypeId</td>
-				<td><var>String</var></td>
-				<td> false </td>
-				<td></td>
-				<td><var>-</var></td>
-				<td><var>MP_0001340</var><br></td>
 			</tr>
 			
 		</tbody>

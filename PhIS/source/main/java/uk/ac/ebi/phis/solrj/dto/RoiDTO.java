@@ -115,7 +115,10 @@ public class RoiDTO {
 		
 	}
 	
-	public RoiDTO(String id, List<String> associatedChannel, String associatedImage, List<String> depictedAnatomyId, List<String> depictedAnatomyTerm, List<String> depictedAnatomyFreetext, List<String> depictedAnatomyAnnotationSource, List<String> abnormalityAnatomyId, List<String> abnormalityAnatomyTerm, List<String> abnormalityAnatomyFreetext, List<String> abnormalityAnatomyAnnotationSource, List<String> phenotypeId, List<String> phenotypeTerm, List<String> phenotypeFreetext, List<String> observations, List<Float> xCoordinates, List<Float> yCoordinates, List<Float> zCoordinates) {
+	public RoiDTO(String id, List<String> associatedChannel, String associatedImage, List<String> depictedAnatomyId, 
+	List<String> depictedAnatomyTerm, List<String> depictedAnatomyFreetext, List<String> abnormalityAnatomyId, 
+	List<String> abnormalityAnatomyTerm, List<String> abnormalityAnatomyFreetext, List<String> phenotypeId, List<String> phenotypeTerm, 
+	List<String> phenotypeFreetext, List<String> observations, List<Float> xCoordinates, List<Float> yCoordinates, List<Float> zCoordinates) {
 
 		super();
 		this.id = id;
@@ -124,11 +127,9 @@ public class RoiDTO {
 		this.depictedAnatomyId = depictedAnatomyId;
 		this.depictedAnatomyTerm = depictedAnatomyTerm;
 		this.depictedAnatomyFreetext = depictedAnatomyFreetext;
-		this.depictedAnatomyAnnotationSource = depictedAnatomyAnnotationSource;
 		this.abnormalityAnatomyId = abnormalityAnatomyId;
 		this.abnormalityAnatomyTerm = abnormalityAnatomyTerm;
 		this.abnormalityAnatomyFreetext = abnormalityAnatomyFreetext;
-		this.abnormalityAnatomyAnnotationSource = abnormalityAnatomyAnnotationSource;
 		this.phenotypeId = phenotypeId;
 		this.phenotypeTerm = phenotypeTerm;
 		this.phenotypeFreetext = phenotypeFreetext;

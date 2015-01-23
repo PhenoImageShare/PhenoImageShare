@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -63,25 +64,30 @@ public class Neo4jAccessUtils {
 	}
 	
 	
-	public void createAnnotation( String userId, String anntoationId, String associatedImageId, float[] xCoordinates,
-    	float[] yCoordinates, float[] zCoordinates, String associatedChannelId, String depictedAnatomyId, String depictedAnatomyFreetext,
-    	String abnInAnatomyId, String abnInAnatomyFreetext, String phenotypeId, String phenotypeFreetext, String observation, String expressedInAnatomyId, 
-    	String expressedInAnatomyFreetext, Model model ) 
-    throws IllegalArgumentException {
+	public boolean createAnnotation( String userId, String anntoationId, String associatedImageId, List<Float> xCoordinates,
+	List<Float> yCoordinates, List<Float> zCoordinates, List<String> associatedChannelId, List<String> depictedAnatomyId, List<String> depictedAnatomyFreetext,
+    List<String> abnInAnatomyId, List<String> abnInAnatomyFreetext, List<String> phenotypeId, List<String> phenotypeFreetext, List<String> observation, 
+    List<String> expressedInAnatomyId, List<String> expressedInAnatomyTerm, List<String> expressedInAnatomyFreetext, Model model )  {
 	
 		Date today = new Date();
-		createAnnotationWithDates(userId, anntoationId, associatedImageId, today, null, xCoordinates, yCoordinates, zCoordinates, associatedChannelId, depictedAnatomyId, 
-			depictedAnatomyFreetext, abnInAnatomyId, abnInAnatomyFreetext, phenotypeId, phenotypeFreetext, expressedInAnatomyId, expressedInAnatomyFreetext, observation);
+		try{
+			createAnnotationWithDates(userId, anntoationId, associatedImageId, today, null, xCoordinates, yCoordinates, zCoordinates, associatedChannelId, depictedAnatomyId, 
+				depictedAnatomyFreetext, abnInAnatomyId, abnInAnatomyFreetext, phenotypeId, phenotypeFreetext, expressedInAnatomyId, expressedInAnatomyFreetext,
+				expressedInAnatomyTerm, observation);
+			return true;
+		}catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
 	}
 	
 	public void createAnnotationWithDates( String userId, String annotationId, String associatedImageId, Date creationDate, Date lastModifiedDate, 
-		float[] xCoordinates, float[] yCoordinates, float[] zCoordinates, String associatedChannelId, String depictedAnatomyId, String depictedAnatomyFreetext,
-    	String abnInAnatomyId, String abnInAnatomyFreetext, String phenotypeId, String phenotypeFreetext, String expressedInAnatomyId, String expressedInAnatomyFreetext, 
-    	String observation) 
+	List<Float> xCoordinates, List<Float> yCoordinates, List<Float> zCoordinates, List<String> associatedChannelId, List<String> depictedAnatomyId, List<String> depictedAnatomyFreetext,
+	List<String> abnInAnatomyId, List<String> abnInAnatomyFreetext, List<String> phenotypeId, List<String> phenotypeFreetext, List<String> expressedInAnatomyId, List<String> expressedInAnatomyFreetext, 
+	List<String> expressedInAnatomyTerm, List<String> observation) 
 	throws IllegalArgumentException {
 	
 		Node user;
-		Node channel = null;
 		Node image;
 		Node annotation;
 				
@@ -100,45 +106,62 @@ public class Neo4jAccessUtils {
 		user = getOrCreateNode(userId, userLabel);
 		image = getOrCreateNode(associatedImageId, imageLabel);
 				
-		if (associatedChannelId != null){
-			channel = getOrCreateNode(associatedChannelId, channelLabel);
-		}
+		
 		
 		annotation = addAnnotationNode(annotationId, observation, creationDate, lastModifiedDate, xCoordinates, yCoordinates, zCoordinates);
 		
 		addBidirectionalRelation(annotation, Neo4jRelationship.HAS_ASSOCIATED_IMAGE, image);
 		addBidirectionalRelation(annotation, Neo4jRelationship.CREATED_BY, user);
 		
-		if (channel != null){
-			addBidirectionalRelation(annotation, Neo4jRelationship.HAS_ASSOCIATED_CHANNEL, channel);
+		if (associatedChannelId != null){
+			for (String s: associatedChannelId){
+				Node channel = channel = getOrCreateNode(s, channelLabel);
+				addBidirectionalRelation(annotation, Neo4jRelationship.HAS_ASSOCIATED_CHANNEL, channel);
+			}
 		}		
 		if (depictedAnatomyId != null){
-			Node ot = getOrCreateNode(depictedAnatomyId, ontologyTermLabel);
-			addBidirectionalRelation(annotation, Neo4jRelationship.DEPICTS, ot);
+			for (String s: depictedAnatomyId){
+				Node ot = getOrCreateNode(s, ontologyTermLabel);
+				addBidirectionalRelation(annotation, Neo4jRelationship.DEPICTS, ot);
+			}				
 		}
 		if (abnInAnatomyId != null){
-			Node ot = getOrCreateNode(abnInAnatomyId, ontologyTermLabel);
-			addBidirectionalRelation(annotation, Neo4jRelationship.DEPICTS_ABNORMALITY_IN, ot);
+			for (String s: abnInAnatomyId){
+				Node ot = getOrCreateNode(s, ontologyTermLabel);
+				addBidirectionalRelation(annotation, Neo4jRelationship.DEPICTS_ABNORMALITY_IN, ot);
+			}
 		}
 		if (phenotypeId != null){
-			Node ot = getOrCreateNode(phenotypeId, ontologyTermLabel);
-			addBidirectionalRelation(annotation, Neo4jRelationship.DEPICTS_PHENOTYPE, ot);
+			for (String s: phenotypeId){
+				Node ot = getOrCreateNode(s, ontologyTermLabel);
+				addBidirectionalRelation(annotation, Neo4jRelationship.DEPICTS_PHENOTYPE, ot);
+			}
 		}
 		if (expressedInAnatomyId != null){
-			Node ot = getOrCreateNode(expressedInAnatomyId, ontologyTermLabel);
-			addBidirectionalRelation(annotation, Neo4jRelationship.EXPRESSED_IN, ot);
+			for (String s: expressedInAnatomyId){
+				Node ot = getOrCreateNode(s, ontologyTermLabel);
+				addBidirectionalRelation(annotation, Neo4jRelationship.EXPRESSED_IN, ot);
+			}
 		}
 		if (depictedAnatomyFreetext != null){
-			annotation = setAnnotationProperty(annotation, AnnotationProperties.DEPICTED_ANATOMY_FREETEXT, depictedAnatomyFreetext);
+			for (String s: depictedAnatomyFreetext){
+				annotation = setAnnotationProperty(annotation, AnnotationProperties.DEPICTED_ANATOMY_FREETEXT, s);
+			}
 		}
 		if (expressedInAnatomyFreetext != null){
-			annotation = setAnnotationProperty(annotation, AnnotationProperties.EXPRESSION_INANATOMY_FREETEXT, expressedInAnatomyFreetext);
+			for (String s: expressedInAnatomyFreetext){
+				annotation = setAnnotationProperty(annotation, AnnotationProperties.EXPRESSION_INANATOMY_FREETEXT, s);
+			}
 		}
 		if (abnInAnatomyFreetext != null){
-			annotation = setAnnotationProperty(annotation, AnnotationProperties.ABN_IN_ANATOMY_FREETEXT, abnInAnatomyFreetext);
+			for (String s: abnInAnatomyFreetext){
+				annotation = setAnnotationProperty(annotation, AnnotationProperties.ABN_IN_ANATOMY_FREETEXT, s);
+			}
 		}
 		if (phenotypeFreetext != null){
-			annotation = setAnnotationProperty(annotation, AnnotationProperties.PHENOTYPE_FREETEXT, phenotypeFreetext);
+			for (String s: phenotypeFreetext){
+				annotation = setAnnotationProperty(annotation, AnnotationProperties.PHENOTYPE_FREETEXT, s);
+			}
 		}
 		
 	}
@@ -182,8 +205,8 @@ public class Neo4jAccessUtils {
         }   
 	}
 	
-	public Node addAnnotationNode(String id, String observation, Date creationDate, Date lastModifiedDate, float[] xCoordinates, 
-	float[] yCoordinates, float[] zCoordinates) throws IllegalArgumentException{
+	public Node addAnnotationNode(String id, List<String> observation, Date creationDate, Date lastModifiedDate, List<Float> xCoordinates, 
+	List<Float> yCoordinates, List<Float> zCoordinates) throws IllegalArgumentException{
 		
 		Node myNode = null;
 		if (id == null || id.equals("")){
@@ -418,20 +441,30 @@ public class Neo4jAccessUtils {
         }
 	}
 	
-	public void updateAnnotation(String annotationId, String userId, String associatedImageId, float[] xCoordinates,
-    	float[] yCoordinates, float[] zCoordinates, String associatedChannelId, String depictedAnatomyId, String depictedAnatomyFreetext,
-    	String abnInAnatomyId, String abnInAnatomyFreetext, String phenotypeId, String expressionInAnatomyFreetext, String expressioninAnatomyId, 
-    	String phenotypeFreetext, String observation) 
-    throws Exception{
+	public boolean updateAnnotation(String annotationId, String userId, String associatedImageId, List<Float> xCoordinates,
+	List<Float> yCoordinates, List<Float> zCoordinates, List<String> associatedChannelId, List<String> depictedAnatomyId, List<String> depictedAnatomyFreetext,
+    List<String> abnInAnatomyId, List<String> abnInAnatomyFreetext, List<String> phenotypeId, List<String> expressionInAnatomyFreetext, 
+    List<String> expressioninAnatomyId, List<String> expressioninAnatomyTerm, List<String> phenotypeFreetext, List<String> observation){
 		Date today = new Date();
-		if (existsId(annotationId, annLabel)){
-			if (hasSameUser(userId, annotationId)){
-				Date createdAt = new Date(getCreationDate(annotationId));
-				deleteNodeWithRelations(annotationId);
-				createAnnotationWithDates(userId, annotationId, associatedImageId, createdAt, today, xCoordinates, yCoordinates, zCoordinates, 
-					associatedChannelId, depictedAnatomyId, depictedAnatomyFreetext, abnInAnatomyId, abnInAnatomyFreetext, phenotypeId, phenotypeFreetext,
-					expressioninAnatomyId, expressionInAnatomyFreetext, observation);
+		try{
+			if (existsId(annotationId, annLabel)){
+				if (hasSameUser(userId, annotationId)){
+					Date createdAt = new Date(getCreationDate(annotationId));
+					deleteNodeWithRelations(annotationId);
+					createAnnotationWithDates(userId, annotationId, associatedImageId, createdAt, today, xCoordinates, yCoordinates, zCoordinates, 
+						associatedChannelId, depictedAnatomyId, depictedAnatomyFreetext, abnInAnatomyId, abnInAnatomyFreetext, phenotypeId, phenotypeFreetext,
+						expressioninAnatomyId, expressionInAnatomyFreetext, expressioninAnatomyTerm, observation);
+					return true;
+				}
+				else {
+					return false;
+				}
+			} else {
+				return false;
 			}
+		}catch(Exception e){
+			e.printStackTrace();
+			return false;
 		}
 	}
 	
