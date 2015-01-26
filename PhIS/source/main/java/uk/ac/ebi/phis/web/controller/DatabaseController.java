@@ -70,9 +70,9 @@ import uk.ac.ebi.phis.solrj.dto.RoiDTO;
 	            ) {
 				
 			try {
-				if (neo.createAnnotation(userId, annotationId, associatedImageId, xCoordinates, yCoordinates, zCoordinates, 
-				associatedChannelId, depictedAnatomyId, depictedAnatomyFreetext, abnInAnatomyId, abnInAnatomyFreetext, phenotypeId, 
-				phenotypeFreetext, observations, expressionInAnatomyId, expressionInAnatomyFreetext, expressionInAnatomyTerm, model)){
+				if (neo.createAnnotation(userId, annotationId, associatedImageId, xCoordinates, yCoordinates, zCoordinates, associatedChannelId,
+				depictedAnatomyId, depictedAnatomyFreetext, depictedAnatomyTerm, abnInAnatomyId, abnInAnatomyFreetext, abnInAnatomyTerm,
+				phenotypeId, phenotypeFreetext, phenotypeTerm, observations, expressionInAnatomyId, expressionInAnatomyTerm, expressionInAnatomyFreetext, model)){
 					
 					RoiDTO roi = new RoiDTO(annotationId, associatedChannelId, associatedImageId, depictedAnatomyId, depictedAnatomyTerm, 
 							depictedAnatomyFreetext, abnInAnatomyId, abnInAnatomyTerm, abnInAnatomyFreetext, 
@@ -113,9 +113,9 @@ import uk.ac.ebi.phis.solrj.dto.RoiDTO;
 	    		Model model
 	            ) {
 				
-			if (neo.updateAnnotation(annotationId, userId, associatedImageId, xCoordinates, yCoordinates, zCoordinates, associatedChannelId,
-					depictedAnatomyId, depictedAnatomyFreetext, abnInAnatomyId, abnInAnatomyFreetext, phenotypeId, expressionInAnatomyFreetext, 
-					expressionInAnatomyId, expressionInAnatomyTerm, phenotypeFreetext, observations)){
+			if (neo.updateAnnotation(userId, annotationId, associatedImageId, xCoordinates, yCoordinates, zCoordinates, associatedChannelId,
+			depictedAnatomyId, depictedAnatomyFreetext, depictedAnatomyTerm, abnInAnatomyId, abnInAnatomyFreetext, abnInAnatomyTerm, phenotypeId, 
+			phenotypeFreetext, phenotypeTerm, observations, expressionInAnatomyId, expressionInAnatomyTerm, expressionInAnatomyFreetext)){
 				RoiDTO roi = new RoiDTO(annotationId, associatedChannelId, associatedImageId, depictedAnatomyId, depictedAnatomyTerm, 
 				depictedAnatomyFreetext, abnInAnatomyId, abnInAnatomyTerm, abnInAnatomyFreetext, 
 				phenotypeId, phenotypeTerm, phenotypeFreetext, observations, new ArrayList<Float>(xCoordinates), 

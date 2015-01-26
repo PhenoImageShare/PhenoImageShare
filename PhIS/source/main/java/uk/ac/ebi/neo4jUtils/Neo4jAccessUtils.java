@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.codehaus.jackson.map.AnnotationIntrospector;
 import org.neo4j.cypher.javacompat.ExecutionEngine;
 import org.neo4j.cypher.javacompat.ExecutionResult;
 import org.neo4j.graphdb.DynamicLabel;
@@ -19,11 +18,8 @@ import org.neo4j.graphdb.Relationship;
 import org.neo4j.graphdb.Transaction;
 import org.neo4j.graphdb.factory.GraphDatabaseFactory;
 import org.neo4j.helpers.collection.IteratorUtil;
-import org.springframework.expression.ExpressionInvocationTargetException;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 
 @Service 
@@ -32,9 +28,6 @@ public class Neo4jAccessUtils {
 	 private static final String DB_PATH = "/Users/tudose/Documents/servers/neo4j-community-2.1.6/data/phis_2.1.6.db";
 	 private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 	 private static String resultString;
-	 private static String columnsString;
-	 private static String nodeResult;
-	 private static String rows = "";
 	 private static GraphDatabaseService db;
 	 private static ExecutionEngine engine;
 	 public static Label annLabel;
@@ -47,7 +40,7 @@ public class Neo4jAccessUtils {
 	 private static final String NO_COORDINATES_EXCEPTION = "Please provide coordinates for each Annotation. At least x and y coordinates are required.";
 	 private static final String RELATIONSHIP_EXISTS_EXCEPTION = "Relationship exits and was not added again.";	
 	 private static final String NO_ANNOTATION_EXCEPTION = "We cannot add fill in ROIs with no annotations attached. Please provide some observation, phenotype, expression or anatomy information. ";
-	 
+	 private static final String NOT_MATCHING_ID_AND_TERM_ARRAYS = "The label and id arrays do not have matching lengths. Ontology terms should be provided with both label and id in parallel arrays.";
 	 
 	public Neo4jAccessUtils () {
 		
@@ -64,16 +57,21 @@ public class Neo4jAccessUtils {
 	}
 	
 	
-	public boolean createAnnotation( String userId, String anntoationId, String associatedImageId, List<Float> xCoordinates,
-	List<Float> yCoordinates, List<Float> zCoordinates, List<String> associatedChannelId, List<String> depictedAnatomyId, List<String> depictedAnatomyFreetext,
-    List<String> abnInAnatomyId, List<String> abnInAnatomyFreetext, List<String> phenotypeId, List<String> phenotypeFreetext, List<String> observation, 
-    List<String> expressedInAnatomyId, List<String> expressedInAnatomyTerm, List<String> expressedInAnatomyFreetext, Model model )  {
+	public boolean createAnnotation( String userId, String annotationId, String associatedImageId, List<Float> xCoordinates,
+	List<Float> yCoordinates, List<Float> zCoordinates, List<String> associatedChannelId, 
+	List<String> depictedAnatomyId, List<String> depictedAnatomyFreetext, List<String> depictedAnatomyTerm,
+    List<String> abnInAnatomyId, List<String> abnInAnatomyFreetext,  List<String> abnInAnatomyTerm, 
+    List<String> phenotypeId, List<String> phenotypeFreetext, List<String> phenotypeTerm, 
+    List<String> observation, 
+    List<String> expressedInAnatomyId, List<String> expressedInAnatomyTerm, List<String> expressedInAnatomyFreetext, 
+    Model model )  {
 	
 		Date today = new Date();
 		try{
-			createAnnotationWithDates(userId, anntoationId, associatedImageId, today, null, xCoordinates, yCoordinates, zCoordinates, associatedChannelId, depictedAnatomyId, 
-				depictedAnatomyFreetext, abnInAnatomyId, abnInAnatomyFreetext, phenotypeId, phenotypeFreetext, expressedInAnatomyId, expressedInAnatomyFreetext,
-				expressedInAnatomyTerm, observation);
+			createAnnotationWithDates(userId, annotationId, associatedImageId, xCoordinates, yCoordinates, zCoordinates, associatedChannelId,
+			depictedAnatomyId, depictedAnatomyFreetext, depictedAnatomyTerm, abnInAnatomyId, abnInAnatomyFreetext, abnInAnatomyTerm, phenotypeId, 
+			phenotypeFreetext, phenotypeTerm, observation, expressedInAnatomyId, expressedInAnatomyTerm, expressedInAnatomyFreetext, 
+			today, today);
 			return true;
 		}catch(Exception e){
 			e.printStackTrace();
@@ -81,10 +79,14 @@ public class Neo4jAccessUtils {
 		}
 	}
 	
-	public void createAnnotationWithDates( String userId, String annotationId, String associatedImageId, Date creationDate, Date lastModifiedDate, 
-	List<Float> xCoordinates, List<Float> yCoordinates, List<Float> zCoordinates, List<String> associatedChannelId, List<String> depictedAnatomyId, List<String> depictedAnatomyFreetext,
-	List<String> abnInAnatomyId, List<String> abnInAnatomyFreetext, List<String> phenotypeId, List<String> phenotypeFreetext, List<String> expressedInAnatomyId, List<String> expressedInAnatomyFreetext, 
-	List<String> expressedInAnatomyTerm, List<String> observation) 
+	public void createAnnotationWithDates( String userId, String annotationId, String associatedImageId, List<Float> xCoordinates,
+	List<Float> yCoordinates, List<Float> zCoordinates, List<String> associatedChannelId, 
+	List<String> depictedAnatomyId, List<String> depictedAnatomyFreetext, List<String> depictedAnatomyTerm,
+    List<String> abnInAnatomyId, List<String> abnInAnatomyFreetext,  List<String> abnInAnatomyTerm, 
+    List<String> phenotypeId, List<String> phenotypeFreetext, List<String> phenotypeTerm, 
+    List<String> observation, 
+    List<String> expressedInAnatomyId, List<String> expressedInAnatomyTerm, List<String> expressedInAnatomyFreetext,
+    Date creationDate, Date lastModifiedDate) 
 	throws IllegalArgumentException {
 	
 		Node user;
@@ -103,8 +105,15 @@ public class Neo4jAccessUtils {
 			throw getNoAnnotationException();
 		}
 		
-		user = getOrCreateNode(userId, userLabel);
-		image = getOrCreateNode(associatedImageId, imageLabel);
+		// ontology objects label-id should be 1-1.
+		
+		if(depictedAnatomyId.size() != depictedAnatomyTerm.size() || abnInAnatomyId.size() != abnInAnatomyTerm.size() || phenotypeId.size() != phenotypeTerm.size() || expressedInAnatomyId.size() != expressedInAnatomyTerm.size()){
+			throw getNotMatchingIdAndTerm();
+		}
+		
+		
+		user = getOrCreateNode(userId, userId, userLabel);
+		image = getOrCreateNode(associatedImageId,associatedImageId, imageLabel);
 				
 		
 		
@@ -115,31 +124,31 @@ public class Neo4jAccessUtils {
 		
 		if (associatedChannelId != null){
 			for (String s: associatedChannelId){
-				Node channel = channel = getOrCreateNode(s, channelLabel);
+				Node channel = getOrCreateNode(s, s, channelLabel);
 				addBidirectionalRelation(annotation, Neo4jRelationship.HAS_ASSOCIATED_CHANNEL, channel);
 			}
 		}		
 		if (depictedAnatomyId != null){
-			for (String s: depictedAnatomyId){
-				Node ot = getOrCreateNode(s, ontologyTermLabel);
+			for (int i = 0; i < depictedAnatomyId.size(); i++){
+				Node ot = getOrCreateNode(depictedAnatomyId.get(i), depictedAnatomyTerm.get(i), ontologyTermLabel);
 				addBidirectionalRelation(annotation, Neo4jRelationship.DEPICTS, ot);
 			}				
 		}
 		if (abnInAnatomyId != null){
-			for (String s: abnInAnatomyId){
-				Node ot = getOrCreateNode(s, ontologyTermLabel);
+			for (int i = 0; i < abnInAnatomyId.size(); i++) {
+				Node ot = getOrCreateNode(abnInAnatomyId.get(i), abnInAnatomyTerm.get(i), ontologyTermLabel);
 				addBidirectionalRelation(annotation, Neo4jRelationship.DEPICTS_ABNORMALITY_IN, ot);
 			}
 		}
 		if (phenotypeId != null){
-			for (String s: phenotypeId){
-				Node ot = getOrCreateNode(s, ontologyTermLabel);
+			for (int i = 0; i < phenotypeId.size(); i++) {
+				Node ot = getOrCreateNode(phenotypeId.get(i), phenotypeTerm.get(i), ontologyTermLabel);
 				addBidirectionalRelation(annotation, Neo4jRelationship.DEPICTS_PHENOTYPE, ot);
 			}
 		}
 		if (expressedInAnatomyId != null){
-			for (String s: expressedInAnatomyId){
-				Node ot = getOrCreateNode(s, ontologyTermLabel);
+			for (int i = 0; i < expressedInAnatomyId.size(); i++) {
+				Node ot = getOrCreateNode(expressedInAnatomyId.get(i), expressedInAnatomyTerm.get(i), ontologyTermLabel);
 				addBidirectionalRelation(annotation, Neo4jRelationship.EXPRESSED_IN, ot);
 			}
 		}
@@ -304,6 +313,10 @@ public class Neo4jAccessUtils {
 		return new IllegalArgumentException(EXISTING_ID_EXCEPTION_MESSAGE + id);
 	}
 	
+	private IllegalArgumentException getNotMatchingIdAndTerm(){
+		return new IllegalArgumentException(NOT_MATCHING_ID_AND_TERM_ARRAYS);
+	}
+	
 	private  IllegalArgumentException getNoAnnotationException(){
 		return new IllegalArgumentException (NO_ANNOTATION_EXCEPTION);
 	}
@@ -330,7 +343,10 @@ public class Neo4jAccessUtils {
 	
 	public String readSomething(){
 
+		String nodeResult;
+		String rows = "";		
         ExecutionResult result;
+        
         try ( Transaction ignored = db.beginTx() )
         {
             result = engine.execute( "match (n {name: 'my node'}) return n, n.name" );
@@ -360,13 +376,14 @@ public class Neo4jAccessUtils {
 	}
 	
 	
-	public Node getOrCreateNode(String id, Label label) throws IllegalArgumentException{
+	public Node getOrCreateNode(String id, String name, Label label) throws IllegalArgumentException{
 		Node res ;
 		if ( existsId(id, label) ){
 			res = getNodeById(id);
 		} else {
 			res = createNode(id, label);
 		}
+		res.setProperty(AnnotationProperties.name.name(), name);
 		return res;
 	}
 	
@@ -441,19 +458,22 @@ public class Neo4jAccessUtils {
         }
 	}
 	
-	public boolean updateAnnotation(String annotationId, String userId, String associatedImageId, List<Float> xCoordinates,
-	List<Float> yCoordinates, List<Float> zCoordinates, List<String> associatedChannelId, List<String> depictedAnatomyId, List<String> depictedAnatomyFreetext,
-    List<String> abnInAnatomyId, List<String> abnInAnatomyFreetext, List<String> phenotypeId, List<String> expressionInAnatomyFreetext, 
-    List<String> expressioninAnatomyId, List<String> expressioninAnatomyTerm, List<String> phenotypeFreetext, List<String> observation){
+	public boolean updateAnnotation(String userId, String annotationId, String associatedImageId, List<Float> xCoordinates,
+		List<Float> yCoordinates, List<Float> zCoordinates, List<String> associatedChannelId, 
+		List<String> depictedAnatomyId, List<String> depictedAnatomyFreetext, List<String> depictedAnatomyTerm,
+		List<String> abnInAnatomyId, List<String> abnInAnatomyFreetext,  List<String> abnInAnatomyTerm, 
+		List<String> phenotypeId, List<String> phenotypeFreetext, List<String> phenotypeTerm, 
+		List<String> observation, 
+		List<String> expressedInAnatomyId, List<String> expressedInAnatomyTerm, List<String> expressedInAnatomyFreetext){
 		Date today = new Date();
 		try{
 			if (existsId(annotationId, annLabel)){
 				if (hasSameUser(userId, annotationId)){
-					Date createdAt = new Date(getCreationDate(annotationId));
 					deleteNodeWithRelations(annotationId);
-					createAnnotationWithDates(userId, annotationId, associatedImageId, createdAt, today, xCoordinates, yCoordinates, zCoordinates, 
-						associatedChannelId, depictedAnatomyId, depictedAnatomyFreetext, abnInAnatomyId, abnInAnatomyFreetext, phenotypeId, phenotypeFreetext,
-						expressioninAnatomyId, expressionInAnatomyFreetext, expressioninAnatomyTerm, observation);
+					createAnnotationWithDates(userId, annotationId, associatedImageId, xCoordinates, yCoordinates, zCoordinates, associatedChannelId,
+						depictedAnatomyId, depictedAnatomyFreetext, depictedAnatomyTerm, abnInAnatomyId, abnInAnatomyFreetext, abnInAnatomyTerm, 
+						phenotypeId, phenotypeFreetext, phenotypeTerm, observation, expressedInAnatomyId, expressedInAnatomyTerm, expressedInAnatomyFreetext, 
+						today, today);
 					return true;
 				}
 				else {
