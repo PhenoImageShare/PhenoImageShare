@@ -31,6 +31,7 @@ import uk.ac.ebi.phis.jaxb.ImageType;
 import uk.ac.ebi.phis.jaxb.OntologyTerm;
 import uk.ac.ebi.phis.jaxb.Organism;
 import uk.ac.ebi.phis.jaxb.Roi;
+import uk.ac.ebi.phis.jaxb.YesNo;
 import uk.ac.ebi.phis.service.ChannelService;
 import uk.ac.ebi.phis.service.ImageService;
 import uk.ac.ebi.phis.service.RoiService;
@@ -182,7 +183,6 @@ public class BatchXmlUploader {
 		}
 		
 		if (roi.getDepictedAnatomicalStructure() != null){
-			
 			List<String> ids = new ArrayList<>(); // || with labels
 			List<String> labels = new ArrayList<>(); // || with ids
 			List<String> freetext = new ArrayList<>();
@@ -206,17 +206,28 @@ public class BatchXmlUploader {
 					}
 				}
 			}
-			if (ids.size() > 0){
-				bean.setDepictedAnatomyId(ids);
-				bean.setDepictedAnatomyTerm(labels);
-			}
-			if (freetext.size() > 0){
-				bean.setDepictedAnatomyFreetext(freetext);
-			}
-			if (computedIds.size() > 0){
-				bean.setComputedDepictedAnatomyId(computedIds);
-				bean.setComputedDepictedAnatomyTerm(computedLabels);
-			}
+
+		//	if(roi.getIsExpressionPattern().equals(YesNo.YES)){
+				if (ids.size() > 0){
+					bean.setExpressedAnatomyId(ids);
+					bean.setExpressedAnatomyTerm(labels);
+				}
+				if (freetext.size() > 0){
+					bean.setExpressedAnatomyFreetext(freetext);
+				}
+		//	} else {
+	/*			if (ids.size() > 0){
+					bean.setDepictedAnatomyId(ids);
+					bean.setDepictedAnatomyTerm(labels);
+				}
+				if (freetext.size() > 0){
+					bean.setDepictedAnatomyFreetext(freetext);
+				}
+				if (computedIds.size() > 0){
+					bean.setComputedDepictedAnatomyId(computedIds);
+					bean.setComputedDepictedAnatomyTerm(computedLabels);
+				}
+	*/	//	}
 		}
 		
 		if (roi.getAbnormalityInAnatomicalStructure() != null){

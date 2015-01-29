@@ -2330,7 +2330,7 @@ public class ImageDTO {
 	 */
 	public void setExpressionInLabelBag(ArrayList<String> expressionInLabelBag) {
 
-		expressionInLabelBag = expressionInLabelBag;
+		this.expressionInLabelBag = expressionInLabelBag;
 	}
 
 

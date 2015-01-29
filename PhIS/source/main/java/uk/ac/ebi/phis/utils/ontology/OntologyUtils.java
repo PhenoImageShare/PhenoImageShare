@@ -186,7 +186,6 @@ public class OntologyUtils {
 					temp.setId(getIdentifierShortForm(cls));
 					if (cls.getAnnotations(ontology, LABEL_ANNOTATION).size() > 0){
 						temp.setLabel(((OWLLiteral)cls.getAnnotations(ontology, LABEL_ANNOTATION).iterator().next().getValue()).getLiteral());
-										
 						for (String synonymType : synonymRelations){
 							OWLAnnotationProperty label = factory.getOWLAnnotationProperty(IRI.create(synonymType));	
 							// Get the annotations on the class that use the label property
