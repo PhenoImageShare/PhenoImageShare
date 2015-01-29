@@ -77,8 +77,6 @@ public class ImageService {
 
 		solrQuery.setHighlight(true);
 		solrQuery.setHighlightRequireFieldMatch(true);
-		solrQuery.set("hl.simple.pre", "<b>");
-		solrQuery.set("hl.simple.post", "</b>");
 		
 		if (rows != null){
 			solrRows = rows*10;
