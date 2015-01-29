@@ -38,8 +38,15 @@ public class TestUtils {
 		phenotypeTerm.add("phen term");
 		List<String> phenotypeFreetext = new ArrayList<>();
 		phenotypeFreetext.add("phen freetext");
+		List<String> expressedInId = new ArrayList<>();
+		expressedInId.add("MADEUP_43013");
+		List<String> expressedInTerm = new ArrayList<>();
+		expressedInTerm.add("anat term with expression");
+		List<String> expressedInFreetext = new ArrayList<>();
+		expressedInFreetext.add("anatomy freetext - expression");
+		
 		List<String> observations = new ArrayList<>();
-		 observations.add("Observing carefully this..." );
+		observations.add("Observing carefully this..." );
 		List<Float> xCoordinates = new ArrayList<>();
 		xCoordinates.add((float) 2);
 		List<Float> yCoordinates = new ArrayList<>();
@@ -49,7 +56,8 @@ public class TestUtils {
 		
 		roi = new RoiDTO(id, associatedChannel, associatedImage, depictedAnatomyId, depictedAnatomyTerm, depictedAnatomyFreetext, 
 			abnormalityAnatomyId, abnormalityAnatomyTerm, abnormalityAnatomyFreetext, 
-			phenotypeId, phenotypeTerm, phenotypeFreetext, observations, xCoordinates, yCoordinates, zCoordinates);
+			phenotypeId, phenotypeTerm, phenotypeFreetext, observations, xCoordinates, yCoordinates, zCoordinates,
+			expressedInTerm, expressedInFreetext, expressedInId);
 		
 		return roi;
 	}

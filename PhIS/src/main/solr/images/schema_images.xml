@@ -92,12 +92,12 @@
    <field name="image_generated_by" type="string" indexed="true" stored="true" multiValued="false" required="true"/>
    <field name="image_url" type="string" indexed="true" stored="true" required="true"/>
    <field name="image_context_url" type="string" indexed="true" stored="true"/>
-   <field name="imaging_method_label" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="imaging_method_label" type="string" indexed="true" stored="true" multiValued="false"/>
    <field name="imaging_method_synonym" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="imaging_method_label_analysed" type="textCaseInsensitive" indexed="true" stored="false" multiValued="true"/>
-   <field name="imaging_method_id" type="string" indexed="true" stored="true" multiValued="true"/>
-   <field name="sample_preparation_label" type="string" indexed="true" stored="true" multiValued="true"/>
-   <field name="sample_preparation_id" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="imaging_method_id" type="string" indexed="true" stored="true" multiValued="false"/>
+   <field name="sample_preparation_label" type="string" indexed="true" stored="true" multiValued="false"/>
+   <field name="sample_preparation_id" type="string" indexed="true" stored="true" multiValued="false"/>
    <field name="sample_preparation_synonyms" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="visualisation_method_label" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="visualisation_method_id" type="string" indexed="true" stored="true" multiValued="true"/>

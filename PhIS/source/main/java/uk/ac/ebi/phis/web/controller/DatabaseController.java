@@ -16,12 +16,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import uk.ac.ebi.neo4jUtils.Neo4jAccessUtils;
 import uk.ac.ebi.phis.service.GenericUpdateService;
+import uk.ac.ebi.phis.service.ImageService;
 import uk.ac.ebi.phis.solrj.dto.RoiDTO;
 
 	@Controller
 	@RequestMapping("/rest/submission")
 	public class DatabaseController {
 
+		@Autowired
+		ImageService is;
+		
 		@Autowired
 		Neo4jAccessUtils neo;
 		
@@ -66,26 +70,26 @@ import uk.ac.ebi.phis.solrj.dto.RoiDTO;
 	            @RequestParam(value = "phenotypeFreetext", required = false) List<String> phenotypeFreetext,
 	            @RequestParam(value = "phenotypeTerm", required = false) List<String> phenotypeTerm,
 	            @RequestParam(value = "observation", required = false) List<String> observations,
-	    		Model model
-	            ) {
-				
-			try {
-				if (neo.createAnnotation(userId, annotationId, associatedImageId, xCoordinates, yCoordinates, zCoordinates, associatedChannelId,
+	    		Model model  ) {
+			String succeded;
+			
+			if (is.imageIdExists(associatedImageId)){
+				succeded = neo.createAnnotation(userId, annotationId, associatedImageId, xCoordinates, yCoordinates, zCoordinates, associatedChannelId,
 				depictedAnatomyId, depictedAnatomyFreetext, depictedAnatomyTerm, abnInAnatomyId, abnInAnatomyFreetext, abnInAnatomyTerm,
-				phenotypeId, phenotypeFreetext, phenotypeTerm, observations, expressionInAnatomyId, expressionInAnatomyTerm, expressionInAnatomyFreetext, model)){
-					
+				phenotypeId, phenotypeFreetext, phenotypeTerm, observations, expressionInAnatomyId, expressionInAnatomyTerm, expressionInAnatomyFreetext);
+				
+				if (succeded.equals("SUCCESS")){
+					ArrayList zCoord = (zCoordinates != null ? new ArrayList<Float>(zCoordinates) : null);
 					RoiDTO roi = new RoiDTO(annotationId, associatedChannelId, associatedImageId, depictedAnatomyId, depictedAnatomyTerm, 
-							depictedAnatomyFreetext, abnInAnatomyId, abnInAnatomyTerm, abnInAnatomyFreetext, 
-							phenotypeId, phenotypeTerm, phenotypeFreetext, observations, new ArrayList<Float>(xCoordinates), 
-							new ArrayList<Float>(yCoordinates), new ArrayList<Float>(zCoordinates));
+						depictedAnatomyFreetext, abnInAnatomyId, abnInAnatomyTerm, abnInAnatomyFreetext, 
+						phenotypeId, phenotypeTerm, phenotypeFreetext, observations, new ArrayList<Float>(xCoordinates), 
+						new ArrayList<Float>(yCoordinates), zCoord, expressionInAnatomyTerm, expressionInAnatomyFreetext, expressionInAnatomyId);
 					gus.addToCores(roi);
 				}
-
-			} catch (Exception e) {
-				e.printStackTrace();
+			}else {
+				succeded = "ERROR: Please provide an existing image id.";
 			}
-			
-			return "";
+			return succeded;
 	    }
 		
 		@RequestMapping(value="/updateAnnotation", method=RequestMethod.GET)	
@@ -110,19 +114,28 @@ import uk.ac.ebi.phis.solrj.dto.RoiDTO;
 	            @RequestParam(value = "phenotypeTerm", required = false) List<String> phenotypeTerm,
 	            @RequestParam(value = "phenotypeFreetext", required = false) List<String> phenotypeFreetext,
 	            @RequestParam(value = "observation", required = false) List<String> observations,
-	    		Model model
-	            ) {
+	    		Model model ) {
+			
+			String succeded;
+			
+			if (is.imageIdExists(associatedImageId)){
+			
+				succeded = neo.updateAnnotation(userId, annotationId, associatedImageId, xCoordinates, yCoordinates, zCoordinates, associatedChannelId,
+				depictedAnatomyId, depictedAnatomyFreetext, depictedAnatomyTerm, abnInAnatomyId, abnInAnatomyFreetext, abnInAnatomyTerm, phenotypeId, 
+				phenotypeFreetext, phenotypeTerm, observations, expressionInAnatomyId, expressionInAnatomyTerm, expressionInAnatomyFreetext);
 				
-			if (neo.updateAnnotation(userId, annotationId, associatedImageId, xCoordinates, yCoordinates, zCoordinates, associatedChannelId,
-			depictedAnatomyId, depictedAnatomyFreetext, depictedAnatomyTerm, abnInAnatomyId, abnInAnatomyFreetext, abnInAnatomyTerm, phenotypeId, 
-			phenotypeFreetext, phenotypeTerm, observations, expressionInAnatomyId, expressionInAnatomyTerm, expressionInAnatomyFreetext)){
-				RoiDTO roi = new RoiDTO(annotationId, associatedChannelId, associatedImageId, depictedAnatomyId, depictedAnatomyTerm, 
-				depictedAnatomyFreetext, abnInAnatomyId, abnInAnatomyTerm, abnInAnatomyFreetext, 
-				phenotypeId, phenotypeTerm, phenotypeFreetext, observations, new ArrayList<Float>(xCoordinates), 
-				new ArrayList<Float>(yCoordinates), new ArrayList<Float>(zCoordinates));
-				gus.addToCores(roi);
-			}	
-			return "";
+				if (succeded.equals("SUCCESS")){
+					RoiDTO roi = new RoiDTO(annotationId, associatedChannelId, associatedImageId, depictedAnatomyId, depictedAnatomyTerm, 
+						depictedAnatomyFreetext, abnInAnatomyId, abnInAnatomyTerm, abnInAnatomyFreetext, 
+						phenotypeId, phenotypeTerm, phenotypeFreetext, observations, new ArrayList<Float>(xCoordinates), 
+						new ArrayList<Float>(yCoordinates), new ArrayList<Float>(zCoordinates),
+						expressionInAnatomyTerm, expressionInAnatomyFreetext, expressionInAnatomyId);
+					gus.addToCores(roi);
+				}	
+			} else {
+				succeded = "ERROR: Please provide an existing image id.";
+			}
+			return succeded;
 	    }
 		
 		@RequestMapping(value="/deleteAnnotation", method=RequestMethod.GET)	
@@ -131,16 +144,20 @@ import uk.ac.ebi.phis.solrj.dto.RoiDTO;
 	            @RequestParam(value = "anntoationId", required = true) String anntoationId,
 	    		Model model
 	            ) {
+			String success = "SUCCESS";
 			try {
-				
 				if (neo.hasSameUser(userId, anntoationId)){
 					neo.deleteNodeWithRelations(anntoationId);
 					gus.deleteFromCores(anntoationId);
+				}else{
+					success = "ERROR: User provided does not match the user of the annotation. Annotation was not deleted.";
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
+//				success = org.apache.commons.lang.exception.ExceptionUtils.getStackTrace(e);
+				success = e.getMessage();
 			}
-			return "";
+			return success;
 	    }
 		
 		

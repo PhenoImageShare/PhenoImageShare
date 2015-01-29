@@ -389,13 +389,13 @@ public class ImageDTO {
 	private ArrayList<String> phenotypeSynonymsBag;
 
 	@Field(PHENOTYPE_ANCESTORS_ID_BAG)
-	private HashSet<String> phenotypeAncestorsIdBag;
+	private ArrayList<String> phenotypeAncestorsIdBag;
 
 	@Field(PHENOTYPE_ANCESTORS_SYNONYMS_BAG)
-	private HashSet<String> phenotypeAncestorsSynonymsBag;
+	private ArrayList<String> phenotypeAncestorsSynonymsBag;
 
 	@Field(PHENOTYPE_ANCESTORS_TERM_BAG)
-	private HashSet<String> phenotypeAncestorsTermBag;
+	private ArrayList<String> phenotypeAncestorsTermBag;
 
 	
 		
@@ -680,7 +680,7 @@ public class ImageDTO {
 	/**
 	 * @param phenotypeAncestorsIdBag the phenotypeAncestorsIdBag to set
 	 */
-	public void setPhenotypeAncestorsIdBag(HashSet<String> phenotypeAncestorsIdBag) {
+	public void setPhenotypeAncestorsIdBag(ArrayList<String> phenotypeAncestorsIdBag) {
 	
 		this.phenotypeAncestorsIdBag = phenotypeAncestorsIdBag;
 	}
@@ -690,7 +690,7 @@ public class ImageDTO {
 	/**
 	 * @param phenotypeAncestorsSynonymsBag the phenotypeAncestorsSynonymsBag to set
 	 */
-	public void setPhenotypeAncestorsSynonymsBag(HashSet<String> phenotypeAncestorsSynonymsBag) {
+	public void setPhenotypeAncestorsSynonymsBag(ArrayList<String> phenotypeAncestorsSynonymsBag) {
 	
 		this.phenotypeAncestorsSynonymsBag = phenotypeAncestorsSynonymsBag;
 	}
@@ -700,7 +700,7 @@ public class ImageDTO {
 	/**
 	 * @param phenotypeAncestorsTermBag the phenotypeAncestorsTermBag to set
 	 */
-	public void setPhenotypeAncestorsTermBag(HashSet<String> phenotypeAncestorsTermBag) {
+	public void setPhenotypeAncestorsTermBag(ArrayList<String> phenotypeAncestorsTermBag) {
 	
 		this.phenotypeAncestorsTermBag = phenotypeAncestorsTermBag;
 	}
@@ -993,7 +993,7 @@ public class ImageDTO {
 	/**
 	 * @return the phenotypeAncestorsIdBag
 	 */
-	public Set<String> getPhenotypeAncestorsIdBag() {
+	public ArrayList<String> getPhenotypeAncestorsIdBag() {
 
 		return phenotypeAncestorsIdBag;
 	}
@@ -1006,7 +1006,7 @@ public class ImageDTO {
 	public void addPhenotypeAncestorsIdBag(String phenotypeAncestorId) {
 
 		if (this.phenotypeAncestorsIdBag == null){
-			this.phenotypeAncestorsIdBag = new HashSet<>();
+			this.phenotypeAncestorsIdBag = new ArrayList<>();
 		}
 		if (!this.phenotypeAncestorsIdBag.contains(phenotypeAncestorId)){
 			this.phenotypeAncestorsIdBag.add(phenotypeAncestorId);
@@ -1017,7 +1017,7 @@ public class ImageDTO {
 	/**
 	 * @return the phenotypeAncestorsSynonymsBag
 	 */
-	public Set<String> getPhenotypeAncestorsSynonymsBag() {
+	public ArrayList<String> getPhenotypeAncestorsSynonymsBag() {
 
 		return phenotypeAncestorsSynonymsBag;
 	}
@@ -1030,7 +1030,7 @@ public class ImageDTO {
 	public void addPhenotypeAncestorsSynonymsBag(ArrayList<String> phenotypeAncestorSynonyms) {
 
 		if (this.phenotypeAncestorsSynonymsBag == null){
-			this.phenotypeAncestorsSynonymsBag = new HashSet<>();
+			this.phenotypeAncestorsSynonymsBag = new ArrayList<>();
 		}
 		if (phenotypeAncestorSynonyms != null && !this.phenotypeAncestorsSynonymsBag.contains(phenotypeAncestorSynonyms)){
 			this.phenotypeAncestorsSynonymsBag.addAll(phenotypeAncestorSynonyms);
@@ -1041,7 +1041,7 @@ public class ImageDTO {
 	/**
 	 * @return the phenotypeAncestorsTermBag
 	 */
-	public Set<String> getPhenotypeAncestorsTermBag() {
+	public ArrayList<String> getPhenotypeAncestorsTermBag() {
 
 		return phenotypeAncestorsTermBag;
 	}
@@ -1054,7 +1054,7 @@ public class ImageDTO {
 	public void addPhenotypeAncestorsTermBag(String phenotypeAncestorTerm) {
 
 		if (this.phenotypeAncestorsTermBag == null){
-			this.phenotypeAncestorsTermBag = new HashSet<>();
+			this.phenotypeAncestorsTermBag = new ArrayList<>();
 		}
 		if (phenotypeAncestorTerm != null && !this.phenotypeAncestorsTermBag.contains(phenotypeAncestorTerm)){
 			this.phenotypeAncestorsTermBag.add(phenotypeAncestorTerm);

@@ -79,6 +79,8 @@ public class ImageServiceTest {
 		assertTrue(observationsGotCopied(image));
 		assertTrue(expressedInFieldsGotCopied(image));
 		assertTrue(genericSearchGotFilled(image));
+		System.out.println("AFTER");
+		System.out.println(image);
 		
 		is.deleteRoiRefferences(roi);
 	}
@@ -203,11 +205,12 @@ public class ImageServiceTest {
 	private boolean expressedInFieldsGotCopied(ImageDTO img){
 		boolean copiedRight = true;
 		if (roi.getExpressedAnatomyId() != null){
-			System.out.println(img.toString());
-			copiedRight = img.getExpressionInIdBag().containsAll(roi.getPhenotypeId());
+			System.out.println("\n\n look : " + img.getExpressionInIdBag().containsAll(roi.getExpressedAnatomyId()) );
+			copiedRight = img.getExpressionInIdBag().containsAll(roi.getExpressedAnatomyId());
 		}
-		if (roi.getPhenotypeFreetext() != null){
-			copiedRight = copiedRight && img.getPhenotypeFreetextBag().containsAll(roi.getPhenotypeFreetext());
+		if (roi.getExpressedAnatomyFreetext() != null){
+			System.out.println("\n\n LOOK : " + img.getExpressionInFreetextBag().containsAll(roi.getExpressedAnatomyFreetext()) );
+			copiedRight = copiedRight && img.getExpressionInFreetextBag().containsAll(roi.getExpressedAnatomyFreetext());
 		}
 		return copiedRight;
 	}

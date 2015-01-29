@@ -13,6 +13,10 @@
 
 	<context:component-scan base-package="uk.ac.ebi" />
 		
+	<bean id="neo4jAccessUtils"	 class="uk.ac.ebi.neo4jUtils.Neo4jAccessUtils">
+		<constructor-arg  value="${dbURI}" />
+	</bean>
+		
 	<bean id="imageService" class="uk.ac.ebi.phis.service.ImageService">
 		<constructor-arg  value="${internalSolrUrl}/images" />
 	</bean>

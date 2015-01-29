@@ -12,6 +12,7 @@ import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.HttpSolrServer;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.neo4j.cypher.ParameterNotFoundException;
 import org.springframework.stereotype.Service;
 
 import uk.ac.ebi.phis.solrj.dto.ImageDTO;
@@ -253,10 +254,16 @@ public class ImageService {
 	 * @param roiToAdd must have teh same id as roiToReplace
 	 */
 	public void updateImageFromRoi(RoiDTO roiToReplace, RoiDTO roiToAdd){
-		deleteRoiRefferences(roiToReplace);
-		addToImageFromRoi(roiToAdd);
+		if (imageIdExists(roiToAdd.getAssociatedImage()) && imageIdExists(roiToReplace.getAssociatedImage())){
+			deleteRoiRefferences(roiToReplace);
+			addToImageFromRoi(roiToAdd);
+		}
 	}
 	
+	
+	public boolean imageIdExists(String id){
+		return getImageById(id) != null;
+	}
 	
 	/**
 	 * Delete all refferences to this roi (roi id, annotations from annotations bags)
@@ -318,12 +325,16 @@ public class ImageService {
 	/**
 	 * To be used for atomic updates when a user adds a new annotation
 	 * @param roi
+	 * @throws Exception 
 	 */
-	public void addToImageFromRoi(RoiDTO roi){
+	public void addToImageFromRoi(RoiDTO roi) throws ParameterNotFoundException{
 		
 		ImageDTO img = getImageById(roi.getAssociatedImage());
 		
-		if (!img.getAssociatedRoi().contains(roi.getId())){
+		if (img.getAssociatedRoi() == null){
+			throw new ParameterNotFoundException("Image id does not exist");
+		}else 
+			if(!img.getAssociatedRoi().contains(roi.getId())){
 			img.addAssociatedRoi(roi.getId());
 			
 			if (roi.getAbnormalityAnatomyId() != null){
@@ -349,6 +360,7 @@ public class ImageService {
 				img.addDepictedAnatomyFreetextBag(roi.getDepictedAnatomyFreetext());
 			}
 			if (roi.getExpressedAnatomyFreetext() != null){
+				System.out.println("Expression added \n\n\n\n");
 				img.addExpressionInFreetextBag(roi.getExpressedAnatomyFreetext());
 			}
 			if (roi.getExpressedAnatomyId() != null){

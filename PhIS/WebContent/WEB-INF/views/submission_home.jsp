@@ -13,7 +13,10 @@
 	<h1>PhIS RESTful Sevice Documentation</h1>
 	<p>Base URL is http://[dev|beta].phenoimageshare.org/data/rest/submission .</p>
 		
+	<p>Example urls to try out: <br/> [host]/rest/submission/createAnnotation?anntoationId=ann_ua_5&userId=user_1&associatedImageId=komp2_289863&xCoordinates=1,20&yCoordinates=0,100&expressionInAnatomyFreetext=my%20description
 	<br/>
+	[host]/rest/submission/deleteAnnotation?anntoationId=ann_ua_5&userId=user_1</p>
+	
 
 	<h1>/createAnnotation</h1>
 	<table>
@@ -44,6 +47,14 @@
 				<td>Unique annotation id. If the id exists an error will be thrown. Otherwise a node will be created.</td>
 				<td><var></var></td>
 				<td><var></var><br></td>
+			</tr>			
+			<tr>
+				<td>associatedImageId</td>
+				<td><var>String</var></td>
+				<td> true </td>
+				<td>Must be a real image id because addAnnotation does not add new documents in the image core.</td>
+				<td><var>-</var></td>
+				<td><var>komp2_289863</var></td>
 			</tr>
 			<tr>
 				<td>xCoordinates</td>
@@ -56,7 +67,7 @@
 						x = ["32",".","10", "22"], y = ["45",".","30", "42"]; -->
 						</td>
 				<td><var>-</var></td>
-				<td><var>??</var><br></td>
+				<td><var>7.5,100</var><br></td>
 			</tr>
 			<tr>
 				<td>yCoordinates</td>
@@ -64,7 +75,7 @@
 				<td> true </td>
 				<td>See xCoordinates.</td>
 				<td><var>-</var></td>
-				<td><var>??</var><br></td>
+				<td><var>10,30</var><br></td>
 			</tr>
 			<tr>
 				<td>zCoordinates</td>
@@ -72,7 +83,7 @@
 				<td> false </td>
 				<td>See xCoordinates.</td>
 				<td><var>-</var></td>
-				<td><var>??</var><br></td>
+				<td><var>0,100</var><br></td>
 			</tr>
 			<tr>
 				<td>associatedChannel</td>

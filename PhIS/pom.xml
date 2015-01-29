@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>uk.ac.ebi.phis</groupId>
   <artifactId>PhenoImageShare</artifactId>
-  <version>0.0.3</version>
+  <version>0.0.4</version>
 	<packaging>war</packaging>
 	<name>PhenoImageShare</name>
 	<description>PhenoImageShare Project</description>
@@ -97,6 +97,7 @@
 		<baseUrl>http://??</baseUrl>
 		<solrUrl>http://wwwdev.ebi.ac.uk/mi/phis</solrUrl>
 		<internalSolrUrl>http://ves-ebi-d0.ebi.ac.uk:8090/mi/phis</internalSolrUrl>
+		<dbURI>http://localhost:7474/db/data/</dbURI>
 		<java.version>1.7</java.version>
 	</properties>
 
@@ -212,8 +213,6 @@
      
    <!--	DEPENDENCIES -->
 	<dependencies>
-		
-		
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -221,6 +220,12 @@
 		</dependency>
 		
 		<!--  Neo4j dependencies  -->
+		<dependency>
+		  <groupId>org.neo4j</groupId>
+		  <artifactId>neo4j-rest-graphdb</artifactId>
+		  <version>2.0.1</version>
+		</dependency>
+		
 		<dependency>
 			<groupId>org.neo4j</groupId>
 			<artifactId>neo4j-kernel</artifactId>

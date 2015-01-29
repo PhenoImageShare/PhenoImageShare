@@ -11,9 +11,9 @@ public class RoiDTO {
 	public static final String  ID="id";
 	public static final String  ASSOCIATED_IMAGE_ID = "associated_image";
 	public static final String  ASSOCIATED_CHANNEL = "associated_channel";
-	public static final String  EXPRESSED_ANATOMY_ID = "expressed_anatomy_id";
-	public static final String  EXPRESSED_ANATOMY_FREETEXT = "expressed_anatomy_freetext";
-	public static final String  EXPRESSED_ANATOMY_TERM = "expressed_anatomy_term";
+	public static final String  EXPRESSED_IN_ANATOMY_ID = "expressed_in_anatomy_id";
+	public static final String  EXPRESSED_IN_ANATOMY_FREETEXT = "expressed_in_anatomy_freetext";
+	public static final String  EXPRESSED_IN_ANATOMY_TERM = "expressed_in_anatomy_term";
 	public static final String  DEPICTED_ANATOMY_ID = "depicted_anatomy_id";
 	public static final String  DEPICTED_ANATOMY_TERM = "depicted_anatomy_term";
 	public static final String  DEPICTED_ANATOMY_FREETEXT = "depicted_anatomy_freetext";
@@ -43,13 +43,13 @@ public class RoiDTO {
 	@Field(ASSOCIATED_IMAGE_ID)
 	String associatedImage;
 
-	@Field(EXPRESSED_ANATOMY_ID)
+	@Field(EXPRESSED_IN_ANATOMY_ID)
 	List<String> expressedAnatomyId;
 
-	@Field(EXPRESSED_ANATOMY_FREETEXT)
+	@Field(EXPRESSED_IN_ANATOMY_FREETEXT)
 	List<String> expressedAnatomyFreetext;
 
-	@Field(EXPRESSED_ANATOMY_TERM)
+	@Field(EXPRESSED_IN_ANATOMY_TERM)
 	List<String> expressedAnatomyTerm;
 	
 	@Field(DEPICTED_ANATOMY_ID)
@@ -118,7 +118,8 @@ public class RoiDTO {
 	public RoiDTO(String id, List<String> associatedChannel, String associatedImage, List<String> depictedAnatomyId, 
 	List<String> depictedAnatomyTerm, List<String> depictedAnatomyFreetext, List<String> abnormalityAnatomyId, 
 	List<String> abnormalityAnatomyTerm, List<String> abnormalityAnatomyFreetext, List<String> phenotypeId, List<String> phenotypeTerm, 
-	List<String> phenotypeFreetext, List<String> observations, List<Float> xCoordinates, List<Float> yCoordinates, List<Float> zCoordinates) {
+	List<String> phenotypeFreetext, List<String> observations, List<Float> xCoordinates, List<Float> yCoordinates, List<Float> zCoordinates,
+	List<String> expressionInTerm, List<String> expressionInFreetext, List<String> expressionInId) {
 
 		super();
 		this.id = id;
@@ -133,6 +134,9 @@ public class RoiDTO {
 		this.phenotypeId = phenotypeId;
 		this.phenotypeTerm = phenotypeTerm;
 		this.phenotypeFreetext = phenotypeFreetext;
+		this.expressedAnatomyFreetext = expressionInFreetext;
+		this.expressedAnatomyId = expressionInId;
+		this.expressedAnatomyTerm = expressionInTerm;
 		this.observations = observations;
 		this.xCoordinates = xCoordinates;
 		this.yCoordinates = yCoordinates;
