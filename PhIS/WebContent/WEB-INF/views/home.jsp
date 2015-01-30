@@ -7,9 +7,10 @@
 		<title>PhIS rest</title>
 	</head>
 	<body>
-		<h1>Yey, PhIS restful service is up.</h1>
+		<h1>PhIS restful service is up</h1>
 		<h2>
-			For the rest service go here : <a href="/data/rest/">rest/</a>
+			For the Query rest service go here : <a href="/data/rest/">rest/</a>
 		</h2>
+		<h2>For the id Generator service go here : <a href="data/rest/idGen/">/rest/idGen/</a></h2>
 	</body>
 </html>
