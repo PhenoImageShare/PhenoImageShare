@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.solr.client.solrj.SolrServerException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -71,14 +72,17 @@ import uk.ac.ebi.phis.solrj.dto.RoiDTO;
 	            @RequestParam(value = "phenotypeTerm", required = false) List<String> phenotypeTerm,
 	            @RequestParam(value = "observation", required = false) List<String> observations,
 	    		Model model  ) {
-			String succeded;
+			
+			JSONObject succeded = getSuccessJson();
+			String message = "";
 			
 			if (is.imageIdExists(associatedImageId)){
-				succeded = neo.createAnnotation(userId, annotationId, associatedImageId, xCoordinates, yCoordinates, zCoordinates, associatedChannelId,
+				
+				message = neo.createAnnotation(userId, annotationId, associatedImageId, xCoordinates, yCoordinates, zCoordinates, associatedChannelId,
 				depictedAnatomyId, depictedAnatomyFreetext, depictedAnatomyTerm, abnInAnatomyId, abnInAnatomyFreetext, abnInAnatomyTerm,
 				phenotypeId, phenotypeFreetext, phenotypeTerm, observations, expressionInAnatomyId, expressionInAnatomyTerm, expressionInAnatomyFreetext);
 				
-				if (succeded.equals("SUCCESS")){
+				if (message.equals("SUCCESS")){
 					ArrayList zCoord = (zCoordinates != null ? new ArrayList<Float>(zCoordinates) : null);
 					RoiDTO roi = new RoiDTO(annotationId, associatedChannelId, associatedImageId, depictedAnatomyId, depictedAnatomyTerm, 
 						depictedAnatomyFreetext, abnInAnatomyId, abnInAnatomyTerm, abnInAnatomyFreetext, 
@@ -86,10 +90,15 @@ import uk.ac.ebi.phis.solrj.dto.RoiDTO;
 						new ArrayList<Float>(yCoordinates), zCoord, expressionInAnatomyTerm, expressionInAnatomyFreetext, expressionInAnatomyId);
 					gus.addToCores(roi);
 				}
+				else {
+					succeded = getFailJson();
+					succeded.put("message", message);
+				}
 			}else {
-				succeded = "ERROR: Please provide an existing image id.";
+				succeded = getFailJson();
+				succeded.put("message", "Please provide an existing image id.");
 			}
-			return succeded;
+			return succeded.toString();
 	    }
 		
 		@RequestMapping(value="/updateAnnotation", method=RequestMethod.GET)	
@@ -116,51 +125,72 @@ import uk.ac.ebi.phis.solrj.dto.RoiDTO;
 	            @RequestParam(value = "observation", required = false) List<String> observations,
 	    		Model model ) {
 			
-			String succeded;
+			String message;
+			JSONObject succeded = getSuccessJson();
 			
 			if (is.imageIdExists(associatedImageId)){
 			
-				succeded = neo.updateAnnotation(userId, annotationId, associatedImageId, xCoordinates, yCoordinates, zCoordinates, associatedChannelId,
+				message = neo.updateAnnotation(userId, annotationId, associatedImageId, xCoordinates, yCoordinates, zCoordinates, associatedChannelId,
 				depictedAnatomyId, depictedAnatomyFreetext, depictedAnatomyTerm, abnInAnatomyId, abnInAnatomyFreetext, abnInAnatomyTerm, phenotypeId, 
 				phenotypeFreetext, phenotypeTerm, observations, expressionInAnatomyId, expressionInAnatomyTerm, expressionInAnatomyFreetext);
 				
-				if (succeded.equals("SUCCESS")){
+				if (message.equals("SUCCESS")){
 					RoiDTO roi = new RoiDTO(annotationId, associatedChannelId, associatedImageId, depictedAnatomyId, depictedAnatomyTerm, 
 						depictedAnatomyFreetext, abnInAnatomyId, abnInAnatomyTerm, abnInAnatomyFreetext, 
 						phenotypeId, phenotypeTerm, phenotypeFreetext, observations, new ArrayList<Float>(xCoordinates), 
 						new ArrayList<Float>(yCoordinates), new ArrayList<Float>(zCoordinates),
 						expressionInAnatomyTerm, expressionInAnatomyFreetext, expressionInAnatomyId);
 					gus.addToCores(roi);
-				}	
+				}	else {
+					succeded = getFailJson();
+					succeded.put("message", message);
+				}
 			} else {
-				succeded = "ERROR: Please provide an existing image id.";
+				message = "Please provide an existing image id.";
+				succeded = getFailJson();
+				succeded.put("message", message);
 			}
-			return succeded;
+			return succeded.toString();
 	    }
 		
 		@RequestMapping(value="/deleteAnnotation", method=RequestMethod.GET)	
 	    public @ResponseBody String createAnnotation(
 	    		@RequestParam(value = "userId", required = true) String userId,
 	            @RequestParam(value = "anntoationId", required = true) String anntoationId,
-	    		Model model
-	            ) {
-			String success = "SUCCESS";
+	    		Model model) {
+			
+			String message = "SUCCESS";
+			JSONObject obj = getSuccessJson();
+			
 			try {
 				if (neo.hasSameUser(userId, anntoationId)){
 					neo.deleteNodeWithRelations(anntoationId);
 					gus.deleteFromCores(anntoationId);
 				}else{
-					success = "ERROR: User provided does not match the user of the annotation. Annotation was not deleted.";
+					message = "User provided does not match the user of the annotation. Annotation was not deleted.";
+					obj = getFailJson();
+					obj.put("message", message);
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
-//				success = org.apache.commons.lang.exception.ExceptionUtils.getStackTrace(e);
-				success = e.getMessage();
+				obj = getFailJson();
+				obj.put("message", message);
+				message = e.getMessage();
 			}
-			return success;
+			return obj.toString();
 	    }
 		
+		private JSONObject getSuccessJson(){
+			JSONObject obj = new JSONObject();
+			obj.put("outcome", "SUCCESS");
+			return obj;
+		}
 		
+		private JSONObject getFailJson(){
+			JSONObject obj = new JSONObject();
+			obj.put("outcome", "FAIL");
+			return obj;
+		}
 	}
 
 

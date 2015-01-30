@@ -3,15 +3,11 @@ package uk.ac.ebi.neo4jUtils;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.neo4j.cypher.javacompat.ExecutionEngine;
-import org.neo4j.cypher.javacompat.ExecutionResult;
 import org.neo4j.graphdb.DynamicLabel;
-import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Label;
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Relationship;
@@ -19,15 +15,12 @@ import org.neo4j.graphdb.Transaction;
 import org.neo4j.rest.graphdb.RestGraphDatabase;
 import org.neo4j.rest.graphdb.query.RestCypherQueryEngine;
 import org.neo4j.rest.graphdb.util.QueryResult;
-import org.neo4j.helpers.collection.IteratorUtil;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 
 
 @Service 
 public class Neo4jAccessUtils {
 
-	 private static final String DB_PATH = "/Users/tudose/Documents/servers/neo4j-community-2.1.6/data/phis_2.1.6.db";
 	 private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 	 private static RestGraphDatabase db;
 	 private static RestCypherQueryEngine engine;
@@ -486,10 +479,10 @@ public class Neo4jAccessUtils {
 						today, today);
 				}
 				else {
-					success = "ERROR: Users did not match.";
+					success = "Users did not match.";
 				}
 			} else {
-				success = "ERROR: Annotation id does not exist.";
+				success = "Annotation id does not exist.";
 			}
 		}catch(Exception e){
 			e.printStackTrace();
