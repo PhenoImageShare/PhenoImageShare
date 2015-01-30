@@ -44,9 +44,9 @@
 				<td>anntoationId</td>
 				<td><var>String</var></td>
 				<td> true </td>
-				<td>Unique annotation id. If the id exists an error will be thrown. Otherwise a node will be created.</td>
-				<td><var></var></td>
-				<td><var></var><br></td>
+				<td>Unique annotation id. If the id exists an error will be thrown. Otherwise a node will be created. Should get it from the ID generator.</td>
+				<td><var>-</var></td>
+				<td><var>roi_ua_e3a48d04-b7fb-41c6-825e-7a7d30cf0a83</var><br></td>
 			</tr>			
 			<tr>
 				<td>associatedImageId</td>
@@ -61,7 +61,7 @@
 				<td><var>float[]</var></td>
 				<td> true </td>
 				<td>A set of 1 coordinate pair (x,y or x,y,z) -> point. <br/>
-						2 coordinate pairs -> rectangular. <br/>
+						2 coordinate pairs -> rectangle. <br/>
 						>2 coordinate pairs -> polygon. <br/>
 <!-- 					Multiple shapes can be delimited by a dot (.) on each axis coordinate sets. A dot and a rectangular would look like:<br/>
 						x = ["32",".","10", "22"], y = ["45",".","30", "42"]; -->
@@ -223,9 +223,9 @@
 				<td>anntoationId</td>
 				<td><var>String</var></td>
 				<td> true </td>
-				<td>Unique id of the annotation to be modified. If the id does not exist in the database the annotation will not be added. You should call </td>
-				<td><var></var></td>
-				<td><var></var><br></td>
+				<td>Unique id of the annotation to be modified. If the id does not exist in the database the annotation will not be added. You should call getAnnotationId to get one each time.</td>
+				<td><var>-</var></td>
+				<td><var>roi_ua_e3a48d04-b7fb-41c6-825e-7a7d30cf0a83</var><br></td>
 			</tr>
 			
 		</tbody>
