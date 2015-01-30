@@ -441,6 +441,9 @@ public class Neo4jAccessUtils {
 		String rel;
 		String from; 
 		String to;
+		if (fromNode == null || toNode == null){
+			return false;
+		}
 		try ( Transaction tx = db.beginTx() )
         {
 			from = fromNode.getProperty(AnnotationProperties.ID.name()).toString();
