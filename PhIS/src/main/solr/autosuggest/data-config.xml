@@ -24,7 +24,7 @@
 		
 				<field column="image_doc_id" xpath="/response/result/doc/str[@name='id']" />	
 				<field column="host_name" xpath="/response/result/doc/str[@name='host_name']" />
-				<field column="image_generated_by" xpath="/response/result/doc/arr[@name='image_generated_by']/str" />	
+				<field column="image_generated_by" xpath="/response/result/doc/str[@name='image_generated_by']" />	
 				<field column="imaging_method_label" xpath="/response/result/doc/arr[@name='imaging_method_label']/str" />	
 				<field column="imaging_method_synonym" xpath="/response/result/doc/arr[@name='imaging_method_synonym']/str" />	
 				<field column="sample_preparation_label" xpath="/response/result/doc/arr[@name='sample_preparation_label']/str" />	
