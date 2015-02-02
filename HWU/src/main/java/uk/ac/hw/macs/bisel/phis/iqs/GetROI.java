@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class GetROI extends HttpServlet {
 
-    private static final String url = "http://beta.phenoimageshare.org/data/rest/getRoi?"; // stem of every SOLR query
+    private static final String url = "http://beta.phenoimageshare.org/data/v0.0.3/rest/getRoi?"; // stem of every SOLR query
     private static final Logger logger = Logger.getLogger(System.class.getName());
     /**
      * Enables discovery of ROI information for a single ROI.

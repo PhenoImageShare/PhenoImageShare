@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class GetImages extends HttpServlet {
 
-    private static final String url = "http://beta.phenoimageshare.org/data/rest/getImages?"; // stem of every SOLR query
+    private static final String url = "http://beta.phenoimageshare.org/data/v0.0.3/rest/getImages?"; // stem of every SOLR query
     private static final Logger logger = Logger.getLogger(System.class.getName());
 
     /**
