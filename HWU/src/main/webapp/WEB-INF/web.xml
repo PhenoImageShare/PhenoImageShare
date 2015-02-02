@@ -95,7 +95,11 @@
     <servlet-mapping>
         <servlet-name>AutoSuggest</servlet-name>
         <url-pattern>/GetAutoSuggest</url-pattern>
-    </servlet-mapping>        
+    </servlet-mapping> 
+    <servlet-mapping>
+        <servlet-name>AutoSuggest</servlet-name>
+        <url-pattern>/getautosuggest</url-pattern>
+    </servlet-mapping>           
     <session-config>
         <session-timeout>
             30
