@@ -227,7 +227,7 @@ public class ImageService {
 		solrQuery.addFacetField(ImageDTO.IMAGING_METHOD_LABEL);
 		solrQuery.addFacetField(ImageDTO.TAXON);
 		solrQuery.addFacetField(ImageDTO.SAMPLE_TYPE);
-		solrQuery.setFacetMinCount(1);
+		solrQuery.set("facet.pivot.mincount",0);
 		
 		// add pivot facets to get the number of image types per 
 		solrQuery.set("facet.pivot", ImageDTO.SAMPLE_TYPE + "," + ImageDTO.IMAGE_TYPE);	
