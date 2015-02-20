@@ -41,7 +41,7 @@
 				<td><var>user_021897401</var><br></td>
 			</tr>
 			<tr>
-				<td>anntoationId</td>
+				<td>annotationId</td>
 				<td><var>String</var></td>
 				<td> true </td>
 				<td>Unique annotation id. If the id exists an error will be thrown. Otherwise a node will be created. Should get it from the ID generator.</td>
@@ -79,7 +79,7 @@
 			</tr>
 			<tr>
 				<td>zCoordinates</td>
-				<td><var>string[]</var></td>
+				<td><var>float[]</var></td>
 				<td> false </td>
 				<td>See xCoordinates.</td>
 				<td><var>-</var></td>
@@ -220,7 +220,7 @@
 				<td><var>user_021897401</var><br></td>
 			</tr>
 			<tr>
-				<td>anntoationId</td>
+				<td>annotationId</td>
 				<td><var>String</var></td>
 				<td> true </td>
 				<td>Unique id of the annotation to be modified. If the id does not exist in the database the annotation will not be added. You should call getAnnotationId to get one each time.</td>
