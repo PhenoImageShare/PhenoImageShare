@@ -52,7 +52,7 @@ import uk.ac.ebi.phis.solrj.dto.RoiDTO;
 		@RequestMapping(value="/createAnnotation", method=RequestMethod.GET)	
 	    public @ResponseBody String createAnnotation(
 	    		@RequestParam(value = "userId", required = true) String userId,
-	            @RequestParam(value = "anntoationId", required = true) String annotationId,
+	            @RequestParam(value = "annotationId", required = true) String annotationId,
 	            @RequestParam(value = "associatedImageId", required = true) String associatedImageId,
 	            @RequestParam(value = "xCoordinates", required = true) List<Float> xCoordinates,
 	            @RequestParam(value = "yCoordinates", required = true) List<Float> yCoordinates,
@@ -104,7 +104,7 @@ import uk.ac.ebi.phis.solrj.dto.RoiDTO;
 		@RequestMapping(value="/updateAnnotation", method=RequestMethod.GET)	
 	    public @ResponseBody String updateAnnotation(
 	    		@RequestParam(value = "userId", required = true) String userId,
-	            @RequestParam(value = "anntoationId", required = true) String annotationId,
+	            @RequestParam(value = "annotationId", required = true) String annotationId,
 	            @RequestParam(value = "associatedImageId", required = true) String associatedImageId,
 	            @RequestParam(value = "xCoordinates", required = true) List<Float> xCoordinates,
 	            @RequestParam(value = "yCoordinates", required = true) List<Float> yCoordinates,

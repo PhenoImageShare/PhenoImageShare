@@ -412,5 +412,4 @@ public class ImageService {
 	public String getQueryUrl(SolrQuery q){
 		return solr.getBaseURL() + "/select?" + q.toString();
 	}
-	
 }
