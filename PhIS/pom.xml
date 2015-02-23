@@ -97,7 +97,7 @@
 		<baseUrl>http://??</baseUrl>
 		<solrUrl>http://wwwdev.ebi.ac.uk/mi/phis</solrUrl>
 		<internalSolrUrl>http://ves-ebi-d0.ebi.ac.uk:8090/mi/phis</internalSolrUrl>
-		<dbURI>http://localhost:7474/db/data/</dbURI>
+		<dbURI>http://phenoimageshare.ebi.ac.uk:7474/db/data/</dbURI>
 		<java.version>1.7</java.version>
 	</properties>
 
@@ -163,6 +163,7 @@
 				<solrUrl>http://???</solrUrl>
 				<!-- internalSolrUrl>http://ves-ebi-d1.ebi.ac.uk:8120/mi/phis/beta</internalSolrUrl-->
 				<internalSolrUrl>http://localhost:8120/mi/phis/beta</internalSolrUrl> <!--  This will do on d1 when called from d1 and d2 from d2. -->
+				<dbURI>http://phenoimageshare.ebi.ac.uk:7474/db/data/</dbURI>
 				<java.version>1.7</java.version>
 			</properties>
 			<build>
@@ -217,6 +218,7 @@
 				<baseUrl>http://??</baseUrl>
 				<solrUrl>http://???</solrUrl>
 				<internalSolrUrl>http://localhost:8120/mi/phis/beta/v0.0.4</internalSolrUrl> <!--  This will do on d1 when called from d1 and d2 from d2. -->
+				<dbURI>http://phenoimageshare.ebi.ac.uk:7474/db/data/</dbURI>
 				<java.version>1.7</java.version>
 			</properties>
 			<build>
