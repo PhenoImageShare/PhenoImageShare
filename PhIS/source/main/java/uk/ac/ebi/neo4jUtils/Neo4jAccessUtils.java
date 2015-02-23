@@ -38,18 +38,13 @@ public class Neo4jAccessUtils {
 	 
 	public Neo4jAccessUtils (String dbURI) {
 		
- //       db = new GraphDatabaseFactory().newEmbeddedDatabase( DB_PATH );
 		db = new RestGraphDatabase(dbURI); 
-		System.out.println("Is not null " + (db != null));
         engine = new RestCypherQueryEngine( db.getRestAPI() );
         annLabel = createLabel("Annotation");
         ontologyTermLabel = createLabel("OntologyTerm");
         channelLabel = createLabel("Channel");
         imageLabel = createLabel("Image");
-        userLabel = createLabel("User");
-
- //       addUniqueIdConstraint(annLabel);
-        
+        userLabel = createLabel("User");        
 	}
 	
 	
@@ -407,6 +402,8 @@ public class Neo4jAccessUtils {
 	}
 	
 	public boolean existsId(String id, Label label){
+		System.out.println("ENGINE:: " + engine.toString());
+		System.out.println("DATABASE ::: " + db.getRestAPI().getBaseUri());
 		return (engine.query( "MATCH (obj:" + label + ") WHERE obj."+AnnotationProperties.ID.name()+"=\"" + id + "\" RETURN obj" , null).iterator().hasNext());
 	}
 	
