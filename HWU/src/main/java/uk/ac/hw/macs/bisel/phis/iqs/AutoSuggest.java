@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.Enumeration;
 import java.util.Map;
 import java.util.logging.Level;
@@ -59,7 +60,7 @@ public class AutoSuggest extends HttpServlet {
                     queryURL += "&";
                 }
 
-                queryURL += "term=" + params.get("term")[0]; // extend stem with parameter
+                queryURL += "term=" + URLEncoder.encode(params.get("term")[0], "UTF"); // extend stem with parameter
                 first = false; // next time you need a separator
 
             // params that IT added, that I do not understand how they will be used
@@ -69,21 +70,21 @@ public class AutoSuggest extends HttpServlet {
                     queryURL += "&";
                 }
 
-                queryURL += "mutantGene=" + params.get("mutantGene")[0]; // extend stem with parameter
+                queryURL += "mutantGene=" + URLEncoder.encode(params.get("mutantGene")[0], "UTF-8"); // extend stem with parameter
                 first = false; // next time you need a separator                
             } else if (param.equals("expressedGeneOrAllele")) {
                 if (!first) { // at the moment it will always be the first (and only) param
                     queryURL += "&";
                 }
 
-                queryURL += "expressedGeneOrAllele=" + params.get("expressedGeneOrAllele")[0]; // extend stem with parameter
+                queryURL += "expressedGeneOrAllele=" + URLEncoder.encode(params.get("expressedGeneOrAllele")[0], "UTF-8"); // extend stem with parameter
                 first = false; // next time you need a separator                   
             } else if (param.equals("phenotype")) {
                 if (!first) { // at the moment it will always be the first (and only) param
                     queryURL += "&";
                 }
 
-                queryURL += "phenotype=" + params.get("phenotype")[0]; // extend stem with parameter
+                queryURL += "phenotype=" + URLEncoder.encode(params.get("phenotype")[0], "UTF-8"); // extend stem with parameter
                 first = false; // next time you need a separator                 
 
                 // choose number of results to ask for... lots of results is very costly    
@@ -91,7 +92,7 @@ public class AutoSuggest extends HttpServlet {
                 if (!first) {
                     queryURL += "&";
                 }
-                queryURL += "resultNo=" + params.get("num")[0];
+                queryURL += "resultNo=" + URLEncoder.encode(params.get("num")[0], "UTF-8");
                 first = false;  // next time you need a separator                 
 
             } else { // parameter was not recognised, send error
@@ -100,9 +101,7 @@ public class AutoSuggest extends HttpServlet {
                 solrResult = "{\"invalid_paramater\": \"" + param + "\"}";
             }
         }
-
-        logger.log(Level.INFO, queryURL);
-
+        
         // should write query to log?
         // run query against SOLR API
         if (!error) { // if no error detected

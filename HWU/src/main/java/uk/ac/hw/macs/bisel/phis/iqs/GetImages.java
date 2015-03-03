@@ -1,10 +1,8 @@
 package uk.ac.hw.macs.bisel.phis.iqs;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.URL;
+import java.net.URLEncoder;
 import java.util.Enumeration;
 import java.util.Map;
 import java.util.logging.Level;
@@ -83,31 +81,31 @@ public class GetImages extends HttpServlet {
                 if (!first) { // if this is not the first parameter added to queryURL include separator
                     queryURL += "&";
                 }
-                queryURL += "phenotype=" + params.get("phenotype")[0]; // extend stem with parameter
+                queryURL += "phenotype=" + URLEncoder.encode(params.get("phenotype")[0], "UTF-8"); // extend stem with parameter
                 first = false; // next time you need a separator
             } else if (param.equalsIgnoreCase("ptId")) { // deal with phenotypes
                 if (!first) { // if this is not the first parameter added to queryURL include separator
                     queryURL += "&";
                 }
-                queryURL += "phenotype=" + params.get("ptId")[0]; // extend stem with parameter
+                queryURL += "phenotype=" + URLEncoder.encode(params.get("ptId")[0], "UTF-8"); // extend stem with parameter
                 first = false; // next time you need a separator                
             } else if (param.equalsIgnoreCase("anatomy")) { // deal with anatomy 
                 if (!first) {
                     queryURL += "&";
                 }
-                queryURL += "anatomy=" + params.get("anatomy")[0].replaceAll(" ", "%20");
+                queryURL += "anatomy=" + URLEncoder.encode(params.get("anatomy")[0], "UTF-8");
                 first = false;
             } else if (param.equalsIgnoreCase("aId")) { // deal with anatomy 
                 if (!first) {
                     queryURL += "&";
                 }
-                queryURL += "anatomy=" + params.get("aId")[0].replaceAll(" ", "%20");
+                queryURL += "anatomy=" + URLEncoder.encode(params.get("aId")[0], "UTF-8");
                 first = false;
             } else if (param.equalsIgnoreCase("mutantGene")) { // deal with genes
                 if (!first) {
                     queryURL += "&";
                 }
-                queryURL += "mutantGene=" + params.get("mutantGene")[0];
+                queryURL += "mutantGene=" + URLEncoder.encode(params.get("mutantGene")[0], "UTF-8");
                 first = false;                
                 
             
@@ -117,13 +115,13 @@ public class GetImages extends HttpServlet {
                 if (!first) {
                     queryURL += "&";
                 }
-                queryURL += "gene=" + params.get("gene")[0];
+                queryURL += "gene=" + URLEncoder.encode(params.get("gene")[0], "UTF-8");
                 first = false;
             } else if (param.equalsIgnoreCase("gId")) { // deal with genes
                 if (!first) {
                     queryURL += "&";
                 }
-                queryURL += "gene=" + params.get("gId")[0];
+                queryURL += "gene=" + URLEncoder.encode(params.get("gId")[0], "UTF-8");
                 first = false;
                 
 
@@ -132,7 +130,7 @@ public class GetImages extends HttpServlet {
                 if (!first) {
                     queryURL += "&";
                 }
-                queryURL += "term=" + params.get("term")[0].replaceAll(" ", "%20");
+                queryURL += "term=" + URLEncoder.encode(params.get("term")[0], "UTF-8");
                 first = false;
 
                 // 2014-08-28
@@ -141,50 +139,50 @@ public class GetImages extends HttpServlet {
                 if (!first) {
                     queryURL += "&";
                 }
-                queryURL += "expressedFeature=" + params.get("expressedFeature")[0].replaceAll(" ", "%20");
+                queryURL += "expressedFeature=" + URLEncoder.encode(params.get("expressedFeature")[0], "UTF-8");
                 first = false;
             } else if (param.equals("sex")) {
                 if (!first) {
                     queryURL += "&";
                 }
-                queryURL += "sex=" + params.get("sex")[0];
+                queryURL += "sex=" + URLEncoder.encode(params.get("sex")[0], "UTF-8");
                 first = false;
             } else if (param.equals("taxon")) {
                 if (!first) {
                     queryURL += "&";
                 }
-                queryURL += "taxon=" + params.get("taxon")[0];
+                queryURL += "taxon=" + URLEncoder.encode(params.get("taxon")[0], "UTF-8");
                 first = false;
             } else if (param.equals("stage")) {
                 if (!first) {
                     queryURL += "&";
                 }
-                queryURL += "stage=" + params.get("stage")[0].replaceAll(" ", "%20");
+                queryURL += "stage=" + URLEncoder.encode(params.get("stage")[0], "UTF-8");
                 first = false;
                 
             } else if (param.equals("sampleType")) {
                 if (!first) {
                     queryURL += "&";
                 }
-                queryURL += "sampleType=" + params.get("sampleType")[0];
+                queryURL += "sampleType=" + URLEncoder.encode(params.get("sampleType")[0], "UTF-8");
                 first = false;                   
             } else if(param.equals("imageType")) {
                 if (!first) {
                     queryURL += "&";
                 }
-                queryURL += "imageType=" + params.get("imageType")[0];
+                queryURL += "imageType=" + URLEncoder.encode(params.get("imageType")[0], "UTF-8");
                 first = false;                                   
             } else if (param.equals("samplePreparation")) {
                 if (!first) {
                     queryURL += "&";
                 }
-                queryURL += "samplePreparation=" + params.get("samplePreparation")[0].replaceAll(" ", "%20");
+                queryURL += "samplePreparation=" + URLEncoder.encode(params.get("samplePreparation")[0], "UTF-8");
                 first = false;
             } else if (param.equals("imagingMethod")) {
                 if (!first) {
                     queryURL += "&";
                 }
-                queryURL += "imagingMethod=" + params.get("imagingMethod")[0].replaceAll(" ", "%20");
+                queryURL += "imagingMethod=" + URLEncoder.encode(params.get("imagingMethod")[0], "UTF-8");
                 first = false;
                 
 
@@ -193,13 +191,13 @@ public class GetImages extends HttpServlet {
                 if (!first) {
                     queryURL += "&";
                 }                
-                queryURL += "start=" + params.get("start")[0];
+                queryURL += "start=" + URLEncoder.encode(params.get("start")[0], "UTF-8");
                 first = false;
             } else if (param.equalsIgnoreCase("num")) { // number of results to return
                 if (!first) {
                     queryURL += "&";
                 }
-                queryURL += "resultNo=" + params.get("num")[0];
+                queryURL += "resultNo=" + URLEncoder.encode(params.get("num")[0], "UTF-8");
                 first = false;
 
                 
