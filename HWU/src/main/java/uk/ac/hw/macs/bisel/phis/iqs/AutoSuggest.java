@@ -60,7 +60,7 @@ public class AutoSuggest extends HttpServlet {
                     queryURL += "&";
                 }
 
-                queryURL += "term=" + URLEncoder.encode(params.get("term")[0], "UTF"); // extend stem with parameter
+                queryURL += "term=" + URLEncoder.encode(params.get("term")[0], "UTF-8"); // extend stem with parameter
                 first = false; // next time you need a separator
 
             // params that IT added, that I do not understand how they will be used
