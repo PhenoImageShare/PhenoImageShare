@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.Enumeration;
 import java.util.Map;
 import java.util.logging.Level;
@@ -79,7 +80,7 @@ public class GetROIs extends HttpServlet {
                     queryURL += "&";
                 }
                 
-                queryURL += "imageId=" + params.get("imageId")[0]; // extend stem with parameter
+                queryURL += "imageId=" + URLEncoder.encode(params.get("imageId")[0], "UTF-8"); // extend stem with parameter
                 first = false; // next time you need a seperator
                 
             // pagination    
@@ -87,13 +88,13 @@ public class GetROIs extends HttpServlet {
             	if(!first) {
             		queryURL += "&";
             	}    
-            	queryURL += "start="+params.get("start")[0];
+            	queryURL += "start="+ URLEncoder.encode(params.get("start")[0], "UTF-8");
             	first = false;
             } else if (param.equalsIgnoreCase("num")) { // number of results to return
             	if(!first) {
             		queryURL += "&";
             	}
-            	queryURL += "resultNo="+params.get("num")[0];
+            	queryURL += "resultNo="+ URLEncoder.encode(params.get("num")[0], "UTF-8");
                 
             // error handling                    
             } else { // parameter was not recognised, send error

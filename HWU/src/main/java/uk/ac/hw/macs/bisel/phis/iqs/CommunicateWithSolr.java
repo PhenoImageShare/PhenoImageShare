@@ -22,6 +22,9 @@ public class CommunicateWithSolr {
     private static final Logger logger = Logger.getLogger(System.class.getName());    
     
     public String talk(String queryURL) {
+        // record all queries sent to SOLR
+        logger.log(Level.INFO, "[QUERY] {0}", queryURL);        
+        
         BufferedReader in = null;
         String solrResult = "";
         try {
