@@ -19,28 +19,21 @@ public class PopulateAutosuggest {
 	public static void main(String[] args) {
 		
 		OptionParser parser = new OptionParser();
-		parser.accepts( "context" ).withRequiredArg();
+		parser.accepts( "solrBaseUrl" ).withRequiredArg();
 	
 		OptionSet options = parser.parse( args );
 	
-		if (!options.has("context")) {
+		if (!options.has("solrBaseUrl")) {
 			help();
 		}
 		
 		// Check context file exists
-		String contextFile = (String) options.valueOf("context");
-		File f = new File(contextFile);
-		if (!f.isFile() || !f.canRead()) {
-			System.err.println("Context file " + contextFile + " not readable.");
-			help();
-		}
-		
-		ApplicationContext applicationContext = new  FileSystemXmlApplicationContext("file:" + contextFile);
-			
+		String solrBaseUrl = (String) options.valueOf("solrBaseUrl");
+					
 		try {
 
-			ImageService is = (ImageService) applicationContext.getBean("imageService");
-			AutosuggestService as = (AutosuggestService) applicationContext.getBean("autosuggestService");
+			ImageService is = new ImageService(solrBaseUrl + "/images");
+			AutosuggestService as = new AutosuggestService(solrBaseUrl + "/autosuggest");
 			as.clear();
 			AutosuggestIndexer indexer = new AutosuggestIndexer(is, as);
 			indexer.index();
@@ -53,8 +46,8 @@ public class PopulateAutosuggest {
 	public static void help() {
 			StringBuffer buffer = new StringBuffer();
 			buffer.append("PopulateAutosuggest usage:\n\n");
-			buffer.append("PopulateAutosuggest --context <Spring context>\n");
-			buffer.append("\t--context|-c\tSpring application context configuration file\n");
+			buffer.append("PopulateAutosuggest --solrBaseUrl <http://ves-ebi-d0.ebi.ac.uk:8090/mi/phis>\n");
+			buffer.append("\t--solrBaseUrl\tURL for the solr to buils\n");
 			System.out.println(buffer);
 			System.exit(1);
 		}
