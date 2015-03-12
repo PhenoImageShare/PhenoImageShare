@@ -83,8 +83,7 @@ public class SolrWrapperController {
 			@RequestParam(value = "sampleType", required = false) String sampleType,
 			@RequestParam(value = "stage", required = false) String stage,
 			@RequestParam(value = "imagingMethod", required = false) String imagingMethod,
-			@RequestParam(value = "imageGeneratedBy", required = false) String imageGeneratedBy,
-			
+			@RequestParam(value = "imageGeneratedBy", required = false) String imageGeneratedBy,			
 			@RequestParam(value = "anatomy", required = false) String anatomy,
 			@RequestParam(value = "mutantGene", required = false) String mutantGene,
 			@RequestParam(value = "expressedGeneOrAllele", required = false) String expressedGeneOrAllele,
@@ -104,6 +103,7 @@ public class SolrWrapperController {
 		}
 		return "";
 	}
+	
 	
 	@RequestMapping(value="/getRois", method=RequestMethod.GET)	
     public @ResponseBody String getRois(
@@ -153,6 +153,7 @@ public class SolrWrapperController {
 		}
 		return "";
     }
+	
 
 	@RequestMapping(value="/getChannel", method=RequestMethod.GET)	
     public @ResponseBody String getChannel(
@@ -168,6 +169,7 @@ public class SolrWrapperController {
 		}
 		return "";
     }
+	
 	
 	/**
 	 * 
