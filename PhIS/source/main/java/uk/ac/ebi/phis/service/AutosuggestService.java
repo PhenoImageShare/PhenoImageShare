@@ -56,16 +56,16 @@ public class AutosuggestService extends BasicService {
 		if (stage != null){
 			solrQuery.addFilterQuery(AutosuggestDTO.STAGE + ":" + stage);
 		}
-		if (stage != null){
+		if (taxon != null){
 			solrQuery.addFilterQuery(AutosuggestDTO.TAXON + ":" + taxon);
 		}
-		if (stage != null){
+		if (sampleType != null){
 			solrQuery.addFilterQuery(AutosuggestDTO.SAMPLE_TYPE + ":" + sampleType);
 		}
-		if (stage != null){
+		if (imagingMethod != null){
 			solrQuery.addFilterQuery(AutosuggestDTO.IMAGING_METHOD + ":" + imagingMethod);
 		}
-		if (stage != null){
+		if (imageGeneratedBy != null){
 			solrQuery.addFilterQuery(AutosuggestDTO.IMAGE_GENERATED_BY + ":" + imageGeneratedBy);
 		}		
 		
