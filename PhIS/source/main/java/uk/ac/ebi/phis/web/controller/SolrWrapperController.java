@@ -92,7 +92,7 @@ public class SolrWrapperController {
 			Model model){
 			
 		if (term != null){
-			return as.getAutosuggest(term, AutosuggestTypes.valueOf(type), stage, imagingMethod, taxon, sampleType, imageGeneratedBy, resultNo);
+			return as.getAutosuggest(term, (type != null ? AutosuggestTypes.valueOf(type) : null), stage, imagingMethod, taxon, sampleType, imageGeneratedBy, resultNo);
 		} else if (anatomy != null){
 			return as.getAutosuggest(term, AutosuggestTypes.ANATOMY, stage, imagingMethod, taxon, sampleType, imageGeneratedBy, resultNo);
 		} else if (mutantGene != null){
