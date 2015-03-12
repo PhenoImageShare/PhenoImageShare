@@ -272,6 +272,7 @@
    <copyField source="visualisation_method_label" dest="generic_search"/>
    <copyField source="visualisation_method_synonyms" dest="generic_search"/>
    <copyField source="machine" dest="generic_search"/>
+   <copyField source="sample_type" dest="generic_search"/>
 
    <copyField source="imaging_method_label" dest="imaging_method_label_analysed"/>
 </schema>

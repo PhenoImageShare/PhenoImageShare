@@ -28,92 +28,7 @@ public class ImageService extends BasicService{
 		super(solrUrl);
 
 	}
-	
-	public String getAutosuggest(String term, String mutantGene, String expressedGeneOrAllele, String phenotype, Integer rows){
-
-		SolrQuery solrQuery = new SolrQuery();
-		ArrayList<String> suggestions = new ArrayList<>();
-		Integer suggestionNumber = 10;
-		Integer solrRows = 100;
-		
-		if (term != null){
-			if (term.length() < 1){
-				return "";
-			}
-			solrQuery.setQuery(ImageDTO.TERM_AUTOSUGGEST + ":" + term);
-			solrQuery.setFields(ImageDTO.TERM_AUTOSUGGEST);
-			solrQuery.addHighlightField(ImageDTO.TERM_AUTOSUGGEST);
-			solrQuery.set("f.term_autosuggest_analysed.hl.preserveMulti", true);
-		}
-		else if (mutantGene != null){
-			if (mutantGene.length() < 1){
-				return "";
-			}
-			solrQuery.setQuery(ImageDTO.GENE_SYMBOL + ":" + mutantGene);
-			solrQuery.setFields(ImageDTO.GENE_SYMBOL);
-			solrQuery.addHighlightField(ImageDTO.GENE_SYMBOL);
-			solrQuery.set("f." + ImageDTO.GENE_SYMBOL + ".hl.preserveMulti", true);
-		}
-		else if (expressedGeneOrAllele != null){
-			if (expressedGeneOrAllele.length() < 1){
-				return "";
-			}
-			solrQuery.setQuery(ImageDTO.EXPRESSED_GF_SYMBOL_BAG + ":" + expressedGeneOrAllele);
-			solrQuery.setFields(ImageDTO.EXPRESSED_GF_SYMBOL_BAG);
-			solrQuery.addHighlightField(ImageDTO.EXPRESSED_GF_SYMBOL_BAG);
-			solrQuery.set("f." + ImageDTO.EXPRESSED_GF_SYMBOL_BAG + ".hl.preserveMulti", true);
-		}
-		else if (phenotype != null){
-			if (phenotype.length() < 1){
-				return "";
-			}
-			solrQuery.setQuery(ImageDTO.PHENOTYPE_LABEL_BAG + ":" + phenotype);
-			solrQuery.setFields(ImageDTO.PHENOTYPE_LABEL_BAG);
-			solrQuery.addHighlightField(ImageDTO.PHENOTYPE_LABEL_BAG);
-			solrQuery.set("f." + ImageDTO.PHENOTYPE_LABEL_BAG + ".hl.preserveMulti", true);
-		}
-
-		solrQuery.setHighlight(true);
-		solrQuery.setHighlightRequireFieldMatch(true);
-		
-		if (rows != null){
-			solrRows = rows*10;
-			suggestionNumber = rows;
-		}
-		solrQuery.setRows(solrRows);
-		
-		System.out.println("Solr URL : " + solr.getBaseURL() + "/select?" + solrQuery);
-		log.info("Solr URL in getImages : " + solr.getBaseURL() + "/select?" + solrQuery);
-		
-		// Parse results to filter out un-highlighted entries and duplicates
-		try {
-			int i = 1;
-			while ((suggestions.size() < suggestionNumber && solr.query(solrQuery).getResults().getNumFound() > i*solrRows) || i == 1){
-				Map<String, Map<String, List<String>>> highlights = solr.query(solrQuery).getHighlighting();
-				OUTERMOST: for (Map<String, List<String>> suggests : highlights.values()){
-					for (List<String> suggestLists : suggests.values()){
-						for(String highlighted : suggestLists){
-							if (highlighted.contains("<b>") && !suggestions.contains(highlighted)){
-								suggestions.add(highlighted);
-								if (suggestions.size() == suggestionNumber){
-									break OUTERMOST;
-								}
-							}
-						}
-					}
-				}
-				solrQuery.setStart(i++*solrRows);
-			}
-		} catch (SolrServerException e) {
-			e.printStackTrace();
-		}
-		
-		// Return in JSON format
-		JSONObject returnObj = new JSONObject();
-		returnObj.put("response", new JSONObject().put("suggestions", new JSONArray(suggestions)));
-		return returnObj.toString().replaceAll("<\\\\", "<");
-	}
-		
+			
 	public String getImage(String term, String phenotype, String geneParameterToBeDeleted, String mutantGene, String anatomy, String expressedGene, String sex, String taxon, 
 	String image_type, String sample_type, String stage, String visualisationMethod, String samplePreparation, String imagingMethod, Integer rows, Integer start) throws SolrServerException{
 
@@ -202,6 +117,7 @@ public class ImageService extends BasicService{
 		solrQuery.addFacetField(ImageDTO.IMAGING_METHOD_LABEL);
 		solrQuery.addFacetField(ImageDTO.TAXON);
 		solrQuery.addFacetField(ImageDTO.SAMPLE_TYPE);
+		solrQuery.addFacetField(ImageDTO.IMAGE_GENERATED_BY);
 		solrQuery.set("facet.pivot.mincount",0);
 		
 		// add pivot facets to get the number of image types per 

@@ -30,7 +30,7 @@ public class AutosuggestService extends BasicService {
 	}
 
 
-	public String getAutosuggest(String term, AutosuggestTypes type, Integer rows) {
+	public String getAutosuggest(String term, AutosuggestTypes type, String stage, String imagingMethod, String taxon, String sampleType, String imageGeneratedBy, Integer rows) {
 
 		SolrQuery solrQuery = new SolrQuery();
 		ArrayList<String> suggestions = new ArrayList<>();
@@ -53,6 +53,22 @@ public class AutosuggestService extends BasicService {
 			solrQuery.addFilterQuery(AutosuggestDTO.AUTOSUGGEST_TYPE + ":" + type);
 		} 
 		
+		if (stage != null){
+			solrQuery.addFilterQuery(AutosuggestDTO.STAGE + ":" + stage);
+		}
+		if (stage != null){
+			solrQuery.addFilterQuery(AutosuggestDTO.TAXON + ":" + taxon);
+		}
+		if (stage != null){
+			solrQuery.addFilterQuery(AutosuggestDTO.SAMPLE_TYPE + ":" + sampleType);
+		}
+		if (stage != null){
+			solrQuery.addFilterQuery(AutosuggestDTO.IMAGING_METHOD + ":" + imagingMethod);
+		}
+		if (stage != null){
+			solrQuery.addFilterQuery(AutosuggestDTO.IMAGE_GENERATED_BY + ":" + imageGeneratedBy);
+		}		
+		
 		try {
 
 			List<Group> groups = solr.query(solrQuery).getGroupResponse().getValues().get(0).getValues();
@@ -63,6 +79,12 @@ public class AutosuggestService extends BasicService {
 		} catch (SolrServerException e) {
 			e.printStackTrace();
 		}
+		
+		
+		
+		
+		
+		
 		
 		JSONObject returnObj = new JSONObject();
 		returnObj.put("response", new JSONObject().put("suggestions", new JSONArray(suggestions)));

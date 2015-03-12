@@ -78,23 +78,29 @@ public class SolrWrapperController {
 	public  @ResponseBody String getSuggestions(
 			@RequestParam(value = "term", required = false) String term,
 			@RequestParam(value = "autosuggestType", required = false) String type,
+			@RequestParam(value = "resultNo", required = false) Integer resultNo,
+			@RequestParam(value = "taxon", required = false) String taxon,
+			@RequestParam(value = "sampleType", required = false) String sampleType,
+			@RequestParam(value = "stage", required = false) String stage,
+			@RequestParam(value = "imagingMethod", required = false) String imagingMethod,
+			@RequestParam(value = "imageGeneratedBy", required = false) String imageGeneratedBy,
+			
 			@RequestParam(value = "anatomy", required = false) String anatomy,
 			@RequestParam(value = "mutantGene", required = false) String mutantGene,
 			@RequestParam(value = "expressedGeneOrAllele", required = false) String expressedGeneOrAllele,
 			@RequestParam(value = "phenotype", required = false) String phenotype,
-			@RequestParam(value = "resultNo", required = false) Integer resultNo,
 			Model model){
 			
 		if (term != null){
-			return as.getAutosuggest(term, AutosuggestTypes.valueOf(type), resultNo);
+			return as.getAutosuggest(term, AutosuggestTypes.valueOf(type), stage, imagingMethod, taxon, sampleType, imageGeneratedBy, resultNo);
 		} else if (anatomy != null){
-			return as.getAutosuggest(term, AutosuggestTypes.ANATOMY, resultNo);
+			return as.getAutosuggest(term, AutosuggestTypes.ANATOMY, stage, imagingMethod, taxon, sampleType, imageGeneratedBy, resultNo);
 		} else if (mutantGene != null){
-			return as.getAutosuggest(term, AutosuggestTypes.GENE, resultNo);
+			return as.getAutosuggest(term, AutosuggestTypes.GENE, stage, imagingMethod, taxon, sampleType, imageGeneratedBy, resultNo);
 		} else if (expressedGeneOrAllele != null){
-			return as.getAutosuggest(term, AutosuggestTypes.GENE, resultNo);
+			return as.getAutosuggest(term, AutosuggestTypes.GENE, stage, imagingMethod, taxon, sampleType, imageGeneratedBy, resultNo);
 		} else if (phenotype != null){
-			return as.getAutosuggest(term, AutosuggestTypes.PHENOTYPE, resultNo);
+			return as.getAutosuggest(term, AutosuggestTypes.PHENOTYPE, stage, imagingMethod, taxon, sampleType, imageGeneratedBy, resultNo);
 		}
 		return "";
 	}
