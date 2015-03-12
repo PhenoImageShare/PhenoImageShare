@@ -84,8 +84,19 @@ public class SolrWrapperController {
 			@RequestParam(value = "phenotype", required = false) String phenotype,
 			@RequestParam(value = "resultNo", required = false) Integer resultNo,
 			Model model){
-					
+			
+		if (term != null){
 			return as.getAutosuggest(term, AutosuggestTypes.valueOf(type), resultNo);
+		} else if (anatomy != null){
+			return as.getAutosuggest(term, AutosuggestTypes.ANATOMY, resultNo);
+		} else if (mutantGene != null){
+			return as.getAutosuggest(term, AutosuggestTypes.GENE, resultNo);
+		} else if (expressedGeneOrAllele != null){
+			return as.getAutosuggest(term, AutosuggestTypes.GENE, resultNo);
+		} else if (phenotype != null){
+			return as.getAutosuggest(term, AutosuggestTypes.PHENOTYPE, resultNo);
+		}
+		return "";
 	}
 	
 	@RequestMapping(value="/getRois", method=RequestMethod.GET)	
