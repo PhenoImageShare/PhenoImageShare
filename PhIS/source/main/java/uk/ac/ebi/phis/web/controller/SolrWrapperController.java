@@ -17,6 +17,7 @@ import uk.ac.ebi.phis.service.AutosuggestService;
 import uk.ac.ebi.phis.service.ChannelService;
 import uk.ac.ebi.phis.service.ImageService;
 import uk.ac.ebi.phis.service.RoiService;
+import uk.ac.ebi.phis.solrj.dto.AutosuggestTypes;
 
 @Controller
 @RequestMapping("/rest")
@@ -76,17 +77,15 @@ public class SolrWrapperController {
 	@RequestMapping(value="/getAutosuggest", method=RequestMethod.GET)
 	public  @ResponseBody String getSuggestions(
 			@RequestParam(value = "term", required = false) String term,
+			@RequestParam(value = "autosuggestType", required = false) String type,
+			@RequestParam(value = "anatomy", required = false) String anatomy,
 			@RequestParam(value = "mutantGene", required = false) String mutantGene,
 			@RequestParam(value = "expressedGeneOrAllele", required = false) String expressedGeneOrAllele,
 			@RequestParam(value = "phenotype", required = false) String phenotype,
 			@RequestParam(value = "resultNo", required = false) Integer resultNo,
 			Model model){
-		if (mutantGene != null || expressedGeneOrAllele != null || phenotype != null ){
-			return is.getAutosuggest(term, mutantGene, expressedGeneOrAllele, phenotype, resultNo);
-		}
-		else {
-			return as.getAutosuggest(term, resultNo);
-		}
+					
+			return as.getAutosuggest(term, AutosuggestTypes.valueOf(type), resultNo);
 	}
 	
 	@RequestMapping(value="/getRois", method=RequestMethod.GET)	
@@ -166,7 +165,8 @@ public class SolrWrapperController {
 	
 		System.out.println("Try /getImages .");
 		return "rest_home";
-    }	
+    }
+		
 }
 
 

@@ -20,14 +20,12 @@ import uk.ac.ebi.phis.solrj.dto.RoiDTO;
 import uk.ac.ebi.phis.utils.web.JSONRestUtil;
 
 @Service
-public class ImageService {
-
-	private HttpSolrServer solr;
+public class ImageService extends BasicService{
 
 	private static final Logger log = Logger.getLogger(ImageService.class);
 
 	public ImageService(String solrUrl) {
-		solr = new HttpSolrServer(solrUrl);
+		super(solrUrl);
 
 	}
 	
@@ -358,7 +356,6 @@ public class ImageService {
 				img.addDepictedAnatomyFreetextBag(roi.getDepictedAnatomyFreetext());
 			}
 			if (roi.getExpressedAnatomyFreetext() != null){
-				System.out.println("Expression added \n\n\n\n");
 				img.addExpressionInFreetextBag(roi.getExpressedAnatomyFreetext());
 			}
 			if (roi.getExpressedAnatomyId() != null){
@@ -399,11 +396,6 @@ public class ImageService {
 	}
 	
 	
-	/**
-	 * Removes all documents from the core
-	 * @throws IOException 
-	 * @throws SolrServerException 
-	 */
 	public void clear() throws SolrServerException, IOException{
 		solr.deleteByQuery("*:*");
 	}

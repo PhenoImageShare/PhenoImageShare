@@ -14,12 +14,11 @@ import uk.ac.ebi.phis.solrj.dto.RoiDTO;
 import uk.ac.ebi.phis.utils.web.JSONRestUtil;
 
 
-public class RoiService {
+public class RoiService extends BasicService{
 
-	private HttpSolrServer solr;
 	
 	public RoiService(String solrUrl) {
-		solr = new HttpSolrServer(solrUrl);
+		super(solrUrl);
 	}
 	
 	public String getRoiAsJsonString(String roiId){

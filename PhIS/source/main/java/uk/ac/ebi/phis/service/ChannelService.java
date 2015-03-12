@@ -16,13 +16,12 @@ import uk.ac.ebi.phis.solrj.dto.ChannelDTO;
 import uk.ac.ebi.phis.solrj.dto.RoiDTO;
 import uk.ac.ebi.phis.utils.web.JSONRestUtil;
 
-public class ChannelService {
+public class ChannelService extends BasicService {
 
-	private HttpSolrServer solr;
 	
 	public ChannelService(String solrUrl) {
 
-		solr = new HttpSolrServer(solrUrl);
+		super(solrUrl);
 	}
 
 	
