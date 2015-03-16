@@ -150,6 +150,19 @@
 		</all>
 	</complexType>
 
+	<complexType name="Link">
+		<all>
+			<element name="display_name" type="string" minOccurs="1" maxOccurs="1" />
+			<element name="url" type="string" minOccurs="0" maxOccurs="1" />
+		</all>
+	</complexType>
+	<complexType name="LinkArray">
+		<sequence>
+			<element name="el" type="x:Link" minOccurs="1" maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+
+
 	<complexType name="Organism">
 		<all>
 			<element name="age" type="x:Age" minOccurs="0" maxOccurs="1" />
@@ -175,15 +188,15 @@
 
 	<simpleType name="AnnotationMode">
 		<restriction base="string">
-			<enumeration value="Manual"></enumeration>
-			<enumeration value="Automated"></enumeration>
+			<enumeration value="manual"></enumeration>
+			<enumeration value="automated"></enumeration>
 		</restriction>
 	</simpleType>
 
 	<simpleType name="YesNo">
 		<restriction base="string">
-			<enumeration value="Yes"></enumeration>
-			<enumeration value="No"></enumeration>
+			<enumeration value="yes"></enumeration>
+			<enumeration value="no"></enumeration>
 		</restriction>
 	</simpleType>
 
@@ -215,18 +228,6 @@
 	<complexType name="Genotype">
 		<sequence>
 			<element name="el" type="x:GenotypeComponent" minOccurs="1" maxOccurs="unbounded" />
-		</sequence>
-	</complexType>
-
-	<complexType name="Link">
-		<all>
-			<element name="display_name" type="string" minOccurs="1" maxOccurs="1" />
-			<element name="url" type="string" minOccurs="0" maxOccurs="1" />
-		</all>
-	</complexType>
-	<complexType name="LinkArray">
-		<sequence>
-			<element name="el" type="x:Link" minOccurs="1" maxOccurs="unbounded" />
 		</sequence>
 	</complexType>
 
