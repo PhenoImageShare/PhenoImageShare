@@ -7,20 +7,20 @@
 	<!--  Type declaration -->
 	<simpleType name="Sex"> <!-- Could use Caro for sexes -->
 		<restriction base="string">
-			<enumeration value="male"></enumeration>
-			<enumeration value="female"></enumeration>
-			<enumeration value="unknown"></enumeration>
-			<enumeration value="unsexed"></enumeration>
+			<enumeration value="Male"></enumeration>
+			<enumeration value="Female"></enumeration>
+			<enumeration value="Unknown"></enumeration>
+			<enumeration value="Unsexed"></enumeration>
 		</restriction>
 	</simpleType>
 
 	<simpleType name="Zygosity">
 		<restriction base="string">
-			<enumeration value="homozygous"></enumeration>
-			<enumeration value="heterozygous"></enumeration>
-			<enumeration value="hemizygous"></enumeration>
-			<enumeration value="wild type"></enumeration>
-			<enumeration value="unspecified"></enumeration>
+			<enumeration value="Homozygous"></enumeration>
+			<enumeration value="Heterozygous"></enumeration>
+			<enumeration value="Hemizygous"></enumeration>
+			<enumeration value="Wild type"></enumeration>
+			<enumeration value="Unspecified"></enumeration>
 		</restriction>
 	</simpleType>
 	<complexType name="ZygArray">
@@ -31,15 +31,15 @@
 
 	<simpleType name="SampleType">
 		<restriction base="string">
-			<enumeration value="mutant"></enumeration>
-			<enumeration value="wild type"></enumeration>
+			<enumeration value="Mutant"></enumeration>
+			<enumeration value="Wild type"></enumeration>
 		</restriction>
 	</simpleType>
 
 	<simpleType name="ImageType">
 		<restriction base="string">
-			<enumeration value="phenotype/anatomy"></enumeration>
-			<enumeration value="expression"></enumeration>
+			<enumeration value="Phenotype/anatomy"></enumeration>
+			<enumeration value="Expression"></enumeration>
 		</restriction>
 	</simpleType>
 	<complexType name="ImageTypeArray">
@@ -188,15 +188,8 @@
 
 	<simpleType name="AnnotationMode">
 		<restriction base="string">
-			<enumeration value="manual"></enumeration>
-			<enumeration value="automated"></enumeration>
-		</restriction>
-	</simpleType>
-
-	<simpleType name="YesNo">
-		<restriction base="string">
-			<enumeration value="yes"></enumeration>
-			<enumeration value="no"></enumeration>
+			<enumeration value="Manual"></enumeration>
+			<enumeration value="Automated"></enumeration>
 		</restriction>
 	</simpleType>
 
@@ -270,7 +263,7 @@
 			
 			<!-- Annotations -->
 			<element name="depicted_anatomical_structure" type="x:AnnotationArray" minOccurs="0" maxOccurs="1" /> <!--  The ONE anatomical structure that best describes what is being depicted in the whole image -->
-			<element name="is_expression_pattern" type="x:YesNo" minOccurs="0" maxOccurs="1" />
+			<element name="is_expression_pattern" type="boolean" minOccurs="0" maxOccurs="1" />
 			<element name="abnormality_in_anatomical_structure" type="x:AnnotationArray" minOccurs="0" maxOccurs="1" /> <!-- Name of anatomical structure with some abnormality -->
 			<element name="phenotype_annotations" type="x:AnnotationArray" minOccurs="0" maxOccurs="1" />
 			<element name="observations" type="x:StringArray" minOccurs="0" maxOccurs="1" /> <!--  any notes that don't fit the above annotations -->
