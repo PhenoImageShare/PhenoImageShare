@@ -268,7 +268,6 @@ public class BatchXmlUploader {
 		
 		if (roi.getPhenotypeAnnotations() != null){
 			// Phenotypes
-			//TODO copy this to ann_bag in images
 			List<String> ids = new ArrayList<>(); // || with labels
 			List<String> labels = new ArrayList<>(); // || with ids
 			List<String> freetext = new ArrayList<>();

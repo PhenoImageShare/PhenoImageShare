@@ -7,10 +7,10 @@
 	<!--  Type declaration -->
 	<simpleType name="Sex"> <!-- Could use Caro for sexes -->
 		<restriction base="string">
-			<enumeration value="Male"></enumeration>
-			<enumeration value="Female"></enumeration>
-			<enumeration value="Unknown"></enumeration>
-			<enumeration value="Unsexed"></enumeration>
+			<enumeration value="male"></enumeration>
+			<enumeration value="female"></enumeration>
+			<enumeration value="unknown"></enumeration>
+			<enumeration value="unsexed"></enumeration>
 		</restriction>
 	</simpleType>
 
@@ -50,8 +50,8 @@
 
 	<complexType name="Age">
 		<choice>
-			<element name="age_since_birth" type="float"></element> <!-- days -->
-			<element name="embryonic_age" type="float"></element> <!-- days -->
+			<element name="age_since_birth" type="string"></element> <!-- Preferably days -->
+			<element name="embryonic_age" type="string"></element> <!-- Preferably days -->
 		</choice>
 	</complexType>
 
