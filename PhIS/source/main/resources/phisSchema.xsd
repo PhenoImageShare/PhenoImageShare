@@ -154,6 +154,7 @@
 		<all>
 			<element name="display_name" type="string" minOccurs="1" maxOccurs="1" />
 			<element name="url" type="string" minOccurs="0" maxOccurs="1" />
+			<element name="details" type="string" minOccurs="0" maxOccurs="1" />
 		</all>
 	</complexType>
 	<complexType name="LinkArray">
@@ -245,7 +246,7 @@
 	<complexType name="Channel">
 		<all>
 			<element name="id" type="string" minOccurs="1" maxOccurs="1" /><!-- Must be consistent over different data exports -->
-			<element name="visualisation_method" type="x:AnnotationArray" minOccurs="0" maxOccurs="1" /> <!-- from Fbbi ontology -->
+			<element name="visualisation_method" type="x:AnnotationArray" minOccurs="0" maxOccurs="1" /> <!-- staining, markers from Fbbi ontology-->
 			<element name="associated_image" type="string" minOccurs="1" maxOccurs="1" />  <!-- Must always be associated to the right image and back -->
 			<element name="associated_roi" type="x:StringArray" minOccurs="0" maxOccurs="1" /> <!-- Must always be associated to the right roi and back -->
 			<element name="depicts_expression_of" type="x:GenotypeComponent" minOccurs="0" maxOccurs="1" />
