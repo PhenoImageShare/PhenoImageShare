@@ -225,13 +225,12 @@
 			<!-- element name="marker" type="string" minOccurs="0" maxOccurs="1"/ --> <!-- Carried on the genetic feature -->
 		</all>
 	</complexType>
+	
 	<complexType name="Genotype">
 		<sequence>
 			<element name="el" type="x:GenotypeComponent" minOccurs="1" maxOccurs="unbounded" />
 		</sequence>
 	</complexType>
-
-
 
 	<!-- Main image document -->
 	<complexType name="Image">
