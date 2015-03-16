@@ -176,8 +176,8 @@
 
 	<complexType name="OntologyTerm">
 		<all>
-			<element name="termLabel" type="string" minOccurs="1" maxOccurs="1" />
-			<element name="termId" type="string" minOccurs="1" maxOccurs="1" /> <!-- OWL style, with underscores after namespace not colon -->
+			<element name="term_label" type="string" minOccurs="1" maxOccurs="1" />
+			<element name="term_id" type="string" minOccurs="1" maxOccurs="1" /> <!-- OWL style, with underscores after namespace not colon -->
 		</all>
 	</complexType>
 	<complexType name="OntologyTermArray">
