@@ -143,8 +143,8 @@
 			<element name="image_processed_by" type="x:LinkArray" minOccurs="0" />
 			<element name="organism_generated_by" type="x:Link" minOccurs="1" maxOccurs="1" /> <!-- Lab/center/institute that produced the organism -->
 			<element name="host" type="x:Link" minOccurs="1" maxOccurs="1" /> <!-- URL to the website where all the images are accessible -->
-			<element name="imaging_method" type="x:OntologyTermArray" minOccurs="0" maxOccurs="1" /> <!-- from Fbbi -->
-			<element name="sample_preparation" type="x:OntologyTermArray" minOccurs="0" maxOccurs="1" /> <!-- from Fbbi -->
+			<element name="imaging_method" type="x:AnnotationArray" minOccurs="0" maxOccurs="1" /> <!-- from Fbbi -->
+			<element name="sample_preparation" type="x:AnnotationArray" minOccurs="0" maxOccurs="1" /> <!-- from Fbbi -->
 			<element name="image_type" type="x:ImageTypeArray" minOccurs="1" maxOccurs="1" />
 			<element name="sample_type" type="x:SampleType" minOccurs="1" maxOccurs="1" />
 		</all>
@@ -204,7 +204,7 @@
 		<all minOccurs="1">
 			<element name="ontology_term" type="x:OntologyTerm" minOccurs="0" maxOccurs="1" />
 			<element name="annotation_freetext" type="string" minOccurs="0" maxOccurs="1" />
-			<element name="annotationMode" type="x:AnnotationMode" minOccurs="0" maxOccurs="1" />
+			<element name="annotation_mode" type="x:AnnotationMode" minOccurs="0" maxOccurs="1" />
 		</all>
 	</complexType>
 	<complexType name="AnnotationArray">
@@ -252,7 +252,7 @@
 	<complexType name="Channel">
 		<all>
 			<element name="id" type="string" minOccurs="1" maxOccurs="1" /><!-- Must be consistent over different data exports -->
-			<element name="visualisation_method" type="x:OntologyTermArray" minOccurs="0" maxOccurs="1" /> <!-- from Fbbi ontology -->
+			<element name="visualisation_method" type="x:AnnotationArray" minOccurs="0" maxOccurs="1" /> <!-- from Fbbi ontology -->
 			<element name="associated_image" type="string" minOccurs="1" maxOccurs="1" />  <!-- Must always be associated to the right image and back -->
 			<element name="associated_roi" type="x:StringArray" minOccurs="0" maxOccurs="1" /> <!-- Must always be associated to the right roi and back -->
 			<element name="depicts_expression_of" type="x:GenotypeComponent" minOccurs="0" maxOccurs="1" />

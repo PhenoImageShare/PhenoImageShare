@@ -132,6 +132,10 @@ public class SangerXmlGenerator {
 			    		organism.setTaxon("Mus musculus");
 			    		image.setOrganism(organism);
 			    		
+			    		if (res.getString("GENOTYPE").equalsIgnoreCase("WT")){
+			    			isMutant = false;
+			    		}
+			    		
 			    		GenotypeComponent gt = new GenotypeComponent();
 			    		gt.setGeneId(res.getString("gf_acc"));
 			    		gt.setGeneSymbol(res.getString("GENE"));
@@ -143,9 +147,7 @@ public class SangerXmlGenerator {
 			    		gta.getEl().add(gt);
 			    		image.setMutantGenotypeTraits(gta);
 			    		
-			    		if (res.getString("GENOTYPE").equalsIgnoreCase("WT")){
-			    			isMutant = false;
-			    		}
+			    		
 				        
 				        /* 	Channel 	*/
 			    		String imageType = norm.getImageType(res.getString("procedure_name"));
