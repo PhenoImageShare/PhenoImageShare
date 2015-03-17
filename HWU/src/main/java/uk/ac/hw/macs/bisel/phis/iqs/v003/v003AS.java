@@ -26,8 +26,7 @@ public class v003AS extends HttpServlet {
 
     private static final String url = "http://beta.phenoimageshare.org/data/v0.0.3/rest/getAutosuggest?"; // stem of every SOLR query
     private static final Logger logger = Logger.getLogger(System.class.getName());
-    
-    
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -60,7 +59,7 @@ public class v003AS extends HttpServlet {
                 queryURL += "term=" + URLEncoder.encode(params.get("term")[0], "UTF-8"); // extend stem with parameter
                 first = false; // next time you need a separator
 
-            // params that IT added, that I do not understand how they will be used
+                // params that IT added, that I do not understand how they will be used
                 // may need to delete these    
             } else if (param.equals("mutantGene")) {
                 if (!first) { // at the moment it will always be the first (and only) param
@@ -92,13 +91,17 @@ public class v003AS extends HttpServlet {
                 queryURL += "resultNo=" + URLEncoder.encode(params.get("num")[0], "UTF-8");
                 first = false;  // next time you need a separator                 
 
+            } else if (param.equalsIgnoreCase("version")) {
+                // do nothing
+
             } else { // parameter was not recognised, send error
                 error = true; // error has been detected
                 logger.log(Level.WARNING, "Client sent invalid parameter: " + param);
                 solrResult = "{\"invalid_paramater\": \"" + param + "\"}";
+                break;
             }
         }
-               
+
         // run query against SOLR API
         if (!error) { // if no error detected            
             CommunicateWithSolr cws = new CommunicateWithSolr();

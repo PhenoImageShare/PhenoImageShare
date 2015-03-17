@@ -72,15 +72,18 @@ public class v003GRs extends HttpServlet {
                     queryURL += "&";
                 }
                 queryURL += "resultNo=" + URLEncoder.encode(params.get("num")[0], "UTF-8");
+            } else if (param.equalsIgnoreCase("version")) {
+                // do nothing
 
                 // error handling                    
             } else { // parameter was not recognised, send error
                 error = true; // error has been detected
                 logger.log(Level.WARNING, "Client sent invalid parameter: " + param);
                 solrResult = "{\"invalid_paramater\": \"" + param + "\"}";
+                break;
             }
         }
-        
+
         // run solr query
         if (!error) { // if no error detected
 

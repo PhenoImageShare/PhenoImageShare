@@ -26,8 +26,7 @@ public class v003GCs extends HttpServlet {
 
     private static final String url = "http://beta.phenoimageshare.org/data/v0.0.3/rest/getChannels?"; // stem of every SOLR query
     private static final Logger logger = Logger.getLogger(System.class.getName());
-    
-    
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -62,7 +61,7 @@ public class v003GCs extends HttpServlet {
                 queryURL += "imageId=" + URLEncoder.encode(params.get("imageId")[0], "UTF-8"); // extend stem with parameter
                 first = false; // next time you need a separator
 
-            // pagination    
+                // pagination    
             } else if (param.equalsIgnoreCase("start")) { // number of initial result
                 if (!first) {
                     queryURL += "&";
@@ -75,19 +74,23 @@ public class v003GCs extends HttpServlet {
                 }
                 queryURL += "resultNo=" + URLEncoder.encode(params.get("num")[0], "UTF-8");
 
-            // error handling    
+            } else if (param.equalsIgnoreCase("version")) {
+                // do nothing
+
+                // error handling    
             } else { // parameter was not recognised, send error
                 error = true; // error has been detected
                 logger.log(Level.WARNING, "Client sent invalid parameter: " + param);
                 solrResult = "{\"invalid_paramater\": \"" + param + "\"}";
+                break;
             }
         }
-        
+
         // run query against SOLR API
         if (!error) { // if no error detected
-            
+
             CommunicateWithSolr cws = new CommunicateWithSolr();
-            solrResult = cws.talk(queryURL);                    
+            solrResult = cws.talk(queryURL);
         }
 
         // send result to client (UI)
@@ -97,7 +100,7 @@ public class v003GCs extends HttpServlet {
         } finally {
             out.close();
         }
-        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

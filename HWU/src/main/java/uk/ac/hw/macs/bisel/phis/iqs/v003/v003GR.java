@@ -26,8 +26,7 @@ public class v003GR extends HttpServlet {
 
     private static final String url = "http://beta.phenoimageshare.org/data/v0.0.3/rest/getRoi?"; // stem of every SOLR query
     private static final Logger logger = Logger.getLogger(System.class.getName());
-    
-    
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -52,26 +51,30 @@ public class v003GR extends HttpServlet {
         boolean first = true;
         Map<String, String[]> params = request.getParameterMap(); // get map of parameters and their values
         Enumeration<String> allParams = request.getParameterNames(); // get a list of parameter names
-        if (allParams.hasMoreElements()) {
+        while (allParams.hasMoreElements()) {
             String param = allParams.nextElement();
             if (param.equalsIgnoreCase("id")) { // deal with phenotypes
                 if (!first) { // if this is not the first parameter added to queryURL include separator
                     queryURL += "&";
                 }
-                
+
                 queryURL += "roiId=" + URLEncoder.encode(params.get("id")[0], "UTF-8"); // extend stem with parameter
                 first = false; // next time you need a seperator
+            } else if (param.equalsIgnoreCase("version")) {
+                // do nothing
+
             } else { // parameter was not recognised, send error
                 error = true; // error has been detected
-                logger.log(Level.WARNING, "Client sent invalid parameter: "+param);
+                logger.log(Level.WARNING, "Client sent invalid parameter: " + param);
                 solrResult = "{\"invalid_paramater\": \"" + param + "\"}";
+                break;
             }
-        }        
-	
+        }
+
         // run solr query
         if (!error) { // if no error detected
             CommunicateWithSolr cws = new CommunicateWithSolr();
-            solrResult = cws.talk(queryURL);                    
+            solrResult = cws.talk(queryURL);
         }
 
         // send result to client (UI)
@@ -79,10 +82,9 @@ public class v003GR extends HttpServlet {
         try {
             out.println(solrResult); // may be error or genuine result
         } finally {
-            out.close();            
+            out.close();
         }
-        
-        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
