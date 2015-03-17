@@ -131,23 +131,21 @@ public class SangerXmlGenerator {
 			    			
 			    		organism.setTaxon("Mus musculus");
 			    		image.setOrganism(organism);
+		  	    		GenotypeComponent gt = new GenotypeComponent();
 			    		
 			    		if (res.getString("GENOTYPE").equalsIgnoreCase("WT")){
 			    			isMutant = false;
-			    		}
-			    		
-			    		GenotypeComponent gt = new GenotypeComponent();
-			    		gt.setGeneId(res.getString("gf_acc"));
-			    		gt.setGeneSymbol(res.getString("GENE"));
-			    		gt.setGeneticFeatureId(res.getString("acc"));
-			    		gt.setGeneticFeatureSymbol(res.getString("ALLELE"));
-			    		Zygosity zyg = Zygosity.fromValue(norm.normalizeZygosity(res.getString("GENOTYPE")));
-			    		gt.setZygosity(zyg);
-			    		Genotype gta = new Genotype();
-			    		gta.getEl().add(gt);
-			    		image.setMutantGenotypeTraits(gta);
-			    		
-			    		
+			    		} else {
+				    		gt.setGeneId(res.getString("gf_acc"));
+				    		gt.setGeneSymbol(res.getString("GENE"));
+				    		gt.setGeneticFeatureId(res.getString("acc"));
+				    		gt.setGeneticFeatureSymbol(res.getString("ALLELE"));
+				    		Zygosity zyg = Zygosity.fromValue(norm.normalizeZygosity(res.getString("GENOTYPE")));
+				    		gt.setZygosity(zyg);
+				    		Genotype gta = new Genotype();
+				    		gta.getEl().add(gt);
+				    		image.setMutantGenotypeTraits(gta);
+			    		}			    		
 				        
 				        /* 	Channel 	*/
 			    		String imageType = norm.getImageType(res.getString("procedure_name"));
@@ -163,7 +161,9 @@ public class SangerXmlGenerator {
 					        c.getEl().add(channelId);
 					        image.setAssociatedChannel(c);
 				    		channel.setId(channelId);
-				    		channel.setDepictsExpressionOf(gt);
+				    		if (isMutant){
+				    			channel.setDepictsExpressionOf(gt);
+				    		}
 		    			}
 			    			    			
 
