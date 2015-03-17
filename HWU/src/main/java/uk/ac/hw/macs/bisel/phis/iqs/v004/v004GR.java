@@ -52,7 +52,7 @@ public class v004GR extends HttpServlet {
         boolean first = true;
         Map<String, String[]> params = request.getParameterMap(); // get map of parameters and their values
         Enumeration<String> allParams = request.getParameterNames(); // get a list of parameter names
-        if (allParams.hasMoreElements()) {
+        while (allParams.hasMoreElements()) {
             String param = allParams.nextElement();
             if (param.equalsIgnoreCase("id")) { // deal with phenotypes
                 if (!first) { // if this is not the first parameter added to queryURL include separator
@@ -61,10 +61,14 @@ public class v004GR extends HttpServlet {
                 
                 queryURL += "roiId=" + URLEncoder.encode(params.get("id")[0], "UTF-8"); // extend stem with parameter
                 first = false; // next time you need a seperator
+} else if(param.equalsIgnoreCase("version")) {
+                // do nothing
+                                
             } else { // parameter was not recognised, send error
                 error = true; // error has been detected
                 logger.log(Level.WARNING, "Client sent invalid parameter: "+param);
                 solrResult = "{\"invalid_paramater\": \"" + param + "\"}";
+                break;
             }
         }        
 	

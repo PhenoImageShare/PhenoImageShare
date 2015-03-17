@@ -23,10 +23,9 @@ import uk.ac.hw.macs.bisel.phis.iqs.CommunicateWithSolr;
  * @author kcm
  */
 public class v004GC extends HttpServlet {
-    
+
     private static final String url = "http://beta.phenoimageshare.org/data/v0.0.4/rest/getChannel?"; // stem of every SOLR query
     private static final Logger logger = Logger.getLogger(System.class.getName());
-    
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,7 +38,7 @@ public class v004GC extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       // set response type to JS and allow programs from other servers to send and receive
+        // set response type to JS and allow programs from other servers to send and receive
         response.setContentType("application/json;charset=UTF-8");
         response.setHeader("Access-Control-Allow-Origin", "*");
 
@@ -49,29 +48,32 @@ public class v004GC extends HttpServlet {
         // create URL for SOLR query
         String queryURL = url;
         boolean first = true;
-		Map<String, String[]> params = request.getParameterMap(); // get map of parameters and their values
+        Map<String, String[]> params = request.getParameterMap(); // get map of parameters and their values
         Enumeration<String> allParams = request.getParameterNames(); // get a list of parameter names
-        if (allParams.hasMoreElements()) {
+        while (allParams.hasMoreElements()) {
             String param = allParams.nextElement();
             if (param.equalsIgnoreCase("id")) { // ID of channel
                 if (!first) { // at the moment it will always be the first (and only) param
                     queryURL += "&";
                 }
-                
+
                 queryURL += "channelId=" + URLEncoder.encode(params.get("id")[0], "UTF-8"); // extend stem with parameter
                 first = false; // next time you need a separator
+            } else if (param.equalsIgnoreCase("version")) {
+                // do nothing
+
             } else { // parameter was not recognised, send error
                 error = true; // error has been detected
-                logger.log(Level.WARNING, "Client sent invalid parameter: "+param);
+                logger.log(Level.WARNING, "Client sent invalid parameter: " + param);
                 solrResult = "{\"invalid_paramater\": \"" + param + "\"}";
+                break;
             }
         }
-                
 
         // run query against SOLR API
         if (!error) { // if no error detected            
             CommunicateWithSolr cws = new CommunicateWithSolr();
-            solrResult = cws.talk(queryURL);                    
+            solrResult = cws.talk(queryURL);
         }
 
         // send result to client (UI)
@@ -79,7 +81,7 @@ public class v004GC extends HttpServlet {
         try {
             out.println(solrResult); // may be error or genuine result
         } finally {
-            out.close();            
+            out.close();
         }
     }
 
