@@ -20,6 +20,12 @@
         <div>
             Unchanged parameters or methods are given a normal white background colour.
         </div>
+        
+        <h3>Notes</h3>
+        <div>
+            <h4 style="background-color: orange;">Versioning is now supported!</h4>
+            Only v003 and v004 currently are active.  v005 is still in development; check here for updates!
+        </div>
 
         <hr>
 
@@ -73,7 +79,7 @@
                         <td><var> * </var></td>
                         <td><var>MGI:1891295, Spns2</var></td>
                     </tr>			
-                    <tr style="background-color: orange;">
+                    <tr>
                         <td>mutantGene</td>
                         <td><var>String</var></td>
                         <td>false</td>
@@ -165,6 +171,15 @@
                         <td><var>0</var></td>
                         <td><var></var><br></td>
                     </tr>
+                    <tr style="background-color: orange;">
+                        <td>version</td>
+                        <td><var>String</var></td>
+                        <td>false</td>
+                        <td>Version of EBI to use.</td>
+                        <td><var> 003 </var></td>
+                        <td><var>003 or 004</var></td>
+                    </tr>			
+                    
                 </tbody>
             </table>
 
@@ -206,6 +221,14 @@
                         <td><var> * </var></td>
                         <td><var>komp2_roi_112003_0</var><br></td>
                     </tr>
+                    <tr style="background-color: orange;">
+                        <td>version</td>
+                        <td><var>String</var></td>
+                        <td>false</td>
+                        <td>Version of EBI to use.</td>
+                        <td><var> 003 </var></td>
+                        <td><var>003 or 004</var></td>
+                    </tr>			                    
                 </tbody>
             </table>
 
@@ -259,6 +282,14 @@
                         <td><var>0</var></td>
                         <td><var></var><br></td>
                     </tr>
+                    <tr style="background-color: orange;">
+                        <td>version</td>
+                        <td><var>String</var></td>
+                        <td>false</td>
+                        <td>Version of EBI to use.</td>
+                        <td><var> 003 </var></td>
+                        <td><var>003 or 004</var></td>
+                    </tr>			                    
                 </tbody>
             </table>
 
@@ -294,6 +325,14 @@
                         <td><var> * </var></td>
                         <td><var>komp2_channel_112003_0</var><br></td>
                     </tr>
+                    <tr style="background-color: orange;">
+                        <td>version</td>
+                        <td><var>String</var></td>
+                        <td>false</td>
+                        <td>Version of EBI to use.</td>
+                        <td><var> 003 </var></td>
+                        <td><var>003 or 004</var></td>
+                    </tr>			                    
                 </tbody>
             </table>
 
@@ -349,7 +388,14 @@
                         <td><var>0</var></td>
                         <td><var></var><br></td>
                     </tr>
-
+                    <tr style="background-color: orange;">
+                        <td>version</td>
+                        <td><var>String</var></td>
+                        <td>false</td>
+                        <td>Version of EBI to use.</td>
+                        <td><var> 003 </var></td>
+                        <td><var>003 or 004</var></td>
+                    </tr>			
                 </tbody>
 
             </table>
@@ -364,7 +410,7 @@
         <hr>    
 
         <div>
-            <h3 style="background-color: orange;">/getAutosuggest</h3>
+            <h3>/getAutosuggest</h3>
             Supports auto-complete
             <h4>parameters</h4>
             One of the parameters (term, mutantGene, mutantGene or phenotype) is required.
@@ -388,7 +434,7 @@
                         <td><var>*</var></td>
                         <td><var>abn</var><br></td>
                     </tr>
-                    <tr>
+                    <tr style="background-color: grey;">
                         <td>mutantGene</td>
                         <td><var>String</var></td>
                         <td> false</td>
@@ -396,15 +442,15 @@
                         <td><var>*</var></td>
                         <td><var>a</var><br></td>
                     </tr>
-                    <tr>
-                        <td>expressed GeneOrAllele</td>
+                    <tr style="background-color: grey;">
+                        <td>expressedGeneOrAllele</td>
                         <td><var>String</var></td>
                         <td> false </td>
                         <td>Suggestions for expressed gene or allele symbols, with highlights.</td>
                         <td><var>*</var></td>
                         <td><var>m</var><br></td>
                     </tr>
-                    <tr>
+                    <tr style="background-color: grey;">
                         <td>phenotype</td>
                         <td><var>String</var></td>
                         <td> false</td>
@@ -420,6 +466,15 @@
                         <td><var>10</var></td>
                         <td><var>20</var><br></td>
                     </tr>
+                    <tr style="background-color: orange;">
+                        <td>version</td>
+                        <td><var>String</var></td>
+                        <td>false</td>
+                        <td>Version of EBI to use.</td>
+                        <td><var> 003 </var></td>
+                        <td><var>003 or 004</var></td>
+                    </tr>			
+                    
                 </tbody>
             </table>            
 

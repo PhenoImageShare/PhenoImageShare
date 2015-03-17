@@ -1,10 +1,12 @@
-package uk.ac.hw.macs.bisel.phis.iqs;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package uk.ac.hw.macs.bisel.phis.iqs.v004;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.URL;
 import java.net.URLEncoder;
 import java.util.Enumeration;
 import java.util.Map;
@@ -14,40 +16,19 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import uk.ac.hw.macs.bisel.phis.iqs.CommunicateWithSolr;
 
 /**
- * Servlet connects client (presumably a GUI) to the SOLR API that wraps the SOLR repository
- * for ROIs
  *
  * @author kcm
  */
-public class GetROI extends HttpServlet {
+public class v004AS extends HttpServlet {
 
-    private static final String url = "http://beta.phenoimageshare.org/data/v0.0.3/rest/getRoi?"; // stem of every SOLR query
+    private static final String url = "http://beta.phenoimageshare.org/data/v0.0.4/rest/getAutosuggest?"; // stem of every SOLR query
     private static final Logger logger = Logger.getLogger(System.class.getName());
+    
+    
     /**
-     * Enables discovery of ROI information for a single ROI.
-     * Handles requests from the PhIS UI by simply forwarding them to the SOLR API and 
-     * then returning the result directly to the UI.  Provides very basic error handling
-     * (only deals with unknown parameters).
-     * 
-     * Parameters expected:
-     * <ol>
-     * <li>id = ROI ID, e.g., komp2_roi_112003_0</li>
-     * </ol>
-     * 
-     * Should be no need for pagination as the query returns just a single ROI at a time
-     *
-     * Future versions will:
-     * <ol>
-     * <li>send queries to the SIS, and then integrate the results
-     * with those from SOLR</li>  
-     * <li>likely to include sorting the results</li>
-     * <li>include a wider range of query parameters</li>
-     * <li>provide access to the "OLS" functionality from SOLR</li>
-     * </ol>
-     * 
-     * 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
      *
@@ -58,8 +39,6 @@ public class GetROI extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
-        // set response type to JS and allow programs from other servers to send and receive
         response.setContentType("application/json;charset=UTF-8");
         response.setHeader("Access-Control-Allow-Origin", "*");
 
@@ -71,44 +50,59 @@ public class GetROI extends HttpServlet {
         boolean first = true;
         Map<String, String[]> params = request.getParameterMap(); // get map of parameters and their values
         Enumeration<String> allParams = request.getParameterNames(); // get a list of parameter names
-        if (allParams.hasMoreElements()) {
+        while (allParams.hasMoreElements()) {
             String param = allParams.nextElement();
-            if (param.equalsIgnoreCase("id")) { // deal with phenotypes
-                if (!first) { // if this is not the first parameter added to queryURL include separator
+            if (param.equals("term")) { // ID of channel
+                if (!first) { // at the moment it will always be the first (and only) param
                     queryURL += "&";
                 }
-                
-                queryURL += "roiId=" + URLEncoder.encode(params.get("id")[0], "UTF-8"); // extend stem with parameter
-                first = false; // next time you need a seperator
+
+                queryURL += "term=" + URLEncoder.encode(params.get("term")[0], "UTF-8"); // extend stem with parameter
+                first = false; // next time you need a separator
+
+            // params that IT added, that I do not understand how they will be used
+                // may need to delete these    
+            } else if (param.equals("mutantGene")) {
+                if (!first) { // at the moment it will always be the first (and only) param
+                    queryURL += "&";
+                }
+
+                queryURL += "mutantGene=" + URLEncoder.encode(params.get("mutantGene")[0], "UTF-8"); // extend stem with parameter
+                first = false; // next time you need a separator                
+            } else if (param.equals("expressedGeneOrAllele")) {
+                if (!first) { // at the moment it will always be the first (and only) param
+                    queryURL += "&";
+                }
+
+                queryURL += "expressedGeneOrAllele=" + URLEncoder.encode(params.get("expressedGeneOrAllele")[0], "UTF-8"); // extend stem with parameter
+                first = false; // next time you need a separator                   
+            } else if (param.equals("phenotype")) {
+                if (!first) { // at the moment it will always be the first (and only) param
+                    queryURL += "&";
+                }
+
+                queryURL += "phenotype=" + URLEncoder.encode(params.get("phenotype")[0], "UTF-8"); // extend stem with parameter
+                first = false; // next time you need a separator                 
+
+                // choose number of results to ask for... lots of results is very costly    
+            } else if (param.equals("num")) { // number of results to return
+                if (!first) {
+                    queryURL += "&";
+                }
+                queryURL += "resultNo=" + URLEncoder.encode(params.get("num")[0], "UTF-8");
+                first = false;  // next time you need a separator                 
+
             } else { // parameter was not recognised, send error
                 error = true; // error has been detected
-                logger.log(Level.WARNING, "Client sent invalid parameter: "+param);
+                logger.log(Level.WARNING, "Client sent invalid parameter: " + param);
                 solrResult = "{\"invalid_paramater\": \"" + param + "\"}";
             }
         }
-	
-        // should write query to log?
-	
-        // run solr query
-        if (!error) { // if no error detected
-//            BufferedReader in = null;
-//            try {
-//                // connect to SOLR and run query
-//                URL url = new URL(queryURL);
-//                in = new BufferedReader(new InputStreamReader(url.openStream()));
-//
-//                // read JSON result
-//                String inputLine;
-//                if ((inputLine = in.readLine()) != null) { // should only be 1 line of result
-//                	// no need to process result, simply return	
-//        		    solrResult = inputLine;
-//                }
-//            } catch (IOException e) {
-//                logger.log(Level.WARNING, e.getMessage());
-//                solrResult = "{\"server_error\": \""+e.getMessage()+"\"}"; 
-//            }
+               
+        // run query against SOLR API
+        if (!error) { // if no error detected            
             CommunicateWithSolr cws = new CommunicateWithSolr();
-            solrResult = cws.talk(queryURL);                    
+            solrResult = cws.talk(queryURL);
         }
 
         // send result to client (UI)
@@ -116,11 +110,11 @@ public class GetROI extends HttpServlet {
         try {
             out.println(solrResult); // may be error or genuine result
         } finally {
-            out.close();            
+            out.close();
         }
     }
 
-
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -156,8 +150,7 @@ public class GetROI extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Simple service that wraps the SOLR API to enable searching of ROI information";
+        return "Short description";
     }// </editor-fold>
 
 }
-
