@@ -148,11 +148,6 @@ public class AutosuggestIndexer {
 		res.addGeneticFeature(imageDto.getGeneticFeatureIds());
 		res.addGeneticFeature(imageDto.getGeneticFeatureSymbols());
 		res.addGeneticFeature(imageDto.getGeneticFeatureSynonyms());		
-		
-		if (termDto.getAutosuggestTermLabel().equals("Apoe")){
-			System.out.println("+++ " + imageDto.getSampleType() + "  " + res.getSampleType().size() + " " + res.getSampleType());
-		}
-		
 		return res;
 		
 	}
