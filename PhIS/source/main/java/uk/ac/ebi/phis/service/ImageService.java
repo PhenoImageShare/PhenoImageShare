@@ -289,9 +289,13 @@ public class ImageService extends BasicService{
 	}
 	
 	
-	public void clear() throws SolrServerException, IOException{
-		solr.deleteByQuery("*:*");
-		solr.commit();
+	public void clear() {
+		try {
+			solr.deleteByQuery("*:*");
+			solr.commit();
+		} catch (SolrServerException | IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 
