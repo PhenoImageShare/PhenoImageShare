@@ -115,7 +115,7 @@ public class AutosuggestIndexer {
 		res.addTaxon(imageDto.getTaxon());
 		res.addTaxon(imageDto.getNcbiTaxonId());
 		res.addImagingMethod(imageDto.getImagingMethodLabel());
-		res.addSampleType(imageDto.getSampleType());;
+		res.addSampleType(imageDto.getSampleType());
 		res.addImageType(imageDto.getImageType());
 		res.addSamplePreparation(imageDto.getSamplePreparationId());
 		res.addSamplePreparation(imageDto.getSamplePreparationSynonyms());
@@ -147,8 +147,11 @@ public class AutosuggestIndexer {
 		res.addGene(imageDto.getGeneSynonyms());
 		res.addGeneticFeature(imageDto.getGeneticFeatureIds());
 		res.addGeneticFeature(imageDto.getGeneticFeatureSymbols());
-		res.addGeneticFeature(imageDto.getGeneticFeatureSynonyms());
+		res.addGeneticFeature(imageDto.getGeneticFeatureSynonyms());		
 		
+		if (termDto.getAutosuggestTermLabel().equals("Apoe")){
+			System.out.println("+++ " + imageDto.getSampleType() + "  " + res.getSampleType().size() + " " + res.getSampleType());
+		}
 		
 		return res;
 		
