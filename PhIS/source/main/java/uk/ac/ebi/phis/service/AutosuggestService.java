@@ -78,13 +78,7 @@ public class AutosuggestService extends BasicService {
 
 		} catch (SolrServerException e) {
 			e.printStackTrace();
-		}
-		
-		
-		
-		
-		
-		
+		}	
 		
 		JSONObject returnObj = new JSONObject();
 		returnObj.put("response", new JSONObject().put("suggestions", new JSONArray(suggestions)));
@@ -112,6 +106,8 @@ public class AutosuggestService extends BasicService {
 	
 
 	public void clear() throws SolrServerException, IOException{
+		System.out.println("DELETING INDEX " + solr.getBaseURL());
 		solr.deleteByQuery("*:*");
+		solr.commit();
 	}
 }

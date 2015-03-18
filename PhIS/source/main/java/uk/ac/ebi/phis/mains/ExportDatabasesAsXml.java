@@ -30,7 +30,5 @@ public class ExportDatabasesAsXml {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
-
 }

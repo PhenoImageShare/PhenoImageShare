@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 
 import javax.sql.DataSource;
@@ -131,21 +134,21 @@ public class SangerXmlGenerator {
 			    			
 			    		organism.setTaxon("Mus musculus");
 			    		image.setOrganism(organism);
-			    		
-			    		GenotypeComponent gt = new GenotypeComponent();
-			    		gt.setGeneId(res.getString("gf_acc"));
-			    		gt.setGeneSymbol(res.getString("GENE"));
-			    		gt.setGeneticFeatureId(res.getString("acc"));
-			    		gt.setGeneticFeatureSymbol(res.getString("ALLELE"));
-			    		Zygosity zyg = Zygosity.fromValue(norm.normalizeZygosity(res.getString("GENOTYPE")));
-			    		gt.setZygosity(zyg);
-			    		Genotype gta = new Genotype();
-			    		gta.getEl().add(gt);
-			    		image.setMutantGenotypeTraits(gta);
+		  	    		GenotypeComponent gt = new GenotypeComponent();
 			    		
 			    		if (res.getString("GENOTYPE").equalsIgnoreCase("WT")){
 			    			isMutant = false;
-			    		}
+			    		} else {
+				    		gt.setGeneId(res.getString("gf_acc"));
+				    		gt.setGeneSymbol(res.getString("GENE"));
+				    		gt.setGeneticFeatureId(res.getString("acc"));
+				    		gt.setGeneticFeatureSymbol(res.getString("ALLELE"));
+				    		Zygosity zyg = Zygosity.fromValue(norm.normalizeZygosity(res.getString("GENOTYPE")));
+				    		gt.setZygosity(zyg);
+				    		Genotype gta = new Genotype();
+				    		gta.getEl().add(gt);
+				    		image.setMutantGenotypeTraits(gta);
+			    		}			    		
 				        
 				        /* 	Channel 	*/
 			    		String imageType = norm.getImageType(res.getString("procedure_name"));
@@ -161,7 +164,9 @@ public class SangerXmlGenerator {
 					        c.getEl().add(channelId);
 					        image.setAssociatedChannel(c);
 				    		channel.setId(channelId);
-				    		channel.setDepictsExpressionOf(gt);
+				    		if (isMutant){
+				    			channel.setDepictsExpressionOf(gt);
+				    		}
 		    			}
 			    			    			
 
@@ -283,18 +288,20 @@ public class SangerXmlGenerator {
 				i++;
 				if (i % 100 == 0) {
 					System.out.println(i);
-		//			if (i==10000){
+		//			if (i==100){
 		//				break;
 		//			}
 				}
 			}
-			File file = new File("source/main/resources/sangerExport.xml");
+	        Date date = new Date();
+	        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+		//	File file = new File("source/main/resources/" + dateFormat.format(date) + "_sangerExport.xml");
+	    	File file = new File("source/main/resources/sangerExport.xml");
 			JAXBContext jaxbContext = JAXBContext.newInstance(Doc.class);
 			Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 
 			// output pretty printed
 			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-
 			jaxbMarshaller.marshal(doc, file);
 			// jaxbMarshaller.marshal(doc, System.out);
 

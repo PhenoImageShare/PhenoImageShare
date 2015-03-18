@@ -135,6 +135,7 @@ public class ChannelService extends BasicService {
 	throws SolrServerException, IOException {
 
 		solr.deleteByQuery("*:*");
+		solr.commit();
 	}
 
 }

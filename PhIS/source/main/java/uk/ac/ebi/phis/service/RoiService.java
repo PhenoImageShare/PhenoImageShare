@@ -115,6 +115,7 @@ public class RoiService extends BasicService{
 	 */
 	public void clear() throws SolrServerException, IOException{
 		solr.deleteByQuery("*:*");
+		solr.commit();
 	}
 	
 
