@@ -42,7 +42,7 @@ public class AutosuggestService extends BasicService {
 		solrQuery.set("group.field", "term_autosuggest_na");
 		solrQuery.set("qf", "term_autosuggest term_autosuggest_ws term_autosuggest_e term_autosuggest_na");
 		solrQuery.set("bq", "term_autosuggest_ws:\"" + term +
-		"\"^2 term_autosuggest_e:\"" + term + "\"^3 term_autosuggest_na:\"" + term + "\"^4 term_autosuggest_ws:\"" + term + "\"^1");
+		"\"^2 term_autosuggest_e:\"" + term + "\"^3 term_autosuggest_na:\"" + term + "\"^4 term_autosuggest:\"" + term + "\"^1");
 		solrQuery.setRows(rows); // number of groups to return (not result
 									// documents)
 
