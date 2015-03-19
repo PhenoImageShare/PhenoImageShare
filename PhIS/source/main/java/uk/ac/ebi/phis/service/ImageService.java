@@ -66,9 +66,7 @@ public class ImageService extends BasicService{
 		}
 		
 		if (anatomy != null){
-			solrQuery.addFilterQuery(ImageDTO.ANATOMY_ID + ":\""+ anatomy + "\" OR " + 
-				ImageDTO.ANATOMY_TERM + ":\""+ anatomy + "\" OR " + 
-				ImageDTO.ANATOMY_FREETEXT + ":\""+ anatomy + "\"" );
+			solrQuery.addFilterQuery(ImageDTO.GENERIC_ANATOMY + ":\""+ anatomy);
 		}
 		if (expressedGene != null){
 			solrQuery.addFilterQuery(ImageDTO.EXPRESSED_GF_ID_BAG + ":\"" + expressedGene + "\"");
