@@ -50,13 +50,16 @@ public class ImageDTO {
 	public final static String ORIGINAL_IMAGE_ID = "original_image_id";
 	public final static String MACHINE = "machine";
 	public final static String VISUALISATION_METHOD_LABEL = "visualisation_method_label";
+	public final static String VISUALISATION_METHOD_FREETEXT = "visualisation_method_freetext";
 	public final static String VISUALISATION_METHOD_ID = "visualisation_method_id";
 	public final static String VISUALISATION_METHOD_SYNONYMS = "visualisation_method_synonyms";
 	public final static String SAMPLE_PREPARATION_LABEL = "sample_preparation_label";
+	public final static String SAMPLE_PREPARATION_FREETEXT = "sample_preparation_freetext";
 	public final static String SAMPLE_PREPARATION_ID = "sample_preparation_id";
 	public final static String SAMPLE_PREPARATION_SYNONYMS = "sample_preparation_synonyms";
 	public final static String IMAGING_METHOD_ID = "imaging_method_id";
 	public final static String IMAGING_METHOD_LABEL = "imaging_method_label";
+	public final static String IMAGING_METHOD_FREETEXT = "imaging_method_freetext";
 	public final static String IMAGING_METHOD_LABEL_ANALYSED = "imaging_method_label_analysed";
 	public final static String IMAGING_METHOD_SYNONYMS = "imaging_method_synonym";
 	public final static String IMAGE_CONTEXT_URL = "image_context_url";
@@ -160,6 +163,9 @@ public class ImageDTO {
 
 	@Field(IMAGING_METHOD_SYNONYMS)
 	private ArrayList<String> imagingMethodSynonyms;
+	
+	@Field(IMAGING_METHOD_FREETEXT)
+	private ArrayList<String> imagingMethodFreetext;
 
 	@Field(SAMPLE_PREPARATION_ID)
 	private String samplePreparationId;
@@ -169,12 +175,18 @@ public class ImageDTO {
 
 	@Field(SAMPLE_PREPARATION_SYNONYMS)
 	private ArrayList<String> samplePreparationSynonyms;
+	
+	@Field(SAMPLE_PREPARATION_FREETEXT)
+	private ArrayList<String> samplePreparationFreetext;
 
 	@Field(VISUALISATION_METHOD_ID)
 	private ArrayList<String> visualisationMethodId;
 
 	@Field(VISUALISATION_METHOD_LABEL)
 	private ArrayList<String> visualisationMethodLabel;
+	
+	@Field(VISUALISATION_METHOD_FREETEXT)
+	private ArrayList<String> visualisationMethodFreetext;
 
 	@Field(VISUALISATION_METHOD_SYNONYMS)
 	private ArrayList<String> visualisationMethodSynonyms;
@@ -192,7 +204,7 @@ public class ImageDTO {
 	private List<String> genericSearch;
 	
 	@Field(AGE_SINCE_BIRTH)
-	private Float ageSinceBirth;
+	private String ageSinceBirth;
 
 	@Field(SAMPLE_GENERATED_BY)
 	private String sampleGeneratedBy;
@@ -398,108 +410,56 @@ public class ImageDTO {
 	private ArrayList<String> phenotypeAncestorsTermBag;
 
 	
-		
-	
-	/**
-	 * @return the genericSearch
-	 */
 	public List<String> getGenericSearch() {
 	
 		return genericSearch;
 	}
 	
-	/**
-	 * @param genericSearch the genericSearch to set
-	 */
 	public void setGenericSearch(List<String> genericSearch) {
 	
 		this.genericSearch = genericSearch;
 	}
 
-
-	/**
-	 * @return the imagingMethodSynonyms
-	 */
 	public ArrayList<String> getImagingMethodSynonyms() {
 	
 		return imagingMethodSynonyms;
 	}
 
-
-	
-	/**
-	 * @param samplePreparationSynonyms the samplePreparationSynonyms to set
-	 */
 	public void setSamplePreparationSynonyms(ArrayList<String> samplePreparationSynonyms) {
 	
 		this.samplePreparationSynonyms = samplePreparationSynonyms;
 	}
-
-
 	
-	/**
-	 * @param visualisationMethodId the visualisationMethodId to set
-	 */
 	public void setVisualisationMethodId(ArrayList<String> visualisationMethodId) {
 	
 		this.visualisationMethodId = visualisationMethodId;
 	}
 
-
-	
-	/**
-	 * @param visualisationMethodLabel the visualisationMethodLabel to set
-	 */
 	public void setVisualisationMethodLabel(ArrayList<String> visualisationMethodLabel) {
 	
 		this.visualisationMethodLabel = visualisationMethodLabel;
 	}
 
-
-	
-	/**
-	 * @param visualisationMethodSynonyms the visualisationMethodSynonyms to set
-	 */
 	public void setVisualisationMethodSynonyms(ArrayList<String> visualisationMethodSynonyms) {
 	
 		this.visualisationMethodSynonyms = visualisationMethodSynonyms;
 	}
 
-
-	
-	/**
-	 * @param anatomySynonyms the anatomySynonyms to set
-	 */
 	public void setAnatomySynonyms(ArrayList<String> anatomySynonyms) {
 	
 		this.anatomySynonyms = anatomySynonyms;
 	}
 
-
-	
-	/**
-	 * @param geneSynonyms the geneSynonyms to set
-	 */
 	public void setGeneSynonyms(List<String> geneSynonyms) {
 	
 		this.geneSynonyms = geneSynonyms;
 	}
 
-
-	
-	/**
-	 * @param geneticFeatureSynonyms the geneticFeatureSynonyms to set
-	 */
 	public void setGeneticFeatureSynonyms(List<String> geneticFeatureSynonyms) {
 	
 		this.geneticFeatureSynonyms = geneticFeatureSynonyms;
 	}
 
-
-	
-	/**
-	 * @param anatomyComputedSynonymsBag the anatomyComputedSynonymsBag to set
-	 */
 	public void setAnatomyComputedSynonymsBag(ArrayList<String> anatomyComputedSynonymsBag) {
 	
 		this.anatomyComputedSynonymsBag = anatomyComputedSynonymsBag;
@@ -1085,6 +1045,32 @@ public class ImageDTO {
 			this.imagingMethodSynonyms.addAll(imagingMethodSynonyms);
 	}
 
+	public void addImagingMethodFreetext(String imagingMethodFreetext) {
+
+		if (this.imagingMethodFreetext == null) {
+			this.imagingMethodFreetext = new ArrayList<>();
+		}
+		if (imagingMethodFreetext != null)
+			this.imagingMethodFreetext.add(imagingMethodFreetext);
+	}
+	
+	public void addSamplePreparationFreetext(String samplePreparationFreetext) {
+
+		if (this.samplePreparationFreetext == null) {
+			this.samplePreparationFreetext = new ArrayList<>();
+		}
+		if (samplePreparationFreetext != null)
+			this.samplePreparationFreetext.add(samplePreparationFreetext);
+	}
+	
+	public void addVisualisationMethodFreetext(String visualisationMethodFreetext) {
+
+		if (this.visualisationMethodFreetext == null) {
+			this.visualisationMethodFreetext = new ArrayList<>();
+		}
+		if (visualisationMethodFreetext != null)
+			this.visualisationMethodFreetext.add(visualisationMethodFreetext);
+	}
 
 	/**
 	 * @return the samplePreparationSynonyms
@@ -1733,77 +1719,41 @@ public class ImageDTO {
 		this.width = width;
 	}
 
-
-	/**
-	 * @return the ageSinceBirth
-	 */
-	public Float getAgeSinceBirth() {
+	public String getAgeSinceBirth() {
 
 		return ageSinceBirth;
 	}
 
-
-	/**
-	 * @param ageSinceBirth
-	 *            the ageSinceBirth to set
-	 */
-	public void setAgeSinceBirth(Float ageSinceBirth) {
+	public void setAgeSinceBirth(String ageSinceBirth) {
 
 		this.ageSinceBirth = ageSinceBirth;
 	}
 
-
-	/**
-	 * @return the sampleGeneratedBy
-	 */
 	public String getSampleGeneratedBy() {
 
 		return sampleGeneratedBy;
 	}
 
-
-	/**
-	 * @param sampleGeneratedBy
-	 *            the sampleGeneratedBy to set
-	 */
 	public void setSampleGeneratedBy(String sampleGeneratedBy) {
 
 		this.sampleGeneratedBy = sampleGeneratedBy;
 	}
 
-
-	/**
-	 * @return the taxon
-	 */
 	public String getTaxon() {
 
 		return taxon;
 	}
 
-
-	/**
-	 * @param taxon
-	 *            the taxon to set
-	 */
 	public void setTaxon(String taxon) {
 
 		this.taxon = taxon;
 	}
 
-
-	/**
-	 * @return the ncbiTaxonId
-	 */
 	public String getNcbiTaxonId() {
 
 		return ncbiTaxonId;
 	}
 
-
-	/**
-	 * @param ncbiTaxonId
-	 *            the ncbiTaxonId to set
-	 */
 	public void setNcbiTaxonId(String ncbiTaxonId) {
 
 		this.ncbiTaxonId = ncbiTaxonId;

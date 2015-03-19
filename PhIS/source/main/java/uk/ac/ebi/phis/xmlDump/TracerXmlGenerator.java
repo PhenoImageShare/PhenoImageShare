@@ -116,12 +116,16 @@ public class TracerXmlGenerator {
 		    		
 		    		imageDesc.setSampleType(SampleType.WILD_TYPE);
 		    		
-		    		OntologyTermArray sp = new OntologyTermArray();
-		    		sp.getEl().add(getOntologyTerm("whole mounted tissue", "FBbi_00000024"));
+		    		AnnotationArray sp = new AnnotationArray();
+		    		Annotation spAnn = new Annotation();
+		    		spAnn.setOntologyTerm(getOntologyTerm("whole mounted tissue", "FBbi_00000024"));
+		    		sp.getEl().add(spAnn);
 		    		imageDesc.setSamplePreparation(sp);
 		    		
-		    		OntologyTermArray im = new OntologyTermArray();
-		    		im.getEl().add(getOntologyTerm("light microscopy", "FBbi_00000345"));
+		    		AnnotationArray im = new AnnotationArray();
+		    		Annotation imAnn = new Annotation();
+		    		imAnn.setOntologyTerm(getOntologyTerm("light microscopy", "FBbi_00000345"));
+		    		im.getEl().add(imAnn);
 		    		imageDesc.setImagingMethod(im);
 		    		
 		    		image.setImageDescription(imageDesc);
@@ -137,7 +141,7 @@ public class TracerXmlGenerator {
 	    			// in the TRACER fields 'stage' they actually store dpc, with values like E11.5
 	    			String a = norm.normalizeAge(res.getString("stage"));
 	    			Age age = new Age();
-	    			age.setEmbryonicAge(Float.valueOf(a));
+	    			age.setEmbryonicAge(a);
 	    			org.setAge(age);
 	    			org.setTaxon("Mus musculus");
 	    			OntologyTerm stage = new OntologyTerm();
@@ -152,8 +156,10 @@ public class TracerXmlGenerator {
 	    			channel.setId(channelId);
 	    			// Link it to the image
 	    			channel.setAssociatedImage(internalId);
-		    		OntologyTermArray vm = new OntologyTermArray();
-		    		vm.getEl().add(getOntologyTerm("visualisation of genetically encoded beta-galactosidase", "FBbi_00000077"));
+		    		AnnotationArray vm = new AnnotationArray();
+		    		Annotation vmAnn = new Annotation();
+		    		vmAnn.setOntologyTerm(getOntologyTerm("visualisation of genetically encoded beta-galactosidase", "FBbi_00000077"));
+		    		vm.getEl().add(vmAnn);
 		    		channel.setVisualisationMethod(vm);
 	    			// Link image to channel too
 	    			image.setAssociatedChannel(new StringArray());

@@ -380,17 +380,23 @@ public class BatchXmlUploader {
 		bean.setWidth(desc.getImageDimensions().getImageWidth());
 
 		if (desc.getImagingMethod() != null){
-			for (OntologyTerm im: desc.getImagingMethod().getEl()){
-				bean.setImagingMethodId(im.getTermId());
-				bean.setImagingMethodLabel(ou.getOntologyTermById(im.getTermId()).getLabel()); 
-				bean.addImagingMethodSynonyms(ou.getSynonyms(im.getTermId()));
+			for (Annotation im: desc.getImagingMethod().getEl()){
+				OntologyTerm ot = im.getOntologyTerm();
+				bean.setImagingMethodId(ot.getTermId());
+				bean.setImagingMethodLabel(ou.getOntologyTermById(ot.getTermId()).getLabel()); 
+				bean.addImagingMethodSynonyms(ou.getSynonyms(ot.getTermId()));
+				String freetext = im.getAnnotationFreetext();
+				bean.addImagingMethodFreetext(freetext);
 			}
 		}
 		if (desc.getSamplePreparation() != null){
-			for (OntologyTerm sp: desc.getSamplePreparation().getEl()){
-				bean.setSamplePreparationId(sp.getTermId());
-				bean.setSamplePreparationLabel(ou.getOntologyTermById(sp.getTermId()).getId());
-				bean.addSamplePreparationSynonyms(ou.getSynonyms(sp.getTermId()));
+			for (Annotation sp: desc.getSamplePreparation().getEl()){
+				OntologyTerm ot = sp.getOntologyTerm();
+				bean.setSamplePreparationId(ot.getTermId());
+				bean.setSamplePreparationLabel(ou.getOntologyTermById(ot.getTermId()).getId());
+				bean.addSamplePreparationSynonyms(ou.getSynonyms(ot.getTermId()));
+				String freetext = sp.getAnnotationFreetext();
+				bean.addSamplePreparationFreetext(freetext);
 			}
 		}
 		
@@ -685,10 +691,13 @@ private ImageDTO copyFieldsFromChannel(Image img, ImageDTO pojo){
 			
 			Channel channel = channelIdMap.get(channelId);		
 			if (channel.getVisualisationMethod() != null){
-				for (OntologyTerm vm: channel.getVisualisationMethod().getEl()){
-					res.addVisualisationMethodId(vm.getTermId());
-					res.addVisualisationMethodLabel(vm.getTermLabel());
-					res.addVisualisationMethodSynonyms(ou.getSynonyms(vm.getTermId()));
+				for (Annotation vm: channel.getVisualisationMethod().getEl()){
+					OntologyTerm ot = vm.getOntologyTerm();
+					res.addVisualisationMethodId(ot.getTermId());
+					res.addVisualisationMethodLabel(ot.getTermLabel());
+					res.addVisualisationMethodSynonyms(ou.getSynonyms(ot.getTermId()));
+					String freetext = vm.getAnnotationFreetext();
+					res.addVisualisationMethodFreetext(freetext);
 				}
 			}
 			

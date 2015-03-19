@@ -118,9 +118,9 @@ public class SangerXmlGenerator {
 			    		Age age = new Age();
 			    		if (ageIsRelevant(procedure)){
 			    			if (norm.isEmbryonicAge(res.getString("AGE_IN_WEEKS"))){
-				    			age.setEmbryonicAge(norm.getAgeInDays(res.getString("AGE_IN_WEEKS")));
+				    			age.setEmbryonicAge(res.getString("AGE_IN_WEEKS"));
 				    		} else {
-				    			age.setAgeSinceBirth(norm.getAgeInDays(res.getString("AGE_IN_WEEKS")));
+				    			age.setAgeSinceBirth(res.getString("AGE_IN_WEEKS"));
 				    		}
 				    		organism.setAge(age);
 			    		}
@@ -409,16 +409,20 @@ public class SangerXmlGenerator {
 
 	Channel setVisualizationMethod(String procedure, Channel channel) {
 
-		OntologyTermArray vm = new OntologyTermArray();
+		AnnotationArray a = new AnnotationArray();
+		Annotation vm = new Annotation();
 
 		if (procedure.equalsIgnoreCase("Expression")) {
-			vm.getEl().add(getOntologyTerm("visualisation of genetically encoded beta-galactosidase", "FBbi_00000077"));
+			vm.setOntologyTerm(getOntologyTerm("visualisation of genetically encoded beta-galactosidase", "FBbi_00000077"));
+			a.getEl().add(vm);
 		}
 		else if (procedure.equalsIgnoreCase("Tail Epidermis Wholemount")) {
-			vm.getEl().add(getOntologyTerm("fluorescent protein tag", "FBbi_00000405"));
+			vm.setOntologyTerm(getOntologyTerm("fluorescent protein tag", "FBbi_00000405"));
+			a.getEl().add(vm);
 		}
 		else if (procedure.equalsIgnoreCase("Histology Slide")) {
-			vm.getEl().add(getOntologyTerm("optically dense stain", "FBbi_00000567"));
+			vm.setOntologyTerm(getOntologyTerm("optically dense stain", "FBbi_00000567"));
+			a.getEl().add(vm);
 		}
 		/*
 		 * else if (procedure.equalsIgnoreCase("Histology Slide")){
@@ -426,10 +430,11 @@ public class SangerXmlGenerator {
 		 * }
 		 */
 		else if (procedure.equalsIgnoreCase("Brain Histopathology")) {
-			vm.getEl().add(getOntologyTerm("fluorescent protein tag", "FBbi_00000405"));
+			vm.setOntologyTerm(getOntologyTerm("fluorescent protein tag", "FBbi_00000405"));
+			a.getEl().add(vm);
 		}
-		if (vm.getEl().size() > 0) {
-			channel.setVisualisationMethod(vm);
+		if (a.getEl().size() > 0) {
+			channel.setVisualisationMethod(a);
 		}
 		return channel;
 	}
@@ -437,27 +442,44 @@ public class SangerXmlGenerator {
 
 	ImageDescription setSamplePrep(String procedure, ImageDescription desc) {
 
-		OntologyTermArray sp = new OntologyTermArray();
-		OntologyTermArray im = new OntologyTermArray();
-
+		AnnotationArray spArray = new AnnotationArray();
+		AnnotationArray imArray = new AnnotationArray();
+		
+		Annotation ann = new Annotation();
+		Annotation ann2 = new Annotation();
+		
 		if (procedure.equalsIgnoreCase("Dysmorphology")) {
-			sp.getEl().add(getOntologyTerm("living tissue", "FBbi_00000025"));
-			sp.getEl().add(getOntologyTerm("whole mounted tissue", "FBbi_00000024"));
-			im.getEl().add(getOntologyTerm("macroscopy", "FBbi_00000240"));
+			ann.setOntologyTerm(getOntologyTerm("living tissue", "FBbi_00000025"));
+			spArray.getEl().add(ann);
+			Annotation sp2 = new Annotation();
+			sp2.setOntologyTerm(getOntologyTerm("whole mounted tissue", "FBbi_00000024"));
+			spArray.getEl().add(sp2);
+			ann2.setOntologyTerm(getOntologyTerm("macroscopy", "FBbi_00000240"));
+			imArray.getEl().add(ann2);
 		}
 		else if (procedure.equalsIgnoreCase("Embryo dysmorphology")) {
-			sp.getEl().add(getOntologyTerm("whole mounted tissue", "FBbi_00000024"));
-			im.getEl().add(getOntologyTerm("bright-field microscopy", "FBbi_00000243"));
+			ann.setOntologyTerm(getOntologyTerm("whole mounted tissue", "FBbi_00000024"));
+			spArray.getEl().add(ann);
+			ann2.setOntologyTerm(getOntologyTerm("bright-field microscopy", "FBbi_00000243"));
+			imArray.getEl().add(ann2);
 		}
 		else if (procedure.equalsIgnoreCase("Xray")) {
-			sp.getEl().add(getOntologyTerm("whole mounted tissue", "FBbi_00000024"));
-			sp.getEl().add(getOntologyTerm("living tissue", "FBbi_00000025"));
-			im.getEl().add(getOntologyTerm("X-ray illumination", "FBbi_00000342"));
+			ann.setOntologyTerm(getOntologyTerm("whole mounted tissue", "FBbi_00000024"));
+			spArray.getEl().add(ann);
+			Annotation sp2 = new Annotation();
+			sp2.setOntologyTerm(getOntologyTerm("living tissue", "FBbi_00000025"));
+			spArray.getEl().add(sp2);
+			ann2.setOntologyTerm(getOntologyTerm("X-ray illumination", "FBbi_00000342"));
+			imArray.getEl().add(ann2);
 		}
 		else if (procedure.equalsIgnoreCase("Eye Morphology")) { // && slit lamp
-			sp.getEl().add(getOntologyTerm("whole mounted tissue", "FBbi_00000024"));
-			sp.getEl().add(getOntologyTerm("living tissue", "FBbi_00000025"));
-			im.getEl().add(getOntologyTerm("macroscopy", "FBbi_00000240"));
+			ann.setOntologyTerm(getOntologyTerm("whole mounted tissue", "FBbi_00000024"));
+			spArray.getEl().add(ann);
+			Annotation sp2 = new Annotation();
+			sp2.setOntologyTerm(getOntologyTerm("living tissue", "FBbi_00000025"));
+			spArray.getEl().add(sp2);
+			ann2.setOntologyTerm(getOntologyTerm("macroscopy", "FBbi_00000240"));
+			imArray.getEl().add(ann2);
 		}
 		/*
 		 * else if (procedure.equalsIgnoreCase("Eye Morphology")){ // && TEFI
@@ -467,15 +489,20 @@ public class SangerXmlGenerator {
 		 * "FBbi_00000345")); }
 		 */
 		else if (procedure.equalsIgnoreCase("Expression")) {
-			sp.getEl().add(getOntologyTerm("whole mounted tissue", "FBbi_00000024"));
-			im.getEl().add(getOntologyTerm("bright-field microscopy", "FBbi_00000243"));
+			ann.setOntologyTerm(getOntologyTerm("whole mounted tissue", "FBbi_00000024"));
+			spArray.getEl().add(ann);
+			ann2.setOntologyTerm(getOntologyTerm("bright-field microscopy", "FBbi_00000243"));
+			imArray.getEl().add(ann2);
 		}
 		else if (procedure.equalsIgnoreCase("Tail Epidermis Wholemount")) {
-			sp.getEl().add(getOntologyTerm("whole mounted tissue", "FBbi_00000024"));
-			im.getEl().add(getOntologyTerm("confocal microscopy", "FBbi_00000251"));
+			ann.setOntologyTerm(getOntologyTerm("whole mounted tissue", "FBbi_00000024"));
+			spArray.getEl().add(ann);
+			ann2.setOntologyTerm(getOntologyTerm("confocal microscopy", "FBbi_00000251"));
+			imArray.getEl().add(ann2);
 		}
 		else if (procedure.equalsIgnoreCase("Histology Slide")) {
-			im.getEl().add(getOntologyTerm("bright-field microscopy", "FBbi_00000243"));
+			ann2.setOntologyTerm(getOntologyTerm("bright-field microscopy", "FBbi_00000243"));
+			imArray.getEl().add(ann2);
 		}
 		/*
 		 * else if (procedure.equalsIgnoreCase("Histology Slide")){
@@ -483,15 +510,17 @@ public class SangerXmlGenerator {
 		 * }
 		 */
 		else if (procedure.equalsIgnoreCase("Brain Histopathology")) {
-			sp.getEl().add(getOntologyTerm("sectioned tissue", "FBbi_00000026"));
-			im.getEl().add(getOntologyTerm("confocal microscopy", "FBbi_00000251"));
+			ann.setOntologyTerm(getOntologyTerm("sectioned tissue", "FBbi_00000026"));
+			spArray.getEl().add(ann);
+			ann2.setOntologyTerm(getOntologyTerm("confocal microscopy", "FBbi_00000251"));
+			imArray.getEl().add(ann2);
 		}
 
-		if (sp.getEl().size() > 0) {
-			desc.setSamplePreparation(sp);
+		if (spArray.getEl().size() > 0) {
+			desc.setSamplePreparation(spArray);
 		}
-		if (im.getEl().size() > 0) {
-			desc.setImagingMethod(im);
+		if (imArray.getEl().size() > 0) {
+			desc.setImagingMethod(imArray);
 		}
 		return desc;
 	}
