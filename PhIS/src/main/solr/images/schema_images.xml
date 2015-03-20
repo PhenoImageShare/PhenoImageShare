@@ -199,12 +199,31 @@
    <field name="phenotype_ancestors_term_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true" termVectors="true" termPositions="true" termOffsets="true"/>
    <field name="phenotype_ancestors_id_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true" termVectors="true" termPositions="true" termOffsets="true"/>
    <field name="generic_search" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
+   <field name="generic_anatomy" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
    
    <!-- Autosuggest fields -->
    <!-- field name="term_autosuggest_analysed" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true" termVectors="true" termPositions="true" termOffsets="true"/-->
    <field name="term_autosuggest" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true" />
   
  </fields>
+ 
+   <copyField source="expression_in_label_bag" dest="generic_anatomy"/>
+   <copyField source="expression_in_id_bag" dest="generic_anatomy"/>
+   <copyField source="expression_in_freetext_bag" dest="generic_anatomy"/>
+   <copyField source="anatomy_computed_id_bag" dest="generic_anatomy"/>
+   <copyField source="anatomy_computed_term_bag" dest="generic_anatomy"/>
+   <copyField source="anatomy_computed_synonyms_bag" dest="generic_anatomy"/>
+   <copyField source="anatomy_id" dest="generic_anatomy"/>
+   <copyField source="anatomy_term" dest="generic_anatomy"/>
+   <copyField source="anatomy_freetext" dest="generic_anatomy"/>
+   <copyField source="depicted_anatomy_term_bag" dest="generic_anatomy"/>
+   <copyField source="depicted_anatomy_freetext_bag" dest="generic_anatomy"/>
+   <copyField source="depicted_anatomy_id_bag" dest="generic_anatomy"/>
+   <copyField source="depicted_anatomy_synonyms_bag" dest="generic_anatomy"/>   
+   <copyField source="abnormal_anatomy_term_bag" dest="generic_anatomy"/>
+   <copyField source="abnormal_anatomy_freetext_bag" dest="generic_anatomy"/>
+   <copyField source="abnormal_anatomy_id_bag" dest="generic_anatomy"/>
+   <copyField source="abnormal_anatomy_synonyms_bag" dest="generic_anatomy"/>
  
    <copyField source="genetic_feature_symbol" dest="term_autosuggest"/>
    <copyField source="expressed_gf_symbol_bag" dest="term_autosuggest"/>
