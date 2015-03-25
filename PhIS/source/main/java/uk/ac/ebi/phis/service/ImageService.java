@@ -15,6 +15,7 @@ import org.json.JSONObject;
 import org.neo4j.cypher.ParameterNotFoundException;
 import org.springframework.stereotype.Service;
 
+import uk.ac.ebi.phis.solrj.dto.ChannelDTO;
 import uk.ac.ebi.phis.solrj.dto.ImageDTO;
 import uk.ac.ebi.phis.solrj.dto.RoiDTO;
 import uk.ac.ebi.phis.utils.web.JSONRestUtil;
@@ -29,7 +30,7 @@ public class ImageService extends BasicService{
 
 	}
 			
-	public String getImage(String term, String phenotype, String geneParameterToBeDeleted, String mutantGene, String anatomy, String expressedGene, String sex, String taxon, 
+	public String getImages(String term, String phenotype, String geneParameterToBeDeleted, String mutantGene, String anatomy, String expressedGene, String sex, String taxon, 
 	String image_type, String sample_type, String stage, String visualisationMethod, String samplePreparation, String imagingMethod, Integer rows, Integer start) throws SolrServerException{
 
 		SolrQuery solrQuery = new SolrQuery();
@@ -135,6 +136,26 @@ public class ImageService extends BasicService{
 		return "Couldn't get anything back from solr.";
 	}
 	
+	public String getImageAsJsonString(String imageId){
+		SolrQuery solrQuery = new SolrQuery();
+		solrQuery.setQuery(ImageDTO.ID + ":\""+ imageId + "\"");
+		solrQuery.set("wt", "json");
+		
+		System.out.println("------ ImagePojo" + getQueryUrl(solrQuery));
+
+		try {
+			return JSONRestUtil.getResults(getQueryUrl(solrQuery)).toString();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+		
+		return "Is this a valid id? Couldn't get anything back from solr.";
+	}
+	
+	
+	
 	/**
 	 * 
 	 * @param roiToReplace must exist
@@ -149,7 +170,7 @@ public class ImageService extends BasicService{
 	
 	
 	public boolean imageIdExists(String id){
-		return getImageById(id) != null;
+		return getImageDTOById(id) != null;
 	}
 	
 	/**
@@ -158,7 +179,7 @@ public class ImageService extends BasicService{
 	 */
 	public void deleteRoiRefferences(RoiDTO roi){
 		
-		ImageDTO img = getImageById(roi.getAssociatedImage());
+		ImageDTO img = getImageDTOById(roi.getAssociatedImage());
 
 		System.out.println("Roi list before " + img.getAssociatedRoi().size() + "  " + img.getAssociatedRoi());
 		List<String> list = img.getAssociatedRoi();
@@ -216,7 +237,7 @@ public class ImageService extends BasicService{
 	 */
 	public void addToImageFromRoi(RoiDTO roi) throws ParameterNotFoundException{
 		
-		ImageDTO img = getImageById(roi.getAssociatedImage());
+		ImageDTO img = getImageDTOById(roi.getAssociatedImage());
 		
 		if (img.getAssociatedRoi() == null){
 			throw new ParameterNotFoundException("Image id does not exist");
@@ -260,7 +281,7 @@ public class ImageService extends BasicService{
 		}
 	}
 	
-	public ImageDTO getImageById(String imageId){
+	public ImageDTO getImageDTOById(String imageId){
 		ImageDTO img = null;
 		SolrQuery solrQuery = new SolrQuery();
 		solrQuery.setQuery(ImageDTO.ID + ":" + imageId);
