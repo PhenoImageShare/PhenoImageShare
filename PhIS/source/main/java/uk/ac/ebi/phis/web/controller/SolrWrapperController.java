@@ -74,7 +74,7 @@ public class SolrWrapperController {
     }
 	
 
-	@RequestMapping(value="/getImageAsJsonString", method=RequestMethod.GET)	
+	@RequestMapping(value="/getImage", method=RequestMethod.GET)	
     public @ResponseBody String getRoi(
     		@RequestParam(value = "imageId", required = true) String imageId,
     		Model model
