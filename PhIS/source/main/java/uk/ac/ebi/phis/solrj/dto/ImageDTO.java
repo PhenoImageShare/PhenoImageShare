@@ -121,6 +121,7 @@ public class ImageDTO {
 
 	public final static String TERM_AUTOSUGGEST = "term_autosuggest";
 	public final static String GENERIC_SEARCH = "generic_search";
+	public final static String GENERIC_ANATOMY = "generic_anatomy";
 
 	@Field(ID)
 	private String id;
@@ -202,6 +203,9 @@ public class ImageDTO {
 
 	@Field(GENERIC_SEARCH)
 	private List<String> genericSearch;
+	
+	@Field(GENERIC_ANATOMY)
+	private List<String> genericAnatomy;
 	
 	@Field(AGE_SINCE_BIRTH)
 	private String ageSinceBirth;

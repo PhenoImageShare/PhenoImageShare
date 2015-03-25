@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 
 import javax.sql.DataSource;
@@ -285,18 +288,20 @@ public class SangerXmlGenerator {
 				i++;
 				if (i % 100 == 0) {
 					System.out.println(i);
-		//			if (i==10000){
-		//				break;
-		//			}
+			//		if (i==100){
+			//			break;
+			//		}
 				}
 			}
-			File file = new File("source/main/resources/sangerExport.xml");
+	        Date date = new Date();
+	        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+		//	File file = new File("source/main/resources/" + dateFormat.format(date) + "_sangerExport.xml");
+	    	File file = new File("source/main/resources/sangerExport.xml");
 			JAXBContext jaxbContext = JAXBContext.newInstance(Doc.class);
 			Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 
 			// output pretty printed
 			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-
 			jaxbMarshaller.marshal(doc, file);
 			// jaxbMarshaller.marshal(doc, System.out);
 
@@ -488,7 +493,8 @@ public class SangerXmlGenerator {
 		 * "FBbi_00000025")); im.getEl().add(getOntologyTerm("light microscopy",
 		 * "FBbi_00000345")); }
 		 */
-		else if (procedure.equalsIgnoreCase("Expression")) {
+
+		else if (procedure.contains("Expression")) {
 			ann.setOntologyTerm(getOntologyTerm("whole mounted tissue", "FBbi_00000024"));
 			spArray.getEl().add(ann);
 			ann2.setOntologyTerm(getOntologyTerm("bright-field microscopy", "FBbi_00000243"));

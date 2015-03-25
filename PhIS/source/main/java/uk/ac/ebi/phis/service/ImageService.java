@@ -66,9 +66,7 @@ public class ImageService extends BasicService{
 		}
 		
 		if (anatomy != null){
-			solrQuery.addFilterQuery(ImageDTO.ANATOMY_ID + ":\""+ anatomy + "\" OR " + 
-				ImageDTO.ANATOMY_TERM + ":\""+ anatomy + "\" OR " + 
-				ImageDTO.ANATOMY_FREETEXT + ":\""+ anatomy + "\"" );
+			solrQuery.addFilterQuery(ImageDTO.GENERIC_ANATOMY + ":\""+ anatomy + "\"");
 		}
 		if (expressedGene != null){
 			solrQuery.addFilterQuery(ImageDTO.EXPRESSED_GF_ID_BAG + ":\"" + expressedGene + "\"");
@@ -95,7 +93,7 @@ public class ImageService extends BasicService{
 			solrQuery.addFilterQuery(ImageDTO.SAMPLE_PREPARATION_ID + ":\"" + samplePreparation + "\" OR " + 
 				ImageDTO.SAMPLE_PREPARATION_LABEL + ":\"" + samplePreparation + "\"");
 		}
-		if (samplePreparation != null){
+		if (imagingMethod != null){
 			solrQuery.addFilterQuery(ImageDTO.IMAGING_METHOD_LABEL_ANALYSED + ":\"" + imagingMethod + "\" OR " + 
 			ImageDTO.IMAGING_METHOD_ID + ":\"" + imagingMethod + "\"");
 		}
@@ -289,8 +287,13 @@ public class ImageService extends BasicService{
 	}
 	
 	
-	public void clear() throws SolrServerException, IOException{
-		solr.deleteByQuery("*:*");
+	public void clear() {
+		try {
+			solr.deleteByQuery("*:*");
+			solr.commit();
+		} catch (SolrServerException | IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 
