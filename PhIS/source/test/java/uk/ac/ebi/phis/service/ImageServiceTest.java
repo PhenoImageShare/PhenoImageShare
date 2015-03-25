@@ -29,7 +29,7 @@ public class ImageServiceTest {
 	
 	@Test
 	public void testGetImageById(){
-		assertTrue(is.getImageById(imageDocId) != null);
+		assertTrue(is.getImageDTOById(imageDocId) != null);
 	}
 	
 	@Test 
@@ -48,10 +48,10 @@ public class ImageServiceTest {
 	public void testDeleteRoi(){
 		
 		is.addToImageFromRoi(roi);
-		ImageDTO originalImage = is.getImageById(roi.getAssociatedImage());
+		ImageDTO originalImage = is.getImageDTOById(roi.getAssociatedImage());
 		
 		is.deleteRoiRefferences(roi);
-		ImageDTO newImage = is.getImageById(roi.getAssociatedImage());
+		ImageDTO newImage = is.getImageDTOById(roi.getAssociatedImage());
 		
 		System.out.println("\n\nNew image: " + newImage.toString());
 		assertTrue(phenotypeFieldsGotDeleted(originalImage, newImage));
@@ -70,7 +70,7 @@ public class ImageServiceTest {
 				
 		is.addToImageFromRoi(roi);
 		
-		ImageDTO image = is.getImageById(imageId);
+		ImageDTO image = is.getImageDTOById(imageId);
 		
 		assertTrue(hasRoiInList(image));
 		assertTrue(phenotypeFieldsGotCopied(image));

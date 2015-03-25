@@ -167,6 +167,34 @@
 	</table>
 
 
+	<br/>
+	<h2>/getImage</h2>
+	<h3>Parameters</h3>
+	<table class="table table-striped">
+		<thead>
+			<tr style="background-color: lightSteelBlue;">
+				<th>Name</th>
+				<th>Type</th>
+				<th>Required</th>
+				<th>Description</th>
+				<th>Default</th>
+				<th>Example Values</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>imageId</td>
+				<td><var>String</var></td>
+				<td> true</td>
+				<td>Image document with the specified id.</td>
+				<td><var> - </var></td>
+				<td><var>komp2_112003</var><br></td>
+			</tr>
+		</tbody>
+	</table>
+
+
+
 	<!-- h2>Getting ROIs & annotations</h2-->
 
 	<br/>

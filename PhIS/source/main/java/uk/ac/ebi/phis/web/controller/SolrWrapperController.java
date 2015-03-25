@@ -69,8 +69,21 @@ public class SolrWrapperController {
     		Model model
             ) throws SolrServerException, IOException, URISyntaxException {
 				
-		return is.getImage(term, phenotype, gene, mutantGene, anatomy, expressedGene, sex, taxon, image_type, sample_type, stage, visualisationMethod, 
+		return is.getImages(term, phenotype, gene, mutantGene, anatomy, expressedGene, sex, taxon, image_type, sample_type, stage, visualisationMethod, 
 						samplePreparation, imagingMethod, resultNo, start);
+    }
+	
+
+	@RequestMapping(value="/getImage", method=RequestMethod.GET)	
+    public @ResponseBody String getRoi(
+    		@RequestParam(value = "imageId", required = true) String imageId,
+    		Model model
+            ) throws SolrServerException, IOException, URISyntaxException {
+				
+		if (imageId != null){
+			return is.getImageAsJsonString(imageId);
+		}
+		return "";
     }
 	
 	
@@ -136,7 +149,7 @@ public class SolrWrapperController {
 		}
 		return "";
     }
-	
+		
 	
 	@RequestMapping(value="/getRoi", method=RequestMethod.GET)	
     public @ResponseBody String getRoi(
