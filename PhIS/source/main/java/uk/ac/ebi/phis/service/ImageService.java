@@ -93,7 +93,7 @@ public class ImageService extends BasicService{
 			solrQuery.addFilterQuery(ImageDTO.SAMPLE_PREPARATION_ID + ":\"" + samplePreparation + "\" OR " + 
 				ImageDTO.SAMPLE_PREPARATION_LABEL + ":\"" + samplePreparation + "\"");
 		}
-		if (samplePreparation != null){
+		if (imagingMethod != null){
 			solrQuery.addFilterQuery(ImageDTO.IMAGING_METHOD_LABEL_ANALYSED + ":\"" + imagingMethod + "\" OR " + 
 			ImageDTO.IMAGING_METHOD_ID + ":\"" + imagingMethod + "\"");
 		}
