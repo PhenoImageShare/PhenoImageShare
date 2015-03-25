@@ -48,13 +48,6 @@
 		</sequence>
 	</complexType>
 
-	<complexType name="Age">
-		<choice>
-			<element name="age_since_birth" type="string"></element> <!-- Preferably days -->
-			<element name="embryonic_age" type="string"></element> <!-- Preferably days -->
-		</choice>
-	</complexType>
-
 	<simpleType name="PositiveInt">
 		<restriction base="int">
 			<minInclusive value="1" />
@@ -166,7 +159,7 @@
 
 	<complexType name="Organism">
 		<all>
-			<element name="age" type="x:Age" minOccurs="0" maxOccurs="1" />
+			<element name="age" type="string" minOccurs="0" maxOccurs="1" />
 			<element name="taxon" type="string" minOccurs="1" maxOccurs="1" /> <!--  example: Mus Musculus -->
 			<element name="sex" type="x:Sex" minOccurs="0" maxOccurs="1" />
 			<element name="ncbi_taxon_id" type="string" minOccurs="0" maxOccurs="1" />	<!-- example: NCBITaxon_862507 -->

@@ -392,9 +392,11 @@ public class BatchXmlUploader {
 		if (desc.getSamplePreparation() != null){
 			for (Annotation sp: desc.getSamplePreparation().getEl()){
 				OntologyTerm ot = sp.getOntologyTerm();
-				bean.setSamplePreparationId(ot.getTermId());
-				bean.setSamplePreparationLabel(ou.getOntologyTermById(ot.getTermId()).getId());
-				bean.addSamplePreparationSynonyms(ou.getSynonyms(ot.getTermId()));
+				if (ot != null) {
+					bean.setSamplePreparationId(ot.getTermId());
+					bean.setSamplePreparationLabel(ou.getOntologyTermById(ot.getTermId()).getId());
+					bean.addSamplePreparationSynonyms(ou.getSynonyms(ot.getTermId()));
+				}
 				String freetext = sp.getAnnotationFreetext();
 				bean.addSamplePreparationFreetext(freetext);
 			}
