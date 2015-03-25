@@ -9,6 +9,9 @@
             <el>channel_EMAGE:2130.1</el>
         </associated_channel>
         <organism>
+        		<age>
+                <embryonic_age>dpc 10.5</embryonic_age>
+            </age>
             <ncbi_taxon_id>Mus musculus</ncbi_taxon_id>
             <stage>
                 <term_label>Theiler stage 17</term_label>
