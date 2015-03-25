@@ -288,9 +288,9 @@ public class SangerXmlGenerator {
 				i++;
 				if (i % 100 == 0) {
 					System.out.println(i);
-		//			if (i==100){
-		//				break;
-		//			}
+			//		if (i==100){
+			//			break;
+			//		}
 				}
 			}
 	        Date date = new Date();
@@ -471,7 +471,7 @@ public class SangerXmlGenerator {
 		 * "FBbi_00000025")); im.getEl().add(getOntologyTerm("light microscopy",
 		 * "FBbi_00000345")); }
 		 */
-		else if (procedure.equalsIgnoreCase("Expression")) {
+		else if (procedure.contains("Expression")) {
 			sp.getEl().add(getOntologyTerm("whole mounted tissue", "FBbi_00000024"));
 			im.getEl().add(getOntologyTerm("bright-field microscopy", "FBbi_00000243"));
 		}
