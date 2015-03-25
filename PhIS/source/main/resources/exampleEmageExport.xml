@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:Doc xmlns:ns2="http://www.example.org/phisSchema">
+    <image>
+        <id>EMAGE:2130.1</id>
+        <associated_roi>
+            <el>roi_EMAGE:2130.1</el>
+        </associated_roi>
+        <associated_channel>
+            <el>channel_EMAGE:2130.1</el>
+        </associated_channel>
+        <organism>
+            <ncbi_taxon_id>Mus musculus</ncbi_taxon_id>
+            <stage>
+                <term_label>Theiler stage 17</term_label>
+                <term_id>MmusDv_0000024</term_id>
+            </stage>
+            <taxon>Mus Musculus</taxon>
+        </organism>
+        <image_description>
+            <image_url>http://www.emouseatlas.org/gxdb/dbPart/segment1/2130/2130_assay_singleMappingimage1.jpg</image_url>
+            <image_context_url>http://www.emouseatlas.org/emagewebapp/pages/emage_entry_page.jsf?id=EMAGE:2130</image_context_url>
+            <image_dimensions>
+                <image_height>663</image_height>
+                <image_width>530</image_width>
+            </image_dimensions>
+            <image_generated_by>
+            		<display_name>Molecular and Cellular Biology, Harvard</display_name>
+                <details>Molecular and Cellular Biology, Harvard, Department of Molecular and Cellular Biology
+										Harvard University
+										16 Divinity Ave
+										Room 1059, Cambridge</details>
+            </image_generated_by>
+             <organism_generated_by>
+            		<display_name>Molecular and Cellular Biology, Harvard</display_name>
+                <details>Molecular and Cellular Biology, Harvard, Department of Molecular and Cellular Biology
+										Harvard University
+										16 Divinity Ave
+										Room 1059, Cambridge</details>
+            </organism_generated_by>
+            
+            <image_processed_by>
+                <el>
+                    <display_name>Mouse Atlas EMAGE</display_name>
+                    <url>http://www.emouseatlas.org</url>
+                </el>
+            </image_processed_by>
+            <host>
+                <display_name>Mouse Atlas EMAGE</display_name>
+                <url>http://www.emouseatlas.org</url>
+            </host>
+            <sample_preparation>
+                <el>
+                    <annotation_freetext>Signal Detection Method: alkaline phosphatase + NBT/BCIP</annotation_freetext>
+                </el>
+                <el>
+                    <annotation_freetext>Fixation Reagent: 4% paraformaldehyde</annotation_freetext>
+                </el>
+                <el>
+                    <annotation_freetext>Specimen Type: wholemount</annotation_freetext>
+                </el>
+            </sample_preparation>
+            <image_type>
+                <el>Expression</el>
+            </image_type>
+            <sample_type>Wild type</sample_type>
+        </image_description>
+        <observations>
+            <el>dpc 10.5</el>
+        </observations>
+        <depicted_anatomical_structure>
+            <ontology_term>
+                <term_label>mouse</term_label>
+                <term_id>EMAPA:25765</term_id>
+            </ontology_term>
+            <annotation_mode>Manual</annotation_mode>
+        </depicted_anatomical_structure>
+    </image>
+    <image>
+        <id>EMAGE:2383.2</id>        
+        <associated_roi>
+            <el>roi_EMAGE:2383.2</el>
+        </associated_roi>
+        <associated_channel>
+            <el>channel_EMAGE:2383.2</el>
+        </associated_channel>
+        <organism>
+            <ncbi_taxon_id>Mus musculus</ncbi_taxon_id>
+            <stage>
+                <term_label>Theiler stage 18</term_label>
+                <term_id>MmusDv_0000025</term_id>
+            </stage>
+            <taxon>Mus Musculus</taxon>
+        </organism>
+        <image_description>
+            <image_url>http://www.emouseatlas.org/gxdb/dbPart/segment1/2383/2383_assay_singleMappingimage2.jpg</image_url>
+            <image_context_url>http://www.emouseatlas.org/emagewebapp/pages/emage_entry_page.jsf?id=EMAGE:2383</image_context_url>
+            <image_dimensions>
+                <image_height>740</image_height>
+                <image_width>555</image_width>
+            </image_dimensions>
+            <image_generated_by>
+            		<display_name>Molecular and Cellular Biology, Harvard</display_name>
+                <details>Molecular and Cellular Biology, Harvard, Department of Molecular and Cellular Biology
+										Harvard University
+										16 Divinity Ave
+										Room 1059, Cambridge</details>
+            </image_generated_by>
+            <organism_generated_by>
+            		<display_name>Molecular and Cellular Biology, Harvard</display_name>
+                <details>Molecular and Cellular Biology, Harvard, Department of Molecular and Cellular Biology
+										Harvard University
+										16 Divinity Ave
+										Room 1059, Cambridge</details>
+            </organism_generated_by>
+            <image_processed_by>
+                <el>
+                    <display_name>Mouse Atlas EMAGE</display_name>
+                    <url>http://www.emouseatlas.org</url>
+                </el>
+            </image_processed_by>
+            <host>
+                <display_name>Mouse Atlas EMAGE</display_name>
+                <url>http://www.emouseatlas.org</url>
+            </host>
+            <sample_preparation>
+                <el>
+                    <annotation_freetext>Signal Detection Method: alkaline phosphatase + NBT/BCIP</annotation_freetext>
+                </el>
+                <el>
+                    <annotation_freetext>Fixation Reagent: 4% paraformaldehyde</annotation_freetext>
+                </el>
+                <el>
+                    <annotation_freetext>Specimen Type: wholemount</annotation_freetext>
+                </el>
+            </sample_preparation>
+            <image_type>
+                <el>Expression</el>
+            </image_type>
+            <sample_type>Wild type</sample_type>
+        </image_description>
+        <observations>
+            <el>dpc 10.5</el>
+        </observations>
+        <depicted_anatomical_structure>
+            <ontology_term>
+                <term_label>mouse</term_label>
+                <term_id>EMAPA:25765</term_id>
+            </ontology_term>
+            <annotation_mode>Manual</annotation_mode>
+        </depicted_anatomical_structure>
+    </image>
+    <channel>
+        <id>channel_EMAGE:2130.1</id>
+        <associated_image>EMAGE:2130.1</associated_image>
+        <associated_roi>
+            <el>roi_EMAGE:2130.1</el>
+        </associated_roi>
+        <depicts_expression_of>
+            <gene_id>MGI:1914838</gene_id>
+            <gene_symbol>Rnf41</gene_symbol>
+            <genomic_location>
+                <start_pos>299</start_pos>
+                <end_pos>1001</end_pos>
+                <chromosone>NM_026259.1</chromosone>
+            </genomic_location>
+            <zygosity>Wild type</zygosity>
+        </depicts_expression_of>
+    </channel>
+    <channel>
+        <id>channel_EMAGE:2383.2</id>
+        <associated_image>EMAGE:2383.2</associated_image>
+        <associated_roi>
+            <el>roi_EMAGE:2383.2</el>
+        </associated_roi>
+        <depicts_expression_of>
+            <gene_id>MGI:1859396</gene_id>
+            <gene_symbol>Mefv</gene_symbol>
+            <genomic_location>
+                <start_pos>1232</start_pos>
+                <end_pos>2062</end_pos>
+                <chromosone>NM_019453.1</chromosone>
+            </genomic_location>
+            <zygosity>Wild type</zygosity>
+        </depicts_expression_of>
+    </channel>
+    <roi>
+        <id>roi_EMAGE:2130.1</id>
+        <associated_image>EMAGE:2130.1</associated_image>
+        <associated_channel>
+            <el>channel_EMAGE:2130.1</el>
+        </associated_channel>
+        <depicted_anatomical_structure>
+            <el>
+                <ontology_term>
+                    <term_label>central nervous system</term_label>
+                    <term_id>EMAPA:16470</term_id>
+                </ontology_term>
+                <annotation_mode>Manual</annotation_mode>
+            </el>
+        </depicted_anatomical_structure>
+        <is_expression_pattern>true</is_expression_pattern>
+        <coordinates>
+        	<y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+          </y_coordinates>
+        	<x_coordinates> 
+                <el>0.0</el>
+                <el>100.0</el>
+        	</x_coordinates>        	
+        </coordinates>
+    </roi>
+    <roi>
+        <id>roi_EMAGE:2383.2</id>
+        <associated_image>EMAGE:2383.2</associated_image>
+        <associated_channel>
+            <el>channel_EMAGE:2383.2</el>
+        </associated_channel>
+        <depicted_anatomical_structure>
+            <el>
+                <ontology_term>
+                    <term_label>central nervous system</term_label>
+                    <term_id>EMAPA:16470</term_id>
+                </ontology_term>
+                <annotation_mode>Manual</annotation_mode>
+            </el>
+        </depicted_anatomical_structure>
+        <is_expression_pattern>true</is_expression_pattern>
+         <coordinates>
+        	<y_coordinates>
+                <el>0.0</el>
+                <el>100.0</el>
+          </y_coordinates>
+        	<x_coordinates> 
+                <el>0.0</el>
+                <el>100.0</el>
+        	</x_coordinates>        	
+        </coordinates>
+    </roi>
+</ns2:Doc>

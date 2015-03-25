@@ -2,6 +2,7 @@ package uk.ac.ebi.phis.mains;
 
 import org.springframework.stereotype.Component;
 
+import uk.ac.ebi.phis.xmlDump.EmageXmlGenerator;
 import uk.ac.ebi.phis.xmlDump.SangerXmlGenerator;
 import uk.ac.ebi.phis.xmlDump.TracerXmlGenerator;
 
@@ -18,13 +19,17 @@ public class ExportDatabasesAsXml {
 		
 		try {
 			long time = System.currentTimeMillis();
-			SangerXmlGenerator sg = new SangerXmlGenerator();
+/*			SangerXmlGenerator sg = new SangerXmlGenerator();
 			sg.exportImages();
 			System.out.println("Generating xml for Sanger took " + (System.currentTimeMillis() - time));
 
 			time = System.currentTimeMillis();
 			TracerXmlGenerator tg = new TracerXmlGenerator();
 			tg.exportImages();
+*/
+			EmageXmlGenerator emage = new EmageXmlGenerator();
+			emage.aggregateXml();
+			
 			System.out.println("Generating XML for Tracer took " + (System.currentTimeMillis() - time));
 
 		} catch (Exception e) {

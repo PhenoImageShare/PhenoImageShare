@@ -74,10 +74,12 @@ public class ValidationUtils {
 			if (annotationArray != null) {
 				for (Annotation a : annotationArray) {
 					OntologyTerm ot = a.getOntologyTerm();
-					res = res && checkOntologyTerm(ot, "samplePreparation");
-					if (!res) {
-						System.out.println(">>> sample prep " + ot.getTermId() + "(" + ot.getTermLabel() + ") is not a valid entry for samplePreparation.");
-						return false;
+					if (ot != null){
+						res = res && checkOntologyTerm(ot, "samplePreparation");
+						if (!res) {
+							System.out.println(">>> sample prep " + ot.getTermId() + "(" + ot.getTermLabel() + ") is not a valid entry for samplePreparation.");
+							return false;
+						}
 					}
 				}
 			}
