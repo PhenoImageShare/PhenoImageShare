@@ -28,8 +28,7 @@ public class v005GRs extends HttpServlet {
 
     private static final String url = "http://beta.phenoimageshare.org/data/v0.0.5/rest/getRois?"; // stem of every SOLR query
     private static final Logger logger = Logger.getLogger(System.class.getName());
-    
-    
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -41,7 +40,7 @@ public class v005GRs extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
- 
+
         // set response type to JS and allow programs from other servers to send and receive
         response.setContentType("application/json;charset=UTF-8");
         response.setHeader("Access-Control-Allow-Origin", "*");
@@ -93,6 +92,8 @@ public class v005GRs extends HttpServlet {
 
             CommunicateWithSolr cws = new CommunicateWithSolr();
             solrResult = cws.talk(queryURL);
+        } else {
+            logger.log(Level.SEVERE, "[BAD QUERY] "+queryURL);
         }
 
         // send result to client (UI)
@@ -101,7 +102,7 @@ public class v005GRs extends HttpServlet {
             out.println(solrResult); // may be error or genuine result
         } finally {
             out.close();
-        }        
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

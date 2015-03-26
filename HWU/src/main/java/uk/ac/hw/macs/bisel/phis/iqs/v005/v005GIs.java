@@ -178,7 +178,7 @@ public class v005GIs extends HttpServlet {
 
             } else { // parameter was not recognised, send error
                 error = true; // error has been detected
-                logger.log(Level.WARNING, "Client sent invalid parameter: " + param);
+                logger.log(Level.WARNING, "Client sent invalid parameter: {0}", param);
                 solrResult = "{\"invalid_paramater\": \"" + param + "\"}";
                 break;
             }
@@ -189,6 +189,8 @@ public class v005GIs extends HttpServlet {
 
             CommunicateWithSolr cws = new CommunicateWithSolr();
             solrResult = cws.talk(queryURL);
+        } else {
+            logger.log(Level.SEVERE, "[BAD QUERY] {0}", request.getRequestURI()+request.getQueryString()+" "+request.);
         }
 
         // send result to client (UI)

@@ -92,6 +92,8 @@ public class v005GCs extends HttpServlet {
 
             CommunicateWithSolr cws = new CommunicateWithSolr();
             solrResult = cws.talk(queryURL);
+        } else {
+            logger.log(Level.SEVERE, "[BAD QUERY] "+queryURL);
         }
 
         // send result to client (UI)
