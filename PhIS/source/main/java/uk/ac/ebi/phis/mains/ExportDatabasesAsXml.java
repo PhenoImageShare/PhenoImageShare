@@ -19,14 +19,14 @@ public class ExportDatabasesAsXml {
 		
 		try {
 			long time = System.currentTimeMillis();
-/*			SangerXmlGenerator sg = new SangerXmlGenerator();
+			SangerXmlGenerator sg = new SangerXmlGenerator();
 			sg.exportImages();
 			System.out.println("Generating xml for Sanger took " + (System.currentTimeMillis() - time));
 
-	/*		time = System.currentTimeMillis();
+			time = System.currentTimeMillis();
 			TracerXmlGenerator tg = new TracerXmlGenerator();
 			tg.exportImages();
-*/
+
 			EmageXmlGenerator emage = new EmageXmlGenerator();
 			emage.aggregateXml();
 			

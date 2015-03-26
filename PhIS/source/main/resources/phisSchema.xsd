@@ -7,20 +7,20 @@
 	<!--  Type declaration -->
 	<simpleType name="Sex"> <!-- Could use Caro for sexes -->
 		<restriction base="string">
-			<enumeration value="Male"></enumeration>
-			<enumeration value="Female"></enumeration>
-			<enumeration value="Unknown"></enumeration>
-			<enumeration value="Unsexed"></enumeration>
+			<enumeration value="male"></enumeration>
+			<enumeration value="female"></enumeration>
+			<enumeration value="unknown"></enumeration>
+			<enumeration value="unsexed"></enumeration>
 		</restriction>
 	</simpleType>
 
 	<simpleType name="Zygosity">
 		<restriction base="string">
-			<enumeration value="Homozygous"></enumeration>
-			<enumeration value="Heterozygous"></enumeration>
-			<enumeration value="Hemizygous"></enumeration>
-			<enumeration value="Wild type"></enumeration>
-			<enumeration value="Unspecified"></enumeration>
+			<enumeration value="homozygous"></enumeration>
+			<enumeration value="heterozygous"></enumeration>
+			<enumeration value="hemizygous"></enumeration>
+			<enumeration value="wild type"></enumeration>
+			<enumeration value="unspecified"></enumeration>
 		</restriction>
 	</simpleType>
 	<complexType name="ZygArray">
@@ -31,15 +31,15 @@
 
 	<simpleType name="SampleType">
 		<restriction base="string">
-			<enumeration value="Mutant"></enumeration>
-			<enumeration value="Wild type"></enumeration>
+			<enumeration value="mutant"></enumeration>
+			<enumeration value="wild type"></enumeration>
 		</restriction>
 	</simpleType>
 
 	<simpleType name="ImageType">
 		<restriction base="string">
-			<enumeration value="Phenotype/anatomy"></enumeration>
-			<enumeration value="Expression"></enumeration>
+			<enumeration value="phenotype/anatomy"></enumeration>
+			<enumeration value="expression"></enumeration>
 		</restriction>
 	</simpleType>
 	<complexType name="ImageTypeArray">

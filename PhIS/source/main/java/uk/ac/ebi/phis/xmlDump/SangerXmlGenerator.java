@@ -280,9 +280,9 @@ public class SangerXmlGenerator {
 				i++;
 				if (i % 100 == 0) {
 					System.out.println(i);
-			//		if (i==100){
-			//			break;
-			//		}
+					if (i==100){
+						break;
+					}
 				}
 			}
 	        Date date = new Date();

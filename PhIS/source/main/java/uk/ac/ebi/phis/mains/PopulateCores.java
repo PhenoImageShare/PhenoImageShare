@@ -68,7 +68,7 @@ public class PopulateCores {
 			System.out.println(itWorked);
 			System.out.println("Validating EMAGE XML took " + (System.currentTimeMillis() - time));
 
-		/*	
+			
 			itWorked = false;
 			time = System.currentTimeMillis();	
 			itWorked = reader.validateAndUpload(dataDir + "/tracerExport.xml");
@@ -79,7 +79,7 @@ public class PopulateCores {
 			itWorked = reader.validateAndUpload(dataDir + "/sangerExport.xml");
 			System.out.println("Is valid? " + itWorked);
 			System.out.println("Validating Sanger XML took " + (System.currentTimeMillis() - time));
-	*/		
+			
 			System.out.println("Solr url is : " + is.getSolrUrl());
 			
 		} catch (Exception e) {
