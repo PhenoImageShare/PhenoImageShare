@@ -1,53 +1,31 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package uk.ac.hw.macs.bisel.phis.iqs;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet connects client (presumably a GUI) to the SOLR API that wraps the
- * SOLR repository for images
  *
  * @author kcm
  */
-public class GetImages extends HttpServlet {
+@WebServlet(name = "GetImage", urlPatterns = {"/getImage"})
+public class GetImage extends HttpServlet {
 
     private static final Logger logger = Logger.getLogger(System.class.getName());
-
+    
     /**
-     * Enables discovery of images that meet the user's requirements. Handles
-     * requests from the PhIS UI by simply forwarding them to the SOLR API and
-     * then returning the result directly to the UI. Provides very basic error
-     * handling (only deals with unknown parameters).
-     *
-     * Queries the SOLR API, not the SOLR core. Use the pagination facilities
-     * offered by the SOLR API
-     *
-     * Parameters expected:
-     * <ol>
-     * <li>ptId = phenotype ID, i.e., a MP ID</li>
-     * <li>aId = EMAPA or MA ID</li>
-     * <li>gId = MGI gene ID, e.g., MGI:12344567</li>
-     * <li>start = pagination, the first result that should be returned>/li>
-     * <li>num = pagination, the total number of results that should be
-     * returned</li>
-     * </ol>
-     *
-     * Future versions will:
-     * <ol>
-     * <li>send queries to the SIS, and then integrate the results with those
-     * from SOLR</li>
-     * <li>likely to include sorting the results</li>
-     * <li>include a wider range of query parameters</li>
-     * <li>provide access to the "OLS" functionality from SOLR</li>
-     * </ol>
-     *
-     *
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
      *
@@ -57,29 +35,28 @@ public class GetImages extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException {        
         
         logger.log(Level.SEVERE, "[QUERY] {0}", request.getQueryString());
-
+        
         // check to find version and forward
         Map<String, String[]> params = request.getParameterMap(); // get map of parameters and their values
         String[] versions = params.get("version");
-        
-        if(versions == null || versions[0] == null) {
-            // default is v003
-            request.getRequestDispatcher("/v003GIs").forward(request, response);
-        } else if(versions[0].equals("003")) {
-            request.getRequestDispatcher("/v003GIs").forward(request, response);
-        } else if(versions[0].equals("004")) {
-            request.getRequestDispatcher("/v004GIs").forward(request, response);
-        } else if(versions[0].equals("005")) {
-            request.getRequestDispatcher("/v005GIs").forward(request, response);
-        } else {                
+
+        if (versions == null) {
+            // default is v005 as not implmented before then
+            request.getRequestDispatcher("/v005GI").forward(request, response);       
+        } else if (versions[0].equals("005")) {
+            request.getRequestDispatcher("/v005GI").forward(request, response);        
+        } else {
             // otherwise forward to default
-            request.getRequestDispatcher("/v003GIs").forward(request, response);
+            request.getRequestDispatcher("/v005GI").forward(request, response);
         }
+        
+        
     }
 
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -115,7 +92,7 @@ public class GetImages extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Simple service that wraps the SOLR API to enable searching of image information";
+        return "Short description";
     }// </editor-fold>
 
 }

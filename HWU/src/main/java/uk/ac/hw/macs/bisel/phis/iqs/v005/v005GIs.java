@@ -190,7 +190,7 @@ public class v005GIs extends HttpServlet {
             CommunicateWithSolr cws = new CommunicateWithSolr();
             solrResult = cws.talk(queryURL);
         } else {
-            logger.log(Level.SEVERE, "[BAD QUERY] {0}", request.getRequestURI()+request.getQueryString()+" "+request.);
+            logger.log(Level.SEVERE, "[BAD QUERY] {0}", request.getRequestURI()+request.getQueryString());
         }
 
         // send result to client (UI)

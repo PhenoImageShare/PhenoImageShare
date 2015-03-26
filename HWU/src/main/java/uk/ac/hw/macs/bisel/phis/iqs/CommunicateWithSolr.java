@@ -23,7 +23,7 @@ public class CommunicateWithSolr {
     
     public String talk(String queryURL) {
         // record all queries sent to SOLR
-        logger.log(Level.INFO, "[QUERY] {0}", queryURL);        
+        logger.log(Level.INFO, "[EBI QUERY] {0}", queryURL);        
         
         BufferedReader in = null;
         String solrResult = "";

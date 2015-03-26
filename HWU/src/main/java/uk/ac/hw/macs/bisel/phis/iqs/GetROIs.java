@@ -2,6 +2,7 @@ package uk.ac.hw.macs.bisel.phis.iqs;
 
 import java.io.IOException;
 import java.util.Map;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -54,7 +55,7 @@ public class GetROIs extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        logger.info(request.getQueryString());
+        logger.log(Level.SEVERE, "[QUERY] {0}", request.getQueryString());
 
         // check to find version and forward
         Map<String, String[]> params = request.getParameterMap(); // get map of parameters and their values
