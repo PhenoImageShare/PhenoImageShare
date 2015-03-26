@@ -67,7 +67,6 @@ public class PopulateCores {
 			itWorked = reader.validateAndUpload(dataDir + "/emageExport.xml");
 			System.out.println(itWorked);
 			System.out.println("Validating EMAGE XML took " + (System.currentTimeMillis() - time));
-
 			
 			itWorked = false;
 			time = System.currentTimeMillis();	
