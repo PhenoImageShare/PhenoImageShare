@@ -130,11 +130,11 @@
 		<all>
 			<element name="image_url" type="string" minOccurs="1" maxOccurs="1" />
 			<element name="image_context_url" type="string" minOccurs="0" maxOccurs="1" /> <!-- URL linking back to the image page on the original website, if they have single image pages -->
-			<element name="image_dimensions" type="x:Dimensions" minOccurs="1" maxOccurs="1" />
+			<element name="image_dimensions" type="x:Dimensions" minOccurs="0" maxOccurs="1" />
 			<element name="machine" type="string" minOccurs="0" maxOccurs="1" />
 			<element name="image_generated_by" type="x:Link" minOccurs="1" /> <!-- Lab/center/institute that produced the images -->
 			<element name="image_processed_by" type="x:LinkArray" minOccurs="0" />
-			<element name="organism_generated_by" type="x:Link" minOccurs="1" maxOccurs="1" /> <!-- Lab/center/institute that produced the organism -->
+			<element name="organism_generated_by" type="x:Link" minOccurs="0" maxOccurs="1" /> <!-- Lab/center/institute that produced the organism -->
 			<element name="host" type="x:Link" minOccurs="1" maxOccurs="1" /> <!-- URL to the website where all the images are accessible -->
 			<element name="imaging_method" type="x:AnnotationArray" minOccurs="0" maxOccurs="1" /> <!-- from Fbbi -->
 			<element name="sample_preparation" type="x:AnnotationArray" minOccurs="0" maxOccurs="1" /> <!-- from Fbbi -->
@@ -182,8 +182,8 @@
 
 	<simpleType name="AnnotationMode">
 		<restriction base="string">
-			<enumeration value="Manual"></enumeration>
-			<enumeration value="Automated"></enumeration>
+			<enumeration value="manual"></enumeration>
+			<enumeration value="automated"></enumeration>
 		</restriction>
 	</simpleType>
 
