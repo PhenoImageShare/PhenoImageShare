@@ -143,9 +143,7 @@ public class TracerXmlGenerator {
 		    		Organism org = new Organism();
 	    			// in the TRACER fields 'stage' they actually store dpc, with values like E11.5
 	    			String a = norm.normalizeAge(res.getString("stage"));
-	    			Age age = new Age();
-	    			age.setEmbryonicAge(a);
-	    			org.setAge(age);
+	    			org.setAge(res.getString("stage"));
 	    			org.setTaxon("Mus musculus");
 	    			OntologyTerm stage = new OntologyTerm();
 	    			stage.setTermId("MmusDv_0000002");

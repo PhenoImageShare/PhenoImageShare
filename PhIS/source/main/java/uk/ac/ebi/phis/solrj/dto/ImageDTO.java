@@ -26,6 +26,7 @@ public class ImageDTO {
 	public final static String GF_SYNONYMS = "genetic_feature_synonyms";
 	public final static String GENE_SYMBOL = "gene_symbol";
 	public final static String GENE_SYNONYMS = "gene_synonyms";
+	public final static String AGE = "age";
 	public final static String CONDITIONS = "conditions";
 	public final static String OBSERVATIONS = "observations";
 	public final static String ANATOMY_FREETEXT = "anatomy_freetext";
@@ -34,14 +35,12 @@ public class ImageDTO {
 	public final static String ANATOMY_ANCESTORS_SYNONYMS = "anatomy_ancestors_synonyms";
 	public final static String ANATOMY_ANCESTORS_ID = "anatomy_ancestors_id";
 	public final static String ANATOMY_ANCESTORS_TERM = "anatomy_ancestors_term";
-	public final static String EMBRYONIC_AGE = "embryonic_age";
 	public final static String STAGE_ID = "stage_id";
 	public final static String STAGE = "stage";
 	public final static String SEX = "sex";
 	public final static String NCBI_TAXON_ID = "ncbi_taxon_id";
 	public final static String TAXON = "taxon";
 	public final static String SAMPLE_GENERATED_BY = "sample_generated_by";
-	public final static String AGE_SINCE_BIRTH = "age_since_birth";
 	public final static String WIDTH = "width";
 	public final static String THUMBNAIL_PATH = "thumbnail_path";
 	public final static String IMAGE_TYPE = "image_type";
@@ -207,8 +206,8 @@ public class ImageDTO {
 	@Field(GENERIC_ANATOMY)
 	private List<String> genericAnatomy;
 	
-	@Field(AGE_SINCE_BIRTH)
-	private String ageSinceBirth;
+	@Field(AGE)
+	private String age;
 
 	@Field(SAMPLE_GENERATED_BY)
 	private String sampleGeneratedBy;
@@ -227,9 +226,6 @@ public class ImageDTO {
 
 	@Field(STAGE_ID)
 	private String stageId;
-
-	@Field(EMBRYONIC_AGE)
-	private Float embryonicAge;
 
 	// annotations -->
 
@@ -1723,14 +1719,14 @@ public class ImageDTO {
 		this.width = width;
 	}
 
-	public String getAgeSinceBirth() {
+	public String getAge() {
 
-		return ageSinceBirth;
+		return age;
 	}
 
-	public void setAgeSinceBirth(String ageSinceBirth) {
+	public void setAge(String age) {
 
-		this.ageSinceBirth = ageSinceBirth;
+		this.age = age;
 	}
 
 	public String getSampleGeneratedBy() {
@@ -1800,26 +1796,6 @@ public class ImageDTO {
 
 		this.stage = stage;
 	}
-
-
-	/**
-	 * @return the embryonicAge
-	 */
-	public Float getEmbryonicAge() {
-
-		return embryonicAge;
-	}
-
-
-	/**
-	 * @param embryonicAge
-	 *            the embryonicAge to set
-	 */
-	public void setEmbryonicAge(Float embryonicAge) {
-
-		this.embryonicAge = embryonicAge;
-	}
-
 
 	/**
 	 * @return the anatomyId
@@ -2114,7 +2090,7 @@ public class ImageDTO {
 	@Override
 	public String toString() {
 
-		return "ImageDTO [id=" + id + ", associatedRoi=" + associatedRoi + ", associatedChannel=" + associatedChannel + ", height=" + height + ", hostUrl=" + hostUrl + ", hostName=" + hostName + ", imageGeneratedBy=" + imageGeneratedBy + ", imageType=" + imageType + ", sampleType=" + sampleType + ", imageUrl=" + imageUrl + ", imageContextUrl=" + imageContextUrl + ", imagingMethodId=" + imagingMethodId + ", imagingMethodLabel=" + imagingMethodLabel + ", imagingMethodSynonyms=" + imagingMethodSynonyms + ", samplePreparationId=" + samplePreparationId + ", samplePreparationLabel=" + samplePreparationLabel + ", samplePreparationSynonyms=" + samplePreparationSynonyms + ", visualisationMethodId=" + visualisationMethodId + ", visualisationMethodLabel=" + visualisationMethodLabel + ", visualisationMethodSynonyms=" + visualisationMethodSynonyms + ", machine=" + machine + ", thumbnailPath=" + thumbnailPath + ", width=" + width + ", genericSearch=" + genericSearch + ", ageSinceBirth=" + ageSinceBirth + ", sampleGeneratedBy=" + sampleGeneratedBy + ", taxon=" + taxon + ", ncbiTaxonId=" + ncbiTaxonId + ", sex=" + sex + ", stage=" + stage + ", stageId=" + stageId + ", embryonicAge=" + embryonicAge + ", anatomyId=" + anatomyId + ", anatomyTerm=" + anatomyTerm + ", anatomyFreetext=" + anatomyFreetext + ", anatomySynonyms=" + anatomySynonyms + ", observations=" + observations + ", conditions=" + conditions + ", geneIds=" + geneIds + ", geneSymbols=" + geneSymbols + ", geneSynonyms=" + geneSynonyms + ", geneticFeatureIds=" + geneticFeatureIds + ", geneticFeatureSymbols=" + geneticFeatureSymbols + ", geneticFeatureSynonyms=" + geneticFeatureSynonyms + ", genetifFeatureEnsemlIds=" + genetifFeatureEnsemlIds + ", chromosome=" + chromosome + ", startPosition=" + startPosition + ", endPosition=" + endPosition + ", strand=" + strand + ", zygosity=" + zygosity + ", depth=" + depth + ", anatomyComputedIdBag=" + anatomyComputedIdBag + ", anatomyComputedLabelBag=" + anatomyComputedLabelBag + ", anatomyComputedSynonymsBag=" + anatomyComputedSynonymsBag + ", anatomyComputedAncestorsIdBag=" + anatomyComputedAncestorsIdBag + ", anatomyComputedAncestorsSynonymsBag=" + anatomyComputedAncestorsSynonymsBag + ", anatomyComputedAncestorsTermBag=" + anatomyComputedAncestorsTermBag + ", depictedAnatomyIdBag=" + depictedAnatomyIdBag + ", depictedAnatomyTermBag=" + depictedAnatomyTermBag + ", depictedAnatomyFreetextBag=" + depictedAnatomyFreetextBag + ", depictedAnatomySynonymsBag=" + depictedAnatomySynonymsBag + ", depictedAnatomyAncestorsIdBag=" + depictedAnatomyAncestorsIdBag + ", depictedAnatomyAncestorsSynonymsBag=" + depictedAnatomyAncestorsSynonymsBag + ", depictedAnatomyAncestorsTermBag=" + depictedAnatomyAncestorsTermBag + ", abnormalAnatomyIdBag=" + abnormalAnatomyIdBag + ", abnormalAnatomyTermBag=" + abnormalAnatomyTermBag + ", abnormalAnatomyFreetextBag=" + abnormalAnatomyFreetextBag + ", abnormalAnatomySynonymsBag=" + abnormalAnatomySynonymsBag + ", abnormalAnatomyAncestorsIdBag=" + abnormalAnatomyAncestorsIdBag + ", abnormalAnatomyAncestorsSynonymsBag=" + abnormalAnatomyAncestorsSynonymsBag + ", abnormalAnatomyAncestorsTermBag=" + abnormalAnatomyAncestorsTermBag + ", expressedGfIdBag=" + expressedGfIdBag + ", expressedGfSymbolBag=" + expressedGfSymbolBag + ", expressedGfSynonymsBag=" + expressedGfSynonymsBag + ", expressionInIdBag=" + expressionInIdBag + ", expressionInLabelBag=" + expressionInLabelBag + ", expressionInFreetextBag=" + expressionInFreetextBag + ", expressionInSynonymsBag=" + expressionInSynonymsBag + ", expressionInAncestorsIdBag=" + expressionInAncestorsIdBag + ", expressionInAncestorsSynonymsBag=" + expressionInAncestorsSynonymsBag + ", expressionInAncestorsTermBag=" + expressionInAncestorsTermBag + ", mutantGeneIdBag=" + mutantGeneIdBag + ", mutantGeneSymbolBag=" + mutantGeneSymbolBag + ", mutantGeneSynonymsBag=" + mutantGeneSynonymsBag + ", observationBag=" + observationBag + ", phenotypeIdBag=" + phenotypeIdBag + ", phenotypeLabelBag=" + phenotypeLabelBag + ", phenotypeFreetextBag=" + phenotypeFreetextBag + ", phenotypeSynonymsBag=" + phenotypeSynonymsBag + ", phenotypeAncestorsIdBag=" + phenotypeAncestorsIdBag + ", phenotypeAncestorsSynonymsBag=" + phenotypeAncestorsSynonymsBag + ", phenotypeAncestorsTermBag=" + phenotypeAncestorsTermBag + "]";
+		return "ImageDTO [id=" + id + ", associatedRoi=" + associatedRoi + ", associatedChannel=" + associatedChannel + ", height=" + height + ", hostUrl=" + hostUrl + ", hostName=" + hostName + ", imageGeneratedBy=" + imageGeneratedBy + ", imageType=" + imageType + ", sampleType=" + sampleType + ", imageUrl=" + imageUrl + ", imageContextUrl=" + imageContextUrl + ", imagingMethodId=" + imagingMethodId + ", imagingMethodLabel=" + imagingMethodLabel + ", imagingMethodSynonyms=" + imagingMethodSynonyms + ", samplePreparationId=" + samplePreparationId + ", samplePreparationLabel=" + samplePreparationLabel + ", samplePreparationSynonyms=" + samplePreparationSynonyms + ", visualisationMethodId=" + visualisationMethodId + ", visualisationMethodLabel=" + visualisationMethodLabel + ", visualisationMethodSynonyms=" + visualisationMethodSynonyms + ", machine=" + machine + ", thumbnailPath=" + thumbnailPath + ", width=" + width + ", genericSearch=" + genericSearch + ", ageSinceBirth=" + age + ", sampleGeneratedBy=" + sampleGeneratedBy + ", taxon=" + taxon + ", ncbiTaxonId=" + ncbiTaxonId + ", sex=" + sex + ", stage=" + stage + ", stageId=" + stageId + ", anatomyId=" + anatomyId + ", anatomyTerm=" + anatomyTerm + ", anatomyFreetext=" + anatomyFreetext + ", anatomySynonyms=" + anatomySynonyms + ", observations=" + observations + ", conditions=" + conditions + ", geneIds=" + geneIds + ", geneSymbols=" + geneSymbols + ", geneSynonyms=" + geneSynonyms + ", geneticFeatureIds=" + geneticFeatureIds + ", geneticFeatureSymbols=" + geneticFeatureSymbols + ", geneticFeatureSynonyms=" + geneticFeatureSynonyms + ", genetifFeatureEnsemlIds=" + genetifFeatureEnsemlIds + ", chromosome=" + chromosome + ", startPosition=" + startPosition + ", endPosition=" + endPosition + ", strand=" + strand + ", zygosity=" + zygosity + ", depth=" + depth + ", anatomyComputedIdBag=" + anatomyComputedIdBag + ", anatomyComputedLabelBag=" + anatomyComputedLabelBag + ", anatomyComputedSynonymsBag=" + anatomyComputedSynonymsBag + ", anatomyComputedAncestorsIdBag=" + anatomyComputedAncestorsIdBag + ", anatomyComputedAncestorsSynonymsBag=" + anatomyComputedAncestorsSynonymsBag + ", anatomyComputedAncestorsTermBag=" + anatomyComputedAncestorsTermBag + ", depictedAnatomyIdBag=" + depictedAnatomyIdBag + ", depictedAnatomyTermBag=" + depictedAnatomyTermBag + ", depictedAnatomyFreetextBag=" + depictedAnatomyFreetextBag + ", depictedAnatomySynonymsBag=" + depictedAnatomySynonymsBag + ", depictedAnatomyAncestorsIdBag=" + depictedAnatomyAncestorsIdBag + ", depictedAnatomyAncestorsSynonymsBag=" + depictedAnatomyAncestorsSynonymsBag + ", depictedAnatomyAncestorsTermBag=" + depictedAnatomyAncestorsTermBag + ", abnormalAnatomyIdBag=" + abnormalAnatomyIdBag + ", abnormalAnatomyTermBag=" + abnormalAnatomyTermBag + ", abnormalAnatomyFreetextBag=" + abnormalAnatomyFreetextBag + ", abnormalAnatomySynonymsBag=" + abnormalAnatomySynonymsBag + ", abnormalAnatomyAncestorsIdBag=" + abnormalAnatomyAncestorsIdBag + ", abnormalAnatomyAncestorsSynonymsBag=" + abnormalAnatomyAncestorsSynonymsBag + ", abnormalAnatomyAncestorsTermBag=" + abnormalAnatomyAncestorsTermBag + ", expressedGfIdBag=" + expressedGfIdBag + ", expressedGfSymbolBag=" + expressedGfSymbolBag + ", expressedGfSynonymsBag=" + expressedGfSynonymsBag + ", expressionInIdBag=" + expressionInIdBag + ", expressionInLabelBag=" + expressionInLabelBag + ", expressionInFreetextBag=" + expressionInFreetextBag + ", expressionInSynonymsBag=" + expressionInSynonymsBag + ", expressionInAncestorsIdBag=" + expressionInAncestorsIdBag + ", expressionInAncestorsSynonymsBag=" + expressionInAncestorsSynonymsBag + ", expressionInAncestorsTermBag=" + expressionInAncestorsTermBag + ", mutantGeneIdBag=" + mutantGeneIdBag + ", mutantGeneSymbolBag=" + mutantGeneSymbolBag + ", mutantGeneSynonymsBag=" + mutantGeneSynonymsBag + ", observationBag=" + observationBag + ", phenotypeIdBag=" + phenotypeIdBag + ", phenotypeLabelBag=" + phenotypeLabelBag + ", phenotypeFreetextBag=" + phenotypeFreetextBag + ", phenotypeSynonymsBag=" + phenotypeSynonymsBag + ", phenotypeAncestorsIdBag=" + phenotypeAncestorsIdBag + ", phenotypeAncestorsSynonymsBag=" + phenotypeAncestorsSynonymsBag + ", phenotypeAncestorsTermBag=" + phenotypeAncestorsTermBag + "]";
 	}
 
 	/**

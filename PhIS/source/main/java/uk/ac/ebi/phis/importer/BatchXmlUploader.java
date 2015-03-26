@@ -31,7 +31,6 @@ import uk.ac.ebi.phis.jaxb.ImageType;
 import uk.ac.ebi.phis.jaxb.OntologyTerm;
 import uk.ac.ebi.phis.jaxb.Organism;
 import uk.ac.ebi.phis.jaxb.Roi;
-import uk.ac.ebi.phis.jaxb.YesNo;
 import uk.ac.ebi.phis.service.ChannelService;
 import uk.ac.ebi.phis.service.ImageService;
 import uk.ac.ebi.phis.service.RoiService;
@@ -422,12 +421,7 @@ public class BatchXmlUploader {
 		Organism org = img.getOrganism();
 		
 		if (org.getAge() != null){
-			if (org.getAge().getAgeSinceBirth() != null){
-				bean.setAgeSinceBirth(org.getAge().getAgeSinceBirth());
-			}
-			if (org.getAge().getEmbryonicAge() != null){
-				bean.setAgeSinceBirth(org.getAge().getEmbryonicAge());
-			}
+				bean.setAge(org.getAge());
 		}
 
 		if (org.getNcbiTaxonId() != null){

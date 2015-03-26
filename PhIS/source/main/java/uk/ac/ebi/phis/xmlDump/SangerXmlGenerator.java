@@ -20,7 +20,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.w3c.dom.DOMException;
 
-import uk.ac.ebi.phis.jaxb.Age;
 import uk.ac.ebi.phis.jaxb.Annotation;
 import uk.ac.ebi.phis.jaxb.AnnotationArray;
 import uk.ac.ebi.phis.jaxb.AnnotationMode;
@@ -36,7 +35,6 @@ import uk.ac.ebi.phis.jaxb.ImageType;
 import uk.ac.ebi.phis.jaxb.ImageTypeArray;
 import uk.ac.ebi.phis.jaxb.Link;
 import uk.ac.ebi.phis.jaxb.OntologyTerm;
-import uk.ac.ebi.phis.jaxb.OntologyTermArray;
 import uk.ac.ebi.phis.jaxb.Organism;
 import uk.ac.ebi.phis.jaxb.PercentArray;
 import uk.ac.ebi.phis.jaxb.Roi;
@@ -118,14 +116,8 @@ public class SangerXmlGenerator {
 			    		Sex sex = Sex.fromValue(norm.normalizeSex(res.getString("GENDER")));
 			    		organism.setSex(sex);
 			    		organism.setOrganismId(res.getString("MOUSE_NAME"));
-			    		Age age = new Age();
 			    		if (ageIsRelevant(procedure)){
-			    			if (norm.isEmbryonicAge(res.getString("AGE_IN_WEEKS"))){
-				    			age.setEmbryonicAge(res.getString("AGE_IN_WEEKS"));
-				    		} else {
-				    			age.setAgeSinceBirth(res.getString("AGE_IN_WEEKS"));
-				    		}
-				    		organism.setAge(age);
+			 	    		organism.setAge(res.getString("AGE_IN_WEEKS"));
 			    		}
 			    		OntologyTerm stageOt = getStageFromProcedureOrAge(procedure, res.getString("AGE_IN_WEEKS"));
 			    		if (stageOt != null){
