@@ -29,6 +29,42 @@
         </div>
 
         <hr>
+        
+        <div>
+            <h3 style="background-color: orange;">/getImage</h3>
+            <h4>parameters</h4>
+            All parameters are optional
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Required</th>
+                        <th>Description</th>
+                        <th>Default</th>
+                        <th>Example Values</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>imageId</td>
+                        <td><var>String</var></td>
+                        <td> false</td>
+                        <td>ROI associated to the image.</td>
+                        <td><var> * </var></td>
+                        <td><var>komp2_112003</var><br></td>
+                    </tr>
+                </tbody>
+            </table>
+            <h4>Examples:</h4>
+            <ol>
+                <li><a href="<%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getImage?imageId=komp2_112968"><%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getImage?imageId=komp2_112968</a></li>
+            </ol>
+                        
+        </div>
+        
+        <hr/>
 
         <div>
             <h3>/getImages</h3>
