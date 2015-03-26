@@ -61,9 +61,9 @@
                 </el>
             </sample_preparation>
             <image_type>
-                <el>Expression</el>
+                <el>expression</el>
             </image_type>
-            <sample_type>Wild type</sample_type>
+            <sample_type>wild type</sample_type>
         </image_description>
         <observations>
             <el>dpc 10.5</el>
@@ -73,7 +73,7 @@
                 <term_label>mouse</term_label>
                 <term_id>EMAPA:25765</term_id>
             </ontology_term>
-            <annotation_mode>Manual</annotation_mode>
+            <annotation_mode>manual</annotation_mode>
         </depicted_anatomical_structure>
     </image>
     <image>
@@ -136,9 +136,9 @@
                 </el>
             </sample_preparation>
             <image_type>
-                <el>Expression</el>
+                <el>expression</el>
             </image_type>
-            <sample_type>Wild type</sample_type>
+            <sample_type>wild type</sample_type>
         </image_description>
         <observations>
             <el>dpc 10.5</el>
@@ -148,7 +148,7 @@
                 <term_label>mouse</term_label>
                 <term_id>EMAPA:25765</term_id>
             </ontology_term>
-            <annotation_mode>Manual</annotation_mode>
+            <annotation_mode>manual</annotation_mode>
         </depicted_anatomical_structure>
     </image>
     <channel>

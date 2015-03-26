@@ -231,7 +231,6 @@ public class OntologyUtils {
 			e.printStackTrace();
 		}
 		
-		System.out.println("populated map contains  MA_0000261 " + idLabelMap.containsKey("MA_0000261"));
 	}
 
 	

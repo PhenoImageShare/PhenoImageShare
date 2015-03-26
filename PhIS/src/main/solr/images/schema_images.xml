@@ -113,14 +113,13 @@
 
    <!-- Sample -->
    
-   <field name="age_since_birth" type="float" indexed="true" stored="true"/>
+   <field name="age" type="string" indexed="true" stored="true"/>
    <field name="sample_generated_by" type="string" indexed="true" stored="true"/>
    <field name="taxon" type="string" indexed="true" stored="true" required="true"/>
    <field name="ncbi_taxon_id" type="string" indexed="true" stored="true"/>
    <field name="sex" type="string" indexed="true" stored="true"/>
    <field name="stage_id" type="string" indexed="true" stored="true"/>
    <field name="stage" type="string" indexed="true" stored="true"/>
-   <field name="embryonic_age" type="float" indexed="true" stored="true"/>
    
    <!-- annotations -->
    
