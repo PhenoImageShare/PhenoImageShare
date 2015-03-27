@@ -1,6 +1,7 @@
 package uk.ac.ebi.phis.xmlDump;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -8,17 +9,30 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
+import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.transform.stream.StreamSource;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
+import javax.xml.validation.Validator;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
+import org.xml.sax.SAXException;
+
+import uk.ac.ebi.phis.importer.BatchXmlUploader;
 import uk.ac.ebi.phis.jaxb.Doc;
 import uk.ac.ebi.phis.jaxb.Image;
 import uk.ac.ebi.phis.jaxb.OntologyTerm;
 import uk.ac.ebi.phis.jaxb.Sex;
 import uk.ac.ebi.phis.jaxb.emage.ImageContentSummary;
 import uk.ac.ebi.phis.jaxb.emage.ImageContentSummary.ImageRecord;
+import uk.ac.ebi.phis.service.ChannelService;
+import uk.ac.ebi.phis.service.ImageService;
+import uk.ac.ebi.phis.service.RoiService;
 
 
 public class EmageXmlGenerator {
@@ -26,40 +40,44 @@ public class EmageXmlGenerator {
 	private final static String AGGREGATE_URL = "http://testwww.emouseatlas.org/emagewebservices/phis/image/listall";
 	ArrayList<String> urlList;
 	
-	
 	public Doc aggregateXml(){
 		
 		ArrayList<String> urls = getUrls();
 		Doc doc = new Doc();
-		
-		for (int i = 0; i < urls.size(); i++){
-			Doc temp = readSingleDoc(urls.get(i));
-			doc.getImage().addAll(temp.getImage());
-			if (temp.getRoi() != null){
-				doc.getRoi().addAll(temp.getRoi());
-			}
-			if (temp.getChannel() != null){
-				doc.getChannel().addAll(temp.getChannel());
-			}
-			
-			if (i == 1){
-				break;
-			}
-		}
-		
-		File file = new File("source/main/resources/emageExport.xml");
-		JAXBContext jaxbContext;
+		ClassLoader classloader = Thread.currentThread().getContextClassLoader();
+		InputStream xsd;
 		try {
-			jaxbContext = JAXBContext.newInstance(Doc.class);
-			Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-			 
-			// output pretty printed
-			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-
-			jaxbMarshaller.marshal(doc, file);
-			jaxbMarshaller.marshal(doc, System.out);
+			for (int i = 0; i < urls.size(); i++){
+				xsd = new FileInputStream("/Users/tudose/git/PhenoImageShare_Jul_22/PhIS/source/main/resources/phisSchema.xsd");
+				Doc temp = readSingleDoc(urls.get(i), xsd);
+				doc.getImage().addAll(temp.getImage());
+				if (temp.getRoi() != null){
+					doc.getRoi().addAll(temp.getRoi());
+				}
+				if (temp.getChannel() != null){
+					doc.getChannel().addAll(temp.getChannel());
+				}
+				if (i % 100 == 0){
+					System.out.println("Added "  + i + " documents");
+				}
+				if (i == 100){
+					break;
+				}
+			}
 			
-		} catch (JAXBException e) {
+			File file = new File("source/main/resources/emageExport.xml");
+			JAXBContext jaxbContext;
+			
+				jaxbContext = JAXBContext.newInstance(Doc.class);
+				Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+				 
+				// output pretty printed
+				jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+	
+				jaxbMarshaller.marshal(doc, file);
+	//			jaxbMarshaller.marshal(doc, System.out);
+				
+		} catch (JAXBException | IOException e) {
 			e.printStackTrace();
 		}
 		
@@ -68,23 +86,45 @@ public class EmageXmlGenerator {
 	}
 	
 	
-	private Doc readSingleDoc(String link){
-		
+	boolean validateAgainstXSD(InputStream xml, InputStream xsd) {
+
+		try {
+			SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+			Schema schema = factory.newSchema(new StreamSource(xsd));
+			Validator validator = schema.newValidator();
+			validator.validate(new StreamSource(xml));
+			return true;
+		} catch (SAXException e) {
+			System.out.println("NOT valid");
+			System.out.println("Reason: " + e.getLocalizedMessage());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	private Doc readSingleDoc(String link, InputStream xsd){
+
 		Doc doc = null;		
 		try {
-			
+
 			URL url = new URL(link);
-			InputStream stream = url.openStream();			
+			InputStream stream = url.openStream();	
+			
 			JAXBContext jaxbContext = JAXBContext.newInstance(Doc.class);
 			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 			doc = (Doc) jaxbUnmarshaller.unmarshal(stream);
 			for (Image image: doc.getImage()){
 				String emageId = image.getOrganism().getStage().getTermId();
 				image.getOrganism().setStage(getTheilerStageOntologyTerm(emageId));
-				//doc.
+			}
+			
+			stream = url.openStream();	
+			
+			if (!validateAgainstXSD (stream, xsd)){
+				System.out.println(doc.getImage().get(0).getId() + "  " + link);
 			}
 			return doc;
-			
 		} catch (JAXBException | IOException e) {
 			e.printStackTrace();
 		}
@@ -102,9 +142,7 @@ public class EmageXmlGenerator {
 			InputStream stream = url.openStream();			
 			JAXBContext jaxbContext = JAXBContext.newInstance(ImageContentSummary.class);
 			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-			System.out.println(">>> >>> unmarshaler not null  " + (jaxbUnmarshaller != null));
 			ImageContentSummary ics = (ImageContentSummary) jaxbUnmarshaller.unmarshal(stream);
-			System.out.println(">>> >>> image content summary  " + ics.getImageRecord().size());
 			for (ImageRecord record : ics.getImageRecord()){
 				res.add(record.getURL());
 			}

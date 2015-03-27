@@ -350,7 +350,9 @@ public class BatchXmlUploader {
 
 		ImageDescription desc = img.getImageDescription();
 		bean.setImageGeneratedBy(desc.getImageGeneratedBy().getDisplayName());
-		bean.setSampleGeneratedBy(desc.getOrganismGeneratedBy().getDisplayName());
+		if (desc.getOrganismGeneratedBy() != null){
+			bean.setSampleGeneratedBy(desc.getOrganismGeneratedBy().getDisplayName());
+		}
 		bean.setHostName(desc.getHost().getDisplayName());
 		bean.setHostUrl(desc.getHost().getUrl());
 		bean.setImageUrl(desc.getImageUrl());
