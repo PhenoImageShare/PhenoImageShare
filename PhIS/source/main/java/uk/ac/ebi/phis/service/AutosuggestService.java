@@ -34,7 +34,13 @@ public class AutosuggestService extends BasicService {
 
 		SolrQuery solrQuery = new SolrQuery();
 		ArrayList<String> suggestions = new ArrayList<>();
-
+		
+		term = handleSpecialCharacters(term);
+		imagingMethod = handleSpecialCharacters(imagingMethod);
+		taxon = handleSpecialCharacters(taxon);
+		sampleType = handleSpecialCharacters(sampleType);
+		imageGeneratedBy = handleSpecialCharacters(imageGeneratedBy);		
+		
 		solrQuery.setQuery(term);
 		solrQuery.setFields(ImageDTO.TERM_AUTOSUGGEST);
 		solrQuery.set("defType", "edismax");
