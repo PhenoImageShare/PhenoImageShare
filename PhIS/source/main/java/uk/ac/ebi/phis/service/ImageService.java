@@ -41,64 +41,76 @@ public class ImageService extends BasicService{
 		}
 		
 		if (term != null){
-			solrQuery.setQuery(ImageDTO.GENERIC_SEARCH + ":" + term);
+			solrQuery.setQuery(ImageDTO.GENERIC_SEARCH + ":" + handleSpecialCharacters(term));
 			if (term.contains(" ")){
 				String[] splittedQuery = term.split(" ");
-				String query = ImageDTO.GENERIC_SEARCH + ":" + org.apache.commons.lang3.StringUtils.join(splittedQuery, "^1 " + ImageDTO.GENERIC_SEARCH + ":");		
+				String query = ImageDTO.GENERIC_SEARCH + ":" + org.apache.commons.lang3.StringUtils.join(splittedQuery, "^1 " + ImageDTO.GENERIC_SEARCH + ":");			
 				solrQuery.set("defType", "edismax");
 				solrQuery.set("qf",  ImageDTO.GENERIC_SEARCH);
-				solrQuery.set("bq", ImageDTO.GENERIC_SEARCH + ":\"" + term + "\"^10 " + query);
+				solrQuery.set("bq", ImageDTO.GENERIC_SEARCH + ":\"" + term + "\"^10 " + handleSpecialCharacters(query));
 			
 			}else{
-				solrQuery.addFilterQuery(ImageDTO.GENERIC_SEARCH + ":"+ term);
+				solrQuery.addFilterQuery(ImageDTO.GENERIC_SEARCH + ":"+ handleSpecialCharacters(term));
 			}
 		}
 		
 		
 		if (phenotype != null){
+			phenotype = handleSpecialCharacters(phenotype);
 			solrQuery.addFilterQuery(ImageDTO.PHENOTYPE_ID_BAG + ":\""+ phenotype + "\" OR " + 
 				ImageDTO.PHENOTYPE_FREETEXT_BAG + ":\""+ phenotype + "\" OR " + 
 				ImageDTO.PHENOTYPE_LABEL_BAG + ":\""+ phenotype + "\"");
 		}
 		
 		if (mutantGene != null){
+			mutantGene = handleSpecialCharacters(mutantGene);
 			solrQuery.addFilterQuery(ImageDTO.GENE_ID + ":\""+ mutantGene + "\" OR " +
 				ImageDTO.GENE_SYMBOL + ":\""+ mutantGene + "\"");		
 		}
 		
 		if (anatomy != null){
+			anatomy = handleSpecialCharacters(anatomy);
 			solrQuery.addFilterQuery(ImageDTO.GENERIC_ANATOMY + ":\""+ anatomy + "\"");
 		}
 		if (expressedGene != null){
+			expressedGene = handleSpecialCharacters(expressedGene);
 			solrQuery.addFilterQuery(ImageDTO.EXPRESSED_GF_ID_BAG + ":\"" + expressedGene + "\"");
 		}
 		if (taxon != null){
+			taxon = handleSpecialCharacters(taxon);
 			solrQuery.addFilterQuery(ImageDTO.TAXON + ":\"" + taxon + "\" OR " + 
 				ImageDTO.NCBI_TAXON_ID + ":\"" + taxon + "\"");
 		}
 		if (image_type != null){
+			image_type = handleSpecialCharacters(image_type);
 			solrQuery.addFilterQuery(ImageDTO.IMAGE_TYPE + ":\"" + image_type + "\"");
 		}
 		if (sample_type != null){
+			sample_type = handleSpecialCharacters(sample_type);
 			solrQuery.addFilterQuery(ImageDTO.SAMPLE_TYPE + ":\"" + sample_type + "\"");
 		}
 		if (stage != null){
+			stage = handleSpecialCharacters(stage);
 			solrQuery.addFilterQuery(ImageDTO.STAGE + ":\"" + stage + "\" OR " + 
 				ImageDTO.STAGE_ID + ":\"" + stage + "\"");
 		}
 		if (visualisationMethod != null){
+			visualisationMethod = handleSpecialCharacters (visualisationMethod);
 			solrQuery.addFilterQuery(ImageDTO.VISUALISATION_METHOD_ID + ":\"" + visualisationMethod + "\" OR " + 
 				ImageDTO.VISUALISATION_METHOD_LABEL + ":\"" + visualisationMethod + "\"");
 		}
 		if (samplePreparation != null){
+			samplePreparation = handleSpecialCharacters(samplePreparation);
 			solrQuery.addFilterQuery(ImageDTO.SAMPLE_PREPARATION_ID + ":\"" + samplePreparation + "\" OR " + 
 				ImageDTO.SAMPLE_PREPARATION_LABEL + ":\"" + samplePreparation + "\"");
 		}
 		if (imagingMethod != null){
+			imagingMethod = handleSpecialCharacters(imagingMethod);
 			solrQuery.addFilterQuery(ImageDTO.IMAGING_METHOD_LABEL_ANALYSED + ":\"" + imagingMethod + "\" OR " + 
 			ImageDTO.IMAGING_METHOD_ID + ":\"" + imagingMethod + "\"");
 		}
 		if (sex != null){
+			sex = handleSpecialCharacters(sex);
 			solrQuery.addFilterQuery(ImageDTO.SEX + ":\"" + sex + "\"");
 		}
 		
@@ -138,6 +150,7 @@ public class ImageService extends BasicService{
 	
 	public String getImageAsJsonString(String imageId){
 		SolrQuery solrQuery = new SolrQuery();
+		imageId = handleSpecialCharacters(imageId);
 		solrQuery.setQuery(ImageDTO.ID + ":\""+ imageId + "\"");
 		solrQuery.set("wt", "json");
 		
@@ -159,7 +172,7 @@ public class ImageService extends BasicService{
 	/**
 	 * 
 	 * @param roiToReplace must exist
-	 * @param roiToAdd must have teh same id as roiToReplace
+	 * @param roiToAdd must have the same id as roiToReplace
 	 */
 	public void updateImageFromRoi(RoiDTO roiToReplace, RoiDTO roiToAdd){
 		if (imageIdExists(roiToAdd.getAssociatedImage()) && imageIdExists(roiToReplace.getAssociatedImage())){

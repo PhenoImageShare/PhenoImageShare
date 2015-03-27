@@ -60,6 +60,7 @@ public class ChannelService extends BasicService {
 		ChannelDTO channel = null;
 		
 		SolrQuery solrQuery = new SolrQuery();
+		channelId = handleSpecialCharacters(channelId);
 		solrQuery.setQuery(ChannelDTO.ID + ":\""+ channelId + "\"");
 		solrQuery.set("wt", "json");
 		try {
@@ -76,6 +77,7 @@ public class ChannelService extends BasicService {
 	
 	public String getChannelAsJsonString(String channelId){
 		SolrQuery solrQuery = new SolrQuery();
+		channelId = handleSpecialCharacters(channelId);
 		solrQuery.setQuery(ChannelDTO.ID + ":\""+ channelId + "\"");
 		solrQuery.set("wt", "json");
 		
@@ -93,7 +95,9 @@ public class ChannelService extends BasicService {
 	}
 	
 	public String getChannels(String imageId){
+		
 		SolrQuery solrQuery = new SolrQuery();
+		imageId = handleSpecialCharacters(imageId);
 		solrQuery.setQuery(ChannelDTO.ASSOCIATED_IMAGE + ":\""+ imageId + "\"");
 		solrQuery.set("wt", "json");
 		
@@ -115,7 +119,6 @@ public class ChannelService extends BasicService {
 			solr.addBeans(docs);
 			solr.commit();
 		} catch (SolrServerException | IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
