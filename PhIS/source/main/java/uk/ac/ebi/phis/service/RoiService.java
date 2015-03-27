@@ -24,6 +24,7 @@ public class RoiService extends BasicService{
 	public String getRoiAsJsonString(String roiId){
 		SolrQuery solrQuery = new SolrQuery();
 		solrQuery.setQuery("*:*");
+		roiId = handleSpecialCharacters(roiId);
 		solrQuery.setFilterQueries(RoiDTO.ID + ":\""+ roiId + "\"");
 		solrQuery.set("wt", "json");
 		
@@ -44,6 +45,7 @@ public class RoiService extends BasicService{
 	public RoiDTO getRoiById(String id){
 		
 		SolrQuery solrQuery = new SolrQuery();
+		id = handleSpecialCharacters(id);
 		solrQuery.setQuery(RoiDTO.ID + ":\""+ id + "\"");
 		try {
 			List<RoiDTO> results = solr.query(solrQuery).getBeans(RoiDTO.class);
@@ -60,10 +62,10 @@ public class RoiService extends BasicService{
 		
 		SolrQuery solrQuery = new SolrQuery();
 		solrQuery.setQuery("*:*");
+		imageId = handleSpecialCharacters(imageId);
 		solrQuery.setFilterQueries(RoiDTO.ASSOCIATED_IMAGE_ID + ":\""+ imageId + "\"");
 		solrQuery.set("wt", "json");
 		
-
 		try {
 			return JSONRestUtil.getResults(getQueryUrl(solrQuery)).toString();
 		} catch (IOException e) {
@@ -98,6 +100,8 @@ public class RoiService extends BasicService{
 	
 	
 	public void deleteRoi(String roiId){
+		
+		roiId = handleSpecialCharacters(roiId);
 		try {
 			solr.deleteByQuery(RoiDTO.ID + ":" + roiId);
 			solr.commit();

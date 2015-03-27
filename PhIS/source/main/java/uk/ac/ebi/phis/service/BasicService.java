@@ -34,4 +34,25 @@ public class BasicService {
 		return solr.query(solrQuery);		
 	}
 	
+	public String handleSpecialCharacters(String query){
+
+		query = query.replace("%5B", "\\[");
+		query = query.replace("%5D", "\\]");
+		query = query.replace("%7B", "\\{");
+		query = query.replace("%7D", "\\}");
+		query = query.replace("%7C", "\\|");
+		query = query.replace("%5C", "\\\\");
+		query = query.replace("%3C", "\\<");
+		query = query.replace("%3E", "\\>");
+		query = query.replace("."  , "\\.");
+		query = query.replace("("  , "\\(");
+		query = query.replace(")"  , "\\)");
+		query = query.replace("%2F", "\\/");
+		query = query.replace("%60", "\\`");
+		query = query.replace("~"  , "\\~"); 
+		query = query.replace("%"  , "\\%");
+		
+		return query;
+	}
+	
 }
