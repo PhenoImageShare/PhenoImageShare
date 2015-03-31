@@ -27,6 +27,11 @@
    <field name="depicted_anatomy_annotation_source" type="string" indexed="true" stored="true" multiValued="true"/>
    
    
+   <field name="expressed_in_anatomy_id" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="expressed_in_anatomy_term" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="expressed_in_anatomy_freetext" type="string" indexed="true" stored="true" multiValued="true"/>
+   
+   
    <field name="abnormality_anatomy_id" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="abnormality_anatomy_term" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="computed_abnormality_anatomy_id" type="string" indexed="true" stored="true" multiValued="true"/>

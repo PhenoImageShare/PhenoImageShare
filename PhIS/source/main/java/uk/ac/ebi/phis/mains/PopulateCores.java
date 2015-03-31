@@ -1,8 +1,9 @@
 package uk.ac.ebi.phis.mains;
 
+import java.io.File;
+
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
-import java.io.File;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
@@ -54,20 +55,22 @@ public class PopulateCores {
 			RoiService rs = (RoiService) applicationContext.getBean("roiService");
 			ChannelService cs = (ChannelService) applicationContext.getBean("channelService"); 
 			
-			// TODO delete everything in the cores. This will likely change as we might want to do updates only.
-//			is.clear();
-//			rs.clear();
-//			cs.clear();
+			// delete everything in the cores. This will likely change as we might want to do updates only.
+			is.clear();
+			rs.clear();
+			cs.clear();
 			
 			BatchXmlUploader reader = new BatchXmlUploader(is, rs, cs);
 
-			//TODO use full path to the file!!
+			boolean itWorked = false;
 			long time = System.currentTimeMillis();	
-			System.out.println(reader.validateAndUpload(dataDir + "/tracerExport.xml"));
+			itWorked = reader.validateAndUpload(dataDir + "/tracerExport.xml");
+			System.out.println(itWorked);
 			System.out.println("Validating Tracer XML took " + (System.currentTimeMillis() - time));
 
 			time = System.currentTimeMillis();
-	//		System.out.println("Is valid? " + reader.validateAndUpload(dataDir + "/sangerExport.xml"));
+			itWorked = reader.validateAndUpload(dataDir + "/sangerExport.xml");
+			System.out.println("Is valid? " + itWorked);
 			System.out.println("Validating Sanger XML took " + (System.currentTimeMillis() - time));
 			
 			System.out.println("Solr url is : " + is.getSolrUrl());
@@ -75,6 +78,8 @@ public class PopulateCores {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		
 	}
 	
 

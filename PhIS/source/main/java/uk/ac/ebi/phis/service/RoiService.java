@@ -2,6 +2,7 @@ package uk.ac.ebi.phis.service;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.solr.client.solrj.SolrQuery;
@@ -13,22 +14,17 @@ import uk.ac.ebi.phis.solrj.dto.RoiDTO;
 import uk.ac.ebi.phis.utils.web.JSONRestUtil;
 
 
-public class RoiService {
+public class RoiService extends BasicService{
 
-	private HttpSolrServer solr;
 	
-
-	public static final class RoiField {
-		
-	}
-
 	public RoiService(String solrUrl) {
-		solr = new HttpSolrServer(solrUrl);
+		super(solrUrl);
 	}
 	
 	public String getRoiAsJsonString(String roiId){
 		SolrQuery solrQuery = new SolrQuery();
 		solrQuery.setQuery("*:*");
+		roiId = handleSpecialCharacters(roiId);
 		solrQuery.setFilterQueries(RoiDTO.ID + ":\""+ roiId + "\"");
 		solrQuery.set("wt", "json");
 		
@@ -46,14 +42,30 @@ public class RoiService {
 	}	
 
 
+	public RoiDTO getRoiById(String id){
+		
+		SolrQuery solrQuery = new SolrQuery();
+		id = handleSpecialCharacters(id);
+		solrQuery.setQuery(RoiDTO.ID + ":\""+ id + "\"");
+		try {
+			List<RoiDTO> results = solr.query(solrQuery).getBeans(RoiDTO.class);
+			if (results.size() > 0){
+				return results.get(0);
+			}
+		} catch (SolrServerException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	public String getRois(String imageId){
 		
 		SolrQuery solrQuery = new SolrQuery();
 		solrQuery.setQuery("*:*");
+		imageId = handleSpecialCharacters(imageId);
 		solrQuery.setFilterQueries(RoiDTO.ASSOCIATED_IMAGE_ID + ":\""+ imageId + "\"");
 		solrQuery.set("wt", "json");
 		
-
 		try {
 			return JSONRestUtil.getResults(getQueryUrl(solrQuery)).toString();
 		} catch (IOException e) {
@@ -65,6 +77,18 @@ public class RoiService {
 		return "Couldn't get anything back from solr.";
 	}	
 	
+	public void updateRoi(RoiDTO roi){
+		List<RoiDTO> list = new ArrayList<>();
+		list.add(roi);
+		addBeans(list);
+	}
+	
+	public void addRoi(RoiDTO roi){
+		List<RoiDTO> list = new ArrayList<>();
+		list.add(roi);
+		addBeans(list);
+	}
+	
 	public void addBeans(List<RoiDTO> docs){
 		try {
 			solr.addBeans(docs);
@@ -75,6 +99,19 @@ public class RoiService {
 	}
 	
 	
+	public void deleteRoi(String roiId){
+		
+		roiId = handleSpecialCharacters(roiId);
+		try {
+			solr.deleteByQuery(RoiDTO.ID + ":" + roiId);
+			solr.commit();
+		} catch (SolrServerException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	/**
 	 * Removes all documents from the core
 	 * @throws IOException 
@@ -82,6 +119,7 @@ public class RoiService {
 	 */
 	public void clear() throws SolrServerException, IOException{
 		solr.deleteByQuery("*:*");
+		solr.commit();
 	}
 	
 

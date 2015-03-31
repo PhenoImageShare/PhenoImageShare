@@ -31,6 +31,7 @@ import uk.ac.ebi.phis.jaxb.ImageType;
 import uk.ac.ebi.phis.jaxb.OntologyTerm;
 import uk.ac.ebi.phis.jaxb.Organism;
 import uk.ac.ebi.phis.jaxb.Roi;
+import uk.ac.ebi.phis.jaxb.YesNo;
 import uk.ac.ebi.phis.service.ChannelService;
 import uk.ac.ebi.phis.service.ImageService;
 import uk.ac.ebi.phis.service.RoiService;
@@ -75,7 +76,9 @@ public class BatchXmlUploader {
 		doc = convertXmlToObjects(xmlLocationFullPath);
 		boolean isValid = validate(xmlLocationFullPath, doc);
 		try {
-			doBatchSubmission(doc);
+			if (isValid){
+				doBatchSubmission(doc);
+			}
 		} catch (IOException | SolrServerException e) {
 			e.printStackTrace();
 		}
@@ -92,6 +95,7 @@ public class BatchXmlUploader {
 			xsd = classloader.getResourceAsStream("phisSchema.xsd");
 			xml = new FileInputStream(xmlLocation);
 			isValid = validateAgainstXSD(xml, xsd);
+			
 			xsd.close();
 			xml.close();
 			isValid = (isValid && checkInformation(doc));
@@ -119,7 +123,6 @@ public class BatchXmlUploader {
 		int i = 0;
 		List<ImageDTO> imageDocs = new ArrayList<>();
 		for (Image img : images) {
-			// add it
 			imageDocs.add(fillPojo(img));
 			// flush every 1000 docs
 			if (i++ % 1000 == 0) {
@@ -180,7 +183,6 @@ public class BatchXmlUploader {
 		}
 		
 		if (roi.getDepictedAnatomicalStructure() != null){
-			
 			List<String> ids = new ArrayList<>(); // || with labels
 			List<String> labels = new ArrayList<>(); // || with ids
 			List<String> freetext = new ArrayList<>();
@@ -204,17 +206,28 @@ public class BatchXmlUploader {
 					}
 				}
 			}
-			if (ids.size() > 0){
-				bean.setDepictedAnatomyId(ids);
-				bean.setDepictedAnatomyTerm(labels);
-			}
-			if (freetext.size() > 0){
-				bean.setDepictedAnatomyFreetext(freetext);
-			}
-			if (computedIds.size() > 0){
-				bean.setComputedDepictedAnatomyId(computedIds);
-				bean.setComputedDepictedAnatomyTerm(computedLabels);
-			}
+
+		//	if(roi.getIsExpressionPattern().equals(YesNo.YES)){
+				if (ids.size() > 0){
+					bean.setExpressedAnatomyId(ids);
+					bean.setExpressedAnatomyTerm(labels);
+				}
+				if (freetext.size() > 0){
+					bean.setExpressedAnatomyFreetext(freetext);
+				}
+		//	} else {
+	/*			if (ids.size() > 0){
+					bean.setDepictedAnatomyId(ids);
+					bean.setDepictedAnatomyTerm(labels);
+				}
+				if (freetext.size() > 0){
+					bean.setDepictedAnatomyFreetext(freetext);
+				}
+				if (computedIds.size() > 0){
+					bean.setComputedDepictedAnatomyId(computedIds);
+					bean.setComputedDepictedAnatomyTerm(computedLabels);
+				}
+	*/	//	}
 		}
 		
 		if (roi.getAbnormalityInAnatomicalStructure() != null){
@@ -255,7 +268,6 @@ public class BatchXmlUploader {
 		
 		if (roi.getPhenotypeAnnotations() != null){
 			// Phenotypes
-			//TODO copy this to ann_bag in images
 			List<String> ids = new ArrayList<>(); // || with labels
 			List<String> labels = new ArrayList<>(); // || with ids
 			List<String> freetext = new ArrayList<>();
@@ -370,14 +382,14 @@ public class BatchXmlUploader {
 		if (desc.getImagingMethod() != null){
 			for (OntologyTerm im: desc.getImagingMethod().getEl()){
 				bean.setImagingMethodId(im.getTermId());
-				bean.setImagingMethodLabel(im.getTermLabel());
+				bean.setImagingMethodLabel(ou.getOntologyTermById(im.getTermId()).getLabel()); 
 				bean.addImagingMethodSynonyms(ou.getSynonyms(im.getTermId()));
 			}
 		}
 		if (desc.getSamplePreparation() != null){
 			for (OntologyTerm sp: desc.getSamplePreparation().getEl()){
 				bean.setSamplePreparationId(sp.getTermId());
-				bean.setSamplePreparationLabel(sp.getTermLabel());
+				bean.setSamplePreparationLabel(ou.getOntologyTermById(sp.getTermId()).getId());
 				bean.addSamplePreparationSynonyms(ou.getSynonyms(sp.getTermId()));
 			}
 		}
@@ -430,7 +442,7 @@ public class BatchXmlUploader {
 			}
 			if (img.getDepictedAnatomicalStructure().getOntologyTerm() != null){
 				bean.setAnatomyId(img.getDepictedAnatomicalStructure().getOntologyTerm().getTermId());
-				bean.setAnatomyTerm(img.getDepictedAnatomicalStructure().getOntologyTerm().getTermLabel());
+				bean.setAnatomyTerm(ou.getOntologyTermById(img.getDepictedAnatomicalStructure().getOntologyTerm().getTermId()).getLabel());
 				bean.addAnatomySynonyms(ou.getSynonyms(img.getDepictedAnatomicalStructure().getOntologyTerm().getTermId()));
 			}
 			
@@ -537,8 +549,8 @@ public class BatchXmlUploader {
 					}
 					if (ann.getOntologyTerm() != null){
 						phenotypeIds.add(ann.getOntologyTerm().getTermId());
-						phenotypeLabels.add(ann.getOntologyTerm().getTermLabel());
 						OntologyObject oo = ou.getOntologyTermById(ann.getOntologyTerm().getTermId().trim());
+						phenotypeLabels.add(oo.getLabel());
 						if (oo == null){
 							System.out.println("Ontology id not found in hash!! -> " + ann.getOntologyTerm().getTermId().trim());
 						}
@@ -578,8 +590,8 @@ public class BatchXmlUploader {
 					if (ann.getOntologyTerm() != null){
 						if (expression){
 							expressionInAnatomyIds.add(ann.getOntologyTerm().getTermId());
-							expressionInAnatomyLabels.add(ann.getOntologyTerm().getTermLabel());
 							OntologyObject oo = ou.getOntologyTermById(ann.getOntologyTerm().getTermId());
+							expressionInAnatomyLabels.add(oo.getLabel());
 							res.addExpressedGfSynonymsBag(oo.getSynonyms());
 							for (OntologyObject anc : oo.getIntermediateTerms()){
 								res.addExpressionInAncestorsIdBag(anc.getId());
@@ -589,8 +601,8 @@ public class BatchXmlUploader {
 						}
 						else{
 							depictedAnatomyIds.add(ann.getOntologyTerm().getTermId());
-							depictedAnatomyLabels.add(ann.getOntologyTerm().getTermLabel());
 							OntologyObject oo = ou.getOntologyTermById(ann.getOntologyTerm().getTermId());
+							depictedAnatomyLabels.add(oo.getLabel());
 							res.addDepictedAnatomySynonymsBag(oo.getSynonyms());
 							for (OntologyObject anc : oo.getIntermediateTerms()){
 								res.addDepictedAnatomyAncestorsIdBag(anc.getId());
@@ -610,8 +622,8 @@ public class BatchXmlUploader {
 					}
 					if (ann.getOntologyTerm() != null){
 						abnormalityInAnatomyIds.add(ann.getOntologyTerm().getTermId());
-						abnormalityInAnatomyLabels.add(ann.getOntologyTerm().getTermLabel());
 						OntologyObject oo = ou.getOntologyTermById(ann.getOntologyTerm().getTermId());
+						abnormalityInAnatomyLabels.add(oo.getLabel());
 						res.addAbnormalAnatomySynonymsBag(oo.getSynonyms());
 						for (OntologyObject anc : oo.getIntermediateTerms()){
 							res.addAbnormalAnatomyAncestorsIdBag(anc.getId());
@@ -745,36 +757,23 @@ private ImageDTO copyFieldsFromChannel(Image img, ImageDTO pojo){
 
 		// Check associated image/channel/roi ids are valid a) they exist , b)
 		// the link is reflezive
-		boolean res = checkIdsReferenceEWxistingObjects();
+		boolean res = checkIdsReferenceExistingObjects();
 		if (!res) { return false; }
 
 		for (Image img : imageIdMap.values()) {
-
-			// Check ontoloy fields contain ontology IDs and they are from the
-			// right ontology
-			// Check label & id match
 			if (!vu.hasValidOntologyTerms(img)) {
 				System.out.println("there was something wrong with the ontology terms for img id = " + img.getId());
-
 			}
-
-			// positive dimensions
 			if (!vu.hasPositieDimensions(img.getImageDescription().getImageDimensions())) {
 				System.out.println("Dimensions are not positive! Validation failed.");
 				return false;
 			}
-
 		}
 
 		for (Roi roi : roiIdMap.values()) {
 
-			// percentages
 			if (!vu.arePercentagesOk(roi.getCoordinates())) { return false; }
-
-			// Check ontoloy fields contain ontology IDs and they are from the
-			// right ontology
-			// Check label & id match
-			if (!vu.isValidOntologyTerms(roi)) {
+			if (!vu.hasValidOntologyTerms(roi)) {
 				System.out.println("there was something wrong with the ontology terms for roi id = " + roi.getId());
 				return false;
 			}
@@ -783,7 +782,7 @@ private ImageDTO copyFieldsFromChannel(Image img, ImageDTO pojo){
 	}
 
 
-	private boolean checkIdsReferenceEWxistingObjects() {
+	private boolean checkIdsReferenceExistingObjects() {
 
 		// Associated roi & channel for image really exist
 		for (Image img : imageIdMap.values()) {

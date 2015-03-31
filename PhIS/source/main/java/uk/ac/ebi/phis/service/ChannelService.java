@@ -2,30 +2,83 @@ package uk.ac.ebi.phis.service;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.HttpSolrServer;
+import org.apache.solr.client.solrj.response.QueryResponse;
+import org.apache.solr.common.SolrInputDocument;
 
+import scala.Array;
 import uk.ac.ebi.phis.solrj.dto.ChannelDTO;
+import uk.ac.ebi.phis.solrj.dto.RoiDTO;
 import uk.ac.ebi.phis.utils.web.JSONRestUtil;
 
-public class ChannelService {
+public class ChannelService extends BasicService {
 
-	private HttpSolrServer solr;
-
-
+	
 	public ChannelService(String solrUrl) {
 
-		solr = new HttpSolrServer(solrUrl);
+		super(solrUrl);
 	}
 
 	
+	public void deleteAssociatedRoi(RoiDTO roi){
+
+		String roiId = roi.getId();
+		List<String> channelIds = roi.getAssociatedChannel();
+		if (channelIds != null){
+			for(String channelId : channelIds){
+				ChannelDTO channel = getChannelBean(channelId);
+				while (channel.getAssociatedRoi().contains(roiId)){
+					channel.getAssociatedRoi().remove(roiId);
+				}
+				List<ChannelDTO> docs = new ArrayList<>();
+				docs.add(channel);
+				addBeans(docs);
+			}
+		}
+	}
+	
+	public void addAssociatedRoi(RoiDTO roi){
+		String roiId = roi.getId();
+		List<String> channelIds = roi.getAssociatedChannel();
+		if (channelIds != null){
+			for(String channelId : channelIds){
+				ChannelDTO channel = getChannelBean(channelId);
+				channel.addAssociatedRoi(roiId);
+				List<ChannelDTO> docs = new ArrayList<>();
+				docs.add(channel);
+				addBeans(docs);
+			}
+		}
+	}
+	
+	public ChannelDTO getChannelBean(String channelId){
+		ChannelDTO channel = null;
+		
+		SolrQuery solrQuery = new SolrQuery();
+		channelId = handleSpecialCharacters(channelId);
+		solrQuery.setQuery(ChannelDTO.ID + ":\""+ channelId + "\"");
+		solrQuery.set("wt", "json");
+		try {
+			QueryResponse result = solr.query(solrQuery);
+			if (result.getBeans(ChannelDTO.class).size() > 0){
+				// should have only one anyway as ids are unique
+				channel = result.getBeans(ChannelDTO.class).get(0);
+			}
+		} catch (SolrServerException e) {
+			e.printStackTrace();
+		}
+		return channel;
+	}
+	
 	public String getChannelAsJsonString(String channelId){
 		SolrQuery solrQuery = new SolrQuery();
-		solrQuery.setQuery("*:*");
-		solrQuery.setFilterQueries(ChannelDTO.ID + ":\""+ channelId + "\"");
+		channelId = handleSpecialCharacters(channelId);
+		solrQuery.setQuery(ChannelDTO.ID + ":\""+ channelId + "\"");
 		solrQuery.set("wt", "json");
 		
 		System.out.println("------ ChannelPojo" + getQueryUrl(solrQuery));
@@ -42,9 +95,10 @@ public class ChannelService {
 	}
 	
 	public String getChannels(String imageId){
+		
 		SolrQuery solrQuery = new SolrQuery();
-		solrQuery.setQuery("*:*");
-		solrQuery.setFilterQueries(ChannelDTO.ASSOCIATED_IMAGE + ":\""+ imageId + "\"");
+		imageId = handleSpecialCharacters(imageId);
+		solrQuery.setQuery(ChannelDTO.ASSOCIATED_IMAGE + ":\""+ imageId + "\"");
 		solrQuery.set("wt", "json");
 		
 		try {
@@ -65,7 +119,6 @@ public class ChannelService {
 			solr.addBeans(docs);
 			solr.commit();
 		} catch (SolrServerException | IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -85,6 +138,7 @@ public class ChannelService {
 	throws SolrServerException, IOException {
 
 		solr.deleteByQuery("*:*");
+		solr.commit();
 	}
 
 }

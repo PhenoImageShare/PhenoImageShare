@@ -157,6 +157,7 @@
 			<element name="sex" type="x:Sex" minOccurs="0" maxOccurs="1" />
 			<element name="ncbi_taxon_id" type="string" minOccurs="0" maxOccurs="1" />
 			<element name="stage" type="x:OntologyTerm" minOccurs="0" maxOccurs="1" />
+			<element name="organism_id" type="string" minOccurs="0" maxOccurs="1"/>
 		</all>
 	</complexType>
 

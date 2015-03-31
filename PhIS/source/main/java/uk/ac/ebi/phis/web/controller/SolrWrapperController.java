@@ -3,9 +3,7 @@ package uk.ac.ebi.phis.web.controller;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import org.apache.solr.client.solrj.SolrResponse;
 import org.apache.solr.client.solrj.SolrServerException;
-import org.apache.solr.common.SolrDocumentList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,9 +12,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import uk.ac.ebi.neo4jUtils.Neo4jAccessUtils;
+import uk.ac.ebi.phis.service.AutosuggestService;
 import uk.ac.ebi.phis.service.ChannelService;
 import uk.ac.ebi.phis.service.ImageService;
 import uk.ac.ebi.phis.service.RoiService;
+import uk.ac.ebi.phis.solrj.dto.AutosuggestTypes;
 
 @Controller
 @RequestMapping("/rest")
@@ -25,15 +26,16 @@ public class SolrWrapperController {
 
 	@Autowired
 	ImageService is;
-	
 
 	@Autowired
 	RoiService rs;
-	
 
 	@Autowired
 	ChannelService cs;
-	
+
+	@Autowired
+	AutosuggestService as;
+		
 	/**
 	 * 
 	 * @param phenotype
@@ -67,21 +69,54 @@ public class SolrWrapperController {
     		Model model
             ) throws SolrServerException, IOException, URISyntaxException {
 				
-		return is.getImage(term, phenotype, gene, mutantGene, anatomy, expressedGene, sex, taxon, image_type, sample_type, stage, visualisationMethod, 
+		return is.getImages(term, phenotype, gene, mutantGene, anatomy, expressedGene, sex, taxon, image_type, sample_type, stage, visualisationMethod, 
 						samplePreparation, imagingMethod, resultNo, start);
+    }
+	
+
+	@RequestMapping(value="/getImage", method=RequestMethod.GET)	
+    public @ResponseBody String getRoi(
+    		@RequestParam(value = "imageId", required = true) String imageId,
+    		Model model
+            ) throws SolrServerException, IOException, URISyntaxException {
+				
+		if (imageId != null){
+			return is.getImageAsJsonString(imageId);
+		}
+		return "";
     }
 	
 	
 	@RequestMapping(value="/getAutosuggest", method=RequestMethod.GET)
 	public  @ResponseBody String getSuggestions(
 			@RequestParam(value = "term", required = false) String term,
+			@RequestParam(value = "autosuggestType", required = false) String type,
+			@RequestParam(value = "resultNo", required = false) Integer resultNo,
+			@RequestParam(value = "taxon", required = false) String taxon,
+			@RequestParam(value = "sampleType", required = false) String sampleType,
+			@RequestParam(value = "stage", required = false) String stage,
+			@RequestParam(value = "imagingMethod", required = false) String imagingMethod,
+			@RequestParam(value = "imageGeneratedBy", required = false) String imageGeneratedBy,			
+			@RequestParam(value = "anatomy", required = false) String anatomy,
 			@RequestParam(value = "mutantGene", required = false) String mutantGene,
 			@RequestParam(value = "expressedGeneOrAllele", required = false) String expressedGeneOrAllele,
 			@RequestParam(value = "phenotype", required = false) String phenotype,
-			@RequestParam(value = "resultNo", required = false) Integer resultNo,
 			Model model){
-		return is.getAutosuggest(term, mutantGene, expressedGeneOrAllele, phenotype, resultNo);
+			
+		if (term != null){
+			return as.getAutosuggest(term, (type != null ? AutosuggestTypes.valueOf(type) : null), stage, imagingMethod, taxon, sampleType, imageGeneratedBy, resultNo);
+		} else if (anatomy != null){
+			return as.getAutosuggest(term, AutosuggestTypes.ANATOMY, stage, imagingMethod, taxon, sampleType, imageGeneratedBy, resultNo);
+		} else if (mutantGene != null){
+			return as.getAutosuggest(term, AutosuggestTypes.GENE, stage, imagingMethod, taxon, sampleType, imageGeneratedBy, resultNo);
+		} else if (expressedGeneOrAllele != null){
+			return as.getAutosuggest(term, AutosuggestTypes.GENE, stage, imagingMethod, taxon, sampleType, imageGeneratedBy, resultNo);
+		} else if (phenotype != null){
+			return as.getAutosuggest(term, AutosuggestTypes.PHENOTYPE, stage, imagingMethod, taxon, sampleType, imageGeneratedBy, resultNo);
+		}
+		return "";
 	}
+	
 	
 	@RequestMapping(value="/getRois", method=RequestMethod.GET)	
     public @ResponseBody String getRois(
@@ -114,7 +149,7 @@ public class SolrWrapperController {
 		}
 		return "";
     }
-	
+		
 	
 	@RequestMapping(value="/getRoi", method=RequestMethod.GET)	
     public @ResponseBody String getRoi(
@@ -131,6 +166,7 @@ public class SolrWrapperController {
 		}
 		return "";
     }
+	
 
 	@RequestMapping(value="/getChannel", method=RequestMethod.GET)	
     public @ResponseBody String getChannel(
@@ -147,6 +183,7 @@ public class SolrWrapperController {
 		return "";
     }
 	
+	
 	/**
 	 * 
 	 * @param model
@@ -161,6 +198,7 @@ public class SolrWrapperController {
 		System.out.println("Try /getImages .");
 		return "rest_home";
     }
+		
 }
 
 

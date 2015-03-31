@@ -1,10 +1,8 @@
 package uk.ac.hw.macs.bisel.phis.iqs;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.URL;
+import java.net.URLEncoder;
 import java.util.Enumeration;
 import java.util.Map;
 import java.util.logging.Level;
@@ -23,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class GetChannel extends HttpServlet {
 
-    private static final String url = "http://beta.phenoimageshare.org/data/rest/getChannel?"; // stem of every SOLR query
+    private static final String url = "http://beta.phenoimageshare.org/data/v0.0.3/rest/getChannel?"; // stem of every SOLR query
     private static final Logger logger = Logger.getLogger(System.class.getName());
     /**
      * Enables discovery of channel information for a single channel.
@@ -82,7 +80,7 @@ public class GetChannel extends HttpServlet {
                     queryURL += "&";
                 }
                 
-                queryURL += "channelId=" + params.get("id")[0]; // extend stem with parameter
+                queryURL += "channelId=" + URLEncoder.encode(params.get("id")[0], "UTF-8"); // extend stem with parameter
                 first = false; // next time you need a separator
             } else { // parameter was not recognised, send error
                 error = true; // error has been detected

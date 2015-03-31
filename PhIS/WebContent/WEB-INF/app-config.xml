@@ -12,10 +12,20 @@
 		">
 
 	<context:component-scan base-package="uk.ac.ebi" />
-
-	
+		
+	<bean id="neo4jAccessUtils"	 class="uk.ac.ebi.neo4jUtils.Neo4jAccessUtils">
+		<constructor-arg  value="${dbURI}" />
+	</bean>
+		
 	<bean id="imageService" class="uk.ac.ebi.phis.service.ImageService">
 		<constructor-arg  value="${internalSolrUrl}/images" />
+	</bean>
+	
+	<bean id="autosuggestService" class="uk.ac.ebi.phis.service.AutosuggestService">
+		<constructor-arg  value="${internalSolrUrl}/autosuggest" />
+	</bean>
+	
+	<bean id="genericUpdateService" class="uk.ac.ebi.phis.service.GenericUpdateService">
 	</bean>
 	
 	<bean id="roiService" class="uk.ac.ebi.phis.service.RoiService">

@@ -8,8 +8,6 @@ import org.apache.solr.client.solrj.beans.Field;
 
 public class ChannelDTO {
 
-	
-
 	public final static String ID = "id";
 	public final static String ASSOCIATED_ROI = "associated_roi";
 	public final static String ASSOCIATED_IMAGE = "associated_image";
@@ -28,8 +26,6 @@ public class ChannelDTO {
 	public final static String VISUALISATION_METHOD_ID = "visualisation_method_id";
 	public final static String VISUALISATION_METHOD_SYNONYMS = "visualisation_method_synonyms";
 
-	
-	
 	@Field(ChannelDTO.ID)
 	String id;
 	@Field(ChannelDTO.ASSOCIATED_IMAGE)
@@ -159,6 +155,14 @@ public class ChannelDTO {
 	public List<String> getAssociatedRoi() {
 	
 		return associatedRoi;
+	}
+	
+	public void addAssociatedRoi(String roiId) {
+		
+		if(associatedRoi == null){
+			associatedRoi = new ArrayList<>();
+		}
+		associatedRoi.add(roiId);
 	}
 	
 	/**

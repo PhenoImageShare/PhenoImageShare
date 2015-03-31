@@ -6,7 +6,10 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -245,18 +248,22 @@ public class TracerXmlGenerator {
 			        	doc.getChannel().add(channel);
 			        }
 	    		} 
+	    	//	if (i == 50 ){
+	    	//		break;
+	    	//	}
 	    	}// end while ( res.next())
 	        
 
+	        Date date = new Date();
+	        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+	        // File file = new File("source/main/resources/" + dateFormat.format(date) + "tracerExport.xml");
 	        File file = new File("source/main/resources/tracerExport.xml");
 			JAXBContext jaxbContext = JAXBContext.newInstance(Doc.class);
 			Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 	 
 			// output pretty printed
 			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-
 			jaxbMarshaller.marshal(doc, file);
-			jaxbMarshaller.marshal(doc, System.out);
 	        
 	        }catch(Exception e){
 	        	e.printStackTrace();

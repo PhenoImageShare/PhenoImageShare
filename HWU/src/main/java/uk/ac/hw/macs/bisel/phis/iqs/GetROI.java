@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.Enumeration;
 import java.util.Map;
 import java.util.logging.Level;
@@ -22,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class GetROI extends HttpServlet {
 
-    private static final String url = "http://beta.phenoimageshare.org/data/rest/getRoi?"; // stem of every SOLR query
+    private static final String url = "http://beta.phenoimageshare.org/data/v0.0.3/rest/getRoi?"; // stem of every SOLR query
     private static final Logger logger = Logger.getLogger(System.class.getName());
     /**
      * Enables discovery of ROI information for a single ROI.
@@ -77,7 +78,7 @@ public class GetROI extends HttpServlet {
                     queryURL += "&";
                 }
                 
-                queryURL += "roiId=" + params.get("id")[0]; // extend stem with parameter
+                queryURL += "roiId=" + URLEncoder.encode(params.get("id")[0], "UTF-8"); // extend stem with parameter
                 first = false; // next time you need a seperator
             } else { // parameter was not recognised, send error
                 error = true; // error has been detected
