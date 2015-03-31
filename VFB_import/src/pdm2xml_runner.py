@@ -50,14 +50,13 @@ image_set = VP.imageDataSet(ont_dict)
 image_set.set_source(source_name, source_link)
 image_set.set_background_channel_marker(VP.gen_GenotypeComponent(gene_symbol = 'bruchpilot')) # Need to find ID
 
-# Need to finish adding compulsory elements.  Still some not reliably added, but which?
-
 for i, v in pdm.items():
     image_url = 'http://fubar'  ### Where is this coming from?
     out = VP.VfbWtAdultBrainImage(ont = ont_dict, image_dataset = image_set, vfb_image_id = i, 
      image_url = image_url)
     # Problem with binding to doc second time round... Not clear why.
     out.set_signal_channel_visualisation_method('FBbi_00000437')
+    out.set_sex("Unknown")  # Setting default in case no indication of sex in data.
     for t in v["Types"]:
         # If named class
         if not t["isAnonymous"]:
@@ -85,8 +84,12 @@ for i, v in pdm.items():
                     gc=gen_GenotypeComponent(gene_id = t['objectId']) # Need to add name - from ont_dict
                 if gc:  
                     out.set_expressed_feature_for_signal_channel(gc)
-    out.doc.validateBinding()
-
+    try:
+        out.doc.validateBinding()
+    except pyxb.ValidationError as e:
+        print e.details()
+        raise
+    
 xml_out = ''
 
 try:
