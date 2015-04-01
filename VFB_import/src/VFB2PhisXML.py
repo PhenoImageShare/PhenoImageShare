@@ -135,6 +135,8 @@ class VfbImage():
         self.ont = ont
         self._initialise_image()
         self._unpack_image_dataset(image_dataset)
+        self.image.image_description.host = self.host
+
         
     def _unpack_image_dataset(self, image_dataset):
         self.set_source(image_dataset.source)
@@ -288,9 +290,8 @@ class VfbImage():
         """genotype_component: a phisSchema.GenotypeComponent object."""
         self.channel1.depicts_expression_of = genotype_component
     
- 
-        # Bind to appropriate channel in main code?
-        
+    def set_image_context_url(self, url):
+        self.image.image_description.image_context_url = url
 
 class VfbWtAdultBrainImage(VfbImage):
     """Args:
