@@ -27976,4 +27976,53 @@
 					0.0
 				</el>
 				<el>
-					
+					100.0
+				</el>
+			</x_coordinates>
+		</coordinates>
+		<depicted_anatomical_structure>
+			<el>
+				<ontology_term>
+					<termLabel>
+						neuroblast lineage clone
+					</termLabel>
+					<termId>
+						FBbt_00007683
+					</termId>
+				</ontology_term>
+				<annotation_freetext/>
+				<annotationMode>
+					Manual
+				</annotationMode>
+			</el>
+			<el>
+				<ontology_term>
+					<termLabel>
+						adult VESa1 lineage clone
+					</termLabel>
+					<termId>
+						FBbt_00050119
+					</termId>
+				</ontology_term>
+				<annotation_freetext/>
+				<annotationMode>
+					Manual
+				</annotationMode>
+			</el>
+			<el>
+				<ontology_term>
+					<termLabel>
+						adult brain
+					</termLabel>
+					<termId>
+						FBbt_00003624
+					</termId>
+				</ontology_term>
+				<annotation_freetext/>
+				<annotationMode>
+					Manual
+				</annotationMode>
+			</el>
+		</depicted_anatomical_structure>
+	</roi>
+</ns1:Doc>
