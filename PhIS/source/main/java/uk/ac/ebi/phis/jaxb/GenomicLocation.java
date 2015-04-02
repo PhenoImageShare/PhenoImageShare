@@ -145,4 +145,10 @@ public class GenomicLocation {
         this.strand = value;
     }
 
+	@Override
+	public String toString() {
+
+		return "GenomicLocation [startPos=" + startPos + ", endPos=" + endPos + ", chromosone=" + chromosone + ", strand=" + strand + "]";
+	}
+
 }

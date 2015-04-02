@@ -349,7 +349,9 @@ public class BatchXmlUploader {
 		bean.setId(img.getId());
 
 		ImageDescription desc = img.getImageDescription();
-		bean.setImageGeneratedBy(desc.getImageGeneratedBy().getDisplayName());
+		if (desc.getImageGeneratedBy() != null){
+			bean.setImageGeneratedBy(desc.getImageGeneratedBy().getDisplayName());
+		}
 		if (desc.getOrganismGeneratedBy() != null){
 			bean.setSampleGeneratedBy(desc.getOrganismGeneratedBy().getDisplayName());
 		}
@@ -497,7 +499,9 @@ public class BatchXmlUploader {
 					endPosition.add(g.getGenomicLocation().getEndPos());
 					strand.add(g.getGenomicLocation().getStrand());
 				}
-				zygosity.add(g.getZygosity().name());
+				if (g.getZygosity() != null){
+					zygosity.add(g.getZygosity().name());
+				}
 			}
 			
 			bean.setGeneIds(geneIds);

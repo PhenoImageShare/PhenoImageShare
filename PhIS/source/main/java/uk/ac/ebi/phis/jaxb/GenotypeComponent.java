@@ -227,4 +227,10 @@ public class GenotypeComponent {
         this.zygosity = value;
     }
 
+	@Override
+	public String toString() {
+
+		return "GenotypeComponent [geneId=" + geneId + ", geneSymbol=" + geneSymbol + ", geneticFeatureId=" + geneticFeatureId + ", geneticFeatureSymbol=" + geneticFeatureSymbol + ", geneticFeatureEnsemblId=" + geneticFeatureEnsemblId + ", genomicLocation=" + genomicLocation + ", zygosity=" + zygosity + "]";
+	}
+
 }
