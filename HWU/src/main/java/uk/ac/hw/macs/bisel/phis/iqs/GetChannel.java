@@ -58,7 +58,8 @@ public class GetChannel extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        logger.log(Level.SEVERE, "[QUERY] {0}", request.getQueryString());
+        
+        logger.log(Level.INFO, "[GUI QUERY] {0}", request.getRequestURI()+"?"+request.getQueryString());
 
         // check to fiÈnd version and forward
         Map<String, String[]> params = request.getParameterMap(); // get map of parameters and their values
