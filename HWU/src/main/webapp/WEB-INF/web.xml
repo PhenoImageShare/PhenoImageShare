@@ -1,33 +1,86 @@
-<web-app
-        version="3.0"
-        xmlns="http://java.sun.com/xml/ns/javaee"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_1.xsd"
+      version="3.1">
+    
     <display-name>IQS</display-name>
     <servlet>
         <servlet-name>GetImages</servlet-name>
-        <servlet-class>uk.ac.hw.macs.bisel.phis.iqs.GetImages</servlet-class> 
+        <servlet-class>uk.ac.hw.macs.bisel.phis.iqs.GetImages</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>GetROI</servlet-name>
-        <servlet-class>uk.ac.hw.macs.bisel.phis.iqs.GetROI</servlet-class> 
+        <servlet-class>uk.ac.hw.macs.bisel.phis.iqs.GetROI</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>GetROIs</servlet-name>
-        <servlet-class>uk.ac.hw.macs.bisel.phis.iqs.GetROIs</servlet-class> 
+        <servlet-class>uk.ac.hw.macs.bisel.phis.iqs.GetROIs</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>GetChannel</servlet-name>
-        <servlet-class>uk.ac.hw.macs.bisel.phis.iqs.GetChannel</servlet-class> 
-    </servlet>    
+        <servlet-class>uk.ac.hw.macs.bisel.phis.iqs.GetChannel</servlet-class>
+    </servlet>
     <servlet>
         <servlet-name>GetChannels</servlet-name>
-        <servlet-class>uk.ac.hw.macs.bisel.phis.iqs.GetChannels</servlet-class> 
-    </servlet>      
+        <servlet-class>uk.ac.hw.macs.bisel.phis.iqs.GetChannels</servlet-class>
+    </servlet>
     <servlet>
         <servlet-name>AutoSuggest</servlet-name>
-        <servlet-class>uk.ac.hw.macs.bisel.phis.iqs.AutoSuggest</servlet-class> 
-    </servlet>          
+        <servlet-class>uk.ac.hw.macs.bisel.phis.iqs.AutoSuggest</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>v003AS</servlet-name>
+        <servlet-class>uk.ac.hw.macs.bisel.phis.iqs.v003.v003AS</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>v003GC</servlet-name>
+        <servlet-class>uk.ac.hw.macs.bisel.phis.iqs.v003.v003GC</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>v003GCs</servlet-name>
+        <servlet-class>uk.ac.hw.macs.bisel.phis.iqs.v003.v003GCs</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>v003GIs</servlet-name>
+        <servlet-class>uk.ac.hw.macs.bisel.phis.iqs.v003.v003GIs</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>v003GR</servlet-name>
+        <servlet-class>uk.ac.hw.macs.bisel.phis.iqs.v003.v003GR</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>v003GRs</servlet-name>
+        <servlet-class>uk.ac.hw.macs.bisel.phis.iqs.v003.v003GRs</servlet-class>
+    </servlet>
+    
+    
+    <servlet>
+        <servlet-name>v004AS</servlet-name>
+        <servlet-class>uk.ac.hw.macs.bisel.phis.iqs.v004.v004AS</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>v004GC</servlet-name>
+        <servlet-class>uk.ac.hw.macs.bisel.phis.iqs.v004.v004GC</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>v004GCs</servlet-name>
+        <servlet-class>uk.ac.hw.macs.bisel.phis.iqs.v004.v004GCs</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>v004GIs</servlet-name>
+        <servlet-class>uk.ac.hw.macs.bisel.phis.iqs.v004.v004GIs</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>v004GR</servlet-name>
+        <servlet-class>uk.ac.hw.macs.bisel.phis.iqs.v004.v004GR</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>v004GRs</servlet-name>
+        <servlet-class>uk.ac.hw.macs.bisel.phis.iqs.v004.v004GRs</servlet-class>
+    </servlet>    
+    
+    
     <servlet-mapping>
         <servlet-name>GetImages</servlet-name>
         <url-pattern>/GetImages</url-pattern>
@@ -39,7 +92,7 @@
     <servlet-mapping>
         <servlet-name>GetImages</servlet-name>
         <url-pattern>/getImages</url-pattern>
-    </servlet-mapping>     
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>GetROI</servlet-name>
         <url-pattern>/GetROI</url-pattern>
@@ -47,11 +100,11 @@
     <servlet-mapping>
         <servlet-name>GetROI</servlet-name>
         <url-pattern>/getroi</url-pattern>
-    </servlet-mapping>   
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>GetROI</servlet-name>
         <url-pattern>/getRoi</url-pattern>
-    </servlet-mapping>       
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>GetROIs</servlet-name>
         <url-pattern>/GetROIs</url-pattern>
@@ -59,11 +112,11 @@
     <servlet-mapping>
         <servlet-name>GetROIs</servlet-name>
         <url-pattern>/getrois</url-pattern>
-    </servlet-mapping>     
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>GetROIs</servlet-name>
         <url-pattern>/getRois</url-pattern>
-    </servlet-mapping>             
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>GetChannel</servlet-name>
         <url-pattern>/GetChannel</url-pattern>
@@ -71,11 +124,11 @@
     <servlet-mapping>
         <servlet-name>GetChannel</servlet-name>
         <url-pattern>/getchannel</url-pattern>
-    </servlet-mapping>     
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>GetChannel</servlet-name>
         <url-pattern>/getChannel</url-pattern>
-    </servlet-mapping>    
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>GetChannels</servlet-name>
         <url-pattern>/GetChannels</url-pattern>
@@ -87,23 +140,74 @@
     <servlet-mapping>
         <servlet-name>GetChannels</servlet-name>
         <url-pattern>/getChannels</url-pattern>
-    </servlet-mapping>  
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AutoSuggest</servlet-name>
         <url-pattern>/getAutosuggest</url-pattern>
-    </servlet-mapping>       
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AutoSuggest</servlet-name>
         <url-pattern>/GetAutoSuggest</url-pattern>
-    </servlet-mapping> 
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AutoSuggest</servlet-name>
         <url-pattern>/getautosuggest</url-pattern>
-    </servlet-mapping>           
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>v003AS</servlet-name>
+        <url-pattern>/v003AS</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>v003GC</servlet-name>
+        <url-pattern>/v003GC</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>v003GCs</servlet-name>
+        <url-pattern>/v003GCs</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>v003GIs</servlet-name>
+        <url-pattern>/v003GIs</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>v003GR</servlet-name>
+        <url-pattern>/v003GR</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>v003GRs</servlet-name>
+        <url-pattern>/v003GRs</url-pattern>
+    </servlet-mapping>
+    
+    
+    <servlet-mapping>
+        <servlet-name>v004AS</servlet-name>
+        <url-pattern>/v004AS</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>v004GC</servlet-name>
+        <url-pattern>/v004GC</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>v004GCs</servlet-name>
+        <url-pattern>/v004GCs</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>v004GIs</servlet-name>
+        <url-pattern>/v004GIs</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>v004GR</servlet-name>
+        <url-pattern>/v004GR</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>v004GRs</servlet-name>
+        <url-pattern>/v004GRs</url-pattern>
+    </servlet-mapping>    
+    
+    
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
 </web-app>
-

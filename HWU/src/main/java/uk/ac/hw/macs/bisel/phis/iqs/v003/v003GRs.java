@@ -12,9 +12,13 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */package uk.ac.hw.macs.bisel.phis.iqs;
+ */
+package uk.ac.hw.macs.bisel.phis.iqs.v003;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.URLEncoder;
+import java.util.Enumeration;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,14 +26,15 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import uk.ac.hw.macs.bisel.phis.iqs.CommunicateWithSolr;
 
 /**
- * Facilitates auto complete services from the SOLR API
  *
  * @author kcm
  */
-public class AutoSuggest extends HttpServlet {
+public class v003GRs extends HttpServlet {
 
+    private static final String url = "http://beta.phenoimageshare.org/data/v0.0.3/rest/getRois?"; // stem of every SOLR query
     private static final Logger logger = Logger.getLogger(System.class.getName());
 
     /**
@@ -43,25 +48,65 @@ public class AutoSuggest extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        // set response type to JS and allow programs from other servers to send and receive
+        response.setContentType("application/json;charset=UTF-8");
+        response.setHeader("Access-Control-Allow-Origin", "*");
 
-        logger.log(Level.INFO, "[GUI QUERY] {0}", request.getRequestURI()+"?"+request.getQueryString());
+        boolean error = false; // has an error been detected?
+        String solrResult = ""; // JSON doc sent back to UI
 
-        // check to find version and forward
+        // create URL for SOLR query
+        String queryURL = url;
+        boolean first = true;
         Map<String, String[]> params = request.getParameterMap(); // get map of parameters and their values
-        String[] versions = params.get("version");
+        Enumeration<String> allParams = request.getParameterNames(); // get a list of parameter names
+        while (allParams.hasMoreElements()) {
+            String param = allParams.nextElement();
+            if (param.equalsIgnoreCase("imageId")) { // deal with phenotypes
+                if (!first) { // if this is not the first parameter added to queryURL include separator
+                    queryURL += "&";
+                }
 
-        if (versions == null) {
-            // default is v003
-            request.getRequestDispatcher("/v003AS").forward(request, response);
-        } else if (versions[0].equals("003")) {
-            request.getRequestDispatcher("/v003AS").forward(request, response);
-        } else if (versions[0].equals("004")) {
-            request.getRequestDispatcher("/v004AS").forward(request, response);
-        } else if (versions[0].equals("005")) {
-            request.getRequestDispatcher("/v005AS").forward(request, response);            
-        } else {
-            // otherwise forward to default
-            request.getRequestDispatcher("/v003AS").forward(request, response);
+                queryURL += "imageId=" + URLEncoder.encode(params.get("imageId")[0], "UTF-8"); // extend stem with parameter
+                first = false; // next time you need a seperator
+
+                // pagination    
+            } else if (param.equalsIgnoreCase("start")) { // number of initial result
+                if (!first) {
+                    queryURL += "&";
+                }
+                queryURL += "start=" + URLEncoder.encode(params.get("start")[0], "UTF-8");
+                first = false;
+            } else if (param.equalsIgnoreCase("num")) { // number of results to return
+                if (!first) {
+                    queryURL += "&";
+                }
+                queryURL += "resultNo=" + URLEncoder.encode(params.get("num")[0], "UTF-8");
+            } else if (param.equalsIgnoreCase("version")) {
+                // do nothing
+
+                // error handling                    
+            } else { // parameter was not recognised, send error
+                error = true; // error has been detected
+                logger.log(Level.WARNING, "Client sent invalid parameter: " + param);
+                solrResult = "{\"invalid_paramater\": \"" + param + "\"}";
+                break;
+            }
+        }
+
+        // run solr query
+        if (!error) { // if no error detected
+
+            CommunicateWithSolr cws = new CommunicateWithSolr();
+            solrResult = cws.talk(queryURL);
+        }
+
+        // send result to client (UI)
+        PrintWriter out = response.getWriter();
+        try {
+            out.println(solrResult); // may be error or genuine result
+        } finally {
+            out.close();
         }
     }
 
