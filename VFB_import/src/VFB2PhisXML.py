@@ -78,7 +78,7 @@ def gen_GenotypeComponent(gf_symbol=False, gf_id=False, gene_symbol=False, gene_
     gc = phisSchema.GenotypeComponent()
     if gene_id:
         gc.gene_id = gene_id
-    if gene_id:
+    if gene_symbol:
         gc.gene_symbol = gene_symbol
     if gf_symbol:
         gc.genetic_feature_symbol = gf_symbol
@@ -102,6 +102,7 @@ class imageDataSet():
         self.background_channel_marker = ''
         self.signal_channel_visualisation_methods = []
         self.background_channel_visualisation_methods = []
+        self.ont_dict = ont_dict
         
     def set_source(self, source_name, source_url):
         """source_name and source_url are strings"""
@@ -134,11 +135,13 @@ class VfbImage():
         self.ont = ont
         self._initialise_image()
         self._unpack_image_dataset(image_dataset)
+        self.image.image_description.host = self.host
+
         
     def _unpack_image_dataset(self, image_dataset):
         self.set_source(image_dataset.source)
-        self.set_signal_channel_visualisation_method(image_dataset.)  # Needs extend rather than append?
-        self.set_background_channel_visualisation_method(image_dataset.) # Needs extend rather than append?
+#        self.set_signal_channel_visualisation_method(image_dataset.)  # Needs extend rather than append?
+#        self.set_background_channel_visualisation_method(image_dataset.) # Needs extend rather than append?
         self.set_expressed_feature_for_background_channel(image_dataset.background_channel_marker)
         
     def set_organism(self, stage, sex):
@@ -164,13 +167,16 @@ class VfbImage():
         self.roi1 = phisSchema.Roi()
         self.roi2 = phisSchema.Roi()
         
-        # bind root objects to doc  (Could shift outside of class) 
-        # Need to test pattern
-        self.doc.append(self.image)
-        self.doc.append(self.channel1)
-        self.doc.append(self.channel2)
-        self.doc.append(self.roi1)
-        self.doc.append(self.roi2)
+        # bind root objects to doc  
+        # Which pattern??
+        
+        # This doesn't work for multiple images rois: self.doc.append(image)
+        # Need to work on checking the more obvious self.doc.image.append(self.image)
+        self.doc.image.append(self.image)
+        self.doc.channel.append(self.channel1)
+        self.doc.channel.append(self.channel2)
+        self.doc.roi.append(self.roi1)
+        self.doc.roi.append(self.roi2)
         
         # Populate IDs
         self.image.id = "image_" + self.vfb_image_id
@@ -284,9 +290,8 @@ class VfbImage():
         """genotype_component: a phisSchema.GenotypeComponent object."""
         self.channel1.depicts_expression_of = genotype_component
     
- 
-        # Bind to appropriate channel in main code?
-        
+    def set_image_context_url(self, url):
+        self.image.image_description.image_context_url = url
 
 class VfbWtAdultBrainImage(VfbImage):
     """Args:
@@ -317,11 +322,11 @@ class VfbWtAdultBrainImage(VfbImage):
         
         self.ont = ont
         self.doc = image_dataset.doc
-        self.set_source(image_dataset.source)
-        self.stage = gen_OntologyTerm(ont, "FBdv_00005369")  # Hmmmm - global!
-        self.vfb_image_id = vfb_image_id
+        self.vfb_image_id = vfb_image_id        
         self._initialise_image()
         self.image.image_description.image_url = image_url
+        self.set_source(image_dataset.source)
+        self.stage = gen_OntologyTerm(ont, "FBdv_00005369")  # Hmmmm - global!
         self.image.image_description.host = self.host
         self.set_dimensions(512, 512, 512)
         self.add_background_depicted_entity("FBbt_00003624", "background channel", "Manual")
