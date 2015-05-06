@@ -64,6 +64,13 @@ public class PopulateCores {
 
 			boolean itWorked = false;
 			long time = System.currentTimeMillis();	
+			itWorked = reader.validateAndUpload("/Users/tudose/git/PhenoImageShare_Jul_22/VFB_import/xml_out/VFB_Cachero2010.xml");
+			System.out.println(itWorked);
+			System.out.println("Validating EMAGE XML took " + (System.currentTimeMillis() - time));
+			
+			
+			itWorked = false;
+			time = System.currentTimeMillis();	
 			itWorked = reader.validateAndUpload(dataDir + "/emageExport.xml");
 			System.out.println(itWorked);
 			System.out.println("Validating EMAGE XML took " + (System.currentTimeMillis() - time));
