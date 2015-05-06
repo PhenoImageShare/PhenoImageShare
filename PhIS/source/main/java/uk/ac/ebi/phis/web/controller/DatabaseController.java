@@ -156,7 +156,7 @@ import uk.ac.ebi.phis.solrj.dto.RoiDTO;
 		@RequestMapping(value="/deleteAnnotation", method=RequestMethod.GET)	
 	    public @ResponseBody String createAnnotation(
 	    		@RequestParam(value = "userId", required = true) String userId,
-	            @RequestParam(value = "anntoationId", required = true) String anntoationId,
+	            @RequestParam(value = "annotationId", required = true) String anntoationId,
 	    		Model model) {
 			
 			String message = "SUCCESS";
