@@ -17,6 +17,8 @@ import org.neo4j.rest.graphdb.query.RestCypherQueryEngine;
 import org.neo4j.rest.graphdb.util.QueryResult;
 import org.springframework.stereotype.Service;
 
+import uk.ac.ebi.phis.exception.BasicPhisException;
+
 
 @Service 
 public class Neo4jAccessUtils {
@@ -29,13 +31,7 @@ public class Neo4jAccessUtils {
 	 public static Label channelLabel;
 	 public static Label imageLabel;
 	 public static Label userLabel;
-	 private static final String EXISTING_ID_EXCEPTION_MESSAGE = "ERROR: Id already exists. The id provided is ";
-	 private static final String EMPTY_ID_EXCEPTION_MESSAGE = "ERROR: No valid id provided. Please provide one and run again.";
-	 private static final String NO_COORDINATES_EXCEPTION = "ERROR: Please provide coordinates for each Annotation. At least x and y coordinates are required.";
-	 private static final String RELATIONSHIP_EXISTS_EXCEPTION = "ERROR: Relationship exits and was not added again.";	
-	 private static final String NO_ANNOTATION_EXCEPTION = "ERROR: We cannot add fill in ROIs with no annotations attached. Please provide some observation, phenotype, expression or anatomy information. ";
-	 private static final String NOT_MATCHING_ID_AND_TERM_ARRAYS = "ERROR: The label and id arrays do not have matching lengths. Ontology terms should be provided with both label and id in parallel arrays.";
-	 
+		 
 	public Neo4jAccessUtils (String dbURI) {
 		
 		db = new RestGraphDatabase(dbURI); 
@@ -48,33 +44,33 @@ public class Neo4jAccessUtils {
 	}
 	
 	
-	public String createAnnotation( String userId, String annotationId, String associatedImageId, List<Float> xCoordinates,
+	public void createAnnotation( String userId, String annotationId, String associatedImageId, List<Float> xCoordinates,
 	List<Float> yCoordinates, List<Float> zCoordinates, List<String> associatedChannelId, 
 	List<String> depictedAnatomyId, List<String> depictedAnatomyFreetext, List<String> depictedAnatomyTerm,
     List<String> abnInAnatomyId, List<String> abnInAnatomyFreetext,  List<String> abnInAnatomyTerm, 
     List<String> phenotypeId, List<String> phenotypeFreetext, List<String> phenotypeTerm, 
     List<String> observation, 
-    List<String> expressedInAnatomyId, List<String> expressedInAnatomyTerm, List<String> expressedInAnatomyFreetext)  {
+    List<String> expressedInAnatomyId, List<String> expressedInAnatomyTerm, List<String> expressedInAnatomyFreetext) 
+    throws BasicPhisException  {
 	
 		Date today = new Date();
-		String succeded = createAnnotationWithDates(userId, annotationId, associatedImageId, xCoordinates, yCoordinates, zCoordinates, associatedChannelId,
+		createAnnotationWithDates(userId, annotationId, associatedImageId, xCoordinates, yCoordinates, zCoordinates, associatedChannelId,
 			depictedAnatomyId, depictedAnatomyFreetext, depictedAnatomyTerm, abnInAnatomyId, abnInAnatomyFreetext, abnInAnatomyTerm, phenotypeId, 
 			phenotypeFreetext, phenotypeTerm, observation, expressedInAnatomyId, expressedInAnatomyTerm, expressedInAnatomyFreetext, 
 			today, today);
-		return succeded;
 	}
 	
-	public String createAnnotationWithDates( String userId, String annotationId, String associatedImageId, List<Float> xCoordinates,
+	public void createAnnotationWithDates( String userId, String annotationId, String associatedImageId, List<Float> xCoordinates,
 	List<Float> yCoordinates, List<Float> zCoordinates, List<String> associatedChannelId, 
 	List<String> depictedAnatomyId, List<String> depictedAnatomyFreetext, List<String> depictedAnatomyTerm,
     List<String> abnInAnatomyId, List<String> abnInAnatomyFreetext,  List<String> abnInAnatomyTerm, 
     List<String> phenotypeId, List<String> phenotypeFreetext, List<String> phenotypeTerm, 
     List<String> observation, 
     List<String> expressedInAnatomyId, List<String> expressedInAnatomyTerm, List<String> expressedInAnatomyFreetext,
-    Date creationDate, Date lastModifiedDate){
+    Date creationDate, Date lastModifiedDate) 
+    throws BasicPhisException{
 	
-		String actionCompleted = "SUCCESS";
-		try{
+		
 			Node user;
 			Node image;
 			Node annotation;
@@ -159,24 +155,21 @@ public class Neo4jAccessUtils {
 					annotation = setAnnotationProperty(annotation, AnnotationProperties.PHENOTYPE_FREETEXT, s);
 				}
 			}
-		}catch (Exception e){
-			e.printStackTrace();
-//			actionCompleted = org.apache.commons.lang.exception.ExceptionUtils.getStackTrace(e);
-			actionCompleted = e.getMessage();
-		}
-		return actionCompleted;
+		
 	}
 	
 	private boolean ontologyTermsValid(List<String> ids, List<String> labels){
 		return ((ids != null && labels != null && ids.size() == labels.size()) || (ids == null && labels == null)); 
 	}
 		
-	public void addBidirectionalRelation(Node fromNode, Neo4jRelationship relation, Node toNode) throws IllegalArgumentException{
+	
+	public void addBidirectionalRelation(Node fromNode, Neo4jRelationship relation, Node toNode) 
+	throws BasicPhisException{
 
 		Boolean toRight = existsUnidirectionalRelationship(fromNode, relation, toNode);
 		Boolean toLeft = existsUnidirectionalRelationship(toNode, relation, fromNode);
 		if ( toRight && toLeft){
-			throw new IllegalArgumentException(RELATIONSHIP_EXISTS_EXCEPTION);
+			throw new BasicPhisException(BasicPhisException.RELATIONSHIP_EXISTS_EXCEPTION);
 		}
 		try ( Transaction tx = db.beginTx() )
         {				
@@ -194,10 +187,10 @@ public class Neo4jAccessUtils {
         }   
 	}
 	
-	public void addUnidirectionalRelation(Node fromNode, Neo4jRelationship relation, Node toNode) throws Exception{
+	public void addUnidirectionalRelation(Node fromNode, Neo4jRelationship relation, Node toNode) throws BasicPhisException{
 		
 		if (existsUnidirectionalRelationship(fromNode, relation, toNode)){
-			throw new Exception(RELATIONSHIP_EXISTS_EXCEPTION);
+			throw new BasicPhisException(BasicPhisException.RELATIONSHIP_EXISTS_EXCEPTION);
 		}
 		try ( Transaction tx = db.beginTx() )  {
 			
@@ -211,7 +204,7 @@ public class Neo4jAccessUtils {
 	}
 	
 	public Node addAnnotationNode(String id, List<String> observation, Date creationDate, Date lastModifiedDate, List<Float> xCoordinates, 
-	List<Float> yCoordinates, List<Float> zCoordinates) throws IllegalArgumentException{
+	List<Float> yCoordinates, List<Float> zCoordinates) throws BasicPhisException{
 		
 		Node myNode = null;
 		if (id == null || id.equals("")){
@@ -221,7 +214,7 @@ public class Neo4jAccessUtils {
 			throw getIdAlreadyExists(id);
 		}
 		else if (xCoordinates == null || yCoordinates == null){
-			throw new IllegalArgumentException(NO_COORDINATES_EXCEPTION);
+			throw new BasicPhisException(BasicPhisException.NO_COORDINATES_EXCEPTION);
 		}
 		
 		try ( Transaction tx = db.beginTx() ) {
@@ -256,11 +249,11 @@ public class Neo4jAccessUtils {
 		return node;
 	}
 	
-	public Node addUser(String id) throws IllegalArgumentException{
+	public Node addUser(String id) throws BasicPhisException{
 		return createNode(id, userLabel);	
 	}
 	
-	public Node addOntologyTerm(String id, String termLabel) throws IllegalArgumentException{
+	public Node addOntologyTerm(String id, String termLabel) throws BasicPhisException{
 		Node ot = createNode(id, ontologyTermLabel);
 		if (termLabel != null){
 			try ( Transaction tx = db.beginTx() )
@@ -273,15 +266,15 @@ public class Neo4jAccessUtils {
         return ot;
 	}
 	
-	public Node addImage(String id) throws IllegalArgumentException{
+	public Node addImage(String id) throws BasicPhisException{
 		return createNode(id, imageLabel);
 	}
 	
-	public Node addChannel(String id) throws IllegalArgumentException{
+	public Node addChannel(String id) throws BasicPhisException{
 		return createNode(id, channelLabel);
 	}
 	
-	private Node createNode(String id, Label label) throws IllegalArgumentException{
+	private Node createNode(String id, Label label) throws BasicPhisException{
 		Node myNode;
 		System.out.println("Label + " + label);
 		if (id == null || id.equals("")){
@@ -301,20 +294,20 @@ public class Neo4jAccessUtils {
 	}
 	
 	
-	private IllegalArgumentException getEmptyIdException(){
-		return new IllegalArgumentException(EMPTY_ID_EXCEPTION_MESSAGE);
+	private BasicPhisException getEmptyIdException(){
+		return new BasicPhisException(BasicPhisException.EMPTY_ID_EXCEPTION_MESSAGE);
 	}
 	
-	private IllegalArgumentException getIdAlreadyExists(String id){
-		return new IllegalArgumentException(EXISTING_ID_EXCEPTION_MESSAGE + id);
+	private BasicPhisException getIdAlreadyExists(String id){
+		return new BasicPhisException(BasicPhisException.EXISTING_ID_EXCEPTION_MESSAGE + id);
 	}
 	
-	private IllegalArgumentException getNotMatchingIdAndTerm(){
-		return new IllegalArgumentException(NOT_MATCHING_ID_AND_TERM_ARRAYS);
+	private BasicPhisException getNotMatchingIdAndTerm(){
+		return new BasicPhisException(BasicPhisException.NOT_MATCHING_ID_AND_TERM_ARRAYS);
 	}
 	
-	private  IllegalArgumentException getNoAnnotationException(){
-		return new IllegalArgumentException (NO_ANNOTATION_EXCEPTION);
+	private  BasicPhisException getNoAnnotationException(){
+		return new BasicPhisException(BasicPhisException.NO_ANNOTATION_EXCEPTION);
 	}
 	
 	public void addSomething(){
@@ -364,26 +357,39 @@ public class Neo4jAccessUtils {
 	}
 	
 	
-	public Node getOrCreateNode(String id, String name, Label label) throws IllegalArgumentException{
+	public Node getOrCreateNode(String id, String name, Label label) 
+	throws BasicPhisException{
+		
 		Node res ;
+		
 		if ( existsId(id, label) ){
 			res = getNodeById(id);
 		} else {
 			res = createNode(id, label);
 		}
 		res.setProperty(AnnotationProperties.ID.name(), name);
+		
 		return res;
+		
 	}
 	
+	
+	
 	public Node getNodeById(String id){
+		
 		QueryResult<Map<String, Object>> result = engine.query( "match (obj) WHERE obj."+AnnotationProperties.ID.name()+"=\"" + id + "\" return id(obj)" , null);
+		
 		for (Map<String, Object> row : result) {
         //	return (Node) row.get("obj"); // should have only one anyway as ids are unique
 			System.out.println("ID: " + ((Number)row.get("id(obj)")).longValue());
 			return db.getNodeById(((Number)row.get("id(obj)")).longValue());
         }
+		
         return null;
+        
 	}
+	
+	
 	
 	public Label createLabel(String label){
 		Label l = null;
@@ -391,23 +397,36 @@ public class Neo4jAccessUtils {
 			l = DynamicLabel.label(label);
 			tx.close();
 		}
+		
 		return l;
+		
 	}
 	
+	
+	
 	public void addUniqueIdConstraint(Label l){
+		
 		try ( Transaction tx = db.beginTx(); ){
 			db.schema().constraintFor(l).assertPropertyIsUnique(AnnotationProperties.ID.name()).create();
 			tx.close();
 		}
 	}
 	
+	
+	
 	public boolean existsId(String id, Label label){
+		
 		System.out.println("ENGINE:: " + engine.toString());
 		System.out.println("DATABASE ::: " + db.getRestAPI().getBaseUri());
+		
 		return (engine.query( "MATCH (obj:" + label + ") WHERE obj."+AnnotationProperties.ID.name()+"=\"" + id + "\" RETURN obj" , null).iterator().hasNext());
+		
 	}
 	
+	
+	
 	public String readThisQuery(String query){
+		
         try ( Transaction ignored = db.beginTx() )
         {
             String resultString = "";            
@@ -418,14 +437,22 @@ public class Neo4jAccessUtils {
             	resultString += "\n";
             }
             ignored.close();
+            
             return resultString;
+            
         }
 	}	
 	
+	
+	
 	public String getDirectRelationsTo(String nodeId){
+		
 		String query = "MATCH (a)-[r]-(b) WHERE b."+AnnotationProperties.ID.name()+"=\"" + nodeId + "\" RETURN a."+AnnotationProperties.ID.name()+", type(r), b."+AnnotationProperties.ID.name();
+		
 		return readThisQuery(query);
+		
 	}
+	
 	
 	public boolean existsUnidirectionalRelationship(Node fromNode, Neo4jRelationship relation, Node toNode){
 		String rel;
@@ -445,7 +472,9 @@ public class Neo4jAccessUtils {
 		return (engine.query( testQuery, null ).iterator().hasNext());
 	}
 	
+	
 	public void deleteNodeWithRelations(String nodeId){
+		
 		try ( Transaction tx = db.beginTx() )
         {
 			String query = "MATCH (n {"+AnnotationProperties.ID.name()+":'" + nodeId + "'}) OPTIONAL MATCH (n {"+AnnotationProperties.ID.name()+":'" + nodeId + "'})-[r]-() DELETE n,r";
@@ -454,41 +483,41 @@ public class Neo4jAccessUtils {
 			tx.success();
 			tx.close();
         }
+		
 	}
 	
-	public String updateAnnotation(String userId, String annotationId, String associatedImageId, List<Float> xCoordinates,
+	
+	public void updateAnnotation(String userId, String annotationId, String associatedImageId, List<Float> xCoordinates,
 		List<Float> yCoordinates, List<Float> zCoordinates, List<String> associatedChannelId, 
 		List<String> depictedAnatomyId, List<String> depictedAnatomyFreetext, List<String> depictedAnatomyTerm,
 		List<String> abnInAnatomyId, List<String> abnInAnatomyFreetext,  List<String> abnInAnatomyTerm, 
 		List<String> phenotypeId, List<String> phenotypeFreetext, List<String> phenotypeTerm, 
 		List<String> observation, 
-		List<String> expressedInAnatomyId, List<String> expressedInAnatomyTerm, List<String> expressedInAnatomyFreetext){
+		List<String> expressedInAnatomyId, List<String> expressedInAnatomyTerm, List<String> expressedInAnatomyFreetext) 
+	throws BasicPhisException{
 		
-		String success = "SUCCESS";
 		Date today = new Date();
-		try{
-			if (existsId(annotationId, annLabel)){
-				if (hasSameUser(userId, annotationId)){
-					deleteNodeWithRelations(annotationId);
-					createAnnotationWithDates(userId, annotationId, associatedImageId, xCoordinates, yCoordinates, zCoordinates, associatedChannelId,
-						depictedAnatomyId, depictedAnatomyFreetext, depictedAnatomyTerm, abnInAnatomyId, abnInAnatomyFreetext, abnInAnatomyTerm, 
-						phenotypeId, phenotypeFreetext, phenotypeTerm, observation, expressedInAnatomyId, expressedInAnatomyTerm, expressedInAnatomyFreetext, 
-						today, today);
-				}
-				else {
-					success = "Users did not match.";
-				}
-			} else {
-				success = "Annotation id does not exist.";
+		
+		if (existsId(annotationId, annLabel)){
+			if (hasSameUser(userId, annotationId)){
+				deleteNodeWithRelations(annotationId);
+				createAnnotationWithDates(userId, annotationId, associatedImageId, xCoordinates, yCoordinates, zCoordinates, associatedChannelId,
+					depictedAnatomyId, depictedAnatomyFreetext, depictedAnatomyTerm, abnInAnatomyId, abnInAnatomyFreetext, abnInAnatomyTerm, 
+					phenotypeId, phenotypeFreetext, phenotypeTerm, observation, expressedInAnatomyId, expressedInAnatomyTerm, expressedInAnatomyFreetext, 
+					today, today);
 			}
-		}catch(Exception e){
-			e.printStackTrace();
-			success = e.getMessage();
+			else {
+				throw new BasicPhisException("User provided does not match the owner.");
+			}
+		} else {
+			throw new BasicPhisException("Annotation id does not exist.");
 		}
-		return success;
+	
 	}
 	
-	public String getCreationDate(String annId){		
+	
+	public String getCreationDate(String annId){
+		
 		String date = null;
 		try ( Transaction tx = db.beginTx() )
         {
@@ -497,16 +526,23 @@ public class Neo4jAccessUtils {
             tx.close();
         }
 		System.out.println("Date : " + date);
+		
 		return date;
+		
 	}
 	
+	
 	public boolean hasSameUser(String userId, String nodeId){
+		
 		Node node = getNodeById(nodeId);
 		Node user = getNodeById(userId);
 		return existsUnidirectionalRelationship(node, Neo4jRelationship.CREATED_BY, user);
 	}
 	
+	
 	public void closeDb(){
+		
 		db.shutdown();
+		
 	}
 }

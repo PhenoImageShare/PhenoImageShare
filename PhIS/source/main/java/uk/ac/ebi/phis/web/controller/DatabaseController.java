@@ -77,41 +77,21 @@ import uk.ac.ebi.phis.solrj.dto.RoiDTO;
 	    		Model model  ) {
 			
 			JSONObject succeded = getSuccessJson();
-			String message = "";
 			
 			try {
 				if (is.imageIdExists(associatedImageId)){
 					
-					message = neo.createAnnotation(userId, annotationId, associatedImageId, xCoordinates, yCoordinates, zCoordinates, associatedChannelId,
+					neo.createAnnotation(userId, annotationId, associatedImageId, xCoordinates, yCoordinates, zCoordinates, associatedChannelId,
 					depictedAnatomyId, depictedAnatomyFreetext, depictedAnatomyTerm, abnInAnatomyId, abnInAnatomyFreetext, abnInAnatomyTerm,
 					phenotypeId, phenotypeFreetext, phenotypeTerm, observations, expressionInAnatomyId, expressionInAnatomyTerm, expressionInAnatomyFreetext);
 					
-					if (message.equals("SUCCESS")){
-						ArrayList zCoord = (zCoordinates != null ? new ArrayList<Float>(zCoordinates) : null);
-						RoiDTO roi = new RoiDTO(annotationId, associatedChannelId, associatedImageId, depictedAnatomyId, depictedAnatomyTerm, 
+					ArrayList zCoord = (zCoordinates != null ? new ArrayList<Float>(zCoordinates) : null);
+					RoiDTO roi = new RoiDTO(annotationId, associatedChannelId, associatedImageId, depictedAnatomyId, depictedAnatomyTerm, 
 							depictedAnatomyFreetext, abnInAnatomyId, abnInAnatomyTerm, abnInAnatomyFreetext, 
 							phenotypeId, phenotypeTerm, phenotypeFreetext, observations, new ArrayList<Float>(xCoordinates), 
 							new ArrayList<Float>(yCoordinates), zCoord, expressionInAnatomyTerm, expressionInAnatomyFreetext, expressionInAnatomyId);
-						try {
-							gus.addToCores(roi);
-						} catch (ParameterNotFoundException e) {
-							e.printStackTrace();
-						} catch (BasicPhisException e) {
-							e.printStackTrace();
-							succeded = getFailJson();
-							succeded.put("message", e.getMessage());
-						}
-					}
-					else {
-						succeded = getFailJson();
-						succeded.put("message", message);
-					}
-				}else {
-					succeded = getFailJson();
-					succeded.put("message", "Please provide an existing image id.");
-				}
-			} catch (JSONException e) {
-				e.printStackTrace();
+					gus.addToCores(roi);					
+				}				
 			} catch (BasicPhisException e) {
 				e.printStackTrace();
 				succeded = getFailJson();
@@ -144,45 +124,36 @@ import uk.ac.ebi.phis.solrj.dto.RoiDTO;
 	            @RequestParam(value = "observation", required = false) List<String> observations,
 	    		Model model ) {
 			
-			String message;
 			JSONObject succeded = getSuccessJson();
 			
 			try {
+				
 				if (is.imageIdExists(associatedImageId)){
 				
-					message = neo.updateAnnotation(userId, annotationId, associatedImageId, xCoordinates, yCoordinates, zCoordinates, associatedChannelId,
+					neo.updateAnnotation(userId, annotationId, associatedImageId, xCoordinates, yCoordinates, zCoordinates, associatedChannelId,
 						depictedAnatomyId, depictedAnatomyFreetext, depictedAnatomyTerm, abnInAnatomyId, abnInAnatomyFreetext, abnInAnatomyTerm, phenotypeId, 
 						phenotypeFreetext, phenotypeTerm, observations, expressionInAnatomyId, expressionInAnatomyTerm, expressionInAnatomyFreetext);
 					
-					if (message.equals("SUCCESS")){
+					
 						RoiDTO roi = new RoiDTO(annotationId, associatedChannelId, associatedImageId, depictedAnatomyId, depictedAnatomyTerm, 
 							depictedAnatomyFreetext, abnInAnatomyId, abnInAnatomyTerm, abnInAnatomyFreetext, 
 							phenotypeId, phenotypeTerm, phenotypeFreetext, observations, new ArrayList<Float>(xCoordinates), 
 							new ArrayList<Float>(yCoordinates), zCoordinates != null ? new ArrayList<Float>(zCoordinates) : null,
 							expressionInAnatomyTerm, expressionInAnatomyFreetext, expressionInAnatomyId);
-						try {
-							gus.addToCores(roi);
-						} catch (ParameterNotFoundException e) {
-							e.printStackTrace();
-						}
-					}	else {
-						succeded = getFailJson();
-						succeded.put("message", message);
-					}
-				} else {
-					message = "Please provide an existing image id.";
-					succeded = getFailJson();
-					succeded.put("message", message);
+						gus.addToCores(roi);
+						
 				}
-			} catch (JSONException e) {
-				e.printStackTrace();
+				
 			} catch (BasicPhisException e) {
 				e.printStackTrace();
 				succeded = getFailJson();
 				succeded.put("message", e.getMessage());
 			}
+			
 			return succeded.toString();
 	    }
+		
+		
 		
 		@RequestMapping(value="/deleteAnnotation", method=RequestMethod.GET)	
 	    public @ResponseBody String createAnnotation(
@@ -190,7 +161,6 @@ import uk.ac.ebi.phis.solrj.dto.RoiDTO;
 	            @RequestParam(value = "annotationId", required = true) String anntoationId,
 	    		Model model) {
 			
-			String message = "SUCCESS";
 			JSONObject obj = getSuccessJson();
 			
 			try {
@@ -198,29 +168,37 @@ import uk.ac.ebi.phis.solrj.dto.RoiDTO;
 					neo.deleteNodeWithRelations(anntoationId);
 					gus.deleteFromCores(anntoationId);
 				}else{
-					message = "User provided does not match the user of the annotation. Annotation was not deleted.";
-					obj = getFailJson();
-					obj.put("message", message);
+					throw new BasicPhisException("User provided does not match the user of the annotation. Annotation was not deleted.");
 				}
-			} catch (Exception e) {
+			} catch (BasicPhisException e){
 				e.printStackTrace();
 				obj = getFailJson();
-				obj.put("message", message);
-				message = e.getMessage();
+				obj.put("message", e.getMessage());				
 			}
+			
 			return obj.toString();
 	    }
 		
+		
+		
 		private JSONObject getSuccessJson(){
+			
 			JSONObject obj = new JSONObject();
 			obj.put("outcome", "SUCCESS");
+			
 			return obj;
+			
 		}
 		
+		
+		
 		private JSONObject getFailJson(){
+			
 			JSONObject obj = new JSONObject();
 			obj.put("outcome", "FAIL");
+			
 			return obj;
+			
 		}
 	}
 

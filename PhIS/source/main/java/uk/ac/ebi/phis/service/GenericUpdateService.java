@@ -35,7 +35,7 @@ public class GenericUpdateService {
 	}
 	
 	
-	public void addToCores(RoiDTO roi) throws ParameterNotFoundException, BasicPhisException{
+	public void addToCores(RoiDTO roi) throws BasicPhisException{
 		is.addToImageFromRoi(roi);
 		rs.addRoi(roi);
 		cs.addAssociatedRoi(roi);		
