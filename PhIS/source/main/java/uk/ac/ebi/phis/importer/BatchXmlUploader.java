@@ -609,7 +609,10 @@ public class BatchXmlUploader {
 						}
 						else{
 							depictedAnatomyIds.add(ann.getOntologyTerm().getTermId());
-							OntologyObject oo = ou.getOntologyTermById(ann.getOntologyTerm().getTermId());
+							OntologyObject oo = ou.getOntologyTermById(ann.getOntologyTerm().getTermId().replace(":", "_"));
+							if (oo == null){
+								System.out.println("Ontology id not found : " + ann.getOntologyTerm().getTermId());
+							}
 							depictedAnatomyLabels.add(oo.getLabel());
 							res.addDepictedAnatomySynonymsBag(oo.getSynonyms());
 							for (OntologyObject anc : oo.getIntermediateTerms()){

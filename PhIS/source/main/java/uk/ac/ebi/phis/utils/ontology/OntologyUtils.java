@@ -62,16 +62,15 @@ public class OntologyUtils {
 		synonymRelations.add("http://www.geneontology.org/formats/oboInOwl#hasRelatedSynonym");
 		synonymRelations.add("http://www.geneontology.org/formats/oboInOwl#hasBroadSynonym");
 		
-		//http://purl.obolibrary.org/obo/mp.owl
 		phenotypeOntologies.add(System.getProperty("user.home") + "/phis_ontologies/mp.owl");
-		//http://purl.obolibrary.org/obo/emapa.owl
+
 		anatomyOntologies.add(System.getProperty("user.home") + "/phis_ontologies/emapa.owl");
-		//http://purl.obolibrary.org/obo/emap.owl
 		anatomyOntologies.add(System.getProperty("user.home") + "/phis_ontologies/emap.owl");
-		//http://purl.obolibrary.org/obo/ma.owl
 		anatomyOntologies.add(System.getProperty("user.home") + "/phis_ontologies/ma.owl");
-		//http://www.berkeleybop.org/ontologies/mmusdv.owl
+		anatomyOntologies.add(System.getProperty("user.home") + "/phis_ontologies/fbbt.owl");
+		
 		stageOntologies.add(System.getProperty("user.home") + "/phis_ontologies/mmusdv.owl");
+		stageOntologies.add(System.getProperty("user.home") + "/phis_ontologies/fbdv.owl");
 		
 		long time = System.currentTimeMillis();
 		loadHashes();

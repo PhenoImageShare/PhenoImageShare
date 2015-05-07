@@ -64,10 +64,33 @@ public class PopulateCores {
 
 			boolean itWorked = false;
 			long time = System.currentTimeMillis();	
-			itWorked = reader.validateAndUpload("/Users/tudose/git/PhenoImageShare_Jul_22/VFB_import/xml_out/VFB_Cachero2010.xml");
+			itWorked = reader.validateAndUpload(dataDir + "/VFB_Cachero2010.xml");
 			System.out.println(itWorked);
 			System.out.println("Validating VFB_Cachero2010 XML took " + (System.currentTimeMillis() - time));
 			
+			itWorked = false;
+			time = System.currentTimeMillis();	
+			itWorked = reader.validateAndUpload(dataDir + "/VFB_Ito2013.xml");
+			System.out.println(itWorked);
+			System.out.println("Validating VFB_Ito2013 XML took " + (System.currentTimeMillis() - time));
+			
+			itWorked = false;
+			time = System.currentTimeMillis();	
+			itWorked = reader.validateAndUpload(dataDir + "/VFB_Jenett2012_full.xml");
+			System.out.println(itWorked);
+			System.out.println("Validating VFB_Jenett2012_full XML took " + (System.currentTimeMillis() - time));
+			
+			itWorked = false;
+			time = System.currentTimeMillis();	
+			itWorked = reader.validateAndUpload(dataDir + "/VFB_Yu2013.xml");
+			System.out.println(itWorked);
+			System.out.println("Validating VFB_Yu2013 XML took " + (System.currentTimeMillis() - time));
+			
+			itWorked = false;
+			time = System.currentTimeMillis();	
+			itWorked = reader.validateAndUpload(dataDir + "/VFB_flycircuit_plus.xml");
+			System.out.println(itWorked);
+			System.out.println("Validating VFB_flycircuit_plus XML took " + (System.currentTimeMillis() - time));
 			
 			itWorked = false;
 			time = System.currentTimeMillis();	
