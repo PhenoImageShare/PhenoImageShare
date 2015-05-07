@@ -15,6 +15,7 @@ import org.json.JSONObject;
 import org.neo4j.cypher.ParameterNotFoundException;
 import org.springframework.stereotype.Service;
 
+import uk.ac.ebi.phis.exception.BasicPhisException;
 import uk.ac.ebi.phis.solrj.dto.ChannelDTO;
 import uk.ac.ebi.phis.solrj.dto.ImageDTO;
 import uk.ac.ebi.phis.solrj.dto.RoiDTO;
@@ -173,8 +174,9 @@ public class ImageService extends BasicService{
 	 * 
 	 * @param roiToReplace must exist
 	 * @param roiToAdd must have the same id as roiToReplace
+	 * @throws BasicPhisException 
 	 */
-	public void updateImageFromRoi(RoiDTO roiToReplace, RoiDTO roiToAdd){
+	public void updateImageFromRoi(RoiDTO roiToReplace, RoiDTO roiToAdd) throws BasicPhisException{
 		if (imageIdExists(roiToAdd.getAssociatedImage()) && imageIdExists(roiToReplace.getAssociatedImage())){
 			deleteRoiRefferences(roiToReplace);
 			addToImageFromRoi(roiToAdd);
@@ -182,15 +184,17 @@ public class ImageService extends BasicService{
 	}
 	
 	
-	public boolean imageIdExists(String id){
+	public boolean imageIdExists(String id) throws BasicPhisException{
+
 		return getImageDTOById(id) != null;
 	}
 	
 	/**
 	 * Delete all refferences to this roi (roi id, annotations from annotations bags)
 	 * @param roi
+	 * @throws BasicPhisException 
 	 */
-	public void deleteRoiRefferences(RoiDTO roi){
+	public void deleteRoiRefferences(RoiDTO roi) throws BasicPhisException{
 		
 		ImageDTO img = getImageDTOById(roi.getAssociatedImage());
 
@@ -246,9 +250,10 @@ public class ImageService extends BasicService{
 	/**
 	 * To be used for atomic updates when a user adds a new annotation
 	 * @param roi
+	 * @throws BasicPhisException 
 	 * @throws Exception 
 	 */
-	public void addToImageFromRoi(RoiDTO roi) throws ParameterNotFoundException{
+	public void addToImageFromRoi(RoiDTO roi) throws ParameterNotFoundException, BasicPhisException{
 		
 		ImageDTO img = getImageDTOById(roi.getAssociatedImage());
 		
@@ -294,15 +299,16 @@ public class ImageService extends BasicService{
 		}
 	}
 	
-	public ImageDTO getImageDTOById(String imageId){
+	public ImageDTO getImageDTOById(String imageId) throws BasicPhisException{
 		ImageDTO img = null;
 		SolrQuery solrQuery = new SolrQuery();
 		solrQuery.setQuery(ImageDTO.ID + ":" + imageId);
 		try {
 			List<ImageDTO> images = solr.query(solrQuery).getBeans(ImageDTO.class);
 			img = images.get(0);
-		} catch (SolrServerException e) { 
-			e.printStackTrace();
+		} catch (Exception e) { 
+		//	e.printStackTrace();
+			throw new BasicPhisException("Image id provided could not be found.");
 		}
 		return img;
 	}
