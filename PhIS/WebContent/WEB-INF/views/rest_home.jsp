@@ -369,7 +369,7 @@
 				<td><var>abn</var><br></td>
 			</tr>
 			<tr  style="background-color: OliveDrab ;" >
-				<td>type</td>
+				<td>autosuggestType</td>
 				<td><var>String</var></td>
 				<td> false </td>
 				<td>[NEW] Possible values are [GENE, ANATOMY, PHENOTYPE]. If one is specified autosuggest will be typed (i.e. return only gene names matching th typed string). If left out autosuggest will be in generic mode.</td>
