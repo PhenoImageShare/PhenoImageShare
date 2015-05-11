@@ -155,9 +155,12 @@ public class ImageDTO {
 
 	@Field(IMAGING_METHOD_SYNONYMS)
 	private ArrayList<String> imagingMethodSynonyms;
-	
+
 	@Field(IMAGING_METHOD_FREETEXT)
 	private ArrayList<String> imagingMethodFreetext;
+	
+	@Field(IMAGING_METHOD_ANCESTORS)
+	private ArrayList<String> imagingMethodAncestors;
 
 	@Field(SAMPLE_PREPARATION_ID)
 	private String samplePreparationId;
@@ -170,6 +173,9 @@ public class ImageDTO {
 	
 	@Field(SAMPLE_PREPARATION_FREETEXT)
 	private ArrayList<String> samplePreparationFreetext;
+	
+	@Field(SAMPLE_PREPARATION_ANCESTORS)
+	private ArrayList<String> samplePreparationAncestors;
 
 	@Field(VISUALISATION_METHOD_ID)
 	private ArrayList<String> visualisationMethodId;
@@ -182,6 +188,9 @@ public class ImageDTO {
 
 	@Field(VISUALISATION_METHOD_SYNONYMS)
 	private ArrayList<String> visualisationMethodSynonyms;
+	
+	@Field(VISUALISATION_METHOD_ANCESTORS)
+	private ArrayList<String> visualisationMethodAncestors;
 
 	@Field(MACHINE)
 	private String machine;
@@ -218,6 +227,9 @@ public class ImageDTO {
 
 	@Field(STAGE_ID)
 	private String stageId;
+	
+	@Field(STAGE_ANCESTORS)
+	private ArrayList<String> stageAncestors;
 
 	// annotations -->
 
@@ -232,6 +244,9 @@ public class ImageDTO {
 
 	@Field(ANATOMY_SYNONYMS)
 	private ArrayList<String> anatomySynonyms;
+	
+	@Field(ANATOMY_ANCESTORS)
+	private ArrayList<String> anatomyAncestors;
 
 	@Field(OBSERVATIONS)
 	private List<String> observations;
@@ -426,8 +441,132 @@ public class ImageDTO {
 		this.anatomyComputedSynonymsBag = anatomyComputedSynonymsBag;
 	}
 
+	
+	public ArrayList<String> getImagingMethodFreetext() {
+	
+		return imagingMethodFreetext;
+	}
 
 	
+	public void setImagingMethodFreetext(ArrayList<String> imagingMethodFreetext) {
+	
+		this.imagingMethodFreetext = imagingMethodFreetext;
+	}
+
+	
+	public ArrayList<String> getSamplePreparationFreetext() {
+	
+		return samplePreparationFreetext;
+	}
+
+	
+	public void setSamplePreparationFreetext(ArrayList<String> samplePreparationFreetext) {
+	
+		this.samplePreparationFreetext = samplePreparationFreetext;
+	}
+
+	
+	public ArrayList<String> getVisualisationMethodFreetext() {
+	
+		return visualisationMethodFreetext;
+	}
+
+	
+	public void setVisualisationMethodFreetext(ArrayList<String> visualisationMethodFreetext) {
+	
+		this.visualisationMethodFreetext = visualisationMethodFreetext;
+	}
+
+	
+	public List<String> getGenericAnatomy() {
+	
+		return genericAnatomy;
+	}
+
+	
+	public void setGenericAnatomy(List<String> genericAnatomy) {
+	
+		this.genericAnatomy = genericAnatomy;
+	}
+
+	
+	public ArrayList<String> getAnatomyAncestors() {
+	
+		return anatomyAncestors;
+	}
+
+	
+	public void setAnatomyAncestors(ArrayList<String> anatomyAncestors) {
+	
+		this.anatomyAncestors = anatomyAncestors;
+	}
+
+	
+	public void setAnatomyComputedAncestors(ArrayList<String> anatomyComputedAncestors) {
+	
+		this.anatomyComputedAncestors = anatomyComputedAncestors;
+	}
+
+	
+	public void setDepictedAnatomyAncestors(ArrayList<String> depictedAnatomyAncestors) {
+	
+		this.depictedAnatomyAncestors = depictedAnatomyAncestors;
+	}
+
+	
+	public void setAbnormalAnatomyAncestors(ArrayList<String> abnormalAnatomyAncestors) {
+	
+		this.abnormalAnatomyAncestors = abnormalAnatomyAncestors;
+	}
+
+		
+	
+	public ArrayList<String> getImagingMethodAncestors() {
+	
+		return imagingMethodAncestors;
+	}
+
+	
+	public void setImagingMethodAncestors(ArrayList<String> imagingMethodAncestors) {
+	
+		this.imagingMethodAncestors = imagingMethodAncestors;
+	}
+
+	
+	public ArrayList<String> getSamplePreparationAncestors() {
+	
+		return samplePreparationAncestors;
+	}
+
+	
+	public void setSamplePreparationAncestors(ArrayList<String> samplePreparationAncestors) {
+	
+		this.samplePreparationAncestors = samplePreparationAncestors;
+	}
+
+	
+	public ArrayList<String> getVisualisationMethodAncestors() {
+	
+		return visualisationMethodAncestors;
+	}
+
+	
+	public void setVisualisationMethodAncestors(ArrayList<String> visualisationMethodAncestors) {
+	
+		this.visualisationMethodAncestors = visualisationMethodAncestors;
+	}
+
+	public void setExpressionInAncestors(ArrayList<String> expressionInAncestors) {
+	
+		this.expressionInAncestors = expressionInAncestors;
+	}
+
+	
+	public void setPhenotypeAncestors(ArrayList<String> phenotypeAncestors) {
+	
+		this.phenotypeAncestors = phenotypeAncestors;
+	}
+
 	/**
 	 * @param anatomyComputedAncestorsIdBag the anatomyComputedAncestorsIdBag to set
 	 */
@@ -585,6 +724,18 @@ public class ImageDTO {
 		}
 	}
 	
+	public void addStageAncestors(ArrayList<String> stageAncestors) {
+		
+		if (stageAncestors != null){
+			HashSet<String> ancestors = new HashSet<String>(stageAncestors);
+			if (this.stageAncestors == null){
+				this.stageAncestors = new ArrayList<>(ancestors);
+			} else {
+				this.stageAncestors.addAll(ancestors);
+			}
+		}
+	}
+	
 	/**
 	 * @return the abnormalAnatomyAncestorsIdBag
 	 */
@@ -607,7 +758,28 @@ public class ImageDTO {
 			this.abnormalAnatomyAncestors.add(abnormalAnatomyAncestor);
 		}
 	}
+	
+	public void addVisualisationMethodAncestors(String vmAncestor) {
 
+		if (this.visualisationMethodAncestors == null){
+			this.visualisationMethodAncestors = new ArrayList<>();
+		}
+		if (vmAncestor != null && !this.visualisationMethodAncestors.contains(vmAncestor)){
+			this.visualisationMethodAncestors.add(vmAncestor);
+		}
+	}
+	
+	public void addVisualisationMethodAncestors(ArrayList<String> visualisationMethodAncestors) {
+		if (visualisationMethodAncestors != null){
+			HashSet<String> ancestors = new HashSet<String>(visualisationMethodAncestors);
+			if (this.visualisationMethodAncestors == null){
+				this.visualisationMethodAncestors = new ArrayList<>(ancestors);
+			} else {
+				this.visualisationMethodAncestors.addAll(ancestors);
+			}
+		}
+	}
+	
 	public void addAbnormalAnatomyAncestors(ArrayList<String> abnormalAnatomyAncestors) {
 		if (abnormalAnatomyAncestors != null){
 			HashSet<String> ancestors = new HashSet<String>(abnormalAnatomyAncestors);
@@ -692,7 +864,43 @@ public class ImageDTO {
 	}
 
 	
-
+	public void addVisualizationMethodAncestors(ArrayList<String> vmAncestors) {
+			
+		if (vmAncestors != null){
+			HashSet<String> set = new HashSet(vmAncestors);
+			if (this.visualisationMethodAncestors == null){
+				this.visualisationMethodAncestors = new ArrayList<>(set);
+			} else {
+				this.visualisationMethodAncestors.addAll(new ArrayList<String>(set));
+			}
+		}
+	}
+	
+	public void addImagingMethodAncestors(ArrayList<String> imAncestors) {
+		
+		if (imAncestors != null){
+			HashSet<String> set = new HashSet(imAncestors);
+			if (this.imagingMethodAncestors == null){
+				this.imagingMethodAncestors = new ArrayList<>(set);
+			} else {
+				this.imagingMethodAncestors.addAll(new ArrayList<String>(set));
+			}
+		}
+	}
+	
+	public void addSamplePreparationAncestors(ArrayList<String> spAncestors) {
+		
+		if (spAncestors != null){
+			HashSet<String> set = new HashSet(spAncestors);
+			if (this.samplePreparationAncestors == null){
+				this.samplePreparationAncestors = new ArrayList<>(set);
+			} else {
+				this.samplePreparationAncestors.addAll(new ArrayList<String>(set));
+			}
+		}
+	}
+	
+	
 	/**
 	 * @param imagingMethodSynonyms
 	 *            the imagingMethodSynonyms to set
@@ -1505,6 +1713,8 @@ public class ImageDTO {
 		this.anatomyTerm = anatomyTerm;
 	}
 
+	
+	
 
 	/**
 	 * @return the anatomyFreetext
@@ -2078,6 +2288,7 @@ public class ImageDTO {
 		}
 		this.expressionInIdBag.addAll(expressionInIdBag);
 	}
+	
 
 	public void addExpressionInFreetextBag(List<String> ExpressionInFreetextBag) {
 		if (this.expressionInFreetextBag == null){
@@ -2085,7 +2296,19 @@ public class ImageDTO {
 		}
 		this.expressionInFreetextBag.addAll(ExpressionInFreetextBag);
 	}
+	
+	
+	public void addAnatomyAncestors(List<String> anatomyAncestors) {
+		
+		if (anatomyAncestors != null){
+			if (this.anatomyAncestors == null){
+				this.anatomyAncestors = new ArrayList<>();
+			}
+			this.anatomyAncestors.addAll(anatomyAncestors);
+		}
+	}
 
+	
 	/**
 	 * @return the phenotypelabelBag
 	 */

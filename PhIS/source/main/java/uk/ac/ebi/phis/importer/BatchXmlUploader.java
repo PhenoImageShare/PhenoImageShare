@@ -384,26 +384,29 @@ public class BatchXmlUploader {
 
 		if (desc.getImagingMethod() != null){
 			for (Annotation im: desc.getImagingMethod().getEl()){
-				OntologyTerm ot = im.getOntologyTerm();
-				bean.setImagingMethodId(ot.getTermId());
-				bean.setImagingMethodLabel(ou.getOntologyTermById(ot.getTermId()).getLabel()); 
-				bean.addImagingMethodSynonyms(ou.getSynonyms(ot.getTermId()));
-				String freetext = im.getAnnotationFreetext();
-				bean.addImagingMethodFreetext(freetext);
-				//TODO add parent classes
+				OntologyObject oo = ou.getOntologyTermById(im.getOntologyTerm().getTermId().trim());
+				bean.setImagingMethodId(oo.getId());
+				bean.setImagingMethodLabel(oo.getLabel()); 
+				bean.addImagingMethodSynonyms(oo.getSynonyms());
+				bean.addImagingMethodAncestors(oo.getAncestorsBag());
+				if (im.getAnnotationFreetext() != null){
+					bean.addImagingMethodFreetext(im.getAnnotationFreetext());
+				}
 			}
 		}
+		
 		if (desc.getSamplePreparation() != null){
 			for (Annotation sp: desc.getSamplePreparation().getEl()){
-				OntologyTerm ot = sp.getOntologyTerm();
-				if (ot != null) {
-					bean.setSamplePreparationId(ot.getTermId());
-					bean.setSamplePreparationLabel(ou.getOntologyTermById(ot.getTermId()).getId());
-					bean.addSamplePreparationSynonyms(ou.getSynonyms(ot.getTermId()));
-					//TODO add parent classes
+				if (sp.getOntologyTerm() != null){
+					OntologyObject oo = ou.getOntologyTermById(sp.getOntologyTerm().getTermId().trim());
+					bean.setSamplePreparationId(oo.getId());
+					bean.setSamplePreparationLabel(oo.getLabel());
+					bean.addSamplePreparationSynonyms(oo.getSynonyms());
+					bean.addSamplePreparationAncestors(oo.getAncestorsBag());
 				}
-				String freetext = sp.getAnnotationFreetext();
-				bean.addSamplePreparationFreetext(freetext);
+				if (sp.getAnnotationFreetext() != null && !sp.getAnnotationFreetext().equalsIgnoreCase("")){
+					bean.addSamplePreparationFreetext(sp.getAnnotationFreetext());
+				}
 			}
 		}
 		
@@ -439,23 +442,12 @@ public class BatchXmlUploader {
 		}
 
 		if (org.getStage() != null){
-			bean.setStage(org.getStage().getTermLabel());
-			bean.setStageId(org.getStage().getTermId());
-			//TODO add parent classes
-		}
-
-		// annotations -->
-		if (img.getDepictedAnatomicalStructure() != null){
-			if (img.getDepictedAnatomicalStructure().getAnnotationFreetext() != null){
-				bean.setAnatomyFreetext(img.getDepictedAnatomicalStructure().getAnnotationFreetext());
+			OntologyObject oo = ou.getOntologyTermById(org.getStage().getTermId());
+			if (oo != null){
+				bean.setStage(oo.getLabel());
+				bean.setStageId(oo.getId());
+				bean.addStageAncestors(oo.getAncestorsBag());
 			}
-			if (img.getDepictedAnatomicalStructure().getOntologyTerm() != null){
-				bean.setAnatomyId(img.getDepictedAnatomicalStructure().getOntologyTerm().getTermId());
-				bean.setAnatomyTerm(ou.getOntologyTermById(img.getDepictedAnatomicalStructure().getOntologyTerm().getTermId()).getLabel());
-				bean.addAnatomySynonyms(ou.getSynonyms(img.getDepictedAnatomicalStructure().getOntologyTerm().getTermId()));
-				//TODO add parent classes
-			}
-			
 		}
 
 		// field name="anatomy_computed_id" /-->
@@ -695,18 +687,22 @@ private ImageDTO copyFieldsFromChannel(Image img, ImageDTO pojo){
 		
 		//TODO fill gf synonyms and name from ENSEMBL
 		
-		// For all associated ROIs, check available annotations and copy them as needed in the bag fields
 		for (String channelId : img.getAssociatedChannel().getEl()){
 			
 			Channel channel = channelIdMap.get(channelId);		
 			if (channel.getVisualisationMethod() != null){
 				for (Annotation vm: channel.getVisualisationMethod().getEl()){
-					OntologyTerm ot = vm.getOntologyTerm();
-					res.addVisualisationMethodId(ot.getTermId());
-					res.addVisualisationMethodLabel(ot.getTermLabel());
-					res.addVisualisationMethodSynonyms(ou.getSynonyms(ot.getTermId()));
+					OntologyObject oo = ou.getOntologyTermById(vm.getOntologyTerm().getTermId());
+					if (oo != null){
+						res.addVisualisationMethodId(oo.getId());
+						res.addVisualisationMethodLabel(oo.getLabel());
+						res.addVisualisationMethodSynonyms(oo.getSynonyms());
+						res.addVisualisationMethodAncestors(oo.getAncestorsBag());
+					}
 					String freetext = vm.getAnnotationFreetext();
-					res.addVisualisationMethodFreetext(freetext);
+					if (freetext != null && !freetext.equals("")){
+						res.addVisualisationMethodFreetext(freetext);
+					}
 				}
 			}
 			

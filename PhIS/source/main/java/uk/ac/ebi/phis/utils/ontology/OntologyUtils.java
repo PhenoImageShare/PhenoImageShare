@@ -52,8 +52,7 @@ public class OntologyUtils {
 
 	Logger logger = Logger.getLogger(OntologyMapper.class);
 
-	//http://www.berkeleybop.org/ontologies/fbbi.owl
-	private String FBBI = System.getProperty("user.home") + "/phis_ontologies/fbbi.owl";
+	private String fbbi = System.getProperty("user.home") + "/phis_ontologies/fbbi.owl";
 	
 	public OntologyUtils(){
 
@@ -74,7 +73,6 @@ public class OntologyUtils {
 		
 		long time = System.currentTimeMillis();
 		loadHashes();
-//		loadFbbi();
 		logger.info("Loading all ontologies took " + (System.currentTimeMillis() - time) + "ms.");
 	}
 	
@@ -142,9 +140,9 @@ public class OntologyUtils {
 	 */
 	private boolean loadHashes(){
 
-		fillHashesFor(FBBI, spTerms, "http://purl.obolibrary.org/obo/FBbi_00000001"); 
-		fillHashesFor(FBBI, vmTerms, "http://purl.obolibrary.org/obo/FBbi_00000031"); 
-		fillHashesFor(FBBI, imTerms, "http://purl.obolibrary.org/obo/FBbi_00000222"); 
+		fillHashesFor(fbbi, spTerms, "http://purl.obolibrary.org/obo/FBbi_00000001"); 
+		fillHashesFor(fbbi, vmTerms, "http://purl.obolibrary.org/obo/FBbi_00000031"); 
+		fillHashesFor(fbbi, imTerms, "http://purl.obolibrary.org/obo/FBbi_00000222"); 
 		
 		for (String path: phenotypeOntologies){
 			fillHashesFor(path, phenotypeTerms, null);				
@@ -166,7 +164,6 @@ public class OntologyUtils {
 			logger.info("Lading: " + path);
 			System.out.println("Lading: " + path);
 			OWLOntology ontology = manager.loadOntologyFromOntologyDocument(IRI.create(new File(path)));
-			 // Create an ELK reasoner.
 	        OWLReasonerFactory reasonerFactory = new ElkReasonerFactory();
 	        OWLReasoner reasoner = reasonerFactory.createReasoner(ontology);
 			OWLGraphWrapper gr = readOntologyFromUrl(path);
@@ -198,6 +195,7 @@ public class OntologyUtils {
 						idLabelMap.put(getIdentifierShortForm(cls), temp);
 					}
 				}
+				
 				if (!cls.getIRI().isNothing() && cls.getAnnotations(ontology, ALT_ID) != null){
 					for (OWLAnnotation annotation : cls.getAnnotations(ontology, ALT_ID)) {
 						if (annotation.getValue() instanceof OWLLiteral) {
@@ -207,21 +205,32 @@ public class OntologyUtils {
 					}
 				}
 			}
+			
 			System.out.println("Done, going for ancestors");
-			// link parents / ancestors
+			
 			for (OWLClass cls : classesSubSet) {
+				
 				if (!cls.getIRI().isNothing() && cls.getAnnotations(ontology, LABEL_ANNOTATION).size() > 0) {
+					
 					OntologyObject temp = idLabelMap.get(getIdentifierShortForm(cls));
 					Set<OWLClass> ancestorsInSubTree = getAncestors(reasoner, cls);
 					ancestorsInSubTree.retainAll(classesSubSet);
+					
+			//		System.out.println("OWLTools: " + ancestorsInSubTree.size() + "  OWLGraphWrapper: " + getAncestors(cls, gr).size());
+					
 					for (OWLObject obj : ancestorsInSubTree) {
-						temp.getIntermediateTerms().add(idLabelMap.get(getIdentifierShortForm((OWLClass) obj)));
+						OntologyObject ancestorObject = idLabelMap.get(getIdentifierShortForm((OWLClass) obj));
+						if (ancestorObject != null){
+							temp.addIntermediateTerms(ancestorObject);
+						}
 					}
+					
 					idLabelMap.put(getIdentifierShortForm(cls), temp);
 				}
 			}
 			
 			manager.removeOntology(ontology);
+			
 		} catch (OWLOntologyCreationException e) {
 			e.printStackTrace();
 		} catch (OBOFormatParserException e) {
@@ -235,6 +244,10 @@ public class OntologyUtils {
 	
 	public Set<OWLClass> getAncestors(OWLReasoner reasoner, OWLClass cls){
 		return reasoner.getSuperClasses(cls, false).getFlattened();
+	}
+	
+	public Set<OWLClass> getAncestors(OWLClass cls, OWLGraphWrapper graph){
+		return graph.getAncestorsThroughIsA(cls);
 	}
 	
 	public String getIdentifierShortForm(OWLClass cls){

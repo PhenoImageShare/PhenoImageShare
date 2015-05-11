@@ -66,48 +66,48 @@ public class PopulateCores {
 			long time = System.currentTimeMillis();	
 			itWorked = reader.validateAndUpload(dataDir + "/VFB_Cachero2010.xml");
 			System.out.println(itWorked);
-			System.out.println("Validating VFB_Cachero2010 XML took " + (System.currentTimeMillis() - time));
+			System.out.println("Importing VFB_Cachero2010 XML took " + (System.currentTimeMillis() - time));
 			
 			itWorked = false;
 			time = System.currentTimeMillis();	
 			itWorked = reader.validateAndUpload(dataDir + "/VFB_Ito2013.xml");
 			System.out.println(itWorked);
-			System.out.println("Validating VFB_Ito2013 XML took " + (System.currentTimeMillis() - time));
+			System.out.println("Importing VFB_Ito2013 XML took " + (System.currentTimeMillis() - time));
 			
 			itWorked = false;
 			time = System.currentTimeMillis();	
 			itWorked = reader.validateAndUpload(dataDir + "/VFB_Jenett2012_full.xml");
 			System.out.println(itWorked);
-			System.out.println("Validating VFB_Jenett2012_full XML took " + (System.currentTimeMillis() - time));
+			System.out.println("Importing VFB_Jenett2012_full XML took " + (System.currentTimeMillis() - time));
 			
 			itWorked = false;
 			time = System.currentTimeMillis();	
 			itWorked = reader.validateAndUpload(dataDir + "/VFB_Yu2013.xml");
 			System.out.println(itWorked);
-			System.out.println("Validating VFB_Yu2013 XML took " + (System.currentTimeMillis() - time));
+			System.out.println("Importing VFB_Yu2013 XML took " + (System.currentTimeMillis() - time));
 			
 			itWorked = false;
 			time = System.currentTimeMillis();	
 			itWorked = reader.validateAndUpload(dataDir + "/VFB_flycircuit_plus.xml");
 			System.out.println(itWorked);
-			System.out.println("Validating VFB_flycircuit_plus XML took " + (System.currentTimeMillis() - time));
+			System.out.println("Importing VFB_flycircuit_plus XML took " + (System.currentTimeMillis() - time));
 			
 			itWorked = false;
 			time = System.currentTimeMillis();	
 			itWorked = reader.validateAndUpload(dataDir + "/emageExport.xml");
 			System.out.println(itWorked);
-			System.out.println("Validating EMAGE XML took " + (System.currentTimeMillis() - time));
+			System.out.println("Importing EMAGE XML took " + (System.currentTimeMillis() - time));
 			
 			itWorked = false;
 			time = System.currentTimeMillis();	
 			itWorked = reader.validateAndUpload(dataDir + "/tracerExport.xml");
 			System.out.println(itWorked);
-			System.out.println("Validating Tracer XML took " + (System.currentTimeMillis() - time));
+			System.out.println("Importing Tracer XML took " + (System.currentTimeMillis() - time));
 
 			time = System.currentTimeMillis();
 			itWorked = reader.validateAndUpload(dataDir + "/sangerExport.xml");
 			System.out.println("Is valid? " + itWorked);
-			System.out.println("Validating Sanger XML took " + (System.currentTimeMillis() - time));
+			System.out.println("Importing Sanger XML took " + (System.currentTimeMillis() - time));
 			
 			System.out.println("Solr url is : " + is.getSolrUrl());
 			
