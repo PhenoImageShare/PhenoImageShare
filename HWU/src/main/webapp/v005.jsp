@@ -2,7 +2,7 @@
 <html>
     <body>
         <h2>IQS API summary</h2>
-        
+
         <!--
         <div>
             Base URL is <%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>
@@ -20,7 +20,7 @@
         <div>
             Unchanged parameters or methods are given a normal white background colour.
         </div>
-        
+
         <h3>Notes</h3>
         <div>
             This is v005, to use it append &version=005 to your URL.  Please note that some of the behaviour is still not fully tested.
@@ -29,7 +29,7 @@
         </div>
 
         <hr>
-        
+
         <div>
             <h3 style="background-color: orange;">/getImage</h3>
             <h4>parameters</h4>
@@ -61,9 +61,9 @@
             <ol>
                 <li><a href="<%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getImage?imageId=komp2_112968"><%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getImage?imageId=komp2_112968</a></li>
             </ol>
-                        
+
         </div>
-        
+
         <hr/>
 
         <div>
@@ -216,7 +216,7 @@
                         <td><var> 003 </var></td>
                         <td><var>003 or 004</var></td>
                     </tr>			
-                    
+
                 </tbody>
             </table>
 
@@ -473,16 +473,24 @@
                     </tr>                   
 
 
-                    
+
                     <tr style="background-color: orange;">
                         <td>type</td>
                         <td><var>String</var></td>
                         <td> false </td>
-                        <td>If specified autosuggest will be typed (i.e. return only gene names matching th typed string). If left out autosuggest will be in generic mode.</td>
+                        <td>Not sure what this does... seems to be a mistake by IT in the documentation... probably should be depreciated</td>
                         <td><var></var></td>
-                        <td><var>GENE, ANATOMY or PHENOTYPE</var><br></td>
+                        <td><var></var><br></td>
+                    </tr>     
+                    <tr style="background-color: orange;">
+                        <td>asType</td>
+                        <td><var>String</var></td>
+                        <td> false </td>
+                        <td>If specified autosuggest will be typed (i.e. return only gene names matching the typed string). If left out autosuggest will be in generic mode.</td>
+                        <td><var></var></td>
+                        <td><var>GENE | ANATOMY | PHENOTYPE</var><br></td>
                     </tr>                    
-                   <tr style="background-color: orange;">
+                    <tr style="background-color: orange;">
                         <td>stage</td>
                         <td><var>String</var></td>
                         <td> false </td>
@@ -490,7 +498,7 @@
                         <td><var></var></td>
                         <td><var>postnatal stage</var><br></td>
                     </tr>  
-                   <tr style="background-color: orange;">
+                    <tr style="background-color: orange;">
                         <td>imagingMethod</td>
                         <td><var>String</var></td>
                         <td> false </td>
@@ -498,7 +506,7 @@
                         <td><var></var></td>
                         <td><var>X-ray illumination</var><br></td>
                     </tr>                      
-                   <tr style="background-color: orange;">
+                    <tr style="background-color: orange;">
                         <td>taxon</td>
                         <td><var>String</var></td>
                         <td> false </td>
@@ -506,7 +514,7 @@
                         <td><var></var></td>
                         <td><var>Mus musculus</var><br></td>
                     </tr>   
-                   <tr style="background-color: orange;">
+                    <tr style="background-color: orange;">
                         <td>sampleType</td>
                         <td><var>String</var></td>
                         <td> false </td>
@@ -514,7 +522,7 @@
                         <td><var></var></td>
                         <td><var>MUTANT</var><br></td>
                     </tr>   
-                   <tr style="background-color: orange;">
+                    <tr style="background-color: orange;">
                         <td>imageGeneratedBy</td>
                         <td><var>String</var></td>
                         <td> false </td>
@@ -522,8 +530,8 @@
                         <td><var></var></td>
                         <td><var>WTSI</var><br></td>
                     </tr>                      
-                    
-                    
+
+
                     <tr style="background-color: grey;">
                         <td>mutantGene</td>
                         <td><var>String</var></td>
@@ -563,8 +571,7 @@
                         <td>Version of EBI to use.</td>
                         <td><var> 003 </var></td>
                         <td><var>003 or 004</var></td>
-                    </tr>			
-                    
+                    </tr>			                    
                 </tbody>
             </table>            
 

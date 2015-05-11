@@ -140,6 +140,21 @@ public class v005AS extends HttpServlet {
                 }
                 queryURL += "imageGeneratedBy=" + URLEncoder.encode(params.get("imageGeneratedBy")[0], "UTF-8");
                 first = false;  // next time you need a separator                 
+            } else if (param.equalsIgnoreCase("asType")) {
+                if (!first) {
+                    queryURL += "&";
+                }
+                
+                String asType = params.get("asType")[0];
+                if(asType.equals("GENE") || asType.equals("ANATOMY") || asType.equals("PHENOTYPE")) {
+                    queryURL += "autosuggestType=" + URLEncoder.encode(asType, "UTF-8");
+                } else {
+                    error = true;
+                    solrResult = "{\"invalid_paramater_value\": \"" + asType + "\"}";     
+                    break;
+                }
+                                
+                first = false;  // next time you need a separator                                 
             } else if (param.equalsIgnoreCase("version")) {
                 // do nothing
 
