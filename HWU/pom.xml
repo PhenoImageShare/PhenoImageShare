@@ -4,7 +4,7 @@
     <groupId>uk.ac.hw.macs.bisel.phis</groupId>
     <artifactId>IQS</artifactId>
     <packaging>war</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.0.5</version>
     <name>IQS Maven Webapp</name>
     <url>http://maven.apache.org</url>
     <dependencies>
@@ -12,6 +12,7 @@
 	<groupId>javax.servlet</groupId>
 	<artifactId>javax.servlet-api</artifactId>
 	<version>3.1.0</version>
+        <scope>provided</scope>
       </dependency>
         <!--        
         <dependency>
