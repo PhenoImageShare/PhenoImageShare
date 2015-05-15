@@ -280,7 +280,7 @@ public class SangerXmlGenerator {
 				i++;
 				if (i % 100 == 0) {
 					System.out.println(i);
-					if (i==1000){
+					if (i == 10000){
 						break;
 					}
 				}

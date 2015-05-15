@@ -389,7 +389,7 @@ public class BatchXmlUploader {
 				bean.setImagingMethodLabel(oo.getLabel()); 
 				bean.addImagingMethodSynonyms(oo.getSynonyms());
 				bean.addImagingMethodAncestors(oo.getAncestorsBag());
-				if (im.getAnnotationFreetext() != null){
+				if (im.getAnnotationFreetext() != null && !im.getAnnotationFreetext().equalsIgnoreCase("")){
 					bean.addImagingMethodFreetext(im.getAnnotationFreetext());
 				}
 			}
@@ -593,8 +593,8 @@ public class BatchXmlUploader {
 					}
 					if (ann.getOntologyTerm() != null){
 						if (expression){
-							expressionInAnatomyIds.add(ann.getOntologyTerm().getTermId());
 							OntologyObject oo = ou.getOntologyTermById(ann.getOntologyTerm().getTermId());
+							expressionInAnatomyIds.add(oo.getId());
 							expressionInAnatomyLabels.add(oo.getLabel());
 							res.addExpressedGfSynonymsBag(oo.getSynonyms());
 							for (OntologyObject anc : oo.getIntermediateTerms()){
@@ -604,17 +604,18 @@ public class BatchXmlUploader {
 							}
 						}
 						else{
-							depictedAnatomyIds.add(ann.getOntologyTerm().getTermId());
 							OntologyObject oo = ou.getOntologyTermById(ann.getOntologyTerm().getTermId().replace(":", "_"));
 							if (oo == null){
 								System.out.println("Ontology id not found : " + ann.getOntologyTerm().getTermId());
-							}
-							depictedAnatomyLabels.add(oo.getLabel());
-							res.addDepictedAnatomySynonymsBag(oo.getSynonyms());
-							for (OntologyObject anc : oo.getIntermediateTerms()){
-								res.addDepictedAnatomyAncestors(anc.getId());
-								res.addDepictedAnatomyAncestors(anc.getSynonyms());
-								res.addDepictedAnatomyAncestors(anc.getLabel());
+							} else {
+								depictedAnatomyIds.add(oo.getId());
+								depictedAnatomyLabels.add(oo.getLabel());
+								res.addDepictedAnatomySynonymsBag(oo.getSynonyms());
+								for (OntologyObject anc : oo.getIntermediateTerms()){
+									res.addDepictedAnatomyAncestors(anc.getId());
+									res.addDepictedAnatomyAncestors(anc.getSynonyms());
+									res.addDepictedAnatomyAncestors(anc.getLabel());
+								}
 							}
 						}
 					}
