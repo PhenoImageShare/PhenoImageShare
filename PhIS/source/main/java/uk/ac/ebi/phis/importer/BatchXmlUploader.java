@@ -68,7 +68,7 @@ public class BatchXmlUploader {
 	}
 
 
-	public boolean validateAndUpload(String xmlLocationFullPath) {
+	public boolean validateAndUpload(String xmlLocationFullPath, String datasource) {
 
 		Doc doc;
 		// Unmarshal XML
@@ -76,7 +76,7 @@ public class BatchXmlUploader {
 		boolean isValid = validate(xmlLocationFullPath, doc);
 		try {
 			if (isValid){
-				doBatchSubmission(doc);
+				doBatchSubmission(doc, datasource);
 			}
 		} catch (IOException | SolrServerException e) {
 			e.printStackTrace();
@@ -107,22 +107,22 @@ public class BatchXmlUploader {
 	}
 
 
-	private void doBatchSubmission(Doc doc)
+	private void doBatchSubmission(Doc doc, String datasource)
 	throws IOException, SolrServerException {
 
-		addImageDocuments(doc.getImage());
-		addRoiDocuments(doc.getRoi());
-		addChannelDocuments(doc.getChannel());
+		addImageDocuments(doc.getImage(), datasource);
+		addRoiDocuments(doc.getRoi(), datasource);
+		addChannelDocuments(doc.getChannel(), datasource);
 	}
 
 
-	private void addImageDocuments(List<Image> images)
+	private void addImageDocuments(List<Image> images, String datasource)
 	throws IOException, SolrServerException {
 		
 		int i = 0;
 		List<ImageDTO> imageDocs = new ArrayList<>();
 		for (Image img : images) {
-			imageDocs.add(fillPojo(img));
+			imageDocs.add(fillPojo(img, datasource));
 			// flush every 1000 docs
 			if (i++ % 1000 == 0) {
 				is.addBeans(imageDocs);
@@ -132,7 +132,7 @@ public class BatchXmlUploader {
 		is.addBeans(imageDocs);
 	}
 
-	private void addRoiDocuments(List<Roi> rois)
+	private void addRoiDocuments(List<Roi> rois, String datasource)
 	throws IOException, SolrServerException {
 		
 		int i = 0;
@@ -140,7 +140,7 @@ public class BatchXmlUploader {
 		List<RoiDTO> roiDocs = new ArrayList<>();
 		for (Roi roi : rois) {
 			// add it
-			roiDocs.add(fillPojo(roi));
+			roiDocs.add(fillPojo(roi, datasource));
 			// flush every 1000 docs
 			if (i++ % 1000 == 0) {
 				rs.addBeans(roiDocs);
@@ -150,7 +150,7 @@ public class BatchXmlUploader {
 		rs.addBeans(roiDocs);
 	}
 
-	private void addChannelDocuments(List<Channel> channels)
+	private void addChannelDocuments(List<Channel> channels, String datasource)
 	throws IOException, SolrServerException {
 		
 		int i = 0;
@@ -158,7 +158,7 @@ public class BatchXmlUploader {
 		System.out.println("channel list is " + channels.size());
 		for (Channel channel : channels) {
 			// add it
-			chDocs.add(fillPojo(channel));
+			chDocs.add(fillPojo(channel, datasource));
 			// flush every 1000 docs
 			if (i++ % 1000 == 0) {
 				cs.addBeans(chDocs);
@@ -169,16 +169,16 @@ public class BatchXmlUploader {
 	}
 
 	// fillRoiPojo
-	private RoiDTO fillPojo(Roi roi){
+	private RoiDTO fillPojo(Roi roi, String host){
 		
 		RoiDTO bean = new RoiDTO();
 		
-		bean.setId(roi.getId());
+		bean.setId(getRoiId(roi.getId(), host));
 
-		bean.setAssociatedImage(roi.getAssociatedImage());
+		bean.setAssociatedImage(getImageId(roi.getAssociatedImage(), host));
 		
 		if (roi.getAssociatedChannel() != null){
-			bean.setAssociatedChannel(roi.getAssociatedChannel().getEl());
+			bean.setAssociatedChannel(getChannelId(roi.getAssociatedChannel().getEl(), host));
 		}
 		
 		if (roi.getDepictedAnatomicalStructure() != null){
@@ -206,7 +206,7 @@ public class BatchXmlUploader {
 				}
 			}
 
-		//	if(roi.getIsExpressionPattern().equals(YesNo.YES)){
+			//	if(roi.getIsExpressionPattern().equals(YesNo.YES)){
 				if (ids.size() > 0){
 					bean.setExpressedAnatomyId(ids);
 					bean.setExpressedAnatomyTerm(labels);
@@ -303,14 +303,14 @@ public class BatchXmlUploader {
 	
 	
 	// fillChannelPojo
-	private ChannelDTO fillPojo(Channel channel) {
+	private ChannelDTO fillPojo(Channel channel, String datasource) {
 
 		ChannelDTO bean = new ChannelDTO();
 		
-		bean.setId(channel.getId());
-		bean.setAssociatedImage(channel.getAssociatedImage());
+		bean.setId(getChannelId(channel.getId(), datasource));
+		bean.setAssociatedImage(getImageId(channel.getAssociatedImage(), datasource));
 		if (channel.getAssociatedRoi() != null){
-			bean.setAssociatedRoi(channel.getAssociatedRoi().getEl());
+			bean.setAssociatedRoi(getRoiId(channel.getAssociatedRoi().getEl(), datasource));
 		}
 		if (channel.getDepictsExpressionOf() != null){
 			GenotypeComponent gc = channel.getDepictsExpressionOf();
@@ -342,11 +342,11 @@ public class BatchXmlUploader {
 	
 	}
 
-	private ImageDTO fillPojo(Image img) {
+	private ImageDTO fillPojo(Image img, String datasource) {
 
 		ImageDTO bean = new ImageDTO();
 		bean.setTaxon(img.getOrganism().getTaxon());
-		bean.setId(img.getId());
+		bean.setId(getImageId(img.getId(), datasource));
 
 		ImageDescription desc = img.getImageDescription();
 		if (desc.getImageGeneratedBy() != null){
@@ -363,13 +363,13 @@ public class BatchXmlUploader {
 		}
 
 		if (img.getAssociatedRoi() != null){
-			bean.setAssociatedRoi(img.getAssociatedRoi().getEl());
+			bean.setAssociatedRoi(getRoiId(img.getAssociatedRoi().getEl(),datasource));
 			// Need to copy some fields for search purposes
 			bean = copyFieldsFromRoi(img, bean);
 		}
 
 		if (img.getAssociatedChannel() != null){
-			bean.setAssociatedChannel(img.getAssociatedChannel().getEl());
+			bean.setAssociatedChannel(getChannelId(img.getAssociatedChannel().getEl(), datasource));
 			// Need to copy some fields for search purposes
 			bean = copyFieldsFromChannel(img, bean);
 		}
@@ -872,5 +872,34 @@ private ImageDTO copyFieldsFromChannel(Image img, ImageDTO pojo){
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	private String getImageId(String id, String datasource){
+		return datasource.replaceAll(" ", "_") + "_" + id.replaceAll(":", "_");
+	}
+	
+	private String getChannelId(String id, String datasource){
+		return datasource.replaceAll(" ", "_") + "_channel_" + id.replaceAll(":", "_");
+	}
+	
+	private List<String> getChannelId(List<String> ids, String datasource){
+		
+		List<String> newIds = new ArrayList<>();
+		for (String id: ids){
+			newIds.add(getChannelId(id, datasource));
+		}
+		return newIds;
+	}
+	
+	private String getRoiId(String id, String datasource){
+		return datasource.replaceAll(" ", "_") + "_roi_" + id.replaceAll(":", "_");
+	}
+	
+	private List<String> getRoiId(List<String> ids, String datasource){
+		List<String> newIds = new ArrayList<>();
+		for (String id: ids){
+			newIds.add(getRoiId(id, datasource));
+		}
+		return newIds;
 	}
 }
