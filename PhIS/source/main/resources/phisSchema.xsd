@@ -129,6 +129,7 @@
 	<complexType name="ImageDescription">
 		<all>
 			<element name="image_url" type="string" minOccurs="1" maxOccurs="1" />
+			<element name="thumbnail_url" type="string" minOccurs="0" maxOccurs="1" />
 			<element name="image_context_url" type="string" minOccurs="0" maxOccurs="1" /> <!-- URL linking back to the image page on the original website, if they have single image pages -->
 			<element name="image_dimensions" type="x:Dimensions" minOccurs="0" maxOccurs="1" />
 			<element name="machine" type="string" minOccurs="0" maxOccurs="1" />

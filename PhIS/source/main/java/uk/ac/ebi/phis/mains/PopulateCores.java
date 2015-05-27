@@ -64,7 +64,7 @@ public class PopulateCores {
 			BatchXmlUploader reader = new BatchXmlUploader(is, rs, cs);
 
 			itWorked = false;
-			time = System.currentTimeMillis();	
+			time = System.currentTimeMillis();
 			itWorked = reader.validateAndUpload(dataDir + "/tracerExport.xml", "tracer");
 			System.out.println(itWorked);
 			System.out.println("Importing Tracer XML took " + (System.currentTimeMillis() - time));
