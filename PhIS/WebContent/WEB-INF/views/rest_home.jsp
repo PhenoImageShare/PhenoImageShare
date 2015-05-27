@@ -146,6 +146,14 @@
 				<td>Label or id of a child of Imaging Method in FBBI ontology..</td>
 				<td><var> * </var></td>
 				<td><var> macroscopy </var> </td>
+			</tr>		
+			<tr>
+				<td>visualisationMethod</td>
+				<td><var>String</var></td>
+				<td>false</td>
+				<td>Label or id of a child of Visualisation Method in FBBI ontology..</td>
+				<td><var> * </var></td>
+				<td><var> fluorescent protein tag </var> </td>
 			</tr>			
 			<tr>
 				<td>resultNo</td>
