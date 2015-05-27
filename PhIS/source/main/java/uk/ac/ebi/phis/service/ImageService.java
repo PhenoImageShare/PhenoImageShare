@@ -32,7 +32,7 @@ public class ImageService extends BasicService{
 	}
 			
 	public String getImages(String term, String phenotype, String geneParameterToBeDeleted, String mutantGene, String anatomy, String expressedGene, String sex, String taxon, 
-	String image_type, String sample_type, String stage, String visualisationMethod, String samplePreparation, String imagingMethod, Integer rows, Integer start, Boolean withAncestors) 
+	String image_type, String sample_type, String stage, String visualisationMethod, String samplePreparation, String imagingMethod, Integer rows, Integer start) 
 	throws SolrServerException{
 
 		SolrQuery solrQuery = new SolrQuery();
