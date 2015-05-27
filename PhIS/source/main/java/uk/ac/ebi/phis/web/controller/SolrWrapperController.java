@@ -71,6 +71,7 @@ public class SolrWrapperController {
 				
 		return is.getImages(term, phenotype, gene, mutantGene, anatomy, expressedGene, sex, taxon, image_type, sample_type, stage, visualisationMethod, 
 						samplePreparation, imagingMethod, resultNo, start);
+		
     }
 	
 

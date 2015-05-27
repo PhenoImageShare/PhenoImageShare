@@ -49,16 +49,16 @@ public class Normalizer {
 		String z = sex.toLowerCase();
 		
 		if (z.startsWith("m")){
-			return "Male";
+			return "male";
 		}
 		else if (z.startsWith("f")){
-			return "Female";
+			return "female";
 		}
 		else if (z.equalsIgnoreCase("unsexed")){
-			return "Unsexed";
+			return "unsexed";
 		}
 		else if (z.equalsIgnoreCase("") || z == null){
-			return "Unknown";
+			return "unknown";
 		}
 		else throw new Exception("Could not match \"" + sex + "\"to an existing zygosity");
 	}

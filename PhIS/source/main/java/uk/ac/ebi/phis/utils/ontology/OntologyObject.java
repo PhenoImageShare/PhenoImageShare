@@ -8,15 +8,17 @@ public class OntologyObject {
 	String id;
 	String label;
 	ArrayList<String> synonyms;
+	ArrayList<String> ancestorsBag;
 	ArrayList<OntologyObject> intermediateTerms;
 	ArrayList<OntologyObject> topLevelTerms;
 	ArrayList<OntologyObject> directParentTerms;
-	
 	
 	public OntologyObject(){
 		intermediateTerms = new ArrayList<>();
 		topLevelTerms = new ArrayList<>();
 		directParentTerms = new ArrayList<>();
+		ancestorsBag = new ArrayList<>();
+		synonyms = new ArrayList<>();
 	}
 	
 	/**
@@ -76,6 +78,11 @@ public class OntologyObject {
 	}
 	
 	
+	public ArrayList<String> getAncestorsBag(){
+		
+		return ancestorsBag;
+	}
+	
 	/**
 	 * @return the intermediateTerms
 	 */
@@ -90,6 +97,19 @@ public class OntologyObject {
 	public void setIntermediateTerms(ArrayList<OntologyObject> intermediateTerms) {
 	
 		this.intermediateTerms = intermediateTerms;
+		for (OntologyObject oo : intermediateTerms){
+			ancestorsBag.add(oo.id);
+			ancestorsBag.add(oo.label);
+			ancestorsBag.addAll(oo.synonyms);
+		}
+	}
+	
+	public void addIntermediateTerms(OntologyObject intermediateTerm) {
+		
+		intermediateTerms.add(intermediateTerm);
+		ancestorsBag.add(intermediateTerm.id);
+		ancestorsBag.add(intermediateTerm.label);
+		ancestorsBag.addAll(intermediateTerm.synonyms);
 	}
 	
 	/**
@@ -122,6 +142,13 @@ public class OntologyObject {
 	public void setDirectparentTerms(ArrayList<OntologyObject> directparentTerms) {
 	
 		this.directParentTerms = directparentTerms;
+	}
+
+	@Override
+	public String toString() {
+
+		return "OntologyObject [id=" + id + ", label=" + label + ", synonyms=" + synonyms + ", ancestorsBag=" + ancestorsBag + ", intermediateTerms=" 
+			+ intermediateTerms + ", topLevelTerms=" + topLevelTerms + ", directParentTerms=" + directParentTerms + "]";
 	}
 	
 }

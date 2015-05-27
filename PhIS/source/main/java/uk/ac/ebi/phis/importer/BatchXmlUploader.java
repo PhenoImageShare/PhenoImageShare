@@ -31,7 +31,6 @@ import uk.ac.ebi.phis.jaxb.ImageType;
 import uk.ac.ebi.phis.jaxb.OntologyTerm;
 import uk.ac.ebi.phis.jaxb.Organism;
 import uk.ac.ebi.phis.jaxb.Roi;
-import uk.ac.ebi.phis.jaxb.YesNo;
 import uk.ac.ebi.phis.service.ChannelService;
 import uk.ac.ebi.phis.service.ImageService;
 import uk.ac.ebi.phis.service.RoiService;
@@ -69,7 +68,7 @@ public class BatchXmlUploader {
 	}
 
 
-	public boolean validateAndUpload(String xmlLocationFullPath) {
+	public boolean validateAndUpload(String xmlLocationFullPath, String datasource) {
 
 		Doc doc;
 		// Unmarshal XML
@@ -77,7 +76,7 @@ public class BatchXmlUploader {
 		boolean isValid = validate(xmlLocationFullPath, doc);
 		try {
 			if (isValid){
-				doBatchSubmission(doc);
+				doBatchSubmission(doc, datasource);
 			}
 		} catch (IOException | SolrServerException e) {
 			e.printStackTrace();
@@ -108,22 +107,22 @@ public class BatchXmlUploader {
 	}
 
 
-	private void doBatchSubmission(Doc doc)
+	private void doBatchSubmission(Doc doc, String datasource)
 	throws IOException, SolrServerException {
 
-		addImageDocuments(doc.getImage());
-		addRoiDocuments(doc.getRoi());
-		addChannelDocuments(doc.getChannel());
+		addImageDocuments(doc.getImage(), datasource);
+		addRoiDocuments(doc.getRoi(), datasource);
+		addChannelDocuments(doc.getChannel(), datasource);
 	}
 
 
-	private void addImageDocuments(List<Image> images)
+	private void addImageDocuments(List<Image> images, String datasource)
 	throws IOException, SolrServerException {
 		
 		int i = 0;
 		List<ImageDTO> imageDocs = new ArrayList<>();
 		for (Image img : images) {
-			imageDocs.add(fillPojo(img));
+			imageDocs.add(fillPojo(img, datasource));
 			// flush every 1000 docs
 			if (i++ % 1000 == 0) {
 				is.addBeans(imageDocs);
@@ -133,7 +132,7 @@ public class BatchXmlUploader {
 		is.addBeans(imageDocs);
 	}
 
-	private void addRoiDocuments(List<Roi> rois)
+	private void addRoiDocuments(List<Roi> rois, String datasource)
 	throws IOException, SolrServerException {
 		
 		int i = 0;
@@ -141,7 +140,7 @@ public class BatchXmlUploader {
 		List<RoiDTO> roiDocs = new ArrayList<>();
 		for (Roi roi : rois) {
 			// add it
-			roiDocs.add(fillPojo(roi));
+			roiDocs.add(fillPojo(roi, datasource));
 			// flush every 1000 docs
 			if (i++ % 1000 == 0) {
 				rs.addBeans(roiDocs);
@@ -151,7 +150,7 @@ public class BatchXmlUploader {
 		rs.addBeans(roiDocs);
 	}
 
-	private void addChannelDocuments(List<Channel> channels)
+	private void addChannelDocuments(List<Channel> channels, String datasource)
 	throws IOException, SolrServerException {
 		
 		int i = 0;
@@ -159,7 +158,7 @@ public class BatchXmlUploader {
 		System.out.println("channel list is " + channels.size());
 		for (Channel channel : channels) {
 			// add it
-			chDocs.add(fillPojo(channel));
+			chDocs.add(fillPojo(channel, datasource));
 			// flush every 1000 docs
 			if (i++ % 1000 == 0) {
 				cs.addBeans(chDocs);
@@ -170,16 +169,16 @@ public class BatchXmlUploader {
 	}
 
 	// fillRoiPojo
-	private RoiDTO fillPojo(Roi roi){
+	private RoiDTO fillPojo(Roi roi, String host){
 		
 		RoiDTO bean = new RoiDTO();
 		
-		bean.setId(roi.getId());
+		bean.setId(getRoiId(roi.getId(), host));
 
-		bean.setAssociatedImage(roi.getAssociatedImage());
+		bean.setAssociatedImage(getImageId(roi.getAssociatedImage(), host));
 		
 		if (roi.getAssociatedChannel() != null){
-			bean.setAssociatedChannel(roi.getAssociatedChannel().getEl());
+			bean.setAssociatedChannel(getChannelId(roi.getAssociatedChannel().getEl(), host));
 		}
 		
 		if (roi.getDepictedAnatomicalStructure() != null){
@@ -207,7 +206,7 @@ public class BatchXmlUploader {
 				}
 			}
 
-		//	if(roi.getIsExpressionPattern().equals(YesNo.YES)){
+			//	if(roi.getIsExpressionPattern().equals(YesNo.YES)){
 				if (ids.size() > 0){
 					bean.setExpressedAnatomyId(ids);
 					bean.setExpressedAnatomyTerm(labels);
@@ -303,15 +302,14 @@ public class BatchXmlUploader {
 	}
 	
 	
-	// fillChannelPojo
-	private ChannelDTO fillPojo(Channel channel) {
+	private ChannelDTO fillPojo(Channel channel, String datasource) {
 
 		ChannelDTO bean = new ChannelDTO();
 		
-		bean.setId(channel.getId());
-		bean.setAssociatedImage(channel.getAssociatedImage());
+		bean.setId(getChannelId(channel.getId(), datasource));
+		bean.setAssociatedImage(getImageId(channel.getAssociatedImage(), datasource));
 		if (channel.getAssociatedRoi() != null){
-			bean.setAssociatedRoi(channel.getAssociatedRoi().getEl());
+			bean.setAssociatedRoi(getRoiId(channel.getAssociatedRoi().getEl(), datasource));
 		}
 		if (channel.getDepictsExpressionOf() != null){
 			GenotypeComponent gc = channel.getDepictsExpressionOf();
@@ -339,34 +337,41 @@ public class BatchXmlUploader {
 			}
 		}
 		
-		return bean;
-	
+		return bean;	
 	}
+	
 
-	private ImageDTO fillPojo(Image img) {
+	private ImageDTO fillPojo(Image img, String datasource) {
 
 		ImageDTO bean = new ImageDTO();
 		bean.setTaxon(img.getOrganism().getTaxon());
-		bean.setId(img.getId());
+		bean.setId(getImageId(img.getId(), datasource));
 
 		ImageDescription desc = img.getImageDescription();
-		bean.setImageGeneratedBy(desc.getImageGeneratedBy().getDisplayName());
-		bean.setSampleGeneratedBy(desc.getOrganismGeneratedBy().getDisplayName());
+		if (desc.getImageGeneratedBy() != null){
+			bean.setImageGeneratedBy(desc.getImageGeneratedBy().getDisplayName());
+		}
+		
+		if (desc.getOrganismGeneratedBy() != null){
+			bean.setSampleGeneratedBy(desc.getOrganismGeneratedBy().getDisplayName());
+		}
+		
 		bean.setHostName(desc.getHost().getDisplayName());
 		bean.setHostUrl(desc.getHost().getUrl());
 		bean.setImageUrl(desc.getImageUrl());
+		
 		if (desc.getImageContextUrl() != null){
 			bean.setImageContextUrl(desc.getImageContextUrl());
 		}
 
 		if (img.getAssociatedRoi() != null){
-			bean.setAssociatedRoi(img.getAssociatedRoi().getEl());
+			bean.setAssociatedRoi(getRoiId(img.getAssociatedRoi().getEl(),datasource));
 			// Need to copy some fields for search purposes
 			bean = copyFieldsFromRoi(img, bean);
 		}
 
 		if (img.getAssociatedChannel() != null){
-			bean.setAssociatedChannel(img.getAssociatedChannel().getEl());
+			bean.setAssociatedChannel(getChannelId(img.getAssociatedChannel().getEl(), datasource));
 			// Need to copy some fields for search purposes
 			bean = copyFieldsFromChannel(img, bean);
 		}
@@ -375,22 +380,41 @@ public class BatchXmlUploader {
 			bean.setDepth(desc.getImageDimensions().getImageDepth());
 		}
 
+		if (desc.getThumbnailUrl() != null){
+			bean.setThumbnailUrl(desc.getThumbnailUrl());
+		} else {
+			bean.setThumbnailUrl(desc.getImageUrl());
+		}
+		
 		bean.setHeight(desc.getImageDimensions().getImageHeight());
 
 		bean.setWidth(desc.getImageDimensions().getImageWidth());
 
 		if (desc.getImagingMethod() != null){
-			for (OntologyTerm im: desc.getImagingMethod().getEl()){
-				bean.setImagingMethodId(im.getTermId());
-				bean.setImagingMethodLabel(ou.getOntologyTermById(im.getTermId()).getLabel()); 
-				bean.addImagingMethodSynonyms(ou.getSynonyms(im.getTermId()));
+			for (Annotation im: desc.getImagingMethod().getEl()){
+				OntologyObject oo = ou.getOntologyTermById(im.getOntologyTerm().getTermId().trim());
+				bean.setImagingMethodId(oo.getId());
+				bean.setImagingMethodLabel(oo.getLabel()); 
+				bean.addImagingMethodSynonyms(oo.getSynonyms());
+				bean.addImagingMethodAncestors(oo.getAncestorsBag());
+				if (im.getAnnotationFreetext() != null && !im.getAnnotationFreetext().equalsIgnoreCase("")){
+					bean.addImagingMethodFreetext(im.getAnnotationFreetext());
+				}
 			}
 		}
+		
 		if (desc.getSamplePreparation() != null){
-			for (OntologyTerm sp: desc.getSamplePreparation().getEl()){
-				bean.setSamplePreparationId(sp.getTermId());
-				bean.setSamplePreparationLabel(ou.getOntologyTermById(sp.getTermId()).getId());
-				bean.addSamplePreparationSynonyms(ou.getSynonyms(sp.getTermId()));
+			for (Annotation sp: desc.getSamplePreparation().getEl()){
+				if (sp.getOntologyTerm() != null){
+					OntologyObject oo = ou.getOntologyTermById(sp.getOntologyTerm().getTermId().trim());
+					bean.setSamplePreparationId(oo.getId());
+					bean.setSamplePreparationLabel(oo.getLabel());
+					bean.addSamplePreparationSynonyms(oo.getSynonyms());
+					bean.addSamplePreparationAncestors(oo.getAncestorsBag());
+				}
+				if (sp.getAnnotationFreetext() != null && !sp.getAnnotationFreetext().equalsIgnoreCase("")){
+					bean.addSamplePreparationFreetext(sp.getAnnotationFreetext());
+				}
 			}
 		}
 		
@@ -414,12 +438,7 @@ public class BatchXmlUploader {
 		Organism org = img.getOrganism();
 		
 		if (org.getAge() != null){
-			if (org.getAge().getAgeSinceBirth() != null){
-				bean.setAgeSinceBirth(org.getAge().getAgeSinceBirth());
-			}
-			if (org.getAge().getEmbryonicAge() != null){
-				bean.setAgeSinceBirth(org.getAge().getEmbryonicAge());
-			}
+				bean.setAge(org.getAge());
 		}
 
 		if (org.getNcbiTaxonId() != null){
@@ -431,23 +450,14 @@ public class BatchXmlUploader {
 		}
 
 		if (org.getStage() != null){
-			bean.setStage(org.getStage().getTermLabel());
-			bean.setStageId(org.getStage().getTermId());
-		}
-
-		// annotations -->
-		if (img.getDepictedAnatomicalStructure() != null){
-			if (img.getDepictedAnatomicalStructure().getAnnotationFreetext() != null){
-				bean.setAnatomyFreetext(img.getDepictedAnatomicalStructure().getAnnotationFreetext());
+			OntologyObject oo = ou.getOntologyTermById(org.getStage().getTermId());
+			if (oo != null){
+				bean.setStage(oo.getLabel());
+				bean.setStageId(oo.getId());
+				bean.addStageAncestors(oo.getAncestorsBag());
 			}
-			if (img.getDepictedAnatomicalStructure().getOntologyTerm() != null){
-				bean.setAnatomyId(img.getDepictedAnatomicalStructure().getOntologyTerm().getTermId());
-				bean.setAnatomyTerm(ou.getOntologyTermById(img.getDepictedAnatomicalStructure().getOntologyTerm().getTermId()).getLabel());
-				bean.addAnatomySynonyms(ou.getSynonyms(img.getDepictedAnatomicalStructure().getOntologyTerm().getTermId()));
-			}
-			
 		}
-
+	
 		// field name="anatomy_computed_id" /-->
 		// field name="anatomy_computed_term" /-->
 		// field name="anatomy_ann_bag" /-->
@@ -493,7 +503,9 @@ public class BatchXmlUploader {
 					endPosition.add(g.getGenomicLocation().getEndPos());
 					strand.add(g.getGenomicLocation().getStrand());
 				}
-				zygosity.add(g.getZygosity().name());
+				if (g.getZygosity() != null){
+					zygosity.add(g.getZygosity().name());
+				}
 			}
 			
 			bean.setGeneIds(geneIds);
@@ -556,9 +568,9 @@ public class BatchXmlUploader {
 						}
 						res.addPhenotypeSynonymsBag(oo.getSynonyms());
 						for (OntologyObject anc : oo.getIntermediateTerms()){
-							res.addPhenotypeAncestorsIdBag(anc.getId());
-							res.addPhenotypeAncestorsSynonymsBag(anc.getSynonyms());
-							res.addPhenotypeAncestorsTermBag(anc.getLabel());
+							res.addPhenotypeAncestors(anc.getId());
+							res.addPhenotypeAncestors(anc.getSynonyms());
+							res.addPhenotypeAncestors(anc.getLabel());
 						}
 					}
 				}
@@ -589,25 +601,29 @@ public class BatchXmlUploader {
 					}
 					if (ann.getOntologyTerm() != null){
 						if (expression){
-							expressionInAnatomyIds.add(ann.getOntologyTerm().getTermId());
 							OntologyObject oo = ou.getOntologyTermById(ann.getOntologyTerm().getTermId());
+							expressionInAnatomyIds.add(oo.getId());
 							expressionInAnatomyLabels.add(oo.getLabel());
 							res.addExpressedGfSynonymsBag(oo.getSynonyms());
 							for (OntologyObject anc : oo.getIntermediateTerms()){
-								res.addExpressionInAncestorsIdBag(anc.getId());
-								res.addExpressionInAncestorsSynonymsBag(anc.getSynonyms());
-								res.addExpressionInAncestorsTermBag(anc.getLabel());
+								res.addExpressionInAncestors(anc.getId());
+								res.addExpressionInAncestors(anc.getSynonyms());
+								res.addExpressionInAncestors(anc.getLabel());
 							}
 						}
 						else{
-							depictedAnatomyIds.add(ann.getOntologyTerm().getTermId());
-							OntologyObject oo = ou.getOntologyTermById(ann.getOntologyTerm().getTermId());
-							depictedAnatomyLabels.add(oo.getLabel());
-							res.addDepictedAnatomySynonymsBag(oo.getSynonyms());
-							for (OntologyObject anc : oo.getIntermediateTerms()){
-								res.addDepictedAnatomyAncestorsIdBag(anc.getId());
-								res.addDepictedAnatomyAncestorsSynonymsBag(anc.getSynonyms());
-								res.addDepictedAnatomyAncestorsTermBag(anc.getLabel());
+							OntologyObject oo = ou.getOntologyTermById(ann.getOntologyTerm().getTermId().replace(":", "_"));
+							if (oo == null){
+								System.out.println("Ontology id not found : " + ann.getOntologyTerm().getTermId());
+							} else {
+								depictedAnatomyIds.add(oo.getId());
+								depictedAnatomyLabels.add(oo.getLabel());
+								res.addDepictedAnatomySynonymsBag(oo.getSynonyms());
+								for (OntologyObject anc : oo.getIntermediateTerms()){
+									res.addDepictedAnatomyAncestors(anc.getId());
+									res.addDepictedAnatomyAncestors(anc.getSynonyms());
+									res.addDepictedAnatomyAncestors(anc.getLabel());
+								}
 							}
 						}
 					}
@@ -626,9 +642,9 @@ public class BatchXmlUploader {
 						abnormalityInAnatomyLabels.add(oo.getLabel());
 						res.addAbnormalAnatomySynonymsBag(oo.getSynonyms());
 						for (OntologyObject anc : oo.getIntermediateTerms()){
-							res.addAbnormalAnatomyAncestorsIdBag(anc.getId());
-							res.addAbnormalAnatomyAncestorsSynonymsBag(anc.getSynonyms());
-							res.addAbnormalAnatomyAncestorsTermBag(anc.getLabel());
+							res.addAbnormalAnatomyAncestors(anc.getId());
+							res.addAbnormalAnatomyAncestors(anc.getSynonyms());
+							res.addAbnormalAnatomyAncestors(anc.getLabel());
 						}
 					}
 				}
@@ -670,7 +686,7 @@ public class BatchXmlUploader {
 	}
 	
 	
-private ImageDTO copyFieldsFromChannel(Image img, ImageDTO pojo){
+	private ImageDTO copyFieldsFromChannel(Image img, ImageDTO pojo){
 		
 		ImageDTO res = pojo;
 
@@ -680,15 +696,22 @@ private ImageDTO copyFieldsFromChannel(Image img, ImageDTO pojo){
 		
 		//TODO fill gf synonyms and name from ENSEMBL
 		
-		// For all associated ROIs, check available annotations and copy them as needed in the bag fields
 		for (String channelId : img.getAssociatedChannel().getEl()){
 			
 			Channel channel = channelIdMap.get(channelId);		
 			if (channel.getVisualisationMethod() != null){
-				for (OntologyTerm vm: channel.getVisualisationMethod().getEl()){
-					res.addVisualisationMethodId(vm.getTermId());
-					res.addVisualisationMethodLabel(vm.getTermLabel());
-					res.addVisualisationMethodSynonyms(ou.getSynonyms(vm.getTermId()));
+				for (Annotation vm: channel.getVisualisationMethod().getEl()){
+					OntologyObject oo = ou.getOntologyTermById(vm.getOntologyTerm().getTermId());
+					if (oo != null){
+						res.addVisualisationMethodId(oo.getId());
+						res.addVisualisationMethodLabel(oo.getLabel());
+						res.addVisualisationMethodSynonyms(oo.getSynonyms());
+						res.addVisualisationMethodAncestors(oo.getAncestorsBag());
+					}
+					String freetext = vm.getAnnotationFreetext();
+					if (freetext != null && !freetext.equals("")){
+						res.addVisualisationMethodFreetext(freetext);
+					}
 				}
 			}
 			
@@ -710,8 +733,24 @@ private ImageDTO copyFieldsFromChannel(Image img, ImageDTO pojo){
 				if (gf.getGeneticFeatureSymbol() != null){
 					expressedGfLabelBag.add(gf.getGeneticFeatureSymbol());
 				}	
-				break;
+				if (gf.getZygosity() != null){
+					res.addZygosity(gf.getZygosity().name());
+				}
+				if (gf.getGenomicLocation() != null){
+					
+					if (gf.getGenomicLocation().getStartPos() == null){
+						System.out.println("no start pos in genomic location for  channel: " + channel.getId());
+					}
+					res.addStartPosition(gf.getGenomicLocation().getStartPos());
+					
+					if (gf.getGenomicLocation().getEndPos() != null){
+						res.addEndPosition(gf.getGenomicLocation().getEndPos());
+					}
+					res.addChromosome(gf.getGenomicLocation().getChromosone());
+					res.addStrand(gf.getGenomicLocation().getStrand());
+				}
 			}
+			
 		}
 
 		res.setExpressedGfIdBag(expressedGfIdBag);
@@ -857,5 +896,34 @@ private ImageDTO copyFieldsFromChannel(Image img, ImageDTO pojo){
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	private String getImageId(String id, String datasource){
+		return datasource.replaceAll(" ", "_") + "_" + id.replaceAll(":", "_");
+	}
+	
+	private String getChannelId(String id, String datasource){
+		return datasource.replaceAll(" ", "_") + "_channel_" + id.replaceAll(":", "_");
+	}
+	
+	private List<String> getChannelId(List<String> ids, String datasource){
+		
+		List<String> newIds = new ArrayList<>();
+		for (String id: ids){
+			newIds.add(getChannelId(id, datasource));
+		}
+		return newIds;
+	}
+	
+	private String getRoiId(String id, String datasource){
+		return datasource.replaceAll(" ", "_") + "_roi_" + id.replaceAll(":", "_");
+	}
+	
+	private List<String> getRoiId(List<String> ids, String datasource){
+		List<String> newIds = new ArrayList<>();
+		for (String id: ids){
+			newIds.add(getRoiId(id, datasource));
+		}
+		return newIds;
 	}
 }

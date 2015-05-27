@@ -68,23 +68,27 @@ public class ValidationUtils {
 				return false;
 			}
 		}		
-		List<OntologyTerm> ontologyTermArray;
+		List<Annotation> annotationArray;
 		if (img.getImageDescription().getSamplePreparation() != null) {
-			ontologyTermArray = img.getImageDescription().getSamplePreparation().getEl();
-			if (ontologyTermArray != null) {
-				for (OntologyTerm ot : ontologyTermArray) {
-					res = res && checkOntologyTerm(ot, "samplePreparation");
-					if (!res) {
-						System.out.println(">>> sample prep " + ot.getTermId() + "(" + ot.getTermLabel() + ") is not a valid entry for samplePreparation.");
-						return false;
+			annotationArray = img.getImageDescription().getSamplePreparation().getEl();
+			if (annotationArray != null) {
+				for (Annotation a : annotationArray) {
+					OntologyTerm ot = a.getOntologyTerm();
+					if (ot != null){
+						res = res && checkOntologyTerm(ot, "samplePreparation");
+						if (!res) {
+							System.out.println(">>> sample prep " + ot.getTermId() + "(" + ot.getTermLabel() + ") is not a valid entry for samplePreparation.");
+							return false;
+						}
 					}
 				}
 			}
 		}	
 		if (img.getImageDescription().getImagingMethod() != null) {
-			ontologyTermArray = img.getImageDescription().getImagingMethod().getEl();
-			if (ontologyTermArray != null) {
-				for (OntologyTerm ot : ontologyTermArray) {
+			annotationArray = img.getImageDescription().getImagingMethod().getEl();
+			if (annotationArray != null) {
+				for (Annotation a : annotationArray) {
+					OntologyTerm ot = a.getOntologyTerm();
 					res = res && checkOntologyTerm(ot, "imagingMethod");
 					if (!res) {
 						System.out.println(">>> imaging method " + ot.getTermId() + "(" + ot.getTermLabel() + ") is not a valid entry for imagingMethod.");
@@ -101,11 +105,12 @@ public class ValidationUtils {
 
 		List<Annotation> annList;
 		boolean res = true;
-		List<OntologyTerm> ontologyTermArray;
+		List<Annotation> ontologyTermArray;
 		if (channel.getVisualisationMethod() != null) {
 			ontologyTermArray = channel.getVisualisationMethod().getEl();
 			if (ontologyTermArray != null) {
-				for (OntologyTerm ot : ontologyTermArray) {
+				for (Annotation a : ontologyTermArray) {
+					OntologyTerm ot = a.getOntologyTerm();
 					res = res && checkOntologyTerm(ot, "visualisationMethod");
 					if (!res) {
 						// System.out.println(">>> Ontology term " +

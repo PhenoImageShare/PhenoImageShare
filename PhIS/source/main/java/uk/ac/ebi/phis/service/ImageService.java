@@ -15,6 +15,7 @@ import org.json.JSONObject;
 import org.neo4j.cypher.ParameterNotFoundException;
 import org.springframework.stereotype.Service;
 
+import uk.ac.ebi.phis.exception.BasicPhisException;
 import uk.ac.ebi.phis.solrj.dto.ChannelDTO;
 import uk.ac.ebi.phis.solrj.dto.ImageDTO;
 import uk.ac.ebi.phis.solrj.dto.RoiDTO;
@@ -31,7 +32,8 @@ public class ImageService extends BasicService{
 	}
 			
 	public String getImages(String term, String phenotype, String geneParameterToBeDeleted, String mutantGene, String anatomy, String expressedGene, String sex, String taxon, 
-	String image_type, String sample_type, String stage, String visualisationMethod, String samplePreparation, String imagingMethod, Integer rows, Integer start) throws SolrServerException{
+	String image_type, String sample_type, String stage, String visualisationMethod, String samplePreparation, String imagingMethod, Integer rows, Integer start) 
+	throws SolrServerException{
 
 		SolrQuery solrQuery = new SolrQuery();
 		solrQuery.setQuery("*:*");
@@ -44,22 +46,21 @@ public class ImageService extends BasicService{
 			solrQuery.setQuery(ImageDTO.GENERIC_SEARCH + ":" + handleSpecialCharacters(term));
 			if (term.contains(" ")){
 				String[] splittedQuery = term.split(" ");
-				String query = ImageDTO.GENERIC_SEARCH + ":" + org.apache.commons.lang3.StringUtils.join(splittedQuery, "^1 " + ImageDTO.GENERIC_SEARCH + ":");			
+				String query = ImageDTO.GENERIC_SEARCH + ":" + org.apache.commons.lang3.StringUtils.join(splittedQuery, "^10 " + ImageDTO.GENERIC_SEARCH + ":");			
 				solrQuery.set("defType", "edismax");
 				solrQuery.set("qf",  ImageDTO.GENERIC_SEARCH);
-				solrQuery.set("bq", ImageDTO.GENERIC_SEARCH + ":\"" + term + "\"^10 " + handleSpecialCharacters(query));
+				solrQuery.set("bq", ImageDTO.GENERIC_SEARCH + ":\"" + term + "\"^100 " + handleSpecialCharacters(query) + " " + ImageDTO.GENERIC_SEARCH_ANCESTORS + ":\"" + term + "\"^1" );
 			
 			}else{
 				solrQuery.addFilterQuery(ImageDTO.GENERIC_SEARCH + ":"+ handleSpecialCharacters(term));
 			}
 		}
 		
-		
 		if (phenotype != null){
 			phenotype = handleSpecialCharacters(phenotype);
 			solrQuery.addFilterQuery(ImageDTO.PHENOTYPE_ID_BAG + ":\""+ phenotype + "\" OR " + 
 				ImageDTO.PHENOTYPE_FREETEXT_BAG + ":\""+ phenotype + "\" OR " + 
-				ImageDTO.PHENOTYPE_LABEL_BAG + ":\""+ phenotype + "\"");
+				ImageDTO.PHENOTYPE_LABEL_BAG + ":\""+ phenotype + "\" OR " + ImageDTO.PHENOTYPE_ANCESTORS + ":\"" + phenotype + "\"");
 		}
 		
 		if (mutantGene != null){
@@ -70,7 +71,7 @@ public class ImageService extends BasicService{
 		
 		if (anatomy != null){
 			anatomy = handleSpecialCharacters(anatomy);
-			solrQuery.addFilterQuery(ImageDTO.GENERIC_ANATOMY + ":\""+ anatomy + "\"");
+			solrQuery.addFilterQuery(ImageDTO.GENERIC_ANATOMY + ":\""+ anatomy + "\" OR " + ImageDTO.GENERIC_ANATOMY_ANCESTORS + ":\"" + anatomy + "\"");
 		}
 		if (expressedGene != null){
 			expressedGene = handleSpecialCharacters(expressedGene);
@@ -92,22 +93,23 @@ public class ImageService extends BasicService{
 		if (stage != null){
 			stage = handleSpecialCharacters(stage);
 			solrQuery.addFilterQuery(ImageDTO.STAGE + ":\"" + stage + "\" OR " + 
-				ImageDTO.STAGE_ID + ":\"" + stage + "\"");
+				ImageDTO.STAGE_ID + ":\"" + stage + "\" OR " + ImageDTO.STAGE_ANCESTORS + ":\"" + stage + "\"" );
 		}
 		if (visualisationMethod != null){
 			visualisationMethod = handleSpecialCharacters (visualisationMethod);
 			solrQuery.addFilterQuery(ImageDTO.VISUALISATION_METHOD_ID + ":\"" + visualisationMethod + "\" OR " + 
-				ImageDTO.VISUALISATION_METHOD_LABEL + ":\"" + visualisationMethod + "\"");
+				ImageDTO.VISUALISATION_METHOD_LABEL + ":\"" + visualisationMethod + "\" OR " + 
+				ImageDTO.VISUALISATION_METHOD_ANCESTORS + ":\"" + visualisationMethod + "\"");
 		}
 		if (samplePreparation != null){
 			samplePreparation = handleSpecialCharacters(samplePreparation);
 			solrQuery.addFilterQuery(ImageDTO.SAMPLE_PREPARATION_ID + ":\"" + samplePreparation + "\" OR " + 
-				ImageDTO.SAMPLE_PREPARATION_LABEL + ":\"" + samplePreparation + "\"");
+				ImageDTO.SAMPLE_PREPARATION_LABEL + ":\"" + samplePreparation + "\" OR " + ImageDTO.SAMPLE_PREPARATION_ANCESTORS + ":\"" + samplePreparation + "\"");
 		}
 		if (imagingMethod != null){
 			imagingMethod = handleSpecialCharacters(imagingMethod);
 			solrQuery.addFilterQuery(ImageDTO.IMAGING_METHOD_LABEL_ANALYSED + ":\"" + imagingMethod + "\" OR " + 
-			ImageDTO.IMAGING_METHOD_ID + ":\"" + imagingMethod + "\"");
+			ImageDTO.IMAGING_METHOD_ID + ":\"" + imagingMethod + "\" OR " + ImageDTO.IMAGING_METHOD_ANCESTORS + ":\"" + imagingMethod + "\"");
 		}
 		if (sex != null){
 			sex = handleSpecialCharacters(sex);
@@ -173,8 +175,9 @@ public class ImageService extends BasicService{
 	 * 
 	 * @param roiToReplace must exist
 	 * @param roiToAdd must have the same id as roiToReplace
+	 * @throws BasicPhisException 
 	 */
-	public void updateImageFromRoi(RoiDTO roiToReplace, RoiDTO roiToAdd){
+	public void updateImageFromRoi(RoiDTO roiToReplace, RoiDTO roiToAdd) throws BasicPhisException{
 		if (imageIdExists(roiToAdd.getAssociatedImage()) && imageIdExists(roiToReplace.getAssociatedImage())){
 			deleteRoiRefferences(roiToReplace);
 			addToImageFromRoi(roiToAdd);
@@ -182,15 +185,17 @@ public class ImageService extends BasicService{
 	}
 	
 	
-	public boolean imageIdExists(String id){
+	public boolean imageIdExists(String id) throws BasicPhisException{
+
 		return getImageDTOById(id) != null;
 	}
 	
 	/**
 	 * Delete all refferences to this roi (roi id, annotations from annotations bags)
 	 * @param roi
+	 * @throws BasicPhisException 
 	 */
-	public void deleteRoiRefferences(RoiDTO roi){
+	public void deleteRoiRefferences(RoiDTO roi) throws BasicPhisException{
 		
 		ImageDTO img = getImageDTOById(roi.getAssociatedImage());
 
@@ -246,9 +251,10 @@ public class ImageService extends BasicService{
 	/**
 	 * To be used for atomic updates when a user adds a new annotation
 	 * @param roi
+	 * @throws BasicPhisException 
 	 * @throws Exception 
 	 */
-	public void addToImageFromRoi(RoiDTO roi) throws ParameterNotFoundException{
+	public void addToImageFromRoi(RoiDTO roi) throws ParameterNotFoundException, BasicPhisException{
 		
 		ImageDTO img = getImageDTOById(roi.getAssociatedImage());
 		
@@ -294,15 +300,16 @@ public class ImageService extends BasicService{
 		}
 	}
 	
-	public ImageDTO getImageDTOById(String imageId){
+	public ImageDTO getImageDTOById(String imageId) throws BasicPhisException{
 		ImageDTO img = null;
 		SolrQuery solrQuery = new SolrQuery();
 		solrQuery.setQuery(ImageDTO.ID + ":" + imageId);
 		try {
 			List<ImageDTO> images = solr.query(solrQuery).getBeans(ImageDTO.class);
 			img = images.get(0);
-		} catch (SolrServerException e) { 
-			e.printStackTrace();
+		} catch (Exception e) { 
+		//	e.printStackTrace();
+			throw new BasicPhisException("Image id provided could not be found.");
 		}
 		return img;
 	}

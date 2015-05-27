@@ -89,35 +89,44 @@
    <field name="width" type="int" indexed="true" stored="true"/>
    <field name="host_url" type="string" indexed="true" stored="true" required="true"/>
    <field name="host_name" type="string" indexed="true" stored="true" required="true"/>
-   <field name="image_generated_by" type="string" indexed="true" stored="true" multiValued="false" required="true"/>
    <field name="image_url" type="string" indexed="true" stored="true" required="true"/>
+   <field name="thumbnail_url" type="string" indexed="true" stored="true" required="true"/>
    <field name="image_context_url" type="string" indexed="true" stored="true"/>
+   <field name="image_generated_by" type="string" indexed="true" stored="true" multiValued="false" required="false"/>
    <field name="imaging_method_label" type="string" indexed="true" stored="true" multiValued="false"/>
    <field name="imaging_method_synonym" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="imaging_method_label_analysed" type="textCaseInsensitive" indexed="true" stored="false" multiValued="true"/>
    <field name="imaging_method_id" type="string" indexed="true" stored="true" multiValued="false"/>
+   <field name="imaging_method_freetext" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="imaging_method_ancestors" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
+   
    <field name="sample_preparation_label" type="string" indexed="true" stored="true" multiValued="false"/>
    <field name="sample_preparation_id" type="string" indexed="true" stored="true" multiValued="false"/>
+   <field name="sample_preparation_freetext" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="sample_preparation_synonyms" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="sample_preparation_ancestors" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
+   
    <field name="visualisation_method_label" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="visualisation_method_freetext" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="visualisation_method_id" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="visualisation_method_synonyms" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="visualisation_method_ancestors" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
+   
    <field name="image_type" type="string" indexed="true" stored="true" multiValued="true"/> <!-- 2 values only, needed for faceting : Pehnotype/Anatomy and Expression -->
    <field name="sample_type" type="string" indexed="true" stored="true" multiValued="false"/> <!--  2 possible values, needed for the facets : mutant or wildtype -->
    
    <field name="machine" type="string" indexed="true" stored="true"/>
-   <field name="thumbnail_path" type="string" indexed="true" stored="true"/>
 
    <!-- Sample -->
    
-   <field name="age_since_birth" type="float" indexed="true" stored="true"/>
+   <field name="age" type="string" indexed="true" stored="true"/>
    <field name="sample_generated_by" type="string" indexed="true" stored="true"/>
    <field name="taxon" type="string" indexed="true" stored="true" required="true"/>
    <field name="ncbi_taxon_id" type="string" indexed="true" stored="true"/>
    <field name="sex" type="string" indexed="true" stored="true"/>
    <field name="stage_id" type="string" indexed="true" stored="true"/>
+   <field name="stage_ancestors" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
    <field name="stage" type="string" indexed="true" stored="true"/>
-   <field name="embryonic_age" type="float" indexed="true" stored="true"/>
    
    <!-- annotations -->
    
@@ -125,6 +134,7 @@
    <field name="anatomy_term" type="string" indexed="true" stored="true" multiValued="false"/>
    <field name="anatomy_freetext" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="anatomy_synonyms" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="anatomy_ancestors" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
    
    <!-- field name="phenotype_ann_bag" type="string" indexed="true" stored="true" multiValued="true"/-->
    
@@ -153,33 +163,25 @@
    <field name="anatomy_computed_id_bag" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="anatomy_computed_term_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/> 
    <field name="anatomy_computed_synonyms_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/> 
-   <field name="anatomy_computed_ancestors_synonyms_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/> 
-   <field name="anatomy_computed_ancestors_id_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/> 
-   <field name="anatomy_computed_ancestors_term_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/> 
+   <field name="anatomy_computed_ancestors" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/> 
    
    <field name="depicted_anatomy_id_bag" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="depicted_anatomy_term_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
    <field name="depicted_anatomy_freetext_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
    <field name="depicted_anatomy_synonyms_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
-   <field name="depicted_anatomy_ancestors_synonyms_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
-   <field name="depicted_anatomy_ancestors_id_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
-   <field name="depicted_anatomy_ancestors_term_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
+   <field name="depicted_anatomy_ancestors" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
    
    <field name="abnormal_anatomy_id_bag" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="abnormal_anatomy_term_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
    <field name="abnormal_anatomy_freetext_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
    <field name="abnormal_anatomy_synonyms_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
-   <field name="abnormal_anatomy_ancestors_synonyms_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
-   <field name="abnormal_anatomy_ancestors_id_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
-   <field name="abnormal_anatomy_ancestors_term_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
+   <field name="abnormal_anatomy_ancestors" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
    
    <field name="expression_in_id_bag" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="expression_in_label_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
    <field name="expression_in_freetext_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
    <field name="expression_in_synonyms_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
-   <field name="expression_in_ancestors_synonyms_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
-   <field name="expression_in_ancestors_id_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
-   <field name="expression_in_ancestors_term_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
+   <field name="expression_in_ancestors" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
    
    <field name="observation_bag" type="string" indexed="true" stored="true" multiValued="true"/>
    
@@ -195,11 +197,12 @@
    <field name="phenotype_freetext_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
    <field name="phenotype_label_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true" termVectors="true" termPositions="true" termOffsets="true"/>
    <field name="phenotype_synonyms_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true" termVectors="true" termPositions="true" termOffsets="true"/>
-   <field name="phenotype_ancestors_synonyms_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true" termVectors="true" termPositions="true" termOffsets="true"/>
-   <field name="phenotype_ancestors_term_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true" termVectors="true" termPositions="true" termOffsets="true"/>
-   <field name="phenotype_ancestors_id_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true" termVectors="true" termPositions="true" termOffsets="true"/>
+   <field name="phenotype_ancestors" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true" termVectors="true" termPositions="true" termOffsets="true"/>
+   
    <field name="generic_search" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
+   <field name="generic_search_ancestors" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
    <field name="generic_anatomy" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
+   <field name="generic_anatomy_ancestors" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
    
    <!-- Autosuggest fields -->
    <!-- field name="term_autosuggest_analysed" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true" termVectors="true" termPositions="true" termOffsets="true"/-->
@@ -224,6 +227,14 @@
    <copyField source="abnormal_anatomy_freetext_bag" dest="generic_anatomy"/>
    <copyField source="abnormal_anatomy_id_bag" dest="generic_anatomy"/>
    <copyField source="abnormal_anatomy_synonyms_bag" dest="generic_anatomy"/>
+ 
+ 
+   <copyField source="expression_in_ancestors" dest="generic_anatomy_ancestors"/>
+   <copyField source="abnormal_anatomy_ancestors" dest="generic_anatomy_ancestors"/>
+   <copyField source="depicted_anatomy_ancestors" dest="generic_anatomy_ancestors"/>
+   <copyField source="anatomy_computed_ancestors" dest="generic_anatomy_ancestors"/>
+   <copyField source="anatomy_ancestors" dest="generic_anatomy_ancestors"/>
+ 
  
    <copyField source="genetic_feature_symbol" dest="term_autosuggest"/>
    <copyField source="expressed_gf_symbol_bag" dest="term_autosuggest"/>
@@ -292,6 +303,20 @@
    <copyField source="visualisation_method_synonyms" dest="generic_search"/>
    <copyField source="machine" dest="generic_search"/>
    <copyField source="sample_type" dest="generic_search"/>
+   
+   
+   <copyField source="imaging_method_ancestors" dest="generic_search_ancestors"/>
+   <copyField source="sample_preparation_ancestors" dest="generic_search_ancestors"/>
+   <copyField source="visualisation_method_ancestors" dest="generic_search_ancestors"/>
+   <copyField source="stage_ancestors" dest="generic_search_ancestors"/>
+   <copyField source="anatomy_ancestors" dest="generic_search_ancestors"/>
+   <copyField source="anatomy_computed_ancestors" dest="generic_search_ancestors"/>
+   <copyField source="depicted_anatomy_ancestors" dest="generic_search_ancestors"/>
+   <copyField source="abnormal_anatomy_ancestors" dest="generic_search_ancestors"/>
+   <copyField source="expression_in_ancestors" dest="generic_search_ancestors"/>
+   <copyField source="abnormal_anatomy_ancestors" dest="generic_search_ancestors"/>
+   <copyField source="phenotype_ancestors" dest="generic_search_ancestors"/>
+   <copyField source="generic_anatomy" dest="generic_search_ancestors"/>
 
    <copyField source="imaging_method_label" dest="imaging_method_label_analysed"/>
 </schema>

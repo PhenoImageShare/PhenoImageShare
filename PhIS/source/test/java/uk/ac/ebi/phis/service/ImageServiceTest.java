@@ -7,7 +7,9 @@ import java.util.List;
 
 import org.junit.Ignore;
 import org.junit.Test;
+import org.neo4j.cypher.ParameterNotFoundException;
 
+import uk.ac.ebi.phis.exception.BasicPhisException;
 import uk.ac.ebi.phis.solrj.dto.ImageDTO;
 import uk.ac.ebi.phis.solrj.dto.RoiDTO;
 
@@ -27,13 +29,20 @@ public class ImageServiceTest {
 		imageDocId = roi.getAssociatedImage();
 	}
 	
+	
 	@Test
-	public void testGetImageById(){
+	public void testGetImageById() 
+	throws BasicPhisException{
+		
 		assertTrue(is.getImageDTOById(imageDocId) != null);
+		
 	}
 	
+	
+	
 	@Test 
-	public void testUpdateFromRoi(){
+	public void testUpdateFromRoi() 
+	throws ParameterNotFoundException, BasicPhisException{
 		is.addToImageFromRoi(roi);
 		RoiDTO roiToReplace = rs.getRoiById(roi.getId());
 		ArrayList<String> abnormalityAnatomyFreetext = new ArrayList<String>();
@@ -45,7 +54,8 @@ public class ImageServiceTest {
 	}
 	
 	@Test
-	public void testDeleteRoi(){
+	public void testDeleteRoi() 
+	throws ParameterNotFoundException, BasicPhisException{
 		
 		is.addToImageFromRoi(roi);
 		ImageDTO originalImage = is.getImageDTOById(roi.getAssociatedImage());
@@ -63,7 +73,8 @@ public class ImageServiceTest {
 	}
 	
 	@Test 
-	public void testAddFromRoi(){
+	public void testAddFromRoi() 
+	throws ParameterNotFoundException, BasicPhisException{
 		System.out.println(roi.getAssociatedImage());
 		System.out.println(is.getSolrUrl());
 		String imageId = roi.getAssociatedImage();

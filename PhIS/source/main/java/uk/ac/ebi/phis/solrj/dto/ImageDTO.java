@@ -26,41 +26,45 @@ public class ImageDTO {
 	public final static String GF_SYNONYMS = "genetic_feature_synonyms";
 	public final static String GENE_SYMBOL = "gene_symbol";
 	public final static String GENE_SYNONYMS = "gene_synonyms";
+	public final static String AGE = "age";
 	public final static String CONDITIONS = "conditions";
 	public final static String OBSERVATIONS = "observations";
 	public final static String ANATOMY_FREETEXT = "anatomy_freetext";
 	public final static String ANATOMY_TERM = "anatomy_term";
 	public final static String ANATOMY_SYNONYMS = "anatomy_synonyms";
-	public final static String ANATOMY_ANCESTORS_SYNONYMS = "anatomy_ancestors_synonyms";
-	public final static String ANATOMY_ANCESTORS_ID = "anatomy_ancestors_id";
-	public final static String ANATOMY_ANCESTORS_TERM = "anatomy_ancestors_term";
-	public final static String EMBRYONIC_AGE = "embryonic_age";
+	public final static String ANATOMY_ANCESTORS = "anatomy_ancestors";
 	public final static String STAGE_ID = "stage_id";
 	public final static String STAGE = "stage";
+	public final static String STAGE_ANCESTORS = "stage_ancestors";
 	public final static String SEX = "sex";
 	public final static String NCBI_TAXON_ID = "ncbi_taxon_id";
 	public final static String TAXON = "taxon";
 	public final static String SAMPLE_GENERATED_BY = "sample_generated_by";
-	public final static String AGE_SINCE_BIRTH = "age_since_birth";
 	public final static String WIDTH = "width";
-	public final static String THUMBNAIL_PATH = "thumbnail_path";
 	public final static String IMAGE_TYPE = "image_type";
 	public final static String SAMPLE_TYPE = "sample_type";
 
 	public final static String ORIGINAL_IMAGE_ID = "original_image_id";
 	public final static String MACHINE = "machine";
 	public final static String VISUALISATION_METHOD_LABEL = "visualisation_method_label";
+	public final static String VISUALISATION_METHOD_FREETEXT = "visualisation_method_freetext";
 	public final static String VISUALISATION_METHOD_ID = "visualisation_method_id";
 	public final static String VISUALISATION_METHOD_SYNONYMS = "visualisation_method_synonyms";
+	public final static String VISUALISATION_METHOD_ANCESTORS = "visualisation_method_ancestors";
 	public final static String SAMPLE_PREPARATION_LABEL = "sample_preparation_label";
+	public final static String SAMPLE_PREPARATION_FREETEXT = "sample_preparation_freetext";
 	public final static String SAMPLE_PREPARATION_ID = "sample_preparation_id";
 	public final static String SAMPLE_PREPARATION_SYNONYMS = "sample_preparation_synonyms";
+	public final static String SAMPLE_PREPARATION_ANCESTORS = "sample_preparation_ancestors";
 	public final static String IMAGING_METHOD_ID = "imaging_method_id";
 	public final static String IMAGING_METHOD_LABEL = "imaging_method_label";
+	public final static String IMAGING_METHOD_FREETEXT = "imaging_method_freetext";
 	public final static String IMAGING_METHOD_LABEL_ANALYSED = "imaging_method_label_analysed";
 	public final static String IMAGING_METHOD_SYNONYMS = "imaging_method_synonym";
+	public final static String IMAGING_METHOD_ANCESTORS = "imaging_method_ancestors";
 	public final static String IMAGE_CONTEXT_URL = "image_context_url";
 	public final static String IMAGE_URL = "image_url";
+	public final static String THUMBNAIL_URL = "thumbnail_url";
 	public final static String IMAGE_GENERATED_BY = "image_generated_by";
 	public final static String HOST_NAME = "host_name";
 	public final static String HOST_URL = "host_url";
@@ -72,33 +76,25 @@ public class ImageDTO {
 	public final static String ANATOMY_COMPUTED_ID_BAG = "anatomy_computed_id_bag";
 	public final static String ANATOMY_COMPUTED_TERM_BAG = "anatomy_computed_term_bag";
 	public final static String ANATOMY_COMPUTED_SYNONYMS_BAG = "anatomy_computed_synonyms_bag";
-	public final static String ANATOMY_COMPUTED_ANCESTORS_SYNONYMS_BAG = "anatomy_computed_ancestors_synonyms_bag";
-	public final static String ANATOMY_COMPUTED_ANCESTORS_ID_BAG = "anatomy_computed_ancestors_id_bag";
-	public final static String ANATOMY_COMPUTED_ANCESTORS_TERM_BAG = "anatomy_computed_ancestors_term_bag";
+	public final static String ANATOMY_COMPUTED_ANCESTORS = "anatomy_computed_ancestors";
 
 	public final static String DEPICTED_ANATOMY_ID_BAG = "depicted_anatomy_id_bag";
 	public final static String DEPICTED_ANATOMY_TERM_BAG = "depicted_anatomy_term_bag";
 	public final static String DEPICTED_ANATOMY_FREETEXT_BAG = "depicted_anatomy_freetext_bag";
 	public final static String DEPICTED_ANATOMY_SYNONYMS_BAG = "depicted_anatomy_synonyms_bag";
-	public final static String DEPICTED_ANATOMY_ANCESTORS_SYNONYMS_BAG = "depicted_anatomy_ancestors_synonyms_bag";
-	public final static String DEPICTED_ANATOMY_ANCESTORS_ID_BAG = "depicted_anatomy_ancestors_id_bag";
-	public final static String DEPICTED_ANATOMY_ANCESTORS_TERM_BAG = "depicted_anatomy_ancestors_term_bag";
+	public final static String DEPICTED_ANATOMY_ANCESTORS = "depicted_anatomy_ancestors";
 
 	public final static String ABNORMAL_ANATOMY_ID_BAG = "abnormal_anatomy_id_bag";
 	public final static String ABNORMAL_ANATOMY_TERM_BAG = "abnormal_anatomy_term_bag";
 	public final static String ABNORMAL_ANATOMY_FREETEXT_BAG = "abnormal_anatomy_freetext_bag";
 	public final static String ABNORMAL_ANATOMY_SYNONYMS_BAG = "abnormal_anatomy_synonyms_bag";
-	public final static String ABNORMAL_ANATOMY_ANCESTORS_SYNONYMS_BAG = "abnormal_anatomy_ancestors_synonyms_bag";
-	public final static String ABNORMAL_ANATOMY_ANCESTORS_ID_BAG = "abnormal_anatomy_ancestors_id_bag";
-	public final static String ABNORMAL_ANATOMY_ANCESTORS_TERM_BAG = "abnormal_anatomy_ancestors_term_bag";
+	public final static String ABNORMAL_ANATOMY_ANCESTORS = "abnormal_anatomy_ancestors";
 
 	public final static String EXPRESSION_IN_ID_BAG = "expression_in_id_bag";
 	public final static String EXPRESSION_IN_LABEL_BAG = "expression_in_label_bag";
 	public final static String EXPRESSION_IN_FREETEXT_BAG = "expression_in_freetext_bag";
 	public final static String EXPRESSION_IN_SYNONYMS_BAG = "expression_in_synonyms_bag";
-	public final static String EXPRESSION_IN_ANCESTORS_SYNONYMS_BAG = "expression_in_ancestors_synonyms_bag";
-	public final static String EXPRESSION_IN_ANCESTORS_ID_BAG = "expression_in_ancestors_id_bag";
-	public final static String EXPRESSION_IN_ANCESTORS_TERM_BAG = "expression_in_ancestors_term_bag";
+	public final static String EXPRESSION_IN_ANCESTORS = "expression_in_ancestors";
 
 	public final static String OBSERVATION_BAG = "observation_bag";
 	public final static String MUTANT_GENE_ID_BAG = "mutant_gene_id_bag";
@@ -112,13 +108,13 @@ public class ImageDTO {
 	public final static String PHENOTYPE_LABEL_BAG = "phenotype_label_bag";
 	public final static String PHENOTYPE_FREETEXT_BAG = "phenotype_freetext_bag";
 	public final static String PHENOTYPE_SYNONYMS_BAG = "phenotype_synonyms_bag";
-	public final static String PHENOTYPE_ANCESTORS_SYNONYMS_BAG = "phenotype_ancestors_synonyms_bag";
-	public final static String PHENOTYPE_ANCESTORS_TERM_BAG = "phenotype_ancestors_term_bag";
-	public final static String PHENOTYPE_ANCESTORS_ID_BAG = "phenotype_ancestors_id_bag";
+	public final static String PHENOTYPE_ANCESTORS = "phenotype_ancestors";
 
 	public final static String TERM_AUTOSUGGEST = "term_autosuggest";
 	public final static String GENERIC_SEARCH = "generic_search";
+	public final static String GENERIC_SEARCH_ANCESTORS = "generic_search_ancestors";
 	public final static String GENERIC_ANATOMY = "generic_anatomy";
+	public final static String GENERIC_ANATOMY_ANCESTORS = "generic_anatomy_ancestors";
 
 	@Field(ID)
 	private String id;
@@ -149,6 +145,9 @@ public class ImageDTO {
 
 	@Field(IMAGE_URL)
 	private String imageUrl;
+	
+	@Field(THUMBNAIL_URL)
+	private String thumbnailUrl;
 
 	@Field(IMAGE_CONTEXT_URL)
 	private String imageContextUrl;
@@ -162,6 +161,12 @@ public class ImageDTO {
 	@Field(IMAGING_METHOD_SYNONYMS)
 	private ArrayList<String> imagingMethodSynonyms;
 
+	@Field(IMAGING_METHOD_FREETEXT)
+	private ArrayList<String> imagingMethodFreetext;
+	
+	@Field(IMAGING_METHOD_ANCESTORS)
+	private ArrayList<String> imagingMethodAncestors;
+
 	@Field(SAMPLE_PREPARATION_ID)
 	private String samplePreparationId;
 
@@ -170,33 +175,45 @@ public class ImageDTO {
 
 	@Field(SAMPLE_PREPARATION_SYNONYMS)
 	private ArrayList<String> samplePreparationSynonyms;
+	
+	@Field(SAMPLE_PREPARATION_FREETEXT)
+	private ArrayList<String> samplePreparationFreetext;
+	
+	@Field(SAMPLE_PREPARATION_ANCESTORS)
+	private ArrayList<String> samplePreparationAncestors;
 
 	@Field(VISUALISATION_METHOD_ID)
 	private ArrayList<String> visualisationMethodId;
 
 	@Field(VISUALISATION_METHOD_LABEL)
 	private ArrayList<String> visualisationMethodLabel;
+	
+	@Field(VISUALISATION_METHOD_FREETEXT)
+	private ArrayList<String> visualisationMethodFreetext;
 
 	@Field(VISUALISATION_METHOD_SYNONYMS)
 	private ArrayList<String> visualisationMethodSynonyms;
+	
+	@Field(VISUALISATION_METHOD_ANCESTORS)
+	private ArrayList<String> visualisationMethodAncestors;
 
 	@Field(MACHINE)
 	private String machine;
-
-	@Field(THUMBNAIL_PATH)
-	private String thumbnailPath;
 
 	@Field(WIDTH)
 	private Integer width;
 
 	@Field(GENERIC_SEARCH)
 	private List<String> genericSearch;
-	
+
 	@Field(GENERIC_ANATOMY)
 	private List<String> genericAnatomy;
 	
-	@Field(AGE_SINCE_BIRTH)
-	private Float ageSinceBirth;
+	@Field(GENERIC_ANATOMY_ANCESTORS)
+	private List<String> genericAnatomyAncestors;
+	
+	@Field(AGE)
+	private String age;
 
 	@Field(SAMPLE_GENERATED_BY)
 	private String sampleGeneratedBy;
@@ -215,9 +232,9 @@ public class ImageDTO {
 
 	@Field(STAGE_ID)
 	private String stageId;
-
-	@Field(EMBRYONIC_AGE)
-	private Float embryonicAge;
+	
+	@Field(STAGE_ANCESTORS)
+	private ArrayList<String> stageAncestors;
 
 	// annotations -->
 
@@ -232,6 +249,9 @@ public class ImageDTO {
 
 	@Field(ANATOMY_SYNONYMS)
 	private ArrayList<String> anatomySynonyms;
+	
+	@Field(ANATOMY_ANCESTORS)
+	private ArrayList<String> anatomyAncestors;
 
 	@Field(OBSERVATIONS)
 	private List<String> observations;
@@ -287,14 +307,8 @@ public class ImageDTO {
 	@Field(ANATOMY_COMPUTED_SYNONYMS_BAG)
 	private ArrayList<String> anatomyComputedSynonymsBag;
 
-	@Field(ANATOMY_COMPUTED_ANCESTORS_ID_BAG)
-	private ArrayList<String> anatomyComputedAncestorsIdBag;
-
-	@Field(ANATOMY_COMPUTED_ANCESTORS_SYNONYMS_BAG)
-	private ArrayList<String> anatomyComputedAncestorsSynonymsBag;
-
-	@Field(ANATOMY_COMPUTED_ANCESTORS_TERM_BAG)
-	private ArrayList<String> anatomyComputedAncestorsTermBag;
+	@Field(ANATOMY_COMPUTED_ANCESTORS)
+	private ArrayList<String> anatomyComputedAncestors;
 
 	@Field(DEPICTED_ANATOMY_ID_BAG)
 	private ArrayList<String> depictedAnatomyIdBag;
@@ -308,14 +322,8 @@ public class ImageDTO {
 	@Field(DEPICTED_ANATOMY_SYNONYMS_BAG)
 	private ArrayList<String> depictedAnatomySynonymsBag;
 
-	@Field(DEPICTED_ANATOMY_ANCESTORS_ID_BAG)
-	private ArrayList<String> depictedAnatomyAncestorsIdBag;
-
-	@Field(DEPICTED_ANATOMY_ANCESTORS_SYNONYMS_BAG)
-	private ArrayList<String> depictedAnatomyAncestorsSynonymsBag;
-
-	@Field(DEPICTED_ANATOMY_ANCESTORS_TERM_BAG)
-	private ArrayList<String> depictedAnatomyAncestorsTermBag;
+	@Field(DEPICTED_ANATOMY_ANCESTORS)
+	private ArrayList<String> depictedAnatomyAncestors;
 
 	@Field(ABNORMAL_ANATOMY_ID_BAG)
 	private ArrayList<String> abnormalAnatomyIdBag;
@@ -329,14 +337,8 @@ public class ImageDTO {
 	@Field(ABNORMAL_ANATOMY_SYNONYMS_BAG)
 	private ArrayList<String> abnormalAnatomySynonymsBag;
 
-	@Field(ABNORMAL_ANATOMY_ANCESTORS_ID_BAG)
-	private ArrayList<String> abnormalAnatomyAncestorsIdBag;
-
-	@Field(ABNORMAL_ANATOMY_ANCESTORS_SYNONYMS_BAG)
-	private ArrayList<String> abnormalAnatomyAncestorsSynonymsBag;
-
-	@Field(ABNORMAL_ANATOMY_ANCESTORS_TERM_BAG)
-	private ArrayList<String> abnormalAnatomyAncestorsTermBag;
+	@Field(ABNORMAL_ANATOMY_ANCESTORS)
+	private ArrayList<String> abnormalAnatomyAncestors;
 
 	@Field(EXPRESSED_GF_ID_BAG)
 	private ArrayList<String> expressedGfIdBag;
@@ -359,14 +361,8 @@ public class ImageDTO {
 	@Field(EXPRESSION_IN_SYNONYMS_BAG)
 	private ArrayList<String> expressionInSynonymsBag;
 
-	@Field(EXPRESSION_IN_ANCESTORS_ID_BAG)
-	private ArrayList<String> expressionInAncestorsIdBag;
-
-	@Field(EXPRESSION_IN_ANCESTORS_SYNONYMS_BAG)
-	private ArrayList<String> expressionInAncestorsSynonymsBag;
-
-	@Field(EXPRESSION_IN_ANCESTORS_TERM_BAG)
-	private ArrayList<String> expressionInAncestorsTermBag;
+	@Field(EXPRESSION_IN_ANCESTORS)
+	private ArrayList<String> expressionInAncestors;
 
 	@Field(MUTANT_GENE_ID_BAG)
 	private ArrayList<String> mutantGeneIdBag;
@@ -392,153 +388,232 @@ public class ImageDTO {
 	@Field(PHENOTYPE_SYNONYMS_BAG)
 	private ArrayList<String> phenotypeSynonymsBag;
 
-	@Field(PHENOTYPE_ANCESTORS_ID_BAG)
-	private ArrayList<String> phenotypeAncestorsIdBag;
-
-	@Field(PHENOTYPE_ANCESTORS_SYNONYMS_BAG)
-	private ArrayList<String> phenotypeAncestorsSynonymsBag;
-
-	@Field(PHENOTYPE_ANCESTORS_TERM_BAG)
-	private ArrayList<String> phenotypeAncestorsTermBag;
-
+	@Field(PHENOTYPE_ANCESTORS)
+	private ArrayList<String> phenotypeAncestors;
 	
-		
-	
-	/**
-	 * @return the genericSearch
-	 */
 	public List<String> getGenericSearch() {
 	
 		return genericSearch;
 	}
 	
-	/**
-	 * @param genericSearch the genericSearch to set
-	 */
 	public void setGenericSearch(List<String> genericSearch) {
 	
 		this.genericSearch = genericSearch;
 	}
 
-
-	/**
-	 * @return the imagingMethodSynonyms
-	 */
 	public ArrayList<String> getImagingMethodSynonyms() {
 	
 		return imagingMethodSynonyms;
 	}
 
-
-	
-	/**
-	 * @param samplePreparationSynonyms the samplePreparationSynonyms to set
-	 */
 	public void setSamplePreparationSynonyms(ArrayList<String> samplePreparationSynonyms) {
 	
 		this.samplePreparationSynonyms = samplePreparationSynonyms;
 	}
-
-
 	
-	/**
-	 * @param visualisationMethodId the visualisationMethodId to set
-	 */
 	public void setVisualisationMethodId(ArrayList<String> visualisationMethodId) {
 	
 		this.visualisationMethodId = visualisationMethodId;
 	}
 
-
-	
-	/**
-	 * @param visualisationMethodLabel the visualisationMethodLabel to set
-	 */
 	public void setVisualisationMethodLabel(ArrayList<String> visualisationMethodLabel) {
 	
 		this.visualisationMethodLabel = visualisationMethodLabel;
 	}
 
-
-	
-	/**
-	 * @param visualisationMethodSynonyms the visualisationMethodSynonyms to set
-	 */
 	public void setVisualisationMethodSynonyms(ArrayList<String> visualisationMethodSynonyms) {
 	
 		this.visualisationMethodSynonyms = visualisationMethodSynonyms;
 	}
 
-
-	
-	/**
-	 * @param anatomySynonyms the anatomySynonyms to set
-	 */
 	public void setAnatomySynonyms(ArrayList<String> anatomySynonyms) {
 	
 		this.anatomySynonyms = anatomySynonyms;
 	}
 
-
-	
-	/**
-	 * @param geneSynonyms the geneSynonyms to set
-	 */
 	public void setGeneSynonyms(List<String> geneSynonyms) {
 	
 		this.geneSynonyms = geneSynonyms;
 	}
 
-
-	
-	/**
-	 * @param geneticFeatureSynonyms the geneticFeatureSynonyms to set
-	 */
 	public void setGeneticFeatureSynonyms(List<String> geneticFeatureSynonyms) {
 	
 		this.geneticFeatureSynonyms = geneticFeatureSynonyms;
 	}
 
-
-	
-	/**
-	 * @param anatomyComputedSynonymsBag the anatomyComputedSynonymsBag to set
-	 */
 	public void setAnatomyComputedSynonymsBag(ArrayList<String> anatomyComputedSynonymsBag) {
 	
 		this.anatomyComputedSynonymsBag = anatomyComputedSynonymsBag;
 	}
 
+	
+	public ArrayList<String> getImagingMethodFreetext() {
+	
+		return imagingMethodFreetext;
+	}
 
 	
+	
+	public String getThumbnailUrl() {
+	
+		return thumbnailUrl;
+	}
+
+	
+	public void setThumbnailUrl(String thumbnailUrl) {
+	
+		this.thumbnailUrl = thumbnailUrl;
+	}
+
+	
+	public ArrayList<String> getStageAncestors() {
+	
+		return stageAncestors;
+	}
+
+	
+	public void setStageAncestors(ArrayList<String> stageAncestors) {
+	
+		this.stageAncestors = stageAncestors;
+	}
+
+	public void setImagingMethodFreetext(ArrayList<String> imagingMethodFreetext) {
+	
+		this.imagingMethodFreetext = imagingMethodFreetext;
+	}
+
+	
+	public ArrayList<String> getSamplePreparationFreetext() {
+	
+		return samplePreparationFreetext;
+	}
+
+	
+	public void setSamplePreparationFreetext(ArrayList<String> samplePreparationFreetext) {
+	
+		this.samplePreparationFreetext = samplePreparationFreetext;
+	}
+
+	
+	public ArrayList<String> getVisualisationMethodFreetext() {
+	
+		return visualisationMethodFreetext;
+	}
+
+	
+	public void setVisualisationMethodFreetext(ArrayList<String> visualisationMethodFreetext) {
+	
+		this.visualisationMethodFreetext = visualisationMethodFreetext;
+	}
+
+
+	public List<String> getGenericAnatomy() {
+	
+		return genericAnatomy;
+	}
+
+	
+	public void setGenericAnatomy(List<String> genericAnatomy) {
+	
+		this.genericAnatomy = genericAnatomy;
+	}
+
+	public List<String> getGenericAnatomyAncestors() {
+	
+		return genericAnatomyAncestors;
+	}
+
+	
+	public void setGenericAnatomyAncestors(List<String> genericAnatomyAncestors) {
+	
+		this.genericAnatomyAncestors = genericAnatomyAncestors;
+	}
+
+	
+	public ArrayList<String> getAnatomyAncestors() {
+	
+		return anatomyAncestors;
+	}
+
+	
+	public void setAnatomyAncestors(ArrayList<String> anatomyAncestors) {
+	
+		this.anatomyAncestors = anatomyAncestors;
+	}
+
+	
+	public void setAnatomyComputedAncestors(ArrayList<String> anatomyComputedAncestors) {
+	
+		this.anatomyComputedAncestors = anatomyComputedAncestors;
+	}
+
+	
+	public void setDepictedAnatomyAncestors(ArrayList<String> depictedAnatomyAncestors) {
+	
+		this.depictedAnatomyAncestors = depictedAnatomyAncestors;
+	}
+
+	
+	public void setAbnormalAnatomyAncestors(ArrayList<String> abnormalAnatomyAncestors) {
+	
+		this.abnormalAnatomyAncestors = abnormalAnatomyAncestors;
+	}
+
+		
+	
+	public ArrayList<String> getImagingMethodAncestors() {
+	
+		return imagingMethodAncestors;
+	}
+
+	
+	public void setImagingMethodAncestors(ArrayList<String> imagingMethodAncestors) {
+	
+		this.imagingMethodAncestors = imagingMethodAncestors;
+	}
+
+	
+	public ArrayList<String> getSamplePreparationAncestors() {
+	
+		return samplePreparationAncestors;
+	}
+
+	
+	public void setSamplePreparationAncestors(ArrayList<String> samplePreparationAncestors) {
+	
+		this.samplePreparationAncestors = samplePreparationAncestors;
+	}
+
+	
+	public ArrayList<String> getVisualisationMethodAncestors() {
+	
+		return visualisationMethodAncestors;
+	}
+
+	
+	public void setVisualisationMethodAncestors(ArrayList<String> visualisationMethodAncestors) {
+	
+		this.visualisationMethodAncestors = visualisationMethodAncestors;
+	}
+
+	public void setExpressionInAncestors(ArrayList<String> expressionInAncestors) {
+	
+		this.expressionInAncestors = expressionInAncestors;
+	}
+
+	
+	public void setPhenotypeAncestors(ArrayList<String> phenotypeAncestors) {
+	
+		this.phenotypeAncestors = phenotypeAncestors;
+	}
+
 	/**
 	 * @param anatomyComputedAncestorsIdBag the anatomyComputedAncestorsIdBag to set
 	 */
 	public void setAnatomyComputedAncestorsIdBag(ArrayList<String> anatomyComputedAncestorsIdBag) {
 	
-		this.anatomyComputedAncestorsIdBag = anatomyComputedAncestorsIdBag;
+		this.anatomyComputedAncestors = anatomyComputedAncestorsIdBag;
 	}
-
-
-	
-	/**
-	 * @param anatomyComputedAncestorsSynonymsBag the anatomyComputedAncestorsSynonymsBag to set
-	 */
-	public void setAnatomyComputedAncestorsSynonymsBag(ArrayList<String> anatomyComputedAncestorsSynonymsBag) {
-	
-		this.anatomyComputedAncestorsSynonymsBag = anatomyComputedAncestorsSynonymsBag;
-	}
-
-
-	
-	/**
-	 * @param anatomyComputedAncestorsTermBag the anatomyComputedAncestorsTermBag to set
-	 */
-	public void setAnatomyComputedAncestorsTermBag(ArrayList<String> anatomyComputedAncestorsTermBag) {
-	
-		this.anatomyComputedAncestorsTermBag = anatomyComputedAncestorsTermBag;
-	}
-
 
 	
 	/**
@@ -556,29 +631,8 @@ public class ImageDTO {
 	 */
 	public void setDepictedAnatomyAncestorsIdBag(ArrayList<String> depictedAnatomyAncestorsIdBag) {
 	
-		this.depictedAnatomyAncestorsIdBag = depictedAnatomyAncestorsIdBag;
+		this.depictedAnatomyAncestors = depictedAnatomyAncestorsIdBag;
 	}
-
-
-	
-	/**
-	 * @param depictedAnatomyAncestorsSynonymsBag the depictedAnatomyAncestorsSynonymsBag to set
-	 */
-	public void setDepictedAnatomyAncestorsSynonymsBag(ArrayList<String> depictedAnatomyAncestorsSynonymsBag) {
-	
-		this.depictedAnatomyAncestorsSynonymsBag = depictedAnatomyAncestorsSynonymsBag;
-	}
-
-
-	
-	/**
-	 * @param depictedAnatomyAncestorsTermBag the depictedAnatomyAncestorsTermBag to set
-	 */
-	public void setDepictedAnatomyAncestorsTermBag(ArrayList<String> depictedAnatomyAncestorsTermBag) {
-	
-		this.depictedAnatomyAncestorsTermBag = depictedAnatomyAncestorsTermBag;
-	}
-
 
 	
 	/**
@@ -596,29 +650,8 @@ public class ImageDTO {
 	 */
 	public void setAbnormalAnatomyAncestorsIdBag(ArrayList<String> abnormalAnatomyAncestorsIdBag) {
 	
-		this.abnormalAnatomyAncestorsIdBag = abnormalAnatomyAncestorsIdBag;
+		this.abnormalAnatomyAncestors = abnormalAnatomyAncestorsIdBag;
 	}
-
-
-	
-	/**
-	 * @param abnormalAnatomyAncestorsSynonymsBag the abnormalAnatomyAncestorsSynonymsBag to set
-	 */
-	public void setAbnormalAnatomyAncestorsSynonymsBag(ArrayList<String> abnormalAnatomyAncestorsSynonymsBag) {
-	
-		this.abnormalAnatomyAncestorsSynonymsBag = abnormalAnatomyAncestorsSynonymsBag;
-	}
-
-
-	
-	/**
-	 * @param abnormalAnatomyAncestorsTermBag the abnormalAnatomyAncestorsTermBag to set
-	 */
-	public void setAbnormalAnatomyAncestorsTermBag(ArrayList<String> abnormalAnatomyAncestorsTermBag) {
-	
-		this.abnormalAnatomyAncestorsTermBag = abnormalAnatomyAncestorsTermBag;
-	}
-
 
 	
 	/**
@@ -636,29 +669,8 @@ public class ImageDTO {
 	 */
 	public void setExpressionInAncestorsIdBag(ArrayList<String> expressionInAncestorsIdBag) {
 	
-		this.expressionInAncestorsIdBag = expressionInAncestorsIdBag;
+		this.expressionInAncestors = expressionInAncestorsIdBag;
 	}
-
-
-	
-	/**
-	 * @param expressionInAncestorsSynonymsBag the expressionInAncestorsSynonymsBag to set
-	 */
-	public void setExpressionInAncestorsSynonymsBag(ArrayList<String> expressionInAncestorsSynonymsBag) {
-	
-		this.expressionInAncestorsSynonymsBag = expressionInAncestorsSynonymsBag;
-	}
-
-
-	
-	/**
-	 * @param expressionInAncestorsTermBag the expressionInAncestorsTermBag to set
-	 */
-	public void setExpressionInAncestorsTermBag(ArrayList<String> expressionInAncestorsTermBag) {
-	
-		this.expressionInAncestorsTermBag = expressionInAncestorsTermBag;
-	}
-
 
 	
 	/**
@@ -686,94 +698,27 @@ public class ImageDTO {
 	 */
 	public void setPhenotypeAncestorsIdBag(ArrayList<String> phenotypeAncestorsIdBag) {
 	
-		this.phenotypeAncestorsIdBag = phenotypeAncestorsIdBag;
+		this.phenotypeAncestors = phenotypeAncestorsIdBag;
 	}
 
 
 	
-	/**
-	 * @param phenotypeAncestorsSynonymsBag the phenotypeAncestorsSynonymsBag to set
-	 */
-	public void setPhenotypeAncestorsSynonymsBag(ArrayList<String> phenotypeAncestorsSynonymsBag) {
-	
-		this.phenotypeAncestorsSynonymsBag = phenotypeAncestorsSynonymsBag;
-	}
-
-
-	
-	/**
-	 * @param phenotypeAncestorsTermBag the phenotypeAncestorsTermBag to set
-	 */
-	public void setPhenotypeAncestorsTermBag(ArrayList<String> phenotypeAncestorsTermBag) {
-	
-		this.phenotypeAncestorsTermBag = phenotypeAncestorsTermBag;
-	}
-
-
 	/**
 	 * @return the anatomyComputedAncestorsIdBag
 	 */
-	public ArrayList<String> getAnatomyComputedAncestorsIdBag() {
+	public ArrayList<String> getAnatomyComputedAncestors() {
 
-		return anatomyComputedAncestorsIdBag;
+		return anatomyComputedAncestors;
 	}
 
 
-	public void addAnatomyComputedAncestorsIdBag(String anatomyComputedAncestorId) {
+	public void addAnatomyComputedAncestors(String anatomyComputedAncestorId) {
 
-		if (this.anatomyComputedAncestorsIdBag == null) {
-			this.anatomyComputedAncestorsIdBag = new ArrayList<>();
+		if (this.anatomyComputedAncestors == null) {
+			this.anatomyComputedAncestors = new ArrayList<>();
 		}
-		if (!this.anatomyComputedAncestorsIdBag.contains(anatomyComputedAncestorId)) {
-			this.anatomyComputedAncestorsIdBag.add(anatomyComputedAncestorId);
-		}
-	}
-
-
-	/**
-	 * @return the anatomyComputedAncestorsSynonymsBag
-	 */
-	public ArrayList<String> getAnatomyComputedAncestorsSynonymsBag() {
-
-		return anatomyComputedAncestorsSynonymsBag;
-	}
-
-
-	/**
-	 * @param anatomyComputedAncestorsSynonymsBag
-	 *            the anatomyComputedAncestorsSynonymsBag to set
-	 */
-	public void addAnatomyComputedAncestorsSynonymsBag(ArrayList<String> anatomyComputedAncestorsSynonymsBag) {
-
-		if (this.anatomyComputedAncestorsSynonymsBag == null){
-			this.anatomyComputedAncestorsSynonymsBag = new ArrayList<>();
-		}
-		if (anatomyComputedAncestorsSynonymsBag != null && !this.anatomyComputedAncestorsSynonymsBag.contains(anatomyComputedAncestorsSynonymsBag)){
-			this.anatomyComputedAncestorsSynonymsBag.addAll(anatomyComputedAncestorsSynonymsBag);
-		}
-	}
-
-
-	/**
-	 * @return the anatomyComputedAncestorsTermBag
-	 */
-	public ArrayList<String> getAnatomyComputedAncestorsTermBag() {
-
-		return anatomyComputedAncestorsTermBag;
-	}
-
-
-	/**
-	 * @param anatomyComputedAncestorsTermBag
-	 *            the anatomyComputedAncestorsTermBag to set
-	 */
-	public void addAnatomyComputedAncestorsTermBag(String anatomyComputedAncestorsTermBag) {
-
-		if (this.anatomyComputedAncestorsTermBag == null){
-			this.anatomyComputedAncestorsTermBag = new ArrayList<>();
-		}
-		if (!this.anatomyComputedAncestorsTermBag.contains(anatomyComputedAncestorsTermBag)){
-			this.anatomyComputedAncestorsTermBag.add(anatomyComputedAncestorsTermBag);
+		if (!this.anatomyComputedAncestors.contains(anatomyComputedAncestorId)) {
+			this.anatomyComputedAncestors.add(anatomyComputedAncestorId);
 		}
 	}
 
@@ -781,9 +726,9 @@ public class ImageDTO {
 	/**
 	 * @return the depictedAnatomyAncestorsIdBag
 	 */
-	public ArrayList<String> getDepictedAnatomyAncestorsIdBag() {
+	public ArrayList<String> getDepictedAnatomyAncestors() {
 
-		return depictedAnatomyAncestorsIdBag;
+		return depictedAnatomyAncestors;
 	}
 
 
@@ -791,71 +736,52 @@ public class ImageDTO {
 	 * @param depictedAnatomyAncestorId
 	 *            the depictedAnatomyAncestorsIdBag to set
 	 */
-	public void addDepictedAnatomyAncestorsIdBag(String depictedAnatomyAncestorId) {
+	public void addDepictedAnatomyAncestors(String depictedAnatomyAncestorId) {
 
-		if (this.depictedAnatomyAncestorsIdBag == null){
-			this.depictedAnatomyAncestorsIdBag = new ArrayList<>();
+		if (this.depictedAnatomyAncestors == null){
+			this.depictedAnatomyAncestors = new ArrayList<>();
 		}
-		if (depictedAnatomyAncestorId != null && !this.depictedAnatomyAncestorsIdBag.contains(depictedAnatomyAncestorId)){
-			this.depictedAnatomyAncestorsIdBag.add(depictedAnatomyAncestorId);
+		if (depictedAnatomyAncestorId != null && !this.depictedAnatomyAncestors.contains(depictedAnatomyAncestorId)){
+			this.depictedAnatomyAncestors.add(depictedAnatomyAncestorId);
 		}
 	}
+
 
 
 	/**
-	 * @return the depictedAnatomyAncestorsSynonymsBag
+	 * @param depictedAnatomyAncestorId
+	 *            the depictedAnatomyAncestorsIdBag to set
 	 */
-	public ArrayList<String> getDepictedAnatomyAncestorsSynonymsBag() {
-
-		return depictedAnatomyAncestorsSynonymsBag;
-	}
-
-
-	/**
-	 * @param depictedAnatomyAncestorsSynonymsBag
-	 *            the depictedAnatomyAncestorsSynonymsBag to set
-	 */
-	public void addDepictedAnatomyAncestorsSynonymsBag(ArrayList<String> depictedAnatomyAncestorsSynonymsBag) {
-
-		if (this.depictedAnatomyAncestorsSynonymsBag == null){
-			this.depictedAnatomyAncestorsSynonymsBag = new ArrayList<>();
-		}
-		if (depictedAnatomyAncestorsSynonymsBag != null && !this.depictedAnatomyAncestorsSynonymsBag.contains(depictedAnatomyAncestorsSynonymsBag)){
-			this.depictedAnatomyAncestorsSynonymsBag.addAll(depictedAnatomyAncestorsSynonymsBag);
+	public void addDepictedAnatomyAncestors(ArrayList<String> depictedAnatomyAncestors) {
+		
+		if (depictedAnatomyAncestors != null){
+			HashSet<String> ancestors = new HashSet<String>(depictedAnatomyAncestors);
+			if (this.depictedAnatomyAncestors == null){
+				this.depictedAnatomyAncestors = new ArrayList<>(ancestors);
+			} else {
+				this.depictedAnatomyAncestors.addAll(ancestors);
+			}
 		}
 	}
-
-
-	/**
-	 * @return the depictedAnatomyAncestorsTermBag
-	 */
-	public ArrayList<String> getDepictedAnatomyAncestorsTermBag() {
-
-		return depictedAnatomyAncestorsTermBag;
-	}
-
-
-	/**
-	 * @param depictedAnatomyAncestorTerm
-	 *            the depictedAnatomyAncestorsTermBag to set
-	 */
-	public void addDepictedAnatomyAncestorsTermBag(String depictedAnatomyAncestorTerm) {
-
-		if (this.depictedAnatomyAncestorsTermBag == null){
-			this.depictedAnatomyAncestorsTermBag = new ArrayList<>();
-		}
-		if (depictedAnatomyAncestorTerm != null && !this.depictedAnatomyAncestorsTermBag.contains(depictedAnatomyAncestorTerm)){
-			this.depictedAnatomyAncestorsTermBag.add(depictedAnatomyAncestorTerm);
+	
+	public void addStageAncestors(ArrayList<String> stageAncestors) {
+		
+		if (stageAncestors != null){
+			HashSet<String> ancestors = new HashSet<String>(stageAncestors);
+			if (this.stageAncestors == null){
+				this.stageAncestors = new ArrayList<>(ancestors);
+			} else {
+				this.stageAncestors.addAll(ancestors);
+			}
 		}
 	}
-
-
+	
 	/**
 	 * @return the abnormalAnatomyAncestorsIdBag
 	 */
-	public ArrayList<String> getAbnormalAnatomyAncestorsIdBag() {
+	public ArrayList<String> getAbnormalAnatomyAncestors() {
 
-		return abnormalAnatomyAncestorsIdBag;
+		return abnormalAnatomyAncestors;
 	}
 
 
@@ -863,71 +789,53 @@ public class ImageDTO {
 	 * @param abnormalAnatomyAncestorId
 	 *            the abnormalAnatomyAncestorsIdBag to set
 	 */
-	public void addAbnormalAnatomyAncestorsIdBag(String abnormalAnatomyAncestorId) {
+	public void addAbnormalAnatomyAncestors(String abnormalAnatomyAncestor) {
 
-		if (this.abnormalAnatomyAncestorsIdBag == null){
-			this.abnormalAnatomyAncestorsIdBag = new ArrayList<>();
+		if (this.abnormalAnatomyAncestors == null){
+			this.abnormalAnatomyAncestors = new ArrayList<>();
 		}
-		if (abnormalAnatomyAncestorId != null && !this.abnormalAnatomyAncestorsIdBag.contains(abnormalAnatomyAncestorId)){
-			this.abnormalAnatomyAncestorsIdBag.add(abnormalAnatomyAncestorId);
-		}
-	}
-
-
-	/**
-	 * @return the abnormalAnatomyAncestorsSynonymsBag
-	 */
-	public ArrayList<String> getAbnormalAnatomyAncestorsSynonymsBag() {
-
-		return abnormalAnatomyAncestorsSynonymsBag;
-	}
-
-
-	/**
-	 * @param abnormalAnatomyAncestorsSynonymsBag
-	 *            the abnormalAnatomyAncestorsSynonymsBag to set
-	 */
-	public void addAbnormalAnatomyAncestorsSynonymsBag(ArrayList<String> abnormalAnatomyAncestorsSynonymsBag) {
-
-		if (this.abnormalAnatomyAncestorsSynonymsBag == null){
-			this.abnormalAnatomyAncestorsSynonymsBag = new ArrayList<>();
-		}
-		if (abnormalAnatomyAncestorsSynonymsBag != null && !this.abnormalAnatomyAncestorsSynonymsBag.contains(abnormalAnatomyAncestorsSynonymsBag)){
-			this.abnormalAnatomyAncestorsSynonymsBag.addAll(abnormalAnatomyAncestorsSynonymsBag);
+		if (abnormalAnatomyAncestor != null && !this.abnormalAnatomyAncestors.contains(abnormalAnatomyAncestor)){
+			this.abnormalAnatomyAncestors.add(abnormalAnatomyAncestor);
 		}
 	}
+	
+	public void addVisualisationMethodAncestors(String vmAncestor) {
 
-
-	/**
-	 * @return the abnormalAnatomyAncestorsTermBag
-	 */
-	public ArrayList<String> getAbnormalAnatomyAncestorsTermBag() {
-
-		return abnormalAnatomyAncestorsTermBag;
-	}
-
-
-	/**
-	 * @param abnormalAnatomyAncestorTerm
-	 *            the abnormalAnatomyAncestorsTermBag to set
-	 */
-	public void addAbnormalAnatomyAncestorsTermBag(String abnormalAnatomyAncestorTerm) {
-
-		if (this.abnormalAnatomyAncestorsTermBag == null){
-			this.abnormalAnatomyAncestorsTermBag = new ArrayList<>();
+		if (this.visualisationMethodAncestors == null){
+			this.visualisationMethodAncestors = new ArrayList<>();
 		}
-		if (!this.abnormalAnatomyAncestorsTermBag.contains(abnormalAnatomyAncestorTerm)){
-			this.abnormalAnatomyAncestorsTermBag.add(abnormalAnatomyAncestorTerm);
+		if (vmAncestor != null && !this.visualisationMethodAncestors.contains(vmAncestor)){
+			this.visualisationMethodAncestors.add(vmAncestor);
 		}
 	}
-
-
+	
+	public void addVisualisationMethodAncestors(ArrayList<String> visualisationMethodAncestors) {
+		if (visualisationMethodAncestors != null){
+			HashSet<String> ancestors = new HashSet<String>(visualisationMethodAncestors);
+			if (this.visualisationMethodAncestors == null){
+				this.visualisationMethodAncestors = new ArrayList<>(ancestors);
+			} else {
+				this.visualisationMethodAncestors.addAll(ancestors);
+			}
+		}
+	}
+	
+	public void addAbnormalAnatomyAncestors(ArrayList<String> abnormalAnatomyAncestors) {
+		if (abnormalAnatomyAncestors != null){
+			HashSet<String> ancestors = new HashSet<String>(abnormalAnatomyAncestors);
+			if (this.abnormalAnatomyAncestors == null){
+				this.abnormalAnatomyAncestors = new ArrayList<>(ancestors);
+			} else {
+				this.abnormalAnatomyAncestors.addAll(ancestors);
+			}
+		}
+	}
 	/**
 	 * @return the expressionInAncestorsIdBag
 	 */
-	public ArrayList<String> getExpressionInAncestorsIdBag() {
+	public ArrayList<String> getExpressionInAncestors() {
 
-		return expressionInAncestorsIdBag;
+		return expressionInAncestors;
 	}
 
 
@@ -935,71 +843,36 @@ public class ImageDTO {
 	 * @param expressionInAncestorId
 	 *            the expressionInAncestorsIdBag to set
 	 */
-	public void addExpressionInAncestorsIdBag(String expressionInAncestorId) {
+	public void addExpressionInAncestors(String expressionInAncestor) {
 
-		if (this.expressionInAncestorsIdBag == null){
-			this.expressionInAncestorsIdBag = new ArrayList<>();
+		if (this.expressionInAncestors == null){
+			this.expressionInAncestors = new ArrayList<>();
 		}
-		if (!this.expressionInAncestorsIdBag.contains(expressionInAncestorId)){
-			this.expressionInAncestorsIdBag.add(expressionInAncestorId);
-		}
-	}
-
-
-	/**
-	 * @return the expressionInAncestorsSynonymsBag
-	 */
-	public ArrayList<String> getExpressionInAncestorsSynonymsBag() {
-
-		return expressionInAncestorsSynonymsBag;
-	}
-
-
-	/**
-	 * @param expressionInAncestorsSynonymsBag
-	 *            the expressionInAncestorsSynonymsBag to set
-	 */
-	public void addExpressionInAncestorsSynonymsBag(ArrayList<String> expressionInAncestorsSynonymsBag) {
-
-		if (this.expressionInAncestorsSynonymsBag == null){
-			this.expressionInAncestorsSynonymsBag = new ArrayList<>();
-		}
-		if (expressionInAncestorsSynonymsBag != null && !this.expressionInAncestorsSynonymsBag.contains(expressionInAncestorsSynonymsBag)){
-			this.expressionInAncestorsSynonymsBag.addAll(expressionInAncestorsSynonymsBag);
+		if (!this.expressionInAncestors.contains(expressionInAncestor)){
+			this.expressionInAncestors.add(expressionInAncestor);
 		}
 	}
 
+	public void addExpressionInAncestors(ArrayList<String> expressionInAncestor) {
 
-	/**
-	 * @return the expressionInAncestorsTermBag
-	 */
-	public ArrayList<String> getExpressionInAncestorsTermBag() {
-
-		return expressionInAncestorsTermBag;
-	}
-
-
-	/**
-	 * @param expressionInAncestorsTermBag
-	 *            the expressionInAncestorsTermBag to set
-	 */
-	public void addExpressionInAncestorsTermBag(String expressionInAncestorsTermBag) {
-
-		if (this.expressionInAncestorsTermBag == null){
-			this.expressionInAncestorsTermBag = new ArrayList<>();
-		}
-		if (!this.expressionInAncestorsTermBag.contains(expressionInAncestorsTermBag)){
-			this.expressionInAncestorsTermBag.add(expressionInAncestorsTermBag);
+		if (expressionInAncestor != null){
+			HashSet<String> set = new HashSet(expressionInAncestor);
+			
+			if (this.expressionInAncestors == null){
+				this.expressionInAncestors = new ArrayList<>(set);
+			}
+			if (!this.expressionInAncestors.contains(expressionInAncestor)){
+				this.expressionInAncestors.addAll(new ArrayList<String> (set));
+			}
 		}
 	}
-
-
+	
 	/**
 	 * @return the phenotypeAncestorsIdBag
 	 */
-	public ArrayList<String> getPhenotypeAncestorsIdBag() {
+	public ArrayList<String> getPhenotypeAncestors() {
 
-		return phenotypeAncestorsIdBag;
+		return phenotypeAncestors;
 	}
 
 
@@ -1007,65 +880,67 @@ public class ImageDTO {
 	 * @param phenotypeAncestorId
 	 *            the phenotypeAncestorsIdBag to set
 	 */
-	public void addPhenotypeAncestorsIdBag(String phenotypeAncestorId) {
+	public void addPhenotypeAncestors(String phenotypeAncestor) {
 
-		if (this.phenotypeAncestorsIdBag == null){
-			this.phenotypeAncestorsIdBag = new ArrayList<>();
+		if (this.phenotypeAncestors == null){
+			this.phenotypeAncestors = new ArrayList<>();
 		}
-		if (!this.phenotypeAncestorsIdBag.contains(phenotypeAncestorId)){
-			this.phenotypeAncestorsIdBag.add(phenotypeAncestorId);
-		}
-	}
-
-
-	/**
-	 * @return the phenotypeAncestorsSynonymsBag
-	 */
-	public ArrayList<String> getPhenotypeAncestorsSynonymsBag() {
-
-		return phenotypeAncestorsSynonymsBag;
-	}
-
-
-	/**
-	 * @param phenotypeAncestorSynonyms
-	 *            the phenotypeAncestorsSynonymsBag to set
-	 */
-	public void addPhenotypeAncestorsSynonymsBag(ArrayList<String> phenotypeAncestorSynonyms) {
-
-		if (this.phenotypeAncestorsSynonymsBag == null){
-			this.phenotypeAncestorsSynonymsBag = new ArrayList<>();
-		}
-		if (phenotypeAncestorSynonyms != null && !this.phenotypeAncestorsSynonymsBag.contains(phenotypeAncestorSynonyms)){
-			this.phenotypeAncestorsSynonymsBag.addAll(phenotypeAncestorSynonyms);
+		if (!this.phenotypeAncestors.contains(phenotypeAncestor)){
+			this.phenotypeAncestors.add(phenotypeAncestor);
 		}
 	}
 
-
-	/**
-	 * @return the phenotypeAncestorsTermBag
-	 */
-	public ArrayList<String> getPhenotypeAncestorsTermBag() {
-
-		return phenotypeAncestorsTermBag;
-	}
-
-
-	/**
-	 * @param phenotypeAncestorTerm
-	 *            the phenotypeAncestorsTermBag to set
-	 */
-	public void addPhenotypeAncestorsTermBag(String phenotypeAncestorTerm) {
-
-		if (this.phenotypeAncestorsTermBag == null){
-			this.phenotypeAncestorsTermBag = new ArrayList<>();
-		}
-		if (phenotypeAncestorTerm != null && !this.phenotypeAncestorsTermBag.contains(phenotypeAncestorTerm)){
-			this.phenotypeAncestorsTermBag.add(phenotypeAncestorTerm);
+	
+	public void addPhenotypeAncestors(ArrayList<String> phenotypeAncestors) {
+		
+		if (phenotypeAncestors != null){
+			HashSet<String> set = new HashSet(phenotypeAncestors);
+			if (this.phenotypeAncestors == null){
+				this.phenotypeAncestors = new ArrayList<>(set);
+			} else {
+				this.phenotypeAncestors.addAll(new ArrayList<String>(set));
+			}
 		}
 	}
 
-
+	
+	public void addVisualizationMethodAncestors(ArrayList<String> vmAncestors) {
+			
+		if (vmAncestors != null){
+			HashSet<String> set = new HashSet(vmAncestors);
+			if (this.visualisationMethodAncestors == null){
+				this.visualisationMethodAncestors = new ArrayList<>(set);
+			} else {
+				this.visualisationMethodAncestors.addAll(new ArrayList<String>(set));
+			}
+		}
+	}
+	
+	public void addImagingMethodAncestors(ArrayList<String> imAncestors) {
+		
+		if (imAncestors != null){
+			HashSet<String> set = new HashSet(imAncestors);
+			if (this.imagingMethodAncestors == null){
+				this.imagingMethodAncestors = new ArrayList<>(set);
+			} else {
+				this.imagingMethodAncestors.addAll(new ArrayList<String>(set));
+			}
+		}
+	}
+	
+	public void addSamplePreparationAncestors(ArrayList<String> spAncestors) {
+		
+		if (spAncestors != null){
+			HashSet<String> set = new HashSet(spAncestors);
+			if (this.samplePreparationAncestors == null){
+				this.samplePreparationAncestors = new ArrayList<>(set);
+			} else {
+				this.samplePreparationAncestors.addAll(new ArrayList<String>(set));
+			}
+		}
+	}
+	
+	
 	/**
 	 * @param imagingMethodSynonyms
 	 *            the imagingMethodSynonyms to set
@@ -1089,6 +964,32 @@ public class ImageDTO {
 			this.imagingMethodSynonyms.addAll(imagingMethodSynonyms);
 	}
 
+	public void addImagingMethodFreetext(String imagingMethodFreetext) {
+
+		if (this.imagingMethodFreetext == null) {
+			this.imagingMethodFreetext = new ArrayList<>();
+		}
+		if (imagingMethodFreetext != null)
+			this.imagingMethodFreetext.add(imagingMethodFreetext);
+	}
+	
+	public void addSamplePreparationFreetext(String samplePreparationFreetext) {
+
+		if (this.samplePreparationFreetext == null) {
+			this.samplePreparationFreetext = new ArrayList<>();
+		}
+		if (samplePreparationFreetext != null)
+			this.samplePreparationFreetext.add(samplePreparationFreetext);
+	}
+	
+	public void addVisualisationMethodFreetext(String visualisationMethodFreetext) {
+
+		if (this.visualisationMethodFreetext == null) {
+			this.visualisationMethodFreetext = new ArrayList<>();
+		}
+		if (visualisationMethodFreetext != null)
+			this.visualisationMethodFreetext.add(visualisationMethodFreetext);
+	}
 
 	/**
 	 * @return the samplePreparationSynonyms
@@ -1699,26 +1600,6 @@ public class ImageDTO {
 		this.machine = machine;
 	}
 
-
-	/**
-	 * @return the thumbnailPath
-	 */
-	public String getThumbnailPath() {
-
-		return thumbnailPath;
-	}
-
-
-	/**
-	 * @param thumbnailPath
-	 *            the thumbnailPath to set
-	 */
-	public void setThumbnailPath(String thumbnailPath) {
-
-		this.thumbnailPath = thumbnailPath;
-	}
-
-
 	/**
 	 * @return the width
 	 */
@@ -1737,77 +1618,41 @@ public class ImageDTO {
 		this.width = width;
 	}
 
+	public String getAge() {
 
-	/**
-	 * @return the ageSinceBirth
-	 */
-	public Float getAgeSinceBirth() {
-
-		return ageSinceBirth;
+		return age;
 	}
 
+	public void setAge(String age) {
 
-	/**
-	 * @param ageSinceBirth
-	 *            the ageSinceBirth to set
-	 */
-	public void setAgeSinceBirth(Float ageSinceBirth) {
-
-		this.ageSinceBirth = ageSinceBirth;
+		this.age = age;
 	}
 
-
-	/**
-	 * @return the sampleGeneratedBy
-	 */
 	public String getSampleGeneratedBy() {
 
 		return sampleGeneratedBy;
 	}
 
-
-	/**
-	 * @param sampleGeneratedBy
-	 *            the sampleGeneratedBy to set
-	 */
 	public void setSampleGeneratedBy(String sampleGeneratedBy) {
 
 		this.sampleGeneratedBy = sampleGeneratedBy;
 	}
 
-
-	/**
-	 * @return the taxon
-	 */
 	public String getTaxon() {
 
 		return taxon;
 	}
 
-
-	/**
-	 * @param taxon
-	 *            the taxon to set
-	 */
 	public void setTaxon(String taxon) {
 
 		this.taxon = taxon;
 	}
 
-
-	/**
-	 * @return the ncbiTaxonId
-	 */
 	public String getNcbiTaxonId() {
 
 		return ncbiTaxonId;
 	}
 
-
-	/**
-	 * @param ncbiTaxonId
-	 *            the ncbiTaxonId to set
-	 */
 	public void setNcbiTaxonId(String ncbiTaxonId) {
 
 		this.ncbiTaxonId = ncbiTaxonId;
@@ -1851,26 +1696,6 @@ public class ImageDTO {
 		this.stage = stage;
 	}
 
-
-	/**
-	 * @return the embryonicAge
-	 */
-	public Float getEmbryonicAge() {
-
-		return embryonicAge;
-	}
-
-
-	/**
-	 * @param embryonicAge
-	 *            the embryonicAge to set
-	 */
-	public void setEmbryonicAge(Float embryonicAge) {
-
-		this.embryonicAge = embryonicAge;
-	}
-
-
 	/**
 	 * @return the anatomyId
 	 */
@@ -1908,6 +1733,8 @@ public class ImageDTO {
 		this.anatomyTerm = anatomyTerm;
 	}
 
+	
+	
 
 	/**
 	 * @return the anatomyFreetext
@@ -2078,6 +1905,13 @@ public class ImageDTO {
 
 		this.chromosome = chromosome;
 	}
+	public void addChromosome(String chromosome) {
+
+		if (this.chromosome == null){
+			this.chromosome = new ArrayList<>();
+		}
+		this.chromosome.add(chromosome);
+	}
 
 
 	/**
@@ -2096,6 +1930,14 @@ public class ImageDTO {
 	public void setStartPosition(List<Long> startPosition) {
 
 		this.startPosition = startPosition;
+	}
+	
+	public void addStartPosition(Long startPosition) {
+		
+		if (this.startPosition == null){
+			this.startPosition = new ArrayList<>();
+		}
+		this.startPosition.add(startPosition);
 	}
 
 
@@ -2116,6 +1958,14 @@ public class ImageDTO {
 
 		this.endPosition = endPosition;
 	}
+	
+	public void addEndPosition(Long endPosition) {
+		
+		if (this.endPosition == null){
+			this.endPosition = new ArrayList<>();
+		}
+		this.endPosition.add(endPosition);
+	}
 
 
 	/**
@@ -2135,7 +1985,14 @@ public class ImageDTO {
 
 		this.strand = strand;
 	}
-
+	
+	public void addStrand(String strand) {
+		
+		if (this.strand == null){
+			this.strand = new ArrayList<>();
+		}
+		this.strand.add(strand);
+	}
 
 	/**
 	 * @return the zygosity
@@ -2154,7 +2011,14 @@ public class ImageDTO {
 
 		this.zygosity = zygosity;
 	}
-
+	
+	public void addZygosity(String zygosity) {
+		
+		if (this.zygosity == null){
+			this.zygosity = new ArrayList<>();
+		}
+		this.zygosity.add(zygosity);
+	}
 
 	
 
@@ -2164,7 +2028,34 @@ public class ImageDTO {
 	@Override
 	public String toString() {
 
-		return "ImageDTO [id=" + id + ", associatedRoi=" + associatedRoi + ", associatedChannel=" + associatedChannel + ", height=" + height + ", hostUrl=" + hostUrl + ", hostName=" + hostName + ", imageGeneratedBy=" + imageGeneratedBy + ", imageType=" + imageType + ", sampleType=" + sampleType + ", imageUrl=" + imageUrl + ", imageContextUrl=" + imageContextUrl + ", imagingMethodId=" + imagingMethodId + ", imagingMethodLabel=" + imagingMethodLabel + ", imagingMethodSynonyms=" + imagingMethodSynonyms + ", samplePreparationId=" + samplePreparationId + ", samplePreparationLabel=" + samplePreparationLabel + ", samplePreparationSynonyms=" + samplePreparationSynonyms + ", visualisationMethodId=" + visualisationMethodId + ", visualisationMethodLabel=" + visualisationMethodLabel + ", visualisationMethodSynonyms=" + visualisationMethodSynonyms + ", machine=" + machine + ", thumbnailPath=" + thumbnailPath + ", width=" + width + ", genericSearch=" + genericSearch + ", ageSinceBirth=" + ageSinceBirth + ", sampleGeneratedBy=" + sampleGeneratedBy + ", taxon=" + taxon + ", ncbiTaxonId=" + ncbiTaxonId + ", sex=" + sex + ", stage=" + stage + ", stageId=" + stageId + ", embryonicAge=" + embryonicAge + ", anatomyId=" + anatomyId + ", anatomyTerm=" + anatomyTerm + ", anatomyFreetext=" + anatomyFreetext + ", anatomySynonyms=" + anatomySynonyms + ", observations=" + observations + ", conditions=" + conditions + ", geneIds=" + geneIds + ", geneSymbols=" + geneSymbols + ", geneSynonyms=" + geneSynonyms + ", geneticFeatureIds=" + geneticFeatureIds + ", geneticFeatureSymbols=" + geneticFeatureSymbols + ", geneticFeatureSynonyms=" + geneticFeatureSynonyms + ", genetifFeatureEnsemlIds=" + genetifFeatureEnsemlIds + ", chromosome=" + chromosome + ", startPosition=" + startPosition + ", endPosition=" + endPosition + ", strand=" + strand + ", zygosity=" + zygosity + ", depth=" + depth + ", anatomyComputedIdBag=" + anatomyComputedIdBag + ", anatomyComputedLabelBag=" + anatomyComputedLabelBag + ", anatomyComputedSynonymsBag=" + anatomyComputedSynonymsBag + ", anatomyComputedAncestorsIdBag=" + anatomyComputedAncestorsIdBag + ", anatomyComputedAncestorsSynonymsBag=" + anatomyComputedAncestorsSynonymsBag + ", anatomyComputedAncestorsTermBag=" + anatomyComputedAncestorsTermBag + ", depictedAnatomyIdBag=" + depictedAnatomyIdBag + ", depictedAnatomyTermBag=" + depictedAnatomyTermBag + ", depictedAnatomyFreetextBag=" + depictedAnatomyFreetextBag + ", depictedAnatomySynonymsBag=" + depictedAnatomySynonymsBag + ", depictedAnatomyAncestorsIdBag=" + depictedAnatomyAncestorsIdBag + ", depictedAnatomyAncestorsSynonymsBag=" + depictedAnatomyAncestorsSynonymsBag + ", depictedAnatomyAncestorsTermBag=" + depictedAnatomyAncestorsTermBag + ", abnormalAnatomyIdBag=" + abnormalAnatomyIdBag + ", abnormalAnatomyTermBag=" + abnormalAnatomyTermBag + ", abnormalAnatomyFreetextBag=" + abnormalAnatomyFreetextBag + ", abnormalAnatomySynonymsBag=" + abnormalAnatomySynonymsBag + ", abnormalAnatomyAncestorsIdBag=" + abnormalAnatomyAncestorsIdBag + ", abnormalAnatomyAncestorsSynonymsBag=" + abnormalAnatomyAncestorsSynonymsBag + ", abnormalAnatomyAncestorsTermBag=" + abnormalAnatomyAncestorsTermBag + ", expressedGfIdBag=" + expressedGfIdBag + ", expressedGfSymbolBag=" + expressedGfSymbolBag + ", expressedGfSynonymsBag=" + expressedGfSynonymsBag + ", expressionInIdBag=" + expressionInIdBag + ", expressionInLabelBag=" + expressionInLabelBag + ", expressionInFreetextBag=" + expressionInFreetextBag + ", expressionInSynonymsBag=" + expressionInSynonymsBag + ", expressionInAncestorsIdBag=" + expressionInAncestorsIdBag + ", expressionInAncestorsSynonymsBag=" + expressionInAncestorsSynonymsBag + ", expressionInAncestorsTermBag=" + expressionInAncestorsTermBag + ", mutantGeneIdBag=" + mutantGeneIdBag + ", mutantGeneSymbolBag=" + mutantGeneSymbolBag + ", mutantGeneSynonymsBag=" + mutantGeneSynonymsBag + ", observationBag=" + observationBag + ", phenotypeIdBag=" + phenotypeIdBag + ", phenotypeLabelBag=" + phenotypeLabelBag + ", phenotypeFreetextBag=" + phenotypeFreetextBag + ", phenotypeSynonymsBag=" + phenotypeSynonymsBag + ", phenotypeAncestorsIdBag=" + phenotypeAncestorsIdBag + ", phenotypeAncestorsSynonymsBag=" + phenotypeAncestorsSynonymsBag + ", phenotypeAncestorsTermBag=" + phenotypeAncestorsTermBag + "]";
+		return "ImageDTO [id=" + id + ", associatedRoi=" + associatedRoi + ", associatedChannel=" + associatedChannel 
+			+ ", height=" + height + ", hostUrl=" + hostUrl + ", hostName=" + hostName + ", imageGeneratedBy=" + imageGeneratedBy 
+			+ ", imageType=" + imageType + ", sampleType=" + sampleType + ", imageUrl=" + imageUrl + ", imageContextUrl=" + imageContextUrl 
+			+ ", imagingMethodId=" + imagingMethodId + ", imagingMethodLabel=" + imagingMethodLabel + ", imagingMethodSynonyms=" + imagingMethodSynonyms 
+			+ ", samplePreparationId=" + samplePreparationId + ", samplePreparationLabel=" + samplePreparationLabel 
+			+ ", samplePreparationSynonyms=" + samplePreparationSynonyms + ", visualisationMethodId=" + visualisationMethodId 
+			+ ", visualisationMethodLabel=" + visualisationMethodLabel + ", visualisationMethodSynonyms=" + visualisationMethodSynonyms 
+			+ ", machine=" + machine + ", width=" + width + ", genericSearch=" + genericSearch 
+			+ ", ageSinceBirth=" + age + ", sampleGeneratedBy=" + sampleGeneratedBy + ", taxon=" + taxon + ", ncbiTaxonId=" + ncbiTaxonId 
+			+ ", sex=" + sex + ", stage=" + stage + ", stageId=" + stageId + ", anatomyId=" + anatomyId + ", anatomyTerm=" + anatomyTerm 
+			+ ", anatomyFreetext=" + anatomyFreetext + ", anatomySynonyms=" + anatomySynonyms + ", observations=" + observations 
+			+ ", conditions=" + conditions + ", geneIds=" + geneIds + ", geneSymbols=" + geneSymbols + ", geneSynonyms=" + geneSynonyms 
+			+ ", geneticFeatureIds=" + geneticFeatureIds + ", geneticFeatureSymbols=" + geneticFeatureSymbols + ", geneticFeatureSynonyms=" + geneticFeatureSynonyms 
+			+ ", genetifFeatureEnsemlIds=" + genetifFeatureEnsemlIds + ", chromosome=" + chromosome + ", startPosition=" + startPosition 
+			+ ", endPosition=" + endPosition + ", strand=" + strand + ", zygosity=" + zygosity + ", depth=" + depth + ", anatomyComputedIdBag=" + anatomyComputedIdBag 
+			+ ", anatomyComputedLabelBag=" + anatomyComputedLabelBag + ", anatomyComputedSynonymsBag=" + anatomyComputedSynonymsBag 
+			+ ", anatomyComputedAncestorsIdBag=" + anatomyComputedAncestors + ", depictedAnatomyIdBag=" + depictedAnatomyIdBag 
+			+ ", depictedAnatomyTermBag=" + depictedAnatomyTermBag + ", depictedAnatomyFreetextBag=" + depictedAnatomyFreetextBag 
+			+ ", depictedAnatomySynonymsBag=" + depictedAnatomySynonymsBag + ", depictedAnatomyAncestorsIdBag=" + depictedAnatomyAncestors 
+			+ ", abnormalAnatomyIdBag=" + abnormalAnatomyIdBag + ", abnormalAnatomyTermBag=" + abnormalAnatomyTermBag 
+			+ ", abnormalAnatomyFreetextBag=" + abnormalAnatomyFreetextBag + ", abnormalAnatomySynonymsBag=" + abnormalAnatomySynonymsBag 
+			+ ", abnormalAnatomyAncestorsIdBag=" + abnormalAnatomyAncestors + ", expressedGfIdBag=" + expressedGfIdBag + ", expressedGfSymbolBag=" + expressedGfSymbolBag 
+			+ ", expressedGfSynonymsBag=" + expressedGfSynonymsBag + ", expressionInIdBag=" + expressionInIdBag + ", expressionInLabelBag=" + expressionInLabelBag 
+			+ ", expressionInFreetextBag=" + expressionInFreetextBag + ", expressionInSynonymsBag=" + expressionInSynonymsBag 
+			+ ", expressionInAncestorsIdBag=" + expressionInAncestors + ", mutantGeneIdBag=" + mutantGeneIdBag + ", mutantGeneSymbolBag=" + mutantGeneSymbolBag 
+			+ ", mutantGeneSynonymsBag=" + mutantGeneSynonymsBag + ", observationBag=" + observationBag + ", phenotypeIdBag=" + phenotypeIdBag 
+			+ ", phenotypeLabelBag=" + phenotypeLabelBag + ", phenotypeFreetextBag=" + phenotypeFreetextBag + ", phenotypeSynonymsBag=" + phenotypeSynonymsBag 
+			+ ", phenotypeAncestorsIdBag=" + phenotypeAncestors + "]";
 	}
 
 	/**
@@ -2454,6 +2345,7 @@ public class ImageDTO {
 		}
 		this.expressionInIdBag.addAll(expressionInIdBag);
 	}
+	
 
 	public void addExpressionInFreetextBag(List<String> ExpressionInFreetextBag) {
 		if (this.expressionInFreetextBag == null){
@@ -2461,7 +2353,19 @@ public class ImageDTO {
 		}
 		this.expressionInFreetextBag.addAll(ExpressionInFreetextBag);
 	}
+	
+	
+	public void addAnatomyAncestors(List<String> anatomyAncestors) {
+		
+		if (anatomyAncestors != null){
+			if (this.anatomyAncestors == null){
+				this.anatomyAncestors = new ArrayList<>();
+			}
+			this.anatomyAncestors.addAll(anatomyAncestors);
+		}
+	}
 
+	
 	/**
 	 * @return the phenotypelabelBag
 	 */
