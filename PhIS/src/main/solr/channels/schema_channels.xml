@@ -24,6 +24,7 @@
    <field name="genetic_feature_id" type="string" indexed="true" stored="true" multiValued="false"/>
    <field name="genetic_feature_symbol" type="string" indexed="true" stored="true" multiValued="false"/>
    <field name="genetic_feature_ensembl_id" type="string" indexed="true" stored="true" multiValued="false"/>
+   <field name="mutation_type" type="string" indexed="true" stored="true" multiValued="false"/>
    
    <field name="chromosome" type="string" indexed="true" stored="true" multiValued="false"/>
    <field name="start_pos" type="long" indexed="true" stored="true" multiValued="false"/>

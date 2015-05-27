@@ -137,6 +137,12 @@ public class SangerXmlGenerator {
 				    		gt.setGeneticFeatureSymbol(res.getString("ALLELE"));
 				    		Zygosity zyg = Zygosity.fromValue(norm.normalizeZygosity(res.getString("GENOTYPE")));
 				    		gt.setZygosity(zyg);
+				    		if (norm.getImageType(res.getString("procedure_name")).equalsIgnoreCase("expression")){
+				    			gt.setMutationType("null allele with LacZ reporter");
+				    		} else {
+				    			gt.setMutationType("null mutation");
+				    		}
+
 				    		Genotype gta = new Genotype();
 				    		gta.getEl().add(gt);
 				    		image.setMutantGenotypeTraits(gta);

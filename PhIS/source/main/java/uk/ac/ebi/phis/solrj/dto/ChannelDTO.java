@@ -16,6 +16,7 @@ public class ChannelDTO {
 	public final static String GENETIC_FEATURE_ID = "genetic_feature_id";
 	public final static String GENETIC_FEATURE_SYMBOL = "genetic_feature_symbol";
 	public final static String GENETIC_FEATURE_ENSEML_ID = "genetic_feature_ensembl_id";
+	public final static String MUTATION_TYPE = "mutation_type";
 	public final static String CHROMOSOME = "chromosome";
 	public final static String START_POS = "start_pos";
 	public final static String END_POS = "end_pos";
@@ -46,6 +47,8 @@ public class ChannelDTO {
 	String geneticFeatureId;
 	@Field(ChannelDTO.GENETIC_FEATURE_SYMBOL)
 	String geneticFeatureSymbol;
+	@Field(ChannelDTO.MUTATION_TYPE)
+	String mutationType;
 	@Field(ChannelDTO.MARKER)
 	String marker;
 	@Field(ChannelDTO.START_POS)
@@ -78,6 +81,17 @@ public class ChannelDTO {
 	}
 	
 	
+	public String getMutationType() {
+	
+		return mutationType;
+	}
+
+
+	public void setMutationType(String mutationType) {
+	
+		this.mutationType = mutationType;
+	}
+
 	/**
 	 * @return the vizualisationMethodId
 	 */

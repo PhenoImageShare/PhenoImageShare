@@ -327,6 +327,9 @@ public class BatchXmlUploader {
 			if (gc.getZygosity() != null){
 				bean.setZygosity(gc.getZygosity().name());
 			}
+			if (gc.getMutationType() != null){
+				bean.setMutationType(gc.getMutationType());
+			}
 			if (gc.getGenomicLocation() != null){
 				bean.setStartPos(gc.getGenomicLocation().getStartPos());
 				if (gc.getGenomicLocation().getEndPos() != null){
@@ -350,6 +353,10 @@ public class BatchXmlUploader {
 		ImageDescription desc = img.getImageDescription();
 		if (desc.getImageGeneratedBy() != null){
 			bean.setImageGeneratedBy(desc.getImageGeneratedBy().getDisplayName());
+		}
+		
+		if (desc.getLicence() != null){
+			bean.setLicence(desc.getLicence());
 		}
 		
 		if (desc.getOrganismGeneratedBy() != null){
@@ -429,9 +436,9 @@ public class BatchXmlUploader {
 				imageType.add(it.name());
 			}
 		}
-		bean.setImageType(imageType);
 		
-		// TODO bean.setThumbnailPath(thumbnailPath);;
+		bean.setImageType(imageType);		
+		bean.setThumbnailUrl(desc.getThumbnailUrl());;
 
 		// Sample
 		
@@ -489,7 +496,6 @@ public class BatchXmlUploader {
 			ArrayList<String> zygosity = new ArrayList<>();
 			
 			for (GenotypeComponent g : img.getMutantGenotypeTraits().getEl()){
-				//TODO maybe add empty strings if null? Test first if this works for the empty fields.
 				// We need to fill all of these arrays because they need to be parallel
 				geneIds.add(g.getGeneId());
 				geneSymbols.add(g.getGeneSymbol());
@@ -505,6 +511,9 @@ public class BatchXmlUploader {
 				}
 				if (g.getZygosity() != null){
 					zygosity.add(g.getZygosity().name());
+				}
+				if (g.getMutationType() != null){
+					bean.addMutationType(g.getMutationType());
 				}
 			}
 			
@@ -735,6 +744,9 @@ public class BatchXmlUploader {
 				}	
 				if (gf.getZygosity() != null){
 					res.addZygosity(gf.getZygosity().name());
+				}
+				if (gf.getMutationType() != null){
+					res.addMutationType(gf.getMutationType());
 				}
 				if (gf.getGenomicLocation() != null){
 					

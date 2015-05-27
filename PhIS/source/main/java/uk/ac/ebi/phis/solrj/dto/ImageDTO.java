@@ -26,6 +26,7 @@ public class ImageDTO {
 	public final static String GF_SYNONYMS = "genetic_feature_synonyms";
 	public final static String GENE_SYMBOL = "gene_symbol";
 	public final static String GENE_SYNONYMS = "gene_synonyms";
+	public final static String MUTATION_TYPE = "mutation_type";
 	public final static String AGE = "age";
 	public final static String CONDITIONS = "conditions";
 	public final static String OBSERVATIONS = "observations";
@@ -64,6 +65,7 @@ public class ImageDTO {
 	public final static String IMAGING_METHOD_ANCESTORS = "imaging_method_ancestors";
 	public final static String IMAGE_CONTEXT_URL = "image_context_url";
 	public final static String IMAGE_URL = "image_url";
+	public final static String LICENCE = "licence";
 	public final static String THUMBNAIL_URL = "thumbnail_url";
 	public final static String IMAGE_GENERATED_BY = "image_generated_by";
 	public final static String HOST_NAME = "host_name";
@@ -103,6 +105,7 @@ public class ImageDTO {
 	public final static String EXPRESSED_GF_ID_BAG = "expressed_gf_id_bag";
 	public final static String EXPRESSED_GF_SYMBOL_BAG = "expressed_gf_symbol_bag";
 	public final static String EXPRESSED_GF_SYNONYMS_BAG = "expressed_gf_synonyms_bag";
+	public final static String EXPRESSED_GF_MUTATION_TYPE = "expressed_gf_mutation_type";
 
 	public final static String PHENOTYPE_ID_BAG = "phenotype_id_bag";
 	public final static String PHENOTYPE_LABEL_BAG = "phenotype_label_bag";
@@ -145,6 +148,9 @@ public class ImageDTO {
 
 	@Field(IMAGE_URL)
 	private String imageUrl;
+	
+	@Field(LICENCE)
+	private String licence;
 	
 	@Field(THUMBNAIL_URL)
 	private String thumbnailUrl;
@@ -270,6 +276,9 @@ public class ImageDTO {
 
 	@Field(GF_ID)
 	private List<String> geneticFeatureIds;
+	
+	@Field(MUTATION_TYPE)
+	private List<String> mutationType;
 
 	@Field(GF_SYMBOL)
 	private List<String> geneticFeatureSymbols;
@@ -348,6 +357,9 @@ public class ImageDTO {
 
 	@Field(EXPRESSED_GF_SYNONYMS_BAG)
 	private ArrayList<String> expressedGfSynonymsBag;
+	
+	@Field(EXPRESSED_GF_MUTATION_TYPE)
+	private ArrayList<String> expressedGfMutationType;
 
 	@Field(EXPRESSION_IN_ID_BAG)
 	private ArrayList<String> expressionInIdBag;
@@ -439,6 +451,48 @@ public class ImageDTO {
 	public void setGeneticFeatureSynonyms(List<String> geneticFeatureSynonyms) {
 	
 		this.geneticFeatureSynonyms = geneticFeatureSynonyms;
+	}
+	
+	
+	public List<String> getMutationType() {
+	
+		return mutationType;
+	}
+	
+	public void addMutationType(String mutationType) {
+		
+		if (this.mutationType == null){
+			this.mutationType = new ArrayList<>();
+		}
+		this.mutationType.add(mutationType);
+	}
+	
+	public void setMutationType(List<String> mutationType) {
+	
+		this.mutationType = mutationType;
+	}
+
+	
+	public ArrayList<String> getExpressedGfMutationType() {
+	
+		return expressedGfMutationType;
+	}
+
+	
+	public void setExpressedGfMutationType(ArrayList<String> expressedGfMutationType) {
+	
+		this.expressedGfMutationType = expressedGfMutationType;
+	}
+
+	public String getLicence() {
+	
+		return licence;
+	}
+
+	
+	public void setLicence(String licence) {
+	
+		this.licence = licence;
 	}
 
 	public void setAnatomyComputedSynonymsBag(ArrayList<String> anatomyComputedSynonymsBag) {

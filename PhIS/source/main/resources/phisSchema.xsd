@@ -141,6 +141,7 @@
 			<element name="sample_preparation" type="x:AnnotationArray" minOccurs="0" maxOccurs="1" /> <!-- from Fbbi -->
 			<element name="image_type" type="x:ImageTypeArray" minOccurs="1" maxOccurs="1" />
 			<element name="sample_type" type="x:SampleType" minOccurs="1" maxOccurs="1" />
+			<element name="licence" type="string" minOccurs="0" maxOccurs="1" />
 		</all>
 	</complexType>
 
@@ -210,6 +211,7 @@
 			<element name="genetic_feature_ensembl_id" type="string" minOccurs="0" maxOccurs="1" />
 			<element name="genomic_location" type="x:GenomicLocation" minOccurs="0" maxOccurs="1" />
 			<element name="zygosity" type="x:Zygosity" minOccurs="0" maxOccurs="1" />
+			<element name="mutation_type" type="string" minOccurs="0" maxOccurs="1" />
 			<!-- element name="marker" type="string" minOccurs="0" maxOccurs="1"/ --> <!-- Carried on the genetic feature -->
 		</all>
 	</complexType>
