@@ -453,6 +453,30 @@ public class ImageDTO {
 	}
 
 	
+	
+	public String getThumbnailUrl() {
+	
+		return thumbnailUrl;
+	}
+
+	
+	public void setThumbnailUrl(String thumbnailUrl) {
+	
+		this.thumbnailUrl = thumbnailUrl;
+	}
+
+	
+	public ArrayList<String> getStageAncestors() {
+	
+		return stageAncestors;
+	}
+
+	
+	public void setStageAncestors(ArrayList<String> stageAncestors) {
+	
+		this.stageAncestors = stageAncestors;
+	}
+
 	public void setImagingMethodFreetext(ArrayList<String> imagingMethodFreetext) {
 	
 		this.imagingMethodFreetext = imagingMethodFreetext;

@@ -351,12 +351,15 @@ public class BatchXmlUploader {
 		if (desc.getImageGeneratedBy() != null){
 			bean.setImageGeneratedBy(desc.getImageGeneratedBy().getDisplayName());
 		}
+		
 		if (desc.getOrganismGeneratedBy() != null){
 			bean.setSampleGeneratedBy(desc.getOrganismGeneratedBy().getDisplayName());
 		}
+		
 		bean.setHostName(desc.getHost().getDisplayName());
 		bean.setHostUrl(desc.getHost().getUrl());
 		bean.setImageUrl(desc.getImageUrl());
+		
 		if (desc.getImageContextUrl() != null){
 			bean.setImageContextUrl(desc.getImageContextUrl());
 		}
@@ -377,6 +380,12 @@ public class BatchXmlUploader {
 			bean.setDepth(desc.getImageDimensions().getImageDepth());
 		}
 
+		if (desc.getThumbnailUrl() != null){
+			bean.setThumbnailUrl(desc.getThumbnailUrl());
+		} else {
+			bean.setThumbnailUrl(desc.getImageUrl());
+		}
+		
 		bean.setHeight(desc.getImageDimensions().getImageHeight());
 
 		bean.setWidth(desc.getImageDimensions().getImageWidth());
@@ -677,7 +686,7 @@ public class BatchXmlUploader {
 	}
 	
 	
-private ImageDTO copyFieldsFromChannel(Image img, ImageDTO pojo){
+	private ImageDTO copyFieldsFromChannel(Image img, ImageDTO pojo){
 		
 		ImageDTO res = pojo;
 
