@@ -98,7 +98,8 @@ public class ImageService extends BasicService{
 		if (visualisationMethod != null){
 			visualisationMethod = handleSpecialCharacters (visualisationMethod);
 			solrQuery.addFilterQuery(ImageDTO.VISUALISATION_METHOD_ID + ":\"" + visualisationMethod + "\" OR " + 
-				ImageDTO.VISUALISATION_METHOD_LABEL + ":\"" + visualisationMethod + "\"");
+				ImageDTO.VISUALISATION_METHOD_LABEL + ":\"" + visualisationMethod + "\" OR " + 
+				ImageDTO.VISUALISATION_METHOD_ANCESTORS + ":\"" + visualisationMethod + "\"");
 		}
 		if (samplePreparation != null){
 			samplePreparation = handleSpecialCharacters(samplePreparation);

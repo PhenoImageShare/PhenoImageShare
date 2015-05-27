@@ -202,6 +202,7 @@
    <field name="generic_search" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
    <field name="generic_search_ancestors" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
    <field name="generic_anatomy" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
+   <field name="generic_anatomy_ancestors" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
    
    <!-- Autosuggest fields -->
    <!-- field name="term_autosuggest_analysed" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true" termVectors="true" termPositions="true" termOffsets="true"/-->
@@ -226,6 +227,14 @@
    <copyField source="abnormal_anatomy_freetext_bag" dest="generic_anatomy"/>
    <copyField source="abnormal_anatomy_id_bag" dest="generic_anatomy"/>
    <copyField source="abnormal_anatomy_synonyms_bag" dest="generic_anatomy"/>
+ 
+ 
+   <copyField source="expression_in_ancestors" dest="generic_anatomy_ancestors"/>
+   <copyField source="abnormal_anatomy_ancestors" dest="generic_anatomy_ancestors"/>
+   <copyField source="depicted_anatomy_ancestors" dest="generic_anatomy_ancestors"/>
+   <copyField source="anatomy_computed_ancestors" dest="generic_anatomy_ancestors"/>
+   <copyField source="anatomy_ancestors" dest="generic_anatomy_ancestors"/>
+ 
  
    <copyField source="genetic_feature_symbol" dest="term_autosuggest"/>
    <copyField source="expressed_gf_symbol_bag" dest="term_autosuggest"/>
