@@ -32,7 +32,8 @@ public class ImageService extends BasicService{
 	}
 			
 	public String getImages(String term, String phenotype, String geneParameterToBeDeleted, String mutantGene, String anatomy, String expressedGene, String sex, String taxon, 
-	String image_type, String sample_type, String stage, String visualisationMethod, String samplePreparation, String imagingMethod, Integer rows, Integer start) throws SolrServerException{
+	String image_type, String sample_type, String stage, String visualisationMethod, String samplePreparation, String imagingMethod, Integer rows, Integer start, Boolean withAncestors) 
+	throws SolrServerException{
 
 		SolrQuery solrQuery = new SolrQuery();
 		solrQuery.setQuery("*:*");
@@ -45,22 +46,21 @@ public class ImageService extends BasicService{
 			solrQuery.setQuery(ImageDTO.GENERIC_SEARCH + ":" + handleSpecialCharacters(term));
 			if (term.contains(" ")){
 				String[] splittedQuery = term.split(" ");
-				String query = ImageDTO.GENERIC_SEARCH + ":" + org.apache.commons.lang3.StringUtils.join(splittedQuery, "^1 " + ImageDTO.GENERIC_SEARCH + ":");			
+				String query = ImageDTO.GENERIC_SEARCH + ":" + org.apache.commons.lang3.StringUtils.join(splittedQuery, "^10 " + ImageDTO.GENERIC_SEARCH + ":");			
 				solrQuery.set("defType", "edismax");
 				solrQuery.set("qf",  ImageDTO.GENERIC_SEARCH);
-				solrQuery.set("bq", ImageDTO.GENERIC_SEARCH + ":\"" + term + "\"^10 " + handleSpecialCharacters(query));
+				solrQuery.set("bq", ImageDTO.GENERIC_SEARCH + ":\"" + term + "\"^100 " + handleSpecialCharacters(query) + " " + ImageDTO.GENERIC_SEARCH_ANCESTORS + ":\"" + term + "\"^1" );
 			
 			}else{
 				solrQuery.addFilterQuery(ImageDTO.GENERIC_SEARCH + ":"+ handleSpecialCharacters(term));
 			}
 		}
 		
-		
 		if (phenotype != null){
 			phenotype = handleSpecialCharacters(phenotype);
 			solrQuery.addFilterQuery(ImageDTO.PHENOTYPE_ID_BAG + ":\""+ phenotype + "\" OR " + 
 				ImageDTO.PHENOTYPE_FREETEXT_BAG + ":\""+ phenotype + "\" OR " + 
-				ImageDTO.PHENOTYPE_LABEL_BAG + ":\""+ phenotype + "\"");
+				ImageDTO.PHENOTYPE_LABEL_BAG + ":\""+ phenotype + "\" OR " + ImageDTO.PHENOTYPE_ANCESTORS + ":\"" + phenotype + "\"");
 		}
 		
 		if (mutantGene != null){
@@ -71,7 +71,7 @@ public class ImageService extends BasicService{
 		
 		if (anatomy != null){
 			anatomy = handleSpecialCharacters(anatomy);
-			solrQuery.addFilterQuery(ImageDTO.GENERIC_ANATOMY + ":\""+ anatomy + "\"");
+			solrQuery.addFilterQuery(ImageDTO.GENERIC_ANATOMY + ":\""+ anatomy + "\" OR " + ImageDTO.GENERIC_ANATOMY_ANCESTORS + ":\"" + anatomy + "\"");
 		}
 		if (expressedGene != null){
 			expressedGene = handleSpecialCharacters(expressedGene);
@@ -93,7 +93,7 @@ public class ImageService extends BasicService{
 		if (stage != null){
 			stage = handleSpecialCharacters(stage);
 			solrQuery.addFilterQuery(ImageDTO.STAGE + ":\"" + stage + "\" OR " + 
-				ImageDTO.STAGE_ID + ":\"" + stage + "\"");
+				ImageDTO.STAGE_ID + ":\"" + stage + "\" OR " + ImageDTO.STAGE_ANCESTORS + ":\"" + stage + "\"" );
 		}
 		if (visualisationMethod != null){
 			visualisationMethod = handleSpecialCharacters (visualisationMethod);
@@ -103,12 +103,12 @@ public class ImageService extends BasicService{
 		if (samplePreparation != null){
 			samplePreparation = handleSpecialCharacters(samplePreparation);
 			solrQuery.addFilterQuery(ImageDTO.SAMPLE_PREPARATION_ID + ":\"" + samplePreparation + "\" OR " + 
-				ImageDTO.SAMPLE_PREPARATION_LABEL + ":\"" + samplePreparation + "\"");
+				ImageDTO.SAMPLE_PREPARATION_LABEL + ":\"" + samplePreparation + "\" OR " + ImageDTO.SAMPLE_PREPARATION_ANCESTORS + ":\"" + samplePreparation + "\"");
 		}
 		if (imagingMethod != null){
 			imagingMethod = handleSpecialCharacters(imagingMethod);
 			solrQuery.addFilterQuery(ImageDTO.IMAGING_METHOD_LABEL_ANALYSED + ":\"" + imagingMethod + "\" OR " + 
-			ImageDTO.IMAGING_METHOD_ID + ":\"" + imagingMethod + "\"");
+			ImageDTO.IMAGING_METHOD_ID + ":\"" + imagingMethod + "\" OR " + ImageDTO.IMAGING_METHOD_ANCESTORS + ":\"" + imagingMethod + "\"");
 		}
 		if (sex != null){
 			sex = handleSpecialCharacters(sex);

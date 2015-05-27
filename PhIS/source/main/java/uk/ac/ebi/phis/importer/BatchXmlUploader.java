@@ -302,7 +302,6 @@ public class BatchXmlUploader {
 	}
 	
 	
-	// fillChannelPojo
 	private ChannelDTO fillPojo(Channel channel, String datasource) {
 
 		ChannelDTO bean = new ChannelDTO();
@@ -338,9 +337,9 @@ public class BatchXmlUploader {
 			}
 		}
 		
-		return bean;
-	
+		return bean;	
 	}
+	
 
 	private ImageDTO fillPojo(Image img, String datasource) {
 
@@ -449,7 +448,7 @@ public class BatchXmlUploader {
 				bean.addStageAncestors(oo.getAncestorsBag());
 			}
 		}
-
+	
 		// field name="anatomy_computed_id" /-->
 		// field name="anatomy_computed_term" /-->
 		// field name="anatomy_ann_bag" /-->

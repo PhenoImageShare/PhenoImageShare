@@ -112,7 +112,9 @@ public class ImageDTO {
 
 	public final static String TERM_AUTOSUGGEST = "term_autosuggest";
 	public final static String GENERIC_SEARCH = "generic_search";
+	public final static String GENERIC_SEARCH_ANCESTORS = "generic_search_ancestors";
 	public final static String GENERIC_ANATOMY = "generic_anatomy";
+	public final static String GENERIC_ANATOMY_ANCESTORS = "generic_anatomy_ancestors";
 
 	@Field(ID)
 	private String id;
@@ -203,9 +205,12 @@ public class ImageDTO {
 
 	@Field(GENERIC_SEARCH)
 	private List<String> genericSearch;
-	
+
 	@Field(GENERIC_ANATOMY)
 	private List<String> genericAnatomy;
+	
+	@Field(GENERIC_ANATOMY_ANCESTORS)
+	private List<String> genericAnatomyAncestors;
 	
 	@Field(AGE)
 	private String age;
@@ -477,7 +482,7 @@ public class ImageDTO {
 		this.visualisationMethodFreetext = visualisationMethodFreetext;
 	}
 
-	
+
 	public List<String> getGenericAnatomy() {
 	
 		return genericAnatomy;
@@ -487,6 +492,17 @@ public class ImageDTO {
 	public void setGenericAnatomy(List<String> genericAnatomy) {
 	
 		this.genericAnatomy = genericAnatomy;
+	}
+
+	public List<String> getGenericAnatomyAncestors() {
+	
+		return genericAnatomyAncestors;
+	}
+
+	
+	public void setGenericAnatomyAncestors(List<String> genericAnatomyAncestors) {
+	
+		this.genericAnatomyAncestors = genericAnatomyAncestors;
 	}
 
 	
