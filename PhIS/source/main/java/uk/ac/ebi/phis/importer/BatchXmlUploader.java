@@ -724,8 +724,24 @@ private ImageDTO copyFieldsFromChannel(Image img, ImageDTO pojo){
 				if (gf.getGeneticFeatureSymbol() != null){
 					expressedGfLabelBag.add(gf.getGeneticFeatureSymbol());
 				}	
-				break;
+				if (gf.getZygosity() != null){
+					res.addZygosity(gf.getZygosity().name());
+				}
+				if (gf.getGenomicLocation() != null){
+					
+					if (gf.getGenomicLocation().getStartPos() == null){
+						System.out.println("no start pos in genomic location for  channel: " + channel.getId());
+					}
+					res.addStartPosition(gf.getGenomicLocation().getStartPos());
+					
+					if (gf.getGenomicLocation().getEndPos() != null){
+						res.addEndPosition(gf.getGenomicLocation().getEndPos());
+					}
+					res.addChromosome(gf.getGenomicLocation().getChromosone());
+					res.addStrand(gf.getGenomicLocation().getStrand());
+				}
 			}
+			
 		}
 
 		res.setExpressedGfIdBag(expressedGfIdBag);

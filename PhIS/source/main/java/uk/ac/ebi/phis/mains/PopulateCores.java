@@ -54,7 +54,8 @@ public class PopulateCores {
 			ImageService is = (ImageService) applicationContext.getBean("imageService");
 			RoiService rs = (RoiService) applicationContext.getBean("roiService");
 			ChannelService cs = (ChannelService) applicationContext.getBean("channelService"); 
-			
+			boolean itWorked;
+			long time;
 			// delete everything in the cores. This will likely change as we might want to do updates only.
 			is.clear();
 			rs.clear();
@@ -62,8 +63,14 @@ public class PopulateCores {
 			
 			BatchXmlUploader reader = new BatchXmlUploader(is, rs, cs);
 
-			boolean itWorked = false;
-			long time = System.currentTimeMillis();	
+			itWorked = false;
+			time = System.currentTimeMillis();	
+			itWorked = reader.validateAndUpload(dataDir + "/tracerExport.xml", "tracer");
+			System.out.println(itWorked);
+			System.out.println("Importing Tracer XML took " + (System.currentTimeMillis() - time));
+			
+			itWorked = false;
+			time = System.currentTimeMillis();	
 			itWorked = reader.validateAndUpload(dataDir + "/VFB_Cachero2010.xml", "vfb");
 			System.out.println(itWorked);
 			System.out.println("Importing VFB_Cachero2010 XML took " + (System.currentTimeMillis() - time));
@@ -98,12 +105,6 @@ public class PopulateCores {
 			System.out.println(itWorked);
 			System.out.println("Importing EMAGE XML took " + (System.currentTimeMillis() - time));
 			
-			itWorked = false;
-			time = System.currentTimeMillis();	
-			itWorked = reader.validateAndUpload(dataDir + "/tracerExport.xml", "tracer");
-			System.out.println(itWorked);
-			System.out.println("Importing Tracer XML took " + (System.currentTimeMillis() - time));
-
 			time = System.currentTimeMillis();
 			itWorked = reader.validateAndUpload(dataDir + "/sangerExport.xml", "wtsi");
 			System.out.println("Is valid? " + itWorked);

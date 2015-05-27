@@ -41,7 +41,6 @@ public class ImageDTO {
 	public final static String TAXON = "taxon";
 	public final static String SAMPLE_GENERATED_BY = "sample_generated_by";
 	public final static String WIDTH = "width";
-	public final static String THUMBNAIL_PATH = "thumbnail_path";
 	public final static String IMAGE_TYPE = "image_type";
 	public final static String SAMPLE_TYPE = "sample_type";
 
@@ -65,6 +64,7 @@ public class ImageDTO {
 	public final static String IMAGING_METHOD_ANCESTORS = "imaging_method_ancestors";
 	public final static String IMAGE_CONTEXT_URL = "image_context_url";
 	public final static String IMAGE_URL = "image_url";
+	public final static String THUMBNAIL_URL = "thumbnail_url";
 	public final static String IMAGE_GENERATED_BY = "image_generated_by";
 	public final static String HOST_NAME = "host_name";
 	public final static String HOST_URL = "host_url";
@@ -145,6 +145,9 @@ public class ImageDTO {
 
 	@Field(IMAGE_URL)
 	private String imageUrl;
+	
+	@Field(THUMBNAIL_URL)
+	private String thumbnailUrl;
 
 	@Field(IMAGE_CONTEXT_URL)
 	private String imageContextUrl;
@@ -196,9 +199,6 @@ public class ImageDTO {
 
 	@Field(MACHINE)
 	private String machine;
-
-	@Field(THUMBNAIL_PATH)
-	private String thumbnailPath;
 
 	@Field(WIDTH)
 	private Integer width;
@@ -1576,26 +1576,6 @@ public class ImageDTO {
 		this.machine = machine;
 	}
 
-
-	/**
-	 * @return the thumbnailPath
-	 */
-	public String getThumbnailPath() {
-
-		return thumbnailPath;
-	}
-
-
-	/**
-	 * @param thumbnailPath
-	 *            the thumbnailPath to set
-	 */
-	public void setThumbnailPath(String thumbnailPath) {
-
-		this.thumbnailPath = thumbnailPath;
-	}
-
-
 	/**
 	 * @return the width
 	 */
@@ -1901,6 +1881,13 @@ public class ImageDTO {
 
 		this.chromosome = chromosome;
 	}
+	public void addChromosome(String chromosome) {
+
+		if (this.chromosome == null){
+			this.chromosome = new ArrayList<>();
+		}
+		this.chromosome.add(chromosome);
+	}
 
 
 	/**
@@ -1919,6 +1906,14 @@ public class ImageDTO {
 	public void setStartPosition(List<Long> startPosition) {
 
 		this.startPosition = startPosition;
+	}
+	
+	public void addStartPosition(Long startPosition) {
+		
+		if (this.startPosition == null){
+			this.startPosition = new ArrayList<>();
+		}
+		this.startPosition.add(startPosition);
 	}
 
 
@@ -1939,6 +1934,14 @@ public class ImageDTO {
 
 		this.endPosition = endPosition;
 	}
+	
+	public void addEndPosition(Long endPosition) {
+		
+		if (this.endPosition == null){
+			this.endPosition = new ArrayList<>();
+		}
+		this.endPosition.add(endPosition);
+	}
 
 
 	/**
@@ -1958,7 +1961,14 @@ public class ImageDTO {
 
 		this.strand = strand;
 	}
-
+	
+	public void addStrand(String strand) {
+		
+		if (this.strand == null){
+			this.strand = new ArrayList<>();
+		}
+		this.strand.add(strand);
+	}
 
 	/**
 	 * @return the zygosity
@@ -1977,7 +1987,14 @@ public class ImageDTO {
 
 		this.zygosity = zygosity;
 	}
-
+	
+	public void addZygosity(String zygosity) {
+		
+		if (this.zygosity == null){
+			this.zygosity = new ArrayList<>();
+		}
+		this.zygosity.add(zygosity);
+	}
 
 	
 
@@ -1994,7 +2011,7 @@ public class ImageDTO {
 			+ ", samplePreparationId=" + samplePreparationId + ", samplePreparationLabel=" + samplePreparationLabel 
 			+ ", samplePreparationSynonyms=" + samplePreparationSynonyms + ", visualisationMethodId=" + visualisationMethodId 
 			+ ", visualisationMethodLabel=" + visualisationMethodLabel + ", visualisationMethodSynonyms=" + visualisationMethodSynonyms 
-			+ ", machine=" + machine + ", thumbnailPath=" + thumbnailPath + ", width=" + width + ", genericSearch=" + genericSearch 
+			+ ", machine=" + machine + ", width=" + width + ", genericSearch=" + genericSearch 
 			+ ", ageSinceBirth=" + age + ", sampleGeneratedBy=" + sampleGeneratedBy + ", taxon=" + taxon + ", ncbiTaxonId=" + ncbiTaxonId 
 			+ ", sex=" + sex + ", stage=" + stage + ", stageId=" + stageId + ", anatomyId=" + anatomyId + ", anatomyTerm=" + anatomyTerm 
 			+ ", anatomyFreetext=" + anatomyFreetext + ", anatomySynonyms=" + anatomySynonyms + ", observations=" + observations 
