@@ -392,7 +392,7 @@ public class BatchXmlUploader {
 		} else {
 			bean.setThumbnailUrl(desc.getImageUrl());
 		}
-		
+				
 		bean.setHeight(desc.getImageDimensions().getImageHeight());
 
 		bean.setWidth(desc.getImageDimensions().getImageWidth());
@@ -438,7 +438,6 @@ public class BatchXmlUploader {
 		}
 		
 		bean.setImageType(imageType);		
-		bean.setThumbnailUrl(desc.getThumbnailUrl());;
 
 		// Sample
 		
