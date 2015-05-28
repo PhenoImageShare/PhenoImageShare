@@ -211,7 +211,7 @@
 			<element name="genetic_feature_ensembl_id" type="string" minOccurs="0" maxOccurs="1" />
 			<element name="genomic_location" type="x:GenomicLocation" minOccurs="0" maxOccurs="1" />
 			<element name="zygosity" type="x:Zygosity" minOccurs="0" maxOccurs="1" />
-			<element name="mutation_type" type="string" minOccurs="0" maxOccurs="1" />
+			<element name="mutation_type" type="x:Annotation" minOccurs="0" maxOccurs="1" />
 			<!-- element name="marker" type="string" minOccurs="0" maxOccurs="1"/ --> <!-- Carried on the genetic feature -->
 		</all>
 	</complexType>
