@@ -328,7 +328,7 @@ public class BatchXmlUploader {
 				bean.setZygosity(gc.getZygosity().name());
 			}
 			if (gc.getMutationType() != null){
-				bean.setMutationType(gc.getMutationType());
+				bean.setMutationType(gc.getMutationType().getAnnotationFreetext());
 			}
 			if (gc.getGenomicLocation() != null){
 				bean.setStartPos(gc.getGenomicLocation().getStartPos());
@@ -512,7 +512,7 @@ public class BatchXmlUploader {
 					zygosity.add(g.getZygosity().name());
 				}
 				if (g.getMutationType() != null){
-					bean.addMutationType(g.getMutationType());
+					bean.addMutationType(g.getMutationType().getAnnotationFreetext());
 				}
 			}
 			
@@ -745,7 +745,7 @@ public class BatchXmlUploader {
 					res.addZygosity(gf.getZygosity().name());
 				}
 				if (gf.getMutationType() != null){
-					res.addMutationType(gf.getMutationType());
+					res.addMutationType(gf.getMutationType().getAnnotationFreetext());
 				}
 				if (gf.getGenomicLocation() != null){
 					
