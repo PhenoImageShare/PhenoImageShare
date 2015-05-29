@@ -131,6 +131,7 @@ public class ImageService extends BasicService{
 		solrQuery.addFacetField(ImageDTO.TAXON);
 		solrQuery.addFacetField(ImageDTO.SAMPLE_TYPE);
 		solrQuery.addFacetField(ImageDTO.IMAGE_GENERATED_BY);
+		solrQuery.addFacetField(ImageDTO.HOST_URL);
 		solrQuery.set("facet.pivot.mincount",0);
 		
 		// add pivot facets to get the number of image types per 
