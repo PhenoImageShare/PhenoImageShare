@@ -1,3 +1,18 @@
+/*******************************************************************************
+ * Copyright 2015 EMBL - European Bioinformatics Institute
+ *
+ * Licensed under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License. You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * either express or implied. See the License for the specific
+ * language governing permissions and limitations under the
+ * License.
+ *******************************************************************************/
 package uk.ac.ebi.phis.mains;
 
 import java.io.File;
@@ -11,6 +26,7 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
 import uk.ac.ebi.phis.importer.AutosuggestIndexer;
 import uk.ac.ebi.phis.service.AutosuggestService;
 import uk.ac.ebi.phis.service.ImageService;
+import uk.ac.ebi.phis.utils.ontology.OntologyUtils;
 
 
 public class PopulateAutosuggest {
@@ -34,8 +50,9 @@ public class PopulateAutosuggest {
 
 			ImageService is = new ImageService(solrBaseUrl + "/images");
 			AutosuggestService as = new AutosuggestService(solrBaseUrl + "/autosuggest");
+			OntologyUtils ou = new OntologyUtils();
+			AutosuggestIndexer indexer = new AutosuggestIndexer(is, as, ou);
 			as.clear();
-			AutosuggestIndexer indexer = new AutosuggestIndexer(is, as);
 			indexer.index();
 			
 		}catch (Exception e){

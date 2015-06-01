@@ -1,19 +1,34 @@
+/*******************************************************************************
+ * Copyright 2015 EMBL - European Bioinformatics Institute
+ *
+ * Licensed under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License. You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * either express or implied. See the License for the specific
+ * language governing permissions and limitations under the
+ * License.
+ *******************************************************************************/
 package uk.ac.ebi.phis.importer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import org.apache.solr.client.solrj.SolrServerException;
-import org.apache.solr.client.solrj.response.QueryResponse;
-import org.apache.solr.common.SolrDocument;
-import org.apache.solr.common.SolrDocumentList;
 
 import uk.ac.ebi.phis.service.AutosuggestService;
 import uk.ac.ebi.phis.service.ImageService;
 import uk.ac.ebi.phis.solrj.dto.AutosuggestDTO;
 import uk.ac.ebi.phis.solrj.dto.AutosuggestTypes;
 import uk.ac.ebi.phis.solrj.dto.ImageDTO;
+import uk.ac.ebi.phis.utils.ontology.OntologyObject;
+import uk.ac.ebi.phis.utils.ontology.OntologyUtils;
 
 
 public class AutosuggestIndexer {
@@ -21,11 +36,13 @@ public class AutosuggestIndexer {
 	ClassLoader classloader;
 	ImageService is;
 	AutosuggestService as;
+	OntologyUtils ou;
 	
-	public AutosuggestIndexer(ImageService is, AutosuggestService as) {
+	public AutosuggestIndexer(ImageService is, AutosuggestService as, OntologyUtils ou) {
 		classloader = Thread.currentThread().getContextClassLoader();
 		this.is = is;
 		this.as = as;
+		this.ou = ou;
 	}
 	
 	public void index(){
@@ -157,40 +174,92 @@ public class AutosuggestIndexer {
 		ArrayList<AutosuggestBean> res = new ArrayList<>();
 		
 		if (doc.getGeneIds() != null){
-			res.addAll(getBeansForArrays(doc.getGeneIds(), doc.getGeneSymbols(), null, AutosuggestTypes.GENE.name()));
+			res.addAll(getBeansForArrays(doc.getGeneIds(), doc.getGeneSymbols(), null, AutosuggestTypes.GENE));
 		}
 		
 		if (doc.getMutantGeneIdBag() != null){
-			res.addAll(getBeansForArrays(doc.getMutantGeneIdBag(), doc.getMutantGeneSymbolBag(), null, AutosuggestTypes.GENE.name()));
+			res.addAll(getBeansForArrays(doc.getMutantGeneIdBag(), doc.getMutantGeneSymbolBag(), null, AutosuggestTypes.GENE));
 		}
-		if (doc.getImagingMethodId() != null){
-			res.add(new AutosuggestBean(doc.getImagingMethodId(), doc.getImagingMethodLabel(), doc.getImagingMethodSynonyms(), AutosuggestTypes.GENERIC_AUTOSUGGEST.name()));
+		if (doc.getHostName() != null){
+			res.add(new AutosuggestBean(doc.getHostName(), null, null, AutosuggestTypes.GENERIC_AUTOSUGGEST));
+		}
+		if (doc.getSampleGeneratedBy() != null){
+			res.add(new AutosuggestBean(doc.getSampleGeneratedBy(), null, null, AutosuggestTypes.GENERIC_AUTOSUGGEST));
+		}
+		if (doc.getImageGeneratedBy() != null){
+			res.add(new AutosuggestBean(doc.getImageGeneratedBy(), null, null, AutosuggestTypes.GENERIC_AUTOSUGGEST));
 		}
 		
 		if (doc.getAnatomyId() != null){
-			res.add(new AutosuggestBean(doc.getAnatomyId(), doc.getAnatomyTerm(), doc.getAnatomySynonyms(), AutosuggestTypes.ANATOMY.name()));
+			res.add(new AutosuggestBean(doc.getAnatomyId(), doc.getAnatomyTerm(), doc.getAnatomySynonyms(), AutosuggestTypes.ANATOMY));
 		}
+		if (doc.getAnatomyAncestors() != null){
+			res.addAll(getBeansForAncestors(doc.getAnatomyAncestors(), AutosuggestTypes.ANATOMY));
+		}
+		
 		if (doc.getExpressionInIdBag() != null){
-			res.addAll(getBeansForArrays(doc.getExpressionInIdBag(), doc.getExpressionInLabelBag(), null, AutosuggestTypes.ANATOMY.name()));
+			res.addAll(getBeansForArrays(doc.getExpressionInIdBag(), doc.getExpressionInLabelBag(), null, AutosuggestTypes.ANATOMY));
 		}
+		if (doc.getExpressionInAncestors() != null){
+			res.addAll(getBeansForAncestors(doc.getExpressionInAncestors(), AutosuggestTypes.ANATOMY));
+		}
+		
 		if (doc.getAnatomyComputedIdBag() != null){
-			res.addAll(getBeansForArrays(doc.getAnatomyComputedIdBag(), doc.getAnatomyComputedLabelBag(), null, AutosuggestTypes.ANATOMY.name()));
+			res.addAll(getBeansForArrays(doc.getAnatomyComputedIdBag(), doc.getAnatomyComputedLabelBag(), null, AutosuggestTypes.ANATOMY));
 		}
+		if (doc.getAnatomyComputedAncestors() != null){
+			res.addAll(getBeansForAncestors(doc.getAnatomyComputedAncestors(), AutosuggestTypes.ANATOMY));
+		}
+		
 		if (doc.getDepictedAnatomyIdBag() != null){
-			res.addAll(getBeansForArrays(doc.getDepictedAnatomyIdBag(), doc.getDepictedAnatomyTermBag(), null, AutosuggestTypes.ANATOMY.name()));
+			res.addAll(getBeansForArrays(doc.getDepictedAnatomyIdBag(), doc.getDepictedAnatomyTermBag(), null, AutosuggestTypes.ANATOMY));
 		}
+		if (doc.getDepictedAnatomyAncestors() != null){
+			res.addAll(getBeansForAncestors(doc.getDepictedAnatomyAncestors(), AutosuggestTypes.ANATOMY));
+		}
+		
 		if (doc.getAbnormalAnatomyIdBag() != null){
-			res.addAll(getBeansForArrays(doc.getAbnormalAnatomyIdBag(), doc.getAbnormalAnatomyTermBag(), null, AutosuggestTypes.ANATOMY.name()));
+			res.addAll(getBeansForArrays(doc.getAbnormalAnatomyIdBag(), doc.getAbnormalAnatomyTermBag(), null, AutosuggestTypes.ANATOMY));
+		}
+		if (doc.getAbnormalAnatomyAncestors() != null){
+			res.addAll(getBeansForAncestors(doc.getAbnormalAnatomyAncestors(), AutosuggestTypes.ANATOMY));
 		}
 		
 		if (doc.getPhenotypeIdBag() != null){
-			res.addAll(getBeansForArrays(doc.getPhenotypeIdBag(), doc.getPhenotypeLabelBag(), null, AutosuggestTypes.PHENOTYPE.name()));
+			res.addAll(getBeansForArrays(doc.getPhenotypeIdBag(), doc.getPhenotypeLabelBag(), null, AutosuggestTypes.PHENOTYPE));
 		}
-				
+		if (doc.getPhenotypeAncestors() != null){
+			res.addAll(getBeansForAncestors(doc.getPhenotypeAncestors(), AutosuggestTypes.PHENOTYPE));
+		}
+		
+		if (doc.getVisualisationMethodId() != null){
+			res.addAll(getBeansForArrays(doc.getVisualisationMethodId(), doc.getVisualisationMethodLabel(), null, AutosuggestTypes.GENERIC_AUTOSUGGEST));
+		}	
+		if (doc.getVisualisationMethodAncestors() != null){
+			res.addAll(getBeansForAncestors(doc.getVisualisationMethodAncestors(), AutosuggestTypes.GENERIC_AUTOSUGGEST));		
+			System.out.println("Visualisation method " + doc.getVisualisationMethodAncestors());
+		}
+		
+		if (doc.getSamplePreparationId() != null){
+			res.add(new AutosuggestBean(doc.getSamplePreparationId(), doc.getSamplePreparationLabel(), null, AutosuggestTypes.GENERIC_AUTOSUGGEST));
+		}	
+		if (doc.getSamplePreparationAncestors() != null){
+			res.addAll(getBeansForAncestors(doc.getSamplePreparationAncestors(), AutosuggestTypes.GENERIC_AUTOSUGGEST));	
+			System.out.println("Visualisation method " + doc.getSamplePreparationAncestors());			
+		}
+		
+		if (doc.getImagingMethodId() != null){
+			res.add(new AutosuggestBean(doc.getImagingMethodId(), doc.getImagingMethodLabel(), null, AutosuggestTypes.GENERIC_AUTOSUGGEST));
+		}	
+		if (doc.getImagingMethodAncestors() != null){
+			res.addAll(getBeansForAncestors(doc.getImagingMethodAncestors(), AutosuggestTypes.GENERIC_AUTOSUGGEST));		
+			System.out.println("Visualisation method " + doc.getImagingMethodAncestors());		
+		}
+		
 		return res;
 	}
 	
-	protected ArrayList<AutosuggestBean> getBeansForArrays(List<String> ids, List<String> labels, List<List<String>> synonyms, String type){
+	protected ArrayList<AutosuggestBean> getBeansForArrays(List<String> ids, List<String> labels, List<List<String>> synonyms, AutosuggestTypes type){
 
 		ArrayList<AutosuggestBean> res = new ArrayList<>();
 		if (ids.size() == labels.size()){
@@ -203,6 +272,24 @@ public class AutosuggestIndexer {
 	}
 	
 	
+	protected ArrayList<AutosuggestBean> getBeansForAncestors (List<String> ancestors, AutosuggestTypes type){
+
+		ArrayList<AutosuggestBean> res = new ArrayList<>();
+		for (String value : ancestors){
+			if (isId(value)){
+				OntologyObject ot = ou.getOntologyTermById(value);
+				res.add(new AutosuggestBean(value, ot.getLabel(), ot.getSynonyms(), type));
+			}
+		}
+		return res;
+	}
+	
+	protected boolean isId(String string){
+
+		Pattern p = Pattern.compile("[A-Za-z]+_[0-9]+");
+		return p.matcher(string).matches();
+	}
+		
 	/*
 	 * 
 	  
@@ -245,11 +332,11 @@ public class AutosuggestIndexer {
 			return term + "#" + id + "#" + type;
 		}
 		
-		protected AutosuggestBean(String id, String term, List<String> synonyms, String type){
+		protected AutosuggestBean(String id, String term, List<String> synonyms, AutosuggestTypes type){
 			this.term = term;
 			this.id = id;
 			this.synonyms = synonyms;
-			this.type = type;
+			this.type = type.name();
 		}
 
 		
@@ -296,6 +383,12 @@ public class AutosuggestIndexer {
 		public void setId(String id) {
 		
 			this.id = id;
+		}
+
+		@Override
+		public String toString() {
+
+			return "AutosuggestBean [term=" + term + ", id=" + id + ", type=" + type + ", synonyms=" + synonyms + "]";
 		}
 		
 	}
