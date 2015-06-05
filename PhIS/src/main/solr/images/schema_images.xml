@@ -8,7 +8,7 @@
       Unless this field is marked with required="false", it will be a required field
    -->
    
- <defaultSearchField>term_autosuggest</defaultSearchField>  
+ <defaultSearchField>generic_search</defaultSearchField>  
  <uniqueKey>id</uniqueKey>
  
   <types>
@@ -93,16 +93,16 @@
    <field name="image_licence" type="string" indexed="true" stored="true" required="false"/>
    <field name="thumbnail_url" type="string" indexed="true" stored="true" required="true"/>
    <field name="image_context_url" type="string" indexed="true" stored="true"/>
-   <field name="image_generated_by" type="string" indexed="true" stored="true" multiValued="false" required="false"/>
+   <field name="image_generated_by" type="string" indexed="true" stored="true" multiValued="true" required="false"/>
    <field name="imaging_method_label" type="string" indexed="true" stored="true" multiValued="false"/>
    <field name="imaging_method_synonym" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="imaging_method_label_analysed" type="textCaseInsensitive" indexed="true" stored="false" multiValued="true"/>
-   <field name="imaging_method_id" type="string" indexed="true" stored="true" multiValued="false"/>
+   <field name="imaging_method_id" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="imaging_method_freetext" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="imaging_method_ancestors" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
    
-   <field name="sample_preparation_label" type="string" indexed="true" stored="true" multiValued="false"/>
-   <field name="sample_preparation_id" type="string" indexed="true" stored="true" multiValued="false"/>
+   <field name="sample_preparation_label" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="sample_preparation_id" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="sample_preparation_freetext" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="sample_preparation_synonyms" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="sample_preparation_ancestors" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>

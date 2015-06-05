@@ -45,7 +45,8 @@ public class AutosuggestIndexer {
 		this.ou = ou;
 	}
 	
-	public void index(){
+	public void index() 
+	throws Exception{
 
 		int start = 0;
 		int rows = 5000;
@@ -169,7 +170,8 @@ public class AutosuggestIndexer {
 		
 	}
 	
-	protected ArrayList<AutosuggestBean> getBeans(ImageDTO doc){
+	protected ArrayList<AutosuggestBean> getBeans(ImageDTO doc) 
+	throws Exception{
 		
 		ArrayList<AutosuggestBean> res = new ArrayList<>();
 		
@@ -181,13 +183,15 @@ public class AutosuggestIndexer {
 			res.addAll(getBeansForArrays(doc.getMutantGeneIdBag(), doc.getMutantGeneSymbolBag(), null, AutosuggestTypes.GENE));
 		}
 		if (doc.getHostName() != null){
-			res.add(new AutosuggestBean(doc.getHostName(), null, null, AutosuggestTypes.GENERIC_AUTOSUGGEST));
+			res.add(new AutosuggestBean(null, doc.getHostName() , null, AutosuggestTypes.GENERIC_AUTOSUGGEST));
 		}
 		if (doc.getSampleGeneratedBy() != null){
-			res.add(new AutosuggestBean(doc.getSampleGeneratedBy(), null, null, AutosuggestTypes.GENERIC_AUTOSUGGEST));
+			res.add(new AutosuggestBean(null, doc.getSampleGeneratedBy(), null, AutosuggestTypes.GENERIC_AUTOSUGGEST));
 		}
 		if (doc.getImageGeneratedBy() != null){
-			res.add(new AutosuggestBean(doc.getImageGeneratedBy(), null, null, AutosuggestTypes.GENERIC_AUTOSUGGEST));
+			for (String igb : doc.getImageGeneratedBy()){
+				res.add(new AutosuggestBean(null,  igb,  null,  AutosuggestTypes.GENERIC_AUTOSUGGEST));
+			}
 		}
 		
 		if (doc.getAnatomyId() != null){
@@ -236,33 +240,31 @@ public class AutosuggestIndexer {
 			res.addAll(getBeansForArrays(doc.getVisualisationMethodId(), doc.getVisualisationMethodLabel(), null, AutosuggestTypes.GENERIC_AUTOSUGGEST));
 		}	
 		if (doc.getVisualisationMethodAncestors() != null){
-			res.addAll(getBeansForAncestors(doc.getVisualisationMethodAncestors(), AutosuggestTypes.GENERIC_AUTOSUGGEST));		
-			System.out.println("Visualisation method " + doc.getVisualisationMethodAncestors());
+			res.addAll(getBeansForAncestors(doc.getVisualisationMethodAncestors(), AutosuggestTypes.GENERIC_AUTOSUGGEST));	
 		}
 		
 		if (doc.getSamplePreparationId() != null){
-			res.add(new AutosuggestBean(doc.getSamplePreparationId(), doc.getSamplePreparationLabel(), null, AutosuggestTypes.GENERIC_AUTOSUGGEST));
+			res.addAll(getBeansForArrays(doc.getSamplePreparationId(), doc.getSamplePreparationLabel(), null, AutosuggestTypes.GENERIC_AUTOSUGGEST));
 		}	
 		if (doc.getSamplePreparationAncestors() != null){
 			res.addAll(getBeansForAncestors(doc.getSamplePreparationAncestors(), AutosuggestTypes.GENERIC_AUTOSUGGEST));	
-			System.out.println("Visualisation method " + doc.getSamplePreparationAncestors());			
 		}
 		
 		if (doc.getImagingMethodId() != null){
-			res.add(new AutosuggestBean(doc.getImagingMethodId(), doc.getImagingMethodLabel(), null, AutosuggestTypes.GENERIC_AUTOSUGGEST));
+			res.addAll(getBeansForArrays(doc.getImagingMethodId(), doc.getImagingMethodLabel(), null, AutosuggestTypes.GENERIC_AUTOSUGGEST));
 		}	
 		if (doc.getImagingMethodAncestors() != null){
-			res.addAll(getBeansForAncestors(doc.getImagingMethodAncestors(), AutosuggestTypes.GENERIC_AUTOSUGGEST));		
-			System.out.println("Visualisation method " + doc.getImagingMethodAncestors());		
+			res.addAll(getBeansForAncestors(doc.getImagingMethodAncestors(), AutosuggestTypes.GENERIC_AUTOSUGGEST));
 		}
 		
 		return res;
 	}
 	
-	protected ArrayList<AutosuggestBean> getBeansForArrays(List<String> ids, List<String> labels, List<List<String>> synonyms, AutosuggestTypes type){
+	protected ArrayList<AutosuggestBean> getBeansForArrays(List<String> ids, List<String> labels, List<List<String>> synonyms, AutosuggestTypes type) 
+	throws Exception{
 
 		ArrayList<AutosuggestBean> res = new ArrayList<>();
-		if (ids.size() == labels.size()){
+		if (ids != null && ids.size() == labels.size()){
 			for (int i = 0; i < ids.size(); i++){
 				List<String> syn = (synonyms != null ? synonyms.get(i) : null);
 				res.add(new AutosuggestBean(ids.get(i), labels.get(i), syn, type));
@@ -272,7 +274,8 @@ public class AutosuggestIndexer {
 	}
 	
 	
-	protected ArrayList<AutosuggestBean> getBeansForAncestors (List<String> ancestors, AutosuggestTypes type){
+	protected ArrayList<AutosuggestBean> getBeansForAncestors (List<String> ancestors, AutosuggestTypes type) 
+	throws Exception{
 
 		ArrayList<AutosuggestBean> res = new ArrayList<>();
 		for (String value : ancestors){
@@ -332,11 +335,15 @@ public class AutosuggestIndexer {
 			return term + "#" + id + "#" + type;
 		}
 		
-		protected AutosuggestBean(String id, String term, List<String> synonyms, AutosuggestTypes type){
+		protected AutosuggestBean(String id, String term, List<String> synonyms, AutosuggestTypes type) 
+		throws Exception{
 			this.term = term;
 			this.id = id;
 			this.synonyms = synonyms;
 			this.type = type.name();
+			if (term == null){
+				throw new Exception("No term label in autosuggest bean");
+			}
 		}
 
 		

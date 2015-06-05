@@ -102,9 +102,9 @@
    <field name="_root_" type="string" indexed="true" stored="false"/>
    
    <field name="id" type="string" indexed="true" stored="true" required="true" multiValued="false" />
-   <field name="autosuggest_term_id" type="string" indexed="true" stored="true" required="true" multiValued="false" />
    <field name="autosuggest_term_label" type="string" indexed="true" stored="true" required="true" multiValued="false" />
    <field name="autosuggest_type" type="string" indexed="true" stored="true" required="true" multiValued="false" />
+   <field name="autosuggest_term_id" type="string" indexed="true" stored="true" required="false" multiValued="false" /> 
    
    <field name="autosuggest_term_synonyms" type="string" indexed="true" stored="true" required="false" multiValued="true" />
    <field name="imaging_method" type="string" indexed="true" stored="true" multiValued="true"/>

@@ -367,7 +367,7 @@ public class BatchXmlUploader {
 
 		ImageDescription desc = img.getImageDescription();
 		if (desc.getImageGeneratedBy() != null){
-			bean.setImageGeneratedBy(desc.getImageGeneratedBy().getDisplayName());
+			bean.addImageGeneratedBy(desc.getImageGeneratedBy().getDisplayName());
 		}
 		
 		if (desc.getLicence() != null){
@@ -415,8 +415,8 @@ public class BatchXmlUploader {
 		if (desc.getImagingMethod() != null){
 			for (Annotation im: desc.getImagingMethod().getEl()){
 				OntologyObject oo = ou.getOntologyTermById(im.getOntologyTerm().getTermId().trim());
-				bean.setImagingMethodId(oo.getId());
-				bean.setImagingMethodLabel(oo.getLabel()); 
+				bean.addImagingMethodId(oo.getId());
+				bean.addImagingMethodLabel(oo.getLabel()); 
 				bean.addImagingMethodSynonyms(oo.getSynonyms());
 				bean.addImagingMethodAncestors(oo.getAncestorsBag());
 				if (im.getAnnotationFreetext() != null && !im.getAnnotationFreetext().equalsIgnoreCase("")){
@@ -429,8 +429,8 @@ public class BatchXmlUploader {
 			for (Annotation sp: desc.getSamplePreparation().getEl()){
 				if (sp.getOntologyTerm() != null){
 					OntologyObject oo = ou.getOntologyTermById(sp.getOntologyTerm().getTermId().trim());
-					bean.setSamplePreparationId(oo.getId());
-					bean.setSamplePreparationLabel(oo.getLabel());
+					bean.addSamplePreparationId(oo.getId());
+					bean.addSamplePreparationLabel(oo.getLabel());
 					bean.addSamplePreparationSynonyms(oo.getSynonyms());
 					bean.addSamplePreparationAncestors(oo.getAncestorsBag());
 				}

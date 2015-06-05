@@ -153,7 +153,7 @@ public class ImageDTO {
 	private String hostName;
 
 	@Field(IMAGE_GENERATED_BY)
-	private String imageGeneratedBy;
+	private ArrayList<String> imageGeneratedBy;
 
 	@Field(IMAGE_TYPE)
 	private ArrayList<String> imageType;
@@ -174,10 +174,10 @@ public class ImageDTO {
 	private String imageContextUrl;
 
 	@Field(IMAGING_METHOD_ID)
-	private String imagingMethodId;
+	private ArrayList<String> imagingMethodId;
 
 	@Field(IMAGING_METHOD_LABEL)
-	private String imagingMethodLabel;
+	private ArrayList<String> imagingMethodLabel;
 
 	@Field(IMAGING_METHOD_SYNONYMS)
 	private ArrayList<String> imagingMethodSynonyms;
@@ -189,10 +189,10 @@ public class ImageDTO {
 	private ArrayList<String> imagingMethodAncestors;
 
 	@Field(SAMPLE_PREPARATION_ID)
-	private String samplePreparationId;
+	private ArrayList<String> samplePreparationId;
 
 	@Field(SAMPLE_PREPARATION_LABEL)
-	private String samplePreparationLabel;
+	private ArrayList<String> samplePreparationLabel;
 
 	@Field(SAMPLE_PREPARATION_SYNONYMS)
 	private ArrayList<String> samplePreparationSynonyms;
@@ -1479,7 +1479,7 @@ public class ImageDTO {
 	/**
 	 * @return the imageGeneratedBy
 	 */
-	public String getImageGeneratedBy() {
+	public ArrayList<String> getImageGeneratedBy() {
 
 		return imageGeneratedBy;
 	}
@@ -1489,10 +1489,22 @@ public class ImageDTO {
 	 * @param imageGeneratedBy
 	 *            the imageGeneratedBy to set
 	 */
-	public void setImageGeneratedBy(String imageGeneratedBy) {
+	public void setImageGeneratedBy( ArrayList<String> imageGeneratedBy) {
 
 		this.imageGeneratedBy = imageGeneratedBy;
 	}
+	
+	public void addImageGeneratedBy(String imageGeneratedBy) {
+
+		if(imageGeneratedBy != null){
+			if (this.imageGeneratedBy == null){
+				this.imageGeneratedBy = new ArrayList<>();		
+			}
+			this.imageGeneratedBy.add(imageGeneratedBy);
+		}
+	}
+	
+	
 
 
 	/**
@@ -1536,7 +1548,7 @@ public class ImageDTO {
 	/**
 	 * @return the imagingMethodId
 	 */
-	public String getImagingMethodId() {
+	public ArrayList<String> getImagingMethodId() {
 
 		return imagingMethodId;
 	}
@@ -1546,16 +1558,23 @@ public class ImageDTO {
 	 * @param imagingMethodId
 	 *            the imagingMethodId to set
 	 */
-	public void setImagingMethodId(String imagingMethodId) {
+	public void setImagingMethodId(ArrayList<String> imagingMethodId) {
 
 		this.imagingMethodId = imagingMethodId;
 	}
 
+	public void addImagingMethodId(String imagingMethodId) {
+
+		if (this.imagingMethodId == null){
+			this.imagingMethodId = new ArrayList<>();
+		}
+		this.imagingMethodId.add(imagingMethodId);
+	}
 
 	/**
 	 * @return the samplePreparationId
 	 */
-	public String getSamplePreparationId() {
+	public ArrayList<String> getSamplePreparationId() {
 
 		return samplePreparationId;
 	}
@@ -1565,9 +1584,17 @@ public class ImageDTO {
 	 * @param samplePreparationId
 	 *            the samplePreparationId to set
 	 */
-	public void setSamplePreparationId(String samplePreparationId) {
+	public void setSamplePreparationId(ArrayList<String> samplePreparationId) {
 
 		this.samplePreparationId = samplePreparationId;
+	}
+	
+	public void addSamplePreparationId(String samplePreparationId) {
+
+		if (this.samplePreparationId == null){
+			this.samplePreparationId = new ArrayList<>();
+		}
+		this.samplePreparationId.add(samplePreparationId);
 	}
 
 
@@ -1595,17 +1622,23 @@ public class ImageDTO {
 	/**
 	 * @return the imagingMethodLabel
 	 */
-	public String getImagingMethodLabel() {
+	public ArrayList<String> getImagingMethodLabel() {
 
 		return imagingMethodLabel;
 	}
 
+	public void addImagingMethodLabel(String imagingMethodLabel) {
 
+		if (this.imagingMethodLabel == null){
+			this.imagingMethodLabel = new ArrayList<>();
+		}
+		this.imagingMethodLabel.add(imagingMethodLabel);
+	}
 	/**
 	 * @param imagingMethodLabel
 	 *            the imagingMethodLabel to set
 	 */
-	public void setImagingMethodLabel(String imagingMethodLabel) {
+	public void setImagingMethodLabel(ArrayList<String> imagingMethodLabel) {
 
 		this.imagingMethodLabel = imagingMethodLabel;
 	}
@@ -1614,17 +1647,23 @@ public class ImageDTO {
 	/**
 	 * @return the samplePreparationLabel
 	 */
-	public String getSamplePreparationLabel() {
+	public ArrayList<String> getSamplePreparationLabel() {
 
 		return samplePreparationLabel;
 	}
 
+	public void addSamplePreparationLabel(String samplePreparationLabel) {
 
+		if (this.samplePreparationLabel == null){
+			this.samplePreparationLabel = new ArrayList<>();
+		}
+		this.samplePreparationLabel.add(samplePreparationLabel);
+	}
 	/**
 	 * @param samplePreparationLabel
 	 *            the samplePreparationLabel to set
 	 */
-	public void setSamplePreparationLabel(String samplePreparationLabel) {
+	public void setSamplePreparationLabel(ArrayList<String> samplePreparationLabel) {
 
 		this.samplePreparationLabel = samplePreparationLabel;
 	}

@@ -439,6 +439,20 @@ public class AutosuggestDTO {
 				this.imageGeneratedBy.add(imageGeneratedBy);
 			}
 		}
+		
+		public void addImageGeneratedBy(ArrayList<String> imageGeneratedBy) {
+
+			if (imageGeneratedBy != null){
+				if (this.imageGeneratedBy == null) {
+					this.imageGeneratedBy = new ArrayList<>();
+				}
+				for (String i : imageGeneratedBy){
+					if (!this.imageGeneratedBy.contains(i)){
+						this.imageGeneratedBy.add(i);
+					}
+				}
+			}
+		}
 
 		public void addSampleGeneratedBy(String sampleGeneratedBy) {
 
@@ -471,12 +485,14 @@ public class AutosuggestDTO {
 		}
 
 		public void addImagingMethod(ArrayList<String> imagingMethod) {
-
-			Set<String> set =  new HashSet(imagingMethod);
-			if (this.imagingMethod != null) {
-				set.addAll(this.imagingMethod);
+		
+			if (imagingMethod != null){
+				Set<String> set =  new HashSet(imagingMethod);
+				if (this.imagingMethod != null) {
+					set.addAll(this.imagingMethod);
+				}
+				this.imagingMethod = new ArrayList<String>(set);
 			}
-			this.imagingMethod = new ArrayList<String>(set);
 		}
 
 		public void addSex(String sex) {
