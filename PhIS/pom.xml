@@ -266,6 +266,33 @@
 			</build>
 		</profile> 
 		
+		<profile>
+		<id>beta-v0.0.7</id>
+			<properties>
+				<baseUrl>http://??</baseUrl>
+				<solrUrl>http://???</solrUrl>
+				<internalSolrUrl>http://localhost:8120/mi/phis/beta/v0.0.7</internalSolrUrl> <!--  This will do on d1 when called from d1 and d2 from d2. -->
+				<dbURI>http://phenoimageshare.ebi.ac.uk:7474/db/data/</dbURI>
+				<java.version>1.7</java.version>
+			</properties>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<version>2.4.2</version>
+						<configuration>
+							<skipTests>true</skipTests>
+							<!-- excludes>
+								<exclude>**PageTest.java</exclude>
+								<exclude>**/org/mousephenotype/www/**</exclude>
+							</excludes-->
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile> 
+		
 		</profiles>     
 		
 		
