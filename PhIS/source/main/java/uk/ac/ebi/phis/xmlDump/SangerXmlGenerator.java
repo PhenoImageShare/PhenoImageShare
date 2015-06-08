@@ -261,7 +261,7 @@ public class SangerXmlGenerator {
 						igb.setUrl("http://www.sanger.ac.uk");
 						imageDesc.setImageGeneratedBy(igb);
 						Link host = new Link();
-						host.setDisplayName("Mouse Phenotype");
+						host.setDisplayName("IMPC Portal");
 						host.setUrl("http://www.mousephenotype.org/");
 						imageDesc.setHost(host);
 						// Parse procedure names to get most info out of htem.
