@@ -91,7 +91,7 @@ public class SolrWrapperController {
 	
 
 	@RequestMapping(value="/getImage", method=RequestMethod.GET)	
-    public @ResponseBody String getRoi(
+    public @ResponseBody String getImage(
     		@RequestParam(value = "imageId", required = true) String imageId,
     		Model model
             ) throws SolrServerException, IOException, URISyntaxException {
@@ -138,14 +138,15 @@ public class SolrWrapperController {
     public @ResponseBody String getRois(
     		@RequestParam(value = "roiId", required = false) String roiId,
     		@RequestParam(value = "imageId", required = false) String imageId,
+    		@RequestParam(value = "resultNo", required = false) Integer resultNo,
     		Model model
             ) throws SolrServerException, IOException, URISyntaxException {
 				
 		if (roiId != null){
-			return rs.getRoiAsJsonString(roiId);
+			return rs.getRoiAsJsonString(roiId, resultNo);
 		}
 		else if (imageId != null){
-			return rs.getRois(imageId);
+			return rs.getRois(imageId, resultNo);
 		}
 		return "";
     }
@@ -155,13 +156,14 @@ public class SolrWrapperController {
     public @ResponseBody String getChannels(
             @RequestParam(value = "channelId", required = false) String channelId,
     		@RequestParam(value = "imageId", required = false) String imageId,
+    		@RequestParam(value = "resultNo", required = false) Integer resultNo,
     		Model model
             ) throws SolrServerException, IOException, URISyntaxException {
 		
 		if (channelId != null){
-			return cs.getChannelAsJsonString(channelId);
+			return cs.getChannelAsJsonString(channelId, resultNo);
 		}else if (imageId != null){
-			return cs.getChannels(imageId);
+			return cs.getChannels(imageId, resultNo);
 		}
 		return "";
     }
@@ -170,15 +172,11 @@ public class SolrWrapperController {
 	@RequestMapping(value="/getRoi", method=RequestMethod.GET)	
     public @ResponseBody String getRoi(
     		@RequestParam(value = "roiId", required = false) String roiId,
-    		@RequestParam(value = "imageId", required = false) String imageId,
     		Model model
             ) throws SolrServerException, IOException, URISyntaxException {
 				
 		if (roiId != null){
-			return rs.getRoiAsJsonString(roiId);
-		}
-		else if (imageId != null){
-			return rs.getRois(imageId);
+			return rs.getRoiAsJsonString(roiId, 10);
 		}
 		return "";
     }
@@ -187,14 +185,11 @@ public class SolrWrapperController {
 	@RequestMapping(value="/getChannel", method=RequestMethod.GET)	
     public @ResponseBody String getChannel(
             @RequestParam(value = "channelId", required = false) String channelId,
-    		@RequestParam(value = "imageId", required = false) String imageId,
     		Model model
             ) throws SolrServerException, IOException, URISyntaxException {
 		
 		if (channelId != null){
-			return cs.getChannelAsJsonString(channelId);
-		}else if (imageId != null){
-			return cs.getChannels(imageId);
+			return cs.getChannelAsJsonString(channelId, 10);
 		}
 		return "";
     }

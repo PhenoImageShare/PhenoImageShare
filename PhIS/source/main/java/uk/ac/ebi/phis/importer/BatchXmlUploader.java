@@ -142,6 +142,7 @@ public class BatchXmlUploader {
 			if (i++ % 1000 == 0) {
 				is.addBeans(imageDocs);
 				imageDocs = new ArrayList<>();
+				System.out.println("Documents added " + i);
 			}
 		}
 		is.addBeans(imageDocs);
