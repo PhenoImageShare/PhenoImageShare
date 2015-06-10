@@ -44,7 +44,7 @@ public class RoiService extends BasicService{
 		if (resNo != null){
 			solrQuery.setRows(resNo);
 		} else {
-			resNo = 10000;
+			solrQuery.setRows(10000);
 		}
 		solrQuery.set("wt", "json");
 		
@@ -87,7 +87,7 @@ public class RoiService extends BasicService{
 		if (resNo != null){
 			solrQuery.setRows(resNo);
 		} else {
-			resNo = 10000;
+			solrQuery.setRows(10000);
 		}
 		solrQuery.set("wt", "json");
 		
