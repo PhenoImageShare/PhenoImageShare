@@ -90,10 +90,15 @@ public class ChannelService extends BasicService {
 		return channel;
 	}
 	
-	public String getChannelAsJsonString(String channelId){
+	public String getChannelAsJsonString(String channelId, Integer resNo){
 		SolrQuery solrQuery = new SolrQuery();
 		channelId = handleSpecialCharacters(channelId);
 		solrQuery.setQuery(ChannelDTO.ID + ":\""+ channelId + "\"");
+		if (resNo != null){
+			solrQuery.setRows(resNo);
+		} else {
+			resNo = 10000;
+		}
 		solrQuery.set("wt", "json");
 		
 		System.out.println("------ ChannelPojo" + getQueryUrl(solrQuery));
@@ -109,11 +114,17 @@ public class ChannelService extends BasicService {
 		return "Couldn't get anything back from solr.";
 	}
 	
-	public String getChannels(String imageId){
+	public String getChannels(String imageId, Integer resNo){
 		
 		SolrQuery solrQuery = new SolrQuery();
 		imageId = handleSpecialCharacters(imageId);
 		solrQuery.setQuery(ChannelDTO.ASSOCIATED_IMAGE + ":\""+ imageId + "\"");
+		
+		if (resNo != null){
+			solrQuery.setRows(resNo);
+		} else {
+			resNo = 10000;
+		}
 		solrQuery.set("wt", "json");
 		
 		try {
