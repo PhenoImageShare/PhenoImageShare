@@ -85,9 +85,11 @@ public class GetROIs extends HttpServlet {
             request.getRequestDispatcher("/v004GRs").forward(request, response);
         } else if (versions[0].equals("005")) {
             request.getRequestDispatcher("/v005GRs").forward(request, response);        
+        } else if (versions[0].equals("007")) {
+            request.getRequestDispatcher("/v007GRs").forward(request, response);        
         } else {
             // otherwise forward to default
-            request.getRequestDispatcher("/v003GRs").forward(request, response);
+            request.getRequestDispatcher("/v005GRs").forward(request, response);
         }
     }
 
