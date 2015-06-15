@@ -173,15 +173,15 @@ import uk.ac.ebi.phis.solrj.dto.RoiDTO;
 		@RequestMapping(value="/deleteAnnotation", method=RequestMethod.GET)	
 	    public @ResponseBody String createAnnotation(
 	    		@RequestParam(value = "userId", required = true) String userId,
-	            @RequestParam(value = "annotationId", required = true) String anntoationId,
+	            @RequestParam(value = "annotationId", required = true) String annotationId,
 	    		Model model) {
 			
 			JSONObject obj = getSuccessJson();
 			
 			try {
-				if (neo.hasSameUser(userId, anntoationId)){
-					neo.deleteNodeWithRelations(anntoationId);
-					gus.deleteFromCores(anntoationId);
+				if (neo.hasSameUser(userId, annotationId)){
+					neo.deleteNodeWithRelations(annotationId);
+					gus.deleteFromCores(annotationId);
 				}else{
 					throw new BasicPhisException("User provided does not match the user of the annotation. Annotation was not deleted.");
 				}

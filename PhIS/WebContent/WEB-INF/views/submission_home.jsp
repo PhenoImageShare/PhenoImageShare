@@ -30,16 +30,16 @@
 	<h1>PhIS RESTful Sevice Documentation</h1>
 	<p>Base URL is http://[dev|beta].phenoimageshare.org/data/rest/submission .</p>
 		
-	<p>Example urls to try out: <br/> [host]/rest/submission/createAnnotation?anntoationId=ann_ua_5&userId=user_1&associatedImageId=komp2_289863&xCoordinates=1,20&yCoordinates=0,100&expressionInAnatomyFreetext=my%20description
+	<p>Example urls to try out: <br/> [host]/rest/submission/createAnnotation?annotationId=ann_ua_5&userId=user_1&associatedImageId=komp2_289863&xCoordinates=1,20&yCoordinates=0,100&expressionInAnatomyFreetext=my%20description
 	<br/>
-	[host]/rest/submission/deleteAnnotation?anntoationId=ann_ua_5&userId=user_1</p>
+	[host]/rest/submission/deleteAnnotation?annotationId=ann_ua_5&userId=user_1</p>
 	
 
 	<h1>/createAnnotation</h1>
 	<table>
 		<tbody>
 		<thead>
-			<tr style="background-color: green;">
+			<tr style="background-color: lightSteelBlue;">
 				<th>Name</th>
 				<th>Type</th>
 				<th>Required</th>
@@ -218,7 +218,7 @@
 	<table>
 		<tbody>
 		<thead>
-			<tr style="background-color: green;">
+			<tr style="background-color: lightSteelBlue;">
 				<th>Name</th>
 				<th>Type</th>
 				<th>Required</th>
@@ -253,7 +253,7 @@
 	<table>
 		<tbody>
 		<thead>
-			<tr style="background-color: green;">
+			<tr style="background-color: lightSteelBlue;">
 				<th>Name</th>
 				<th>Type</th>
 				<th>Required</th>
@@ -272,7 +272,7 @@
 				<td><var>user_021897401</var><br></td>
 			</tr>
 			<tr>
-				<td>anntoationId</td>
+				<td>annotationId</td>
 				<td><var>String</var></td>
 				<td> true </td>
 				<td>Unique id of the annotation to be deleted.</td>

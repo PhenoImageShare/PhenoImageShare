@@ -393,7 +393,8 @@
 				<td><var> - </var></td>
 				<td><var>abn</var><br></td>
 			</tr>
-			<tr  style="background-color: OliveDrab ;" >
+			<!-- tr  style="background-color: OliveDrab ;" -->
+			<tr>
 				<td>autosuggestType</td>
 				<td><var>String</var></td>
 				<td> false </td>
@@ -401,7 +402,7 @@
 				<td><var> - </var></td>
 				<td><var>GENE</var><br></td>
 			</tr>
-			<tr style="background-color: OliveDrab ;">
+			<tr>
 				<td>stage</td>
 				<td><var>String</var></td>
 				<td> false </td>
@@ -409,7 +410,7 @@
 				<td><var> - </var></td>
 				<td><var>postnatal stage</var><br></td>
 			</tr>
-			<tr style="background-color: OliveDrab ;">
+			<tr>
 				<td>imagingMethod</td>
 				<td><var>String</var></td>
 				<td> false </td>
@@ -417,7 +418,7 @@
 				<td><var> - </var></td>
 				<td><var>X-ray illumination</var><br></td>
 			</tr>
-			<tr style="background-color: OliveDrab ;">
+			<tr>
 				<td>taxon</td>
 				<td><var>String</var></td>
 				<td> false </td>
@@ -425,7 +426,7 @@
 				<td><var> - </var></td>
 				<td><var>Mus musculus</var><br></td>
 			</tr>
-			<tr style="background-color: OliveDrab ;">
+			<tr>
 				<td>sampleType</td>
 				<td><var>String</var></td>
 				<td> false </td>
@@ -433,7 +434,7 @@
 				<td><var> - </var></td>
 				<td><var>MUTANT</var><br></td>
 			</tr>
-			<tr style="background-color: OliveDrab ;">
+			<tr>
 				<td>imageGeneratedBy</td>
 				<td><var>String</var></td>
 				<td> false </td>
@@ -441,7 +442,7 @@
 				<td><var> - </var></td>
 				<td><var>WTSI</var><br></td>
 			</tr>
-			<tr style="background-color: Gainsboro ;">
+			<tr>
 				<td>mutantGene</td>
 				<td><var>String</var></td>
 				<td> false</td>
@@ -449,7 +450,7 @@
 				<td><var> - </var></td>
 				<td><var>a</var><br></td>
 			</tr>
-			<tr  style="background-color: Gainsboro ;">
+			<tr>
 				<td>expressedGeneOrAllele</td>
 				<td><var>String</var></td>
 				<td> false </td>
@@ -457,7 +458,7 @@
 				<td><var> - </var></td>
 				<td><var>m</var><br></td>
 			</tr>
-			<tr  style="background-color: Gainsboro ;">
+			<tr>
 				<td>phenotype</td>
 				<td><var>String</var></td>
 				<td> false</td>
