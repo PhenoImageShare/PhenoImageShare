@@ -4,8 +4,8 @@
     <groupId>uk.ac.hw.macs.bisel.phis</groupId>
     <artifactId>IQS</artifactId>
     <packaging>war</packaging>
-    <version>0.0.5</version>
-    <name>IQS Maven Webapp</name>
+    <version>0.0.7</version>
+    <name>IQS</name>
     <url>http://maven.apache.org</url>
     <dependencies>
       <dependency>

@@ -27,6 +27,8 @@
             <a href="${pageContext.request.contextPath}/v003-4.jsp">Click here to use either 003 or 004</a>.
             <br />
             <a href="${pageContext.request.contextPath}/v005.jsp">Click here to use 005</a>.            
+            <br />
+            <a href="${pageContext.request.contextPath}/v007.jsp">Click here to use 007</a>.  
         </div>
     </body>
 </html>

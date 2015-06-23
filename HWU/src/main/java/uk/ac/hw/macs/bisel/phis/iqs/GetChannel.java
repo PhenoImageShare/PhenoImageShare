@@ -89,10 +89,11 @@ public class GetChannel extends HttpServlet {
             request.getRequestDispatcher("/v004GC").forward(request, response);
         } else if (versions[0].equals("005")) {
             request.getRequestDispatcher("/v005GC").forward(request, response);
-            
+        } else if (versions[0].equals("007")) {
+            request.getRequestDispatcher("/v007GC").forward(request, response);    
         } else {
             // otherwise forward to default
-            request.getRequestDispatcher("/v003GC").forward(request, response);
+            request.getRequestDispatcher("/v005GC").forward(request, response);
         }
     }
 

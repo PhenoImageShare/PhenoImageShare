@@ -12,9 +12,13 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */package uk.ac.hw.macs.bisel.phis.iqs;
+ */
+package uk.ac.hw.macs.bisel.phis.iqs.v007;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.URLEncoder;
+import java.util.Enumeration;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,14 +27,16 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import uk.ac.hw.macs.bisel.phis.iqs.CommunicateWithSolr;
 
 /**
  *
  * @author kcm
  */
-@WebServlet(name = "GetImage", urlPatterns = {"/getImage"})
-public class GetImage extends HttpServlet {
+@WebServlet(name = "v007GI", urlPatterns = {"/v007GI"})
+public class v007GI extends HttpServlet {
 
+    private static final String url = "http://beta.phenoimageshare.org/data/v0.0.7/rest/getImage?"; // stem of every SOLR query
     private static final Logger logger = Logger.getLogger(System.class.getName());
 
     /**
@@ -45,22 +51,49 @@ public class GetImage extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        logger.log(Level.INFO, "[GUI QUERY] {0}", request.getRequestURI() + "?" + request.getQueryString());
+        // set response type to JS and allow programs from other servers to send and receive
+        response.setContentType("application/json;charset=UTF-8");
+        response.setHeader("Access-Control-Allow-Origin", "*");
 
-        // check to find version and forward
+        boolean error = false; // has an error been detected?
+        String solrResult = ""; // JSON doc sent back to UI
+
+        // create URL for SOLR query
+        String queryURL = url;
+        boolean first = true;
         Map<String, String[]> params = request.getParameterMap(); // get map of parameters and their values
-        String[] versions = params.get("version");
+        Enumeration<String> allParams = request.getParameterNames(); // get a list of parameter names
+        while (allParams.hasMoreElements()) {
+            String param = allParams.nextElement();
+            if (param.equalsIgnoreCase("imageId")) { // deal with phenotypes
+                if (!first) { // if this is not the first parameter added to queryURL include separator
+                    queryURL += "&";
+                }
+                queryURL += "imageId=" + URLEncoder.encode(params.get("imageId")[0], "UTF-8"); // extend stem with parameter
+                first = false; // next time you need a separator
+            } else if (param.equalsIgnoreCase("version")) {
+                // do nothing
 
-        if (versions == null) {
-            // default is v005 as not implmented before then
-            request.getRequestDispatcher("/v005GI").forward(request, response);
-        } else if (versions[0].equals("005")) {
-            request.getRequestDispatcher("/v005GI").forward(request, response);
-        } else if (versions[0].equals("007")) {
-            request.getRequestDispatcher("/v007GI").forward(request, response);
+            } else { // parameter was not recognised, send error
+                error = true; // error has been detected
+                logger.log(Level.WARNING, "Client sent invalid parameter: {0}", param);
+                solrResult = "{\"invalid_paramater\": \"" + param + "\"}";
+                break;
+            }
+        }
+
+        // run solr query
+        if (!error) { // if no error detected && not a test
+
+            CommunicateWithSolr cws = new CommunicateWithSolr();
+            solrResult = cws.talk(queryURL);
         } else {
-            // otherwise forward to default
-            request.getRequestDispatcher("/v005GI").forward(request, response);
+            logger.log(Level.SEVERE, "[BAD QUERY] {0}", request.getRequestURI() + request.getQueryString());
+        }
+
+        // send result to client (UI)
+        try (PrintWriter out = response.getWriter()) {
+            out.println(solrResult); // may be error or genuine result
         }
 
     }
