@@ -191,7 +191,7 @@
 			<properties>
 				<baseUrl>http://??</baseUrl>
 				<solrUrl>http://???</solrUrl>
-				<internalSolrUrl>http://localhost:8120/mi/phis/beta/v0.0.3</internalSolrUrl> <!--  This will do on d1 when called from d1 and d2 from d2. -->
+				<internalSolrUrl>http:///ves-ebi-d1:8120/mi/phis/beta/v0.0.3</internalSolrUrl> <!--  This will do on d1 when called from d1 and d2 from d2. -->
 				<java.version>1.7</java.version>
 			</properties>
 			<build>
@@ -217,7 +217,7 @@
 			<properties>
 				<baseUrl>http://??</baseUrl>
 				<solrUrl>http://???</solrUrl>
-				<internalSolrUrl>http://localhost:8120/mi/phis/beta/v0.0.4</internalSolrUrl> <!--  This will do on d1 when called from d1 and d2 from d2. -->
+				<internalSolrUrl>http:///ves-ebi-d1:8120/mi/phis/beta/v0.0.4</internalSolrUrl> <!--  This will do on d1 when called from d1 and d2 from d2. -->
 				<dbURI>http://phenoimageshare.ebi.ac.uk:7474/db/data/</dbURI>
 				<java.version>1.7</java.version>
 			</properties>
@@ -244,7 +244,7 @@
 			<properties>
 				<baseUrl>http://??</baseUrl>
 				<solrUrl>http://???</solrUrl>
-				<internalSolrUrl>http://localhost:8120/mi/phis/beta/v0.0.5</internalSolrUrl> <!--  This will do on d1 when called from d1 and d2 from d2. -->
+				<internalSolrUrl>http:///ves-ebi-d1:8120/mi/phis/beta/v0.0.5</internalSolrUrl> <!--  This will do on d1 when called from d1 and d2 from d2. -->
 				<dbURI>http://phenoimageshare.ebi.ac.uk:7474/db/data/</dbURI>
 				<java.version>1.7</java.version>
 			</properties>
@@ -271,7 +271,7 @@
 			<properties>
 				<baseUrl>http://??</baseUrl>
 				<solrUrl>http://???</solrUrl>
-				<internalSolrUrl>http://localhost:8120/mi/phis/beta/v0.0.7</internalSolrUrl> <!--  This will do on d1 when called from d1 and d2 from d2. -->
+				<internalSolrUrl>http:///ves-ebi-d1:8120/mi/phis/beta/v0.0.7</internalSolrUrl> <!--  This will do on d1 when called from d1 and d2 from d2. -->
 				<dbURI>http://phenoimageshare.ebi.ac.uk:7474/db/data/</dbURI>
 				<java.version>1.7</java.version>
 			</properties>
