@@ -78,6 +78,7 @@ import uk.ac.ebi.phis.solrj.dto.RoiDTO;
 	    		@RequestParam(value = "associatedChannelId", required = false) List<String> associatedChannelId,
 	            @RequestParam(value = "depictedAnatomyId", required = false) List<String> depictedAnatomyId,
 	            @RequestParam(value = "depictedAnatomyTerm", required = false) List<String> depictedAnatomyTerm,
+	         //   @RequestParam(value = "depictedAnatomyTerm", required = false) String[] depictedAnatomyTerm,
 	            @RequestParam(value = "depictedAnatomyFreetext", required = false) List<String> depictedAnatomyFreetext,
 	            @RequestParam(value = "expressionInAnatomyId", required = false) List<String> expressionInAnatomyId,
 	            @RequestParam(value = "expressionInAnatomyTerm", required = false) List<String> expressionInAnatomyTerm,
@@ -92,8 +93,11 @@ import uk.ac.ebi.phis.solrj.dto.RoiDTO;
 	    		Model model  ) {
 			
 			JSONObject succeded = getSuccessJson();
+
+	//		System.out.println("depictedAnatomyTerm ----- " + depictedAnatomyTerm[0] );//+ " + " + depictedAnatomyTerm[1]);
+			System.out.println("depictedAnatomyId ----- " + depictedAnatomyTerm.get(0));// + " + " + depictedAnatomyTerm.get(1));
 			
-			try {
+		/*	try {
 				if (is.imageIdExists(associatedImageId)){
 					
 					neo.createAnnotation(userId, annotationId, associatedImageId, xCoordinates, yCoordinates, zCoordinates, associatedChannelId,
@@ -112,6 +116,7 @@ import uk.ac.ebi.phis.solrj.dto.RoiDTO;
 				succeded = getFailJson();
 				succeded.put("message", e.getMessage());
 			}
+			*/
 			return succeded.toString();
 	    }
 		

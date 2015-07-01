@@ -52,7 +52,7 @@ import uk.ac.ebi.phis.service.RoiService;
 
 public class EmageXmlGenerator {
 
-	private final static String AGGREGATE_URL = "http://www.emouseatlas.org/emagewebservices/phis/image/listall ";
+	private final static String AGGREGATE_URL = "http://www.emouseatlas.org/emagewebservices/phis/image/listall";
 	ArrayList<String> urlList;
 	
 	public Doc aggregateXml(){

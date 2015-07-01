@@ -11,6 +11,16 @@
 	<mvc:resources mapping="/documentation/**" location="/resources/documentation/" />
 	<mvc:resources mapping="/dalliance/**" location="/resources/dalliance/" />
 
+	<mvc:annotation-driven conversion-service="conversionService" />
+
+	<bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
+	    <property name="converters">
+	        <list>
+	            <bean class="uk.ac.ebi.phis.utils.CustomStringToArrayConverter" />
+	        </list>
+	    </property>
+	</bean>	
+
 	<bean id="jacksonMessageConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"></bean>
 	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
 		<property name="messageConverters">
