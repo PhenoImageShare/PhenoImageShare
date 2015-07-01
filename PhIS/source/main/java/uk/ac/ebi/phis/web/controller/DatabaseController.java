@@ -93,11 +93,8 @@ import uk.ac.ebi.phis.solrj.dto.RoiDTO;
 	    		Model model  ) {
 			
 			JSONObject succeded = getSuccessJson();
-
-	//		System.out.println("depictedAnatomyTerm ----- " + depictedAnatomyTerm[0] );//+ " + " + depictedAnatomyTerm[1]);
-			System.out.println("depictedAnatomyId ----- " + depictedAnatomyTerm.get(0));// + " + " + depictedAnatomyTerm.get(1));
 			
-		/*	try {
+			try {
 				if (is.imageIdExists(associatedImageId)){
 					
 					neo.createAnnotation(userId, annotationId, associatedImageId, xCoordinates, yCoordinates, zCoordinates, associatedChannelId,
@@ -116,7 +113,7 @@ import uk.ac.ebi.phis.solrj.dto.RoiDTO;
 				succeded = getFailJson();
 				succeded.put("message", e.getMessage());
 			}
-			*/
+			
 			return succeded.toString();
 	    }
 		

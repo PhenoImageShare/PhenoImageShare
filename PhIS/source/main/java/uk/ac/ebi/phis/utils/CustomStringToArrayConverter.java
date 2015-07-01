@@ -33,7 +33,8 @@ import org.springframework.util.StringUtils;
 public class CustomStringToArrayConverter implements Converter<String, List<String>>{
 	   @Override
 	    public List<String> convert(String source) {
-		   	List<String> parsed = new ArrayList(Arrays.asList(StringUtils.split(source, ";;;")));
+		   	List<String> parsed = new ArrayList();
+		   	parsed.add(source);
 	       	return parsed;
 	    }
 	}
