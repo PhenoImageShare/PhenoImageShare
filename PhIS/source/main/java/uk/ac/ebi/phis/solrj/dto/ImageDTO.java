@@ -2412,13 +2412,19 @@ public class ImageDTO {
 		this.phenotypeIdBag = phenotypeIdBag;
 	}
 
+	
 	public void addPhenotypeIdBag(List<String> phenotypeIdBag) {
 		if (this.phenotypeIdBag == null){
 			this.phenotypeIdBag = new ArrayList<>();
 		}
 		this.phenotypeIdBag.addAll(phenotypeIdBag);
 	}
-
+	public void addPhenotypeTermBag(List<String> phenotypeLabelBag) {
+		if (this.phenotypeLabelBag == null){
+			this.phenotypeLabelBag = new ArrayList<>();
+		}
+		this.phenotypeLabelBag.addAll(phenotypeLabelBag);
+	}
 	public void addPhenotypeFreetextBag(List<String> phenotypeFreetextBag) {
 		if (this.phenotypeFreetextBag == null){
 			this.phenotypeFreetextBag = new ArrayList<>();
@@ -2426,13 +2432,19 @@ public class ImageDTO {
 		this.phenotypeFreetextBag.addAll(phenotypeFreetextBag);	
 	}
 	
+	
 	public void addDepictedAnatomyIdBag(List<String> depictedAnatomyIdBag){
 		if (this.depictedAnatomyIdBag == null){
 			this.depictedAnatomyIdBag = new ArrayList<>();
 		}
 		this.depictedAnatomyIdBag.addAll(depictedAnatomyIdBag);	
-	}
-
+	}	
+	public void addDepictedAnatomyTermBag(List<String> depictedAnatomyTermBag){
+		if (this.depictedAnatomyTermBag == null){
+			this.depictedAnatomyTermBag = new ArrayList<>();
+		}
+		this.depictedAnatomyTermBag.addAll(depictedAnatomyTermBag);	
+	}	
 	public void addDepictedAnatomyFreetextBag(List<String> depictedAnatomyFreetextBag){
 		if (this.depictedAnatomyFreetextBag == null){
 			this.depictedAnatomyFreetextBag = new ArrayList<>();
@@ -2440,6 +2452,27 @@ public class ImageDTO {
 		this.depictedAnatomyFreetextBag.addAll(depictedAnatomyFreetextBag);	
 	}
 
+	
+	public void addAbnormalAnatomyFreetextBag(List<String> abnormalAnatomyFreetextBag){
+		if (this.abnormalAnatomyFreetextBag == null){
+			this.abnormalAnatomyFreetextBag = new ArrayList<>();
+		}
+		this.abnormalAnatomyFreetextBag.addAll(abnormalAnatomyFreetextBag);	
+	}
+	public void addAbnormalAnatomyTermBag(List<String> abnormalAnatomyTermBag){
+		if (this.abnormalAnatomyTermBag == null){
+			this.abnormalAnatomyTermBag = new ArrayList<>();
+		}
+		this.abnormalAnatomyTermBag.addAll(abnormalAnatomyTermBag);	
+	}
+	public void addAbnormalAnatomyIdBag(List<String> abnormalAnatomyFreetextBag){
+		if (this.abnormalAnatomyFreetextBag == null){
+			this.abnormalAnatomyFreetextBag = new ArrayList<>();
+		}
+		this.abnormalAnatomyFreetextBag.addAll(abnormalAnatomyFreetextBag);	
+	}
+	
+	
 	public void addObservationBag(List<String> observationBag) {
 		if (this.observationBag == null){
 			this.observationBag = new ArrayList<>();
@@ -2447,14 +2480,19 @@ public class ImageDTO {
 		this.observationBag.addAll(observationBag);
 	}
 
+	
 	public void addExpressionInIdBag(List<String> expressionInIdBag) {
 		if (this.expressionInIdBag == null){
 			this.expressionInIdBag = new ArrayList<>();
 		}
 		this.expressionInIdBag.addAll(expressionInIdBag);
 	}
-	
-
+	public void addExpressionInTermBag(List<String> expressionInTermBag) {
+		if (this.expressionInLabelBag == null){
+			this.expressionInLabelBag = new ArrayList<>();
+		}
+		this.expressionInLabelBag.addAll(expressionInTermBag);
+	}
 	public void addExpressionInFreetextBag(List<String> ExpressionInFreetextBag) {
 		if (this.expressionInFreetextBag == null){
 			this.expressionInFreetextBag = new ArrayList<>();

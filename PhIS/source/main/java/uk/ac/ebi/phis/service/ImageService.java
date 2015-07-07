@@ -223,32 +223,53 @@ public class ImageService extends BasicService{
 		list.remove(roi.getId());
 		img.setAssociatedRoi(list);
 		
+		//abnormality
 		if (roi.getAbnormalityAnatomyId() != null){
 			img.setAbnormalAnatomyIdBag(removeOnce(img.getAbnormalAnatomyIdBag(), roi.getAbnormalityAnatomyId()));
 		}
 		if (roi.getAbnormalityAnatomyFreetext() != null){
 			img.setAbnormalAnatomyFreetextBag(removeOnce(img.getAbnormalAnatomyFreetextBag(), roi.getAbnormalityAnatomyFreetext()));
 		}
+		if (roi.getAbnormalityAnatomyTerm() != null){
+			img.setAbnormalAnatomyTermBag(removeOnce(img.getAbnormalAnatomyTermBag(), roi.getAbnormalityAnatomyTerm()));
+		}
+		
+		//phenotpe
 		if (roi.getPhenotypeId() != null){
 			img.setPhenotypeIdBag(removeOnce(img.getPhenotypeIdBag(), roi.getPhenotypeId()));
 		}
 		if (roi.getPhenotypeFreetext() != null){
 			img.setPhenotypeFreetextBag(removeOnce(img.getPhenotypeFreetextBag(), roi.getPhenotypeFreetext()));
 		}
+		if (roi.getPhenotypeTerm() != null){
+			img.setPhenotypeLabelBag(removeOnce(img.getPhenotypeLabelBag(), roi.getPhenotypeTerm()));
+		}
+		
+		//observation
 		if (roi.getObservations() != null){
 			img.setObservationBag(removeOnce(img.getObservationBag(), roi.getObservations()));
 		}
+		
+		//depicted anat
 		if (roi.getDepictedAnatomyId() != null){
 			img.setDepictedAnatomyIdBag(removeOnce(img.getDepictedAnatomyIdBag(), roi.getDepictedAnatomyId()));
 		}
 		if (roi.getDepictedAnatomyFreetext() != null){
 			img.setDepictedAnatomyFreetextBag(removeOnce(img.getDepictedAnatomyFreetextBag(), roi.getDepictedAnatomyFreetext()));
 		}
+		if (roi.getDepictedAnatomyTerm() != null){
+			img.setDepictedAnatomyTermBag(removeOnce(img.getDepictedAnatomyTermBag(), roi.getDepictedAnatomyTerm()));
+		}
+		
+		//expression 
 		if (roi.getExpressedAnatomyFreetext() != null){
 			img.setExpressionInFreetextBag(removeOnce(img.getExpressionInFreetextBag(), roi.getExpressedAnatomyFreetext()));
 		}
 		if (roi.getExpressedAnatomyId() != null){
-			img.setExpressionInIdBag(removeOnce(img.getExpressionInFreetextBag(), roi.getExpressedAnatomyId()));
+			img.setExpressionInIdBag(removeOnce(img.getExpressionInIdBag(), roi.getExpressedAnatomyId()));
+		}
+		if (roi.getExpressedAnatomyTerm() != null){
+			img.setExpressionInLabelBag(removeOnce(img.getExpressionInLabelBag(), roi.getExpressedAnatomyTerm()));
 		}
 		img.setGenericSearch(new ArrayList<String>());
 				
@@ -278,40 +299,62 @@ public class ImageService extends BasicService{
 		ImageDTO img = getImageDTOById(roi.getAssociatedImage());
 		
 		if (img.getAssociatedRoi() == null){
+			
 			throw new ParameterNotFoundException("Image id does not exist");
-		}else 
-			if(!img.getAssociatedRoi().contains(roi.getId())){
+			
+		}else if(!img.getAssociatedRoi().contains(roi.getId())){
+			
 			img.addAssociatedRoi(roi.getId());
 			
+			// Abnorm
 			if (roi.getAbnormalityAnatomyId() != null){
-				System.out.println("Adding " + roi.getAbnormalityAnatomyId().get(0));
-				img.addAbnormalAnatomyIdBag(roi.getAbnormalityAnatomyId().get(0));
+				img.addAbnormalAnatomyIdBag(roi.getAbnormalityAnatomyId());
 			}
 			if (roi.getAbnormalityAnatomyFreetext() != null){
-				img.addAbnormalAnatomyFreetextBag(roi.getAbnormalityAnatomyFreetext().get(0));
+				img.addAbnormalAnatomyFreetextBag(roi.getAbnormalityAnatomyFreetext());
 			}
+			if (roi.getAbnormalityAnatomyTerm() != null){
+				img.addAbnormalAnatomyTermBag(roi.getAbnormalityAnatomyTerm());
+			}
+			
+			//phenotype
 			if (roi.getPhenotypeId() != null){
 				img.addPhenotypeIdBag((ArrayList<String>) roi.getPhenotypeId());
 			}
 			if (roi.getPhenotypeFreetext() != null){
 				img.addPhenotypeFreetextBag((ArrayList<String>) roi.getPhenotypeFreetext());
 			}
+			if (roi.getPhenotypeTerm() != null){
+				img.addPhenotypeTermBag((ArrayList<String>) roi.getPhenotypeTerm());
+			}
+			
+			//observation
 			if (roi.getObservations() != null){
 				img.addObservationBag((ArrayList<String>) roi.getObservations());
 			}
+			
+			//depicted
 			if (roi.getDepictedAnatomyId() != null){
 				img.addDepictedAnatomyIdBag(roi.getDepictedAnatomyId());
+			}
+			if (roi.getDepictedAnatomyTerm() != null){
+				img.addDepictedAnatomyTermBag(roi.getDepictedAnatomyTerm());
 			}
 			if (roi.getDepictedAnatomyFreetext() != null){
 				img.addDepictedAnatomyFreetextBag(roi.getDepictedAnatomyFreetext());
 			}
+			
+			//expression in
 			if (roi.getExpressedAnatomyFreetext() != null){
 				img.addExpressionInFreetextBag(roi.getExpressedAnatomyFreetext());
 			}
 			if (roi.getExpressedAnatomyId() != null){
 				img.addExpressionInIdBag(roi.getExpressedAnatomyId());
 			}
-					
+			if (roi.getExpressedAnatomyTerm() != null){
+				img.addExpressionInTermBag(roi.getExpressedAnatomyTerm());
+			}
+								
 			img.setGenericSearch(new ArrayList<String>());
 			List<ImageDTO> update = new ArrayList<>();
 			update.add(img);
