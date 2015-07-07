@@ -69,26 +69,34 @@ import uk.ac.ebi.phis.solrj.dto.RoiDTO;
 		
 		@RequestMapping(value="/createAnnotation", method=RequestMethod.GET)	
 	    public @ResponseBody String createAnnotation(
+	    
 	    		@RequestParam(value = "userId", required = true) String userId,
 	            @RequestParam(value = "annotationId", required = true) String annotationId,
+	            
 	            @RequestParam(value = "associatedImageId", required = true) String associatedImageId,
+	            
 	            @RequestParam(value = "xCoordinates", required = true) List<Float> xCoordinates,
 	            @RequestParam(value = "yCoordinates", required = true) List<Float> yCoordinates,
 	            @RequestParam(value = "zCoordinates", required = false) List<Float> zCoordinates,
+	            
 	    		@RequestParam(value = "associatedChannelId", required = false) List<String> associatedChannelId,
+	    		
 	            @RequestParam(value = "depictedAnatomyId", required = false) List<String> depictedAnatomyId,
 	            @RequestParam(value = "depictedAnatomyTerm", required = false) List<String> depictedAnatomyTerm,
-	         //   @RequestParam(value = "depictedAnatomyTerm", required = false) String[] depictedAnatomyTerm,
 	            @RequestParam(value = "depictedAnatomyFreetext", required = false) List<String> depictedAnatomyFreetext,
+	            
 	            @RequestParam(value = "expressionInAnatomyId", required = false) List<String> expressionInAnatomyId,
 	            @RequestParam(value = "expressionInAnatomyTerm", required = false) List<String> expressionInAnatomyTerm,
 	            @RequestParam(value = "expressionInAnatomyFreetext", required = false) List<String> expressionInAnatomyFreetext,
+	            
 	            @RequestParam(value = "abnInAnatomyId", required = false) List<String> abnInAnatomyId,
 	            @RequestParam(value = "abnInAnatomyFreetext", required = false) List<String> abnInAnatomyFreetext,
 	            @RequestParam(value = "abnInAnatomyTerm", required = false) List<String> abnInAnatomyTerm,
+	            
 	            @RequestParam(value = "phenotypeId", required = false) List<String> phenotypeId,
 	            @RequestParam(value = "phenotypeFreetext", required = false) List<String> phenotypeFreetext,
 	            @RequestParam(value = "phenotypeTerm", required = false) List<String> phenotypeTerm,
+	            
 	            @RequestParam(value = "observation", required = false) List<String> observations,
 	    		Model model  ) {
 			
