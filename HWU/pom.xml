@@ -62,9 +62,15 @@
             </properties>
         </profile>
         <profile>
-            <id>ebi</id>
+            <id>beta</id>
             <properties>
                 <host>http://beta.phenoimageshare.org/data/iqs/</host>
+            </properties>
+        </profile> 	
+        <profile>
+            <id>dev</id>
+            <properties>
+                <host>http://dev.phenoimageshare.org/data/iqs/</host>
             </properties>
         </profile> 	
     </profiles>
