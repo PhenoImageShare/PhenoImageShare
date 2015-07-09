@@ -238,19 +238,6 @@
    <copyField source="anatomy_computed_ancestors" dest="generic_anatomy_ancestors"/>
    <copyField source="anatomy_ancestors" dest="generic_anatomy_ancestors"/>
  
- 
-   <!-- copyField source="genetic_feature_symbol" dest="term_autosuggest"/>
-   <copyField source="expressed_gf_symbol_bag" dest="term_autosuggest"/>
-   <copyField source="depicted_anatomy_term_bag" dest="term_autosuggest"/>
-   <copyField source="depicted_anatomy_freetext_bag" dest="term_autosuggest"/>
-   <copyField source="abnormal_anatomy_term_bag" dest="term_autosuggest"/>
-   <copyField source="abnormal_anatomy_freetext_bag" dest="term_autosuggest"/>
-   <copyField source="expression_in_label_bag" dest="term_autosuggest"/>
-   <copyField source="expression_in_freetext_bag" dest="term_autosuggest"/>
-   <copyField source="phenotype_freetext_bag" dest="term_autosuggest"/>
-   <copyField source="phenotype_label_bag" dest="term_autosuggest"/>
-   <copyField source="imaging_method_label" dest="term_autosuggest"/-->
-
 
    <copyField source="gene_id" dest="generic_search"/>
    <copyField source="gene_symbol" dest="generic_search"/>

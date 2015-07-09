@@ -71,14 +71,14 @@
 				<td><var> * </var></td>
 				<td><var>MA:0000261, eye</var></td>
 			</tr>
-			<!-- tr style="background-color: grey;">
+			<tr style="background-color: olive;">
 				<td>gene</td>
 				<td><var>String</var></td>
 				<td>false</td>
-				<td> [TO BE DEPRECATED] Use mutantGene instead. Filters for samples with a mutation in the specified gene.</td>
+				<td> Use mutantGene instead. Filters for samples with a mutation in the specified gene.</td>
 				<td><var> * </var></td>
 				<td><var>MGI:1891295, Spns2</var></td>
-			</tr-->			
+			</tr>			
 			<tr>
 				<td>mutantGene</td>
 				<td><var>String</var></td>
@@ -86,7 +86,8 @@
 				<td>Filters for samples with a mutation in the specified gene.</td>
 				<td><var> * </var></td>
 				<td><var>MGI:1891295, Spns2</var></td>
-			</tr>			
+			</tr>	
+					
 			<tr>
 				<td>expressedFeature</td>
 				<td><var>String</var></td>
@@ -95,6 +96,7 @@
 				<td><var> * </var></td>
 				<td><var> Sesn3 </var></td>
 			</tr>			
+			
 			<tr>
 				<td>sex</td>
 				<td><var>String</var></td>
@@ -103,6 +105,7 @@
 				<td><var> * </var></td>
 				<td><var> FEMALE / MALE </var> </td>
 			</tr>
+			
 			<tr>
 				<td>taxon</td>
 				<td><var>String</var></td>
@@ -130,6 +133,7 @@
 				<td><var> * </var></td>
 				<td><var> EXPRESSION </var> or <var>PHENOTYPE_ANATOMY </var> </td>
 			</tr>
+			
 			<tr>
 				<td>stage</td>
 				<td><var>String</var></td>

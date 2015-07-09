@@ -178,7 +178,9 @@ public class AutosuggestIndexer {
 		if (doc.getGeneIds() != null){
 			res.addAll(getBeansForArrays(doc.getGeneIds(), doc.getGeneSymbols(), null, AutosuggestTypes.GENE));
 		}
-		
+		if (doc.getExpressedGfIdBag() != null){
+			res.addAll(getBeansForArrays(doc.getExpressedGfIdBag(), doc.getExpressedGfSymbolBag(), null, AutosuggestTypes.GENE));
+		}
 		if (doc.getMutantGeneIdBag() != null){
 			res.addAll(getBeansForArrays(doc.getMutantGeneIdBag(), doc.getMutantGeneSymbolBag(), null, AutosuggestTypes.GENE));
 		}

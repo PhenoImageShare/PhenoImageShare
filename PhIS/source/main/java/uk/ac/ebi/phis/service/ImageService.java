@@ -46,17 +46,14 @@ public class ImageService extends BasicService{
 
 	}
 			
-	public String getImages(String term, String phenotype, String geneParameterToBeDeleted, String mutantGene, String anatomy, String expressedGene, String sex, String taxon, 
-	String image_type, String sample_type, String stage, String visualisationMethod, String samplePreparation, String imagingMethod, Integer rows, Integer start) 
+	public String getImages(String term, String phenotype, String mutantGene, String anatomy, String expressedGene, String sex, 
+							String taxon, String image_type, String sample_type, String stage, String visualisationMethod, String samplePreparation, 
+							String imagingMethod, Integer rows, Integer start, String genericGene) 
 	throws SolrServerException{
 
 		SolrQuery solrQuery = new SolrQuery();
 		solrQuery.setQuery("*:*");
-		
-		if ( geneParameterToBeDeleted != null){
-			mutantGene = geneParameterToBeDeleted;
-		}
-		
+				
 		if (term != null){
 			solrQuery.setQuery(ImageDTO.GENERIC_SEARCH + ":" + handleSpecialCharacters(term));
 			if (term.contains(" ")){
@@ -82,6 +79,14 @@ public class ImageService extends BasicService{
 			mutantGene = handleSpecialCharacters(mutantGene);
 			solrQuery.addFilterQuery(ImageDTO.GENE_ID + ":\""+ mutantGene + "\" OR " +
 				ImageDTO.GENE_SYMBOL + ":\""+ mutantGene + "\"");		
+		}
+		
+		if (genericGene != null){
+			genericGene = handleSpecialCharacters(genericGene);
+			solrQuery.addFilterQuery(ImageDTO.GENE_ID + ":\""+ genericGene + "\" OR " +	ImageDTO.GENE_SYMBOL + ":\""+ genericGene + "\" OR " + 
+				ImageDTO.EXPRESSED_GF_ID_BAG + ":\"" + genericGene + "\" OR " + ImageDTO.EXPRESSED_GF_SYMBOL_BAG + ":\"" + genericGene + "\" OR " +  
+				ImageDTO.MUTANT_GENE_ID_BAG + ":\"" + genericGene + "\" OR " + ImageDTO.MUTANT_GENE_SYMBOL_BAG + ":\"" + genericGene + "\" OR" +
+				ImageDTO.MUTANT_GENE_SYNONYMS_BAG + ":\"" + genericGene +"\"");		
 		}
 		
 		if (anatomy != null){
