@@ -25,7 +25,7 @@
         <div>
             This is v007, to use it append &version=007 to your URL.  Please note that some of the behaviour is still not fully tested.
             <br />
-            <a href="${pageContext.request.contextPath}/v003-4.jsp">Click here to use either 003 or 004</a>.            
+            <!--<a href="${pageContext.request.contextPath}/v003-4.jsp">Click here to use either 003 or 004</a>.-->            
             <a href="${pageContext.request.contextPath}/v005.jsp">Click here to use 005</a>.
         </div>
 
@@ -68,7 +68,7 @@
             </table>
             <h4>Examples:</h4>
             <ol>
-                <li><a href="<%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getImage?imageId=komp2_112968&version=007"><%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getImage?imageId=komp2_112968&version=007</a></li>
+                <li><a href="<%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getImage?imageId=wtsi_komp2_112968&version=007"><%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getImage?imageId=wtsi_komp2_112968&version=007</a></li>
             </ol>
 
         </div>
@@ -233,8 +233,7 @@
             <ol>
                 <li><a href="<%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getImages?term=eye&version=007"><%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getImages?term=eye&version=007</a></li>
                 <li><a href="<%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getImages?phenotype=MP:0010254&version=007"><%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getImages?phenotype=MP:0010254&version=007</a></li>
-                <li><a href="<%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getImages?phenotype=MP:0010254&start=1&version=007"><%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getImages?phenotype=MP:0010254&start=1&version=007</a></li>
-                <li><a href="<%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getImages?phenotype=MP:0010254&num=1&version=007"><%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getImages?phenotype=MP:0010254&num=1&version=007</a></li>
+                <li><a href="<%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getImages?phenotype=MP:0010254&start=1&version=007"><%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getImages?phenotype=MP:0010254&start=1&version=007</a></li>                
                 <li><a href="<%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getImages?phenotype=cataracts&version=007"><%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getImages?phenotype=cataracts&version=007</a></li>
                 <li><a href="<%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getImages?anatomy=eye&version=007"><%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getImages?anatomy=eye&version=007</a></li>
                 <li><a href="<%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getImages?gene=Spns2&version=007"><%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getImages?gene=Spns2&version=007</a></li>
@@ -281,7 +280,7 @@
 
             <h4>Example:</h4>
             <ol>
-                <li><a href="<%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getRoi?id=komp2_roi_112003_0&version=007"><%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getRoi?id=komp2_roi_112003_0&version=007</a></li>
+                <li><a href="<%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getRoi?id=wtsi_roi_komp2_roi_112003_0&version=007"><%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getRoi?id=wtsi_roi_komp2_roi_112003_0&version=007</a></li>
             </ol>
         </div>
 
@@ -341,7 +340,7 @@
 
             <h4>Example:</h4>
             <ol>
-                <li><a href="<%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getRois?imageId=komp2_112003&version=007"><%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getRois?imageId=komp2_112003&version=007</a></li>
+                <li><a href="<%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getRois?imageId=wtsi_komp2_112003&version=007"><%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getRois?imageId=wtsi_komp2_112003&version=007</a></li>
             </ol>
         </div>
 
@@ -384,7 +383,7 @@
 
             <h4>Example:</h4>
             <ol>
-                <li><a href="<%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getChannel?id=komp2_channel_112003_0&version=007"><%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getChannel?id=komp2_channel_112003_0&version=007</a></li>
+                <!--<li><a href="<%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getChannel?id=komp2_channel_112003_0&version=007"><%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getChannel?id=komp2_channel_112003_0&version=007</a></li>-->
             </ol>
         </div>
 
@@ -448,7 +447,7 @@
 
             <h4>Example:</h4>
             <ol>
-                <li><a href="<%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getChannels?imageId=komp2_112003&version=007"><%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getChannels?imageId=komp2_112003&version=007</a></li>
+                <li><a href="<%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getChannels?imageId=wtsi_komp2_112003&version=007"><%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>getChannels?imageId=wtsi_komp2_112003&version=007</a></li>
             </ol>
 
         </div>

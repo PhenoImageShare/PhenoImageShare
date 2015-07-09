@@ -29,58 +29,7 @@
         <servlet-name>AutoSuggest</servlet-name>
         <servlet-class>uk.ac.hw.macs.bisel.phis.iqs.AutoSuggest</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>v003AS</servlet-name>
-        <servlet-class>uk.ac.hw.macs.bisel.phis.iqs.v003.v003AS</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>v003GC</servlet-name>
-        <servlet-class>uk.ac.hw.macs.bisel.phis.iqs.v003.v003GC</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>v003GCs</servlet-name>
-        <servlet-class>uk.ac.hw.macs.bisel.phis.iqs.v003.v003GCs</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>v003GIs</servlet-name>
-        <servlet-class>uk.ac.hw.macs.bisel.phis.iqs.v003.v003GIs</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>v003GR</servlet-name>
-        <servlet-class>uk.ac.hw.macs.bisel.phis.iqs.v003.v003GR</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>v003GRs</servlet-name>
-        <servlet-class>uk.ac.hw.macs.bisel.phis.iqs.v003.v003GRs</servlet-class>
-    </servlet>
-    
-    
-    <servlet>
-        <servlet-name>v004AS</servlet-name>
-        <servlet-class>uk.ac.hw.macs.bisel.phis.iqs.v004.v004AS</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>v004GC</servlet-name>
-        <servlet-class>uk.ac.hw.macs.bisel.phis.iqs.v004.v004GC</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>v004GCs</servlet-name>
-        <servlet-class>uk.ac.hw.macs.bisel.phis.iqs.v004.v004GCs</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>v004GIs</servlet-name>
-        <servlet-class>uk.ac.hw.macs.bisel.phis.iqs.v004.v004GIs</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>v004GR</servlet-name>
-        <servlet-class>uk.ac.hw.macs.bisel.phis.iqs.v004.v004GR</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>v004GRs</servlet-name>
-        <servlet-class>uk.ac.hw.macs.bisel.phis.iqs.v004.v004GRs</servlet-class>
-    </servlet>    
-    
-    
+               
     <servlet-mapping>
         <servlet-name>GetImages</servlet-name>
         <url-pattern>/GetImages</url-pattern>
@@ -152,58 +101,7 @@
     <servlet-mapping>
         <servlet-name>AutoSuggest</servlet-name>
         <url-pattern>/getautosuggest</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>v003AS</servlet-name>
-        <url-pattern>/v003AS</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>v003GC</servlet-name>
-        <url-pattern>/v003GC</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>v003GCs</servlet-name>
-        <url-pattern>/v003GCs</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>v003GIs</servlet-name>
-        <url-pattern>/v003GIs</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>v003GR</servlet-name>
-        <url-pattern>/v003GR</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>v003GRs</servlet-name>
-        <url-pattern>/v003GRs</url-pattern>
-    </servlet-mapping>
-    
-    
-    <servlet-mapping>
-        <servlet-name>v004AS</servlet-name>
-        <url-pattern>/v004AS</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>v004GC</servlet-name>
-        <url-pattern>/v004GC</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>v004GCs</servlet-name>
-        <url-pattern>/v004GCs</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>v004GIs</servlet-name>
-        <url-pattern>/v004GIs</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>v004GR</servlet-name>
-        <url-pattern>/v004GR</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>v004GRs</servlet-name>
-        <url-pattern>/v004GRs</url-pattern>
     </servlet-mapping>    
-    
     
     <session-config>
         <session-timeout>
