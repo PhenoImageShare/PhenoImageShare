@@ -76,20 +76,15 @@ public class GetROI extends HttpServlet {
         Map<String, String[]> params = request.getParameterMap(); // get map of parameters and their values
         String[] versions = params.get("version");
 
-        if (versions == null) {
-            // default is v003
-            request.getRequestDispatcher("/v003GR").forward(request, response);
-        } else if (versions[0].equals("003")) {
-            request.getRequestDispatcher("/v003GR").forward(request, response);
-        } else if (versions[0].equals("004")) {
-            request.getRequestDispatcher("/v004GR").forward(request, response);
+        if (versions == null) {            
+            request.getRequestDispatcher("/v007GR").forward(request, response);
         } else if (versions[0].equals("005")) {
             request.getRequestDispatcher("/v005GR").forward(request, response);
         } else if (versions[0].equals("007")) {
             request.getRequestDispatcher("/v007GR").forward(request, response);
         } else {
             // otherwise forward to default
-            request.getRequestDispatcher("/v005GR").forward(request, response);
+            request.getRequestDispatcher("/v007GR").forward(request, response);
         }
     }
 

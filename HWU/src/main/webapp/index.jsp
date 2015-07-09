@@ -24,7 +24,7 @@
         <h3>Notes</h3>
         <div>
             <h4 style="background-color: orange;">Versioning is now supported!</h4>
-            <a href="${pageContext.request.contextPath}/v003-4.jsp">Click here to use either 003 or 004</a>.
+            <!--<a href="${pageContext.request.contextPath}/v003-4.jsp">Click here to use either 003 or 004</a>.-->
             <br />
             <a href="${pageContext.request.contextPath}/v005.jsp">Click here to use 005</a>.            
             <br />

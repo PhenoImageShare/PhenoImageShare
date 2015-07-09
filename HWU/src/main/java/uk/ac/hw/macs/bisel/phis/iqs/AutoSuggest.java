@@ -51,19 +51,21 @@ public class AutoSuggest extends HttpServlet {
         String[] versions = params.get("version");
 
         if (versions == null) {
-            // default is v003
+            // default is v007
+            request.getRequestDispatcher("/v007AS").forward(request, response);
+        /*} else if (versions[0].equals("003")) {
             request.getRequestDispatcher("/v003AS").forward(request, response);
-        } else if (versions[0].equals("003")) {
-            request.getRequestDispatcher("/v003AS").forward(request, response);
+            
         } else if (versions[0].equals("004")) {
             request.getRequestDispatcher("/v004AS").forward(request, response);
+        */    
         } else if (versions[0].equals("005")) {
             request.getRequestDispatcher("/v005AS").forward(request, response);            
         } else if (versions[0].equals("007")) {
             request.getRequestDispatcher("/v007AS").forward(request, response);                        
         } else {
             // otherwise forward to default
-            request.getRequestDispatcher("/v005AS").forward(request, response);
+            request.getRequestDispatcher("/v007AS").forward(request, response);
         }
     }
 
