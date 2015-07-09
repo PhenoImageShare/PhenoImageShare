@@ -64,13 +64,13 @@
         <profile>
             <id>beta</id>
             <properties>
-                <host>http://beta.phenoimageshare.org/data/iqs/</host>
+                <host>http://aberlour.hgu.mrc.ac.uk:9090/IQS/</host>
             </properties>
         </profile> 	
         <profile>
             <id>dev</id>
             <properties>
-                <host>http://dev.phenoimageshare.org/data/iqs/</host>
+                <host>http://glengarioch.igmm.ed.ac.uk:8080/IQS/</host>
             </properties>
         </profile> 	
     </profiles>
