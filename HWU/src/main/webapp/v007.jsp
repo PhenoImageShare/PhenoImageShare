@@ -3,13 +3,14 @@
     <body>
         <h2>IQS API summary</h2>
 
-        <!--
+        
         <div>
-            Base URL is <%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>
+            <p>Base URL: <%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%></p>
+            <p>Hitting EBI endpoint: <%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getEBI() %></p>
         </div>
 
         <hr> 
-        -->
+        
         <h3>Key</h3>
         <div style="background-color: grey;">
             Depreciated parameters or methods are given a grey background colour.

@@ -28,6 +28,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import uk.ac.hw.macs.bisel.phis.iqs.CommunicateWithSolr;
+import uk.ac.hw.macs.bisel.phis.iqs.GetHost;
 
 /**
  *
@@ -36,7 +37,7 @@ import uk.ac.hw.macs.bisel.phis.iqs.CommunicateWithSolr;
 @WebServlet(name = "v007GI", urlPatterns = {"/v007GI"})
 public class v007GI extends HttpServlet {
 
-    private static final String url = "http://beta.phenoimageshare.org/data/v0.0.7/rest/getImage?"; // stem of every SOLR query
+    private static final String url = GetHost.getEBI()+"getImage?"; // stem of every SOLR query
     private static final Logger logger = Logger.getLogger(System.class.getName());
 
     /**

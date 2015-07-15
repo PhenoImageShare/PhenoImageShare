@@ -28,6 +28,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import uk.ac.hw.macs.bisel.phis.iqs.CommunicateWithSolr;
+import uk.ac.hw.macs.bisel.phis.iqs.GetHost;
 
 /**
  *
@@ -36,7 +37,7 @@ import uk.ac.hw.macs.bisel.phis.iqs.CommunicateWithSolr;
 @WebServlet(name = "v007GRs", urlPatterns = {"/v007GRs"})
 public class v007GRs extends HttpServlet {
 
-    private static final String url = "http://beta.phenoimageshare.org/data/v0.0.7/rest/getRois?"; // stem of every SOLR query
+    private static final String url = GetHost.getEBI()+"getRois?"; // stem of every SOLR query
     private static final Logger logger = Logger.getLogger(System.class.getName());
 
     /**
@@ -106,12 +107,9 @@ public class v007GRs extends HttpServlet {
             logger.log(Level.SEVERE, "[BAD QUERY] "+queryURL);
         }
 
-        // send result to client (UI)
-        PrintWriter out = response.getWriter();
-        try {
+        try ( // send result to client (UI)
+                PrintWriter out = response.getWriter()) {
             out.println(solrResult); // may be error or genuine result
-        } finally {
-            out.close();
         }
     }
 
