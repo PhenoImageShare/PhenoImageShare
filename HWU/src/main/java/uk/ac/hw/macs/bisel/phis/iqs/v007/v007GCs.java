@@ -85,6 +85,17 @@ public class v007GCs extends HttpServlet {
                 if (!first) {
                     queryURL += "&";
                 }
+
+                // ensure a number is supplied by GUI
+                Integer temp = 1;
+                try {
+                    temp = new Integer(params.get("num")[0]);                                                       
+                } catch (NumberFormatException nfe) {
+                    error = true;
+                    solrResult = "{\"invalid_num_specified\": \"" + params.get("num")[0] + "\"}";     
+                    break;                    
+                }                
+                
                 queryURL += "resultNo=" + URLEncoder.encode(params.get("num")[0], "UTF-8");
             } else if (param.equalsIgnoreCase("version")) {
                 // do nothing
