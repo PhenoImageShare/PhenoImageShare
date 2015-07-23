@@ -83,9 +83,9 @@ public class GetImages extends HttpServlet {
         
         if(versions == null || versions[0] == null) {
             // default is v003
-            request.getRequestDispatcher("/v007GIs").forward(request, response);
+            request.getRequestDispatcher("/v007GIs").forward(request, response); /*
         } else if(versions[0].equals("005")) {
-            request.getRequestDispatcher("/v005GIs").forward(request, response);
+            request.getRequestDispatcher("/v005GIs").forward(request, response); */
         } else if(versions[0].equals("007")) {
             request.getRequestDispatcher("/v007GIs").forward(request, response);
         } else {                

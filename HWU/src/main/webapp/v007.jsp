@@ -27,7 +27,7 @@
             This is v007, to use it append &version=007 to your URL.  Please note that some of the behaviour is still not fully tested.
             <br />
             <!--<a href="${pageContext.request.contextPath}/v003-4.jsp">Click here to use either 003 or 004</a>.-->            
-            <a href="${pageContext.request.contextPath}/v005.jsp">Click here to use 005</a>.
+            <!--<a href="${pageContext.request.contextPath}/v005.jsp">Click here to use 005</a>.-->
         </div>
 
         <hr>
