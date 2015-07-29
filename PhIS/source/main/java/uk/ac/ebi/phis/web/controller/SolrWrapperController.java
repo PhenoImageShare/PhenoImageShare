@@ -85,7 +85,7 @@ public class SolrWrapperController {
             ) throws SolrServerException, IOException, URISyntaxException {
 				
 		return is.getImages(term, phenotype, mutantGene, anatomy, expressedGene, sex, taxon, image_type, sample_type, stage, visualisationMethod, 
-						samplePreparation, imagingMethod, resultNo, start, gene);
+						samplePreparation, imagingMethod, resultNo, start, gene, null, null, null);
 		
     }
 	

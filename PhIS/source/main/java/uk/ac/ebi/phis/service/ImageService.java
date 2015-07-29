@@ -48,7 +48,7 @@ public class ImageService extends BasicService{
 			
 	public String getImages(String term, String phenotype, String mutantGene, String anatomy, String expressedGene, String sex, 
 							String taxon, String image_type, String sample_type, String stage, String visualisationMethod, String samplePreparation, 
-							String imagingMethod, Integer rows, Integer start, String genericGene) 
+							String imagingMethod, Integer rows, Integer start, String genericGene, String chromosome, String strand, Long position) 
 	throws SolrServerException{
 
 		SolrQuery solrQuery = new SolrQuery();
@@ -135,7 +135,15 @@ public class ImageService extends BasicService{
 			sex = handleSpecialCharacters(sex);
 			solrQuery.addFilterQuery(ImageDTO.SEX + ":\"" + sex + "\"");
 		}
-		
+		if (chromosome != null){
+			solrQuery.addFilterQuery(ImageDTO.CHROMOSOME + ":" + chromosome);
+		}
+//		if (location != null){
+//			solrQuery.addFilterQuery(ImageDTO.END_POS + ":[* TO 100]" + )
+//		}
+		if (strand != null){
+			solrQuery.addFilterQuery(ImageDTO.STRAND + ":\"" + strand + "\"");
+		}
 		if (rows != null){
 			solrQuery.setRows(rows);
 		}

@@ -378,8 +378,12 @@ public class BatchXmlUploader {
 		bean.setHostName(desc.getHost().getDisplayName());
 		bean.setHostUrl(desc.getHost().getUrl());
 		bean.setImageUrl(desc.getImageUrl());
-		bean.setMagnificationLevel(desc.getMagnificationLevel());
-		bean.setPublication(desc.getPublication().getEl());
+		if (desc.getMagnificationLevel() != null){
+			bean.setMagnificationLevel(desc.getMagnificationLevel());
+		}
+		if (desc.getPublication() != null && desc.getPublication().getEl() != null &&  desc.getPublication().getEl().size() > 0){
+			bean.setPublication(desc.getPublication().getEl());
+		}
 		
 		if (desc.getImageContextUrl() != null){
 			bean.setImageContextUrl(desc.getImageContextUrl());
@@ -629,7 +633,7 @@ public class BatchXmlUploader {
 							OntologyObject oo = ou.getOntologyTermById(ann.getOntologyTerm().getTermId());
 							expressionInAnatomyIds.add(oo.getId());
 							expressionInAnatomyLabels.add(oo.getLabel());
-							res.addExpressedGfSynonymsBag(oo.getSynonyms());
+							res.addExpressionInSynonymsBag(oo.getSynonyms());
 							for (OntologyObject anc : oo.getIntermediateTerms()){
 								res.addExpressionInAncestors(anc.getId());
 								res.addExpressionInAncestors(anc.getSynonyms());

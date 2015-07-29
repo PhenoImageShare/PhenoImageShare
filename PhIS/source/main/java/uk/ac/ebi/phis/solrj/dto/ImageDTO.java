@@ -933,7 +933,16 @@ public class ImageDTO {
 			this.expressionInAncestors.add(expressionInAncestor);
 		}
 	}
+	
+	public void addExpressionInSynonymsBag(ArrayList<String> expressionInSynonyms) {
 
+		if (this.expressionInSynonymsBag == null){
+			this.expressionInSynonymsBag = new ArrayList<>(expressionInSynonyms);
+		} else {
+			this.expressionInSynonymsBag.addAll(expressionInSynonyms);
+		}
+	}
+	
 	public void addExpressionInAncestors(ArrayList<String> expressionInAncestor) {
 
 		if (expressionInAncestor != null){
