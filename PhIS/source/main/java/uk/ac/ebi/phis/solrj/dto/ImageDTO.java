@@ -261,13 +261,13 @@ public class ImageDTO {
 	private ArrayList<String> stageAncestors;
 	
 	@Field(PUBLICATION)
-	private ArrayList<String> publication;
+	private List<String> publication;
 	
 	@Field(MAGNIFICATION_LEVEL)
 	private String magnificationLevel;
 	
 	@Field(GENOME_ASSEMBLY)
-	private String genomeAssembly;
+	private List<String> genomeAssembly;
 
 	// annotations -->
 
@@ -937,7 +937,7 @@ public class ImageDTO {
 	public void addExpressionInAncestors(ArrayList<String> expressionInAncestor) {
 
 		if (expressionInAncestor != null){
-			HashSet<String> set = new HashSet(expressionInAncestor);
+			HashSet<String> set = new HashSet<String>(expressionInAncestor);
 			
 			if (this.expressionInAncestors == null){
 				this.expressionInAncestors = new ArrayList<>(set);
@@ -975,7 +975,7 @@ public class ImageDTO {
 	public void addPhenotypeAncestors(ArrayList<String> phenotypeAncestors) {
 		
 		if (phenotypeAncestors != null){
-			HashSet<String> set = new HashSet(phenotypeAncestors);
+			HashSet<String> set = new HashSet<String>(phenotypeAncestors);
 			if (this.phenotypeAncestors == null){
 				this.phenotypeAncestors = new ArrayList<>(set);
 			} else {
@@ -988,7 +988,7 @@ public class ImageDTO {
 	public void addVisualizationMethodAncestors(ArrayList<String> vmAncestors) {
 			
 		if (vmAncestors != null){
-			HashSet<String> set = new HashSet(vmAncestors);
+			HashSet<String> set = new HashSet<String>(vmAncestors);
 			if (this.visualisationMethodAncestors == null){
 				this.visualisationMethodAncestors = new ArrayList<>(set);
 			} else {
@@ -1000,7 +1000,7 @@ public class ImageDTO {
 	public void addImagingMethodAncestors(ArrayList<String> imAncestors) {
 		
 		if (imAncestors != null){
-			HashSet<String> set = new HashSet(imAncestors);
+			HashSet<String> set = new HashSet<String>(imAncestors);
 			if (this.imagingMethodAncestors == null){
 				this.imagingMethodAncestors = new ArrayList<>(set);
 			} else {
@@ -1012,7 +1012,7 @@ public class ImageDTO {
 	public void addSamplePreparationAncestors(ArrayList<String> spAncestors) {
 		
 		if (spAncestors != null){
-			HashSet<String> set = new HashSet(spAncestors);
+			HashSet<String> set = new HashSet<String>(spAncestors);
 			if (this.samplePreparationAncestors == null){
 				this.samplePreparationAncestors = new ArrayList<>(set);
 			} else {
@@ -2577,7 +2577,7 @@ public class ImageDTO {
 	 */
 	public void setExpressionInFreetextBag(ArrayList<String> expressionInFreetextBag) {
 
-		expressionInFreetextBag = expressionInFreetextBag;
+		this.expressionInFreetextBag = expressionInFreetextBag;
 	}
 
 
@@ -2709,13 +2709,13 @@ public class ImageDTO {
 	}
 
 	
-	public ArrayList<String> getPublication() {
+	public List<String> getPublication() {
 	
 		return publication;
 	}
 
 	
-	public void setPublication(ArrayList<String> publication) {
+	public void setPublication(List<String> publication) {
 	
 		this.publication = publication;
 	}
@@ -2733,13 +2733,13 @@ public class ImageDTO {
 	}
 
 	
-	public String getGenomeAssembly() {
+	public List<String> getGenomeAssembly() {
 	
 		return genomeAssembly;
 	}
 
 	
-	public void setGenomeAssembly(String genomeAssembly) {
+	public void setGenomeAssembly(List<String> genomeAssembly) {
 	
 		this.genomeAssembly = genomeAssembly;
 	}

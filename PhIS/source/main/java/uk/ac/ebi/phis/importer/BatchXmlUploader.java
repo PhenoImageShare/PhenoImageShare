@@ -43,7 +43,6 @@ import uk.ac.ebi.phis.jaxb.GenotypeComponent;
 import uk.ac.ebi.phis.jaxb.Image;
 import uk.ac.ebi.phis.jaxb.ImageDescription;
 import uk.ac.ebi.phis.jaxb.ImageType;
-import uk.ac.ebi.phis.jaxb.OntologyTerm;
 import uk.ac.ebi.phis.jaxb.Organism;
 import uk.ac.ebi.phis.jaxb.Roi;
 import uk.ac.ebi.phis.service.ChannelService;
@@ -64,16 +63,13 @@ public class BatchXmlUploader {
 
 	ClassLoader classloader;
 
-	
-//	String solrImageBaseUrl = "http://localhost:8983/solr/collection1";
-//	String solrImageBaseUrl; // = "http://localhost:8086/solr-example/images";
-
 	ValidationUtils vu = new ValidationUtils();
 	OntologyUtils ou = vu.ou;
 
 	ImageService is;
 	RoiService rs;
 	ChannelService cs;
+	
 	
 	public BatchXmlUploader(ImageService is, RoiService rs, ChannelService cs) {
 		classloader = Thread.currentThread().getContextClassLoader();
@@ -382,6 +378,8 @@ public class BatchXmlUploader {
 		bean.setHostName(desc.getHost().getDisplayName());
 		bean.setHostUrl(desc.getHost().getUrl());
 		bean.setImageUrl(desc.getImageUrl());
+		bean.setMagnificationLevel(desc.getMagnificationLevel());
+		bean.setPublication(desc.getPublication().getEl());
 		
 		if (desc.getImageContextUrl() != null){
 			bean.setImageContextUrl(desc.getImageContextUrl());
@@ -499,16 +497,15 @@ public class BatchXmlUploader {
 		if (img.getMutantGenotypeTraits() != null){
 			ArrayList<String> geneIds = new ArrayList<>();
 			ArrayList<String> geneSymbols = new ArrayList<>();
-			ArrayList<String> geneSynonymsAndNames = new ArrayList<>();
 			ArrayList<String> gfEnsembl = new ArrayList<>();
 			ArrayList<String> gfIds = new ArrayList<>();
 			ArrayList<String> gfSymbols = new ArrayList<>();
-			ArrayList<String> gfSynonymsAndNames = new ArrayList<>();
 			ArrayList<String> chromosome = new ArrayList<>();
 			ArrayList<Long> startPosition = new ArrayList<>();
 			ArrayList<Long> endPosition = new ArrayList<>();
 			ArrayList<String> strand = new ArrayList<>();
 			ArrayList<String> zygosity = new ArrayList<>();
+			List<String> genomeAssembly = new ArrayList<>();
 			
 			for (GenotypeComponent g : img.getMutantGenotypeTraits().getEl()){
 				// We need to fill all of these arrays because they need to be parallel
@@ -530,6 +527,9 @@ public class BatchXmlUploader {
 				if (g.getMutationType() != null){
 					bean.addMutationType(g.getMutationType().getAnnotationFreetext());
 				}
+				if (g.getGenomeAssembly() != null){
+					genomeAssembly.add(g.getGenomeAssembly());
+				}
 			}
 			
 			bean.setGeneIds(geneIds);
@@ -543,6 +543,7 @@ public class BatchXmlUploader {
 			bean.setEndPosition(endPosition);
 			bean.setStrand(strand);
 			bean.setZygosity(zygosity);
+			bean.setGenomeAssembly(genomeAssembly);
 			
 		}
 
@@ -716,7 +717,6 @@ public class BatchXmlUploader {
 
 		ArrayList<String> expressedGfIdBag = new ArrayList<>();
 		ArrayList<String> expressedGfLabelBag = new ArrayList<>();
-		ArrayList<String> expressedGfSynonymBag = new ArrayList<>();
 		
 		//TODO fill gf synonyms and name from ENSEMBL
 		
