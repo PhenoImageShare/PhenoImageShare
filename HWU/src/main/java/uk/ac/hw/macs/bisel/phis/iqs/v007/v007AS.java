@@ -28,6 +28,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import uk.ac.hw.macs.bisel.phis.iqs.CommunicateWithSolr;
+import uk.ac.hw.macs.bisel.phis.iqs.GetHost;
 
 /**
  *
@@ -36,7 +37,7 @@ import uk.ac.hw.macs.bisel.phis.iqs.CommunicateWithSolr;
 @WebServlet(name = "v007AS", urlPatterns = {"/v007AS"})
 public class v007AS extends HttpServlet {
 
-    private static final String url = "http://beta.phenoimageshare.org/data/v0.0.7/rest/getAutosuggest?"; // stem of every SOLR query
+    private static final String url = GetHost.getEBI()+"getAutosuggest?"; // stem of every SOLR query
     private static final Logger logger = Logger.getLogger(System.class.getName());
 
     /**
@@ -68,21 +69,27 @@ public class v007AS extends HttpServlet {
                     queryURL += "&";
                 }
 
-                queryURL += "term=" + URLEncoder.encode(params.get("term")[0], "UTF-8"); // extend stem with parameter
-                //queryURL += "term=" + URLEncoder.encode(params.get("term")[0], "UTF-8"); // extend stem with parameter
+                queryURL += "term=" + URLEncoder.encode(params.get("term")[0], "UTF-8"); // extend stem with parameter                
                 first = false; // next time you need a separator
 
-                
-
-             
                 // choose number of results to ask for... lots of results is very costly    
             } else if (param.equals("num")) { // number of results to return
                 if (!first) {
                     queryURL += "&";
                 }
+                // ensure a number is supplied by GUI
+                Integer temp = 1;
+                try {
+                    temp = new Integer(params.get("num")[0]);                                                       
+                } catch (NumberFormatException nfe) {
+                    error = true;
+                    solrResult = "{\"invalid_num_specified\": \"" + params.get("num")[0] + "\"}";     
+                    break;                    
+                }                
+                
                 queryURL += "resultNo=" + URLEncoder.encode(params.get("num")[0], "UTF-8");
-                first = false;  // next time you need a separator                 
-
+                first = false;  // next time you need a separator                            
+                
                 // 2015-03-17
             } else if (param.equals("type")) {
                 if (!first) {
@@ -135,8 +142,12 @@ public class v007AS extends HttpServlet {
                     break;
                 }                                
                 first = false;  // next time you need a separator  
+            } else if (param.equalsIgnoreCase("version")) {
+                // do nothing
                 
-                
+                //
+                //
+                //
                 // @depreciated   
             } else if (param.equals("mutantGene")) {
                 if (!first) { // at the moment it will always be the first (and only) param
@@ -168,11 +179,9 @@ public class v007AS extends HttpServlet {
                 
                 
                 
-            } else if (param.equalsIgnoreCase("version")) {
-                // do nothing
             } else { // parameter was not recognised, send error
                 error = true; // error has been detected
-                logger.log(Level.WARNING, "Client sent invalid parameter: " + param);
+                logger.log(Level.WARNING, "Client sent invalid parameter: {0}", param);
                 solrResult = "{\"invalid_paramater\": \"" + param + "\"}";
                 break;
             }
@@ -183,15 +192,12 @@ public class v007AS extends HttpServlet {
             CommunicateWithSolr cws = new CommunicateWithSolr();
             solrResult = cws.talk(queryURL);
         } else {
-            logger.log(Level.SEVERE, "[BAD QUERY] "+queryURL);
+            logger.log(Level.SEVERE, "[BAD QUERY] {0}", queryURL);
         }
 
-        // send result to client (UI)
-        PrintWriter out = response.getWriter();
-        try {
+        try ( // send result to client (UI)
+                PrintWriter out = response.getWriter()) {
             out.println(solrResult); // may be error or genuine result
-        } finally {
-            out.close();
         }
     }
 

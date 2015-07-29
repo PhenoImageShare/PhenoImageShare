@@ -41,6 +41,18 @@ public class GetHost {
         return uri;
     }
     
+    public static String getEBI() {
+        String uri = "error";
+        ResourceBundle rb;
+        try {
+            rb = ResourceBundle.getBundle("host");
+            uri = rb.getString("ebi");            
+        } catch (MissingResourceException e) {
+            LOGGER.warning("File 'host.properties' was not found or error while reading current version.");
+        }   
+        return uri;        
+    }
+    
     public static void main(String[] args) {        
         System.out.println(getURI());
     }

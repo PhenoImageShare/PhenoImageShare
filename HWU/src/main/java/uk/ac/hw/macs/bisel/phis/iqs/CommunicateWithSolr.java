@@ -35,7 +35,7 @@ public class CommunicateWithSolr {
         // record all queries sent to SOLR
         logger.log(Level.INFO, "[EBI QUERY] {0}", queryURL);        
         
-        BufferedReader in = null;
+        BufferedReader in;
         String solrResult = "";
         try {
             // connect to SOLR and run query

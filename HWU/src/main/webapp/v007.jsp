@@ -3,13 +3,14 @@
     <body>
         <h2>IQS API summary</h2>
 
-        <!--
+        
         <div>
-            Base URL is <%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%>
+            <p>Base URL: <%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()%></p>
+            <p>Hitting EBI endpoint: <%= uk.ac.hw.macs.bisel.phis.iqs.GetHost.getEBI() %></p>
         </div>
 
         <hr> 
-        -->
+        
         <h3>Key</h3>
         <div style="background-color: grey;">
             Depreciated parameters or methods are given a grey background colour.
@@ -26,7 +27,7 @@
             This is v007, to use it append &version=007 to your URL.  Please note that some of the behaviour is still not fully tested.
             <br />
             <!--<a href="${pageContext.request.contextPath}/v003-4.jsp">Click here to use either 003 or 004</a>.-->            
-            <a href="${pageContext.request.contextPath}/v005.jsp">Click here to use 005</a>.
+            <!--<a href="${pageContext.request.contextPath}/v005.jsp">Click here to use 005</a>.-->
         </div>
 
         <hr>

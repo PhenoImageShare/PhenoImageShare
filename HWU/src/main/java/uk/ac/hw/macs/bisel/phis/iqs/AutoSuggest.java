@@ -58,9 +58,9 @@ public class AutoSuggest extends HttpServlet {
             
         } else if (versions[0].equals("004")) {
             request.getRequestDispatcher("/v004AS").forward(request, response);
-        */    
+            
         } else if (versions[0].equals("005")) {
-            request.getRequestDispatcher("/v005AS").forward(request, response);            
+            request.getRequestDispatcher("/v005AS").forward(request, response);*/            
         } else if (versions[0].equals("007")) {
             request.getRequestDispatcher("/v007AS").forward(request, response);                        
         } else {

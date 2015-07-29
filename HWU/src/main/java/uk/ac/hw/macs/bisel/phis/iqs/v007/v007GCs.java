@@ -28,6 +28,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import uk.ac.hw.macs.bisel.phis.iqs.CommunicateWithSolr;
+import uk.ac.hw.macs.bisel.phis.iqs.GetHost;
 
 /**
  *
@@ -36,7 +37,7 @@ import uk.ac.hw.macs.bisel.phis.iqs.CommunicateWithSolr;
 @WebServlet(name = "v007GCs", urlPatterns = {"/v007GCs"})
 public class v007GCs extends HttpServlet {
 
-    private static final String url = "http://beta.phenoimageshare.org/data/v0.0.7/rest/getChannels?"; // stem of every SOLR query
+    private static final String url = GetHost.getEBI()+"getChannels?"; // stem of every SOLR query
     private static final Logger logger = Logger.getLogger(System.class.getName());
     
     
@@ -84,6 +85,17 @@ public class v007GCs extends HttpServlet {
                 if (!first) {
                     queryURL += "&";
                 }
+
+                // ensure a number is supplied by GUI
+                Integer temp = 1;
+                try {
+                    temp = new Integer(params.get("num")[0]);                                                       
+                } catch (NumberFormatException nfe) {
+                    error = true;
+                    solrResult = "{\"invalid_num_specified\": \"" + params.get("num")[0] + "\"}";     
+                    break;                    
+                }                
+                
                 queryURL += "resultNo=" + URLEncoder.encode(params.get("num")[0], "UTF-8");
             } else if (param.equalsIgnoreCase("version")) {
                 // do nothing
@@ -91,7 +103,7 @@ public class v007GCs extends HttpServlet {
                 // error handling    
             } else { // parameter was not recognised, send error
                 error = true; // error has been detected
-                logger.log(Level.WARNING, "Client sent invalid parameter: " + param);
+                logger.log(Level.WARNING, "Client sent invalid parameter: {0}", param);
                 solrResult = "{\"invalid_paramater\": \"" + param + "\"}";
                 break;
             }
@@ -103,15 +115,12 @@ public class v007GCs extends HttpServlet {
             CommunicateWithSolr cws = new CommunicateWithSolr();
             solrResult = cws.talk(queryURL);
         } else {
-            logger.log(Level.SEVERE, "[BAD QUERY] "+queryURL);
+            logger.log(Level.SEVERE, "[BAD QUERY] {0}", queryURL);
         }
 
-        // send result to client (UI)
-        PrintWriter out = response.getWriter();
-        try {
+        try ( // send result to client (UI)
+                PrintWriter out = response.getWriter()) {
             out.println(solrResult); // may be error or genuine result
-        } finally {
-            out.close();
         }
 
     }

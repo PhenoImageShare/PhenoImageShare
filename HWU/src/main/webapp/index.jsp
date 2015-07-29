@@ -22,12 +22,12 @@
         </div>
         
         <h3>Notes</h3>
-        <div>
-            <h4 style="background-color: orange;">Versioning is now supported!</h4>
-            <!--<a href="${pageContext.request.contextPath}/v003-4.jsp">Click here to use either 003 or 004</a>.-->
+        <div>            
+            <!--<a href="${pageContext.request.contextPath}/v003-4.jsp">Click here to use either 003 or 004</a>.
             <br />
-            <a href="${pageContext.request.contextPath}/v005.jsp">Click here to use 005</a>.            
-            <br />
+            <a href="${pageContext.request.contextPath}/v005.jsp">Click here to use 005</a>.-->
+            <p>Versions 003, 004 & 005 have been withdrawn and are no longer available.</p>
+            <br />            
             <a href="${pageContext.request.contextPath}/v007.jsp">Click here to use 007</a>.  
         </div>
     </body>

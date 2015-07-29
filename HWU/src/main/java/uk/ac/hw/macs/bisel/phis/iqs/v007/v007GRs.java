@@ -28,6 +28,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import uk.ac.hw.macs.bisel.phis.iqs.CommunicateWithSolr;
+import uk.ac.hw.macs.bisel.phis.iqs.GetHost;
 
 /**
  *
@@ -36,7 +37,7 @@ import uk.ac.hw.macs.bisel.phis.iqs.CommunicateWithSolr;
 @WebServlet(name = "v007GRs", urlPatterns = {"/v007GRs"})
 public class v007GRs extends HttpServlet {
 
-    private static final String url = "http://beta.phenoimageshare.org/data/v0.0.7/rest/getRois?"; // stem of every SOLR query
+    private static final String url = GetHost.getEBI()+"getRois?"; // stem of every SOLR query
     private static final Logger logger = Logger.getLogger(System.class.getName());
 
     /**
@@ -84,6 +85,16 @@ public class v007GRs extends HttpServlet {
                 if (!first) {
                     queryURL += "&";
                 }
+                // ensure a number is supplied by GUI
+                Integer temp = 1;
+                try {
+                    temp = new Integer(params.get("num")[0]);                                                       
+                } catch (NumberFormatException nfe) {
+                    error = true;
+                    solrResult = "{\"invalid_num_specified\": \"" + params.get("num")[0] + "\"}";     
+                    break;                    
+                }                
+                
                 queryURL += "resultNo=" + URLEncoder.encode(params.get("num")[0], "UTF-8");
             } else if (param.equalsIgnoreCase("version")) {
                 // do nothing
@@ -106,12 +117,9 @@ public class v007GRs extends HttpServlet {
             logger.log(Level.SEVERE, "[BAD QUERY] "+queryURL);
         }
 
-        // send result to client (UI)
-        PrintWriter out = response.getWriter();
-        try {
+        try ( // send result to client (UI)
+                PrintWriter out = response.getWriter()) {
             out.println(solrResult); // may be error or genuine result
-        } finally {
-            out.close();
         }
     }
 
