@@ -88,6 +88,9 @@ public class ImageDTO {
 	public final static String HEIGHT = "height";
 	public final static String ASSOCIATED_CHANNEL = "associated_channel";
 	public final static String ASSOCIATED_ROI = "associated_roi";
+	public final static String PUBLICATION = "publication";
+	public final static String MAGNIFICATION_LEVEL = "magnification_level";
+	public final static String GENOME_ASSEMBLY = "genome_assembly";
 	public final static String ID = "id";
 
 	public final static String ANATOMY_COMPUTED_ID_BAG = "anatomy_computed_id_bag";
@@ -253,9 +256,18 @@ public class ImageDTO {
 
 	@Field(STAGE_ID)
 	private String stageId;
-	
+
 	@Field(STAGE_ANCESTORS)
 	private ArrayList<String> stageAncestors;
+	
+	@Field(PUBLICATION)
+	private ArrayList<String> publication;
+	
+	@Field(MAGNIFICATION_LEVEL)
+	private String magnificationLevel;
+	
+	@Field(GENOME_ASSEMBLY)
+	private String genomeAssembly;
 
 	// annotations -->
 
@@ -2694,6 +2706,42 @@ public class ImageDTO {
 	public void setSampleType(String sampleType) {
 
 		this.sampleType = sampleType;
+	}
+
+	
+	public ArrayList<String> getPublication() {
+	
+		return publication;
+	}
+
+	
+	public void setPublication(ArrayList<String> publication) {
+	
+		this.publication = publication;
+	}
+
+	
+	public String getMagnificationLevel() {
+	
+		return magnificationLevel;
+	}
+
+	
+	public void setMagnificationLevel(String magnificationLevel) {
+	
+		this.magnificationLevel = magnificationLevel;
+	}
+
+	
+	public String getGenomeAssembly() {
+	
+		return genomeAssembly;
+	}
+
+	
+	public void setGenomeAssembly(String genomeAssembly) {
+	
+		this.genomeAssembly = genomeAssembly;
 	}
 
 	

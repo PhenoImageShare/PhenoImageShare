@@ -96,6 +96,8 @@
    <field name="image_type" type="string" indexed="true" stored="true" multiValued="true"/> <!-- 2 values only, needed for faceting : Pehnotype/Anatomy and Expression -->
    <field name="sample_type" type="string" indexed="true" stored="true" multiValued="false"/> <!--  2 possible values, needed for the facets : mutant or wildtype -->
    
+   <field name="magnification_level" type="string" indexed="true" stored="true"/>
+   <field name="publication" type="string" indexed="true" stored="true"/>
    <field name="machine" type="string" indexed="true" stored="true"/>
 
    <!-- Sample -->
@@ -124,6 +126,7 @@
 
 
    <!-- genetic features -->
+   <field name="genome_assembly" type="string" indexed="true" stored="true"/>
    <field name="gene_id" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="gene_symbol" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true" />
    <field name="gene_synonyms" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true" />
