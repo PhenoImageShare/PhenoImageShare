@@ -15,8 +15,6 @@
  *******************************************************************************/
 package uk.ac.ebi.phis.xmlDump;
 
-import uk.ac.ebi.phis.jaxb.*;
-
 import java.io.File;
 import java.io.IOException;
 import java.sql.PreparedStatement;
@@ -36,10 +34,28 @@ import org.json.JSONException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import uk.ac.ebi.phis.jaxb.Annotation;
+import uk.ac.ebi.phis.jaxb.AnnotationArray;
+import uk.ac.ebi.phis.jaxb.AnnotationMode;
+import uk.ac.ebi.phis.jaxb.Channel;
+import uk.ac.ebi.phis.jaxb.Coordinates;
+import uk.ac.ebi.phis.jaxb.Dimensions;
+import uk.ac.ebi.phis.jaxb.Doc;
+import uk.ac.ebi.phis.jaxb.GenomicLocation;
+import uk.ac.ebi.phis.jaxb.GenotypeComponent;
+import uk.ac.ebi.phis.jaxb.Image;
+import uk.ac.ebi.phis.jaxb.ImageDescription;
+import uk.ac.ebi.phis.jaxb.ImageType;
+import uk.ac.ebi.phis.jaxb.ImageTypeArray;
+import uk.ac.ebi.phis.jaxb.Link;
+import uk.ac.ebi.phis.jaxb.OntologyTerm;
+import uk.ac.ebi.phis.jaxb.Organism;
+import uk.ac.ebi.phis.jaxb.PercentArray;
+import uk.ac.ebi.phis.jaxb.Roi;
+import uk.ac.ebi.phis.jaxb.SampleType;
+import uk.ac.ebi.phis.jaxb.StringArray;
 import uk.ac.ebi.phis.utils.EnrichingUtils;
 import uk.ac.ebi.phis.utils.Normalizer;
-import uk.ac.ebi.phis.utils.Utils_deprecated;
-import uk.ac.ebi.phis.utils.ontology.OntologyMapperPredefinedTypes;
 
 
 public class TracerXmlGenerator {
