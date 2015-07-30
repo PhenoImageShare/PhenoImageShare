@@ -182,7 +182,7 @@
 				<td>false</td>
 				<td>Position for genomic search. For better results with point mutations use interval search defined by startPosition and endPosition.</td>
 				<td><var>-</var></td>
-				<td><var></var><br></td>
+				<td><var>91008288</var><br></td>
 			</tr>
 			<tr style="background-color: olive;">
 				<td>startPosition</td>
@@ -190,7 +190,7 @@
 				<td>false</td>
 				<td>Start position for genomic location interval search.</td>
 				<td><var>-</var></td>
-				<td><var></var><br></td>
+				<td><var>91008288</var><br></td>
 			</tr>
 			<tr style="background-color: olive;">
 				<td>endPosition</td>
@@ -198,7 +198,7 @@
 				<td>false</td>
 				<td>End position for genomic location interval search.</td>
 				<td><var>-</var></td>
-				<td><var></var><br></td>
+				<td><var>91018288</var><br></td>
 			</tr>
 			<tr style="background-color: olive;">
 				<td>chromosome</td>
