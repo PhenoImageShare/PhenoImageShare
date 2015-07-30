@@ -23,7 +23,7 @@ import org.neo4j.cypher.ParameterNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import uk.ac.ebi.phis.exception.BasicPhisException;
+import uk.ac.ebi.phis.exception.PhisSubmissionException;
 import uk.ac.ebi.phis.solrj.dto.RoiDTO;
 
 @Service
@@ -43,21 +43,21 @@ public class GenericUpdateService {
 	RoiService rs;
 	
 	
-	public void updateCores(RoiDTO roi) throws BasicPhisException{
+	public void updateCores(RoiDTO roi) throws PhisSubmissionException{
 		RoiDTO roiToReplace  = rs.getRoiById(roi.getId());
 		is.updateImageFromRoi(roiToReplace, roi);
 		rs.updateRoi(roi);
 	}
 	
 	
-	public void addToCores(RoiDTO roi) throws BasicPhisException{
+	public void addToCores(RoiDTO roi) throws PhisSubmissionException{
 		is.addToImageFromRoi(roi);
 		rs.addRoi(roi);
 		cs.addAssociatedRoi(roi);		
 	}
 	
 	
-	public void deleteFromCores(String roiId) throws BasicPhisException{
+	public void deleteFromCores(String roiId) throws PhisSubmissionException{
 		RoiDTO roi = rs.getRoiById(roiId);
 		cs.deleteAssociatedRoi(roi);
 		is.deleteRoiRefferences(roi);

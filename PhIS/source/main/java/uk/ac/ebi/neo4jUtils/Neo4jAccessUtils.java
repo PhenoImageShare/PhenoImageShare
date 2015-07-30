@@ -32,7 +32,7 @@ import org.neo4j.rest.graphdb.query.RestCypherQueryEngine;
 import org.neo4j.rest.graphdb.util.QueryResult;
 import org.springframework.stereotype.Service;
 
-import uk.ac.ebi.phis.exception.BasicPhisException;
+import uk.ac.ebi.phis.exception.PhisSubmissionException;
 
 
 @Service 
@@ -66,7 +66,7 @@ public class Neo4jAccessUtils {
     List<String> phenotypeId, List<String> phenotypeFreetext, List<String> phenotypeTerm, 
     List<String> observation, 
     List<String> expressedInAnatomyId, List<String> expressedInAnatomyTerm, List<String> expressedInAnatomyFreetext) 
-    throws BasicPhisException  {
+    throws PhisSubmissionException  {
 	
 		Date today = new Date();
 		createAnnotationWithDates(userId, annotationId, associatedImageId, xCoordinates, yCoordinates, zCoordinates, associatedChannelId,
@@ -83,7 +83,7 @@ public class Neo4jAccessUtils {
     List<String> observation, 
     List<String> expressedInAnatomyId, List<String> expressedInAnatomyTerm, List<String> expressedInAnatomyFreetext,
     Date creationDate, Date lastModifiedDate) 
-    throws BasicPhisException{
+    throws PhisSubmissionException{
 	
 		
 			Node user;
@@ -179,12 +179,12 @@ public class Neo4jAccessUtils {
 		
 	
 	public void addBidirectionalRelation(Node fromNode, Neo4jRelationship relation, Node toNode) 
-	throws BasicPhisException{
+	throws PhisSubmissionException{
 
 		Boolean toRight = existsUnidirectionalRelationship(fromNode, relation, toNode);
 		Boolean toLeft = existsUnidirectionalRelationship(toNode, relation, fromNode);
 		if ( toRight && toLeft){
-			throw new BasicPhisException(BasicPhisException.RELATIONSHIP_EXISTS_EXCEPTION);
+			throw new PhisSubmissionException(PhisSubmissionException.RELATIONSHIP_EXISTS_EXCEPTION);
 		}
 		try ( Transaction tx = db.beginTx() )
         {				
@@ -202,10 +202,10 @@ public class Neo4jAccessUtils {
         }   
 	}
 	
-	public void addUnidirectionalRelation(Node fromNode, Neo4jRelationship relation, Node toNode) throws BasicPhisException{
+	public void addUnidirectionalRelation(Node fromNode, Neo4jRelationship relation, Node toNode) throws PhisSubmissionException{
 		
 		if (existsUnidirectionalRelationship(fromNode, relation, toNode)){
-			throw new BasicPhisException(BasicPhisException.RELATIONSHIP_EXISTS_EXCEPTION);
+			throw new PhisSubmissionException(PhisSubmissionException.RELATIONSHIP_EXISTS_EXCEPTION);
 		}
 		try ( Transaction tx = db.beginTx() )  {
 			
@@ -219,7 +219,7 @@ public class Neo4jAccessUtils {
 	}
 	
 	public Node addAnnotationNode(String id, List<String> observation, Date creationDate, Date lastModifiedDate, List<Float> xCoordinates, 
-	List<Float> yCoordinates, List<Float> zCoordinates) throws BasicPhisException{
+	List<Float> yCoordinates, List<Float> zCoordinates) throws PhisSubmissionException{
 		
 		Node myNode = null;
 		if (id == null || id.equals("")){
@@ -229,7 +229,7 @@ public class Neo4jAccessUtils {
 			throw getIdAlreadyExists(id);
 		}
 		else if (xCoordinates == null || yCoordinates == null){
-			throw new BasicPhisException(BasicPhisException.NO_COORDINATES_EXCEPTION);
+			throw new PhisSubmissionException(PhisSubmissionException.NO_COORDINATES_EXCEPTION);
 		}
 		
 		try ( Transaction tx = db.beginTx() ) {
@@ -264,11 +264,11 @@ public class Neo4jAccessUtils {
 		return node;
 	}
 	
-	public Node addUser(String id) throws BasicPhisException{
+	public Node addUser(String id) throws PhisSubmissionException{
 		return createNode(id, userLabel);	
 	}
 	
-	public Node addOntologyTerm(String id, String termLabel) throws BasicPhisException{
+	public Node addOntologyTerm(String id, String termLabel) throws PhisSubmissionException{
 		Node ot = createNode(id, ontologyTermLabel);
 		if (termLabel != null){
 			try ( Transaction tx = db.beginTx() )
@@ -281,15 +281,15 @@ public class Neo4jAccessUtils {
         return ot;
 	}
 	
-	public Node addImage(String id) throws BasicPhisException{
+	public Node addImage(String id) throws PhisSubmissionException{
 		return createNode(id, imageLabel);
 	}
 	
-	public Node addChannel(String id) throws BasicPhisException{
+	public Node addChannel(String id) throws PhisSubmissionException{
 		return createNode(id, channelLabel);
 	}
 	
-	private Node createNode(String id, Label label) throws BasicPhisException{
+	private Node createNode(String id, Label label) throws PhisSubmissionException{
 		Node myNode;
 		System.out.println("Label + " + label);
 		if (id == null || id.equals("")){
@@ -309,20 +309,20 @@ public class Neo4jAccessUtils {
 	}
 	
 	
-	private BasicPhisException getEmptyIdException(){
-		return new BasicPhisException(BasicPhisException.EMPTY_ID_EXCEPTION_MESSAGE);
+	private PhisSubmissionException getEmptyIdException(){
+		return new PhisSubmissionException(PhisSubmissionException.EMPTY_ID_EXCEPTION_MESSAGE);
 	}
 	
-	private BasicPhisException getIdAlreadyExists(String id){
-		return new BasicPhisException(BasicPhisException.EXISTING_ID_EXCEPTION_MESSAGE + id);
+	private PhisSubmissionException getIdAlreadyExists(String id){
+		return new PhisSubmissionException(PhisSubmissionException.EXISTING_ID_EXCEPTION_MESSAGE + id);
 	}
 	
-	private BasicPhisException getNotMatchingIdAndTerm(){
-		return new BasicPhisException(BasicPhisException.NOT_MATCHING_ID_AND_TERM_ARRAYS);
+	private PhisSubmissionException getNotMatchingIdAndTerm(){
+		return new PhisSubmissionException(PhisSubmissionException.NOT_MATCHING_ID_AND_TERM_ARRAYS);
 	}
 	
-	private  BasicPhisException getNoAnnotationException(){
-		return new BasicPhisException(BasicPhisException.NO_ANNOTATION_EXCEPTION);
+	private  PhisSubmissionException getNoAnnotationException(){
+		return new PhisSubmissionException(PhisSubmissionException.NO_ANNOTATION_EXCEPTION);
 	}
 	
 	public void addSomething(){
@@ -373,7 +373,7 @@ public class Neo4jAccessUtils {
 	
 	
 	public Node getOrCreateNode(String id, String name, Label label) 
-	throws BasicPhisException{
+	throws PhisSubmissionException{
 		
 		Node res ;
 		
@@ -509,7 +509,7 @@ public class Neo4jAccessUtils {
 		List<String> phenotypeId, List<String> phenotypeFreetext, List<String> phenotypeTerm, 
 		List<String> observation, 
 		List<String> expressedInAnatomyId, List<String> expressedInAnatomyTerm, List<String> expressedInAnatomyFreetext) 
-	throws BasicPhisException{
+	throws PhisSubmissionException{
 		
 		Date today = new Date();
 		
@@ -522,10 +522,10 @@ public class Neo4jAccessUtils {
 					today, today);
 			}
 			else {
-				throw new BasicPhisException("User provided does not match the owner.");
+				throw new PhisSubmissionException("User provided does not match the owner.");
 			}
 		} else {
-			throw new BasicPhisException("Annotation id does not exist.");
+			throw new PhisSubmissionException("Annotation id does not exist.");
 		}
 	
 	}

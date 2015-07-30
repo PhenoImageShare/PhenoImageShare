@@ -30,7 +30,7 @@ import org.json.JSONObject;
 import org.neo4j.cypher.ParameterNotFoundException;
 import org.springframework.stereotype.Service;
 
-import uk.ac.ebi.phis.exception.BasicPhisException;
+import uk.ac.ebi.phis.exception.PhisSubmissionException;
 import uk.ac.ebi.phis.exception.PhisQueryException;
 import uk.ac.ebi.phis.solrj.dto.ChannelDTO;
 import uk.ac.ebi.phis.solrj.dto.ImageDTO;
@@ -234,9 +234,9 @@ public class ImageService extends BasicService{
 	 * 
 	 * @param roiToReplace must exist
 	 * @param roiToAdd must have the same id as roiToReplace
-	 * @throws BasicPhisException 
+	 * @throws PhisSubmissionException 
 	 */
-	public void updateImageFromRoi(RoiDTO roiToReplace, RoiDTO roiToAdd) throws BasicPhisException{
+	public void updateImageFromRoi(RoiDTO roiToReplace, RoiDTO roiToAdd) throws PhisSubmissionException{
 		if (imageIdExists(roiToAdd.getAssociatedImage()) && imageIdExists(roiToReplace.getAssociatedImage())){
 			deleteRoiRefferences(roiToReplace);
 			addToImageFromRoi(roiToAdd);
@@ -244,7 +244,7 @@ public class ImageService extends BasicService{
 	}
 	
 	
-	public boolean imageIdExists(String id) throws BasicPhisException{
+	public boolean imageIdExists(String id) throws PhisSubmissionException{
 
 		return getImageDTOById(id) != null;
 	}
@@ -252,9 +252,9 @@ public class ImageService extends BasicService{
 	/**
 	 * Delete all refferences to this roi (roi id, annotations from annotations bags)
 	 * @param roi
-	 * @throws BasicPhisException 
+	 * @throws PhisSubmissionException 
 	 */
-	public void deleteRoiRefferences(RoiDTO roi) throws BasicPhisException{
+	public void deleteRoiRefferences(RoiDTO roi) throws PhisSubmissionException{
 		
 		ImageDTO img = getImageDTOById(roi.getAssociatedImage());
 
@@ -331,10 +331,10 @@ public class ImageService extends BasicService{
 	/**
 	 * To be used for atomic updates when a user adds a new annotation
 	 * @param roi
-	 * @throws BasicPhisException 
+	 * @throws PhisSubmissionException 
 	 * @throws Exception 
 	 */
-	public void addToImageFromRoi(RoiDTO roi) throws ParameterNotFoundException, BasicPhisException{
+	public void addToImageFromRoi(RoiDTO roi) throws ParameterNotFoundException, PhisSubmissionException{
 		
 		ImageDTO img = getImageDTOById(roi.getAssociatedImage());
 		
@@ -402,7 +402,7 @@ public class ImageService extends BasicService{
 		}
 	}
 	
-	public ImageDTO getImageDTOById(String imageId) throws BasicPhisException{
+	public ImageDTO getImageDTOById(String imageId) throws PhisSubmissionException{
 		ImageDTO img = null;
 		SolrQuery solrQuery = new SolrQuery();
 		solrQuery.setQuery(ImageDTO.ID + ":" + imageId);
@@ -411,7 +411,7 @@ public class ImageService extends BasicService{
 			img = images.get(0);
 		} catch (Exception e) { 
 		//	e.printStackTrace();
-			throw new BasicPhisException("Image id provided could not be found.");
+			throw new PhisSubmissionException("Image id provided could not be found.");
 		}
 		return img;
 	}

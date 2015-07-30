@@ -31,7 +31,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import uk.ac.ebi.neo4jUtils.Neo4jAccessUtils;
-import uk.ac.ebi.phis.exception.BasicPhisException;
+import uk.ac.ebi.phis.exception.PhisSubmissionException;
 import uk.ac.ebi.phis.service.GenericUpdateService;
 import uk.ac.ebi.phis.service.ImageService;
 import uk.ac.ebi.phis.solrj.dto.RoiDTO;
@@ -115,7 +115,7 @@ import uk.ac.ebi.phis.utils.web.RestStatusMessage;
 							new ArrayList<Float>(yCoordinates), zCoord, expressionInAnatomyTerm, expressionInAnatomyFreetext, expressionInAnatomyId);
 					gus.addToCores(roi);					
 				}				
-			} catch (BasicPhisException e) {
+			} catch (PhisSubmissionException e) {
 				e.printStackTrace();
 				succeded = RestStatusMessage.getFailJson();
 				succeded.put("message", e.getMessage());
@@ -168,7 +168,7 @@ import uk.ac.ebi.phis.utils.web.RestStatusMessage;
 						
 				}
 				
-			} catch (BasicPhisException e) {
+			} catch (PhisSubmissionException e) {
 				e.printStackTrace();
 				succeded = RestStatusMessage.getFailJson();
 				succeded.put("message", e.getMessage());
@@ -192,9 +192,9 @@ import uk.ac.ebi.phis.utils.web.RestStatusMessage;
 					neo.deleteNodeWithRelations(annotationId);
 					gus.deleteFromCores(annotationId);
 				}else{
-					throw new BasicPhisException("User provided does not match the user of the annotation. Annotation was not deleted.");
+					throw new PhisSubmissionException("User provided does not match the user of the annotation. Annotation was not deleted.");
 				}
-			} catch (BasicPhisException e){
+			} catch (PhisSubmissionException e){
 				e.printStackTrace();
 				obj = RestStatusMessage.getFailJson();
 				obj.put("message", e.getMessage());				
