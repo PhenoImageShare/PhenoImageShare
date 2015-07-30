@@ -55,28 +55,69 @@ public class ImageService extends BasicService{
 
 		SolrQuery solrQuery = new SolrQuery();
 		solrQuery.setQuery("*:*");
-				
+		// boosted queries
+		String bq = "";
+		String qf = "";
 		if (term != null){
 			solrQuery.setQuery(ImageDTO.GENERIC_SEARCH + ":" + handleSpecialCharacters(term));
 			if (term.contains(" ")){
 				String[] splittedQuery = term.split(" ");
 				String query = ImageDTO.GENERIC_SEARCH + ":" + org.apache.commons.lang3.StringUtils.join(splittedQuery, "^10 " + ImageDTO.GENERIC_SEARCH + ":");			
-				solrQuery.set("defType", "edismax");
-				solrQuery.set("qf",  ImageDTO.GENERIC_SEARCH);
-				solrQuery.set("bq", ImageDTO.GENERIC_SEARCH + ":\"" + term + "\"^100 " + handleSpecialCharacters(query) + " " + ImageDTO.GENERIC_SEARCH_ANCESTORS + ":\"" + term + "\"^1" );
-			
+				bq += ImageDTO.GENERIC_SEARCH + ":\"" + term + "\"^100 " + handleSpecialCharacters(query) + " " + ImageDTO.GENERIC_SEARCH_ANCESTORS + ":\"" + term + "\"^1" ;
+				qf += ImageDTO.GENERIC_SEARCH;
 			}else{
 				solrQuery.addFilterQuery(ImageDTO.GENERIC_SEARCH + ":"+ handleSpecialCharacters(term));
 			}
 		}
-		
 		if (phenotype != null){
 			phenotype = handleSpecialCharacters(phenotype);
+			bq += ImageDTO.PHENOTYPE_ID_BAG + ":\""+ phenotype + "\"^100 " + 
+				ImageDTO.PHENOTYPE_FREETEXT_BAG + ":\""+ phenotype + "\"^70 " + 
+				ImageDTO.PHENOTYPE_LABEL_BAG + ":\""+ phenotype + "\"^100 " + 
+				ImageDTO.PHENOTYPE_ANCESTORS + ":\"" + phenotype + "\"^0.001 " + 
+				ImageDTO.PHENOTYPE_SYNONYMS_BAG + ":\"" + phenotype + "\"^0.1 ";
 			solrQuery.addFilterQuery(ImageDTO.PHENOTYPE_ID_BAG + ":\""+ phenotype + "\" OR " + 
 				ImageDTO.PHENOTYPE_FREETEXT_BAG + ":\""+ phenotype + "\" OR " + 
-				ImageDTO.PHENOTYPE_LABEL_BAG + ":\""+ phenotype + "\" OR " + ImageDTO.PHENOTYPE_ANCESTORS + ":\"" + phenotype + "\"");
+				ImageDTO.PHENOTYPE_LABEL_BAG + ":\""+ phenotype + "\" OR " + ImageDTO.PHENOTYPE_ANCESTORS + ":\"" + phenotype + "\"");			
 		}
-		
+		if (visualisationMethod != null){
+			visualisationMethod = handleSpecialCharacters (visualisationMethod);
+			bq += ImageDTO.VISUALISATION_METHOD_ID + ":\"" + visualisationMethod + "\"^100 " + 
+				ImageDTO.VISUALISATION_METHOD_LABEL + ":\"" + visualisationMethod + "\"^100 " + 
+				ImageDTO.VISUALISATION_METHOD_ANCESTORS + ":\"" + visualisationMethod + "\"^0.001 ";
+			solrQuery.addFilterQuery(ImageDTO.VISUALISATION_METHOD_ID + ":\"" + visualisationMethod + "\" OR " + 
+				ImageDTO.VISUALISATION_METHOD_LABEL + ":\"" + visualisationMethod + "\" OR " + 
+				ImageDTO.VISUALISATION_METHOD_ANCESTORS + ":\"" + visualisationMethod + "\"");
+		}
+		if (samplePreparation != null){
+			samplePreparation = handleSpecialCharacters(samplePreparation);
+			bq += ImageDTO.SAMPLE_PREPARATION_ID + ":\"" + samplePreparation + "\"^100 " + 
+				ImageDTO.SAMPLE_PREPARATION_LABEL + ":\"" + samplePreparation + "\"^100 " + 
+				ImageDTO.SAMPLE_PREPARATION_ANCESTORS + ":\"" + samplePreparation + "\"^0.001 ";
+			solrQuery.addFilterQuery(ImageDTO.SAMPLE_PREPARATION_ID + ":\"" + samplePreparation + "\" OR " + 
+				ImageDTO.SAMPLE_PREPARATION_LABEL + ":\"" + samplePreparation + "\" OR " + ImageDTO.SAMPLE_PREPARATION_ANCESTORS + ":\"" + samplePreparation + "\"");
+		}
+		if (imagingMethod != null){
+			imagingMethod = handleSpecialCharacters(imagingMethod);
+			bq = ImageDTO.IMAGING_METHOD_LABEL_ANALYSED + ":\"" + imagingMethod + "\"^100 " + 
+				ImageDTO.IMAGING_METHOD_ID + ":\"" + imagingMethod + "\"^100 " + 
+				ImageDTO.IMAGING_METHOD_ANCESTORS + ":\"" + imagingMethod + "\"^0.001 ";
+			solrQuery.addFilterQuery(ImageDTO.IMAGING_METHOD_LABEL_ANALYSED + ":\"" + imagingMethod + "\" OR " + 
+				ImageDTO.IMAGING_METHOD_ID + ":\"" + imagingMethod + "\" OR " + ImageDTO.IMAGING_METHOD_ANCESTORS + ":\"" + imagingMethod + "\"");
+		}		
+		if (anatomy != null){
+			anatomy = handleSpecialCharacters(anatomy);
+			bq += ImageDTO.GENERIC_ANATOMY + ":\""+ anatomy + "\"^100 " + ImageDTO.GENERIC_ANATOMY_ANCESTORS + ":\"" + anatomy + "\"^0.001 ";
+			solrQuery.addFilterQuery(ImageDTO.GENERIC_ANATOMY + ":\""+ anatomy + "\" OR " + ImageDTO.GENERIC_ANATOMY_ANCESTORS + ":\"" + anatomy + "\"");
+		}
+		if (!bq.equals("")){
+			solrQuery.set("defType", "edismax");
+			solrQuery.set("bq", bq);
+		}
+		if(!qf.equals("")){
+			solrQuery.set("qf", qf);
+		}
+		// Non-boosted queries
 		if (mutantGene != null){
 			mutantGene = handleSpecialCharacters(mutantGene);
 			solrQuery.addFilterQuery(ImageDTO.GENE_ID + ":\""+ mutantGene + "\" OR " +
@@ -89,11 +130,6 @@ public class ImageService extends BasicService{
 				ImageDTO.EXPRESSED_GF_ID_BAG + ":\"" + genericGene + "\" OR " + ImageDTO.EXPRESSED_GF_SYMBOL_BAG + ":\"" + genericGene + "\" OR " +  
 				ImageDTO.MUTANT_GENE_ID_BAG + ":\"" + genericGene + "\" OR " + ImageDTO.MUTANT_GENE_SYMBOL_BAG + ":\"" + genericGene + "\" OR" +
 				ImageDTO.MUTANT_GENE_SYNONYMS_BAG + ":\"" + genericGene +"\"");		
-		}
-		
-		if (anatomy != null){
-			anatomy = handleSpecialCharacters(anatomy);
-			solrQuery.addFilterQuery(ImageDTO.GENERIC_ANATOMY + ":\""+ anatomy + "\" OR " + ImageDTO.GENERIC_ANATOMY_ANCESTORS + ":\"" + anatomy + "\"");
 		}
 		if (expressedGene != null){
 			expressedGene = handleSpecialCharacters(expressedGene);
@@ -116,22 +152,6 @@ public class ImageService extends BasicService{
 			stage = handleSpecialCharacters(stage);
 			solrQuery.addFilterQuery(ImageDTO.STAGE + ":\"" + stage + "\" OR " + 
 				ImageDTO.STAGE_ID + ":\"" + stage + "\" OR " + ImageDTO.STAGE_ANCESTORS + ":\"" + stage + "\"" );
-		}
-		if (visualisationMethod != null){
-			visualisationMethod = handleSpecialCharacters (visualisationMethod);
-			solrQuery.addFilterQuery(ImageDTO.VISUALISATION_METHOD_ID + ":\"" + visualisationMethod + "\" OR " + 
-				ImageDTO.VISUALISATION_METHOD_LABEL + ":\"" + visualisationMethod + "\" OR " + 
-				ImageDTO.VISUALISATION_METHOD_ANCESTORS + ":\"" + visualisationMethod + "\"");
-		}
-		if (samplePreparation != null){
-			samplePreparation = handleSpecialCharacters(samplePreparation);
-			solrQuery.addFilterQuery(ImageDTO.SAMPLE_PREPARATION_ID + ":\"" + samplePreparation + "\" OR " + 
-				ImageDTO.SAMPLE_PREPARATION_LABEL + ":\"" + samplePreparation + "\" OR " + ImageDTO.SAMPLE_PREPARATION_ANCESTORS + ":\"" + samplePreparation + "\"");
-		}
-		if (imagingMethod != null){
-			imagingMethod = handleSpecialCharacters(imagingMethod);
-			solrQuery.addFilterQuery(ImageDTO.IMAGING_METHOD_LABEL_ANALYSED + ":\"" + imagingMethod + "\" OR " + 
-			ImageDTO.IMAGING_METHOD_ID + ":\"" + imagingMethod + "\" OR " + ImageDTO.IMAGING_METHOD_ANCESTORS + ":\"" + imagingMethod + "\"");
 		}
 		if (sex != null){
 			sex = handleSpecialCharacters(sex);
