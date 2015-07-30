@@ -222,6 +222,7 @@
    <copyField source="anatomy_ancestors" dest="generic_anatomy_ancestors"/>
  
 
+   <copyField source="id" dest="generic_search"/>
    <copyField source="gene_id" dest="generic_search"/>
    <copyField source="gene_symbol" dest="generic_search"/>
    <copyField source="gene_synonyms" dest="generic_search"/>   
