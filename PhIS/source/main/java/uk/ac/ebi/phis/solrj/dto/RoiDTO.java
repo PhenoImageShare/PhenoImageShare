@@ -15,6 +15,7 @@
  *******************************************************************************/
 package uk.ac.ebi.phis.solrj.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.solr.client.solrj.beans.Field;
@@ -315,8 +316,6 @@ public class RoiDTO {
 	
 		return computedDepictedAnatomyTerm;
 	}
-
-
 	
 	/**
 	 * @param computedDepictedAnatomyTerm the computedDepictedAnatomyTerm to set
@@ -325,7 +324,13 @@ public class RoiDTO {
 	
 		this.computedDepictedAnatomyTerm = computedDepictedAnatomyTerm;
 	}
-
+	public void addComputedDepictedAnatomyTerm(String computedDepictedAnatomyTerm) {
+		
+		if (this.computedAbnormalityAnatomyTerm == null){
+			this.computedAbnormalityAnatomyTerm = new ArrayList<>();
+		}
+		this.computedDepictedAnatomyTerm.add(computedDepictedAnatomyTerm);
+	}
 
 	
 	/**
@@ -345,7 +350,13 @@ public class RoiDTO {
 	
 		this.computedAbnormalityAnatomyId = computedAbnormalityAnatomyId;
 	}
-
+	public void addComputedAbnormalityAnatomyId(String computedAbnormalityAnatomyId) {
+		
+		if (this.computedAbnormalityAnatomyId == null){
+			this.computedAbnormalityAnatomyId = new ArrayList<>();
+		}
+		this.computedAbnormalityAnatomyId.add(computedAbnormalityAnatomyId);
+	}
 
 	
 	/**
@@ -355,9 +366,6 @@ public class RoiDTO {
 	
 		return computedAbnormalityAnatomyTerm;
 	}
-
-
-	
 	/**
 	 * @param computedAbnormalityAnatomyTerm the computedAbnormalityAnatomyTerm to set
 	 */
@@ -365,8 +373,15 @@ public class RoiDTO {
 	
 		this.computedAbnormalityAnatomyTerm = computedAbnormalityAnatomyTerm;
 	}
+	public void addComputedAbnormalityAnatomyTerm(String computedAbnormalityAnatomyTerm) {
+		
+		if (this.computedAbnormalityAnatomyTerm == null){
+			this.computedAbnormalityAnatomyTerm = new ArrayList<>();
+		}
+		this.computedAbnormalityAnatomyTerm.add(computedAbnormalityAnatomyTerm);
+	}
 
-
+	
 	/**
 	 * @param associatedImage the associatedImage to set
 	 */
@@ -464,7 +479,13 @@ public class RoiDTO {
 	
 		this.abnormalityAnatomyId = abnormalityAnatomyId;
 	}
-
+	public void addAbnormalityAnatomyId(String abnormalityAnatomyId) {
+		
+		if (this.abnormalityAnatomyId == null){
+			this.abnormalityAnatomyId = new ArrayList<>();
+		}
+		this.abnormalityAnatomyId.add(abnormalityAnatomyId);
+	}
 	
 	/**
 	 * @return the abnormalityAnatomyTerm
@@ -482,7 +503,13 @@ public class RoiDTO {
 	
 		this.abnormalityAnatomyTerm = abnormalityAnatomyTerm;
 	}
-
+	public void addAbnormalityAnatomyTerm(String abnormalityAnatomyTerm) {
+		
+		if (this.abnormalityAnatomyTerm == null){
+			this.abnormalityAnatomyTerm = new ArrayList<>();
+		}
+		this.abnormalityAnatomyTerm.add(abnormalityAnatomyTerm);
+	}
 	
 	/**
 	 * @return the abnormalityAnatomyFreetext
@@ -500,7 +527,13 @@ public class RoiDTO {
 	
 		this.abnormalityAnatomyFreetext = abnormalityAnatomyFreetext;
 	}
-
+	public void addAbnormalityAnatomyFreetext(String abnormalityAnatomyFreetext) {
+		
+		if (this.abnormalityAnatomyFreetext == null){
+			this.abnormalityAnatomyFreetext = new ArrayList<>();
+		}
+		this.abnormalityAnatomyFreetext.add(abnormalityAnatomyFreetext);
+	}
 	
 	/**
 	 * @return the abnormalityAnatomyAnnotationSource
@@ -520,41 +553,38 @@ public class RoiDTO {
 	}
 
 	
-	/**
-	 * @return the phenotypeId
-	 */
 	public List<String> getPhenotypeId() {
 	
 		return phenotypeId;
 	}
-
-	
-	/**
-	 * @param phenotypeId the phenotypeId to set
-	 */
 	public void setPhenotypeId(List<String> phenotypeId) {
 	
 		this.phenotypeId = phenotypeId;
 	}
+	public void addPhenotypeId(String phenotypeId) {
 
+		if (this.phenotypeId == null){
+			this.phenotypeId = new ArrayList<>();
+		}
+		this.phenotypeId.add(phenotypeId);
+	}
 	
-	/**
-	 * @return the phenotypeTerm
-	 */
+
 	public List<String> getPhenotypeTerm() {
 	
 		return phenotypeTerm;
 	}
-
-	
-	/**
-	 * @param phenotypeTerm the phenotypeTerm to set
-	 */
 	public void setPhenotypeTerm(List<String> phenotypeTerm) {
 	
 		this.phenotypeTerm = phenotypeTerm;
 	}
+	public void addPhenotypeTerm(String phenotypeTerm) {
 
+		if (this.phenotypeTerm == null){
+			this.phenotypeTerm = new ArrayList<>();
+		}
+		this.phenotypeTerm.add( phenotypeTerm );
+	}
 	
 	/**
 	 * @return the phenotypeFreetext
@@ -572,7 +602,13 @@ public class RoiDTO {
 	
 		this.phenotypeFreetext = phenotypeFreetext;
 	}
-
+	public void addPhenotypeFreetext(String phenotypeFreetext) {
+		
+		if (this.phenotypeFreetext == null){
+			this.phenotypeFreetext = new ArrayList<>();
+		}
+		this.phenotypeFreetext.add(phenotypeFreetext);
+	}
 	
 	/**
 	 * @return the observations

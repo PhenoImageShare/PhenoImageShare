@@ -217,7 +217,7 @@ public class BatchXmlUploader {
 					}
 				}
 			}
-
+			//TODO add computed MAs from MP as in image docs
 			//	if(roi.getIsExpressionPattern().equals(YesNo.YES)){
 				if (ids.size() > 0){
 					bean.setExpressedAnatomyId(ids);
@@ -243,60 +243,35 @@ public class BatchXmlUploader {
 		
 		if (roi.getAbnormalityInAnatomicalStructure() != null){
 			
-			List<String> ids = new ArrayList<>(); // || with labels
-			List<String> labels = new ArrayList<>(); // || with ids
-			List<String> freetext = new ArrayList<>();
-			List<String> computedIds = new ArrayList<>(); // || with computedLabels
-			List<String> computedLabels = new ArrayList<>(); // || with computedId
 			// Abnormality in anatomical part
 			for ( Annotation ann: roi.getAbnormalityInAnatomicalStructure().getEl()){
 				if (ann.getAnnotationFreetext() != null){
-					freetext.add(ann.getAnnotationFreetext());
+					bean.addAbnormalityAnatomyFreetext(ann.getAnnotationFreetext());
 				}
 				if (ann.getOntologyTerm() != null){
 					if (ann.getAnnotationMode() != null && (ann.getAnnotationMode() == AnnotationMode.AUTOMATED)){
-						computedIds.add(ann.getOntologyTerm().getTermId());
-						computedLabels.add(ann.getOntologyTerm().getTermLabel());
+						bean.addComputedAbnormalityAnatomyId(ann.getOntologyTerm().getTermId());
+						bean.addComputedAbnormalityAnatomyTerm(ann.getOntologyTerm().getTermLabel());
 					}
 					else {
-						ids.add(ann.getOntologyTerm().getTermId());
-						labels.add(ann.getOntologyTerm().getTermLabel());
+						bean.addAbnormalityAnatomyId(ann.getOntologyTerm().getTermId());
+						bean.addAbnormalityAnatomyTerm(ann.getOntologyTerm().getTermLabel());
 					}
 				}
-			}
-			if (ids.size() > 0){
-				bean.setAbnormalityAnatomyId(ids);
-				bean.setAbnormalityAnatomyTerm(labels);
-			}
-			if (freetext.size() > 0){
-				bean.setAbnormalityAnatomyFreetext(freetext);
-			}
-			if (computedIds.size() > 0){
-				bean.setComputedAbnormalityAnatomyId(computedIds);
-				bean.setComputedAbnormalityAnatomyTerm(computedLabels);
-			}
+			}			
 		}
 		
 		if (roi.getPhenotypeAnnotations() != null){
 			// Phenotypes
-			List<String> ids = new ArrayList<>(); // || with labels
-			List<String> labels = new ArrayList<>(); // || with ids
-			List<String> freetext = new ArrayList<>();
 			for ( Annotation ann: roi.getPhenotypeAnnotations().getEl()){
 				if (ann.getAnnotationFreetext() != null){
-					freetext.add(ann.getAnnotationFreetext());
+					bean.addPhenotypeFreetext(ann.getAnnotationFreetext());
 				}
 				if (ann.getOntologyTerm() != null){
-					ids.add(ann.getOntologyTerm().getTermId());
-					labels.add(ann.getOntologyTerm().getTermLabel());
+					OntologyObject obj = ou.getOntologyTermById(ann.getOntologyTerm().getTermId());
+					bean.addPhenotypeId(obj.getId());
+					bean.addPhenotypeTerm(obj.getLabel());
 				}
-			}
-			if (ids.size() > 0){
-				bean.setPhenotypeId(ids);
-				bean.setPhenotypeTerm(labels);
-			}
-			if (freetext.size() > 0){
-				bean.setPhenotypeFreetext(freetext);
 			}
 		}
 		
