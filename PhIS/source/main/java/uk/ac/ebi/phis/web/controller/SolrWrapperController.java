@@ -79,13 +79,16 @@ public class SolrWrapperController {
             @RequestParam(value = "visualisationMethod", required = false) String visualisationMethod,
             @RequestParam(value = "samplePreparation", required = false) String samplePreparation,
             @RequestParam(value = "imagingMethod", required = false) String imagingMethod,
+            @RequestParam(value = "chromosome", required = false) String chromosome,
+            @RequestParam(value = "strand", required = false) String strand,
+            @RequestParam(value = "location", required = false) Long location,
             @RequestParam(value = "resultNo", required = false) Integer resultNo,
             @RequestParam(value = "start", required = false) Integer start,
     		Model model
             ) throws SolrServerException, IOException, URISyntaxException {
 				
 		return is.getImages(term, phenotype, mutantGene, anatomy, expressedGene, sex, taxon, image_type, sample_type, stage, visualisationMethod, 
-						samplePreparation, imagingMethod, resultNo, start, gene, null, null, null);
+						samplePreparation, imagingMethod, resultNo, start, gene, chromosome, strand, location);
 		
     }
 	

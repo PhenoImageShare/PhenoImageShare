@@ -138,9 +138,9 @@ public class ImageService extends BasicService{
 		if (chromosome != null){
 			solrQuery.addFilterQuery(ImageDTO.CHROMOSOME + ":" + chromosome);
 		}
-//		if (location != null){
-//			solrQuery.addFilterQuery(ImageDTO.END_POS + ":[* TO 100]" + )
-//		}
+		if (position != null){
+			solrQuery.addFilterQuery("(" + ImageDTO.END_POS + ":[* TO " + position +"] AND " + ImageDTO.START_POS + ":["+ position + " TO *])");
+		}
 		if (strand != null){
 			solrQuery.addFilterQuery(ImageDTO.STRAND + ":\"" + strand + "\"");
 		}
