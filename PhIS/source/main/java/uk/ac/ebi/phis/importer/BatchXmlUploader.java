@@ -378,6 +378,7 @@ public class BatchXmlUploader {
 		bean.setHostName(desc.getHost().getDisplayName());
 		bean.setHostUrl(desc.getHost().getUrl());
 		bean.setImageUrl(desc.getImageUrl());
+		
 		if (desc.getMagnificationLevel() != null){
 			bean.setMagnificationLevel(desc.getMagnificationLevel());
 		}
@@ -600,6 +601,15 @@ public class BatchXmlUploader {
 							res.addPhenotypeAncestors(anc.getId());
 							res.addPhenotypeAncestors(anc.getSynonyms());
 							res.addPhenotypeAncestors(anc.getLabel());
+						}
+						// add MAs from MP -> computedAnatomyTerms
+						List<String> maIds =ou.getMaFromMp(oo.getId());
+						for (String maId : maIds){
+							OntologyObject maOo= ou.getOntologyTermById(maId);
+							res.addAnatomyComputedIdBag(maOo.getId());
+							res.addAnatomyComputedLabelBag(oo.getLabel());
+							res.addAnatomyComputedSynonymsBag(maOo.getSynonyms());
+							res.addAnatomyComputedAncestors(oo.getAncestorsBag());
 						}
 					}
 				}

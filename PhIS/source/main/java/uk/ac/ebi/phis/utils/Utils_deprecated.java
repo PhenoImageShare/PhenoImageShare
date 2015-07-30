@@ -15,18 +15,13 @@
  *******************************************************************************/
 package uk.ac.ebi.phis.utils;
 
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.net.URL;
-import java.net.URLEncoder;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
-
-import javax.imageio.ImageIO;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -155,7 +150,7 @@ public class Utils_deprecated {
 				// Check if it's mapped to an anatomy term
 				String mpUri = "http://purl.obolibrary.org/obo/" + mpId.replace(":", "_");
 				System.out.println("\n" + mpUri);
-				HashSet<String> maList =  mapper.getMappings(mpUri, "MA_");
+				List<String> maList =  mapper.getMappings(mpUri, "MA_");
 				if (maList != null){
 					for (String ma : maList){
 						System.out.println("\t" + ma);

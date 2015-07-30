@@ -2,12 +2,7 @@
 
 <schema name="example" version="1.5">
  
-
-	
- <!-- Field to use to determine and enforce document uniqueness. 
-      Unless this field is marked with required="false", it will be a required field
-   -->
-   
+  
  <defaultSearchField>generic_search</defaultSearchField>  
  <uniqueKey>id</uniqueKey>
  

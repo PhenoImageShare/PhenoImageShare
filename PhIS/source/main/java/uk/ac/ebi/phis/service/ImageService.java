@@ -410,8 +410,7 @@ public class ImageService extends BasicService{
 			List<ImageDTO> images = solr.query(solrQuery).getBeans(ImageDTO.class);
 			img = images.get(0);
 		} catch (Exception e) { 
-		//	e.printStackTrace();
-			throw new PhisSubmissionException("Image id provided could not be found.");
+			throw new PhisSubmissionException(PhisSubmissionException.ID_NOT_FOUND_EXCEPTION_MESSAGE);
 		}
 		return img;
 	}

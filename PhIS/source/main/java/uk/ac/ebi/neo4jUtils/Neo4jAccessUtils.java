@@ -310,7 +310,7 @@ public class Neo4jAccessUtils {
 	
 	
 	private PhisSubmissionException getEmptyIdException(){
-		return new PhisSubmissionException(PhisSubmissionException.EMPTY_ID_EXCEPTION_MESSAGE);
+		return new PhisSubmissionException(PhisSubmissionException.ID_NOT_FOUND_EXCEPTION_MESSAGE);
 	}
 	
 	private PhisSubmissionException getIdAlreadyExists(String id){

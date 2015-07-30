@@ -59,7 +59,7 @@ import uk.ac.ebi.phis.utils.web.RestStatusMessage;
 		 * @throws URISyntaxException
 		 */
 		@RequestMapping(value="/", method=RequestMethod.GET)	
-	    public String showDocumentation( Model model ) throws SolrServerException, IOException, URISyntaxException {
+	    public String showDocumentation( Model model ) {
 		
 			System.out.println("Try /getImages .");
 			return "submission_home";
@@ -119,8 +119,7 @@ import uk.ac.ebi.phis.utils.web.RestStatusMessage;
 				e.printStackTrace();
 				succeded = RestStatusMessage.getFailJson();
 				succeded.put("message", e.getMessage());
-			}
-			
+			} 			
 			return succeded.toString();
 	    }
 		

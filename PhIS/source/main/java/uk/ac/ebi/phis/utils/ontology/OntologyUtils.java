@@ -74,8 +74,9 @@ public class OntologyUtils {
 	private HashMap<String, OntologyObject> imTerms = new HashMap<>();
 	private HashMap<String, OntologyObject> spTerms = new HashMap<>();
 	private HashMap<String, OntologyObject> vmTerms = new HashMap<>();
-	
 	private HashMap<String, String> alternateIds = new HashMap<>();
+	
+	private OntologyMapper om = new OntologyMapper(OntologyMapperPredefinedTypes.MA_MP);
 
 	Logger logger = Logger.getLogger(OntologyMapper.class);
 
@@ -132,6 +133,13 @@ public class OntologyUtils {
 	
 	public boolean isImagingMethod(String id){
 		return checkIdIsIn(id, imTerms);
+	}
+	
+	public List<String> getMaFromMp(String mpId){
+
+		String mpUri = "http://purl.obolibrary.org/obo/" + mpId.replace(":", "_");
+		System.out.println("\n" + mpUri);
+		return om.getMappings(mpUri, "MA_");		
 	}
 	
 	public boolean checkIdIsIn(String id, HashMap<String, OntologyObject> list){
@@ -302,7 +310,6 @@ public class OntologyUtils {
 	public Set<OWLNamedObject> getAncestorsClassifiedPartOf(OWLClass cls, OWLGraphWrapper graph){
 		
 		Set<OWLPropertyExpression> overProps = new HashSet<>();
-		Set<OWLObject> res = graph.getAncestors(cls, overProps, false);
 		
 		if (partOfRelations != null) {
 			for (String lbl: partOfRelations){
@@ -356,7 +363,7 @@ public class OntologyUtils {
 		return null;
 	}
 	
-
+/*
 	private OWLGraphWrapper readOntologyFromUrl (String ontIri) throws IOException, OWLOntologyCreationException, OBOFormatParserException{
 		ParserWrapper pw = new ParserWrapper();
 		OWLGraphWrapper graph = pw.parseToOWLGraph(ontIri);
@@ -364,7 +371,7 @@ public class OntologyUtils {
 		logger.info("Ontology is initialised completely");
 		return graph;
 	}
-	
+	*/
 	public HashMap<String, OntologyObject> getAnatomyTerms() {
 		
 		return anatomyTerms;

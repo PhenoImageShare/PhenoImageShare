@@ -31,6 +31,9 @@ import uk.ac.ebi.phis.service.RoiService;
 
 public class PopulateCores {
 
+	private static ApplicationContext applicationContext;
+
+
 	public static void main(String[] args) {
 		
 		OptionParser parser = new OptionParser();
@@ -62,10 +65,10 @@ public class PopulateCores {
 			help();
 		}
 
-		ApplicationContext applicationContext = new  FileSystemXmlApplicationContext("file:" + contextFile);
 			
 		try {
 
+			applicationContext = new  FileSystemXmlApplicationContext("file:" + contextFile);
 			ImageService is = (ImageService) applicationContext.getBean("imageService");
 			RoiService rs = (RoiService) applicationContext.getBean("roiService");
 			ChannelService cs = (ChannelService) applicationContext.getBean("channelService"); 
@@ -125,12 +128,11 @@ public class PopulateCores {
 			System.out.println("Is valid? " + itWorked);
 			System.out.println("Importing Sanger XML took " + (System.currentTimeMillis() - time));
 			
-			System.out.println("Solr url is : " + is.getSolrUrl());
+			System.out.println("Solr url is : " + is.getSolrUrl());			
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-		
+		}		
 		
 	}
 	

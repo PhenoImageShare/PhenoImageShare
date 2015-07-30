@@ -16,9 +16,6 @@
 package uk.ac.ebi.phis.utils.ontology;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -27,6 +24,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -46,24 +44,25 @@ import owltools.io.ParserWrapper;
 public class OntologyMapper {
 
 	Logger logger = Logger.getLogger(OntologyMapper.class);
+
 	private String ONTOLOGY_IRI;
 	private static OWLGraphWrapper graph;
 	private static ArrayList<String> overProperties = null;
-	
 	private OWLGraphWrapper anatomyGraph ;
-	private static String maBaseUrl;
-	
+	private static String baseUrl;
 	
 	
 	public OntologyMapper(OntologyMapperPredefinedTypes type){
+		
 		switch (type){
 		case MA_MP:
+			
 			ONTOLOGY_IRI = System.getProperty("user.home") + "/phis_ontologies/mp-ext-merged.owl";
 			overProperties = new ArrayList<String>();
 			overProperties.add("http://purl.obolibrary.org/obo/BFO_0000052");
 			overProperties.add("http://purl.obolibrary.org/obo/BFO_0000070");
 			overProperties.add("http://purl.obolibrary.org/obo/mp/mp-logical-definitions#inheres_in_part_of");
-			maBaseUrl = "http://purl.obolibrary.org/obo";
+			baseUrl = "http://purl.obolibrary.org/obo";
 			try{
 				anatomyGraph = readOntology(System.getProperty("user.home") + "/phis_ontologies/ma.owl");
 			}catch(Exception e){
@@ -71,10 +70,8 @@ public class OntologyMapper {
 				logger.error(e.getMessage());
 			}
 		}
-		try{
-			
+		try{			
 			graph = readOntology(ONTOLOGY_IRI);
-			
 		}catch(Exception e){
 			e.printStackTrace();
 			logger.error(e.getMessage());
@@ -87,13 +84,16 @@ public class OntologyMapper {
 		overProperties = properties;
 	}
 	
+	
 	public OWLGraphWrapper getGraph(){
 		return graph;
 	}
+	
 
 	public String idToName(String id){
 		return graph.getLabel(graph.getOWLObjectByIdentifier(id));
 	}
+	
 	
 	// Read ontologies from HTTP URLs
 	protected  String getStringFromInputStream(InputStream is) {
@@ -119,6 +119,7 @@ public class OntologyMapper {
 		return sb.toString();
 	}
 
+	
 	public String getFTPAsString() {
 		String content = "";
 		try {
@@ -137,6 +138,7 @@ public class OntologyMapper {
 		return content;
 	}
 
+	
 	public HashSet<String> getMappings (String subjectTermId, ArrayList<String> relationsToFollow, String ontologyPrefix){
 		HashSet<String> results = new HashSet<String> ();
 				
@@ -158,23 +160,22 @@ public class OntologyMapper {
 					}
 				}				
 			}
-				System.out.println("Identified " + results.size()+ " referenced MA terms.");
+			System.out.println("Identified " + results.size()+ " referenced MA terms.");
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 		return results;
 	}
 	
-	public HashSet<String> getMappings (String subjectTermId, String ontologyPrefix){
+	
+	public List<String> getMappings (String subjectTermId, String ontologyPrefix){
 		
 		if (overProperties == null) {
 			throw new Error("You must set overProperties before calling this function. ");
 		}
 		
-		HashSet<String> results = new HashSet<String> ();
-				
-		OWLClass subject = graph.getOWLClassByIdentifier(subjectTermId, true);
-		
+		HashSet<String> results = new HashSet<String> ();				
+		OWLClass subject = graph.getOWLClassByIdentifier(subjectTermId, true);		
 		
 		try {
 			if ( subject != null){
@@ -196,29 +197,25 @@ public class OntologyMapper {
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		return results;
+		
+		List<String> res = new ArrayList<String>(results);
+		return res;
 	}
 	
 	
-	
 	private OWLGraphWrapper readOntology (String ontIri) throws IOException, OWLOntologyCreationException, OBOFormatParserException{
+		
 		ParserWrapper pw = new ParserWrapper();
-//		File temp = File.createTempFile("tempfile", ontIri.substring(ontIri.lastIndexOf(".")));
-//		BufferedWriter bw = new BufferedWriter(new FileWriter(temp));
-//		bw.write(getFTPAsString());
-//		bw.close();
-
-//		OWLGraphWrapper graph = pw.parseToOWLGraph(temp.getAbsolutePath());
-//		temp.delete();
 		OWLGraphWrapper graph = pw.parseToOWLGraph(ontIri);
 		logger.debug("OWL file parsed and graph is created");
 		logger.info("Ontology is initialised completely");
 		return graph;
 	}
 	
+	
 	public String getAnatomyLabel (String id){
 		if (!id.startsWith("http")){ // it's just the id
-			id = maBaseUrl + "/" +  id;
+			id = baseUrl + "/" +  id;
 		}
 		OWLClass x = anatomyGraph.getOWLClassByIdentifier(id);
 

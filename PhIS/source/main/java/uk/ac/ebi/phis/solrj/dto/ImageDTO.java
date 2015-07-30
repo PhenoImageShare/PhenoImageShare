@@ -803,6 +803,16 @@ public class ImageDTO {
 		}
 	}
 
+	public void addAnatomyComputedAncestors(List<String> anatomyComputedAncestorId) {
+
+		if (this.anatomyComputedAncestors == null) {
+			this.anatomyComputedAncestors = new ArrayList<>();
+		}
+		if (!this.anatomyComputedAncestors.containsAll(anatomyComputedAncestorId)) {
+			this.anatomyComputedAncestors.addAll(anatomyComputedAncestorId);
+		}
+	}
+
 
 	/**
 	 * @return the depictedAnatomyAncestorsIdBag
@@ -2214,7 +2224,6 @@ public class ImageDTO {
 		return anatomyComputedIdBag;
 	}
 
-
 	/**
 	 * @param anatomyComputedIdBag
 	 *            the anatomyComputedIdBag to set
@@ -2224,7 +2233,15 @@ public class ImageDTO {
 		this.anatomyComputedIdBag = anatomyComputedIdBag;
 	}
 
+	public void addAnatomyComputedIdBag(String anatomyComputedIdBag) {
 
+		if (this.anatomyComputedIdBag == null){
+			this.anatomyComputedIdBag = new ArrayList<>();
+		}
+		this.anatomyComputedIdBag.add(anatomyComputedIdBag);
+	}
+
+	
 	/**
 	 * @return the anatomyComputedLabelBag
 	 */
@@ -2232,7 +2249,6 @@ public class ImageDTO {
 
 		return anatomyComputedLabelBag;
 	}
-
 
 	/**
 	 * @param anatomyComputedLabelBag
@@ -2242,7 +2258,14 @@ public class ImageDTO {
 
 		this.anatomyComputedLabelBag = anatomyComputedLabelBag;
 	}
+	
+	public void addAnatomyComputedLabelBag(String anatomyComputedLabel) {
 
+		if (this.anatomyComputedLabelBag == null){
+			this.anatomyComputedLabelBag = new ArrayList<>();
+		}
+		this.anatomyComputedLabelBag.add(anatomyComputedLabel);
+	}
 
 	/**
 	 * @return the depictedAnatomyIdBag

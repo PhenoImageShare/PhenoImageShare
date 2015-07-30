@@ -105,7 +105,7 @@ public class SolrWrapperController {
 	@RequestMapping(value="/getImage", method=RequestMethod.GET)	
     public @ResponseBody String getImage(@RequestParam(value = "imageId", required = true) String imageId, Model model) 
     throws SolrServerException, IOException, URISyntaxException {
-				
+		
 		if (imageId != null){
 			return is.getImageAsJsonString(imageId);
 		}
