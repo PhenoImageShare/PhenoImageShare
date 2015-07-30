@@ -71,7 +71,7 @@
 				<td><var> * </var></td>
 				<td><var>MA:0000261, eye</var></td>
 			</tr>
-			<tr style="background-color: olive;">
+			<tr>
 				<td>gene</td>
 				<td><var>String</var></td>
 				<td>false</td>
@@ -175,7 +175,48 @@
 				<td>Label or id of a child of Visualisation Method in FBBI ontology..</td>
 				<td><var> * </var></td>
 				<td><var> fluorescent protein tag </var> </td>
+			</tr>		
+			<tr style="background-color: olive;">
+				<td>position</td>
+				<td><var>Long</var></td>
+				<td>false</td>
+				<td>Position for genomic search. For better results with point mutations use interval search defined by startPosition and endPosition.</td>
+				<td><var>-</var></td>
+				<td><var></var><br></td>
+			</tr>
+			<tr style="background-color: olive;">
+				<td>startPosition</td>
+				<td><var>Long</var></td>
+				<td>false</td>
+				<td>Start position for genomic location interval search.</td>
+				<td><var>-</var></td>
+				<td><var></var><br></td>
+			</tr>
+			<tr style="background-color: olive;">
+				<td>endPosition</td>
+				<td><var>Long</var></td>
+				<td>false</td>
+				<td>End position for genomic location interval search.</td>
+				<td><var>-</var></td>
+				<td><var></var><br></td>
+			</tr>
+			<tr style="background-color: olive;">
+				<td>chromosome</td>
+				<td><var>String</var></td>
+				<td>false</td>
+				<td>Chromosome for genomic location search.</td>
+				<td><var>-</var></td>
+				<td><var>X</var><br></td>
+			</tr>
+			<tr style="background-color: olive;">
+				<td>strand</td>
+				<td><var>String</var></td>
+				<td>false</td>
+				<td>Strand for genomic location search.</td>
+				<td><var></var></td>
+				<td><var>-</var><br></td>
 			</tr>			
+				
 			<tr>
 				<td>resultNo</td>
 				<td><var>Integer</var></td>
