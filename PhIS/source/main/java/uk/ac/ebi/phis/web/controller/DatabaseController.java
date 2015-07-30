@@ -21,9 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.solr.client.solrj.SolrServerException;
-import org.json.JSONException;
 import org.json.JSONObject;
-import org.neo4j.cypher.ParameterNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,6 +35,7 @@ import uk.ac.ebi.phis.exception.BasicPhisException;
 import uk.ac.ebi.phis.service.GenericUpdateService;
 import uk.ac.ebi.phis.service.ImageService;
 import uk.ac.ebi.phis.solrj.dto.RoiDTO;
+import uk.ac.ebi.phis.utils.web.RestStatusMessage;
 
 	@Controller
 	@RequestMapping("/rest/submission")
@@ -100,7 +99,7 @@ import uk.ac.ebi.phis.solrj.dto.RoiDTO;
 	            @RequestParam(value = "observation", required = false) List<String> observations,
 	    		Model model  ) {
 			
-			JSONObject succeded = getSuccessJson();
+			JSONObject succeded = RestStatusMessage.getSuccessJson();
 			
 			try {
 				if (is.imageIdExists(associatedImageId)){
@@ -109,7 +108,7 @@ import uk.ac.ebi.phis.solrj.dto.RoiDTO;
 					depictedAnatomyId, depictedAnatomyFreetext, depictedAnatomyTerm, abnInAnatomyId, abnInAnatomyFreetext, abnInAnatomyTerm,
 					phenotypeId, phenotypeFreetext, phenotypeTerm, observations, expressionInAnatomyId, expressionInAnatomyTerm, expressionInAnatomyFreetext);
 					
-					ArrayList zCoord = (zCoordinates != null ? new ArrayList<Float>(zCoordinates) : null);
+					ArrayList<Float> zCoord = (zCoordinates != null ? new ArrayList<Float>(zCoordinates) : null);
 					RoiDTO roi = new RoiDTO(annotationId, associatedChannelId, associatedImageId, depictedAnatomyId, depictedAnatomyTerm, 
 							depictedAnatomyFreetext, abnInAnatomyId, abnInAnatomyTerm, abnInAnatomyFreetext, 
 							phenotypeId, phenotypeTerm, phenotypeFreetext, observations, new ArrayList<Float>(xCoordinates), 
@@ -118,7 +117,7 @@ import uk.ac.ebi.phis.solrj.dto.RoiDTO;
 				}				
 			} catch (BasicPhisException e) {
 				e.printStackTrace();
-				succeded = getFailJson();
+				succeded = RestStatusMessage.getFailJson();
 				succeded.put("message", e.getMessage());
 			}
 			
@@ -149,7 +148,7 @@ import uk.ac.ebi.phis.solrj.dto.RoiDTO;
 	            @RequestParam(value = "observation", required = false) List<String> observations,
 	    		Model model ) {
 			
-			JSONObject succeded = getSuccessJson();
+			JSONObject succeded = RestStatusMessage.getSuccessJson();
 			
 			try {
 				
@@ -171,7 +170,7 @@ import uk.ac.ebi.phis.solrj.dto.RoiDTO;
 				
 			} catch (BasicPhisException e) {
 				e.printStackTrace();
-				succeded = getFailJson();
+				succeded = RestStatusMessage.getFailJson();
 				succeded.put("message", e.getMessage());
 			}
 			
@@ -186,7 +185,7 @@ import uk.ac.ebi.phis.solrj.dto.RoiDTO;
 	            @RequestParam(value = "annotationId", required = true) String annotationId,
 	    		Model model) {
 			
-			JSONObject obj = getSuccessJson();
+			JSONObject obj = RestStatusMessage.getSuccessJson();
 			
 			try {
 				if (neo.hasSameUser(userId, annotationId)){
@@ -197,34 +196,13 @@ import uk.ac.ebi.phis.solrj.dto.RoiDTO;
 				}
 			} catch (BasicPhisException e){
 				e.printStackTrace();
-				obj = getFailJson();
+				obj = RestStatusMessage.getFailJson();
 				obj.put("message", e.getMessage());				
 			}
 			
 			return obj.toString();
 	    }
 		
-		
-		
-		private JSONObject getSuccessJson(){
-			
-			JSONObject obj = new JSONObject();
-			obj.put("outcome", "SUCCESS");
-			
-			return obj;
-			
-		}
-		
-		
-		
-		private JSONObject getFailJson(){
-			
-			JSONObject obj = new JSONObject();
-			obj.put("outcome", "FAIL");
-			
-			return obj;
-			
-		}
 	}
 
 

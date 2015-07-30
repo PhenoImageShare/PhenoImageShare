@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 import org.apache.solr.client.solrj.SolrServerException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,12 +28,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import uk.ac.ebi.neo4jUtils.Neo4jAccessUtils;
+import uk.ac.ebi.phis.exception.PhisQueryException;
 import uk.ac.ebi.phis.service.AutosuggestService;
 import uk.ac.ebi.phis.service.ChannelService;
 import uk.ac.ebi.phis.service.ImageService;
 import uk.ac.ebi.phis.service.RoiService;
 import uk.ac.ebi.phis.solrj.dto.AutosuggestTypes;
+import uk.ac.ebi.phis.utils.web.RestStatusMessage;
 
 @Controller
 @RequestMapping("/rest")
@@ -80,24 +82,29 @@ public class SolrWrapperController {
             @RequestParam(value = "samplePreparation", required = false) String samplePreparation,
             @RequestParam(value = "imagingMethod", required = false) String imagingMethod,
             @RequestParam(value = "chromosome", required = false) String chromosome,
-            @RequestParam(value = "strand", required = false) String strand,
-            @RequestParam(value = "location", required = false) Long location,
+            @RequestParam(value = "position", required = false) String strand,
+            @RequestParam(value = "location", required = false) Long position,
+            @RequestParam(value = "startPosition", required = false) Long startPosition,
+            @RequestParam(value = "endPosition", required = false) Long endPosition,
             @RequestParam(value = "resultNo", required = false) Integer resultNo,
             @RequestParam(value = "start", required = false) Integer start,
     		Model model
             ) throws SolrServerException, IOException, URISyntaxException {
 				
-		return is.getImages(term, phenotype, mutantGene, anatomy, expressedGene, sex, taxon, image_type, sample_type, stage, visualisationMethod, 
-						samplePreparation, imagingMethod, resultNo, start, gene, chromosome, strand, location);
-		
+		try{
+			return is.getImages(term, phenotype, mutantGene, anatomy, expressedGene, sex, taxon, image_type, sample_type, stage, visualisationMethod, 
+						samplePreparation, imagingMethod, resultNo, start, gene, chromosome, strand, position, startPosition, endPosition);
+		} catch (PhisQueryException e){
+			JSONObject succeded = RestStatusMessage.getFailJson();
+			succeded.put("message", e.getMessage());
+			return succeded.toString();
+		}
     }
 	
 
 	@RequestMapping(value="/getImage", method=RequestMethod.GET)	
-    public @ResponseBody String getImage(
-    		@RequestParam(value = "imageId", required = true) String imageId,
-    		Model model
-            ) throws SolrServerException, IOException, URISyntaxException {
+    public @ResponseBody String getImage(@RequestParam(value = "imageId", required = true) String imageId, Model model) 
+    throws SolrServerException, IOException, URISyntaxException {
 				
 		if (imageId != null){
 			return is.getImageAsJsonString(imageId);

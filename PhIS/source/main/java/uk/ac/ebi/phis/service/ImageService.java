@@ -31,6 +31,7 @@ import org.neo4j.cypher.ParameterNotFoundException;
 import org.springframework.stereotype.Service;
 
 import uk.ac.ebi.phis.exception.BasicPhisException;
+import uk.ac.ebi.phis.exception.PhisQueryException;
 import uk.ac.ebi.phis.solrj.dto.ChannelDTO;
 import uk.ac.ebi.phis.solrj.dto.ImageDTO;
 import uk.ac.ebi.phis.solrj.dto.RoiDTO;
@@ -48,8 +49,9 @@ public class ImageService extends BasicService{
 			
 	public String getImages(String term, String phenotype, String mutantGene, String anatomy, String expressedGene, String sex, 
 							String taxon, String image_type, String sample_type, String stage, String visualisationMethod, String samplePreparation, 
-							String imagingMethod, Integer rows, Integer start, String genericGene, String chromosome, String strand, Long position) 
-	throws SolrServerException{
+							String imagingMethod, Integer rows, Integer start, String genericGene, String chromosome, String strand, Long position,
+							Long startPosition, Long endPosition) 
+	throws SolrServerException, PhisQueryException{
 
 		SolrQuery solrQuery = new SolrQuery();
 		solrQuery.setQuery("*:*");
@@ -143,6 +145,11 @@ public class ImageService extends BasicService{
 		}
 		if (strand != null){
 			solrQuery.addFilterQuery(ImageDTO.STRAND + ":\"" + strand + "\"");
+		}
+		if (startPosition != null && endPosition != null){
+			solrQuery.addFilterQuery(ImageDTO.START_POS + ":[" + startPosition + " TO " + endPosition +"] OR " + ImageDTO.END_POS + ":["+ startPosition + " TO " + endPosition + "]");;
+		} else 	if (startPosition != null && endPosition == null || startPosition == null && endPosition != null){
+			throw new PhisQueryException(PhisQueryException.START_END_POS);
 		}
 		if (rows != null){
 			solrQuery.setRows(rows);

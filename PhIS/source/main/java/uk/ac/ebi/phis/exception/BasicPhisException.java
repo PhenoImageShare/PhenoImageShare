@@ -25,7 +25,7 @@ public class BasicPhisException extends Exception{
 	 public static final String RELATIONSHIP_EXISTS_EXCEPTION = "Relationship exits and was not added again.";	
 	 public static final String NO_ANNOTATION_EXCEPTION = "At least 1 annotation is required to create a ROI. Please provide some observation, phenotype, expression or anatomy information. ";
 	 public static final String NOT_MATCHING_ID_AND_TERM_ARRAYS = "The label and id arrays do not have matching lengths. Ontology terms should be provided with both label and id in parallel arrays.";
-
+	
 	public BasicPhisException(String message){
 		super(message);
 	}
