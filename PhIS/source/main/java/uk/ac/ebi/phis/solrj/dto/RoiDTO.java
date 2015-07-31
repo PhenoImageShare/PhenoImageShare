@@ -296,9 +296,6 @@ public class RoiDTO {
 	
 		return computedDepictedAnatomyId;
 	}
-
-
-	
 	/**
 	 * @param computedDepictedAnatomyId the computedDepictedAnatomyId to set
 	 */
@@ -306,7 +303,13 @@ public class RoiDTO {
 	
 		this.computedDepictedAnatomyId = computedDepictedAnatomyId;
 	}
-
+	public void addComputedDepictedAnatomyId(String computedDepictedAnatomyId) {
+		
+		if (this.computedDepictedAnatomyId == null){
+			this.computedDepictedAnatomyId = new ArrayList<>();
+		}
+		this.computedDepictedAnatomyId.add(computedDepictedAnatomyId);
+	}
 
 	
 	/**
@@ -316,7 +319,6 @@ public class RoiDTO {
 	
 		return computedDepictedAnatomyTerm;
 	}
-	
 	/**
 	 * @param computedDepictedAnatomyTerm the computedDepictedAnatomyTerm to set
 	 */
@@ -339,10 +341,7 @@ public class RoiDTO {
 	public List<String> getComputedAbnormalityAnatomyId() {
 	
 		return computedAbnormalityAnatomyId;
-	}
-
-
-	
+	}	
 	/**
 	 * @param computedAbnormalityAnatomyId the computedAbnormalityAnatomyId to set
 	 */

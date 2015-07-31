@@ -162,6 +162,7 @@ public class BatchXmlUploader {
 		rs.addBeans(roiDocs);
 	}
 
+	
 	private void addChannelDocuments(List<Channel> channels, String datasource)
 	throws IOException, SolrServerException {
 		
@@ -180,7 +181,7 @@ public class BatchXmlUploader {
 		cs.addBeans(chDocs);
 	}
 
-	// fillRoiPojo
+	
 	private RoiDTO fillPojo(Roi roi, String host){
 		
 		RoiDTO bean = new RoiDTO();
@@ -194,12 +195,9 @@ public class BatchXmlUploader {
 		}
 		
 		if (roi.getDepictedAnatomicalStructure() != null){
-			List<String> ids = new ArrayList<>(); // || with labels
-			List<String> labels = new ArrayList<>(); // || with ids
+			List<String> ids = new ArrayList<>(); 
+			List<String> labels = new ArrayList<>(); 
 			List<String> freetext = new ArrayList<>();
-			List<String> computedIds = new ArrayList<>(); // || with computedLabels
-			List<String> computedLabels = new ArrayList<>(); // || with computedId
-			
 			// Depicted anatomy
 			// TODO have to check if it's expression (from channel)
 			for ( Annotation ann: roi.getDepictedAnatomicalStructure().getEl()){
@@ -207,17 +205,17 @@ public class BatchXmlUploader {
 					freetext.add(ann.getAnnotationFreetext());
 				}
 				if (ann.getOntologyTerm() != null){
+					OntologyObject oo = ou.getOntologyTermById(ann.getOntologyTerm().getTermId());
 					if (ann.getAnnotationMode() != null && (ann.getAnnotationMode() == AnnotationMode.AUTOMATED)){
-						computedIds.add(ann.getOntologyTerm().getTermId());
-						computedLabels.add(ann.getOntologyTerm().getTermLabel());
+						bean.addComputedDepictedAnatomyId(oo.getId());
+						bean.addComputedDepictedAnatomyTerm(oo.getLabel());
 					}
 					else {
-						ids.add(ann.getOntologyTerm().getTermId());
-						labels.add(ann.getOntologyTerm().getTermLabel());
+						ids.add(oo.getId());
+						labels.add(oo.getLabel());
 					}
 				}
 			}
-			//TODO add computed MAs from MP as in image docs
 			//	if(roi.getIsExpressionPattern().equals(YesNo.YES)){
 				if (ids.size() > 0){
 					bean.setExpressedAnatomyId(ids);
