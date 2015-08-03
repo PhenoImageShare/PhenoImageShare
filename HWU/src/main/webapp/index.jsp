@@ -28,7 +28,7 @@
             <a href="${pageContext.request.contextPath}/v005.jsp">Click here to use 005</a>.-->
             <p>Versions 003, 004 & 005 have been withdrawn and are no longer available.</p>
             <br />            
-            <a href="${pageContext.request.contextPath}/v007.jsp">Click here to use 007</a>.  
+            <a href="${uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()}/v007.jsp">Click here to use 007</a>.  
         </div>
     </body>
 </html>

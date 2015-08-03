@@ -52,7 +52,7 @@
         <profile>
             <id>hwu</id>
             <properties>
-                <host>http://lxbisel.macs.hw.ac.uk:8080/IQS/</host>
+                <host>http://lxbisel.macs.hw.ac.uk:8080/ja/IQS/</host>
                 <ebi>http://beta.phenoimageshare.org/data/v0.0.7/rest/</ebi>
             </properties>
         </profile>
