@@ -12,7 +12,9 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */package uk.ac.hw.macs.bisel.phis.iqs;
+ */
+
+package uk.ac.hw.macs.bisel.phis.iqs;
 
 import java.io.IOException;
 import java.util.Map;
