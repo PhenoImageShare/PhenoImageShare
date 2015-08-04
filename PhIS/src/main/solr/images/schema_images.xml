@@ -121,6 +121,7 @@
 
 
    <!-- genetic features -->
+   <field name="background_strain" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="genome_assembly" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="gene_id" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="gene_symbol" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true" />
