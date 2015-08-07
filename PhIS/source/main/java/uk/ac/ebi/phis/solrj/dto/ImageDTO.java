@@ -49,6 +49,7 @@ public class ImageDTO {
 	public final static String ANATOMY_TERM = "anatomy_term";
 	public final static String ANATOMY_SYNONYMS = "anatomy_synonyms";
 	public final static String ANATOMY_ANCESTORS = "anatomy_ancestors";
+	public final static String BACKGROUND_STRAIN = "background_strain";
 	public final static String STAGE_ID = "stage_id";
 	public final static String STAGE = "stage";
 	public final static String STAGE_ANCESTORS = "stage_ancestors";
@@ -163,6 +164,9 @@ public class ImageDTO {
 
 	@Field(SAMPLE_TYPE)
 	private String sampleType;
+	
+	@Field(BACKGROUND_STRAIN)
+	private List<String> backgroundStrain;
 
 	@Field(IMAGE_URL)
 	private String imageUrl;
@@ -2167,34 +2171,34 @@ public class ImageDTO {
 	@Override
 	public String toString() {
 
-		return "ImageDTO [id=" + id + ", associatedRoi=" + associatedRoi + ", associatedChannel=" + associatedChannel 
-			+ ", height=" + height + ", hostUrl=" + hostUrl + ", hostName=" + hostName + ", imageGeneratedBy=" + imageGeneratedBy 
-			+ ", imageType=" + imageType + ", sampleType=" + sampleType + ", imageUrl=" + imageUrl + ", imageContextUrl=" + imageContextUrl 
-			+ ", imagingMethodId=" + imagingMethodId + ", imagingMethodLabel=" + imagingMethodLabel + ", imagingMethodSynonyms=" + imagingMethodSynonyms 
-			+ ", samplePreparationId=" + samplePreparationId + ", samplePreparationLabel=" + samplePreparationLabel 
-			+ ", samplePreparationSynonyms=" + samplePreparationSynonyms + ", visualisationMethodId=" + visualisationMethodId 
-			+ ", visualisationMethodLabel=" + visualisationMethodLabel + ", visualisationMethodSynonyms=" + visualisationMethodSynonyms 
-			+ ", machine=" + machine + ", width=" + width + ", genericSearch=" + genericSearch 
-			+ ", ageSinceBirth=" + age + ", sampleGeneratedBy=" + sampleGeneratedBy + ", taxon=" + taxon + ", ncbiTaxonId=" + ncbiTaxonId 
-			+ ", sex=" + sex + ", stage=" + stage + ", stageId=" + stageId + ", anatomyId=" + anatomyId + ", anatomyTerm=" + anatomyTerm 
-			+ ", anatomyFreetext=" + anatomyFreetext + ", anatomySynonyms=" + anatomySynonyms + ", observations=" + observations 
-			+ ", conditions=" + conditions + ", geneIds=" + geneIds + ", geneSymbols=" + geneSymbols + ", geneSynonyms=" + geneSynonyms 
-			+ ", geneticFeatureIds=" + geneticFeatureIds + ", geneticFeatureSymbols=" + geneticFeatureSymbols + ", geneticFeatureSynonyms=" + geneticFeatureSynonyms 
-			+ ", genetifFeatureEnsemlIds=" + genetifFeatureEnsemlIds + ", chromosome=" + chromosome + ", startPosition=" + startPosition 
-			+ ", endPosition=" + endPosition + ", strand=" + strand + ", zygosity=" + zygosity + ", depth=" + depth + ", anatomyComputedIdBag=" + anatomyComputedIdBag 
-			+ ", anatomyComputedLabelBag=" + anatomyComputedLabelBag + ", anatomyComputedSynonymsBag=" + anatomyComputedSynonymsBag 
-			+ ", anatomyComputedAncestorsIdBag=" + anatomyComputedAncestors + ", depictedAnatomyIdBag=" + depictedAnatomyIdBag 
-			+ ", depictedAnatomyTermBag=" + depictedAnatomyTermBag + ", depictedAnatomyFreetextBag=" + depictedAnatomyFreetextBag 
-			+ ", depictedAnatomySynonymsBag=" + depictedAnatomySynonymsBag + ", depictedAnatomyAncestorsIdBag=" + depictedAnatomyAncestors 
-			+ ", abnormalAnatomyIdBag=" + abnormalAnatomyIdBag + ", abnormalAnatomyTermBag=" + abnormalAnatomyTermBag 
-			+ ", abnormalAnatomyFreetextBag=" + abnormalAnatomyFreetextBag + ", abnormalAnatomySynonymsBag=" + abnormalAnatomySynonymsBag 
-			+ ", abnormalAnatomyAncestorsIdBag=" + abnormalAnatomyAncestors + ", expressedGfIdBag=" + expressedGfIdBag + ", expressedGfSymbolBag=" + expressedGfSymbolBag 
-			+ ", expressedGfSynonymsBag=" + expressedGfSynonymsBag + ", expressionInIdBag=" + expressionInIdBag + ", expressionInLabelBag=" + expressionInLabelBag 
-			+ ", expressionInFreetextBag=" + expressionInFreetextBag + ", expressionInSynonymsBag=" + expressionInSynonymsBag 
-			+ ", expressionInAncestorsIdBag=" + expressionInAncestors + ", mutantGeneIdBag=" + mutantGeneIdBag + ", mutantGeneSymbolBag=" + mutantGeneSymbolBag 
-			+ ", mutantGeneSynonymsBag=" + mutantGeneSynonymsBag + ", observationBag=" + observationBag + ", phenotypeIdBag=" + phenotypeIdBag 
-			+ ", phenotypeLabelBag=" + phenotypeLabelBag + ", phenotypeFreetextBag=" + phenotypeFreetextBag + ", phenotypeSynonymsBag=" + phenotypeSynonymsBag 
-			+ ", phenotypeAncestorsIdBag=" + phenotypeAncestors + "]";
+		return "ImageDTO [id=" + id + ", associatedRoi=" + associatedRoi + ", associatedChannel=" + associatedChannel  +
+			 ", height=" + height + ", hostUrl=" + hostUrl + ", hostName=" + hostName + ", imageGeneratedBy=" + imageGeneratedBy + 
+			 ", imageType=" + imageType + ", sampleType=" + sampleType + ", imageUrl=" + imageUrl + ", imageContextUrl=" + imageContextUrl + 
+			 ", imagingMethodId=" + imagingMethodId + ", imagingMethodLabel=" + imagingMethodLabel + ", imagingMethodSynonyms=" + imagingMethodSynonyms + 
+			 ", samplePreparationId=" + samplePreparationId + ", samplePreparationLabel=" + samplePreparationLabel + 
+			 ", samplePreparationSynonyms=" + samplePreparationSynonyms + ", visualisationMethodId=" + visualisationMethodId + 
+			 ", visualisationMethodLabel=" + visualisationMethodLabel + ", visualisationMethodSynonyms=" + visualisationMethodSynonyms +  
+			 ", machine=" + machine + ", width=" + width + ", genericSearch=" + genericSearch  + 
+			 ", ageSinceBirth=" + age + ", sampleGeneratedBy=" + sampleGeneratedBy + ", taxon=" + taxon + ", ncbiTaxonId=" + ncbiTaxonId +  
+			 ", sex=" + sex + ", stage=" + stage + ", stageId=" + stageId + ", anatomyId=" + anatomyId + ", anatomyTerm=" + anatomyTerm  + 
+			 ", anatomyFreetext=" + anatomyFreetext + ", anatomySynonyms=" + anatomySynonyms + ", observations=" + observations  + 
+			 ", conditions=" + conditions + ", geneIds=" + geneIds + ", geneSymbols=" + geneSymbols + ", geneSynonyms=" + geneSynonyms +  
+			 ", geneticFeatureIds=" + geneticFeatureIds + ", geneticFeatureSymbols=" + geneticFeatureSymbols + ", geneticFeatureSynonyms=" + geneticFeatureSynonyms +  
+			 ", genetifFeatureEnsemlIds=" + genetifFeatureEnsemlIds + ", chromosome=" + chromosome + ", startPosition=" + startPosition  + 
+			 ", endPosition=" + endPosition + ", strand=" + strand + ", zygosity=" + zygosity + ", depth=" + depth + ", anatomyComputedIdBag=" + anatomyComputedIdBag +  
+			 ", anatomyComputedLabelBag=" + anatomyComputedLabelBag + ", anatomyComputedSynonymsBag=" + anatomyComputedSynonymsBag  + 
+			 ", anatomyComputedAncestorsIdBag=" + anatomyComputedAncestors + ", depictedAnatomyIdBag=" + depictedAnatomyIdBag  + 
+			 ", depictedAnatomyTermBag=" + depictedAnatomyTermBag + ", depictedAnatomyFreetextBag=" + depictedAnatomyFreetextBag  + 
+			 ", depictedAnatomySynonymsBag=" + depictedAnatomySynonymsBag + ", depictedAnatomyAncestorsIdBag=" + depictedAnatomyAncestors +  
+			 ", abnormalAnatomyIdBag=" + abnormalAnatomyIdBag + ", abnormalAnatomyTermBag=" + abnormalAnatomyTermBag  + 
+			 ", abnormalAnatomyFreetextBag=" + abnormalAnatomyFreetextBag + ", abnormalAnatomySynonymsBag=" + abnormalAnatomySynonymsBag +  
+			 ", abnormalAnatomyAncestorsIdBag=" + abnormalAnatomyAncestors + ", expressedGfIdBag=" + expressedGfIdBag + ", expressedGfSymbolBag=" + expressedGfSymbolBag +  
+			 ", expressedGfSynonymsBag=" + expressedGfSynonymsBag + ", expressionInIdBag=" + expressionInIdBag + ", expressionInLabelBag=" + expressionInLabelBag  + 
+			 ", expressionInFreetextBag=" + expressionInFreetextBag + ", expressionInSynonymsBag=" + expressionInSynonymsBag  + 
+			 ", expressionInAncestorsIdBag=" + expressionInAncestors + ", mutantGeneIdBag=" + mutantGeneIdBag + ", mutantGeneSymbolBag=" + mutantGeneSymbolBag +  
+			 ", mutantGeneSynonymsBag=" + mutantGeneSynonymsBag + ", observationBag=" + observationBag + ", phenotypeIdBag=" + phenotypeIdBag  + 
+			 ", phenotypeLabelBag=" + phenotypeLabelBag + ", phenotypeFreetextBag=" + phenotypeFreetextBag + ", phenotypeSynonymsBag=" + phenotypeSynonymsBag +  
+			 ", phenotypeAncestorsIdBag=" + phenotypeAncestors + "]";
 	}
 
 	/**
@@ -2776,6 +2780,24 @@ public class ImageDTO {
 		this.genomeAssembly = genomeAssembly;
 	}
 
+	public List<String> getBackgroundStrain() {
+			
+		return backgroundStrain;
+	}
+		
+			
+	public void setBackgroundStrain(List<String> backgroundStrain) {
 	
+		this.backgroundStrain = backgroundStrain;
+	}
+		
+			
+	public void addBackgroundStrain(String backgroundStrain) {
+				
+		if (this.backgroundStrain == null){
+			this.backgroundStrain = new ArrayList<>();
+		}
+		this.backgroundStrain.add(backgroundStrain);
+	}
 	
 }
