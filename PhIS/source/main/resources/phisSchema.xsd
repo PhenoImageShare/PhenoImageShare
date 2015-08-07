@@ -169,7 +169,6 @@
 			<element name="ncbi_taxon_id" type="string" minOccurs="0" maxOccurs="1" />	<!-- example: NCBITaxon_862507 -->
 			<element name="stage" type="x:OntologyTerm" minOccurs="0" maxOccurs="1" /> <!--  from a public developmental stage ontology i.e. from https://code.google.com/p/developmental-stage-ontologies/ -->
 			<element name="organism_id" type="string" minOccurs="0" maxOccurs="1"/>
-			<element name="backgroundStrain" type="x:StringArray" />			
 		</all>
 	</complexType>
 

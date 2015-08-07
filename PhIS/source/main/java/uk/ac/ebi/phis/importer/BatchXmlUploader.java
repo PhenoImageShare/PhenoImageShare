@@ -333,7 +333,6 @@ public class BatchXmlUploader {
 
 		ImageDTO bean = new ImageDTO();
 		bean.setTaxon(img.getOrganism().getTaxon());
-		bean.setBackgroundStrain(img.getOrganism().getBackgroundStrain().getEl());
 		bean.setId(getImageId(img.getId(), datasource));
 
 		ImageDescription desc = img.getImageDescription();

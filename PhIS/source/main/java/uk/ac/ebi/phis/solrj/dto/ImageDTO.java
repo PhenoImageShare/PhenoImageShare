@@ -28,7 +28,6 @@ public class ImageDTO {
 
 	public final static String ANATOMY_ID = "anatomy_id";
 	public final static String GENE_ID = "gene_id";
-	public final static String BACKGROUND_STRAIN = "background_strain";
 	public final static String CHROMOSOME = "chromosome";
 	public final static String ZYGOSITY = "zygosity";
 	public final static String DEPTH = "depth";
@@ -143,9 +142,6 @@ public class ImageDTO {
 
 	@Field(ASSOCIATED_ROI)
 	private List<String> associatedRoi;
-
-	@Field(BACKGROUND_STRAIN)
-	private List<String> backgroundStrain;
 
 	@Field(ASSOCIATED_CHANNEL)
 	private List<String> associatedChannel;
@@ -2781,24 +2777,5 @@ public class ImageDTO {
 	}
 
 	
-	public List<String> getBackgroundStrain() {
-	
-		return backgroundStrain;
-	}
-
-	
-	public void setBackgroundStrain(List<String> backgroundStrain) {
-	
-		this.backgroundStrain = backgroundStrain;
-	}
-
-	
-	public void addBackgroundStrain(String backgroundStrain) {
-		
-		if (this.backgroundStrain == null){
-			this.backgroundStrain = new ArrayList<>();
-		}
-		this.backgroundStrain.add(backgroundStrain);
-	}
 	
 }
