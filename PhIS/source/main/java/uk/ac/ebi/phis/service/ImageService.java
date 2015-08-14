@@ -21,10 +21,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.digester.SetRootRule;
 import org.apache.log4j.Logger;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.HttpSolrServer;
+import org.apache.solr.client.solrj.response.FacetField.Count;
+import org.apache.solr.client.solrj.response.QueryResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.neo4j.cypher.ParameterNotFoundException;
@@ -32,6 +35,9 @@ import org.springframework.stereotype.Service;
 
 import uk.ac.ebi.phis.exception.PhisSubmissionException;
 import uk.ac.ebi.phis.exception.PhisQueryException;
+import uk.ac.ebi.phis.release.DatasourceInstance;
+import uk.ac.ebi.phis.release.ReleaseDocument;
+import uk.ac.ebi.phis.release.SpeciesData;
 import uk.ac.ebi.phis.solrj.dto.ChannelDTO;
 import uk.ac.ebi.phis.solrj.dto.ImageDTO;
 import uk.ac.ebi.phis.solrj.dto.RoiDTO;
@@ -442,4 +448,85 @@ public class ImageService extends BasicService{
 	public String getQueryUrl(SolrQuery q){
 		return solr.getBaseURL() + "/select?" + q.toString();
 	}
+	
+	
+	/**
+	 * @since 2015/08/11
+	 * @return ReleaseDocument with #images and #rois filled
+	 * @throws SolrServerException 
+	 */
+	public int getNumberOfDocuments() 
+	throws SolrServerException{
+		
+		SolrQuery q = new SolrQuery()
+		.setQuery("*:*")
+		.setRows(0);
+		
+		QueryResponse res = solr.query(q);
+		JSONObject obj = new JSONObject(res.getResponse().get("response"));
+		
+		return obj.getInt("numFound");
+		
+	}
+	
+	
+	/**
+	 * @since 2015/08/13
+	 * @return List of species and number of images for each of them
+	 * @throws SolrServerException
+	 */
+	public List<SpeciesData> getSpecies() 
+	throws SolrServerException{
+		
+		List<SpeciesData> result = new ArrayList<>();
+		
+		SolrQuery q = new SolrQuery()
+		.setQuery("*:*")
+		.setRows(0)
+		.setFacet(true)
+		.addFacetField(ImageDTO.TAXON)
+		.setFacetMinCount(1)
+		.setFacetLimit(-1);		
+		
+		QueryResponse res = solr.query(q);
+		for (Count count : res.getFacetField(ImageDTO.TAXON).getValues()){
+			SpeciesData species = new SpeciesData();
+			species.setName(count.getName());
+			species.setNumberOfImages(count.getCount());
+			result.add(species);
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * 
+	 * @since 2015/08/13
+	 * @return List of data sources and number of images for each of them
+	 * @throws SolrServerException
+	 */
+	public List<DatasourceInstance> getDatasources() 
+	throws SolrServerException{
+		
+		List<DatasourceInstance> result = new ArrayList<>();
+		
+		SolrQuery q = new SolrQuery()
+		.setQuery("*:*")
+		.setRows(0)
+		.setFacet(true)
+		.addFacetField(ImageDTO.HOST_NAME)
+		.setFacetMinCount(1)
+		.setFacetLimit(-1);		
+		
+		QueryResponse res = solr.query(q);
+		for (Count count : res.getFacetField(ImageDTO.HOST_NAME).getValues()){
+			DatasourceInstance source = new DatasourceInstance();
+			source.setName(count.getName());
+			source.setNumberOfImages(count.getCount());
+			result.add(source);
+		}
+		
+		return result;
+	}
+	
 }

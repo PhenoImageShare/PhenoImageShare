@@ -23,6 +23,8 @@ import java.util.List;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.HttpSolrServer;
+import org.apache.solr.client.solrj.response.QueryResponse;
+import org.json.JSONObject;
 
 import uk.ac.ebi.phis.solrj.dto.ChannelDTO;
 import uk.ac.ebi.phis.solrj.dto.RoiDTO;
@@ -142,7 +144,8 @@ public class RoiService extends BasicService{
 	 * @throws IOException 
 	 * @throws SolrServerException 
 	 */
-	public void clear() throws SolrServerException, IOException{
+	public void clear() 
+	throws SolrServerException, IOException{
 		solr.deleteByQuery("*:*");
 		solr.commit();
 	}
@@ -150,6 +153,25 @@ public class RoiService extends BasicService{
 
 	public String getQueryUrl(SolrQuery q){
 		return solr.getBaseURL() + "/select?" + q.toString();
+	}
+	
+	/**
+	 * @since 2015/08/11
+	 * @return ReleaseDocument with #images and #rois filled
+	 * @throws SolrServerException 
+	 */
+	public int getNumberOfDocuments() 
+	throws SolrServerException{
+		
+		SolrQuery q = new SolrQuery()
+		.setQuery("*:*")
+		.setRows(0);
+		
+		QueryResponse res = solr.query(q);
+		JSONObject obj = new JSONObject(res.getResponse().get("response"));
+		
+		return obj.getInt("numFound");
+		
 	}
 	
 }

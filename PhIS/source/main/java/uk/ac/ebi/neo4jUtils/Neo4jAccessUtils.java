@@ -33,6 +33,9 @@ import org.neo4j.rest.graphdb.util.QueryResult;
 import org.springframework.stereotype.Service;
 
 import uk.ac.ebi.phis.exception.PhisSubmissionException;
+import uk.ac.ebi.phis.release.DatasourceInstance;
+import uk.ac.ebi.phis.release.ReleaseDocument;
+import uk.ac.ebi.phis.release.SpeciesData;
 
 
 @Service 
@@ -46,7 +49,10 @@ public class Neo4jAccessUtils {
 	 public static Label channelLabel;
 	 public static Label imageLabel;
 	 public static Label userLabel;
-		 
+	 public static Label releaseLabel;
+	 public static Label datasourceLabel;
+	 public static Label speciesLabel;
+	 
 	public Neo4jAccessUtils (String dbURI) {
 		
 		db = new RestGraphDatabase(dbURI); 
@@ -55,8 +61,43 @@ public class Neo4jAccessUtils {
         ontologyTermLabel = createLabel("OntologyTerm");
         channelLabel = createLabel("Channel");
         imageLabel = createLabel("Image");
-        userLabel = createLabel("User");        
+        userLabel = createLabel("User");   
+        releaseLabel = createLabel("Release");
+        datasourceLabel = createLabel("DataSource");
+        speciesLabel = createLabel("Species");
 	}
+	
+	public void writeRelease(ReleaseDocument releaseDoc) 
+	throws PhisSubmissionException{
+
+		Node release = getOrCreateNode(releaseDoc.getReleaseVersion(), releaseDoc.getReleaseVersion(), releaseLabel);
+
+		release.setProperty(ReleaseProperties.VERSION.toString(), releaseDoc.getReleaseVersion().toString());
+		release.setProperty(ReleaseProperties.IMAGES_NUMBER.toString(), releaseDoc.getNumberOfImages());
+		release.setProperty(ReleaseProperties.GENES_NUMBER.toString(), releaseDoc.getNumberOfGenes());
+		release.setProperty(ReleaseProperties.ROIS_NUMBER.toString(), releaseDoc.getNumberOfRois());
+		
+		for (DatasourceInstance datasource : releaseDoc.getDatasourcesUsed()){
+			
+			String id = releaseDoc.getReleaseVersion() + "_" + datasource.getName();
+			Node node = getOrCreateNode(id, datasource.getName(), datasourceLabel);
+			node.setProperty(ReleaseProperties.IMAGES_NUMBER.toString(), datasource.getNumberOfImages());
+			node.setProperty(ReleaseProperties.EXPORT_DATE.toString(), datasource.getExportDate());
+			
+			addUnidirectionalRelation(release, Neo4jRelationship.CONTAINS, node);
+		}
+		
+		for (SpeciesData species : releaseDoc.getSpeciesWithData()){
+			
+			String id = releaseDoc.getReleaseVersion() + "_" + species.getName();
+			Node node = getOrCreateNode(id, species.getName(), speciesLabel);
+			node.setProperty(ReleaseProperties.IMAGES_NUMBER.toString(), species.getNumberOfImages());
+
+			addUnidirectionalRelation(release, Neo4jRelationship.CONTAINS, node);
+		}
+		
+	}
+	
 	
 	
 	public void createAnnotation( String userId, String annotationId, String associatedImageId, List<Float> xCoordinates,
@@ -74,6 +115,7 @@ public class Neo4jAccessUtils {
 			phenotypeFreetext, phenotypeTerm, observation, expressedInAnatomyId, expressedInAnatomyTerm, expressedInAnatomyFreetext, 
 			today, today);
 	}
+	
 	
 	public void createAnnotationWithDates( String userId, String annotationId, String associatedImageId, List<Float> xCoordinates,
 	List<Float> yCoordinates, List<Float> zCoordinates, List<String> associatedChannelId, 
@@ -173,6 +215,7 @@ public class Neo4jAccessUtils {
 		
 	}
 	
+	
 	private boolean ontologyTermsValid(List<String> ids, List<String> labels){
 		return ((ids != null && labels != null && ids.size() == labels.size()) || (ids == null && labels == null)); 
 	}
@@ -202,7 +245,9 @@ public class Neo4jAccessUtils {
         }   
 	}
 	
-	public void addUnidirectionalRelation(Node fromNode, Neo4jRelationship relation, Node toNode) throws PhisSubmissionException{
+	
+	public void addUnidirectionalRelation(Node fromNode, Neo4jRelationship relation, Node toNode) 
+	throws PhisSubmissionException{
 		
 		if (existsUnidirectionalRelationship(fromNode, relation, toNode)){
 			throw new PhisSubmissionException(PhisSubmissionException.RELATIONSHIP_EXISTS_EXCEPTION);
@@ -218,8 +263,10 @@ public class Neo4jAccessUtils {
         }   
 	}
 	
+	
 	public Node addAnnotationNode(String id, List<String> observation, Date creationDate, Date lastModifiedDate, List<Float> xCoordinates, 
-	List<Float> yCoordinates, List<Float> zCoordinates) throws PhisSubmissionException{
+	List<Float> yCoordinates, List<Float> zCoordinates) 
+	throws PhisSubmissionException{
 		
 		Node myNode = null;
 		if (id == null || id.equals("")){
@@ -254,6 +301,7 @@ public class Neo4jAccessUtils {
 		return myNode;
 	}
 	
+	
 	private Node setAnnotationProperty(Node node, AnnotationProperties property, String value){
 		try ( Transaction tx = db.beginTx() )  {
 			node.setProperty(property.name(), value);
@@ -264,11 +312,15 @@ public class Neo4jAccessUtils {
 		return node;
 	}
 	
-	public Node addUser(String id) throws PhisSubmissionException{
+	
+	public Node addUser(String id) 
+	throws PhisSubmissionException{
 		return createNode(id, userLabel);	
 	}
 	
-	public Node addOntologyTerm(String id, String termLabel) throws PhisSubmissionException{
+	
+	public Node addOntologyTerm(String id, String termLabel) 
+	throws PhisSubmissionException{
 		Node ot = createNode(id, ontologyTermLabel);
 		if (termLabel != null){
 			try ( Transaction tx = db.beginTx() )
@@ -281,15 +333,21 @@ public class Neo4jAccessUtils {
         return ot;
 	}
 	
-	public Node addImage(String id) throws PhisSubmissionException{
+	
+	public Node addImage(String id) 
+	throws PhisSubmissionException{
 		return createNode(id, imageLabel);
 	}
 	
-	public Node addChannel(String id) throws PhisSubmissionException{
+	
+	public Node addChannel(String id) 
+	throws PhisSubmissionException{
 		return createNode(id, channelLabel);
 	}
 	
-	private Node createNode(String id, Label label) throws PhisSubmissionException{
+	
+	private Node createNode(String id, Label label) 
+	throws PhisSubmissionException{
 		Node myNode;
 		System.out.println("Label + " + label);
 		if (id == null || id.equals("")){
@@ -313,17 +371,21 @@ public class Neo4jAccessUtils {
 		return new PhisSubmissionException(PhisSubmissionException.ID_NOT_FOUND_EXCEPTION_MESSAGE);
 	}
 	
+	
 	private PhisSubmissionException getIdAlreadyExists(String id){
 		return new PhisSubmissionException(PhisSubmissionException.EXISTING_ID_EXCEPTION_MESSAGE + id);
 	}
+	
 	
 	private PhisSubmissionException getNotMatchingIdAndTerm(){
 		return new PhisSubmissionException(PhisSubmissionException.NOT_MATCHING_ID_AND_TERM_ARRAYS);
 	}
 	
+	
 	private  PhisSubmissionException getNoAnnotationException(){
 		return new PhisSubmissionException(PhisSubmissionException.NO_ANNOTATION_EXCEPTION);
 	}
+	
 	
 	public void addSomething(){
 	
@@ -337,13 +399,16 @@ public class Neo4jAccessUtils {
         
 	}
 	
+	
 	public String readAnnotations (){
 		return readThisQuery("match (n:Annotation) return n");
 	}
+	
 
 	public String readAllNodes(){
 		return readThisQuery("match (n) return n."+AnnotationProperties.ID.name());
 	}
+	
 	
 	public String readSomething(){
 
@@ -366,7 +431,6 @@ public class Neo4jAccessUtils {
             resultString = engine.query( "match (n {name: 'my node'}) return n, n.name", null ).toString();
             System.out.println("resultString: " +  resultString);
         }
-
         
         return resultString;
 	}
@@ -388,8 +452,7 @@ public class Neo4jAccessUtils {
 		
 	}
 	
-	
-	
+		
 	public Node getNodeById(String id){
 		
 		QueryResult<Map<String, Object>> result = engine.query( "match (obj) WHERE obj."+AnnotationProperties.ID.name()+"=\"" + id + "\" return id(obj)" , null);
@@ -403,8 +466,7 @@ public class Neo4jAccessUtils {
         return null;
         
 	}
-	
-	
+		
 	
 	public Label createLabel(String label){
 		Label l = null;
@@ -417,8 +479,7 @@ public class Neo4jAccessUtils {
 		
 	}
 	
-	
-	
+		
 	public void addUniqueIdConstraint(Label l){
 		
 		try ( Transaction tx = db.beginTx(); ){
@@ -426,8 +487,7 @@ public class Neo4jAccessUtils {
 			tx.close();
 		}
 	}
-	
-	
+		
 	
 	public boolean existsId(String id, Label label){
 		
@@ -436,8 +496,7 @@ public class Neo4jAccessUtils {
 		
 		return (engine.query( "MATCH (obj:" + label + ") WHERE obj."+AnnotationProperties.ID.name()+"=\"" + id + "\" RETURN obj" , null).iterator().hasNext());
 		
-	}
-	
+	}	
 	
 	
 	public String readThisQuery(String query){
@@ -456,8 +515,7 @@ public class Neo4jAccessUtils {
             return resultString;
             
         }
-	}	
-	
+	}		
 	
 	
 	public String getDirectRelationsTo(String nodeId){
@@ -470,6 +528,7 @@ public class Neo4jAccessUtils {
 	
 	
 	public boolean existsUnidirectionalRelationship(Node fromNode, Neo4jRelationship relation, Node toNode){
+		
 		String rel;
 		String from; 
 		String to;

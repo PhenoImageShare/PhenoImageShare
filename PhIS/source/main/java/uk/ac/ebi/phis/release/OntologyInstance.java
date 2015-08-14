@@ -13,14 +13,39 @@
  * language governing permissions and limitations under the
  * License.
  *******************************************************************************/
-package uk.ac.ebi.neo4jUtils;
+/**
+ * @author tudose
+ */
+package uk.ac.ebi.phis.release;
 
-import org.neo4j.graphdb.RelationshipType;
 
+/**
+ * @author tudose
+ *
+ */
+public class OntologyInstance {
 
-public enum Neo4jRelationship implements RelationshipType{ 
-	CREATED_BY, DEPICTS_PHENOTYPE, HAS_ASSOCIATED_IMAGE, DEPICTS_ABNORMALITY_IN, DEPICTS, HAS_ASSOCIATED_CHANNEL, EXPRESSED_IN,
-	// data release relations :
-	USES, CONTAINS
-	};	
+	String name;
+	String version;
 	
+	public String getName() {
+	
+		return name;
+	}
+	
+	public void setName(String name) {
+	
+		this.name = name;
+	}
+	
+	public String getVersion() {
+	
+		return version;
+	}
+	
+	public void setVersion(String version) {
+	
+		this.version = version;
+	}
+	
+}
