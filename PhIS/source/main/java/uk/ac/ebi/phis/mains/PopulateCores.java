@@ -16,10 +16,12 @@
 package uk.ac.ebi.phis.mains;
 
 import java.io.File;
+import java.io.IOException;
 
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 
+import org.apache.solr.client.solrj.SolrServerException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
@@ -48,7 +50,6 @@ public class PopulateCores {
 		if (!options.has("dataDir")) {
 			help();
 		}
-    	// pass the context file
 
 		// Check context file exists
 		String contextFile = (String) options.valueOf("context");
@@ -69,11 +70,12 @@ public class PopulateCores {
 		try {
 
 			applicationContext = new  FileSystemXmlApplicationContext("file:" + contextFile);
+			
 			ImageService is = (ImageService) applicationContext.getBean("imageService");
 			RoiService rs = (RoiService) applicationContext.getBean("roiService");
 			ChannelService cs = (ChannelService) applicationContext.getBean("channelService"); 
-			boolean itWorked;
-			long time;
+			String xmlToLoad;
+			
 			// delete everything in the cores. This will likely change as we might want to do updates only.
 			is.clear();
 			rs.clear();
@@ -81,52 +83,34 @@ public class PopulateCores {
 			
 			BatchXmlUploader reader = new BatchXmlUploader(is, rs, cs);
 
-			itWorked = false;
-			time = System.currentTimeMillis();
-			itWorked = reader.validateAndUpload(dataDir + "/tracerExport.xml", "tracer");
-			System.out.println(itWorked);
-			System.out.println("Importing Tracer XML took " + (System.currentTimeMillis() - time));
+			xmlToLoad = dataDir + "/tracerExport.xml";
+			processXml(xmlToLoad, "tracer", reader);
 			
-			itWorked = false;
-			time = System.currentTimeMillis();	
-			itWorked = reader.validateAndUpload(dataDir + "/VFB_Cachero2010.xml", "vfb");
-			System.out.println(itWorked);
-			System.out.println("Importing VFB_Cachero2010 XML took " + (System.currentTimeMillis() - time));
+			xmlToLoad = dataDir + "/VFB_Cachero2010.xml";
+			processXml(xmlToLoad, "vfb", reader);
+
+			xmlToLoad = dataDir + "/VFB_Ito2013.xml";
+			processXml(xmlToLoad, "vfb", reader);
+
+			xmlToLoad = dataDir + "/VFB_Jenett2012_full.xml";
+			processXml(xmlToLoad, "vfb", reader);
+
+			xmlToLoad = dataDir + "/VFB_Yu2013.xml";
+			processXml(xmlToLoad, "vfb", reader);
+
+			xmlToLoad = dataDir + "/VFB_flycircuit_plus.xml";
+			processXml(xmlToLoad, "vfb", reader);
+
+			xmlToLoad = dataDir + "/emageExport.xml";
+			processXml(xmlToLoad, "emage", reader);
 			
-			itWorked = false;
-			time = System.currentTimeMillis();	
-			itWorked = reader.validateAndUpload(dataDir + "/VFB_Ito2013.xml", "vfb");
-			System.out.println(itWorked);
-			System.out.println("Importing VFB_Ito2013 XML took " + (System.currentTimeMillis() - time));
+
+			xmlToLoad = dataDir + "/sangerExport.xml";
+			processXml(xmlToLoad, "wtsi", reader);
 			
-			itWorked = false;
-			time = System.currentTimeMillis();	
-			itWorked = reader.validateAndUpload(dataDir + "/VFB_Jenett2012_full.xml", "vfb");
-			System.out.println(itWorked);
-			System.out.println("Importing VFB_Jenett2012_full XML took " + (System.currentTimeMillis() - time));
-			
-			itWorked = false;
-			time = System.currentTimeMillis();	
-			itWorked = reader.validateAndUpload(dataDir + "/VFB_Yu2013.xml", "vfb");
-			System.out.println(itWorked);
-			System.out.println("Importing VFB_Yu2013 XML took " + (System.currentTimeMillis() - time));
-			
-			itWorked = false;
-			time = System.currentTimeMillis();	
-			itWorked = reader.validateAndUpload(dataDir + "/VFB_flycircuit_plus.xml", "vfb");
-			System.out.println(itWorked);
-			System.out.println("Importing VFB_flycircuit_plus XML took " + (System.currentTimeMillis() - time));
-			
-			itWorked = false;
-			time = System.currentTimeMillis();	
-			itWorked = reader.validateAndUpload(dataDir + "/emageExport.xml", "emage");
-			System.out.println(itWorked);
-			System.out.println("Importing EMAGE XML took " + (System.currentTimeMillis() - time));
-			
-			time = System.currentTimeMillis();
-			itWorked = reader.validateAndUpload(dataDir + "/sangerExport.xml", "wtsi");
-			System.out.println("Is valid? " + itWorked);
-			System.out.println("Importing Sanger XML took " + (System.currentTimeMillis() - time));
+
+			xmlToLoad = dataDir + "/VFB_flycircuit_plus.xml";
+			processXml(xmlToLoad, "vfb", reader);
 			
 			System.out.println("Solr url is : " + is.getSolrUrl());			
 			
@@ -136,7 +120,29 @@ public class PopulateCores {
 		
 	}
 	
+	/**
+	 * @author tudose
+	 * @since 2015/08/17
+	 * @param xmlToLoad
+	 * @param resourceName
+	 * @param reader
+	 * @throws SolrServerException 
+	 * @throws IOException 
+	 */
+	private static void processXml (String xmlToLoad, String resourceName, BatchXmlUploader reader) 
+	throws IOException, SolrServerException{
 
+		Long time = System.currentTimeMillis();
+		if (reader.validate(xmlToLoad)){
+			System.out.println(xmlToLoad + " is valid.");
+			reader.index(xmlToLoad, resourceName);
+			System.out.println("Importing " + xmlToLoad + " XML took " + (System.currentTimeMillis() - time));
+		} else {
+			System.out.println(xmlToLoad + " is NOT valid.");
+		}
+	}
+	
+	
 	public static void help() {
 		StringBuffer buffer = new StringBuffer();
 		buffer.append("PopulateCores usage:\n\n");

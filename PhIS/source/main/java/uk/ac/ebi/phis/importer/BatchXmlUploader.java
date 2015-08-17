@@ -79,28 +79,14 @@ public class BatchXmlUploader {
 	}
 
 
-	public boolean validateAndUpload(String xmlLocationFullPath, String datasource) {
-
-		Doc doc;
-		// Unmarshal XML
-		doc = convertXmlToObjects(xmlLocationFullPath);
-		boolean isValid = validate(xmlLocationFullPath, doc);
-		try {
-			if (isValid){
-				doBatchSubmission(doc, datasource);
-			}
-		} catch (IOException | SolrServerException e) {
-			e.printStackTrace();
-		}
-		return isValid;
-	}
-
-
-	private boolean validate(String xmlLocation, Doc doc) {
+	public boolean validate(String xmlLocation) {
 
 		InputStream xsd;
 		InputStream xml;
 		boolean isValid = false;
+		// Unmarshal XML
+		Doc doc = convertXmlToObjects(xmlLocation);
+		
 		try {
 			xsd = classloader.getResourceAsStream("phisSchema.xsd");
 			xml = new FileInputStream(xmlLocation);
@@ -114,16 +100,19 @@ public class BatchXmlUploader {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
 		return isValid;
 	}
 
 
-	private void doBatchSubmission(Doc doc, String datasource)
+	public void index(String xmlLocation, String datasource)
 	throws IOException, SolrServerException {
-
+		
+		Doc doc = convertXmlToObjects(xmlLocation);
 		addImageDocuments(doc.getImage(), datasource);
 		addRoiDocuments(doc.getRoi(), datasource);
 		addChannelDocuments(doc.getChannel(), datasource);
+		
 	}
 
 
@@ -910,13 +899,16 @@ public class BatchXmlUploader {
 		return null;
 	}
 	
+	
 	private String getImageId(String id, String datasource){
 		return datasource.replaceAll(" ", "_") + "_" + id.replaceAll(":", "_");
 	}
 	
+	
 	private String getChannelId(String id, String datasource){
 		return datasource.replaceAll(" ", "_") + "_channel_" + id.replaceAll(":", "_");
 	}
+	
 	
 	private List<String> getChannelId(List<String> ids, String datasource){
 		
@@ -924,18 +916,26 @@ public class BatchXmlUploader {
 		for (String id: ids){
 			newIds.add(getChannelId(id, datasource));
 		}
+		
 		return newIds;
 	}
 	
+	
 	private String getRoiId(String id, String datasource){
+		
 		return datasource.replaceAll(" ", "_") + "_roi_" + id.replaceAll(":", "_");
+		
 	}
 	
+	
 	private List<String> getRoiId(List<String> ids, String datasource){
+		
 		List<String> newIds = new ArrayList<>();
 		for (String id: ids){
 			newIds.add(getRoiId(id, datasource));
 		}
+		
 		return newIds;
+		
 	}
 }
