@@ -32,6 +32,7 @@ import uk.ac.ebi.phis.exception.PhisQueryException;
 import uk.ac.ebi.phis.service.AutosuggestService;
 import uk.ac.ebi.phis.service.ChannelService;
 import uk.ac.ebi.phis.service.ImageService;
+import uk.ac.ebi.phis.service.Neo4jService;
 import uk.ac.ebi.phis.service.RoiService;
 import uk.ac.ebi.phis.solrj.dto.AutosuggestTypes;
 import uk.ac.ebi.phis.utils.web.RestStatusMessage;
@@ -52,6 +53,9 @@ public class SolrWrapperController {
 
 	@Autowired
 	AutosuggestService as;
+
+	@Autowired
+	Neo4jService ns;
 		
 	/**
 	 * 
@@ -220,6 +224,18 @@ public class SolrWrapperController {
 		return "rest_home";
     }
 		
+	
+	/**
+	 * @since 2015/08/18
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="/getDataReleases", method=RequestMethod.GET)	
+    public @ResponseBody String getDataRelease(Model model){
+		return ns.getAllReleases().toString();
+	}
+	
+	
 }
 
 

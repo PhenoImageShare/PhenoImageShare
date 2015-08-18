@@ -328,8 +328,8 @@ public class RoiDTO {
 	}
 	public void addComputedDepictedAnatomyTerm(String computedDepictedAnatomyTerm) {
 		
-		if (this.computedAbnormalityAnatomyTerm == null){
-			this.computedAbnormalityAnatomyTerm = new ArrayList<>();
+		if (this.computedDepictedAnatomyTerm == null){
+			this.computedDepictedAnatomyTerm = new ArrayList<>();
 		}
 		this.computedDepictedAnatomyTerm.add(computedDepictedAnatomyTerm);
 	}

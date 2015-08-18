@@ -25,7 +25,10 @@ import org.apache.solr.client.solrj.SolrServerException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
+import uk.ac.ebi.neo4jUtils.Neo4jAccessUtils;
 import uk.ac.ebi.phis.importer.BatchXmlUploader;
+import uk.ac.ebi.phis.release.ReleaseDocument;
+import uk.ac.ebi.phis.release.ReleaseEnvironment;
 import uk.ac.ebi.phis.service.ChannelService;
 import uk.ac.ebi.phis.service.ImageService;
 import uk.ac.ebi.phis.service.RoiService;
@@ -41,6 +44,7 @@ public class PopulateCores {
 		OptionParser parser = new OptionParser();
 		parser.accepts( "context" ).withRequiredArg();
 		parser.accepts( "dataDir" ).withRequiredArg();
+		parser.accepts( "releaseVersion" ).withRequiredArg();
 
 		OptionSet options = parser.parse( args );
 
@@ -50,7 +54,10 @@ public class PopulateCores {
 		if (!options.has("dataDir")) {
 			help();
 		}
-
+		if (!options.has("releaseVersion")) {
+			help();
+		}
+		
 		// Check context file exists
 		String contextFile = (String) options.valueOf("context");
 		File f = new File(contextFile);
@@ -58,6 +65,7 @@ public class PopulateCores {
 			System.err.println("Context file " + contextFile + " not readable.");
 			help();
 		}
+		
 		// Check data dir exists
 		String dataDir = (String) options.valueOf("dataDir");
 		File d = new File(dataDir);
@@ -65,8 +73,14 @@ public class PopulateCores {
 			System.err.println("dataDir file " + dataDir + " not readable.");
 			help();
 		}
-
-			
+		
+		String releaseVersion = (String) options.valueOf("releaseVersion");
+		ReleaseDocument release = new ReleaseDocument();
+		
+		release.setReleaseEnvironment(ReleaseEnvironment.BETA);
+		release.setReleaseVersion(releaseVersion);
+		
+				
 		try {
 
 			applicationContext = new  FileSystemXmlApplicationContext("file:" + contextFile);
@@ -82,6 +96,7 @@ public class PopulateCores {
 			cs.clear();
 			
 			BatchXmlUploader reader = new BatchXmlUploader(is, rs, cs);
+			release.setOntologiesUsed(reader.getontologyInstances());
 
 			xmlToLoad = dataDir + "/tracerExport.xml";
 			processXml(xmlToLoad, "tracer", reader);
@@ -104,15 +119,24 @@ public class PopulateCores {
 			xmlToLoad = dataDir + "/emageExport.xml";
 			processXml(xmlToLoad, "emage", reader);
 			
-
 			xmlToLoad = dataDir + "/sangerExport.xml";
 			processXml(xmlToLoad, "wtsi", reader);
 			
-
 			xmlToLoad = dataDir + "/VFB_flycircuit_plus.xml";
 			processXml(xmlToLoad, "vfb", reader);
 			
 			System.out.println("Solr url is : " + is.getSolrUrl());			
+
+			System.out.println("Persisting release data...");
+			release.setNumberOfImages(is.getNumberOfDocuments());
+			release.setNumberOfRois(rs.getNumberOfDocuments());
+			release.setSpeciesWithData(is.getSpecies());
+			release.setDatasourcesUsed(is.getDatasources());
+			
+			Neo4jAccessUtils neo = (Neo4jAccessUtils) applicationContext.getBean("neo4jAccessUtils");
+			neo.writeRelease(release);
+			
+			System.out.println("Release " + releaseVersion + "is ready.");
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -148,8 +172,10 @@ public class PopulateCores {
 		buffer.append("PopulateCores usage:\n\n");
 		buffer.append("PopulateCores --context <Spring context>\n");
 		buffer.append("\t--context|-c\tSpring application context configuration file\n");
-		buffer.append("PopulateCores --dataDir <Spring context>\n");
+		buffer.append("PopulateCores --dataDir\n");
 		buffer.append("\t--dataDir|-d\tFull path to the directory containing all the xml files to be used for the Solr index.\n");
+		buffer.append("PopulateCores --releaseVersion <Spring context>\n");
+		buffer.append("\t--releaseVersion|-c\tRelease version to persist in the database. If the release version already exists it wil be overwritten.\n");
 		System.out.println(buffer);
 		System.exit(1);
 	}

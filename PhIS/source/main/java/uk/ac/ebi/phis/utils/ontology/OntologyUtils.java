@@ -51,6 +51,7 @@ import org.semanticweb.owlapi.util.*;
 
 import owltools.graph.OWLGraphWrapper;
 import owltools.io.ParserWrapper;
+import uk.ac.ebi.phis.release.OntologyInstance;
 
 
 //@Service
@@ -77,6 +78,8 @@ public class OntologyUtils {
 	private HashMap<String, String> alternateIds = new HashMap<>();
 	
 	private OntologyMapper om = new OntologyMapper(OntologyMapperPredefinedTypes.MA_MP);
+	
+	private List<OntologyInstance> ontologyInstances = new ArrayList<>();
 
 	Logger logger = Logger.getLogger(OntologyMapper.class);
 
@@ -180,8 +183,7 @@ public class OntologyUtils {
 	 * @throws OBOFormatParserException 
 	 * @throws OWLOntologyCreationException 
 	 */
-	private boolean loadHashes() throws OWLOntologyStorageException{
-
+	private void loadHashes() throws OWLOntologyStorageException{
 
 		for (String path: anatomyOntologies){
 			fillHashesFor(path, anatomyTerms, null, true);
@@ -197,18 +199,21 @@ public class OntologyUtils {
 		fillHashesFor(fbbi, vmTerms, "http://purl.obolibrary.org/obo/FBbi_00000031", false); 
 		fillHashesFor(fbbi, imTerms, "http://purl.obolibrary.org/obo/FBbi_00000222", false); 
 		
-		return false;
 	}
 
 	
 	private void fillHashesFor(String path, HashMap<String, OntologyObject> idLabelMap, String rootId, Boolean includePartOf) 
 	throws OWLOntologyStorageException{
 		  
+		OntologyInstance ontologyInst = new OntologyInstance();
+		
 		try {
 			logger.info("Lading: " + path);
 			
 			System.out.println("Lading: " + path);
 			OWLOntology ontology = manager.loadOntologyFromOntologyDocument(IRI.create(new File(path)));
+			ontologyInst.setVersion(ontology.getOntologyID().getVersionIRI().toString());
+			ontologyInst.setName(path.split("/")[path.split("/").length - 1]);
 			
 	        System.out.println("Axioms before :" + ontology.getAxiomCount());
 	        
@@ -296,10 +301,24 @@ public class OntologyUtils {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} 
+		if (!ontologyInstances.contains(ontologyInst)){
+			ontologyInstances.add(ontologyInst);
+		}
 		
+	}
+	
+	
+	public List<OntologyInstance> getOntologyInstances() {
+	
+		return ontologyInstances;
 	}
 
 	
+	public void setOntologyInstances(List<OntologyInstance> ontologyInstances) {
+	
+		this.ontologyInstances = ontologyInstances;
+	}
+
 	public Set<OWLClass> getAncestors(OWLReasoner reasoner, OWLClass cls){
 		
 		return reasoner.getSuperClasses(cls, false).getFlattened();

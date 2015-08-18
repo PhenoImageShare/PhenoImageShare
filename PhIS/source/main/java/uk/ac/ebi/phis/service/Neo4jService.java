@@ -16,67 +16,39 @@
 /**
  * @author tudose
  */
-package uk.ac.ebi.phis.release;
+package uk.ac.ebi.phis.service;
 
-import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
-import org.bouncycastle.crypto.tls.SRTPProtectionProfile;
+import org.json.JSONObject;
+import org.neo4j.graphdb.Node;
+import org.neo4j.graphdb.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import uk.ac.ebi.neo4jUtils.Neo4jAccessUtils;
 
 
 /**
  * @author tudose
- *
+ *@since 2015/08/18
  */
-public class DatasourceInstance {
-	
-	long numberOfImages;
-	long numberOfRois;
-	String name;
-	Date exportDate;
-	
-	
-	public DatasourceInstance(){
-		
-	}
-		
-	public String getName() {
-	
-		return name;
-	}
-	
-	public void setName(String name) {
-	
-		this.name = name;
-	}
-		
-	public Date getExportDate() {
-	
-		return exportDate;
-	}
-	
-	public void setExportDate(Date exportDate) {
-	
-		this.exportDate = exportDate;
-	}
-	
-	public long getNumberOfImages() {
-	
-		return numberOfImages;
-	}
+@Service
+public class Neo4jService {
 
-	public void setNumberOfImages(long numberOfImages) {
+	@Autowired
+	Neo4jAccessUtils neo;
 	
-		this.numberOfImages = numberOfImages;
-	}
-	
-	public long getNumberOfRois() {
-	
-		return numberOfRois;
-	}
-	
-	public void setNumberOfRois(long numberOfRois) {
-	
-		this.numberOfRois = numberOfRois;
+	public JSONObject getAllReleases(){
+		
+		JSONObject res = new JSONObject();
+		
+		//get all release nodes
+		List<Node> releases = neo.getNodesByLabel(neo.releaseLabel);
+		
+		return res;
+		
 	}
 	
 }

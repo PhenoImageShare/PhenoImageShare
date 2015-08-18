@@ -65,7 +65,6 @@ import uk.ac.ebi.phis.utils.web.RestStatusMessage;
 			return "submission_home";
 	    }
 		
-		
 		@RequestMapping(value="/createAnnotation", method=RequestMethod.GET)	
 	    public @ResponseBody String createAnnotation(
 	    

@@ -17,6 +17,7 @@ package uk.ac.ebi.neo4jUtils;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -34,6 +35,7 @@ import org.springframework.stereotype.Service;
 
 import uk.ac.ebi.phis.exception.PhisSubmissionException;
 import uk.ac.ebi.phis.release.DatasourceInstance;
+import uk.ac.ebi.phis.release.OntologyInstance;
 import uk.ac.ebi.phis.release.ReleaseDocument;
 import uk.ac.ebi.phis.release.SpeciesData;
 
@@ -52,6 +54,7 @@ public class Neo4jAccessUtils {
 	 public static Label releaseLabel;
 	 public static Label datasourceLabel;
 	 public static Label speciesLabel;
+	 public static Label ontologyLabel;
 	 
 	public Neo4jAccessUtils (String dbURI) {
 		
@@ -65,12 +68,14 @@ public class Neo4jAccessUtils {
         releaseLabel = createLabel("Release");
         datasourceLabel = createLabel("DataSource");
         speciesLabel = createLabel("Species");
+        ontologyLabel = createLabel("Ontology");
+        
 	}
 	
 	public void writeRelease(ReleaseDocument releaseDoc) 
 	throws PhisSubmissionException{
 
-		Node release = getOrCreateNode(releaseDoc.getReleaseVersion(), releaseDoc.getReleaseVersion(), releaseLabel);
+		Node release = getOrCreateNode(releaseDoc.getReleaseVersion(), releaseDoc.getReleaseVersion(), releaseLabel, true);
 
 		release.setProperty(ReleaseProperties.VERSION.toString(), releaseDoc.getReleaseVersion().toString());
 		release.setProperty(ReleaseProperties.IMAGES_NUMBER.toString(), releaseDoc.getNumberOfImages());
@@ -80,20 +85,31 @@ public class Neo4jAccessUtils {
 		for (DatasourceInstance datasource : releaseDoc.getDatasourcesUsed()){
 			
 			String id = releaseDoc.getReleaseVersion() + "_" + datasource.getName();
-			Node node = getOrCreateNode(id, datasource.getName(), datasourceLabel);
+			Node node = getOrCreateNode(id, datasource.getName(), datasourceLabel, true);
 			node.setProperty(ReleaseProperties.IMAGES_NUMBER.toString(), datasource.getNumberOfImages());
 			node.setProperty(ReleaseProperties.EXPORT_DATE.toString(), datasource.getExportDate());
 			
-			addUnidirectionalRelation(release, Neo4jRelationship.CONTAINS, node);
+			addUnidirectionalRelation(release, Neo4jRelationship.CONTAINS, node, true);
 		}
 		
 		for (SpeciesData species : releaseDoc.getSpeciesWithData()){
 			
 			String id = releaseDoc.getReleaseVersion() + "_" + species.getName();
-			Node node = getOrCreateNode(id, species.getName(), speciesLabel);
+			Node node = getOrCreateNode(id, species.getName(), speciesLabel, true);
 			node.setProperty(ReleaseProperties.IMAGES_NUMBER.toString(), species.getNumberOfImages());
 
-			addUnidirectionalRelation(release, Neo4jRelationship.CONTAINS, node);
+			addUnidirectionalRelation(release, Neo4jRelationship.CONTAINS, node, true);
+		}
+		
+		for (OntologyInstance oi : releaseDoc.getOntologiesUsed()){
+			
+			String id = releaseDoc.getReleaseVersion() + "_" + oi.getVersion();
+			Node node = getOrCreateNode(id, oi.getName(), ontologyLabel, false);
+			node.setProperty(ReleaseProperties.VERSION.toString(), oi.getVersion());
+			node.setProperty(ReleaseProperties.NAME.toString(), oi.getName());		
+			
+			addUnidirectionalRelation(release, Neo4jRelationship.CONTAINS, node, true);
+			
 		}
 		
 	}
@@ -152,8 +168,8 @@ public class Neo4jAccessUtils {
 			}
 			
 			
-			user = getOrCreateNode(userId, userId, userLabel);
-			image = getOrCreateNode(associatedImageId,associatedImageId, imageLabel);
+			user = getOrCreateNode(userId, userId, userLabel, false);
+			image = getOrCreateNode(associatedImageId,associatedImageId, imageLabel, false);
 					
 			
 			
@@ -164,31 +180,31 @@ public class Neo4jAccessUtils {
 			
 			if (associatedChannelId != null){
 				for (String s: associatedChannelId){
-					Node channel = getOrCreateNode(s, s, channelLabel);
+					Node channel = getOrCreateNode(s, s, channelLabel, false);
 					addBidirectionalRelation(annotation, Neo4jRelationship.HAS_ASSOCIATED_CHANNEL, channel);
 				}
 			}		
 			if (depictedAnatomyId != null){
 				for (int i = 0; i < depictedAnatomyId.size(); i++){
-					Node ot = getOrCreateNode(depictedAnatomyId.get(i), depictedAnatomyTerm.get(i), ontologyTermLabel);
+					Node ot = getOrCreateNode(depictedAnatomyId.get(i), depictedAnatomyTerm.get(i), ontologyTermLabel, false);
 					addBidirectionalRelation(annotation, Neo4jRelationship.DEPICTS, ot);
 				}				
 			}
 			if (abnInAnatomyId != null){
 				for (int i = 0; i < abnInAnatomyId.size(); i++) {
-					Node ot = getOrCreateNode(abnInAnatomyId.get(i), abnInAnatomyTerm.get(i), ontologyTermLabel);
+					Node ot = getOrCreateNode(abnInAnatomyId.get(i), abnInAnatomyTerm.get(i), ontologyTermLabel, false);
 					addBidirectionalRelation(annotation, Neo4jRelationship.DEPICTS_ABNORMALITY_IN, ot);
 				}
 			}
 			if (phenotypeId != null){
 				for (int i = 0; i < phenotypeId.size(); i++) {
-					Node ot = getOrCreateNode(phenotypeId.get(i), phenotypeTerm.get(i), ontologyTermLabel);
+					Node ot = getOrCreateNode(phenotypeId.get(i), phenotypeTerm.get(i), ontologyTermLabel, false);
 					addBidirectionalRelation(annotation, Neo4jRelationship.DEPICTS_PHENOTYPE, ot);
 				}
 			}
 			if (expressedInAnatomyId != null){
 				for (int i = 0; i < expressedInAnatomyId.size(); i++) {
-					Node ot = getOrCreateNode(expressedInAnatomyId.get(i), expressedInAnatomyTerm.get(i), ontologyTermLabel);
+					Node ot = getOrCreateNode(expressedInAnatomyId.get(i), expressedInAnatomyTerm.get(i), ontologyTermLabel, false);
 					addBidirectionalRelation(annotation, Neo4jRelationship.EXPRESSED_IN, ot);
 				}
 			}
@@ -246,11 +262,15 @@ public class Neo4jAccessUtils {
 	}
 	
 	
-	public void addUnidirectionalRelation(Node fromNode, Neo4jRelationship relation, Node toNode) 
+	public void addUnidirectionalRelation(Node fromNode, Neo4jRelationship relation, Node toNode, boolean overwrite) 
 	throws PhisSubmissionException{
 		
-		if (existsUnidirectionalRelationship(fromNode, relation, toNode)){
-			throw new PhisSubmissionException(PhisSubmissionException.RELATIONSHIP_EXISTS_EXCEPTION);
+		if (existsUnidirectionalRelationship(fromNode, relation, toNode) ){
+			if (!overwrite){
+				throw new PhisSubmissionException(PhisSubmissionException.RELATIONSHIP_EXISTS_EXCEPTION);
+			} else {
+				deleteUnidirectionalRelationship(fromNode, relation, toNode);
+			}		
 		}
 		try ( Transaction tx = db.beginTx() )  {
 			
@@ -435,14 +455,33 @@ public class Neo4jAccessUtils {
         return resultString;
 	}
 	
+	public List<Node> getNodesByLabel(Label label){
+
+		List<Node> nodes = new ArrayList<>();
+		QueryResult<Map<String, Object>> result = engine.query( "match (obj:" + label + ") return obj", null);
+		
+		for (Map<String, Object> row : result) {
+        	nodes.add((Node) row.get("obj")); // should have only one anyway as ids are unique
+			System.out.println("ID: " + ((Node) row.get("obj")).getId());
+        }
+		
+        return null;
+        
+	}
 	
-	public Node getOrCreateNode(String id, String name, Label label) 
+	
+	public Node getOrCreateNode(String id, String name, Label label, boolean overWrite) 
 	throws PhisSubmissionException{
 		
 		Node res ;
 		
 		if ( existsId(id, label) ){
-			res = getNodeById(id);
+			if (overWrite){
+				deleteNodeWithRelations(id);
+				res = createNode(id, label);
+			} else {
+				res = getNodeById(id);
+			}
 		} else {
 			res = createNode(id, label);
 		}
@@ -524,6 +563,26 @@ public class Neo4jAccessUtils {
 		
 		return readThisQuery(query);
 		
+	}
+	
+	
+	public void deleteUnidirectionalRelationship(Node fromNode, Neo4jRelationship relation, Node toNode)
+	throws PhisSubmissionException	{
+		
+		String rel;
+		String from; 
+		String to;
+		if (fromNode == null || toNode == null){
+			throw new PhisSubmissionException(PhisSubmissionException.ID_NOT_FOUND_EXCEPTION_MESSAGE);
+		}
+		try ( Transaction tx = db.beginTx() )
+        {
+			from = fromNode.getProperty(AnnotationProperties.ID.name()).toString();
+			to = toNode.getProperty(AnnotationProperties.ID.name()).toString();
+			rel = relation.name();
+        }
+		String testQuery = "MATCH (a {"+AnnotationProperties.ID.name()+":\"" + from + "\"})-[r:" + rel + "]->(b {"+AnnotationProperties.ID.name()+":\"" + to + "\"}) DELETE a,r,b";
+	 	System.out.println("DELETE query " + testQuery);
 	}
 	
 	

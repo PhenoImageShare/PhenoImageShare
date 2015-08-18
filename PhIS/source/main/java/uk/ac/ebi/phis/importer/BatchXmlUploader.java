@@ -45,6 +45,9 @@ import uk.ac.ebi.phis.jaxb.ImageDescription;
 import uk.ac.ebi.phis.jaxb.ImageType;
 import uk.ac.ebi.phis.jaxb.Organism;
 import uk.ac.ebi.phis.jaxb.Roi;
+import uk.ac.ebi.phis.release.DatasourceInstance;
+import uk.ac.ebi.phis.release.OntologyInstance;
+import uk.ac.ebi.phis.release.ReleaseDocument;
 import uk.ac.ebi.phis.service.ChannelService;
 import uk.ac.ebi.phis.service.ImageService;
 import uk.ac.ebi.phis.service.RoiService;
@@ -72,12 +75,17 @@ public class BatchXmlUploader {
 	
 	
 	public BatchXmlUploader(ImageService is, RoiService rs, ChannelService cs) {
+		
 		classloader = Thread.currentThread().getContextClassLoader();
 		this.is = is;
 		this.rs = rs;
 		this.cs = cs;
+		
 	}
 
+	public List<OntologyInstance> getontologyInstances (){
+		return ou.getOntologyInstances();
+	}
 
 	public boolean validate(String xmlLocation) {
 
@@ -88,6 +96,7 @@ public class BatchXmlUploader {
 		Doc doc = convertXmlToObjects(xmlLocation);
 		
 		try {
+			
 			xsd = classloader.getResourceAsStream("phisSchema.xsd");
 			xml = new FileInputStream(xmlLocation);
 			isValid = validateAgainstXSD(xml, xsd);
@@ -95,6 +104,7 @@ public class BatchXmlUploader {
 			xsd.close();
 			xml.close();
 			isValid = (isValid && checkInformation(doc));
+			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -105,14 +115,21 @@ public class BatchXmlUploader {
 	}
 
 
-	public void index(String xmlLocation, String datasource)
+	public DatasourceInstance index(String xmlLocation, String datasourceName)
 	throws IOException, SolrServerException {
 		
 		Doc doc = convertXmlToObjects(xmlLocation);
-		addImageDocuments(doc.getImage(), datasource);
-		addRoiDocuments(doc.getRoi(), datasource);
-		addChannelDocuments(doc.getChannel(), datasource);
+		addImageDocuments(doc.getImage(), datasourceName);
+		addRoiDocuments(doc.getRoi(), datasourceName);
+		addChannelDocuments(doc.getChannel(), datasourceName);
 		
+		DatasourceInstance dataSource = new DatasourceInstance();
+//		datasource.setExportDate(doc.getExportDate());
+		dataSource.setName(datasourceName);
+		dataSource.setNumberOfImages(doc.getImage().size());
+		dataSource.setNumberOfRois(doc.getRoi().size());
+		
+		return dataSource;
 	}
 
 
@@ -322,9 +339,12 @@ public class BatchXmlUploader {
 
 		ImageDTO bean = new ImageDTO();
 		bean.setTaxon(img.getOrganism().getTaxon());
-		bean.setBackgroundStrain(img.getOrganism().getBackgroundStrain().getEl());
 		bean.setId(getImageId(img.getId(), datasource));
 
+		if (img.getOrganism().getBackgroundStrain() != null){
+			bean.setBackgroundStrain(img.getOrganism().getBackgroundStrain().getEl());
+		}
+		
 		ImageDescription desc = img.getImageDescription();
 		if (desc.getImageGeneratedBy() != null){
 			bean.addImageGeneratedBy(desc.getImageGeneratedBy().getDisplayName());
