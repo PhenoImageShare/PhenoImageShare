@@ -20,8 +20,6 @@ package uk.ac.ebi.phis.release;
 
 import java.util.Date;
 
-import org.bouncycastle.crypto.tls.SRTPProtectionProfile;
-
 
 /**
  * @author tudose

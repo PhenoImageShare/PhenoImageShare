@@ -47,7 +47,6 @@ import uk.ac.ebi.phis.jaxb.Organism;
 import uk.ac.ebi.phis.jaxb.Roi;
 import uk.ac.ebi.phis.release.DatasourceInstance;
 import uk.ac.ebi.phis.release.OntologyInstance;
-import uk.ac.ebi.phis.release.ReleaseDocument;
 import uk.ac.ebi.phis.service.ChannelService;
 import uk.ac.ebi.phis.service.ImageService;
 import uk.ac.ebi.phis.service.RoiService;
@@ -575,10 +574,10 @@ public class BatchXmlUploader {
 					if (ann.getOntologyTerm() != null){
 						phenotypeIds.add(ann.getOntologyTerm().getTermId());
 						OntologyObject oo = ou.getOntologyTermById(ann.getOntologyTerm().getTermId().trim());
-						phenotypeLabels.add(oo.getLabel());
 						if (oo == null){
 							System.out.println("Ontology id not found in hash!! -> " + ann.getOntologyTerm().getTermId().trim());
 						}
+						phenotypeLabels.add(oo.getLabel());
 						res.addPhenotypeSynonymsBag(oo.getSynonyms());
 						for (OntologyObject anc : oo.getIntermediateTerms()){
 							res.addPhenotypeAncestors(anc.getId());

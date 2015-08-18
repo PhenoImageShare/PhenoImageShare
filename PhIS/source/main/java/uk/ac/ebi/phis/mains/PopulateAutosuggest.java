@@ -15,14 +15,8 @@
  *******************************************************************************/
 package uk.ac.ebi.phis.mains;
 
-import java.io.File;
-
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
-
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
-
 import uk.ac.ebi.phis.importer.AutosuggestIndexer;
 import uk.ac.ebi.phis.service.AutosuggestService;
 import uk.ac.ebi.phis.service.ImageService;

@@ -63,7 +63,7 @@ public class AutosuggestIndexer {
 				List<ImageDTO> res = is.getDocuments(rows, start).getBeans(ImageDTO.class);
 				System.out.println("start  " + start + " of " + total);
 				start += rows;
-				HashMap<String, AutosuggestDTO> newDocs = new HashMap();
+				HashMap<String, AutosuggestDTO> newDocs = new HashMap<String, AutosuggestDTO>();
 				time = System.currentTimeMillis();
 				
 				for (ImageDTO imageDto : res){

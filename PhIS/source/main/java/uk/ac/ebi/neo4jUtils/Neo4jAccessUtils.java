@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import org.neo4j.graphdb.DynamicLabel;
 import org.neo4j.graphdb.Label;
@@ -88,6 +87,7 @@ public class Neo4jAccessUtils {
 			Node node = getOrCreateNode(id, datasource.getName(), datasourceLabel, true);
 			node.setProperty(ReleaseProperties.IMAGES_NUMBER.toString(), datasource.getNumberOfImages());
 			node.setProperty(ReleaseProperties.EXPORT_DATE.toString(), datasource.getExportDate());
+			node.setProperty(ReleaseProperties.NAME.toString(), datasource.getName());
 			
 			addUnidirectionalRelation(release, Neo4jRelationship.CONTAINS, node, true);
 		}
@@ -97,6 +97,7 @@ public class Neo4jAccessUtils {
 			String id = releaseDoc.getReleaseVersion() + "_" + species.getName();
 			Node node = getOrCreateNode(id, species.getName(), speciesLabel, true);
 			node.setProperty(ReleaseProperties.IMAGES_NUMBER.toString(), species.getNumberOfImages());
+			node.setProperty(ReleaseProperties.NAME.toString(), species.getName());
 
 			addUnidirectionalRelation(release, Neo4jRelationship.CONTAINS, node, true);
 		}
@@ -104,7 +105,7 @@ public class Neo4jAccessUtils {
 		for (OntologyInstance oi : releaseDoc.getOntologiesUsed()){
 			
 			String id = releaseDoc.getReleaseVersion() + "_" + oi.getVersion();
-			Node node = getOrCreateNode(id, oi.getName(), ontologyLabel, false);
+			Node node = getOrCreateNode(id, oi.getName(), ontologyLabel, true);
 			node.setProperty(ReleaseProperties.VERSION.toString(), oi.getVersion());
 			node.setProperty(ReleaseProperties.NAME.toString(), oi.getName());		
 			
@@ -432,23 +433,10 @@ public class Neo4jAccessUtils {
 	
 	public String readSomething(){
 
-		String rows = "";		
         String resultString = "";        
         try ( Transaction ignored = db.beginTx() )
         {
-            QueryResult<Map<String, Object>> result = engine.query( "match (n {name: 'my node'}) return n, n.name" , null);
-
-            // the result is now empty, get a new one
-            result = engine.query("match (n {name: 'my node'}) return n, n.name" , null);
-            for ( Map<String, Object> row : result )
-            {
-                for ( Entry<String, Object> column : row.entrySet() )
-                {
-                    rows += column.getKey() + ": " + column.getValue() + "; ";
-                }
-                rows += "\n";
-            }
-            resultString = engine.query( "match (n {name: 'my node'}) return n, n.name", null ).toString();
+    	    resultString = engine.query( "match (n {name: 'my node'}) return n, n.name", null ).toString();
             System.out.println("resultString: " +  resultString);
         }
         
@@ -462,10 +450,23 @@ public class Neo4jAccessUtils {
 		
 		for (Map<String, Object> row : result) {
         	nodes.add((Node) row.get("obj")); // should have only one anyway as ids are unique
-			System.out.println("ID: " + ((Node) row.get("obj")).getId());
         }
 		
-        return null;
+        return nodes;
+        
+	}
+	
+	
+	public List<Node> getFirtsNodesFor(Long rootNodeId, Neo4jRelationship relation, String toNodeLabel){
+
+		List<Node> nodes = new ArrayList<>();
+		QueryResult<Map<String, Object>> result = engine.query( "match (obj)-[r:" + relation.name() + "]-(n:" + toNodeLabel + ") WHERE id(obj)=" + rootNodeId + " return n", null);
+		
+		for (Map<String, Object> row : result) {
+        	nodes.add((Node) row.get("n")); // should have only one anyway as ids are unique
+        }
+		
+        return nodes;
         
 	}
 	

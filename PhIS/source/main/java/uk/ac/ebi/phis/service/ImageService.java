@@ -19,26 +19,20 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-import org.apache.commons.digester.SetRootRule;
 import org.apache.log4j.Logger;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
-import org.apache.solr.client.solrj.impl.HttpSolrServer;
 import org.apache.solr.client.solrj.response.FacetField.Count;
 import org.apache.solr.client.solrj.response.QueryResponse;
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.neo4j.cypher.ParameterNotFoundException;
 import org.springframework.stereotype.Service;
 
-import uk.ac.ebi.phis.exception.PhisSubmissionException;
 import uk.ac.ebi.phis.exception.PhisQueryException;
+import uk.ac.ebi.phis.exception.PhisSubmissionException;
 import uk.ac.ebi.phis.release.DatasourceInstance;
-import uk.ac.ebi.phis.release.ReleaseDocument;
 import uk.ac.ebi.phis.release.SpeciesData;
-import uk.ac.ebi.phis.solrj.dto.ChannelDTO;
 import uk.ac.ebi.phis.solrj.dto.ImageDTO;
 import uk.ac.ebi.phis.solrj.dto.RoiDTO;
 import uk.ac.ebi.phis.utils.web.JSONRestUtil;
