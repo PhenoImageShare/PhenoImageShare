@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.apache.solr.client.solrj.SolrQuery;
@@ -499,7 +500,7 @@ public class ImageService extends BasicService{
 	 * @return List of data sources and number of images for each of them
 	 * @throws SolrServerException
 	 */
-	public List<DatasourceInstance> getDatasources() 
+	public List<DatasourceInstance> getDatasources(Map<String, DatasourceInstance> exportDates) 
 	throws SolrServerException{
 		
 		List<DatasourceInstance> result = new ArrayList<>();
@@ -514,7 +515,12 @@ public class ImageService extends BasicService{
 		
 		QueryResponse res = solr.query(q);
 		for (Count count : res.getFacetField(ImageDTO.HOST_NAME).getValues()){
-			DatasourceInstance source = new DatasourceInstance();
+			DatasourceInstance source ;
+			if (exportDates.containsKey(count.getName())){
+				source = exportDates.get(count.getName());
+			} else {
+				source = new DatasourceInstance();			
+			}
 			source.setName(count.getName());
 			source.setNumberOfImages(count.getCount());
 			result.add(source);

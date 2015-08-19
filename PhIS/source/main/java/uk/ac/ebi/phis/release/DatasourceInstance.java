@@ -18,7 +18,7 @@
  */
 package uk.ac.ebi.phis.release;
 
-import java.util.Date;
+import javax.xml.datatype.XMLGregorianCalendar;
 
 
 /**
@@ -30,7 +30,7 @@ public class DatasourceInstance {
 	long numberOfImages;
 	long numberOfRois;
 	String name;
-	Date exportDate;
+	XMLGregorianCalendar exportDate;
 	
 	
 	public DatasourceInstance(){
@@ -47,12 +47,12 @@ public class DatasourceInstance {
 		this.name = name;
 	}
 		
-	public Date getExportDate() {
+	public XMLGregorianCalendar getExportDate() {
 	
 		return exportDate;
 	}
 	
-	public void setExportDate(Date exportDate) {
+	public void setExportDate(XMLGregorianCalendar exportDate) {
 	
 		this.exportDate = exportDate;
 	}

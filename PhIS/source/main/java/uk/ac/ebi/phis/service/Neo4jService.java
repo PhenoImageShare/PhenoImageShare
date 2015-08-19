@@ -18,9 +18,7 @@
  */
 package uk.ac.ebi.phis.service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -76,7 +74,8 @@ public class Neo4jService {
 			for (Node datasource : neo.getFirtsNodesFor(release.getId(), Neo4jRelationship.CONTAINS, "DataSource")){
 				JSONObject dsObj = new JSONObject();
 				dsObj.accumulate(ReleaseProperties.IMAGES_NUMBER.name(), datasource.getProperty(ReleaseProperties.IMAGES_NUMBER.name()));
-				dsObj.accumulate(ReleaseProperties.NAME.name(), datasource.getProperty(ReleaseProperties.NAME.name()));
+				dsObj.accumulate(ReleaseProperties.NAME.name(), datasource.getProperty(ReleaseProperties.NAME.name()));				
+				dsObj.accumulate(ReleaseProperties.EXPORT_DATE.name(), datasource.getProperty(ReleaseProperties.EXPORT_DATE.name()));
 				datasourcesArray.put(dsObj);
 			}
 			

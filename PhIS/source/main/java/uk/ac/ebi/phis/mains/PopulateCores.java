@@ -102,9 +102,12 @@ public class PopulateCores {
 			
 			BatchXmlUploader reader = new BatchXmlUploader(is, rs, cs);
 			release.setOntologiesUsed(reader.getontologyInstances());
-
+			
+			Map<String, DatasourceInstance> exportDates = new HashMap<>(); // <resourceName, resource object>
+			
 			xmlToLoad = dataDir + "/tracerExport.xml";
-			processXml(xmlToLoad, "tracer", reader);
+			DatasourceInstance ds = processXml(xmlToLoad, "tracer", reader);
+			exportDates.put(ds.getName(), ds);
 			
 	/*		xmlToLoad = dataDir + "/VFB_Cachero2010.xml";
 			processXml(xmlToLoad, "vfb", reader);
@@ -136,7 +139,7 @@ public class PopulateCores {
 			release.setNumberOfImages(is.getNumberOfDocuments());
 			release.setNumberOfRois(rs.getNumberOfDocuments());
 			release.setSpeciesWithData(is.getSpecies());
-			release.setDatasourcesUsed(is.getDatasources());
+			release.setDatasourcesUsed(is.getDatasources(exportDates));
 			release.addGeneIds(is.getGeneIds());
 			release.addGeneIds(cs.getGeneIds());
 			
@@ -147,9 +150,7 @@ public class PopulateCores {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-		}		
-		
-		
+		}			
 		
 	}
 	
@@ -163,17 +164,22 @@ public class PopulateCores {
 	 * @throws IOException 
 	 * @throws ParseException 
 	 */
-	private static void processXml (String xmlToLoad, String resourceName, BatchXmlUploader reader) 
+	private static DatasourceInstance processXml (String xmlToLoad, String resourceName, BatchXmlUploader reader) 
 	throws IOException, SolrServerException, ParseException{
 
 		Long time = System.currentTimeMillis();
+		DatasourceInstance ds = null;
+		
 		if (reader.validate(xmlToLoad)){
 			System.out.println(xmlToLoad + " is valid.");
-			reader.index(xmlToLoad, resourceName);
+			ds = reader.index(xmlToLoad, resourceName);
 			System.out.println("Importing " + xmlToLoad + " XML took " + (System.currentTimeMillis() - time));
 		} else {
 			System.out.println(xmlToLoad + " is NOT valid.");
 		}
+		
+		return ds;
+		
 	}
 	
 	

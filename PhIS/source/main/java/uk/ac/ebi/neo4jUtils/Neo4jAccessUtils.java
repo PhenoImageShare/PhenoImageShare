@@ -86,7 +86,7 @@ public class Neo4jAccessUtils {
 			String id = releaseDoc.getReleaseVersion() + "_" + datasource.getName();
 			Node node = getOrCreateNode(id, datasource.getName(), datasourceLabel, true);
 			node.setProperty(ReleaseProperties.IMAGES_NUMBER.toString(), datasource.getNumberOfImages());
-			node.setProperty(ReleaseProperties.EXPORT_DATE.toString(), datasource.getExportDate());
+			node.setProperty(ReleaseProperties.EXPORT_DATE.toString(), "" + datasource.getExportDate().getYear() + "-" + datasource.getExportDate().getMonth() + "-" + datasource.getExportDate().getDay());
 			node.setProperty(ReleaseProperties.NAME.toString(), datasource.getName());
 			
 			addUnidirectionalRelation(release, Neo4jRelationship.CONTAINS, node, true);

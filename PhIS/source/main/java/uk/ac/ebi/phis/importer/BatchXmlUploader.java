@@ -84,10 +84,12 @@ public class BatchXmlUploader {
 		this.cs = cs;
 		
 	}
+	
 
 	public List<OntologyInstance> getontologyInstances (){
 		return ou.getOntologyInstances();
 	}
+	
 
 	public boolean validate(String xmlLocation) {
 
@@ -126,10 +128,8 @@ public class BatchXmlUploader {
 		addChannelDocuments(doc.getChannel(), datasourceName);
 		
 		DatasourceInstance dataSource = new DatasourceInstance();
-//		dataSource.setExportDate(DateFormat.getDateInstance().parse(doc.getExportDate().toString()));
-		dataSource.setName(datasourceName);
-		dataSource.setNumberOfImages(doc.getImage().size());
-		dataSource.setNumberOfRois(doc.getRoi().size());
+		dataSource.setExportDate(doc.getExportDate());
+		dataSource.setName(doc.getImage().get(0).getImageDescription().getHost().getDisplayName());
 		
 		return dataSource;
 	}
