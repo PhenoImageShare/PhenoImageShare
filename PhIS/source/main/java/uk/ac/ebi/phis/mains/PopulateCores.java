@@ -17,6 +17,9 @@ package uk.ac.ebi.phis.mains;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
+import java.util.HashMap;
+import java.util.Map;
 
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
@@ -27,6 +30,7 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import uk.ac.ebi.neo4jUtils.Neo4jAccessUtils;
 import uk.ac.ebi.phis.importer.BatchXmlUploader;
+import uk.ac.ebi.phis.release.DatasourceInstance;
 import uk.ac.ebi.phis.release.ReleaseDocument;
 import uk.ac.ebi.phis.release.ReleaseEnvironment;
 import uk.ac.ebi.phis.service.ChannelService;
@@ -37,6 +41,7 @@ import uk.ac.ebi.phis.service.RoiService;
 public class PopulateCores {
 
 	private static ApplicationContext applicationContext;
+	Map<String, DatasourceInstance> datasources = new HashMap<String, DatasourceInstance>();
 
 
 	public static void main(String[] args) {
@@ -101,7 +106,7 @@ public class PopulateCores {
 			xmlToLoad = dataDir + "/tracerExport.xml";
 			processXml(xmlToLoad, "tracer", reader);
 			
-			xmlToLoad = dataDir + "/VFB_Cachero2010.xml";
+	/*		xmlToLoad = dataDir + "/VFB_Cachero2010.xml";
 			processXml(xmlToLoad, "vfb", reader);
 
 			xmlToLoad = dataDir + "/VFB_Ito2013.xml";
@@ -125,13 +130,15 @@ public class PopulateCores {
 			xmlToLoad = dataDir + "/VFB_flycircuit_plus.xml";
 			processXml(xmlToLoad, "vfb", reader);
 			
-			System.out.println("Solr url is : " + is.getSolrUrl());			
+*/			System.out.println("Solr url is : " + is.getSolrUrl());			
 
 			System.out.println("Persisting release data...");
 			release.setNumberOfImages(is.getNumberOfDocuments());
 			release.setNumberOfRois(rs.getNumberOfDocuments());
 			release.setSpeciesWithData(is.getSpecies());
 			release.setDatasourcesUsed(is.getDatasources());
+			release.addGeneIds(is.getGeneIds());
+			release.addGeneIds(cs.getGeneIds());
 			
 			Neo4jAccessUtils neo = (Neo4jAccessUtils) applicationContext.getBean("neo4jAccessUtils");
 			neo.writeRelease(release);
@@ -141,6 +148,8 @@ public class PopulateCores {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}		
+		
+		
 		
 	}
 	
@@ -152,9 +161,10 @@ public class PopulateCores {
 	 * @param reader
 	 * @throws SolrServerException 
 	 * @throws IOException 
+	 * @throws ParseException 
 	 */
 	private static void processXml (String xmlToLoad, String resourceName, BatchXmlUploader reader) 
-	throws IOException, SolrServerException{
+	throws IOException, SolrServerException, ParseException{
 
 		Long time = System.currentTimeMillis();
 		if (reader.validate(xmlToLoad)){

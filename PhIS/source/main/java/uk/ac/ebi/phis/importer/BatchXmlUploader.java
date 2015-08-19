@@ -19,7 +19,10 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -115,7 +118,7 @@ public class BatchXmlUploader {
 
 
 	public DatasourceInstance index(String xmlLocation, String datasourceName)
-	throws IOException, SolrServerException {
+	throws IOException, SolrServerException, ParseException {
 		
 		Doc doc = convertXmlToObjects(xmlLocation);
 		addImageDocuments(doc.getImage(), datasourceName);
@@ -123,7 +126,7 @@ public class BatchXmlUploader {
 		addChannelDocuments(doc.getChannel(), datasourceName);
 		
 		DatasourceInstance dataSource = new DatasourceInstance();
-//		datasource.setExportDate(doc.getExportDate());
+//		dataSource.setExportDate(DateFormat.getDateInstance().parse(doc.getExportDate().toString()));
 		dataSource.setName(datasourceName);
 		dataSource.setNumberOfImages(doc.getImage().size());
 		dataSource.setNumberOfRois(doc.getRoi().size());

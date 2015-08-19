@@ -23,8 +23,10 @@ import java.util.List;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.response.QueryResponse;
+import org.apache.solr.client.solrj.response.FacetField.Count;
 
 import uk.ac.ebi.phis.solrj.dto.ChannelDTO;
+import uk.ac.ebi.phis.solrj.dto.ImageDTO;
 import uk.ac.ebi.phis.solrj.dto.RoiDTO;
 import uk.ac.ebi.phis.utils.web.JSONRestUtil;
 
@@ -163,5 +165,36 @@ public class ChannelService extends BasicService {
 		solr.deleteByQuery("*:*");
 		solr.commit();
 	}
+	
+	
+	/**
+	 * @since 2015/08/18
+	 * @return
+	 * @throws SolrServerException
+	 */
+	public List<String> getGeneIds () 
+	throws SolrServerException{
+		
+		List<String> geneIds = new ArrayList<>();
+		
+		SolrQuery q = new SolrQuery()
+		.setQuery("*:*")
+		.setRows(0)
+		.setFacet(true)
+		.addFacetField(ChannelDTO.GENE_ID)
+		.setFacetMinCount(1)
+		.setFacetLimit(-1);		
+		
+		QueryResponse res = solr.query(q);
+		if (res.getFacetField(ChannelDTO.GENE_ID).getValues() != null){
+			for (Count count : res.getFacetField(ChannelDTO.GENE_ID).getValues()){
+				geneIds.add(count.getName());
+			}
+		}
+		
+		return geneIds;
+	}
+	
+	
 
 }

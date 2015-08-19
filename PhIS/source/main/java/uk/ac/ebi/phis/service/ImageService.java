@@ -523,4 +523,39 @@ public class ImageService extends BasicService{
 		return result;
 	}
 	
+	
+	/**
+	 * @throws SolrServerException 
+	 * @since 2015/08/18
+	 * 
+	 */
+	public List<String> getGeneIds () 
+	throws SolrServerException{
+		
+		List<String> geneIds = new ArrayList<>();
+		
+		SolrQuery q = new SolrQuery()
+		.setQuery("*:*")
+		.setRows(0)
+		.setFacet(true)
+		.addFacetField(ImageDTO.GENE_ID)
+		.addFacetField(ImageDTO.MUTANT_GENE_ID_BAG)
+		.setFacetMinCount(1)
+		.setFacetLimit(-1);		
+		
+		QueryResponse res = solr.query(q);
+		if ( res.getFacetField(ImageDTO.GENE_ID).getValues() != null){
+			for (Count count : res.getFacetField(ImageDTO.GENE_ID).getValues()){
+				geneIds.add(count.getName());
+			}
+		}
+		if ( res.getFacetField(ImageDTO.MUTANT_GENE_ID_BAG).getValues() != null){
+			for (Count count : res.getFacetField(ImageDTO.MUTANT_GENE_ID_BAG).getValues()){
+				geneIds.add(count.getName());
+			}
+		}
+		
+		return geneIds;
+	}
+	
 }

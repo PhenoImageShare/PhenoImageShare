@@ -274,7 +274,9 @@
 	<element name="Doc">
 		<complexType>
 			<sequence>
-				<element name="image" type="x:Image" minOccurs="1" maxOccurs="unbounded" />
+			
+				<element name="exportDate" type="date" minOccurs="0" maxOccurs="1" />
+				<element name="image" type="x:Image" minOccurs="0" maxOccurs="unbounded" />
 				<element name="channel" type="x:Channel" minOccurs="0" maxOccurs="unbounded" />
 				<element name="roi" type="x:Roi" minOccurs="0" maxOccurs="unbounded" />
 			</sequence>
