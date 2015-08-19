@@ -23,12 +23,14 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.sql.DataSource;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
+import javax.xml.datatype.DatatypeFactory;
 
 import org.json.JSONException;
 import org.springframework.context.ApplicationContext;
@@ -109,6 +111,9 @@ public class TracerXmlGenerator {
 			int i = 0;
 			
 			Doc doc = new Doc();
+			GregorianCalendar gregorianCalendar = new GregorianCalendar();
+	        DatatypeFactory datatypeFactory = DatatypeFactory.newInstance();
+			doc.setExportDate(datatypeFactory.newXMLGregorianCalendar(gregorianCalendar));
 			
 	        while ( res.next()){
 	        	boolean sameImage = true;

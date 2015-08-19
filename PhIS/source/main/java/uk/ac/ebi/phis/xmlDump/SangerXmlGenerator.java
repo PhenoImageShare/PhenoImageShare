@@ -23,11 +23,13 @@ import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Map;
 
 import javax.sql.DataSource;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
+import javax.xml.datatype.DatatypeFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 
@@ -94,7 +96,10 @@ public class SangerXmlGenerator {
         	PreparedStatement statement = dataSource.getConnection().prepareStatement(command);
      		ResultSet res = statement.executeQuery();
                   	
-			Doc doc = new Doc();			
+			Doc doc = new Doc();
+			GregorianCalendar gregorianCalendar = new GregorianCalendar();
+	        DatatypeFactory datatypeFactory = DatatypeFactory.newInstance();
+			doc.setExportDate(datatypeFactory.newXMLGregorianCalendar(gregorianCalendar));
 			int i = 0;
 			
 	        while ( res.next()){

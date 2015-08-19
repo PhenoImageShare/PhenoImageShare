@@ -17,37 +17,31 @@ package uk.ac.ebi.phis.xmlDump;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 
 import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.xml.sax.SAXException;
 
-import uk.ac.ebi.phis.importer.BatchXmlUploader;
 import uk.ac.ebi.phis.jaxb.Doc;
 import uk.ac.ebi.phis.jaxb.Image;
 import uk.ac.ebi.phis.jaxb.OntologyTerm;
-import uk.ac.ebi.phis.jaxb.Sex;
 import uk.ac.ebi.phis.jaxb.emage.ImageContentSummary;
 import uk.ac.ebi.phis.jaxb.emage.ImageContentSummary.ImageRecord;
-import uk.ac.ebi.phis.service.ChannelService;
-import uk.ac.ebi.phis.service.ImageService;
-import uk.ac.ebi.phis.service.RoiService;
 
 
 public class EmageXmlGenerator {
@@ -55,10 +49,14 @@ public class EmageXmlGenerator {
 	private final static String AGGREGATE_URL = "http://www.emouseatlas.org/emagewebservices/phis/image/listall";
 	ArrayList<String> urlList;
 	
-	public Doc aggregateXml(){
+	public Doc aggregateXml() throws DatatypeConfigurationException{
 		
 		ArrayList<String> urls = getUrls();
 		Doc doc = new Doc();
+		GregorianCalendar gregorianCalendar = new GregorianCalendar();
+        DatatypeFactory datatypeFactory = DatatypeFactory.newInstance();
+		doc.setExportDate(datatypeFactory.newXMLGregorianCalendar(gregorianCalendar));
+		
 		ClassLoader classloader = Thread.currentThread().getContextClassLoader();
 		InputStream xsd;
 		try {
