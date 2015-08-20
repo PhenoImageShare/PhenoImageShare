@@ -35,7 +35,7 @@ public class ExportDatabasesAsXml {
 		try {
 			long time = System.currentTimeMillis();
 			SangerXmlGenerator sg = new SangerXmlGenerator();
-		//	sg.exportImages();
+			sg.exportImages();
 			System.out.println("Generating xml for Sanger took " + (System.currentTimeMillis() - time));
 
 			time = System.currentTimeMillis();
@@ -45,7 +45,7 @@ public class ExportDatabasesAsXml {
 
 			time = System.currentTimeMillis();
 			EmageXmlGenerator emage = new EmageXmlGenerator();
-		//	emage.aggregateXml();
+			emage.aggregateXml();
 			
 			System.out.println("Generating XML for Emage took " + (System.currentTimeMillis() - time));
 

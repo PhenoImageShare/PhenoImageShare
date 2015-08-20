@@ -21,7 +21,12 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class IdGenerator {
+	
 	public String getAnnotationId(){
-		return "roi_ua_" + UUID.randomUUID();
+		long ct = System.currentTimeMillis();
+		ct = ct - 1420070400; // Substract Jan 1st, 2015
+		return "roi_ua_" + ct + "" + UUID.randomUUID().getMostSignificantBits()%100;
+		//return UUID.randomUUID().toString();
 	}
+	
 }

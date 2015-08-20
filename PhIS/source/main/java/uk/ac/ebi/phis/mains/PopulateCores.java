@@ -106,34 +106,42 @@ public class PopulateCores {
 			Map<String, DatasourceInstance> exportDates = new HashMap<>(); // <resourceName, resource object>
 			
 			xmlToLoad = dataDir + "/tracerExport.xml";
-			DatasourceInstance ds = processXml(xmlToLoad, "tracer", reader);
-			exportDates.put(ds.getName(), ds);
+			DatasourceInstance ds1 = processXml(xmlToLoad, "tracer", reader);
+			exportDates.put(ds1.getName(), ds1);
 			
-	/*		xmlToLoad = dataDir + "/VFB_Cachero2010.xml";
-			processXml(xmlToLoad, "vfb", reader);
+			xmlToLoad = dataDir + "/VFB_Cachero2010.xml";
+			DatasourceInstance ds2 = processXml(xmlToLoad, "vfb", reader);
+			exportDates.put(ds2.getName(), ds2);
 
 			xmlToLoad = dataDir + "/VFB_Ito2013.xml";
-			processXml(xmlToLoad, "vfb", reader);
+			DatasourceInstance ds3 = processXml(xmlToLoad, "vfb", reader);
+			exportDates.put(ds3.getName(), ds3);
 
 			xmlToLoad = dataDir + "/VFB_Jenett2012_full.xml";
-			processXml(xmlToLoad, "vfb", reader);
+			DatasourceInstance ds4 = processXml(xmlToLoad, "vfb", reader);
+			exportDates.put(ds4.getName(), ds4);
 
 			xmlToLoad = dataDir + "/VFB_Yu2013.xml";
-			processXml(xmlToLoad, "vfb", reader);
+			DatasourceInstance ds5 = processXml(xmlToLoad, "vfb", reader);
+			exportDates.put(ds5.getName(), ds5);
 
 			xmlToLoad = dataDir + "/VFB_flycircuit_plus.xml";
-			processXml(xmlToLoad, "vfb", reader);
+			DatasourceInstance ds6 = processXml(xmlToLoad, "vfb", reader);
+			exportDates.put(ds6.getName(), ds6);
 
 			xmlToLoad = dataDir + "/emageExport.xml";
-			processXml(xmlToLoad, "emage", reader);
+			DatasourceInstance ds7 = processXml(xmlToLoad, "emage", reader);
+			exportDates.put(ds7.getName(), ds7);
 			
 			xmlToLoad = dataDir + "/sangerExport.xml";
-			processXml(xmlToLoad, "wtsi", reader);
+			DatasourceInstance ds8 = processXml(xmlToLoad, "wtsi", reader);
+			exportDates.put(ds8.getName(), ds8);
 			
 			xmlToLoad = dataDir + "/VFB_flycircuit_plus.xml";
-			processXml(xmlToLoad, "vfb", reader);
+			DatasourceInstance ds9 = processXml(xmlToLoad, "vfb", reader);
+			exportDates.put(ds9.getName(), ds9);
 			
-*/			System.out.println("Solr url is : " + is.getSolrUrl());			
+			System.out.println("Solr url is : " + is.getSolrUrl());			
 
 			System.out.println("Persisting release data...");
 			release.setNumberOfImages(is.getNumberOfDocuments());
