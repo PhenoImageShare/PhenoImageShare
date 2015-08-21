@@ -20,7 +20,6 @@ import static org.junit.Assert.*;
 import java.util.List;
 
 import org.junit.Test;
-import org.springframework.test.AssertThrows;
 
 import uk.ac.ebi.phis.solrj.dto.ChannelDTO;
 import uk.ac.ebi.phis.solrj.dto.RoiDTO;
