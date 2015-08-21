@@ -13,19 +13,6 @@
 
 	<mvc:annotation-driven conversion-service="conversionService" />
 
-	<mvc:cors>
-	
-		<mvc:mapping path="/**"
-			allowed-origins="http://fiddle.jshell.net/, http://domain2.com"
-			allowed-methods="GET, PUT"
-			allowed-headers="header1, header2, header3"
-			exposed-headers="header1, header2" allow-credentials="false"
-			max-age="123" />
-	
-	
-	</mvc:cors>
-
-
 	<bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
 	    <property name="converters">
 	        <list>

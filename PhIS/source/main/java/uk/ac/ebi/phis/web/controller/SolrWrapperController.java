@@ -23,7 +23,6 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -70,7 +69,6 @@ public class SolrWrapperController {
 	 * @throws IOException
 	 * @throws URISyntaxException
 	 */
-	@CrossOrigin(origins = "http://fiddle.jshell.net/", maxAge = 3600)
 	@RequestMapping(value="/getImages", method=RequestMethod.GET)	
     public @ResponseBody String getExperimentalData(
     		@RequestParam(value = "term", required = false) String term,
