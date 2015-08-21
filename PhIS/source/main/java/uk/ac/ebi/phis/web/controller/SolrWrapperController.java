@@ -70,7 +70,7 @@ public class SolrWrapperController {
 	 * @throws IOException
 	 * @throws URISyntaxException
 	 */
-	@CrossOrigin(origins = "http://jsfiddle.net/", maxAge = 3600)
+	@CrossOrigin(origins = "http://fiddle.jshell.net/", maxAge = 3600)
 	@RequestMapping(value="/getImages", method=RequestMethod.GET)	
     public @ResponseBody String getExperimentalData(
     		@RequestParam(value = "term", required = false) String term,
