@@ -24,7 +24,9 @@ import java.util.Map;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 
+import org.apache.log4j.Logger;
 import org.apache.solr.client.solrj.SolrServerException;
+import org.hibernate.dialect.DataDirectOracle9Dialect;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
@@ -36,6 +38,7 @@ import uk.ac.ebi.phis.release.ReleaseEnvironment;
 import uk.ac.ebi.phis.service.ChannelService;
 import uk.ac.ebi.phis.service.ImageService;
 import uk.ac.ebi.phis.service.RoiService;
+import uk.ac.ebi.phis.utils.ontology.OntologyMapper;
 
 
 public class PopulateCores {
@@ -43,6 +46,7 @@ public class PopulateCores {
 	private static ApplicationContext applicationContext;
 	Map<String, DatasourceInstance> datasources = new HashMap<String, DatasourceInstance>();
 
+	private static Logger logger = Logger.getLogger(PopulateCores.class);
 
 	public static void main(String[] args) {
 		
@@ -63,6 +67,7 @@ public class PopulateCores {
 			help();
 		}
 		
+		
 		// Check context file exists
 		String contextFile = (String) options.valueOf("context");
 		File f = new File(contextFile);
@@ -80,11 +85,13 @@ public class PopulateCores {
 		}
 		
 		String releaseVersion = (String) options.valueOf("releaseVersion");
+
+		logger.info("Started PopulateCores with context=" + contextFile + " , dataDir=" + dataDir + ", releaseVersion" + releaseVersion);
+		
 		ReleaseDocument release = new ReleaseDocument();
 		
 		release.setReleaseEnvironment(ReleaseEnvironment.BETA);
 		release.setReleaseVersion(releaseVersion);
-		
 				
 		try {
 
