@@ -523,5 +523,36 @@
 	</table>
 
 
+	<br/>
+	<h2 >/getDataReleases</h2>
+	<h3>Parameters</h3>
+	<table class="table table-striped">
+		<thead>
+			<tr style="background-color: olive;">
+				<th>Name</th>
+				<th>Type</th>
+				<th>Required</th>
+				<th>Description</th>
+				<th>Default</th>
+				<th>Example Values</th>
+			</tr>
+			<tr>
+				<td>-</td>
+				<td>-</td>
+				<td>-</td>
+				<td>-</td>
+				<td>-</td>
+				<td>-</td>
+			</tr>
+		</thead>
+		
+		<tbody>
+		
+		</tbody>
+
+	</table>
+
+
+
 </body>
 </html>
