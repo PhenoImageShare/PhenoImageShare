@@ -347,12 +347,12 @@
 		<dependency>
 	   	  <groupId>org.bbop</groupId>
 	   	  <artifactId>OWLTools-Core</artifactId>
-	   	  <version>0.2.1-SNAPSHOT</version>
+	   	  <version>0.2.1</version>
 	  </dependency>
 	  <dependency>
 	   	  <groupId>org.bbop</groupId>
 	   	  <artifactId>OWLTools-Oort</artifactId>
-	   	  <version>0.2.1-SNAPSHOT</version>
+	   	  <version>0.2.1</version>
 	  </dependency>
 		<dependency>
 	    <groupId>net.sourceforge.owlapi</groupId>
