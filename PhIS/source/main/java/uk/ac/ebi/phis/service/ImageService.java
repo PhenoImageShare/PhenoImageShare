@@ -134,7 +134,7 @@ public class ImageService extends BasicService{
 		}
 		if (expressedGene != null){
 			expressedGene = handleSpecialCharacters(expressedGene);
-			solrQuery.addFilterQuery(ImageDTO.EXPRESSED_GF_ID_BAG + ":\"" + expressedGene + "\"");
+			solrQuery.addFilterQuery(ImageDTO.EXPRESSED_GF_ID_BAG + ":\"" + expressedGene + "\" OR " + ImageDTO.EXPRESSED_GF_SYMBOL_BAG + ":\"" + expressedGene + "\"");
 		}
 		if (taxon != null){
 			taxon = handleSpecialCharacters(taxon);
