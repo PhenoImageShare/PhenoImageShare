@@ -650,6 +650,12 @@
 	    </repository>
 	    
 	    <repository>
+			   <id>mouseinfo-thirdparty</id>
+			   <name>Third party jars</name>
+			   <url>http://ves-ebi-d9.ebi.ac.uk:8080/nexus/content/repositories/thirdparty/</url>
+			</repository>
+	    
+	    <repository>
 		    <id>spring-milestones</id>
 		    <url>http://repo.springsource.org/libs-milestone/</url>
 		  </repository>
