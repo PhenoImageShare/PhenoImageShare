@@ -266,7 +266,7 @@ public class AutosuggestIndexer {
 	throws Exception{
 
 		ArrayList<AutosuggestBean> res = new ArrayList<>();
-		if (ids != null && ids.size() == labels.size()){
+		if (ids != null && labels != null && ids.size() == labels.size()){
 			for (int i = 0; i < ids.size(); i++){
 				List<String> syn = (synonyms != null ? synonyms.get(i) : null);
 				res.add(new AutosuggestBean(ids.get(i), labels.get(i), syn, type));
