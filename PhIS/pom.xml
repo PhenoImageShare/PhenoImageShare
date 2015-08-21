@@ -132,32 +132,6 @@
 		</profile>
 		
 		<profile>
-			<id>external-dev-v0.0.4</id>
-			<properties>
-				<baseUrl>http://??</baseUrl>
-				<solrUrl>http://wwwdev.ebi.ac.uk/mi/phis</solrUrl>
-				<internalSolrUrl>http://ves-ebi-d0.ebi.ac.uk:8090/mi/phis-v0.0.4</internalSolrUrl>
-				<java.version>1.7</java.version>
-			</properties>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-surefire-plugin</artifactId>
-						<version>2.4.2</version>
-						<configuration>
-							<skipTests>true</skipTests>
-							<!-- excludes>
-								<exclude>**PageTest.java</exclude>
-								<exclude>**/org/mousephenotype/www/**</exclude>
-							</excludes-->
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-		
-		<profile>
 			<id>beta</id>
 			<properties>
 				<baseUrl>http://??</baseUrl>
@@ -184,61 +158,6 @@
 				</plugins>
 			</build>
 		</profile>
-		
-	
-		
-		<profile>
-		<id>beta-v0.0.3</id>
-			<properties>
-				<baseUrl>http://??</baseUrl>
-				<solrUrl>http://???</solrUrl>
-				<internalSolrUrl>http://ves-ebi-d1:8120/mi/phis/beta/v0.0.3</internalSolrUrl> <!--  This will do on d1 when called from d1 and d2 from d2. -->
-				<java.version>1.7</java.version>
-			</properties>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-surefire-plugin</artifactId>
-						<version>2.4.2</version>
-						<configuration>
-							<skipTests>true</skipTests>
-							<!-- excludes>
-								<exclude>**PageTest.java</exclude>
-								<exclude>**/org/mousephenotype/www/**</exclude>
-							</excludes-->
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-		
-		<profile>
-		<id>beta-v0.0.4</id>
-			<properties>
-				<baseUrl>http://??</baseUrl>
-				<solrUrl>http://???</solrUrl>
-				<internalSolrUrl>http://ves-ebi-d1:8120/mi/phis/beta/v0.0.4</internalSolrUrl> <!--  This will do on d1 when called from d1 and d2 from d2. -->
-				<dbURI>http://phenoimageshare.ebi.ac.uk:7474/db/data/</dbURI>
-				<java.version>1.7</java.version>
-			</properties>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-surefire-plugin</artifactId>
-						<version>2.4.2</version>
-						<configuration>
-							<skipTests>true</skipTests>
-							<!-- excludes>
-								<exclude>**PageTest.java</exclude>
-								<exclude>**/org/mousephenotype/www/**</exclude>
-							</excludes-->
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>   
 		
 		<profile>
 		<id>beta-v0.0.5</id>
