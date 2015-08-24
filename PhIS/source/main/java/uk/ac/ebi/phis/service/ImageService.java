@@ -29,7 +29,6 @@ import org.apache.solr.client.solrj.response.QueryResponse;
 import org.json.JSONObject;
 import org.neo4j.cypher.ParameterNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.CrossOrigin;
 
 import uk.ac.ebi.phis.exception.PhisQueryException;
 import uk.ac.ebi.phis.exception.PhisSubmissionException;
@@ -40,7 +39,7 @@ import uk.ac.ebi.phis.solrj.dto.RoiDTO;
 import uk.ac.ebi.phis.utils.web.JSONRestUtil;
 
 
-@CrossOrigin(origins = "http://fiddle.jshell.net", maxAge = 3600)
+//@CrossOrigin(origins = "http://fiddle.jshell.net", maxAge = 3600)
 @Service
 public class ImageService extends BasicService{
 
