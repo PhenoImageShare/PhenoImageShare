@@ -142,15 +142,6 @@
 				<td><var> * </var></td>
 				<td><var> postnatal stage / MmusDv_0000092 </var> </td>
 			</tr>
-
-			<!-- tr>
-				<td>visualisationMethod</td>
-				<td><var>String</var></td>
-				<td>false</td>
-				<td>Label or id of a child of Visualisation Method in FBBI ontology.</td>
-				<td><var> * </var></td>
-				<td><var> FEMALE / MALE </var> </td>
-			</tr-->
 			
 			<tr>
 				<td>samplePreparation</td>
@@ -159,7 +150,8 @@
 				<td>Label or id of a child of Sample Preparation in FBBI ontology.</td>
 				<td><var> * </var></td>
 				<td><var> living tissue </var> </td>
-			</tr>			
+			</tr>	
+					
 			<tr>
 				<td>imagingMethod</td>
 				<td><var>String</var></td>
@@ -167,7 +159,8 @@
 				<td>Label or id of a child of Imaging Method in FBBI ontology..</td>
 				<td><var> * </var></td>
 				<td><var> macroscopy </var> </td>
-			</tr>		
+			</tr>	
+				
 			<tr>
 				<td>visualisationMethod</td>
 				<td><var>String</var></td>
@@ -181,7 +174,7 @@
 				<td><var>Long</var></td>
 				<td>false</td>
 				<td>Position for genomic search. For better results with point mutations use interval search defined by startPosition and endPosition.</td>
-				<td><var>-</var></td>
+				<td><var> * </var></td>
 				<td><var>91008288</var><br></td>
 			</tr>
 			<tr style="background-color: olive;">
@@ -189,7 +182,7 @@
 				<td><var>Long</var></td>
 				<td>false</td>
 				<td>Start position for genomic location interval search.</td>
-				<td><var>-</var></td>
+				<td><var> * </var></td>
 				<td><var>91008288</var><br></td>
 			</tr>
 			<tr style="background-color: olive;">
@@ -197,7 +190,7 @@
 				<td><var>Long</var></td>
 				<td>false</td>
 				<td>End position for genomic location interval search.</td>
-				<td><var>-</var></td>
+				<td><var> * </var></td>
 				<td><var>91018288</var><br></td>
 			</tr>
 			<tr style="background-color: olive;">
@@ -205,7 +198,7 @@
 				<td><var>String</var></td>
 				<td>false</td>
 				<td>Chromosome for genomic location search.</td>
-				<td><var>-</var></td>
+				<td><var> * </var></td>
 				<td><var>X</var><br></td>
 			</tr>
 			<tr style="background-color: olive;">
@@ -213,7 +206,7 @@
 				<td><var>String</var></td>
 				<td>false</td>
 				<td>Strand for genomic location search.</td>
-				<td><var></var></td>
+				<td><var> * </var></td>
 				<td><var>-</var><br></td>
 			</tr>			
 				
@@ -257,7 +250,7 @@
 				<td><var>String</var></td>
 				<td> true</td>
 				<td>Image document with the specified id.</td>
-				<td><var> - </var></td>
+				<td><var> (none) </var></td>
 				<td><var>komp2_112003</var><br></td>
 			</tr>
 		</tbody>
@@ -287,7 +280,7 @@
 				<td><var>String</var></td>
 				<td> true</td>
 				<td>ROI with the specified id.</td>
-				<td><var> - </var></td>
+				<td><var> (none) </var></td>
 				<td><var>komp2_roi_112003_0</var><br></td>
 			</tr>
 		</tbody>
@@ -360,7 +353,7 @@
 				<td><var>String</var></td>
 				<td> true</td>
 				<td>Channel with the specified id.</td>
-				<td><var> - </var></td>
+				<td><var> (none) </var></td>
 				<td><var>komp2_channel_112003_0</var><br></td>
 			</tr>
 		</tbody>
@@ -388,7 +381,7 @@
 				<td><var>String</var></td>
 				<td> true</td>
 				<td>Channel with the specified id.</td>
-				<td><var> - </var></td>
+				<td><var> * </var></td>
 				<td><var>komp2_112003</var><br></td>
 			</tr>
 		
@@ -435,7 +428,7 @@
 				<td><var>String</var></td>
 				<td> false </td>
 				<td>JSON array of suggested terms. To be used with the "type" parameter for specific autosuggests.</td>
-				<td><var> - </var></td>
+				<td><var> * </var></td>
 				<td><var>abn</var><br></td>
 			</tr>
 			<!-- tr  style="background-color: OliveDrab ;" -->
@@ -444,7 +437,7 @@
 				<td><var>String</var></td>
 				<td> false </td>
 				<td> Possible values are [GENE, ANATOMY, PHENOTYPE]. If one is specified autosuggest will be typed (i.e. return only gene names matching th typed string). If left out autosuggest will be in generic mode.</td>
-				<td><var> - </var></td>
+				<td><var> * </var></td>
 				<td><var>GENE</var><br></td>
 			</tr>
 			<tr>
@@ -452,7 +445,7 @@
 				<td><var>String</var></td>
 				<td> false </td>
 				<td> Restricts results for autosuggest to documents for the stage passed.</td>
-				<td><var> - </var></td>
+				<td><var> * </var></td>
 				<td><var>postnatal stage</var><br></td>
 			</tr>
 			<tr>
@@ -460,7 +453,7 @@
 				<td><var>String</var></td>
 				<td> false </td>
 				<td> Restricts results for autosuggest to documents for the imaging method passed.</td>
-				<td><var> - </var></td>
+				<td><var> * </var></td>
 				<td><var>X-ray illumination</var><br></td>
 			</tr>
 			<tr>
@@ -468,7 +461,7 @@
 				<td><var>String</var></td>
 				<td> false </td>
 				<td> Restricts results for autosuggest to documents for the taxon passed.</td>
-				<td><var> - </var></td>
+				<td><var> * </var></td>
 				<td><var>Mus musculus</var><br></td>
 			</tr>
 			<tr>
@@ -476,7 +469,7 @@
 				<td><var>String</var></td>
 				<td> false </td>
 				<td> Restricts results for autosuggest to documents for the sampleType passed.</td>
-				<td><var> - </var></td>
+				<td><var> * </var></td>
 				<td><var>MUTANT</var><br></td>
 			</tr>
 			<tr>
@@ -484,7 +477,7 @@
 				<td><var>String</var></td>
 				<td> false </td>
 				<td> Restricts results for autosuggest to documents for images generated by the passed institute.</td>
-				<td><var> - </var></td>
+				<td><var> * </var></td>
 				<td><var>WTSI</var><br></td>
 			</tr>
 			<tr>
@@ -513,12 +506,12 @@
 				<th>Example Values</th>
 			</tr>
 			<tr>
-				<td>-</td>
-				<td>-</td>
-				<td>-</td>
-				<td>-</td>
-				<td>-</td>
-				<td>-</td>
+				<td>(none)</td>
+				<td>(none)</td>
+				<td>(none)</td>
+				<td>(none)</td>
+				<td>(none)</td>
+				<td>(none)</td>
 			</tr>
 		</thead>
 		
