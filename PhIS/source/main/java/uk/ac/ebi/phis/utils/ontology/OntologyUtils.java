@@ -48,6 +48,7 @@ import org.semanticweb.owlapi.util.InferredOntologyGenerator;
 import org.semanticweb.owlapi.util.InferredSubClassAxiomGenerator;
 
 import owltools.graph.OWLGraphWrapper;
+import uk.ac.ebi.phis.jaxb.OntologyTerm;
 import uk.ac.ebi.phis.release.OntologyInstance;
 
 
@@ -58,12 +59,14 @@ public class OntologyUtils {
 	private static final OWLDataFactory factory = manager.getOWLDataFactory();
 	public static final OWLAnnotationProperty LABEL_ANNOTATION = factory.getRDFSLabel();	
 	public static final OWLAnnotationProperty ALT_ID = factory.getOWLAnnotationProperty(IRI.create("http://www.geneontology.org/formats/oboInOwl#hasAlternativeId"));	
+	public static final OWLAnnotationProperty X_REF = factory.getOWLAnnotationProperty(IRI.create("http://www.geneontology.org/formats/oboInOwl#hasDbXref"));	
 	private static ArrayList<String> synonymRelations = new ArrayList<>();
 	private static Set<String> partOfRelations = new HashSet<>();	
 	
 	private ArrayList<String> anatomyOntologies = new ArrayList<String>();
 	private ArrayList<String> phenotypeOntologies = new ArrayList<String>();
 	private ArrayList<String> stageOntologies = new ArrayList<>();
+	private ArrayList<String> xrefOntologies = new ArrayList<>();
 	
 	// Hashes <termId, termLabel>
 	private HashMap<String, OntologyObject> anatomyTerms = new HashMap<>();
@@ -72,7 +75,9 @@ public class OntologyUtils {
 	private HashMap<String, OntologyObject> imTerms = new HashMap<>();
 	private HashMap<String, OntologyObject> spTerms = new HashMap<>();
 	private HashMap<String, OntologyObject> vmTerms = new HashMap<>();
+	private HashMap<String, OntologyObject> uberonTerms = new HashMap<>();
 	private HashMap<String, String> alternateIds = new HashMap<>();
+	private HashMap<String, List<String>> externalToUberon = new HashMap<>();
 	
 	private OntologyMapper om = new OntologyMapper(OntologyMapperPredefinedTypes.MA_MP);
 	
@@ -98,6 +103,8 @@ public class OntologyUtils {
 		
 		stageOntologies.add(System.getProperty("user.home") + "/phis_ontologies/mmusdv.owl");
 		stageOntologies.add(System.getProperty("user.home") + "/phis_ontologies/fbdv.owl");
+		
+		xrefOntologies.add(System.getProperty("user.home") + "/phis_ontologies/uberon.owl");
 
 		partOfRelations.add("part_of");
 		partOfRelations.add("part of");
@@ -138,7 +145,6 @@ public class OntologyUtils {
 	public List<String> getMaFromMp(String mpId){
 
 		String mpUri = "http://purl.obolibrary.org/obo/" + mpId.replace(":", "_");
-		System.out.println("\n" + mpUri);
 		return om.getMappings(mpUri, "MA_");		
 	}
 	
@@ -152,6 +158,9 @@ public class OntologyUtils {
 		
 		if (anatomyTerms.containsKey(id)){
 			res = (anatomyTerms.get(id).getLabel().equalsIgnoreCase(label) );
+		}
+		else if (uberonTerms.containsKey(id)){
+			res = (uberonTerms.get(id).getLabel().equalsIgnoreCase(label) );
 		}
 		else if (phenotypeTerms.containsKey(id)){
 			res = (phenotypeTerms.get(id).getLabel().equalsIgnoreCase(label) );
@@ -168,7 +177,6 @@ public class OntologyUtils {
 		else if (spTerms.containsKey(id)){
 			res = (spTerms.get(id).getLabel().equalsIgnoreCase(label) );
 		}
-		
 		return res;
 	}
 
@@ -183,23 +191,69 @@ public class OntologyUtils {
 	private void loadHashes() throws OWLOntologyStorageException{
 
 		for (String path: anatomyOntologies){
-			fillHashesFor(path, anatomyTerms, null, true);
+			fillHashesFor(path, anatomyTerms, null, true, false);
 		}
 		for (String path: phenotypeOntologies){
-			fillHashesFor(path, phenotypeTerms, null, false);				
+			fillHashesFor(path, phenotypeTerms, null, false, false);				
 		}
 		for (String path: stageOntologies){
-			fillHashesFor(path, stageTerms, null, true);
+			fillHashesFor(path, stageTerms, null, true, false);
+		}
+		for (String path: xrefOntologies){
+			fillHashesFor(path, uberonTerms, null, true, true);
 		}
 		
-		fillHashesFor(fbbi, spTerms, "http://purl.obolibrary.org/obo/FBbi_00000001", false); 
-		fillHashesFor(fbbi, vmTerms, "http://purl.obolibrary.org/obo/FBbi_00000031", false); 
-		fillHashesFor(fbbi, imTerms, "http://purl.obolibrary.org/obo/FBbi_00000222", false); 
+		fillHashesFor(fbbi, spTerms, "http://purl.obolibrary.org/obo/FBbi_00000001", false, false); 
+		fillHashesFor(fbbi, vmTerms, "http://purl.obolibrary.org/obo/FBbi_00000031", false, false); 
+		fillHashesFor(fbbi, imTerms, "http://purl.obolibrary.org/obo/FBbi_00000222", false, false); 
+		
+		computeFacetTopLevelTerms(stageTerms);
 		
 	}
 
+	/**
+	 * Higher level terms to be used on the GUI facets.
+	 * @since 2015/08/24 
+	 */
+	private void computeFacetTopLevelTerms(HashMap<String, OntologyObject> terms){
+				
+		for (OntologyObject obj :  terms.values()){
+			if (externalToUberon.containsKey(obj.getId())){
+				for (String id: externalToUberon.get(obj.getId())){
+					obj.addFacetTerms(getStageHigherLevel(id));
+				}
+			} else {
+				
+				//TODO 
+				
+			}
+			System.out.println("Stage_Facet :: " + obj.getId() + "  " + obj.getFacetTerms());
+		}
+	}
 	
-	private void fillHashesFor(String path, HashMap<String, OntologyObject> idLabelMap, String rootId, Boolean includePartOf) 
+	
+	/**
+	 * @since 2015/08/25
+	 * @param uberonId
+	 * @return
+	 */
+	private List<OntologyObject> getStageHigherLevel(String uberonId){
+
+		List<OntologyObject> topLevels = new ArrayList<>();
+		topLevels.add(getOntologyTermById("UBERON_0000068")); // embryo stage
+		topLevels.add(getOntologyTermById("UBERON_0000071")); // death stage
+		topLevels.add(getOntologyTermById("UBERON_0000092")); // post-embryonic stage
+		
+		OntologyObject oo = getOntologyTermById(uberonId);
+		System.out.println("uberonId" + uberonId);
+		topLevels.retainAll(oo.getIntermediateTerms());
+		
+		return topLevels;
+		
+	}
+	
+	
+	private void fillHashesFor(String path, HashMap<String, OntologyObject> idLabelMap, String rootId, Boolean includePartOf, Boolean storeXrefs) 
 	throws OWLOntologyStorageException{
 		  
 		OntologyInstance ontologyInst = new OntologyInstance();
@@ -265,6 +319,20 @@ public class OntologyUtils {
 						}
 					}
 				}
+				
+				if (storeXrefs && !cls.getIRI().isNothing() && cls.getAnnotations(ontology, X_REF) != null){
+					for (OWLAnnotation annotation : cls.getAnnotations(ontology, X_REF)) {
+						if (annotation.getValue() instanceof OWLLiteral) {
+							OWLLiteral val = (OWLLiteral) annotation.getValue();
+							String id = val.getLiteral().replace(":", "_");
+							if (!externalToUberon.containsKey(id)){
+								externalToUberon.put(id, new ArrayList<String>());
+							}
+							externalToUberon.get(id).add(getIdentifierShortForm(cls));
+						}
+					}
+				}
+				
 			}
 			
 			System.out.println("Done, going for ancestors");
@@ -362,6 +430,9 @@ public class OntologyUtils {
 		}
 		else if (spTerms.containsKey(id)){
 			return spTerms.get(id);
+		}
+		else if (uberonTerms.containsKey(id)){
+			return uberonTerms.get(id);
 		}
 		// Id was not found until here so it might be deprecated
 		if (alternateIds.containsKey(id)){

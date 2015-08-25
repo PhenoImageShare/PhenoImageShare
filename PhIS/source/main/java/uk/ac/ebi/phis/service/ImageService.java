@@ -39,7 +39,6 @@ import uk.ac.ebi.phis.solrj.dto.RoiDTO;
 import uk.ac.ebi.phis.utils.web.JSONRestUtil;
 
 
-//@CrossOrigin(origins = "http://fiddle.jshell.net", maxAge = 3600)
 @Service
 public class ImageService extends BasicService{
 

@@ -16,6 +16,7 @@
 package uk.ac.ebi.phis.utils.ontology;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class OntologyObject {
@@ -25,12 +26,12 @@ public class OntologyObject {
 	ArrayList<String> synonyms;
 	ArrayList<String> ancestorsBag;
 	ArrayList<OntologyObject> intermediateTerms;
-	ArrayList<OntologyObject> topLevelTerms;
 	ArrayList<OntologyObject> directParentTerms;
+	ArrayList<OntologyObject> facetTerms;
 	
 	public OntologyObject(){
 		intermediateTerms = new ArrayList<>();
-		topLevelTerms = new ArrayList<>();
+		facetTerms = new ArrayList<>();
 		directParentTerms = new ArrayList<>();
 		ancestorsBag = new ArrayList<>();
 		synonyms = new ArrayList<>();
@@ -130,17 +131,25 @@ public class OntologyObject {
 	/**
 	 * @return the topLevelTerms
 	 */
-	public ArrayList<OntologyObject> getTopLevelTerms() {
+	public ArrayList<OntologyObject> getFacetTerms() {
 	
-		return topLevelTerms;
+		return facetTerms;
 	}
 	
 	/**
 	 * @param topLevelTerms the topLevelTerms to set
 	 */
-	public void setTopLevelTerms(ArrayList<OntologyObject> topLevelTerms) {
+	public void setFacetTerms(ArrayList<OntologyObject> topLevelTerms) {
 	
-		this.topLevelTerms = topLevelTerms;
+		this.facetTerms = topLevelTerms;
+	}
+	
+	public void addFacetTerms(List<OntologyObject> topLevelTerms) {
+		
+		if (this.facetTerms == null){
+			this.facetTerms = new ArrayList<>();
+		}
+		this.facetTerms.addAll(topLevelTerms);
 	}
 	
 	/**
@@ -163,7 +172,7 @@ public class OntologyObject {
 	public String toString() {
 
 		return "OntologyObject [id=" + id + ", label=" + label + ", synonyms=" + synonyms + ", ancestorsBag=" + ancestorsBag + ", intermediateTerms=" 
-			+ intermediateTerms + ", topLevelTerms=" + topLevelTerms + ", directParentTerms=" + directParentTerms + "]";
+			+ intermediateTerms + ", topLevelTerms=" + facetTerms + ", directParentTerms=" + directParentTerms + "]";
 	}
 	
 }

@@ -37,6 +37,7 @@ import uk.ac.ebi.phis.service.RoiService;
 import uk.ac.ebi.phis.solrj.dto.AutosuggestTypes;
 import uk.ac.ebi.phis.utils.web.RestStatusMessage;
 
+//CrossOrigin(origins = "http://fiddle.jshell.net", maxAge = 3600)
 @Controller
 @RequestMapping("/rest")
 public class SolrWrapperController {

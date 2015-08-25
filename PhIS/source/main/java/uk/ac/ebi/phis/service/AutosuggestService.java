@@ -64,9 +64,6 @@ public class AutosuggestService extends BasicService {
 		solrQuery.setRows(rows); // number of groups to return (not result
 									// documents)
 
-		System.out.println("Solr URL : " + solr.getBaseURL() + "/select?" + solrQuery);
-		log.info("Solr URL in getImages : " + solr.getBaseURL() + "/select?" + solrQuery);
-		
 		if (type != null) {
 			solrQuery.addFilterQuery(AutosuggestDTO.AUTOSUGGEST_TYPE + ":" + type);
 		} 
@@ -86,6 +83,10 @@ public class AutosuggestService extends BasicService {
 		if (imageGeneratedBy != null){
 			solrQuery.addFilterQuery(AutosuggestDTO.IMAGE_GENERATED_BY + ":" + imageGeneratedBy);
 		}		
+
+		System.out.println("Solr URL : " + solr.getBaseURL() + "/select?" + solrQuery);
+		log.info("Solr URL in getImages : " + solr.getBaseURL() + "/select?" + solrQuery);
+		
 		
 		try {
 

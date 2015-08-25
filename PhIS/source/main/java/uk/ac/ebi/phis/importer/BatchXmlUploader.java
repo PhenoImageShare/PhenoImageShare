@@ -465,6 +465,9 @@ public class BatchXmlUploader {
 				bean.setStage(oo.getLabel());
 				bean.setStageId(oo.getId());
 				bean.addStageAncestors(oo.getAncestorsBag());
+				for (OntologyObject facetOo: oo.getFacetTerms()){
+					bean.addStageFacet(facetOo.getLabel());
+				}
 			}
 		}
 	

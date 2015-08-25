@@ -53,6 +53,7 @@ public class ImageDTO {
 	public final static String STAGE_ID = "stage_id";
 	public final static String STAGE = "stage";
 	public final static String STAGE_ANCESTORS = "stage_ancestors";
+	public final static String STAGE_FACET = "stage_facet";
 	public final static String SEX = "sex";
 	public final static String NCBI_TAXON_ID = "ncbi_taxon_id";
 	public final static String TAXON = "taxon";
@@ -263,6 +264,9 @@ public class ImageDTO {
 
 	@Field(STAGE_ANCESTORS)
 	private ArrayList<String> stageAncestors;
+	
+	@Field(STAGE_FACET)
+	private ArrayList<String> stageFacets;
 	
 	@Field(PUBLICATION)
 	private List<String> publication;
@@ -2773,7 +2777,6 @@ public class ImageDTO {
 	
 		return genomeAssembly;
 	}
-
 	
 	public void setGenomeAssembly(List<String> genomeAssembly) {
 	
@@ -2798,6 +2801,26 @@ public class ImageDTO {
 			this.backgroundStrain = new ArrayList<>();
 		}
 		this.backgroundStrain.add(backgroundStrain);
+	}
+
+	
+	public ArrayList<String> getStageFacets() {
+	
+		return stageFacets;
+	}
+
+	
+	public void setStageFacets(ArrayList<String> stageFacets) {
+	
+		this.stageFacets = stageFacets;
+	}
+	
+	public void addStageFacet(String facet){
+		
+		if (this.stageFacets == null){
+			this.stageFacets = new ArrayList<>();
+		}
+		this.stageFacets.add(facet);
 	}
 	
 }

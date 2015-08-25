@@ -254,9 +254,6 @@ public class Neo4jAccessUtils {
 			if (!toLeft){
 				toNode.createRelationshipTo( fromNode, relation );
 			}
-			for (Relationship r: fromNode.getRelationships()){
-				System.out.println(" Found this rel : " + r + " of type " + r.getType() + " from " + r.getStartNode() + " to " + r.getEndNode());
-			}
 			tx.success();
 			tx.close();
         }   
@@ -276,9 +273,6 @@ public class Neo4jAccessUtils {
 		try ( Transaction tx = db.beginTx() )  {
 			
 			fromNode.createRelationshipTo( toNode, relation );
-			for (Relationship rel: fromNode.getRelationships()){
-				System.out.println(" Found this rel : " + rel + " of type " + rel.getType() + " from " + rel.getStartNode() + " to " + rel.getEndNode());
-			}
 			tx.success();
 			tx.close();
         }   
