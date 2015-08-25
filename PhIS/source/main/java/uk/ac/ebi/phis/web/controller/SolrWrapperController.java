@@ -129,22 +129,13 @@ public class SolrWrapperController {
 			@RequestParam(value = "imagingMethod", required = false) String imagingMethod,
 			@RequestParam(value = "imageGeneratedBy", required = false) String imageGeneratedBy,			
 			@RequestParam(value = "anatomy", required = false) String anatomy,
-			@RequestParam(value = "mutantGene", required = false) String mutantGene,
-			@RequestParam(value = "expressedGeneOrAllele", required = false) String expressedGeneOrAllele,
-			@RequestParam(value = "phenotype", required = false) String phenotype,
 			Model model){
 			
 		if (term != null){
 			return as.getAutosuggest(term, (type != null ? AutosuggestTypes.valueOf(type) : null), stage, imagingMethod, taxon, sampleType, imageGeneratedBy, resultNo);
 		} else if (anatomy != null){
 			return as.getAutosuggest(term, AutosuggestTypes.ANATOMY, stage, imagingMethod, taxon, sampleType, imageGeneratedBy, resultNo);
-		} else if (mutantGene != null){
-			return as.getAutosuggest(term, AutosuggestTypes.GENE, stage, imagingMethod, taxon, sampleType, imageGeneratedBy, resultNo);
-		} else if (expressedGeneOrAllele != null){
-			return as.getAutosuggest(term, AutosuggestTypes.GENE, stage, imagingMethod, taxon, sampleType, imageGeneratedBy, resultNo);
-		} else if (phenotype != null){
-			return as.getAutosuggest(term, AutosuggestTypes.PHENOTYPE, stage, imagingMethod, taxon, sampleType, imageGeneratedBy, resultNo);
-		}
+		} 
 		return "";
 	}
 	
