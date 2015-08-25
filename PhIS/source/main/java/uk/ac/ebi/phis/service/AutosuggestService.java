@@ -69,24 +69,23 @@ public class AutosuggestService extends BasicService {
 		} 
 		
 		if (stage != null){
-			solrQuery.addFilterQuery(AutosuggestDTO.STAGE + ":" + stage);
+			solrQuery.addFilterQuery(AutosuggestDTO.STAGE + ":\"" + stage + "\"");
 		}
 		if (taxon != null){
-			solrQuery.addFilterQuery(AutosuggestDTO.TAXON + ":" + taxon);
+			solrQuery.addFilterQuery(AutosuggestDTO.TAXON + ":\"" + taxon + "\"");
 		}
 		if (sampleType != null){
-			solrQuery.addFilterQuery(AutosuggestDTO.SAMPLE_TYPE + ":" + sampleType);
+			solrQuery.addFilterQuery(AutosuggestDTO.SAMPLE_TYPE + ":\"" + sampleType + "\"");
 		}
 		if (imagingMethod != null){
-			solrQuery.addFilterQuery(AutosuggestDTO.IMAGING_METHOD + ":" + imagingMethod);
+			solrQuery.addFilterQuery(AutosuggestDTO.IMAGING_METHOD + ":\"" + imagingMethod + "\"");
 		}
 		if (imageGeneratedBy != null){
-			solrQuery.addFilterQuery(AutosuggestDTO.IMAGE_GENERATED_BY + ":" + imageGeneratedBy);
+			solrQuery.addFilterQuery(AutosuggestDTO.IMAGE_GENERATED_BY + ":\"" + imageGeneratedBy + "\"");
 		}		
 
 		System.out.println("Solr URL : " + solr.getBaseURL() + "/select?" + solrQuery);
-		log.info("Solr URL in getImages : " + solr.getBaseURL() + "/select?" + solrQuery);
-		
+		log.info("Solr URL in getImages : " + solr.getBaseURL() + "/select?" + solrQuery);		
 		
 		try {
 
