@@ -103,7 +103,7 @@
 				<td>false</td>
 				<td>Returns only images of samples with the specified sex.</td>
 				<td><var> * </var></td>
-				<td><var> FEMALE / MALE </var> </td>
+				<td><var> FEMALE , MALE </var> </td>
 			</tr>
 			
 			<tr>
@@ -131,7 +131,7 @@
 				<td>false</td>
 				<td>Filter on expression or anatomy/phenotype images for faceting.</td>
 				<td><var> * </var></td>
-				<td><var> EXPRESSION </var> or <var>PHENOTYPE_ANATOMY </var> </td>
+				<td><var> EXPRESSION </var> , <var>PHENOTYPE_ANATOMY </var> </td>
 			</tr>
 			
 			<tr>
@@ -140,7 +140,7 @@
 				<td>false</td>
 				<td>Stage ontology id or text.</td>
 				<td><var> * </var></td>
-				<td><var> postnatal stage / MmusDv_0000092 </var> </td>
+				<td><var> postnatal stage , MmusDv_0000092 </var> </td>
 			</tr>
 			
 			<tr>
@@ -251,7 +251,7 @@
 				<td> true</td>
 				<td>Image document with the specified id.</td>
 				<td><var> (none) </var></td>
-				<td><var>komp2_112003</var><br></td>
+				<td><var>emage_EMAGE_2333.1</var><br></td>
 			</tr>
 		</tbody>
 	</table>
@@ -281,7 +281,7 @@
 				<td> true</td>
 				<td>ROI with the specified id.</td>
 				<td><var> (none) </var></td>
-				<td><var>komp2_roi_112003_0</var><br></td>
+				<td><var>emage_roi_EMAGE_2333.1</var><br></td>
 			</tr>
 		</tbody>
 	</table>
@@ -308,7 +308,7 @@
 				<td> false</td>
 				<td>ROI associated to the image.</td>
 				<td><var> * </var></td>
-				<td><var>komp2_112003</var><br></td>
+				<td><var>emage_EMAGE_2333.1</var><br></td>
 			</tr>
 			<tr>
 				<td>resultNo</td>
@@ -354,7 +354,7 @@
 				<td> true</td>
 				<td>Channel with the specified id.</td>
 				<td><var> (none) </var></td>
-				<td><var>komp2_channel_112003_0</var><br></td>
+				<td><var>emage_channel_EMAGE_2333.1</var><br></td>
 			</tr>
 		</tbody>
 	</table>
@@ -382,7 +382,7 @@
 				<td> true</td>
 				<td>Channel with the specified id.</td>
 				<td><var> * </var></td>
-				<td><var>komp2_112003</var><br></td>
+				<td><var>emage_EMAGE_2333.1</var><br></td>
 			</tr>
 		
 			<tr>
