@@ -71,7 +71,7 @@
 				<td> true </td>
 				<td>Must be a real image id because addAnnotation does not add new documents in the image core.</td>
 				<td><var>(none)</var></td>
-				<td><var>komp2_289863</var></td>
+				<td><var>emage_EMAGE_2333.1</var></td>
 			</tr>
 			<tr>
 				<td>xCoordinates</td>
