@@ -169,7 +169,7 @@
 				<td><var> * </var></td>
 				<td><var> fluorescent protein tag </var> </td>
 			</tr>		
-			<tr style="background-color: olive;">
+			<tr>
 				<td>position</td>
 				<td><var>Long</var></td>
 				<td>false</td>
@@ -177,7 +177,7 @@
 				<td><var> * </var></td>
 				<td><var>91008288</var><br></td>
 			</tr>
-			<tr style="background-color: olive;">
+			<tr>
 				<td>startPosition</td>
 				<td><var>Long</var></td>
 				<td>false</td>
@@ -185,7 +185,7 @@
 				<td><var> * </var></td>
 				<td><var>91008288</var><br></td>
 			</tr>
-			<tr style="background-color: olive;">
+			<tr>
 				<td>endPosition</td>
 				<td><var>Long</var></td>
 				<td>false</td>
@@ -193,7 +193,7 @@
 				<td><var> * </var></td>
 				<td><var>91018288</var><br></td>
 			</tr>
-			<tr style="background-color: olive;">
+			<tr>
 				<td>chromosome</td>
 				<td><var>String</var></td>
 				<td>false</td>
@@ -201,7 +201,7 @@
 				<td><var> * </var></td>
 				<td><var>X</var><br></td>
 			</tr>
-			<tr style="background-color: olive;">
+			<tr>
 				<td>strand</td>
 				<td><var>String</var></td>
 				<td>false</td>
