@@ -241,7 +241,7 @@
 		</profile> 
 		
 		<profile>
-		<id>live-v1.0.0</id>
+		<id>v1.0.0</id>
 			<properties>
 				<baseUrl>http://??</baseUrl>
 				<solrUrl>http://???</solrUrl>
