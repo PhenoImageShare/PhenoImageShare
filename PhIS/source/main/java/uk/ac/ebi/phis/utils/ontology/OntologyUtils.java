@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
+import org.crsh.console.jline.internal.Log;
 import org.semanticweb.elk.owlapi.ElkReasonerFactory;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
@@ -31,10 +32,12 @@ import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedObject;
 import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
@@ -48,7 +51,6 @@ import org.semanticweb.owlapi.util.InferredOntologyGenerator;
 import org.semanticweb.owlapi.util.InferredSubClassAxiomGenerator;
 
 import owltools.graph.OWLGraphWrapper;
-import uk.ac.ebi.phis.jaxb.OntologyTerm;
 import uk.ac.ebi.phis.release.OntologyInstance;
 
 
@@ -59,7 +61,7 @@ public class OntologyUtils {
 	private static final OWLDataFactory factory = manager.getOWLDataFactory();
 	public static final OWLAnnotationProperty LABEL_ANNOTATION = factory.getRDFSLabel();	
 	public static final OWLAnnotationProperty ALT_ID = factory.getOWLAnnotationProperty(IRI.create("http://www.geneontology.org/formats/oboInOwl#hasAlternativeId"));	
-	public static final OWLAnnotationProperty X_REF = factory.getOWLAnnotationProperty(IRI.create("http://www.geneontology.org/formats/oboInOwl#hasDbXref"));	
+	public static final OWLAnnotationProperty X_REF = factory.getOWLAnnotationProperty(IRI.create("http://www.geneontology.org/formats/oboInOwl#hasDbXref"));
 	private static ArrayList<String> synonymRelations = new ArrayList<>();
 	private static Set<String> partOfRelations = new HashSet<>();	
 	
@@ -190,22 +192,21 @@ public class OntologyUtils {
 	 */
 	private void loadHashes() throws OWLOntologyStorageException{
 
-		for (String path: anatomyOntologies){
-			fillHashesFor(path, anatomyTerms, null, true, false);
-		}
-		for (String path: phenotypeOntologies){
-			fillHashesFor(path, phenotypeTerms, null, false, false);				
+		for (String path: xrefOntologies){
+			fillHashesFor(path, uberonTerms, null, true, true, false);
 		}
 		for (String path: stageOntologies){
-			fillHashesFor(path, stageTerms, null, true, false);
+			fillHashesFor(path, stageTerms, null, true, true, true);
 		}
-		for (String path: xrefOntologies){
-			fillHashesFor(path, uberonTerms, null, true, true);
+		for (String path: anatomyOntologies){
+			fillHashesFor(path, anatomyTerms, null, true, false, false);
 		}
-		
-		fillHashesFor(fbbi, spTerms, "http://purl.obolibrary.org/obo/FBbi_00000001", false, false); 
-		fillHashesFor(fbbi, vmTerms, "http://purl.obolibrary.org/obo/FBbi_00000031", false, false); 
-		fillHashesFor(fbbi, imTerms, "http://purl.obolibrary.org/obo/FBbi_00000222", false, false); 
+		for (String path: phenotypeOntologies){
+			fillHashesFor(path, phenotypeTerms, null, false, false, false);				
+		}
+		fillHashesFor(fbbi, spTerms, "http://purl.obolibrary.org/obo/FBbi_00000001", false, false, false); 
+		fillHashesFor(fbbi, vmTerms, "http://purl.obolibrary.org/obo/FBbi_00000031", false, false, false); 
+		fillHashesFor(fbbi, imTerms, "http://purl.obolibrary.org/obo/FBbi_00000222", false, false, false); 
 		
 		computeFacetTopLevelTerms(stageTerms);
 		
@@ -217,19 +218,31 @@ public class OntologyUtils {
 	 */
 	private void computeFacetTopLevelTerms(HashMap<String, OntologyObject> terms){
 				
-		for (OntologyObject obj :  terms.values()){
-			if (externalToUberon.containsKey(obj.getId())){
-				for (String id: externalToUberon.get(obj.getId())){
-					obj.addFacetTerms(getStageHigherLevel(id));
-				}
-			} else {
-				
-				//TODO 
-				
+		for (String key:  terms.keySet()){
+			terms.get(key).setFacetTerms(getStageTopLevel(terms.get(key)));
+			if(terms.get(key).getFacetTerms() == null){
+				Log.warn("stage_facet NOT found for " + terms.get(key).getId() + "  " + terms.get(key).label);
 			}
-			System.out.println("Stage_Facet :: " + obj.getId() + "  " + obj.getFacetTerms());
 		}
+		
 	}
+	
+	
+	private List<OntologyObject> getStageTopLevel( OntologyObject obj){
+		
+		if (externalToUberon.containsKey(obj.getId())){
+			for (String id: externalToUberon.get(obj.getId())){
+				return getStageHigherLevel(id);
+			}
+		} else {
+			for (OntologyObject parent : obj.directParentTerms){
+				return getStageTopLevel(parent);
+			}
+		}
+		return null;
+	}
+	
+	
 	
 	
 	/**
@@ -245,15 +258,26 @@ public class OntologyUtils {
 		topLevels.add(getOntologyTermById("UBERON_0000092")); // post-embryonic stage
 		
 		OntologyObject oo = getOntologyTermById(uberonId);
-		System.out.println("uberonId" + uberonId);
-		topLevels.retainAll(oo.getIntermediateTerms());
+		List<OntologyObject> list = new ArrayList<>();
+		list.add(oo);
+		list.addAll(oo.getIntermediateTerms());
+		topLevels.retainAll(list);
 		
 		return topLevels;
 		
 	}
 	
-	
-	private void fillHashesFor(String path, HashMap<String, OntologyObject> idLabelMap, String rootId, Boolean includePartOf, Boolean storeXrefs) 
+	/**
+	 * 
+	 * @param path
+	 * @param idLabelMap
+	 * @param rootId
+	 * @param includePartOf
+	 * @param storeXrefs
+	 * @param external Weather external ont or Uberon. The field is only used when populating the mapping has "externalToUberon", to know which is the key and which the value
+	 * @throws OWLOntologyStorageException
+	 */
+	private void fillHashesFor(String path, HashMap<String, OntologyObject> idLabelMap, String rootId, Boolean includePartOf, Boolean storeXrefs, Boolean external) 
 	throws OWLOntologyStorageException{
 		  
 		OntologyInstance ontologyInst = new OntologyInstance();
@@ -325,10 +349,19 @@ public class OntologyUtils {
 						if (annotation.getValue() instanceof OWLLiteral) {
 							OWLLiteral val = (OWLLiteral) annotation.getValue();
 							String id = val.getLiteral().replace(":", "_");
-							if (!externalToUberon.containsKey(id)){
-								externalToUberon.put(id, new ArrayList<String>());
+							if (!external){
+								if (!externalToUberon.containsKey(id)){
+									externalToUberon.put(id, new ArrayList<String>());
+								}
+								externalToUberon.get(id).add(getIdentifierShortForm(cls));
+							} else {
+								if (id.startsWith("UBERON")){
+									if (!externalToUberon.containsKey(getIdentifierShortForm(cls))){
+										externalToUberon.put(getIdentifierShortForm(cls), new ArrayList<String>());
+									}
+									externalToUberon.get(getIdentifierShortForm(cls)).add(id);
+								}
 							}
-							externalToUberon.get(id).add(getIdentifierShortForm(cls));
 						}
 					}
 				}
@@ -343,11 +376,14 @@ public class OntologyUtils {
 					
 					OntologyObject temp = idLabelMap.get(getIdentifierShortForm(cls));
 					Set<OWLClass> ancestors = new HashSet<>();
+					Set<OWLClass> parents = new HashSet<>();
 					
 					if (includePartOf){
 						ancestors = new HashSet(getAncestorsClassifiedPartOf(cls, gr));
+						parents = new HashSet(getParentsClassifiedPartOf(cls, gr));
 					} else {
 						ancestors = getAncestors(reasoner, cls);
+						parents = new HashSet(getParentsClassifiedPartOf(cls, gr));
 					}
 					
 					for (OWLObject obj : ancestors) {
@@ -355,6 +391,13 @@ public class OntologyUtils {
 						if (ancestorObject != null){
 							temp.addIntermediateTerms(ancestorObject);
 						}
+					}
+					
+					for (OWLObject obj : parents) {
+						OntologyObject parent = idLabelMap.get(getIdentifierShortForm((OWLClass) obj));
+						if (parent != null){
+							temp.addDirectparentTerms(parent);
+						} 
 					}
 					
 					idLabelMap.put(getIdentifierShortForm(cls), temp);
@@ -388,6 +431,35 @@ public class OntologyUtils {
 		
 		return reasoner.getSuperClasses(cls, false).getFlattened();
 		
+	}
+	
+	
+	public Set<OWLNamedObject> getParentsClassifiedPartOf(OWLClass cls, OWLGraphWrapper graph){
+		
+		Set<OWLPropertyExpression> overProps = new HashSet<>();
+		Set<OWLNamedObject> res = new HashSet<>();
+		
+		if (partOfRelations != null) {
+			for (String lbl: partOfRelations){
+				overProps.add((OWLPropertyExpression) graph.getOWLObjectByLabel(lbl));
+			}
+		}
+		
+		for ( OWLClassExpression classExpression: cls.getSuperClasses(graph.getSourceOntology())){
+			if (classExpression.isClassExpressionLiteral()){
+				res.add(classExpression.asOWLClass());
+			} else if (classExpression instanceof OWLObjectSomeValuesFrom){
+				OWLObjectSomeValuesFrom svf = (OWLObjectSomeValuesFrom) classExpression;
+				if (overProps.contains(svf.getProperty().asOWLObjectProperty())){
+					if (svf.getFiller() instanceof OWLNamedObject){
+						res.add((OWLNamedObject) svf.getFiller());
+					}
+				}
+			}
+		}
+		
+		return res;
+			
 	}
 	
 	

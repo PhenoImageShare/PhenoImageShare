@@ -24,10 +24,10 @@ public class OntologyObject {
 	String id;
 	String label;
 	ArrayList<String> synonyms;
-	ArrayList<String> ancestorsBag;
-	ArrayList<OntologyObject> intermediateTerms;
-	ArrayList<OntologyObject> directParentTerms;
-	ArrayList<OntologyObject> facetTerms;
+	List<String> ancestorsBag;
+	List<OntologyObject> intermediateTerms;
+	List<OntologyObject> directParentTerms;
+	List<OntologyObject> facetTerms;
 	
 	public OntologyObject(){
 		intermediateTerms = new ArrayList<>();
@@ -94,7 +94,7 @@ public class OntologyObject {
 	}
 	
 	
-	public ArrayList<String> getAncestorsBag(){
+	public List<String> getAncestorsBag(){
 		
 		return ancestorsBag;
 	}
@@ -102,7 +102,7 @@ public class OntologyObject {
 	/**
 	 * @return the intermediateTerms
 	 */
-	public ArrayList<OntologyObject> getIntermediateTerms() {
+	public List<OntologyObject> getIntermediateTerms() {
 	
 		return intermediateTerms;
 	}
@@ -131,7 +131,7 @@ public class OntologyObject {
 	/**
 	 * @return the topLevelTerms
 	 */
-	public ArrayList<OntologyObject> getFacetTerms() {
+	public List<OntologyObject> getFacetTerms() {
 	
 		return facetTerms;
 	}
@@ -139,7 +139,7 @@ public class OntologyObject {
 	/**
 	 * @param topLevelTerms the topLevelTerms to set
 	 */
-	public void setFacetTerms(ArrayList<OntologyObject> topLevelTerms) {
+	public void setFacetTerms(List<OntologyObject> topLevelTerms) {
 	
 		this.facetTerms = topLevelTerms;
 	}
@@ -155,7 +155,7 @@ public class OntologyObject {
 	/**
 	 * @return the directparentTerms
 	 */
-	public ArrayList<OntologyObject> getDirectparentTerms() {
+	public List<OntologyObject> getDirectparentTerms() {
 	
 		return directParentTerms;
 	}
@@ -167,6 +167,11 @@ public class OntologyObject {
 	
 		this.directParentTerms = directparentTerms;
 	}
+	
+	public void addDirectparentTerms(OntologyObject directparentTerm) {
+		
+		this.directParentTerms.add(directparentTerm);
+	}	
 
 	@Override
 	public String toString() {

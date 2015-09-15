@@ -465,6 +465,9 @@ public class BatchXmlUploader {
 				bean.setStage(oo.getLabel());
 				bean.setStageId(oo.getId());
 				bean.addStageAncestors(oo.getAncestorsBag());
+				if (oo.getFacetTerms() == null || oo.getFacetTerms().size() == 0){
+					System.out.println("No facet terms for " + oo.getLabel() + " " + oo.getId());
+				}
 				for (OntologyObject facetOo: oo.getFacetTerms()){
 					bean.addStageFacet(facetOo.getLabel());
 				}

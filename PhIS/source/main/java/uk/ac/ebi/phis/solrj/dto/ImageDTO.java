@@ -863,7 +863,7 @@ public class ImageDTO {
 		}
 	}
 	
-	public void addStageAncestors(ArrayList<String> stageAncestors) {
+	public void addStageAncestors(List<String> stageAncestors) {
 		
 		if (stageAncestors != null){
 			HashSet<String> ancestors = new HashSet<String>(stageAncestors);
@@ -908,7 +908,7 @@ public class ImageDTO {
 		}
 	}
 	
-	public void addVisualisationMethodAncestors(ArrayList<String> visualisationMethodAncestors) {
+	public void addVisualisationMethodAncestors(List<String> visualisationMethodAncestors) {
 		if (visualisationMethodAncestors != null){
 			HashSet<String> ancestors = new HashSet<String>(visualisationMethodAncestors);
 			if (this.visualisationMethodAncestors == null){
@@ -1024,7 +1024,7 @@ public class ImageDTO {
 		}
 	}
 	
-	public void addImagingMethodAncestors(ArrayList<String> imAncestors) {
+	public void addImagingMethodAncestors(List<String> imAncestors) {
 		
 		if (imAncestors != null){
 			HashSet<String> set = new HashSet<String>(imAncestors);
@@ -1036,7 +1036,7 @@ public class ImageDTO {
 		}
 	}
 	
-	public void addSamplePreparationAncestors(ArrayList<String> spAncestors) {
+	public void addSamplePreparationAncestors(List<String> spAncestors) {
 		
 		if (spAncestors != null){
 			HashSet<String> set = new HashSet<String>(spAncestors);
