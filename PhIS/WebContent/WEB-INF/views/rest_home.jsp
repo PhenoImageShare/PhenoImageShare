@@ -497,7 +497,7 @@
 	<h3>Parameters</h3>
 	<table class="table table-striped">
 		<thead>
-			<tr style="background-color: olive;">
+			<tr style="background-color: lightSteelBlue;">
 				<th>Name</th>
 				<th>Type</th>
 				<th>Required</th>
