@@ -153,7 +153,7 @@ public class ImageService extends BasicService{
 		if (stage != null){
 			stage = handleSpecialCharacters(stage);
 			solrQuery.addFilterQuery(ImageDTO.STAGE + ":\"" + stage + "\" OR " + 
-				ImageDTO.STAGE_ID + ":\"" + stage + "\" OR " + ImageDTO.STAGE_ANCESTORS + ":\"" + stage + "\"" );
+				ImageDTO.STAGE_ID + ":\"" + stage + "\" OR " + ImageDTO.STAGE_ANCESTORS + ":\"" + stage + "\" OR " + ImageDTO.STAGE_FACET + ":\"" + stage + "\"" );
 		}
 		if (sex != null){
 			sex = handleSpecialCharacters(sex);
