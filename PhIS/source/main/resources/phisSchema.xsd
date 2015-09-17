@@ -143,7 +143,7 @@
 			<element name="sample_type" type="x:SampleType" minOccurs="1" maxOccurs="1" />
 			<element name="licence" type="string" minOccurs="0" maxOccurs="1" />
 			<element name="magnification_level" type="string" minOccurs="0" maxOccurs="1" />
-			<element name="publication" type="x:StringArray" minOccurs="0" maxOccurs="1" />
+			<element name="publication" type="x:LinkArray" minOccurs="0" maxOccurs="1" />
 		</all>
 	</complexType>
 
