@@ -36,7 +36,7 @@ public class AutosuggestIndexer {
 	ClassLoader classloader;
 	ImageService is;
 	AutosuggestService as;
-	OntologyUtils ou;
+	OntologyUtils ou;	
 	
 	public AutosuggestIndexer(ImageService is, AutosuggestService as, OntologyUtils ou) {
 		classloader = Thread.currentThread().getContextClassLoader();
@@ -282,6 +282,7 @@ public class AutosuggestIndexer {
 		ArrayList<AutosuggestBean> res = new ArrayList<>();
 		for (String value : ancestors){
 			if (isId(value)){
+				// Need OntologyObjects as solr multivalued fields might not keep the order + it doesn't work for synonyms of more terms
 				OntologyObject ot = ou.getOntologyTermById(value);
 				res.add(new AutosuggestBean(value, ot.getLabel(), ot.getSynonyms(), type));
 			}
@@ -295,37 +296,6 @@ public class AutosuggestIndexer {
 		return p.matcher(string).matches();
 	}
 		
-	/*
-	 * 
-	  
-   <copyField source="expression_in_freetext_bag" dest="generic_search"/>
-   <copyField source="anatomy_id" dest="generic_search"/>
-   <copyField source="anatomy_term" dest="generic_search"/>
-   <copyField source="anatomy_freetext" dest="generic_search"/>
-   <copyField source="depicted_anatomy_freetext_bag" dest="generic_search"/>
-   <copyField source="abnormal_anatomy_freetext_bag" dest="generic_search"/>
-   <copyField source="phenotype_freetext_bag" dest="generic_search"/>
-
-   <copyField source="mutant_gene_synonyms_bag" dest="generic_search"/>
-   <copyField source="mutant_gene_id_bag" dest="generic_search"/>
-   <copyField source="observation_bag" dest="generic_search"/>
-   <copyField source="zygosity" dest="generic_search"/>
-   <copyField source="conditions" dest="generic_search"/>
-   <copyField source="stage" dest="generic_search"/>
-   <copyField source="stage_id" dest="generic_search"/>
-   <copyField source="taxon" dest="generic_search"/>
-   <copyField source="ncbi_taxon_id" dest="generic_search"/>
-   <copyField source="sample_generated_by" dest="generic_search"/>
-   <copyField source="host_name" dest="generic_search"/>
-   <copyField source="image_generated_by" dest="generic_search"/>
-   <copyField source="sample_preparation_label" dest="generic_search"/>
-   <copyField source="sample_preparation_id" dest="generic_search"/>
-   <copyField source="sample_preparation_synonyms" dest="generic_search"/>
-   <copyField source="visualisation_method_id" dest="generic_search"/>
-   <copyField source="visualisation_method_label" dest="generic_search"/>
-   <copyField source="visualisation_method_synonyms" dest="generic_search"/>
-   <copyField source="machine" dest="generic_search"/>
-   */
 	
 	protected class AutosuggestBean{
 		String term;

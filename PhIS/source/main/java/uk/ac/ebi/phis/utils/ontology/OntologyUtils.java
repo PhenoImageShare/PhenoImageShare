@@ -220,26 +220,34 @@ public class OntologyUtils {
 				
 		for (String key:  terms.keySet()){
 			terms.get(key).setFacetTerms(getStageTopLevel(terms.get(key)));
-			if(terms.get(key).getFacetTerms() == null){
+			if(terms.get(key).getFacetTerms() == null || terms.get(key).getFacetTerms().size() == 0){
 				Log.warn("stage_facet NOT found for " + terms.get(key).getId() + "  " + terms.get(key).label);
-			}
+			} 
 		}
 		
 	}
 	
-	
+	/**
+	 * [WARNING] This method should only be used for stages as the top levels are disjunct. This method might miss parents for multiple inheritance.
+	 * @param obj
+	 * @return
+	 */
 	private List<OntologyObject> getStageTopLevel( OntologyObject obj){
 		
-		if (externalToUberon.containsKey(obj.getId())){
-			for (String id: externalToUberon.get(obj.getId())){
-				return getStageHigherLevel(id);
-			}
-		} else {
+		if (externalToUberon.containsKey(obj.getId()) && getStageHigherLevel(obj).size() > 0){
+			return getStageHigherLevel(obj);
+		} else if (obj.directParentTerms.size() > 0){
+			HashSet<OntologyObject> res = new HashSet<>();
 			for (OntologyObject parent : obj.directParentTerms){
-				return getStageTopLevel(parent);
+				List<OntologyObject> temp = getStageTopLevel(parent);
+				if (temp != null){
+					res.addAll(temp);
+				}
 			}
+			return new ArrayList<>(res);
+		} else {
+			return null;
 		}
-		return null;
 	}
 	
 	
@@ -250,18 +258,33 @@ public class OntologyUtils {
 	 * @param uberonId
 	 * @return
 	 */
-	private List<OntologyObject> getStageHigherLevel(String uberonId){
+	private List<OntologyObject> getStageHigherLevel(OntologyObject obj){
 
 		List<OntologyObject> topLevels = new ArrayList<>();
 		topLevels.add(getOntologyTermById("UBERON_0000068")); // embryo stage
 		topLevels.add(getOntologyTermById("UBERON_0000071")); // death stage
 		topLevels.add(getOntologyTermById("UBERON_0000092")); // post-embryonic stage
+
+		HashSet<OntologyObject> list = new HashSet<OntologyObject>();
 		
-		OntologyObject oo = getOntologyTermById(uberonId);
-		List<OntologyObject> list = new ArrayList<>();
-		list.add(oo);
-		list.addAll(oo.getIntermediateTerms());
+		for (String id: externalToUberon.get(obj.getId())){			
+			OntologyObject oo = getOntologyTermById(id);
+			list.add(oo);
+			list.addAll(oo.getIntermediateTerms());
+		}
+		
+		for (OntologyObject o : list){
+			System.out.println("\t\t" + o.getLabel());
+		}
+		for (OntologyObject o : topLevels){
+			System.out.println("\t\t\t" + o.getLabel());
+		}
+		
 		topLevels.retainAll(list);
+		
+		for (OntologyObject o : topLevels){
+			System.out.println("\t\t\t\t" + o.getLabel());
+		}
 		
 		return topLevels;
 		
