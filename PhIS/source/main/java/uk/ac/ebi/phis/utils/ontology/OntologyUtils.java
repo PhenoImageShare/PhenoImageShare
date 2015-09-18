@@ -269,8 +269,12 @@ public class OntologyUtils {
 		
 		for (String id: externalToUberon.get(obj.getId())){			
 			OntologyObject oo = getOntologyTermById(id);
-			list.add(oo);
-			list.addAll(oo.getIntermediateTerms());
+			if (oo != null){
+				list.add(oo);
+				list.addAll(oo.getIntermediateTerms());
+			} else {
+				System.out.println(oo);
+			}
 		}
 		
 		for (OntologyObject o : list){
