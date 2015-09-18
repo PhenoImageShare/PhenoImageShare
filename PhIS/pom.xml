@@ -278,7 +278,7 @@
 				<baseUrl>http://??</baseUrl>
 				<solrUrl>http://???</solrUrl>
 				<internalSolrUrl>http://ves-ebi-d2.ebi.ac.uk:8140/mi/phis/v1.0.0</internalSolrUrl>
-				<dbURI>http://phenoimageshare-live:7474/browser/</dbURI>
+				<dbURI>http://phenoimageshare-live.ebi.ac.uk:7474/db/data/</dbURI>
 				<java.version>1.7</java.version>
 			</properties>
 			<build>
