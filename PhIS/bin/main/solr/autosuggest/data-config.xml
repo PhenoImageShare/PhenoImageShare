@@ -1,0 +1,105 @@
+<dataConfig>
+
+		<script><![CDATA[
+        id = 1;
+        function GenerateId(row) {
+            row.put('id', (id ++).toFixed());
+            return row;
+        }
+       ]]></script>
+	
+ 		<dataSource name="images_core" type="HttpDataSource" baseUrl="http://localhost:8086/solr-example/images/select?" encoding="UTF-8"  connectionTimeout="10000" readTimeout="10000"/>
+   	
+	 	<document name="docs">
+			
+			<entity dataSource="images_core" name="imageDoc" 
+				stream="true" 
+				url="q=*:*&amp;wt=normal&amp;rows=9999999"
+	      processor="XPathEntityProcessor" 
+	      forEach="/response/result/doc/"
+	      readTimeout="10000" 
+	      connectionTimeout="10000" 
+	      rootEntity="false">      
+	                    
+		
+				<field column="image_doc_id" xpath="/response/result/doc/str[@name='id']" />	
+				<field column="host_name" xpath="/response/result/doc/str[@name='host_name']" />
+				<field column="image_generated_by" xpath="/response/result/doc/str[@name='image_generated_by']" />	
+				<field column="imaging_method_label" xpath="/response/result/doc/arr[@name='imaging_method_label']/str" />	
+				<field column="imaging_method_synonym" xpath="/response/result/doc/arr[@name='imaging_method_synonym']/str" />	
+				<field column="sample_preparation_label" xpath="/response/result/doc/arr[@name='sample_preparation_label']/str" />	
+				<field column="sample_preparation_id" xpath="/response/result/doc/arr[@name='sample_preparation_id']/str" />	
+				<field column="sample_preparation_synonyms" xpath="/response/result/doc/arr[@name='sample_preparation_synonyms']/str" />	
+				<field column="visualisation_method_id" xpath="/response/result/doc/arr[@name='visualisation_method_id']/str" />	
+				<field column="visualisation_method_label" xpath="/response/result/doc/arr[@name='visualisation_method_label']/str" />	
+				<field column="visualisation_method_synonyms" xpath="/response/result/doc/arr[@name='visualisation_method_synonyms']/str" />	
+				<field column="image_type" xpath="/response/result/doc/str[@name='image_type']" />	
+				<field column="sample_type" xpath="/response/result/doc/str[@name='sample_type']" />	
+				<field column="age_since_birth" xpath="/response/result/doc/str[@name='age_since_birth']" />	
+				<field column="sample_generated_by" xpath="/response/result/doc/arr[@name='sample_generated_by']/str" />	
+				<field column="taxon" xpath="/response/result/doc/str[@name='taxon']" />	
+				<field column="anatomy_id" xpath="/response/result/doc/arr[@name='anatomy_id']/str" />	
+				<field column="anatomy_term" xpath="/response/result/doc/arr[@name='anatomy_term']/str" />	
+				<field column="anatomy_freetext" xpath="/response/result/doc/arr[@name='anatomy_freetext']/str" />	
+				<field column="anatomy_synonyms" xpath="/response/result/doc/arr[@name='anatomy_synonyms']/str" />	
+				<field column="conditions" xpath="/response/result/doc/arr[@name='conditions']/str" />	
+				<field column="observations" xpath="/response/result/doc/arr[@name='observations']/str" />	
+				<field column="gene_id" xpath="/response/result/doc/arr[@name='gene_id']/str" />	
+				<field column="gene_symbol" xpath="/response/result/doc/arr[@name='gene_symbol']/str" />	
+				<field column="gene_synonyms" xpath="/response/result/doc/arr[@name='gene_synonyms']/str" />	
+				<field column="genetic_feature_id" xpath="/response/result/doc/arr[@name='genetic_feature_id']/str" />	
+				<field column="genetic_feature_symbol" xpath="/response/result/doc/arr[@name='genetic_feature_symbol']/str" />	
+				<field column="genetic_feature_synonyms" xpath="/response/result/doc/arr[@name='genetic_feature_synonyms']/str" />	
+				<field column="genetic_feature_ensembl_id" xpath="/response/result/doc/arr[@name='genetic_feature_ensembl_id']/str" />	
+				<field column="zygosity" xpath="/response/result/doc/arr[@name='zygosity']/str" />	
+				<field column="anatomy_computed_id_bag" xpath="/response/result/doc/arr[@name='anatomy_computed_id_bag']/str" />	
+				<field column="anatomy_computed_term_bag" xpath="/response/result/doc/arr[@name='anatomy_computed_term_bag']/str" />	
+				<field column="abnormal_anatomy_synonyms_bag" xpath="/response/result/doc/arr[@name='abnormal_anatomy_synonyms_bag']/str" />	
+				<field column="abnormal_anatomy_ancestors_synonyms_bag" xpath="/response/result/doc/arr[@name='abnormal_anatomy_ancestors_synonyms_bag']/str" />	
+				<field column="abnormal_anatomy_ancestors_id_bag" xpath="/response/result/doc/arr[@name='abnormal_anatomy_ancestors_id_bagv']/str" />	
+				<field column="abnormal_anatomy_ancestors_term_bag" xpath="/response/result/doc/arr[@name='abnormal_anatomy_ancestors_term_bag']/str" />	
+				<field column="expression_in_id_bag" xpath="/response/result/doc/arr[@name='expression_in_id_bag']/str" />	
+				<field column="expression_in_label_bag" xpath="/response/result/doc/arr[@name='expression_in_label_bag']/str" />	
+				<field column="expression_in_freetext_bag" xpath="/response/result/doc/arr[@name='expression_in_freetext_bag']/str" />	
+				<field column="expression_in_synonyms_bag" xpath="/response/result/doc/arr[@name='expression_in_synonyms_bag']/str" />	
+				<field column="expression_in_ancestors_synonyms_bag" xpath="/response/result/doc/arr[@name='expression_in_ancestors_synonyms_bag']/str" />	
+				<field column="expression_in_ancestors_id_bag" xpath="/response/result/doc/arr[@name='expression_in_ancestors_id_bag']/str" />	
+				<field column="expression_in_ancestors_term_bag" xpath="/response/result/doc/arr[@name='expression_in_ancestors_term_bag']/str" />	
+				<field column="observation_bag" xpath="/response/result/doc/arr[@name='observation_bag']/str" />	
+				<field column="mutant_gene_id_bag" xpath="/response/result/doc/arr[@name='mutant_gene_id_bag']/str" />	
+				<field column="mutant_gene_symbol_bag" xpath="/response/result/doc/arr[@name='mutant_gene_symbol_bag']/str" />	
+				<field column="mutant_gene_synonyms_bag" xpath="/response/result/doc/arr[@name='mutant_gene_synonyms_bag']/str" />	
+				<field column="expressed_gf_id_bag" xpath="/response/result/doc/arr[@name='expressed_gf_id_bag']/str" />	
+				<field column="expressed_gf_symbol_bag" xpath="/response/result/doc/arr[@name='expressed_gf_symbol_bag']/str" />	
+				<field column="expressed_gf_synonyms_bag" xpath="/response/result/doc/arr[@name='expressed_gf_synonyms_bag']/str" />	
+				<field column="phenotype_id_bag" xpath="/response/result/doc/arr[@name='phenotype_id_bag']/str" />	
+				<field column="phenotype_freetext_bag" xpath="/response/result/doc/arr[@name='phenotype_freetext_bag']/str" />	
+				<field column="phenotype_label_bag" xpath="/response/result/doc/arr[@name='phenotype_label_bag']/str" />	
+				<field column="phenotype_synonyms_bag" xpath="/response/result/doc/arr[@name='phenotype_synonyms_bag']/str" />	
+				<field column="phenotype_ancestors_synonyms_bag" xpath="/response/result/doc/arr[@name='phenotype_ancestors_synonyms_bag']/str" />	
+				<field column="phenotype_ancestors_term_bag" xpath="/response/result/doc/arr[@name='phenotype_ancestors_term_bag']/str" />	
+				<field column="phenotype_ancestors_id_bag" xpath="/response/result/doc/arr[@name='phenotype_ancestors_id_bag']/str" />	
+					
+				
+				<field column="ncbi_taxon_id" xpath="/response/result/doc/str[@name='ncbi_taxon_id']" />	
+				<field column="sex" xpath="/response/result/doc/str[@name='sex']" />	
+				<field column="stage_id" xpath="/response/result/doc/str[@name='stage_id']" />	
+				<field column="stage" xpath="/response/result/doc/str[@name='stage']" />	
+				<field column="embryonic_age" xpath="/response/result/doc/str[@name='embryonic_age']" />	
+					
+					
+						<entity dataSource="images_core" name="autosuggestTerm" 
+							stream="true" 
+							url="q=id:${imageDoc.image_doc_id}&amp;wt=normal&amp;rows=1"
+							processor="XPathEntityProcessor" 
+							forEach="/response/result/doc/arr[@name='term_autosuggest']/str" onError="continue"							
+							readTimeout="10000" connectionTimeout="10000" 
+							transformer="script:GenerateId" 
+	     				rootEntity="true" >
+						
+							<field column="term_autosuggest" xpath="/response/result/doc/arr[@name='term_autosuggest']/str/"/>
+							
+						</entity>	
+			</entity>		
+	    </document>       
+</dataConfig>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<schema name="example" version="1.5">
+ 
+ <fields>
+
+	<!-- Main Channel document. Must be associated to the right image and ROI. -->
+						  
+   <field name="_version_" type="long" indexed="true" stored="true"/>
+   <field name="_root_" type="string" indexed="true" stored="false"/>
+   
+   <!-- phis ids-->
+
+   <field name="id" type="string" indexed="true" stored="true" required="true" multiValued="false" />
+   
+   <!-- image documents - general info -->
+   
+   <field name="associated_roi" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="associated_image" type="string" indexed="true" stored="true" required="true"/>
+   
+    <!-- EXPRESSED genetic features -->
+   <field name="gene_id" type="string" indexed="true" stored="true" multiValued="false"/>
+   <field name="gene_symbol" type="string" indexed="true" stored="true" multiValued="false"/>
+   <field name="genetic_feature_id" type="string" indexed="true" stored="true" multiValued="false"/>
+   <field name="genetic_feature_symbol" type="string" indexed="true" stored="true" multiValued="false"/>
+   <field name="genetic_feature_ensembl_id" type="string" indexed="true" stored="true" multiValued="false"/>
+   <field name="mutation_type" type="string" indexed="true" stored="true" multiValued="false"/>
+   
+   <field name="chromosome" type="string" indexed="true" stored="true" multiValued="false"/>
+   <field name="start_pos" type="long" indexed="true" stored="true" multiValued="false"/>
+   <field name="end_pos" type="long" indexed="true" stored="true" multiValued="false"/>
+   <field name="strand" type="string" indexed="true" stored="true" multiValued="false"/>
+   <field name="zygosity" type="string" indexed="true" stored="true" multiValued="false"/>
+   <field name="marker" type="string" indexed="true" stored="true" multiValued="false"/><!-- Carried on the genetic feature -->
+   <field name="visualisation_method_label" type="string" indexed="true" stored="true" multiValued="false"/>
+   <field name="visualisation_method_id" type="string" indexed="true" stored="true" multiValued="false"/>
+   <field name="visualisation_method_synonyms" type="string" indexed="true" stored="true" multiValued="true"/>
+   
+
+ </fields>
+
+
+ <!-- Field to use to determine and enforce document uniqueness. 
+      Unless this field is marked with required="false", it will be a required field
+   -->
+ <uniqueKey>id</uniqueKey>
+ 
+  <types>
+    <fieldType name="string" class="solr.StrField" sortMissingLast="true" />
+    <fieldType name="boolean" class="solr.BoolField" sortMissingLast="true"/>
+    <fieldType name="int" class="solr.TrieIntField" precisionStep="0" positionIncrementGap="0"/>
+    <fieldType name="float" class="solr.TrieFloatField" precisionStep="0" positionIncrementGap="0"/>
+    <fieldType name="long" class="solr.TrieLongField" precisionStep="0" positionIncrementGap="0"/>
+    <fieldType name="double" class="solr.TrieDoubleField" precisionStep="0" positionIncrementGap="0"/>
+    <fieldType name="date" class="solr.TrieDateField" precisionStep="0" positionIncrementGap="0"/>
+ </types>
+  
+
+</schema>

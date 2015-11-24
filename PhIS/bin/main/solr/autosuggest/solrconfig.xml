@@ -29,24 +29,7 @@
 			<!-- Require terms to occur in 1/100th of 1% of documents in order to be included in the dictionary -->
 			<float name="thresholdTokenFrequency">.0001</float>
 		</lst>
-		<!-- a spellchecker that can break or combine words. (Solr 4.0 see SOLR-2993) -->
-		<!-- lst name="spellchecker">
-			<str name="name">wordbreak</str>
-			<str name="classname">solr.WordBreakSolrSpellChecker</str>
-			<str name="field">spell</str>
-			<str name="combineWords">true</str>
-			<str name="breakWords">true</str>
-			<int name="maxChanges">3</int>
-		</lst-->
-		<!-- Example of using different distance measure -->
-		<!-- lst name="spellchecker">
-			<str name="name">jarowinkler</str>
-			<str name="field">lowerfilt</str-->
-			<!-- Use a different Distance Measure -->
-			<!-- str name="distanceMeasure">org.apache.lucene.search.spell.JaroWinklerDistance</str>
-			<str name="spellcheckIndexDir">./spellchecker</str>
-		</lst-->
-	
+			
 		<!-- This field type's analyzer is used by the QueryConverter to tokenize the value for "q" parameter -->
 		<str name="queryAnalyzerFieldType">textSpell</str>
 		
@@ -107,8 +90,7 @@
 			<str name="df">*</str>
 		</lst>
 	</requestHandler>
-	
-
+	  
 	<!-- config for the admin interface -->
 	<admin>
 		<defaultQuery>solr</defaultQuery>

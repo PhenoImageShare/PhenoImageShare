@@ -45,7 +45,6 @@ import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.reasoner.InferenceType;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
-import org.semanticweb.owlapi.search.EntitySearcher;
 import org.semanticweb.owlapi.util.InferredAxiomGenerator;
 import org.semanticweb.owlapi.util.InferredClassAssertionAxiomGenerator;
 import org.semanticweb.owlapi.util.InferredOntologyGenerator;
@@ -270,8 +269,12 @@ public class OntologyUtils {
 		
 		for (String id: externalToUberon.get(obj.getId())){			
 			OntologyObject oo = getOntologyTermById(id);
-			list.add(oo);
-			list.addAll(oo.getIntermediateTerms());
+			if (oo != null){
+				list.add(oo);
+				list.addAll(oo.getIntermediateTerms());
+			} else {
+				System.out.println(oo);
+			}
 		}
 		
 		for (OntologyObject o : list){
@@ -343,12 +346,12 @@ public class OntologyUtils {
 				if (!cls.getIRI().isNothing()){
 					OntologyObject temp = new OntologyObject();
 					temp.setId(getIdentifierShortForm(cls));
-					if (EntitySearcher.getAnnotations(cls, ontology, LABEL_ANNOTATION).size() > 0){
-						temp.setLabel(((OWLLiteral)EntitySearcher.getAnnotations(cls, ontology, LABEL_ANNOTATION).iterator().next().getValue()).getLiteral());
+					if (cls.getAnnotations(ontology, LABEL_ANNOTATION).size() > 0){
+						temp.setLabel(((OWLLiteral)cls.getAnnotations(ontology, LABEL_ANNOTATION).iterator().next().getValue()).getLiteral());
 						for (String synonymType : synonymRelations){
 							OWLAnnotationProperty label = factory.getOWLAnnotationProperty(IRI.create(synonymType));	
 							// Get the annotations on the class that use the label property
-							for (OWLAnnotation annotation : EntitySearcher.getAnnotations(cls, ontology, label)) {
+							for (OWLAnnotation annotation : cls.getAnnotations(ontology, label)) {
 								if (annotation.getValue() instanceof OWLLiteral) {
 									OWLLiteral val = (OWLLiteral) annotation.getValue();
 									temp.addSynonym(val.getLiteral());
@@ -359,8 +362,8 @@ public class OntologyUtils {
 					}
 				}
 				
-				if (!cls.getIRI().isNothing() && EntitySearcher.getAnnotations(cls, ontology, ALT_ID) != null){
-					for (OWLAnnotation annotation : EntitySearcher.getAnnotations(cls, ontology, ALT_ID)) {
+				if (!cls.getIRI().isNothing() && cls.getAnnotations(ontology, ALT_ID) != null){
+					for (OWLAnnotation annotation : cls.getAnnotations(ontology, ALT_ID)) {
 						if (annotation.getValue() instanceof OWLLiteral) {
 							OWLLiteral val = (OWLLiteral) annotation.getValue();
 							alternateIds.put(val.getLiteral().replace(":", "_"), getIdentifierShortForm(cls));
@@ -368,8 +371,8 @@ public class OntologyUtils {
 					}
 				}
 				
-				if (storeXrefs && !cls.getIRI().isNothing() && EntitySearcher.getAnnotations(cls, ontology, X_REF) != null){
-					for (OWLAnnotation annotation : EntitySearcher.getAnnotations(cls, ontology, X_REF)) {
+				if (storeXrefs && !cls.getIRI().isNothing() && cls.getAnnotations(ontology, X_REF) != null){
+					for (OWLAnnotation annotation : cls.getAnnotations(ontology, X_REF)) {
 						if (annotation.getValue() instanceof OWLLiteral) {
 							OWLLiteral val = (OWLLiteral) annotation.getValue();
 							String id = val.getLiteral().replace(":", "_");
@@ -396,7 +399,7 @@ public class OntologyUtils {
 			
 			for (OWLClass cls : classesSubSet) {
 				
-				if (!cls.getIRI().isNothing() && EntitySearcher.getAnnotations(cls, ontology, LABEL_ANNOTATION).size() > 0) {
+				if (!cls.getIRI().isNothing() && cls.getAnnotations(ontology, LABEL_ANNOTATION).size() > 0) {
 					
 					OntologyObject temp = idLabelMap.get(getIdentifierShortForm(cls));
 					Set<OWLClass> ancestors = new HashSet<>();
@@ -469,7 +472,7 @@ public class OntologyUtils {
 			}
 		}
 		
-		for ( OWLClassExpression classExpression: EntitySearcher.getSuperClasses(cls, graph.getSourceOntology())){
+		for ( OWLClassExpression classExpression: cls.getSuperClasses(graph.getSourceOntology())){
 			if (classExpression.isClassExpressionLiteral()){
 				res.add(classExpression.asOWLClass());
 			} else if (classExpression instanceof OWLObjectSomeValuesFrom){

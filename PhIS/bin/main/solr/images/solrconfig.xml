@@ -107,7 +107,6 @@
 			<str name="df">*</str>
 		</lst>
 	</requestHandler>
-	
 
 	<!-- config for the admin interface -->
 	<admin>
