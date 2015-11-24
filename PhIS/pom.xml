@@ -106,6 +106,8 @@
 		<dbURI>http://phenoimageshare.ebi.ac.uk:7474/db/data/</dbURI>
 		<java.version>1.7</java.version>
 		<com.fasterxml.jackson.core.version>2.6.1</com.fasterxml.jackson.core.version>
+		<spring.security.version>4.0.2.RELEASE</spring.security.version>
+		<spring.version>4.2.3.RELEASE</spring.version>
 	</properties>
 
 
@@ -379,7 +381,7 @@
 		</dependency>
 
 
-  	<!-- HTTP components Dependencies -->
+  		<!-- HTTP components Dependencies -->
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpcore</artifactId>
@@ -406,7 +408,7 @@
 			<scope>provided</scope>
 		</dependency>
            
-     <!-- Logging -->
+     	<!-- Logging -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
@@ -495,23 +497,51 @@
 			<version>5.1.21</version>
 		</dependency>
 
+		
+		<!-- Spring Security -->
+		
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>${spring.security.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>${spring.security.version}</version>
+		</dependency>
+
 		<!-- Spring -->
+		
 	    <dependency>
 	    	<groupId>org.springframework</groupId>
 	   	 	<artifactId>spring-web</artifactId>
-	    	<version>4.2.0.RELEASE</version>
-			</dependency>
+	    	<version>${spring.version}</version>
+		</dependency>
+			
+		<dependency>
+	    	<groupId>org.springframework</groupId>
+	   	 	<artifactId>spring-core</artifactId>
+	    	<version>${spring.version}</version>
+		</dependency>
+			
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+	    	<version>${spring.version}</version>
+		</dependency>
 			
 	    <dependency>
 	        <groupId>org.springframework</groupId>
 	        <artifactId>spring-webmvc</artifactId>
-	        <version>4.2.0.RELEASE</version>
+	        <version>${spring.version}</version>
 	    </dependency>
 	    
 	    <dependency>
 	        <groupId>org.springframework</groupId>
 	        <artifactId>spring-context</artifactId>
-	        <version>4.2.0.RELEASE</version>
+	        <version>${spring.version}</version>
 			<type>jar</type>
 			<scope>compile</scope>
 			<!-- Exclude Commons Logging in favor of SLF4j -->
@@ -540,7 +570,7 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-orm</artifactId>
-			<version>4.2.0.RELEASE</version>
+			<version>${spring.version}</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
@@ -548,31 +578,31 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context-support</artifactId>
-			<version>4.2.0.RELEASE</version>
+			<version>${spring.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-oxm</artifactId>
-			<version>4.2.0.RELEASE</version>
+			<version>${spring.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
-			<version>4.2.0.RELEASE</version>
+			<version>${spring.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-aop</artifactId>
-			<version>4.2.0.RELEASE</version>
+			<version>${spring.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
-			<version>4.2.0.RELEASE</version>
+			<version>${spring.version}</version>
 		</dependency>
 		
 		<dependency>
