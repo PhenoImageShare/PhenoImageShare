@@ -324,7 +324,7 @@ public class OntologyUtils {
 	        gens.add(new InferredSubClassAxiomGenerator());
 	        gens.add(new InferredClassAssertionAxiomGenerator());
 	        InferredOntologyGenerator iog = new InferredOntologyGenerator(reasoner, gens);
-	        iog.fillOntology(factory, ontology);
+	        iog.fillOntology(manager, ontology);
 	        manager.saveOntology(ontology, new StringDocumentTarget());
 
 	        System.out.println("Axioms after :" + ontology.getAxiomCount());
