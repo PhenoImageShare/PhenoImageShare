@@ -50,11 +50,6 @@
 					<!-- excluded because these resources are minified -->
 					<warSourceExcludes>
 						<!-- **/bootstrap.min.css ,**/bootstrap-responsive.min.css -->
-						<!-- **/searchAndFacet.css ,**/searchAndFacet/searchAndFacetConfig.js 
-							,**/vendor/DataTables-1.9.4/jquery.dataTables.js ,**/vendor/DataTables-1.9.4/core.filter.js 
-							,**/vendor/DataTables-1.9.4/TableTools.min.js ,**/utils/tools.js ,**/searchAndFacet/geneFacetWidget.js 
-							,**/searchAndFacet/mpFacetWidget.js ,**/searchAndFacet/pipelineFacetWidget.js 
-							,**/searchAndFacet/imagesFacetWidget.js ,**/searchAndFacet/search.js ,**/searchAndFacet/searchAndFacet_primer.js -->
 					</warSourceExcludes>
 
 					<webResources>

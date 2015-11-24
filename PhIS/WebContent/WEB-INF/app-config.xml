@@ -12,7 +12,7 @@
 		">
 
 	<context:component-scan base-package="uk.ac.ebi" />
-		
+				
 	<bean id="neo4jAccessUtils"	 class="uk.ac.ebi.neo4jUtils.Neo4jAccessUtils">
 		<constructor-arg  value="${dbURI}" />
 	</bean>
@@ -36,7 +36,7 @@
 		<constructor-arg  value="${internalSolrUrl}/channels" />
 	</bean>
 
-  <bean id="propertyPlaceholderConfigurer"
+  	<bean id="propertyPlaceholderConfigurer"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
 			<list>
