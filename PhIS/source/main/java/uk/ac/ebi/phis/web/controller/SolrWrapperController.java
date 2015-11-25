@@ -150,7 +150,7 @@ public class SolrWrapperController {
     		Model model
             ) throws SolrServerException, IOException, URISyntaxException {
 				
-		return rs.getRois(imageId, roiId, userOwner, resultNo);
+		return rs.getRois(imageId, roiId, userOwner, userGroup, resultNo);
 		
     }
 
