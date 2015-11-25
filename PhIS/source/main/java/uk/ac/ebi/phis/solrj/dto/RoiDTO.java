@@ -16,15 +16,19 @@
 package uk.ac.ebi.phis.solrj.dto;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.solr.client.solrj.beans.Field;
-import org.springframework.web.bind.annotation.RequestParam;
 
 public class RoiDTO {
 	
 	
 	public static final String  ID="id";
+	public static final String  USER_OWNER = "user_owner";
+	public static final String  USER_GROUP = "user_owner";
+	public static final String  CREATION_DATE = "creation_date";
+	public static final String  EDIT_DATE = "edit_date";
 	public static final String  ASSOCIATED_IMAGE_ID = "associated_image";
 	public static final String  ASSOCIATED_CHANNEL = "associated_channel";
 	public static final String  EXPRESSED_IN_ANATOMY_ID = "expressed_in_anatomy_id";
@@ -52,6 +56,18 @@ public class RoiDTO {
 	
 	@Field(ID)
 	String id;
+	
+	@Field(CREATION_DATE)
+	Date creationDate;
+	
+	@Field(EDIT_DATE)
+	Date editDate;
+
+	@Field(USER_OWNER)
+	String userOwner;
+	
+	@Field(USER_GROUP)
+	String userGroup;
 
 	@Field(ASSOCIATED_CHANNEL)
 	List<String> associatedChannel;
@@ -181,6 +197,30 @@ public class RoiDTO {
 	}
 
 	
+	public Date getCreationDate() {
+		return creationDate;
+	}
+
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
+	}
+
+	public Date getEditDate() {
+		return editDate;
+	}
+
+	public void setEditDate(Date editDate) {
+		this.editDate = editDate;
+	}
+
+	public String getUserOwner() {
+		return userOwner;
+	}
+
+	public void setUserOwner(String userOwner) {
+		this.userOwner = userOwner;
+	}
+
 	/**
 	 * @return the expressedAnatomyFreetext
 	 */
@@ -286,9 +326,15 @@ public class RoiDTO {
 	
 		return associatedImage;
 	}
+	
+	public String getUserGroup() {
+		return userGroup;
+	}
 
-	
-	
+	public void setUserGroup(String userGroup) {
+		this.userGroup = userGroup;
+	}
+
 	/**
 	 * @return the computedDepictedAnatomyId
 	 */

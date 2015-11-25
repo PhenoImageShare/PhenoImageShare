@@ -9,7 +9,12 @@
 						  		
    <!-- phis ids-->
 
-   <field name="id" type="string" indexed="true" stored="true" required="true" multiValued="false" /> 
+   <field name="id" type="string" indexed="true" stored="true" required="true" multiValued="false" />
+    
+   <field name="user_owner" type="string" indexed="true" stored="true" required="false"/>
+   <field name="user_group" type="string" indexed="true" stored="true" required="false"/>
+   <field name="creation_date" type="date" indexed="true" stored="true" required="false"/>
+   <field name="edit_date" type="date" indexed="true" stored="true" required="false"/>
    <!--field name="type" type="string" indexed="true" stored="true" required="true" /--> 
    
    <!-- image documents - general info -->
