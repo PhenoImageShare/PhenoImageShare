@@ -44,46 +44,12 @@ public class AutosuggestService extends BasicService {
 
 	public String getAutosuggest(String term, AutosuggestTypes type, String stage, String imagingMethod, String taxon, String sampleType, String imageGeneratedBy, Integer rows) {
 
-		SolrQuery solrQuery = new SolrQuery();
+		SolrQuery solrQuery = buildAutosuggestQuery(term, type, stage, imagingMethod, taxon, sampleType, imageGeneratedBy, rows);
 		ArrayList<String> suggestions = new ArrayList<>();
-		
-		term = handleSpecialCharacters(term);
-		imagingMethod = handleSpecialCharacters(imagingMethod);
-		taxon = handleSpecialCharacters(taxon);
-		sampleType = handleSpecialCharacters(sampleType);
-		imageGeneratedBy = handleSpecialCharacters(imageGeneratedBy);		
-		
-		solrQuery.setQuery(term);
-		solrQuery.setFields(ImageDTO.TERM_AUTOSUGGEST);
-		solrQuery.set("defType", "edismax");
+
 		solrQuery.set("group", true);
 		solrQuery.set("group.field", "term_autosuggest_na");
-		solrQuery.set("qf", "term_autosuggest term_autosuggest_ws term_autosuggest_e term_autosuggest_na");
-		solrQuery.set("bq", "term_autosuggest_ws:\"" + term +
-			"\"^2 term_autosuggest_e:\"" + term + "\"^3 term_autosuggest_na:\"" + term + "\"^4 term_autosuggest:\"" + term + "\"^1");
-		solrQuery.setRows(rows); // number of groups to return (not result
-									// documents)
-
-		if (type != null) {
-			solrQuery.addFilterQuery(AutosuggestDTO.AUTOSUGGEST_TYPE + ":" + type);
-		} 
 		
-		if (stage != null){
-			solrQuery.addFilterQuery(AutosuggestDTO.STAGE + ":\"" + stage + "\"");
-		}
-		if (taxon != null){
-			solrQuery.addFilterQuery(AutosuggestDTO.TAXON + ":\"" + taxon + "\"");
-		}
-		if (sampleType != null){
-			solrQuery.addFilterQuery(AutosuggestDTO.SAMPLE_TYPE + ":\"" + sampleType + "\"");
-		}
-		if (imagingMethod != null){
-			solrQuery.addFilterQuery(AutosuggestDTO.IMAGING_METHOD + ":\"" + imagingMethod + "\"");
-		}
-		if (imageGeneratedBy != null){
-			solrQuery.addFilterQuery(AutosuggestDTO.IMAGE_GENERATED_BY + ":\"" + imageGeneratedBy + "\"");
-		}		
-
 		System.out.println("Solr URL : " + solr.getBaseURL() + "/select?" + solrQuery);
 		log.info("Solr URL in getImages : " + solr.getBaseURL() + "/select?" + solrQuery);		
 		
@@ -101,6 +67,70 @@ public class AutosuggestService extends BasicService {
 		JSONObject returnObj = new JSONObject();
 		returnObj.put("response", new JSONObject().put("suggestions", new JSONArray(suggestions)));
 		return returnObj.toString().replaceAll("<\\\\", "<");
+	}
+
+	
+	public String getComplexAutosuggest(String term, AutosuggestTypes type, String stage, String imagingMethod, String taxon, String sampleType, String imageGeneratedBy, Integer rows) {
+
+		SolrQuery solrQuery = buildAutosuggestQuery(term, type, stage, imagingMethod, taxon, sampleType, imageGeneratedBy, rows);
+		solrQuery.setFields(AutosuggestDTO.AUTOSUGGEST_TERM_ID, AutosuggestDTO.AUTOSUGGEST_TERM_LABEL, AutosuggestDTO.AUTOSUGGEST_TYPE, AutosuggestDTO.AUTOSUGGEST_TERM_SYNONYMS);		
+		
+		System.out.println("Solr URL : " + solr.getBaseURL() + "/select?" + solrQuery);
+		log.info("Solr URL in getImages : " + solr.getBaseURL() + "/select?" + solrQuery);		
+		
+		try {
+
+			JSONObject returnObj = new JSONObject();
+			returnObj.put("response", new JSONObject().put("suggestions", 
+					solr.query(solrQuery).getResults()));
+			return returnObj.toString().replaceAll("<\\\\", "<");
+			
+		} catch (SolrServerException e) {
+			e.printStackTrace();
+		}	
+		 return "";
+	}
+	
+	
+	private SolrQuery buildAutosuggestQuery( String term, AutosuggestTypes type, String stage, String imagingMethod, String taxon, 
+			String sampleType, String imageGeneratedBy, Integer rows) {
+
+		SolrQuery solrQuery = new SolrQuery();
+			
+		term = handleSpecialCharacters(term);
+		imagingMethod = handleSpecialCharacters(imagingMethod);
+		taxon = handleSpecialCharacters(taxon);
+		sampleType = handleSpecialCharacters(sampleType);
+		imageGeneratedBy = handleSpecialCharacters(imageGeneratedBy);		
+			
+		solrQuery.setQuery(term);
+		solrQuery.setFields(ImageDTO.TERM_AUTOSUGGEST);
+		solrQuery.set("defType", "edismax");
+		solrQuery.set("qf", "term_autosuggest term_autosuggest_ws term_autosuggest_e term_autosuggest_na");
+		solrQuery.set("bq", "term_autosuggest_ws:\"" + term +
+				"\"^2 term_autosuggest_e:\"" + term + "\"^3 term_autosuggest_na:\"" + term + "\"^4 term_autosuggest:\"" + term + "\"^1");
+		solrQuery.setRows(rows); // number of groups to return (not result documents)
+
+		if (type != null) {
+			solrQuery.addFilterQuery(AutosuggestDTO.AUTOSUGGEST_TYPE + ":" + type);
+		} 			
+		if (stage != null){
+			solrQuery.addFilterQuery(AutosuggestDTO.STAGE + ":\"" + stage + "\"");
+		}
+		if (taxon != null){
+			solrQuery.addFilterQuery(AutosuggestDTO.TAXON + ":\"" + taxon + "\"");
+		}
+		if (sampleType != null){
+			solrQuery.addFilterQuery(AutosuggestDTO.SAMPLE_TYPE + ":\"" + sampleType + "\"");
+		}
+		if (imagingMethod != null){
+			solrQuery.addFilterQuery(AutosuggestDTO.IMAGING_METHOD + ":\"" + imagingMethod + "\"");
+		}
+		if (imageGeneratedBy != null){
+			solrQuery.addFilterQuery(AutosuggestDTO.IMAGE_GENERATED_BY + ":\"" + imageGeneratedBy + "\"");
+		}		
+			
+		return solrQuery;
 	}
 	
 

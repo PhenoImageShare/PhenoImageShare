@@ -128,17 +128,36 @@ public class SolrWrapperController {
 			@RequestParam(value = "sampleType", required = false) String sampleType,
 			@RequestParam(value = "stage", required = false) String stage,
 			@RequestParam(value = "imagingMethod", required = false) String imagingMethod,
-			@RequestParam(value = "imageGeneratedBy", required = false) String imageGeneratedBy,			
-			@RequestParam(value = "anatomy", required = false) String anatomy,
+			@RequestParam(value = "imageGeneratedBy", required = false) String imageGeneratedBy,	
 			Model model){
 			
 		if (term != null){
 			return as.getAutosuggest(term, (type != null ? AutosuggestTypes.valueOf(type) : null), stage, imagingMethod, taxon, sampleType, imageGeneratedBy, resultNo);
-		} else if (anatomy != null){
-			return as.getAutosuggest(term, AutosuggestTypes.ANATOMY, stage, imagingMethod, taxon, sampleType, imageGeneratedBy, resultNo);
 		} 
+		
 		return "";
 	}
+	
+	@RequestMapping(value="/getComplexAutosuggest", method=RequestMethod.GET)
+	public  @ResponseBody String getComplexSuggestions(
+			@RequestParam(value = "term", required = false) String term,
+			@RequestParam(value = "autosuggestType", required = false) String type,
+			@RequestParam(value = "resultNo", required = false) Integer resultNo,
+			@RequestParam(value = "taxon", required = false) String taxon,
+			@RequestParam(value = "sampleType", required = false) String sampleType,
+			@RequestParam(value = "stage", required = false) String stage,
+			@RequestParam(value = "imagingMethod", required = false) String imagingMethod,
+			@RequestParam(value = "imageGeneratedBy", required = false) String imageGeneratedBy,
+			Model model){
+			
+		if (term != null){
+			return as.getComplexAutosuggest(term, (type != null ? AutosuggestTypes.valueOf(type) : null), stage, imagingMethod, taxon, sampleType, imageGeneratedBy, resultNo);
+		} 
+		
+		return "";
+	}
+	
+	
 	
 	
 	@RequestMapping(value="/getRois", method=RequestMethod.GET)	
