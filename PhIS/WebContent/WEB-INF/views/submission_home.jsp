@@ -49,13 +49,13 @@
 			</tr>
 		</thead>
 		<tbody>
-   		<tr>
+   			<tr>
 				<td>userId</td>
 				<td><var>String</var></td>
 				<td> true </td>
 				<td>Unique user id. If the id does not exist a node will be created.</td>
 				<td><var>(none)</var></td>
-				<td><var>user_021897401</var><br></td>
+				<td><var>user_021897401</var></td>
 			</tr>
 			<tr>
 				<td>annotationId</td>
@@ -101,6 +101,14 @@
 				<td>See xCoordinates.</td>
 				<td><var>(none)</var></td>
 				<td><var>0,100</var><br></td>
+			</tr>
+			<tr style="background-color: olive;">
+				<td>userGroup</td>
+				<td><var>String</var></td>
+				<td> false </td>
+				<td>Group to which the user belongs.</td>
+				<td><var>(none)</var></td>
+				<td><var>groupA</var><br></td>
 			</tr>
 			<tr>
 				<td>associatedChannel</td>
@@ -228,7 +236,7 @@
 			</tr>
 		</thead>
 		<tbody>
-   		<tr>
+   			<tr>
 				<td>userId</td>
 				<td><var>String</var></td>
 				<td> true </td>

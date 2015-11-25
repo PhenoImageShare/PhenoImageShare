@@ -145,7 +145,8 @@ public class SolrWrapperController {
     		@RequestParam(value = "roiId", required = false) String roiId,
     		@RequestParam(value = "imageId", required = false) String imageId,
     		@RequestParam(value = "resultNo", required = false) Integer resultNo,
-    		@RequestParam(value = "owner", required = false) String userOwner,
+    		@RequestParam(value = "userId", required = false) String userOwner,
+    		@RequestParam(value = "userGroup", required = false) String userGroup,
     		Model model
             ) throws SolrServerException, IOException, URISyntaxException {
 				

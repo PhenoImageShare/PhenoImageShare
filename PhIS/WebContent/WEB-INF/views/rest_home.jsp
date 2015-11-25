@@ -310,6 +310,22 @@
 				<td><var> * </var></td>
 				<td><var>emage_EMAGE_2333.1</var><br></td>
 			</tr>
+			<tr style="background-color: olive;">
+				<td>user</td>
+				<td><var>String</var></td>
+				<td> false </td>
+				<td>Id of the user who created the annotation.</td>
+				<td><var>(none)</var></td>
+				<td><var>user_021897401</var></td>
+			</tr>
+			<tr style="background-color: olive;">
+				<td>userGroup</td>
+				<td><var>String</var></td>
+				<td> false </td>
+				<td>Group to which the user belongs.</td>
+				<td><var>(none)</var></td>
+				<td><var>groupA</var></td>
+			</tr>
 			<tr>
 				<td>resultNo</td>
 				<td><var>Integer</var></td>
