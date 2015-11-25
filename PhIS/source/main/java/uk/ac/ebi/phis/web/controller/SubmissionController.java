@@ -39,7 +39,7 @@ import uk.ac.ebi.phis.utils.web.RestStatusMessage;
 
 	@Controller
 	@RequestMapping("/rest/submission")
-	public class DatabaseController {
+	public class SubmissionController {
 
 		@Autowired
 		ImageService is;
