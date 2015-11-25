@@ -84,7 +84,7 @@ public class RoiService extends BasicService{
 	}
 	
 	public String getRois(String imageId, String roiId, String owner, String group, 
-			Date createdAfter, Date createdBefore, Date lastEditAfter, Date lastEditBefore, Integer resNo){
+			String createdAfter, String createdBefore, String lastEditAfter, String lastEditBefore, Integer resNo){
 		
 		SolrQuery solrQuery = new SolrQuery();
 		solrQuery.setQuery("*:*");
@@ -122,11 +122,11 @@ public class RoiService extends BasicService{
 				solrQuery.addFilterQuery(RoiDTO.CREATION_DATE + ":[" + createdAfter + " TO *]");
 			}
 		}
-		if (createdAfter != null){
-			if (createdBefore != null){
+		if (createdBefore != null){
+			if (createdAfter != null){
 				solrQuery.addFilterQuery(RoiDTO.CREATION_DATE + ":[" + createdAfter + " TO " + createdBefore + "]");
 			} else {
-				solrQuery.addFilterQuery(RoiDTO.CREATION_DATE + ":[" + createdAfter + " TO *]");
+				solrQuery.addFilterQuery(RoiDTO.CREATION_DATE + ":[* TO " + createdBefore + "]");
 			}
 		}
 		

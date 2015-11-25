@@ -148,14 +148,14 @@ public class SolrWrapperController {
     		@RequestParam(value = "resultNo", required = false) Integer resultNo,
     		@RequestParam(value = "userId", required = false) String userOwner,
     		@RequestParam(value = "userGroup", required = false) String userGroup,
-    		@RequestParam(value = "createdAfter", required = false) Date createdAfter,
-    		@RequestParam(value = "createdBefore", required = false) Date createdBefore,
-    		@RequestParam(value = "lastEditAfter", required = false) Date lastEditAfter,
-    		@RequestParam(value = "lastEditBefore", required = false) Date lastEditBefore,
+    		@RequestParam(value = "createdAfter", required = false) String createdAfter,
+    		@RequestParam(value = "createdBefore", required = false) String createdBefore,
+    		@RequestParam(value = "lastEditAfter", required = false) String lastEditAfter,
+    		@RequestParam(value = "lastEditBefore", required = false) String lastEditBefore,
     		Model model
             ) throws SolrServerException, IOException, URISyntaxException {
 				
-		return rs.getRois(imageId, roiId, userOwner, userGroup, createdAfter, createdBefore, lastEditBefore, lastEditAfter, resultNo);
+		return rs.getRois(imageId, roiId, userOwner, userGroup, createdAfter, createdBefore, lastEditAfter, lastEditBefore, resultNo);
 		
     }
 

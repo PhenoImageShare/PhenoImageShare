@@ -311,7 +311,7 @@
 				<td><var>emage_EMAGE_2333.1</var><br></td>
 			</tr>
 			<tr style="background-color: olive;">
-				<td>user</td>
+				<td>userId</td>
 				<td><var>String</var></td>
 				<td> false </td>
 				<td>Id of the user who created the annotation.</td>
