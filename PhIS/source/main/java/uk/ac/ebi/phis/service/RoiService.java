@@ -18,6 +18,7 @@ package uk.ac.ebi.phis.service;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.solr.client.solrj.SolrQuery;
@@ -25,6 +26,7 @@ import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.HttpSolrServer;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.json.JSONObject;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import uk.ac.ebi.phis.solrj.dto.ChannelDTO;
 import uk.ac.ebi.phis.solrj.dto.RoiDTO;
@@ -81,7 +83,8 @@ public class RoiService extends BasicService{
 		return null;
 	}
 	
-	public String getRois(String imageId, String roiId, String owner, String group, Integer resNo){
+	public String getRois(String imageId, String roiId, String owner, String group, 
+			Date createdAfter, Date createdBefore, Date lastEditAfter, Date lastEditBefore, Integer resNo){
 		
 		SolrQuery solrQuery = new SolrQuery();
 		solrQuery.setQuery("*:*");
@@ -98,6 +101,35 @@ public class RoiService extends BasicService{
 		if (group != null){
 			solrQuery.addFilterQuery(RoiDTO.USER_GROUP + ":\"" + group + "\"");
 		}
+		if (lastEditAfter != null){
+			if (lastEditBefore != null){
+				solrQuery.addFilterQuery(RoiDTO.EDIT_DATE + ":[" + lastEditAfter + " TO " + lastEditBefore + "]");
+			} else {
+				solrQuery.addFilterQuery(RoiDTO.EDIT_DATE + ":[" + lastEditAfter + " TO *]");
+			}
+		}
+		if (lastEditBefore != null){
+			if (lastEditAfter != null){
+				solrQuery.addFilterQuery(RoiDTO.EDIT_DATE + ":[" + lastEditAfter + " TO " + lastEditBefore + "]");
+			} else {
+				solrQuery.addFilterQuery(RoiDTO.EDIT_DATE + ":[* TO " + lastEditBefore + "]");
+			}
+		}
+		if (createdAfter != null){
+			if (createdBefore != null){
+				solrQuery.addFilterQuery(RoiDTO.CREATION_DATE + ":[" + createdAfter + " TO " + createdBefore + "]");
+			} else {
+				solrQuery.addFilterQuery(RoiDTO.CREATION_DATE + ":[" + createdAfter + " TO *]");
+			}
+		}
+		if (createdAfter != null){
+			if (createdBefore != null){
+				solrQuery.addFilterQuery(RoiDTO.CREATION_DATE + ":[" + createdAfter + " TO " + createdBefore + "]");
+			} else {
+				solrQuery.addFilterQuery(RoiDTO.CREATION_DATE + ":[" + createdAfter + " TO *]");
+			}
+		}
+		
 		if (resNo != null){
 			solrQuery.setRows(resNo);
 		} else {

@@ -17,6 +17,7 @@ package uk.ac.ebi.phis.web.controller;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.Date;
 
 import org.apache.solr.client.solrj.SolrServerException;
 import org.json.JSONObject;
@@ -147,10 +148,14 @@ public class SolrWrapperController {
     		@RequestParam(value = "resultNo", required = false) Integer resultNo,
     		@RequestParam(value = "userId", required = false) String userOwner,
     		@RequestParam(value = "userGroup", required = false) String userGroup,
+    		@RequestParam(value = "createdAfter", required = false) Date createdAfter,
+    		@RequestParam(value = "createdBefore", required = false) Date createdBefore,
+    		@RequestParam(value = "lastEditAfter", required = false) Date lastEditAfter,
+    		@RequestParam(value = "lastEditBefore", required = false) Date lastEditBefore,
     		Model model
             ) throws SolrServerException, IOException, URISyntaxException {
 				
-		return rs.getRois(imageId, roiId, userOwner, userGroup, resultNo);
+		return rs.getRois(imageId, roiId, userOwner, userGroup, createdAfter, createdBefore, lastEditBefore, lastEditAfter, resultNo);
 		
     }
 
