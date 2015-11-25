@@ -260,7 +260,11 @@
 			<element name="associated_image" type="string" minOccurs="1" maxOccurs="1" /> <!-- Must always be associated to the right image and back-->
 			<element name="associated_channel" type="x:StringArray" minOccurs="0" maxOccurs="1" /> <!-- Must always be associated to the right channel and back -->
 			<element name="coordinates" type="x:Coordinates" minOccurs="1" maxOccurs="1" />	<!-- Roi coordinates. Current assumption is thar Rois are points, rectangles (2 points : upper left corner and lower right corner) and poligons (described by the right sequence of points) -->
-			
+			<element name="user_owner" type="string" minOccurs="0" maxOccurs="1" />  <!-- Id of the user who created the annotation. -->
+			<element name="user_group" type="string" minOccurs="0" maxOccurs="1" />  <!-- Group to which the user who created the annotation belongs. -->
+			<element name="creation_date" type="string" minOccurs="0" maxOccurs="1" />  <!-- Date when the annotation was created by the owner. -->
+			<element name="edit_date" type="string" minOccurs="0" maxOccurs="1" />  <!-- Last edit date. -->
+		
 			<!-- Annotations -->
 			<element name="depicted_anatomical_structure" type="x:AnnotationArray" minOccurs="0" maxOccurs="1" /> <!--  The ONE anatomical structure that best describes what is being depicted in the whole image -->
 			<element name="is_expression_pattern" type="boolean" minOccurs="0" maxOccurs="1" />
