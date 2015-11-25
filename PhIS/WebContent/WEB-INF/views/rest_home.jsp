@@ -326,6 +326,39 @@
 				<td><var>(none)</var></td>
 				<td><var>groupA</var></td>
 			</tr>
+			<tr style="background-color: olive;">
+				<td>lastEditBefore</td>
+				<td><var>Date</var></td>
+				<td> false </td>
+				<td>Get annotations edited before the given date.</td>
+				<td><var>(none)</var></td>
+				<td><var>2016-03-06T23:59:59.999Z</var></td>
+			</tr>
+			<tr style="background-color: olive;">
+				<td>lastEditAfter</td>
+				<td><var>Date</var></td>
+				<td> false </td>
+				<td>Get annotations edited after the given date.</td>
+				<td><var>(none)</var></td>
+				<td><var>1976-03-06T23:59:59.999Z</var></td>
+			</tr>
+			<tr style="background-color: olive;">
+				<td>createdBefore</td>
+				<td><var>Date</var></td>
+				<td> false </td>
+				<td>Get annotations created before the given date.</td>
+				<td><var>(none)</var></td>
+				<td><var>2016-03-06T23:59:59.999Z</var></td>
+			</tr>
+			<tr style="background-color: olive;">
+				<td>createdAfter</td>
+				<td><var>Date</var></td>
+				<td> false </td>
+				<td>Get annotations created after the given date..</td>
+				<td><var>(none)</var></td>
+				<td><var>1976-03-06T23:59:59.999Z</var></td>
+			</tr>
+			
 			<tr>
 				<td>resultNo</td>
 				<td><var>Integer</var></td>
