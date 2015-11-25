@@ -19,10 +19,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -46,6 +44,7 @@ import uk.ac.ebi.phis.jaxb.GenotypeComponent;
 import uk.ac.ebi.phis.jaxb.Image;
 import uk.ac.ebi.phis.jaxb.ImageDescription;
 import uk.ac.ebi.phis.jaxb.ImageType;
+import uk.ac.ebi.phis.jaxb.Link;
 import uk.ac.ebi.phis.jaxb.Organism;
 import uk.ac.ebi.phis.jaxb.Roi;
 import uk.ac.ebi.phis.release.DatasourceInstance;
@@ -368,7 +367,13 @@ public class BatchXmlUploader {
 			bean.setMagnificationLevel(desc.getMagnificationLevel());
 		}
 		if (desc.getPublication() != null && desc.getPublication().getEl() != null &&  desc.getPublication().getEl().size() > 0){
-			bean.setPublication(desc.getPublication().getEl());
+			for ( Link link : desc.getPublication().getEl()){
+				if (link.getUrl() != null){
+					bean.addPublication(link.getDisplayName() + "(" + link.getUrl() + ")");
+				} else{
+					bean.addPublication(link.getDisplayName());
+				}
+			}
 		}
 		
 		if (desc.getImageContextUrl() != null){

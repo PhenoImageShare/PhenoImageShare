@@ -2760,6 +2760,14 @@ public class ImageDTO {
 		this.publication = publication;
 	}
 
+	public void addPublication(String publication) {
+		
+		if (this.publication == null){
+			this.publication = new ArrayList<>();
+		}
+		
+		this.publication.add(publication);
+	}
 	
 	public String getMagnificationLevel() {
 	
