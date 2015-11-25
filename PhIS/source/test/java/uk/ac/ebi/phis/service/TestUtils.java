@@ -17,6 +17,7 @@ package uk.ac.ebi.phis.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Date;
 
 import uk.ac.ebi.phis.solrj.dto.RoiDTO;
 
@@ -69,10 +70,16 @@ public class TestUtils {
 		List<Float> zCoordinates = new ArrayList<>();
 		zCoordinates.add((float) 12);
 		
+		String userOwner = "ilinca";
+		String usergroup = "myGroup";
+		Date today = new Date();
+		Date creationDate = today;
+		Date lastEditDate = today;
+		
 		roi = new RoiDTO(id, associatedChannel, associatedImage, depictedAnatomyId, depictedAnatomyTerm, depictedAnatomyFreetext, 
 			abnormalityAnatomyId, abnormalityAnatomyTerm, abnormalityAnatomyFreetext, 
 			phenotypeId, phenotypeTerm, phenotypeFreetext, observations, xCoordinates, yCoordinates, zCoordinates,
-			expressedInTerm, expressedInFreetext, expressedInId);
+			expressedInTerm, expressedInFreetext, expressedInId, userOwner, usergroup, creationDate, lastEditDate);
 		
 		return roi;
 	}
