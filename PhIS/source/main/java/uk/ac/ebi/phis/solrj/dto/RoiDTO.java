@@ -26,7 +26,7 @@ public class RoiDTO {
 	
 	public static final String  ID="id";
 	public static final String  USER_OWNER = "user_owner";
-	public static final String  USER_GROUP = "user_owner";
+	public static final String  USER_GROUP = "user_group";
 	public static final String  CREATION_DATE = "creation_date";
 	public static final String  EDIT_DATE = "edit_date";
 	public static final String  ASSOCIATED_IMAGE_ID = "associated_image";
