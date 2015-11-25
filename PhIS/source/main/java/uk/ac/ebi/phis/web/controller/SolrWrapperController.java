@@ -145,16 +145,12 @@ public class SolrWrapperController {
     		@RequestParam(value = "roiId", required = false) String roiId,
     		@RequestParam(value = "imageId", required = false) String imageId,
     		@RequestParam(value = "resultNo", required = false) Integer resultNo,
+    		@RequestParam(value = "owner", required = false) String userOwner,
     		Model model
             ) throws SolrServerException, IOException, URISyntaxException {
 				
-		if (roiId != null){
-			return rs.getRoiAsJsonString(roiId, resultNo);
-		}
-		else if (imageId != null){
-			return rs.getRois(imageId, resultNo);
-		}
-		return "";
+		return rs.getRois(imageId, roiId, userOwner, resultNo);
+		
     }
 
 	

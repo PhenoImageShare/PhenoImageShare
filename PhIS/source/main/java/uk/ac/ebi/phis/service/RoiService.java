@@ -39,6 +39,7 @@ public class RoiService extends BasicService{
 	}
 	
 	public String getRoiAsJsonString(String roiId, Integer resNo){
+		
 		SolrQuery solrQuery = new SolrQuery();
 		solrQuery.setQuery("*:*");
 		roiId = handleSpecialCharacters(roiId);
@@ -80,13 +81,18 @@ public class RoiService extends BasicService{
 		return null;
 	}
 	
-	public String getRois(String imageId, Integer resNo){
+	public String getRois(String imageId, String roiId, String owner, Integer resNo){
 		
 		SolrQuery solrQuery = new SolrQuery();
 		solrQuery.setQuery("*:*");
 		imageId = handleSpecialCharacters(imageId);
-		solrQuery.setFilterQueries(RoiDTO.ASSOCIATED_IMAGE_ID + ":\""+ imageId + "\"");
-		if (resNo != null){
+		if (imageId != null){
+			solrQuery.setFilterQueries(RoiDTO.ASSOCIATED_IMAGE_ID + ":\""+ imageId + "\"");
+		} if (roiId != null){
+			solrQuery.addFilterQuery(RoiDTO.ID + ":\"" + roiId + "\"");
+		} if (owner != null){
+			solrQuery.addFilterQuery(RoiDTO.USER_OWNER + ":\"" + owner + "\"");
+		} if (resNo != null){
 			solrQuery.setRows(resNo);
 		} else {
 			solrQuery.setRows(10000);
