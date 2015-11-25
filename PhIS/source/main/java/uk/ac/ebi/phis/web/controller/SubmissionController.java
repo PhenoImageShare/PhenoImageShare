@@ -18,6 +18,7 @@ package uk.ac.ebi.phis.web.controller;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.solr.client.solrj.SolrServerException;
@@ -30,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import uk.ac.ebi.neo4jUtils.AnnotationProperties;
 import uk.ac.ebi.neo4jUtils.Neo4jAccessUtils;
 import uk.ac.ebi.phis.exception.PhisSubmissionException;
 import uk.ac.ebi.phis.service.GenericUpdateService;
@@ -73,6 +75,8 @@ import uk.ac.ebi.phis.utils.web.RestStatusMessage;
 	            
 	            @RequestParam(value = "associatedImageId", required = true) String associatedImageId,
 	            
+	    		@RequestParam(value = "userGroup", required = false) String userGroup,
+	            
 	            @RequestParam(value = "xCoordinates", required = true) List<Float> xCoordinates,
 	            @RequestParam(value = "yCoordinates", required = true) List<Float> yCoordinates,
 	            @RequestParam(value = "zCoordinates", required = false) List<Float> zCoordinates,
@@ -102,16 +106,20 @@ import uk.ac.ebi.phis.utils.web.RestStatusMessage;
 			
 			try {
 				if (is.imageIdExists(associatedImageId)){
+
+					Date today = new Date();
 					
-					neo.createAnnotation(userId, annotationId, associatedImageId, xCoordinates, yCoordinates, zCoordinates, associatedChannelId,
-					depictedAnatomyId, depictedAnatomyFreetext, depictedAnatomyTerm, abnInAnatomyId, abnInAnatomyFreetext, abnInAnatomyTerm,
-					phenotypeId, phenotypeFreetext, phenotypeTerm, observations, expressionInAnatomyId, expressionInAnatomyTerm, expressionInAnatomyFreetext);
+					neo.createAnnotationWithDates(userId, userGroup, annotationId, associatedImageId, xCoordinates, yCoordinates, zCoordinates, 
+							associatedChannelId, depictedAnatomyId, depictedAnatomyFreetext, depictedAnatomyTerm, abnInAnatomyId, 
+							abnInAnatomyFreetext, abnInAnatomyTerm,	phenotypeId, phenotypeFreetext, phenotypeTerm, observations, 
+							expressionInAnatomyId, expressionInAnatomyTerm, expressionInAnatomyFreetext, today, today);
 					
 					ArrayList<Float> zCoord = (zCoordinates != null ? new ArrayList<Float>(zCoordinates) : null);
 					RoiDTO roi = new RoiDTO(annotationId, associatedChannelId, associatedImageId, depictedAnatomyId, depictedAnatomyTerm, 
 							depictedAnatomyFreetext, abnInAnatomyId, abnInAnatomyTerm, abnInAnatomyFreetext, 
 							phenotypeId, phenotypeTerm, phenotypeFreetext, observations, new ArrayList<Float>(xCoordinates), 
-							new ArrayList<Float>(yCoordinates), zCoord, expressionInAnatomyTerm, expressionInAnatomyFreetext, expressionInAnatomyId);
+							new ArrayList<Float>(yCoordinates), zCoord, expressionInAnatomyTerm, expressionInAnatomyFreetext, expressionInAnatomyId,
+							userId, userGroup, today, today);
 					gus.addToCores(roi);					
 				}				
 			} catch (PhisSubmissionException e) {
@@ -125,6 +133,7 @@ import uk.ac.ebi.phis.utils.web.RestStatusMessage;
 		@RequestMapping(value="/updateAnnotation", method=RequestMethod.GET)	
 	    public @ResponseBody String updateAnnotation(
 	    		@RequestParam(value = "userId", required = true) String userId,
+	    		@RequestParam(value = "userGroupId", required = true) String userGroupId,
 	            @RequestParam(value = "annotationId", required = true) String annotationId,
 	            @RequestParam(value = "associatedImageId", required = true) String associatedImageId,
 	            @RequestParam(value = "xCoordinates", required = true) List<Float> xCoordinates,
@@ -151,18 +160,22 @@ import uk.ac.ebi.phis.utils.web.RestStatusMessage;
 			try {
 				
 				if (is.imageIdExists(associatedImageId)){
-				
-					neo.updateAnnotation(userId, annotationId, associatedImageId, xCoordinates, yCoordinates, zCoordinates, associatedChannelId,
+					
+					Date today = new Date();
+					Date creationDate = new Date(neo.getNodeById(annotationId).getProperty(AnnotationProperties.CREATION_DATE.name()).toString());
+					
+					neo.updateAnnotation(userId, userGroupId, annotationId, associatedImageId, xCoordinates, yCoordinates, zCoordinates, associatedChannelId,
 						depictedAnatomyId, depictedAnatomyFreetext, depictedAnatomyTerm, abnInAnatomyId, abnInAnatomyFreetext, abnInAnatomyTerm, phenotypeId, 
-						phenotypeFreetext, phenotypeTerm, observations, expressionInAnatomyId, expressionInAnatomyTerm, expressionInAnatomyFreetext);
+						phenotypeFreetext, phenotypeTerm, observations, expressionInAnatomyId, expressionInAnatomyTerm, expressionInAnatomyFreetext,
+						creationDate, today);
 					
+					RoiDTO roi = new RoiDTO(annotationId, associatedChannelId, associatedImageId, depictedAnatomyId, depictedAnatomyTerm, 
+						depictedAnatomyFreetext, abnInAnatomyId, abnInAnatomyTerm, abnInAnatomyFreetext, 
+						phenotypeId, phenotypeTerm, phenotypeFreetext, observations, new ArrayList<Float>(xCoordinates), 
+						new ArrayList<Float>(yCoordinates), zCoordinates != null ? new ArrayList<Float>(zCoordinates) : null,
+						expressionInAnatomyTerm, expressionInAnatomyFreetext, expressionInAnatomyId, userId, userGroupId, creationDate, today);
 					
-						RoiDTO roi = new RoiDTO(annotationId, associatedChannelId, associatedImageId, depictedAnatomyId, depictedAnatomyTerm, 
-							depictedAnatomyFreetext, abnInAnatomyId, abnInAnatomyTerm, abnInAnatomyFreetext, 
-							phenotypeId, phenotypeTerm, phenotypeFreetext, observations, new ArrayList<Float>(xCoordinates), 
-							new ArrayList<Float>(yCoordinates), zCoordinates != null ? new ArrayList<Float>(zCoordinates) : null,
-							expressionInAnatomyTerm, expressionInAnatomyFreetext, expressionInAnatomyId);
-						gus.addToCores(roi);
+					gus.addToCores(roi);
 						
 				}
 				

@@ -151,7 +151,8 @@ public class RoiDTO {
 	List<String> depictedAnatomyTerm, List<String> depictedAnatomyFreetext, List<String> abnormalityAnatomyId, 
 	List<String> abnormalityAnatomyTerm, List<String> abnormalityAnatomyFreetext, List<String> phenotypeId, List<String> phenotypeTerm, 
 	List<String> phenotypeFreetext, List<String> observations, List<Float> xCoordinates, List<Float> yCoordinates, List<Float> zCoordinates,
-	List<String> expressionInTerm, List<String> expressionInFreetext, List<String> expressionInId) {
+	List<String> expressionInTerm, List<String> expressionInFreetext, List<String> expressionInId, String userOwner, String usergroup, 
+	Date creationDate, Date lastEditDate) {
 
 		super();
 		this.id = id;
@@ -173,6 +174,12 @@ public class RoiDTO {
 		this.xCoordinates = xCoordinates;
 		this.yCoordinates = yCoordinates;
 		this.zCoordinates = zCoordinates;
+		if (usergroup != null){
+			this.userGroup = usergroup;
+		}
+		this.userOwner = userOwner;
+		this.creationDate = creationDate;
+		this.editDate = lastEditDate;
 	}
 
 	

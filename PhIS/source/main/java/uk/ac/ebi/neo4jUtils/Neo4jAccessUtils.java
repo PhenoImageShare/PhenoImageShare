@@ -50,6 +50,7 @@ public class Neo4jAccessUtils {
 	 public static Label channelLabel;
 	 public static Label imageLabel;
 	 public static Label userLabel;
+	 public static Label userGroupLabel;	 
 	 public static Label releaseLabel;
 	 public static Label datasourceLabel;
 	 public static Label speciesLabel;
@@ -64,6 +65,7 @@ public class Neo4jAccessUtils {
         channelLabel = createLabel("Channel");
         imageLabel = createLabel("Image");
         userLabel = createLabel("User");   
+        userGroupLabel = createLabel("UserGroup");   
         releaseLabel = createLabel("Release");
         datasourceLabel = createLabel("DataSource");
         speciesLabel = createLabel("Species");
@@ -115,26 +117,8 @@ public class Neo4jAccessUtils {
 		
 	}
 	
-	
-	
-	public void createAnnotation( String userId, String annotationId, String associatedImageId, List<Float> xCoordinates,
-	List<Float> yCoordinates, List<Float> zCoordinates, List<String> associatedChannelId, 
-	List<String> depictedAnatomyId, List<String> depictedAnatomyFreetext, List<String> depictedAnatomyTerm,
-    List<String> abnInAnatomyId, List<String> abnInAnatomyFreetext,  List<String> abnInAnatomyTerm, 
-    List<String> phenotypeId, List<String> phenotypeFreetext, List<String> phenotypeTerm, 
-    List<String> observation, 
-    List<String> expressedInAnatomyId, List<String> expressedInAnatomyTerm, List<String> expressedInAnatomyFreetext) 
-    throws PhisSubmissionException  {
-	
-		Date today = new Date();
-		createAnnotationWithDates(userId, annotationId, associatedImageId, xCoordinates, yCoordinates, zCoordinates, associatedChannelId,
-			depictedAnatomyId, depictedAnatomyFreetext, depictedAnatomyTerm, abnInAnatomyId, abnInAnatomyFreetext, abnInAnatomyTerm, phenotypeId, 
-			phenotypeFreetext, phenotypeTerm, observation, expressedInAnatomyId, expressedInAnatomyTerm, expressedInAnatomyFreetext, 
-			today, today);
-	}
-	
-	
-	public void createAnnotationWithDates( String userId, String annotationId, String associatedImageId, List<Float> xCoordinates,
+		
+	public void createAnnotationWithDates( String userId, String userGroupId, String annotationId, String associatedImageId, List<Float> xCoordinates,
 	List<Float> yCoordinates, List<Float> zCoordinates, List<String> associatedChannelId, 
 	List<String> depictedAnatomyId, List<String> depictedAnatomyFreetext, List<String> depictedAnatomyTerm,
     List<String> abnInAnatomyId, List<String> abnInAnatomyFreetext,  List<String> abnInAnatomyTerm, 
@@ -144,92 +128,95 @@ public class Neo4jAccessUtils {
     Date creationDate, Date lastModifiedDate) 
     throws PhisSubmissionException{
 	
-		
-			Node user;
-			Node image;
-			Node annotation;
+		Node user;
+		Node userGroup;
+		Node image;
+		Node annotation;
 					
-			// Don't create another object with the same ID
-			if (existsId(annotationId, imageLabel)){
-				throw getEmptyIdException();
-			} 
-			
-			// there must be at least one annotation with the ROI coordinates
-			if (depictedAnatomyId == null && depictedAnatomyFreetext == null && abnInAnatomyId == null && abnInAnatomyFreetext == null &&
+		// Don't create another object with the same ID
+		if (existsId(annotationId, imageLabel)){
+			throw getEmptyIdException();
+		} 
+		
+		// there must be at least one annotation with the ROI coordinates
+		if (depictedAnatomyId == null && depictedAnatomyFreetext == null && abnInAnatomyId == null && abnInAnatomyFreetext == null &&
 				phenotypeId == null && phenotypeFreetext == null & observation == null && expressedInAnatomyFreetext == null && expressedInAnatomyId == null){
 				
-				throw getNoAnnotationException();
-			}
+			throw getNoAnnotationException();
+		}
 			
-			// ontology objects label-id should be 1-1.
+		// ontology objects label-id should be 1-1.
 			
-			if(!(ontologyTermsValid(abnInAnatomyId, abnInAnatomyTerm) && ontologyTermsValid(phenotypeId, phenotypeTerm) 
-				&& ontologyTermsValid(expressedInAnatomyId, expressedInAnatomyTerm) && ontologyTermsValid(depictedAnatomyId, depictedAnatomyTerm))){
-				throw getNotMatchingIdAndTerm();
-			}
-			
-			
-			user = getOrCreateNode(userId, userId, userLabel, false);
-			image = getOrCreateNode(associatedImageId,associatedImageId, imageLabel, false);
-					
-			
-			
-			annotation = addAnnotationNode(annotationId, observation, creationDate, lastModifiedDate, xCoordinates, yCoordinates, zCoordinates);
-			
-			addBidirectionalRelation(annotation, Neo4jRelationship.HAS_ASSOCIATED_IMAGE, image);
-			addBidirectionalRelation(annotation, Neo4jRelationship.CREATED_BY, user);
-			
-			if (associatedChannelId != null){
-				for (String s: associatedChannelId){
-					Node channel = getOrCreateNode(s, s, channelLabel, false);
-					addBidirectionalRelation(annotation, Neo4jRelationship.HAS_ASSOCIATED_CHANNEL, channel);
-				}
-			}		
-			if (depictedAnatomyId != null){
-				for (int i = 0; i < depictedAnatomyId.size(); i++){
-					Node ot = getOrCreateNode(depictedAnatomyId.get(i), depictedAnatomyTerm.get(i), ontologyTermLabel, false);
-					addBidirectionalRelation(annotation, Neo4jRelationship.DEPICTS, ot);
-				}				
-			}
-			if (abnInAnatomyId != null){
-				for (int i = 0; i < abnInAnatomyId.size(); i++) {
-					Node ot = getOrCreateNode(abnInAnatomyId.get(i), abnInAnatomyTerm.get(i), ontologyTermLabel, false);
-					addBidirectionalRelation(annotation, Neo4jRelationship.DEPICTS_ABNORMALITY_IN, ot);
-				}
-			}
-			if (phenotypeId != null){
-				for (int i = 0; i < phenotypeId.size(); i++) {
-					Node ot = getOrCreateNode(phenotypeId.get(i), phenotypeTerm.get(i), ontologyTermLabel, false);
-					addBidirectionalRelation(annotation, Neo4jRelationship.DEPICTS_PHENOTYPE, ot);
-				}
-			}
-			if (expressedInAnatomyId != null){
-				for (int i = 0; i < expressedInAnatomyId.size(); i++) {
-					Node ot = getOrCreateNode(expressedInAnatomyId.get(i), expressedInAnatomyTerm.get(i), ontologyTermLabel, false);
-					addBidirectionalRelation(annotation, Neo4jRelationship.EXPRESSED_IN, ot);
-				}
-			}
-			if (depictedAnatomyFreetext != null){
-				for (String s: depictedAnatomyFreetext){
-					annotation = setAnnotationProperty(annotation, AnnotationProperties.DEPICTED_ANATOMY_FREETEXT, s);
-				}
-			}
-			if (expressedInAnatomyFreetext != null){
-				for (String s: expressedInAnatomyFreetext){
-					annotation = setAnnotationProperty(annotation, AnnotationProperties.EXPRESSION_INANATOMY_FREETEXT, s);
-				}
-			}
-			if (abnInAnatomyFreetext != null){
-				for (String s: abnInAnatomyFreetext){
-					annotation = setAnnotationProperty(annotation, AnnotationProperties.ABN_IN_ANATOMY_FREETEXT, s);
-				}
-			}
-			if (phenotypeFreetext != null){
-				for (String s: phenotypeFreetext){
-					annotation = setAnnotationProperty(annotation, AnnotationProperties.PHENOTYPE_FREETEXT, s);
-				}
-			}
+		if(!(ontologyTermsValid(abnInAnatomyId, abnInAnatomyTerm) && ontologyTermsValid(phenotypeId, phenotypeTerm) 
+			&& ontologyTermsValid(expressedInAnatomyId, expressedInAnatomyTerm) && ontologyTermsValid(depictedAnatomyId, depictedAnatomyTerm))){
+			throw getNotMatchingIdAndTerm();
+		}
 		
+		
+		user = getOrCreateNode(userId, userId, userLabel, false);
+		image = getOrCreateNode(associatedImageId,associatedImageId, imageLabel, false);
+		annotation = addAnnotationNode(annotationId, observation, creationDate, lastModifiedDate, xCoordinates, yCoordinates, zCoordinates);
+		
+		addBidirectionalRelation(annotation, Neo4jRelationship.HAS_ASSOCIATED_IMAGE, image);
+		addBidirectionalRelation(annotation, Neo4jRelationship.CREATED_BY, user);
+
+		if (userGroupId != null){
+			userGroup = getOrCreateNode(userGroupId, userGroupId, userGroupLabel, false);
+			addUnidirectionalRelation(annotation, Neo4jRelationship.BELONGS_TO, userGroup, true);
+			addUnidirectionalRelation(user, Neo4jRelationship.BELONGS_TO, userGroup, true);
+		}
+		
+		if (associatedChannelId != null){
+			for (String s: associatedChannelId){
+				Node channel = getOrCreateNode(s, s, channelLabel, false);
+				addBidirectionalRelation(annotation, Neo4jRelationship.HAS_ASSOCIATED_CHANNEL, channel);
+			}
+		}		
+		if (depictedAnatomyId != null){
+			for (int i = 0; i < depictedAnatomyId.size(); i++){
+				Node ot = getOrCreateNode(depictedAnatomyId.get(i), depictedAnatomyTerm.get(i), ontologyTermLabel, false);
+				addBidirectionalRelation(annotation, Neo4jRelationship.DEPICTS, ot);
+			}				
+		}
+		if (abnInAnatomyId != null){
+			for (int i = 0; i < abnInAnatomyId.size(); i++) {
+				Node ot = getOrCreateNode(abnInAnatomyId.get(i), abnInAnatomyTerm.get(i), ontologyTermLabel, false);
+				addBidirectionalRelation(annotation, Neo4jRelationship.DEPICTS_ABNORMALITY_IN, ot);
+			}
+		}
+		if (phenotypeId != null){
+			for (int i = 0; i < phenotypeId.size(); i++) {
+				Node ot = getOrCreateNode(phenotypeId.get(i), phenotypeTerm.get(i), ontologyTermLabel, false);
+				addBidirectionalRelation(annotation, Neo4jRelationship.DEPICTS_PHENOTYPE, ot);
+			}
+		}
+		if (expressedInAnatomyId != null){
+			for (int i = 0; i < expressedInAnatomyId.size(); i++) {
+				Node ot = getOrCreateNode(expressedInAnatomyId.get(i), expressedInAnatomyTerm.get(i), ontologyTermLabel, false);
+				addBidirectionalRelation(annotation, Neo4jRelationship.EXPRESSED_IN, ot);
+			}
+		}
+		if (depictedAnatomyFreetext != null){
+			for (String s: depictedAnatomyFreetext){
+				annotation = setAnnotationProperty(annotation, AnnotationProperties.DEPICTED_ANATOMY_FREETEXT, s);
+			}
+		}
+		if (expressedInAnatomyFreetext != null){
+			for (String s: expressedInAnatomyFreetext){
+				annotation = setAnnotationProperty(annotation, AnnotationProperties.EXPRESSION_INANATOMY_FREETEXT, s);
+			}
+		}
+		if (abnInAnatomyFreetext != null){
+			for (String s: abnInAnatomyFreetext){
+				annotation = setAnnotationProperty(annotation, AnnotationProperties.ABN_IN_ANATOMY_FREETEXT, s);
+			}
+		}
+		if (phenotypeFreetext != null){
+			for (String s: phenotypeFreetext){
+				annotation = setAnnotationProperty(annotation, AnnotationProperties.PHENOTYPE_FREETEXT, s);
+			}
+		}
+	
 	}
 	
 	
@@ -615,24 +602,23 @@ public class Neo4jAccessUtils {
 	}
 	
 	
-	public void updateAnnotation(String userId, String annotationId, String associatedImageId, List<Float> xCoordinates,
+	public void updateAnnotation(String userId, String userGroupId, String annotationId, String associatedImageId, List<Float> xCoordinates,
 		List<Float> yCoordinates, List<Float> zCoordinates, List<String> associatedChannelId, 
 		List<String> depictedAnatomyId, List<String> depictedAnatomyFreetext, List<String> depictedAnatomyTerm,
 		List<String> abnInAnatomyId, List<String> abnInAnatomyFreetext,  List<String> abnInAnatomyTerm, 
 		List<String> phenotypeId, List<String> phenotypeFreetext, List<String> phenotypeTerm, 
 		List<String> observation, 
-		List<String> expressedInAnatomyId, List<String> expressedInAnatomyTerm, List<String> expressedInAnatomyFreetext) 
+		List<String> expressedInAnatomyId, List<String> expressedInAnatomyTerm, List<String> expressedInAnatomyFreetext,
+		Date creationDate, Date lastEditDate) 
 	throws PhisSubmissionException{
-		
-		Date today = new Date();
-		
+				
 		if (existsId(annotationId, annLabel)){
 			if (hasSameUser(userId, annotationId)){
 				deleteNodeWithRelations(annotationId);
-				createAnnotationWithDates(userId, annotationId, associatedImageId, xCoordinates, yCoordinates, zCoordinates, associatedChannelId,
+				createAnnotationWithDates(userId, userGroupId, annotationId, associatedImageId, xCoordinates, yCoordinates, zCoordinates, associatedChannelId,
 					depictedAnatomyId, depictedAnatomyFreetext, depictedAnatomyTerm, abnInAnatomyId, abnInAnatomyFreetext, abnInAnatomyTerm, 
 					phenotypeId, phenotypeFreetext, phenotypeTerm, observation, expressedInAnatomyId, expressedInAnatomyTerm, expressedInAnatomyFreetext, 
-					today, today);
+					creationDate, lastEditDate);
 			}
 			else {
 				throw new PhisSubmissionException("User provided does not match the owner.");
