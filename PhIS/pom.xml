@@ -270,6 +270,28 @@
 			</build>
 		</profile> 
 		
+		<profile>
+		<id>beta-v1.0.1</id>
+			<properties>
+				<baseUrl>http://??</baseUrl>
+				<solrUrl>http://???</solrUrl>
+				<internalSolrUrl>http://ves-ebi-d1:8120/mi/phis/beta/v1.0.1</internalSolrUrl>
+				<dbURI>http://phenoimageshare.ebi.ac.uk:7474/db/data/</dbURI>
+				<java.version>1.7</java.version>
+			</properties>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<version>2.4.2</version>
+						<configuration>
+							<skipTests>true</skipTests>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile> 
 		
 		<!-- ************* -->
 		<!-- LIVE PROFILES -->
@@ -298,6 +320,28 @@
 			</build>
 		</profile> 
 		
+		<profile>
+			<id>v1.0.1</id>
+			<properties>
+				<baseUrl>http://??</baseUrl>
+				<solrUrl>http://???</solrUrl>
+				<internalSolrUrl>http://ves-ebi-d2.ebi.ac.uk:8140/mi/phis/v1.0.0</internalSolrUrl>
+				<dbURI>http://phenoimageshare-live.ebi.ac.uk:7474/db/data/</dbURI>
+				<java.version>1.7</java.version>
+			</properties>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<version>2.4.2</version>
+						<configuration>
+							<skipTests>true</skipTests>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile> 
 		
 		
 		</profiles>     
