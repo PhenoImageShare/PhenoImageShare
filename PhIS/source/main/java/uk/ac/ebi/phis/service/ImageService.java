@@ -126,7 +126,7 @@ public class ImageService extends BasicService{
 				ImageDTO.GENE_SYMBOL + ":\""+ mutantGene + "\"");		
 		}
 		if (hostName != null){
-			solrQuery.addFilterQuery(ImageDTO.HOST_NAME + ":" + hostName);
+			solrQuery.addFilterQuery(ImageDTO.HOST_NAME + ":\"" + hostName + "\"");
 		}
 		if (genericGene != null){
 			genericGene = handleSpecialCharacters(genericGene);
