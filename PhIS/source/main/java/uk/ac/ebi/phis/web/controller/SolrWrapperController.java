@@ -89,6 +89,7 @@ public class SolrWrapperController {
             @RequestParam(value = "imagingMethod", required = false) String imagingMethod,
             @RequestParam(value = "chromosome", required = false) String chromosome,
             @RequestParam(value = "position", required = false) String strand,
+            @RequestParam(value = "hostName", required = false) String hostName,
             @RequestParam(value = "location", required = false) Long position,
             @RequestParam(value = "startPosition", required = false) Long startPosition,
             @RequestParam(value = "endPosition", required = false) Long endPosition,
@@ -99,7 +100,7 @@ public class SolrWrapperController {
 				
 		try{
 			return is.getImages(term, phenotype, mutantGene, anatomy, expressedGene, sex, taxon, image_type, sample_type, stage, visualisationMethod, 
-						samplePreparation, imagingMethod, resultNo, start, gene, chromosome, strand, position, startPosition, endPosition);
+						samplePreparation, imagingMethod, resultNo, start, gene, chromosome, strand, position, startPosition, endPosition, hostName);
 		} catch (PhisQueryException e){
 			JSONObject succeded = RestStatusMessage.getFailJson();
 			succeded.put("message", e.getMessage());

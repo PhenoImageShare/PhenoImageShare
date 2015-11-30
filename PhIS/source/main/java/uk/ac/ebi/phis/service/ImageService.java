@@ -50,9 +50,9 @@ public class ImageService extends BasicService{
 	}
 			
 	public String getImages(String term, String phenotype, String mutantGene, String anatomy, String expressedGene, String sex, 
-							String taxon, String image_type, String sample_type, String stage, String visualisationMethod, String samplePreparation, 
+							String taxon, String imageType, String sampleType, String stage, String visualisationMethod, String samplePreparation, 
 							String imagingMethod, Integer rows, Integer start, String genericGene, String chromosome, String strand, Long position,
-							Long startPosition, Long endPosition) 
+							Long startPosition, Long endPosition, String hostName) 
 	throws SolrServerException, PhisQueryException{
 
 		SolrQuery solrQuery = new SolrQuery();
@@ -125,7 +125,9 @@ public class ImageService extends BasicService{
 			solrQuery.addFilterQuery(ImageDTO.GENE_ID + ":\""+ mutantGene + "\" OR " +
 				ImageDTO.GENE_SYMBOL + ":\""+ mutantGene + "\"");		
 		}
-		
+		if (hostName != null){
+			solrQuery.addFilterQuery(ImageDTO.HOST_NAME + ":" + hostName);
+		}
 		if (genericGene != null){
 			genericGene = handleSpecialCharacters(genericGene);
 			solrQuery.addFilterQuery(ImageDTO.GENE_ID + ":\""+ genericGene + "\" OR " +	ImageDTO.GENE_SYMBOL + ":\""+ genericGene + "\" OR " + 
@@ -142,13 +144,13 @@ public class ImageService extends BasicService{
 			solrQuery.addFilterQuery(ImageDTO.TAXON + ":\"" + taxon + "\" OR " + 
 				ImageDTO.NCBI_TAXON_ID + ":\"" + taxon + "\"");
 		}
-		if (image_type != null){
-			image_type = handleSpecialCharacters(image_type);
-			solrQuery.addFilterQuery(ImageDTO.IMAGE_TYPE + ":\"" + image_type + "\"");
+		if (imageType != null){
+			imageType = handleSpecialCharacters(imageType);
+			solrQuery.addFilterQuery(ImageDTO.IMAGE_TYPE + ":\"" + imageType + "\"");
 		}
-		if (sample_type != null){
-			sample_type = handleSpecialCharacters(sample_type);
-			solrQuery.addFilterQuery(ImageDTO.SAMPLE_TYPE + ":\"" + sample_type + "\"");
+		if (sampleType != null){
+			sampleType = handleSpecialCharacters(sampleType);
+			solrQuery.addFilterQuery(ImageDTO.SAMPLE_TYPE + ":\"" + sampleType + "\"");
 		}
 		if (stage != null){
 			stage = handleSpecialCharacters(stage);

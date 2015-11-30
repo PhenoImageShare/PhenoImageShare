@@ -123,8 +123,7 @@
 				<td><var> * </var></td>
 				<td><var> WILD_TYPE </var> or <var>MUTANT</var> </td>
 			</tr>
-			
-			
+
 			<tr>
 				<td>imageType</td>
 				<td><var>String</var></td>
@@ -217,7 +216,17 @@
 				<td>Number of result objects to be returned back.</td>
 				<td><var>100</var></td>
 				<td><var></var><br></td>
-			</tr>			
+			</tr>
+			
+			<tr  style="background-color: olive;">
+				<td>hostName</td>
+				<td><var>String</var></td>
+				<td>false</td>
+				<td>Name of the website/resource hosting the images.</td>
+				<td><var> * </var></td>
+				<td><var> Mouse Atlas EMAGE </var> </td>
+			</tr>
+						
 			<tr>
 				<td>start</td>
 				<td><var>Integer</var></td>
