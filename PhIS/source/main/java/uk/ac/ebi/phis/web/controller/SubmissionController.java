@@ -75,7 +75,7 @@ import uk.ac.ebi.phis.utils.web.RestStatusMessage;
 	            
 	            @RequestParam(value = "associatedImageId", required = true) String associatedImageId,
 	            
-	    		@RequestParam(value = "userGroup", required = false) String userGroup,
+	    		@RequestParam(value = "userGroupId", required = false) String userGroup,
 	            
 	            @RequestParam(value = "xCoordinates", required = true) List<Float> xCoordinates,
 	            @RequestParam(value = "yCoordinates", required = true) List<Float> yCoordinates,
@@ -133,11 +133,11 @@ import uk.ac.ebi.phis.utils.web.RestStatusMessage;
 		@RequestMapping(value="/updateAnnotation", method=RequestMethod.GET)	
 	    public @ResponseBody String updateAnnotation(
 	    		@RequestParam(value = "userId", required = true) String userId,
-	    		@RequestParam(value = "userGroupId", required = true) String userGroupId,
 	            @RequestParam(value = "annotationId", required = true) String annotationId,
 	            @RequestParam(value = "associatedImageId", required = true) String associatedImageId,
 	            @RequestParam(value = "xCoordinates", required = true) List<Float> xCoordinates,
 	            @RequestParam(value = "yCoordinates", required = true) List<Float> yCoordinates,
+	    		@RequestParam(value = "userGroupId", required = false) String userGroupId,
 	            @RequestParam(value = "zCoordinates", required = false) List<Float> zCoordinates,
 	    		@RequestParam(value = "associatedChannelId", required = false) List<String> associatedChannelId,
 	            @RequestParam(value = "depictedAnatomyId", required = false) List<String> depictedAnatomyId,

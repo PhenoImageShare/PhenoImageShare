@@ -103,7 +103,7 @@
 				<td><var>0,100</var><br></td>
 			</tr>
 			<tr style="background-color: olive;">
-				<td>userGroup</td>
+				<td>userGroupId</td>
 				<td><var>String</var></td>
 				<td> false </td>
 				<td>Group to which the user belongs.</td>
