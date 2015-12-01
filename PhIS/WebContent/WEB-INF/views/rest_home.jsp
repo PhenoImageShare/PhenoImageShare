@@ -328,7 +328,7 @@
 				<td><var>user_021897401</var></td>
 			</tr>
 			<tr style="background-color: olive;">
-				<td>userGroup</td>
+				<td>userGroupId</td>
 				<td><var>String</var></td>
 				<td> false </td>
 				<td>Group to which the user belongs.</td>

@@ -167,7 +167,7 @@ public class SolrWrapperController {
     		@RequestParam(value = "imageId", required = false) String imageId,
     		@RequestParam(value = "resultNo", required = false) Integer resultNo,
     		@RequestParam(value = "userId", required = false) String userOwner,
-    		@RequestParam(value = "userGroup", required = false) String userGroup,
+    		@RequestParam(value = "userGroupId", required = false) String userGroup,
     		@RequestParam(value = "createdAfter", required = false) String createdAfter,
     		@RequestParam(value = "createdBefore", required = false) String createdBefore,
     		@RequestParam(value = "lastEditAfter", required = false) String lastEditAfter,
