@@ -186,6 +186,7 @@ public class ImageService extends BasicService{
 		solrQuery.set("wt", "json");
 		solrQuery.setFacet(true);
 		solrQuery.addFacetField(ImageDTO.STAGE);
+		solrQuery.addFacetField(ImageDTO.STAGE_FACET);
 		solrQuery.addFacetField(ImageDTO.IMAGING_METHOD_LABEL);
 		solrQuery.addFacetField(ImageDTO.TAXON);
 		solrQuery.addFacetField(ImageDTO.SAMPLE_TYPE);
