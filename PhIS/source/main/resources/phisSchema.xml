@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Doc>
+  <exportDate>2012-12-13</exportDate>
+  <image>
+    <id>stable_image_id_1234</id>
+    <organism>
+      <age>dpc 10.5</age>
+      <taxon>Mus musculus</taxon>
+      <sex>male</sex>
+      <ncbi_taxon_id>NCBITaxon_10090</ncbi_taxon_id>
+      <stage>
+        <term_label>Theiler stage 17</term_label>
+        <term_id>MmusDv_0000024</term_id>
+      </stage>
+      <background_strain>
+        <el>C57BL/6</el>
+      </background_strain>
+    </organism>
+    <image_description>
+      <image_url>http://www.emouseatlas.org/gxdb/dbPart/segment1/2130/2130_assay_singleMappingimage1.jpg</image_url>
+      <!-- thumbnail_url>str1234</thumbnail_url-->
+      <image_context_url>http://www.emouseatlas.org/emagewebapp/pages/emage_entry_page.jsf?id=EMAGE:2130</image_context_url>
+      <image_dimensions>
+        <image_height>663</image_height>
+        <image_width>530</image_width>
+      </image_dimensions>
+      <machine>str1234</machine>
+      <image_generated_by>
+      	<display_name>Molecular and Cellular Biology, Harvard</display_name>
+        <details>Molecular and Cellular Biology, Harvard, Department of Molecular and Cellular Biology, Harvard University, 16 Divinity Ave, Room 1059, Cambridge</details>
+        <url>https://www.mcb.harvard.edu/mcb/home/</url>
+      </image_generated_by>
+      <image_processed_by>
+		<el>
+        	<display_name>Mouse Atlas EMAGE</display_name>
+            <url>http://www.emouseatlas.org</url>
+        </el>
+      </image_processed_by>
+      <organism_generated_by>
+       	<display_name>Molecular and Cellular Biology, Harvard</display_name>
+        <details>Molecular and Cellular Biology, Harvard, Department of Molecular and Cellular Biology, Harvard University, 16 Divinity Ave, Room 1059, Cambridge</details>
+        <url>https://www.mcb.harvard.edu/mcb/home/</url>
+  	  </organism_generated_by>
+      <host>
+      	<display_name>Mouse Atlas EMAGE</display_name>
+        <url>http://www.emouseatlas.org</url>
+      </host>
+      <imaging_method>
+        <el>
+          <ontology_term>
+            <term_label>str1234</term_label>
+            <term_id>str1234</term_id>
+          </ontology_term>
+          <annotation_freetext>str1234</annotation_freetext>
+          <annotation_mode>manual</annotation_mode>
+        </el>
+      </imaging_method>
+      <sample_preparation>
+      
+      	<el>
+        	<ontology_term>
+           		<annotation_freetext>Signal Detection Method: alkaline phosphatase + NBT/BCIP</annotation_freetext>
+          		<annotation_mode>manual</annotation_mode>
+           	</ontology_term>
+        </el>
+        <el>
+        	<ontology_term>
+           		<annotation_freetext>Fixation Reagent: 4% paraformaldehyde</annotation_freetext>
+          		<annotation_mode>manual</annotation_mode>
+           	</ontology_term>
+        </el>
+       	<el>
+          <ontology_term>
+          	<annotation_freetext>Specimen Type: wholemount</annotation_freetext>
+            <term_label>whole mounted tissue</term_label>
+            <term_id>FBbi_00000024</term_id>
+          </ontology_term>
+          <annotation_mode>manual</annotation_mode>
+        </el>
+      </sample_preparation>
+      <image_type>
+        <el>phenotype/anatomy</el>
+      </image_type>
+      <sample_type>mutant</sample_type>
+      <licence>CC BY 3.0</licence>
+      <magnification_level>str1234</magnification_level>
+      <publication>
+        <el>
+          <display_name>Synchrotron radiation X-ray micro-fluorescence: Protocol to study mesenchymal stem cells.Rezende KM, Bönecker M, Perez CA, Mantesso A.</display_name>
+          <url>http://www.ncbi.nlm.nih.gov/pubmed/26749077</url>
+          <details>Abstract
+The micro-X-ray fluorescence by synchrotron radiation (μ-XRF) is a method to determine the composition of tissues without destroying the samples. However, this technique has never been used for the analysis of mesenchymal stem cells (MSC). This study compared different protocols for fixing, storing, preserving, and establishing the correct numbers of dental derived MSC submitted to μ-XRF analysis. Stem cells were obtained from human dental tissue. After cell expansion, and MACS isolation, the samples were fixed and the following quantities of cells 1 × 104 to 1 × 107 were divided in two groups: G1: fixed in 4% paraformaldehyde diluted in phosphate-buffered saline solution, and G2: fixed in 4% paraformaldehyde diluted in MilliQ water. The G1 cells showed precipitation of chemical components from the solution resulting in the formation of salt crystals while G2 cells were clear and almost transparent in the sample holder. With regards to cells concentration, the best results occurred when four droplets of 1 × 107 cells were analyzed. This work shows that to identify and study the distribution of trace elements in MSC by μ-XRF, the best protocol is fixation in 4% paraformaldehyde diluted with MilliQ water at 4°C and a concentration of four incremental droplets of 1 × 107 cells. Microsc. Res. Tech., 2016. © 2016 Wiley Periodicals, Inc.</details>
+        </el>
+      </publication>
+    </image_description>
+    <mutant_genotype_traits>
+      <el>
+        <gene_id>MGI:104874</gene_id>
+        <gene_symbol>Akt2</gene_symbol>
+        <genetic_feature_symbol>Akt2tm1Wcs</genetic_feature_symbol>
+        <!-- genomic_location>
+          <start_pos>12345</start_pos>
+          <end_pos>12345</end_pos>
+          <chromosone>str1234</chromosone>
+          <strand>+</strand>
+        </genomic_location-->
+        <zygosity>homozygous</zygosity>
+        <mutation_type>
+          <ontology_term>
+            <term_label>deletion</term_label>
+            <term_id>SO_0000159</term_id>
+          </ontology_term>
+          <annotation_freetext>gene knockout</annotation_freetext>
+        </mutation_type>
+        <genome_assembly>GRCm38.p4</genome_assembly>
+      </el>
+    </mutant_genotype_traits>
+    <!-- conditions>
+      <el>str1234</el>
+    </conditions-->
+    <observations>
+      <el>str1234</el>
+    </observations>
+    <associated_roi>
+      <el>roi_id_1234</el>
+    </associated_roi>
+    <associated_channel>
+      <el>channel_id_1234</el>
+    </associated_channel>
+    <depicted_anatomical_structure>
+      <ontology_term>
+        <term_label>str1234</term_label>
+        <term_id>str1234</term_id>
+      </ontology_term>
+      <annotation_freetext>str1234</annotation_freetext>
+      <annotation_mode>manual</annotation_mode>
+    </depicted_anatomical_structure>
+  </image>
+  <channel>
+    <id>str1234</id>
+    <visualisation_method>
+      <el>
+        <ontology_term>
+          <term_label>str1234</term_label>
+          <term_id>str1234</term_id>
+        </ontology_term>
+        <annotation_freetext>str1234</annotation_freetext>
+        <annotation_mode>manual</annotation_mode>
+      </el>
+    </visualisation_method>
+    <associated_image>str1234</associated_image>
+    <associated_roi>
+      <el>str1234</el>
+    </associated_roi>
+    <depicts_expression_of>
+      <gene_id>str1234</gene_id>
+      <gene_symbol>str1234</gene_symbol>
+      <genetic_feature_id>str1234</genetic_feature_id>
+      <genetic_feature_symbol>str1234</genetic_feature_symbol>
+      <genetic_feature_ensembl_id>str1234</genetic_feature_ensembl_id>
+      <genomic_location>
+        <start_pos>12345</start_pos>
+        <end_pos>12345</end_pos>
+        <chromosone>str1234</chromosone>
+        <strand>+</strand>
+      </genomic_location>
+      <zygosity>homozygous</zygosity>
+      <mutation_type>
+        <ontology_term>
+          <term_label>str1234</term_label>
+          <term_id>str1234</term_id>
+        </ontology_term>
+        <annotation_freetext>str1234</annotation_freetext>
+        <annotation_mode>manual</annotation_mode>
+      </mutation_type>
+      <genome_assembly>str1234</genome_assembly>
+    </depicts_expression_of>
+  </channel>
+  <roi>
+    <id>roi_id_1234</id>
+    <associated_image>image_id_1234</associated_image>
+    <associated_channel>
+      <el>channel_id_1234</el>
+    </associated_channel>
+    <coordinates>
+      <y_coordinates>
+      	<el>0.0</el>
+        <el>3.14159</el>
+      </y_coordinates>
+      <x_coordinates>
+      	<el>0.0</el>
+        <el>3.14159</el>
+      </x_coordinates>
+    </coordinates>
+    <user_owner>Ilinca Tudose</user_owner>
+    <user_group>EBI</user_group>
+    <creation_date>2014/08/25</creation_date>
+    <edit_date>2014/09/24</edit_date>
+    <depicted_anatomical_structure>
+      <el>
+        <ontology_term>
+          <term_label>str1234</term_label>
+          <term_id>str1234</term_id>
+        </ontology_term>
+        <annotation_freetext>str1234</annotation_freetext>
+        <annotation_mode>manual</annotation_mode>
+      </el>
+    </depicted_anatomical_structure>
+    <is_expression_pattern>true</is_expression_pattern>
+    <abnormality_in_anatomical_structure>
+      <el>
+        <ontology_term>
+          <term_label>str1234</term_label>
+          <term_id>str1234</term_id>
+        </ontology_term>
+        <annotation_freetext>str1234</annotation_freetext>
+        <annotation_mode>manual</annotation_mode>
+      </el>
+    </abnormality_in_anatomical_structure>
+    <phenotype_annotations>
+      <el>
+        <ontology_term>
+          <term_label>str1234</term_label>
+          <term_id>str1234</term_id>
+        </ontology_term>
+        <annotation_freetext>str1234</annotation_freetext>
+        <annotation_mode>manual</annotation_mode>
+      </el>
+    </phenotype_annotations>
+    <observations>
+      <el>str1234</el>
+    </observations>
+  </roi>
+</Doc>

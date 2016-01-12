@@ -270,7 +270,7 @@
 			<element name="ncbi_taxon_id" type="string" minOccurs="0" maxOccurs="1">
 				<annotation>
 				  <documentation xml:lang="en">
-				  Organism taxon id provided by NCBI (if existing). Example NCBITaxon_862507. See http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi . 
+				  Organism taxon id provided by NCBI (if existing). Example NCBITaxon_862507. http://www.ebi.ac.uk/ols/beta/ontologies/ncbitaxon . 
 				  </documentation>
 				</annotation>
 			</element>
