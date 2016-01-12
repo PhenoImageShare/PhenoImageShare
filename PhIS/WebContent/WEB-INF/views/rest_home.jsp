@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=US-ASCII"
-	pageEncoding="US-ASCII"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ page language="java" contentType="text/html; charset=US-ASCII" pageEncoding="US-ASCII"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <!-- /*******************************************************************************
@@ -28,9 +29,7 @@
 <body>
 
 	<h1>PhIS RESTful Sevice Documentation</h1>
-	<p>Base URL for dev website is
-		http://dev.phenoimageshare.org/data/rest .</p>
-		
+	<p>Base URL ${pageContext.request.serverName} <a href="${requestScope['javax.servlet.forward.request_uri']}"> "${pageContext.request.serverName} ${requestScope['javax.servlet.forward.request_uri']}" </a> </p>
 	<br/>
 	<h2>/getImages</h2>
 	<h3>Parameters</h3>
@@ -43,6 +42,7 @@
 				<th>Description</th>
 				<th>Default</th>
 				<th>Example Values</th>
+				<th>Example URL</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -53,6 +53,7 @@
 				<td>Term to search in any searchable field. Can be id or text for any field accessible. These are anatomy, gene and phenotype fields as well as image source and image visualization method, sample preparation.</td>
 				<td><var> * </var></td>
 				<td><var>eye</var><br></td>
+				<td><a href="${requestScope['javax.servlet.forward.request_uri']}getImages?term=eye">${requestScope['javax.servlet.forward.request_uri']}getImages?term=eye</a>
 			</tr>
 			<tr>
 				<td>phenotype</td>
