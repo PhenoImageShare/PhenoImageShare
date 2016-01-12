@@ -89,7 +89,12 @@
 		</sequence>
 	</complexType>
 
-	<complexType name="Dimensions"> <!-- in pixels -->
+	<complexType name="Dimensions">
+		<annotation>
+		  <documentation xml:lang="en">
+		 	in pixels
+		  </documentation>
+		</annotation> 
 		<all>
 			<element name="image_depth" type="x:PositiveInt" minOccurs="0" maxOccurs="1" />
 			<element name="image_height" type="x:PositiveInt" minOccurs="1" maxOccurs="1" />
@@ -97,7 +102,12 @@
 		</all>
 	</complexType>
 
-	<complexType name="Coordinates"> <!-- in % relative to the image dimensions -->
+	<complexType name="Coordinates">
+		<annotation>
+		  <documentation xml:lang="en">
+		 	in % relative to the image dimensions
+		  </documentation>
+		</annotation>
 		<all>
 			<element name="z_coordinates" type="x:PercentArray" minOccurs="0" maxOccurs="1" />
 			<element name="y_coordinates" type="x:PercentArray" minOccurs="1" maxOccurs="1" />
