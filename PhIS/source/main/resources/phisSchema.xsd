@@ -529,11 +529,43 @@
 			</element> 	
 		
 			<!-- Annotations -->
-			<element name="depicted_anatomical_structure" type="x:AnnotationArray" minOccurs="0" maxOccurs="1" /> <!--  The ONE anatomical structure that best describes what is being depicted in the whole image -->
-			<element name="is_expression_pattern" type="boolean" minOccurs="0" maxOccurs="1" />
-			<element name="abnormality_in_anatomical_structure" type="x:AnnotationArray" minOccurs="0" maxOccurs="1" /> <!-- Name of anatomical structure with some abnormality -->
-			<element name="phenotype_annotations" type="x:AnnotationArray" minOccurs="0" maxOccurs="1" />
-			<element name="observations" type="x:StringArray" minOccurs="0" maxOccurs="1" /> <!--  any notes that don't fit the above annotations -->
+			<element name="depicted_anatomical_structure" type="x:AnnotationArray" minOccurs="0" maxOccurs="1" >
+				<annotation>
+				  <documentation xml:lang="en">
+					Anatomy structure depicted in the ROI, without abnormalities but of interest. 
+				  </documentation>
+				</annotation>
+			</element>
+			<element name="anatomical_structure_with_expression" type="x:AnnotationArray" minOccurs="0" maxOccurs="1" >
+				<annotation>
+				  <documentation xml:lang="en">
+					Anatomy structure depicting gene expression in the current region of interest.
+				  </documentation>
+				</annotation>
+			</element>
+			<element name="is_expression_pattern" type="boolean" minOccurs="0" maxOccurs="1" >
+			</element> 	
+			<element name="abnormality_in_anatomical_structure" type="x:AnnotationArray" minOccurs="0" maxOccurs="1" >
+				<annotation>
+				  <documentation xml:lang="en">
+					Anatomical structure presenting some sort of abnormality.
+				  </documentation>
+				</annotation>
+			</element> 	
+			<element name="phenotype_annotations" type="x:AnnotationArray" minOccurs="0" maxOccurs="1" >
+				<annotation>
+				  <documentation xml:lang="en">
+					Phenotypes present in the region of interest.
+				  </documentation>
+				</annotation>
+			</element> 	
+			<element name="observations" type="x:StringArray" minOccurs="0" maxOccurs="1" >
+				<annotation>
+				  <documentation xml:lang="en">
+					Any notes that don't fit the above annotations.
+				  </documentation>
+				</annotation>
+			</element> 
 		</all>
 	</complexType>
 
