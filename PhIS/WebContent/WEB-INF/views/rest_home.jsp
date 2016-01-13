@@ -4,7 +4,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <!-- /*******************************************************************************
- * Copyright 2015 EMBL - European Bioinformatics Institute
+ * Copyright 2016 EMBL - European Bioinformatics Institute
  *
  * Licensed under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
@@ -24,14 +24,40 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 	<title>PhIS rest</title>
+	
+    <link rel="stylesheet" href="../css/documentation.css">
+    <link rel="stylesheet" href="http://www.phenoimageshare.org/phis/static/queries/css/bootstrap.css"/>
+    
 </head>
 
 <body>
-
+	<div class="container">
 	<h1>PhIS RESTful Sevice Documentation</h1>
-	<p>Base URL ${pageContext.request.serverName} <a href="${requestScope['javax.servlet.forward.request_uri']}"> "${pageContext.request.serverName} ${requestScope['javax.servlet.forward.request_uri']}" </a> </p>
+	<p>Base URL <a href="${requestScope['javax.servlet.forward.request_uri']}"> ${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}</a> </p>
 	<br/>
 	<h2>/getImages</h2>
+	<p> This method should be the main one used to explore the data. If you find a parameter missing, please contact us on 
+	<a href="mailto:webmaster@phenoimageshare.org">webmaster@phenoimageshare.org</a> . </p>
+	<h3>Examples</h3>
+	
+	<p>1. Get "eye" images, restrict the result number to 5.</p> 
+	<p class="code">$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}getImages?term=eye&resultNo=5">http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}getImages?term=eye&resultNo=5</a>'  -i -H 'Accept: application/json'</p>
+	
+
+	<p>2. Get images with eye phenotypes in male embryos. </p>
+	<p class="code">
+		$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}getImages?phenotype=eye&sex=FEMALE&stage=postnatal%20stage">
+			http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}getImages?phenotype=eye&sex=FEMALE&stage=postnatal%20stage&resultNo=1</a>' 
+			-i -H 'Accept: application/json' 
+	</p>
+	
+	<p> 3. Get mouse images associated with genetic features located on chromosome 2.</p>
+	<p class="code">
+		$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}getImages?chromosome=2&taxon=Mus%20musculus&resultNo=10">
+			http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}getImages?chromosome=2&taxon=Mus%20musculus&resultNo=10</a>' 
+			-i -H 'Accept: application/json' 
+	</p>
+	
 	<h3>Parameters</h3>
 	<table class="table table-striped">
 		<thead>
@@ -42,7 +68,6 @@
 				<th>Description</th>
 				<th>Default</th>
 				<th>Example Values</th>
-				<th>Example URL</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -53,7 +78,6 @@
 				<td>Term to search in any searchable field. Can be id or text for any field accessible. These are anatomy, gene and phenotype fields as well as image source and image visualization method, sample preparation.</td>
 				<td><var> * </var></td>
 				<td><var>eye</var><br></td>
-				<td><a href="${requestScope['javax.servlet.forward.request_uri']}getImages?term=eye">${requestScope['javax.servlet.forward.request_uri']}getImages?term=eye</a>
 			</tr>
 			<tr>
 				<td>phenotype</td>
@@ -219,7 +243,7 @@
 				<td><var></var><br></td>
 			</tr>
 			
-			<tr  style="background-color: olive;">
+			<tr >
 				<td>hostName</td>
 				<td><var>String</var></td>
 				<td>false</td>
@@ -242,6 +266,12 @@
 
 	<br/>
 	<h2>/getImage</h2>
+	
+	<h3>Examples</h3>	
+	<p>Get image with id emage_EMAGE_2383.2.</p> 
+	<p class="code">$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}getImage?imageId=emage_EMAGE_2383.2">http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}getImage?imageId=emage_EMAGE_2383.2</a>'  -i -H 'Accept: application/json'</p>
+	
+	
 	<h3>Parameters</h3>
 	<table class="table table-striped">
 		<thead>
@@ -267,11 +297,119 @@
 	</table>
 
 
-
 	<!-- h2>Getting ROIs & annotations</h2-->
 
 	<br/>
+	<h2>/getRois</h2>
+	
+	<h3>Examples</h3>	
+	<p>1. Get all annotations for image emage_EMAGE_2383.2. Note that there is a default limit of results, so in order to get all documents back, just provide a high result limit.</p> 
+	<p class="code">$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}getRois?imageId=emage_roi_EMAGE_2383.2&resultNo=10000000">http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}getRois?imageId=emage_roi_EMAGE_2383.2&resultNo=10000000</a>' 
+		-i -H 'Accept: application/json'</p>
+	
+	<p>2. Get annotations created after January 2012. The date must be provided in Zulu time. Please note that most annotations provided to us by our collaborators usually don't have the annotation date, so this will only query a small subset of annotations with the date provided.</p> 
+	<p class="code">$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}getRois?createdAfter=2010-01-01T00:00:00.000Z">http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}getRois?createdAfter=2010-01-01T00:00:00.000Z</a>' 
+		-i -H 'Accept: application/json'</p>
+	
+	
+	<h3>Parameters</h3>
+	<table class="table table-striped">
+		<thead>
+			<tr style="background-color: lightSteelBlue;">
+				<th>Name</th>
+				<th>Type</th>
+				<th>Required</th>
+				<th>Description</th>
+				<th>Default</th>
+				<th>Example Values</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>imageId</td>
+				<td><var>String</var></td>
+				<td> false</td>
+				<td>ROI associated to the image.</td>
+				<td><var> * </var></td>
+				<td><var>emage_EMAGE_2333.1</var><br></td>
+			</tr>
+			<tr>
+				<td>userId</td>
+				<td><var>String</var></td>
+				<td> false </td>
+				<td>Id of the user who created the annotation.</td>
+				<td><var>(none)</var></td>
+				<td><var>user_021897401</var></td>
+			</tr>
+			<tr>
+				<td>userGroupId</td>
+				<td><var>String</var></td>
+				<td> false </td>
+				<td>Group to which the user belongs.</td>
+				<td><var>(none)</var></td>
+				<td><var>groupA</var></td>
+			</tr>
+			<tr>
+				<td>lastEditBefore</td>
+				<td><var>Date</var></td>
+				<td> false </td>
+				<td>Get annotations edited before the given date.</td>
+				<td><var>(none)</var></td>
+				<td><var>2016-03-06T23:59:59.999Z</var></td>
+			</tr>
+			<tr>
+				<td>lastEditAfter</td>
+				<td><var>Date</var></td>
+				<td> false </td>
+				<td>Get annotations edited after the given date.</td>
+				<td><var>(none)</var></td>
+				<td><var>1976-03-06T23:59:59.999Z</var></td>
+			</tr>
+			<tr>
+				<td>createdBefore</td>
+				<td><var>Date</var></td>
+				<td> false </td>
+				<td>Get annotations created before the given date. Please note that not all annotations are provided to us with a date, so this method might return incomplete annotation sets.</td>
+				<td><var>(none)</var></td>
+				<td><var>2016-03-06T23:59:59.999Z</var></td>
+			</tr>
+			<tr>
+				<td>createdAfter</td>
+				<td><var>Date</var></td>
+				<td> false </td>
+				<td>Get annotations created after the given date. Please note that not all annotations are provided to us with a date, so this method might return incomplete annotation sets.</td>
+				<td><var>(none)</var></td>
+				<td><var>1976-03-06T23:59:59.999Z</var></td>
+			</tr>
+			
+			<tr>
+				<td>resultNo</td>
+				<td><var>Integer</var></td>
+				<td>false</td>
+				<td>Number of result objects to be returned back.</td>
+				<td><var>100</var></td>
+				<td><var></var><br></td>
+			</tr>
+			<tr>
+				<td>start</td>
+				<td><var>Integer</var></td>
+				<td>false</td>
+				<td>Start position to return the results. Useful for pagination.</td>
+				<td><var>0</var></td>
+				<td><var></var><br></td>
+			</tr>
+		</tbody>
+	</table>
+	
+	
+	<br/>
 	<h2>/getRoi</h2>
+	
+	<h3>Examples</h3>	
+	<p>Get roi with id emage_roi_EMAGE_2383.2.</p> 
+	<p class="code">$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}getImage?imageId=emage_roi_EMAGE_2383.2">http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}getImage?imageId=emage_roi_EMAGE_2383.2</a>' 
+		-i -H 'Accept: application/json'</p>
+	
 	<h3>Parameters</h3>
 	<table class="table table-striped">
 		<thead>
@@ -297,103 +435,18 @@
 	</table>
 
 	
-	<br/>
-	<h2>/getRois</h2>
-	<h3>Parameters</h3>
-	<table class="table table-striped">
-		<thead>
-			<tr style="background-color: lightSteelBlue;">
-				<th>Name</th>
-				<th>Type</th>
-				<th>Required</th>
-				<th>Description</th>
-				<th>Default</th>
-				<th>Example Values</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td>imageId</td>
-				<td><var>String</var></td>
-				<td> false</td>
-				<td>ROI associated to the image.</td>
-				<td><var> * </var></td>
-				<td><var>emage_EMAGE_2333.1</var><br></td>
-			</tr>
-			<tr style="background-color: olive;">
-				<td>userId</td>
-				<td><var>String</var></td>
-				<td> false </td>
-				<td>Id of the user who created the annotation.</td>
-				<td><var>(none)</var></td>
-				<td><var>user_021897401</var></td>
-			</tr>
-			<tr style="background-color: olive;">
-				<td>userGroupId</td>
-				<td><var>String</var></td>
-				<td> false </td>
-				<td>Group to which the user belongs.</td>
-				<td><var>(none)</var></td>
-				<td><var>groupA</var></td>
-			</tr>
-			<tr style="background-color: olive;">
-				<td>lastEditBefore</td>
-				<td><var>Date</var></td>
-				<td> false </td>
-				<td>Get annotations edited before the given date.</td>
-				<td><var>(none)</var></td>
-				<td><var>2016-03-06T23:59:59.999Z</var></td>
-			</tr>
-			<tr style="background-color: olive;">
-				<td>lastEditAfter</td>
-				<td><var>Date</var></td>
-				<td> false </td>
-				<td>Get annotations edited after the given date.</td>
-				<td><var>(none)</var></td>
-				<td><var>1976-03-06T23:59:59.999Z</var></td>
-			</tr>
-			<tr style="background-color: olive;">
-				<td>createdBefore</td>
-				<td><var>Date</var></td>
-				<td> false </td>
-				<td>Get annotations created before the given date.</td>
-				<td><var>(none)</var></td>
-				<td><var>2016-03-06T23:59:59.999Z</var></td>
-			</tr>
-			<tr style="background-color: olive;">
-				<td>createdAfter</td>
-				<td><var>Date</var></td>
-				<td> false </td>
-				<td>Get annotations created after the given date..</td>
-				<td><var>(none)</var></td>
-				<td><var>1976-03-06T23:59:59.999Z</var></td>
-			</tr>
-			
-			<tr>
-				<td>resultNo</td>
-				<td><var>Integer</var></td>
-				<td>false</td>
-				<td>Number of result objects to be returned back.</td>
-				<td><var>100</var></td>
-				<td><var></var><br></td>
-			</tr>
-			<tr>
-				<td>start</td>
-				<td><var>Integer</var></td>
-				<td>false</td>
-				<td>Start position to return the results. Useful for pagination.</td>
-				<td><var>0</var></td>
-				<td><var></var><br></td>
-			</tr>
-		</tbody>
-	</table>
-	
-	
 	
 	<!-- h2>Getting channel information</h2-->
 	
 	<br/>
 	<h2>/getChannel</h2>
+	
+		
+	<h3>Examples</h3>	
+	<p>Get image with id emage_channel_EMAGE_2383.2.</p> 
+	<p class="code">$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}getChannel?channelId=emage_channel_EMAGE_2383.2">http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}getChannel?channelId=emage_channel_EMAGE_2383.2</a>'  -i -H 'Accept: application/json'</p>
+	
+	
 	<h3>Parameters</h3>
 	<table class="table table-striped">
 		<thead>
@@ -421,6 +474,13 @@
 	
 	<br/>
 	<h2>/getChannels</h2>
+	
+	
+	<h3>Examples</h3>	
+	<p>Get image with id emage_EMAGE_2383.2.</p> 
+	<p class="code">$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}getImage?getChannels=emage_EMAGE_2383.2">http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}getChannels?imageId=emage_EMAGE_2383.2</a>'  -i -H 'Accept: application/json'</p>
+	
+	
 	<h3>Parameters</h3>
 	<table class="table table-striped">
 		<thead>
@@ -468,7 +528,28 @@
 
 	<br/>
 	<h2>/getAutosuggest</h2>
-	<p>Returns a JSONArray of suggestions for autosuggest. One of the parameters passing the typed text is required.</p> 
+	<p>Returns a JSONArray of suggestions for autosuggest. One of the parameters passing the typed text is required.</p>
+	
+	<h3>Examples</h3>	
+	<p>1. Get 20 generic autosuggest options for the string "ab".</p> 
+	<p class="code">$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}getAutosuggest?term=ab&resultNo=20">
+		http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}getAutosuggest?term=ab&resultNo=20</a>' 
+		-i -H 'Accept: application/json'
+	</p>
+	<p>Result example: </p>
+	<p class="code">
+	{ "response":
+		{
+			"suggestions":["Abt1","Abcd1","Abcb6","Abhd5","Abca4","Abtb2","Ablim1","Abhd17a","absent tail","abdominal aorta","abnormal hair cycle","abnormal head shape","abnormal incisor color","abdominal segment skin","abnormal ear rotation","Abcd1","abnormal coat appearance","abnormal lens morphology","abnormal nail morphology","abnormal iris pigmentation"]
+		}
+	}
+	</p>
+	
+	<p>2. Get gene suggestion options for the string "ab".</p> 
+	<p class="code">$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}getAutosuggest?term=ab&autosuggestType=GENE">http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}getAutosuggest?term=ab&autosuggestType=GENE</a>' 
+		-i -H 'Accept: application/json'
+	</p>
+	 
 	<h3>Parameters</h3>
 	<table class="table table-striped">
 		<thead>
@@ -554,12 +635,53 @@
 
 
 	<br/>
-	<h2 style="background-color: olive;">/getComplexAutosuggest</h2>
+	<h2>/getComplexAutosuggest</h2>
 	<p>Returns a JSONArray of suggestions for autosuggest. Like /getAutosuggest but offers more info on the term such as ontology id, type of annotation in which it is used and synonyms when available.</p> 
+	
+	<p>Get 5 generic autosuggest options for the string "ab".</p> 
+	<p class="code">$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}getAutosuggest?term=ab&resultNo=5">http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}getAutosuggest?term=ab&resultNo=5</a>' 
+		-i -H 'Accept: application/json'
+	</p>
+	<p>Result example: </p>
+	<p class="code">
+	{
+		response: {
+		suggestions: [
+		{
+		autosuggest_term_id: "MGI:1353636",
+		autosuggest_type: "GENE",
+		autosuggest_term_label: "Abt1"
+		},
+		{
+		autosuggest_term_id: "MGI:1349215",
+		autosuggest_type: "GENE",
+		autosuggest_term_label: "Abcd1"
+		},
+		{
+		autosuggest_term_id: "MGI:1921354",
+		autosuggest_type: "GENE",
+		autosuggest_term_label: "Abcb6"
+		},
+		{
+		autosuggest_term_id: "MGI:1914719",
+		autosuggest_type: "GENE",
+		autosuggest_term_label: "Abhd5"
+		},
+		{
+		autosuggest_term_id: "MGI:109424",
+		autosuggest_type: "GENE",
+		autosuggest_term_label: "Abca4"
+		}
+		]
+		}
+	}
+	</p>
+	
+	
 	<h3>Parameters</h3>
 	<table class="table table-striped">
 		<thead>
-			<tr style="background-color: olive;">
+			<tr  style="background-color: lightSteelBlue;">
 				<th>Name</th>
 				<th>Type</th>
 				<th>Required</th>
@@ -577,7 +699,6 @@
 				<td><var> * </var></td>
 				<td><var>abn</var><br></td>
 			</tr>
-			<!-- tr  style="background-color: OliveDrab ;" -->
 			<tr>
 				<td>autosuggestType</td>
 				<td><var>String</var></td>
@@ -638,35 +759,17 @@
 	</table>
 
 	<br/>
+	
+	
 	<h2 >/getDataReleases</h2>
+	<h3>Examples</h3>
+	
+	<p>1. Get "eye" images, restrict the result number to 5.</p> 
+	<p class="code">$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}getDataReleases">http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}getDataReleases</a>'  -i -H 'Accept: application/json'</p>
+	
 	<h3>Parameters</h3>
-	<table class="table table-striped">
-		<thead>
-			<tr style="background-color: lightSteelBlue;">
-				<th>Name</th>
-				<th>Type</th>
-				<th>Required</th>
-				<th>Description</th>
-				<th>Default</th>
-				<th>Example Values</th>
-			</tr>
-			<tr>
-				<td>(none)</td>
-				<td>(none)</td>
-				<td>(none)</td>
-				<td>(none)</td>
-				<td>(none)</td>
-				<td>(none)</td>
-			</tr>
-		</thead>
-		
-		<tbody>
-		
-		</tbody>
-
-	</table>
-
-
-
+	No parameters supported.
+	
+</div>
 </body>
 </html>

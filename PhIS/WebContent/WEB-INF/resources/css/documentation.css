@@ -1,0 +1,10 @@
+tr.deprecated {
+	background-color: green;
+}
+
+p.code {
+  font-family: "Courier New" Courier  monospace;
+  background-color: gainsboro;
+  width: 100%;
+  padding: 1em;
+}
