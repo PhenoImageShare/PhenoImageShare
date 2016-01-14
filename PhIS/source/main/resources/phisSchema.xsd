@@ -544,6 +544,11 @@
 				</annotation>
 			</element>
 			<element name="is_expression_pattern" type="boolean" minOccurs="0" maxOccurs="1" >
+				<annotation>
+					<documentation xml:lang="en">
+						Not all images that depict expression of some gene or transgene in a particular structure depict the expression pattern of that gene or transgene.  The depicted expression might be experimentally generated.  Or the image may depict some clonal fragment of the expression pattern, with other cells in the image being part of the expression pattern but not showing expression.  Because of this, it is not possible to conclude from the fact that some depicted structure expresses X that an image depicts the expression pattern of X.
+					</documentation>
+				</annotation>
 			</element> 	
 			<element name="abnormality_in_anatomical_structure" type="x:AnnotationArray" minOccurs="0" maxOccurs="1" >
 				<annotation>
