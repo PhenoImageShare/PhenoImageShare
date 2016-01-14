@@ -44,7 +44,7 @@
 	<p class="code">$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}getImages?term=eye&resultNo=5">http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}getImages?term=eye&resultNo=5</a>'  -i -H 'Accept: application/json'</p>
 	
 
-	<p>2. Get images with eye phenotypes in male embryos. </p>
+	<p>2. Get images with eye phenotypes in post natal females. </p>
 	<p class="code">
 		$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}getImages?phenotype=eye&sex=FEMALE&stage=postnatal%20stage">
 			http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}getImages?phenotype=eye&sex=FEMALE&stage=postnatal%20stage&resultNo=1</a>' 
@@ -180,7 +180,7 @@
 				<td>imagingMethod</td>
 				<td><var>String</var></td>
 				<td>false</td>
-				<td>Label or id of a child of Imaging Method in FBBI ontology..</td>
+				<td>Label or id of a child of Imaging Method in <a href="http://www.ebi.ac.uk/ols/beta/ontologies/fbbi">FBBI ontology</a>.</td>
 				<td><var> * </var></td>
 				<td><var> macroscopy </var> </td>
 			</tr>	
@@ -189,7 +189,7 @@
 				<td>visualisationMethod</td>
 				<td><var>String</var></td>
 				<td>false</td>
-				<td>Label or id of a child of Visualisation Method in FBBI ontology..</td>
+				<td>Label or id of a child of Visualisation Method in <a href="http://www.ebi.ac.uk/ols/beta/ontologies/fbbi" >FBBI ontology</a>.</td>
 				<td><var> * </var></td>
 				<td><var> fluorescent protein tag </var> </td>
 			</tr>		
@@ -443,7 +443,7 @@
 	
 		
 	<h3>Examples</h3>	
-	<p>Get image with id emage_channel_EMAGE_2383.2.</p> 
+	<p>Get channel with id emage_channel_EMAGE_2383.2.</p> 
 	<p class="code">$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}getChannel?channelId=emage_channel_EMAGE_2383.2">http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}getChannel?channelId=emage_channel_EMAGE_2383.2</a>'  -i -H 'Accept: application/json'</p>
 	
 	
@@ -475,6 +475,7 @@
 	<br/>
 	<h2>/getChannels</h2>
 	
+	<p>Channels contain information about the visualization method, i.e. type of fluorescent marker used or the gene whose expression is to be seen in the rois associated to this channel. </p>
 	
 	<h3>Examples</h3>	
 	<p>Get image with id emage_EMAGE_2383.2.</p> 
@@ -528,7 +529,7 @@
 
 	<br/>
 	<h2>/getAutosuggest</h2>
-	<p>Returns a JSONArray of suggestions for autosuggest. One of the parameters passing the typed text is required.</p>
+	<p>Returns a JSONArray of suggestions for the typed string.</p>
 	
 	<h3>Examples</h3>	
 	<p>1. Get 20 generic autosuggest options for the string "ab".</p> 
@@ -764,7 +765,7 @@
 	<h2 >/getDataReleases</h2>
 	<h3>Examples</h3>
 	
-	<p>1. Get "eye" images, restrict the result number to 5.</p> 
+	<p>Get information about all public (live) releases.</p> 
 	<p class="code">$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}getDataReleases">http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}getDataReleases</a>'  -i -H 'Accept: application/json'</p>
 	
 	<h3>Parameters</h3>
