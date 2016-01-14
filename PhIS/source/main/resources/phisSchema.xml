@@ -24,7 +24,7 @@
         <image_height>663</image_height>
         <image_width>530</image_width>
       </image_dimensions>
-      <machine>str1234</machine>
+      <machine>Power Wave 200</machine>
       <image_generated_by>
       	<display_name>Molecular and Cellular Biology, Harvard</display_name>
         <details>Molecular and Cellular Biology, Harvard, Department of Molecular and Cellular Biology, Harvard University, 16 Divinity Ave, Room 1059, Cambridge</details>
@@ -48,15 +48,12 @@
       <imaging_method>
         <el>
           <ontology_term>
-            <term_label>str1234</term_label>
-            <term_id>str1234</term_id>
+            <term_label>mode of light microscopy</term_label>
+            <term_id>FBbi_00000345</term_id>
           </ontology_term>
-          <annotation_freetext>str1234</annotation_freetext>
-          <annotation_mode>manual</annotation_mode>
         </el>
       </imaging_method>
-      <sample_preparation>
-      
+      <sample_preparation>      
       	<el>
         	<ontology_term>
            		<annotation_freetext>Signal Detection Method: alkaline phosphatase + NBT/BCIP</annotation_freetext>
@@ -83,7 +80,7 @@
       </image_type>
       <sample_type>mutant</sample_type>
       <licence>CC BY 3.0</licence>
-      <magnification_level>str1234</magnification_level>
+      <magnification_level>20x</magnification_level>
       <publication>
         <el>
           <display_name>Synchrotron radiation X-ray micro-fluorescence: Protocol to study mesenchymal stem cells.Rezende KM, Bönecker M, Perez CA, Mantesso A.</display_name>
@@ -119,7 +116,7 @@ The micro-X-ray fluorescence by synchrotron radiation (μ-XRF) is a method to de
       <el>str1234</el>
     </conditions-->
     <observations>
-      <el>str1234</el>
+      <el>Procedure: Embryo LacZ</el>
     </observations>
     <associated_roi>
       <el>roi_id_1234</el>
@@ -129,56 +126,49 @@ The micro-X-ray fluorescence by synchrotron radiation (μ-XRF) is a method to de
     </associated_channel>
     <depicted_anatomical_structure>
       <ontology_term>
-        <term_label>str1234</term_label>
-        <term_id>str1234</term_id>
+        <term_label>mouse</term_label>
+        <term_id>EMAPA_25765</term_id>
       </ontology_term>
-      <annotation_freetext>str1234</annotation_freetext>
-      <annotation_mode>manual</annotation_mode>
     </depicted_anatomical_structure>
   </image>
   <channel>
-    <id>str1234</id>
+    <id>channel_id_1234</id>
     <visualisation_method>
       <el>
         <ontology_term>
-          <term_label>str1234</term_label>
-          <term_id>str1234</term_id>
+          <term_label>beta-galactosidase</term_label>
+          <term_id>FBbi_00000077</term_id>
         </ontology_term>
-        <annotation_freetext>str1234</annotation_freetext>
-        <annotation_mode>manual</annotation_mode>
+        <annotation_freetext>LacZ</annotation_freetext>
       </el>
     </visualisation_method>
-    <associated_image>str1234</associated_image>
+    <associated_image>stable_image_id_1234</associated_image>
     <associated_roi>
-      <el>str1234</el>
+      <el>roi_id_1234</el>
     </associated_roi>
     <depicts_expression_of>
-      <gene_id>str1234</gene_id>
-      <gene_symbol>str1234</gene_symbol>
-      <genetic_feature_id>str1234</genetic_feature_id>
-      <genetic_feature_symbol>str1234</genetic_feature_symbol>
-      <genetic_feature_ensembl_id>str1234</genetic_feature_ensembl_id>
-      <genomic_location>
-        <start_pos>12345</start_pos>
-        <end_pos>12345</end_pos>
-        <chromosone>str1234</chromosone>
-        <strand>+</strand>
+      <gene_id>MGI:1914838</gene_id>
+      <gene_symbol>Rnf41</gene_symbol>
+       <genomic_location>
+          <start_pos>299</start_pos>
+          <end_pos>1001</end_pos>
+          <chromosone>NM_026259.1</chromosone>
       </genomic_location>
-      <zygosity>homozygous</zygosity>
-      <mutation_type>
+      <zygosity>Wild type</zygosity>
+      <!-- mutation_type>
         <ontology_term>
           <term_label>str1234</term_label>
           <term_id>str1234</term_id>
         </ontology_term>
         <annotation_freetext>str1234</annotation_freetext>
         <annotation_mode>manual</annotation_mode>
-      </mutation_type>
-      <genome_assembly>str1234</genome_assembly>
+      </mutation_type-->
+      <genome_assembly>GRCm33.p4</genome_assembly>
     </depicts_expression_of>
   </channel>
   <roi>
     <id>roi_id_1234</id>
-    <associated_image>image_id_1234</associated_image>
+    <associated_image>stable_image_id_1234</associated_image>
     <associated_channel>
       <el>channel_id_1234</el>
     </associated_channel>
@@ -199,15 +189,14 @@ The micro-X-ray fluorescence by synchrotron radiation (μ-XRF) is a method to de
     <depicted_anatomical_structure>
       <el>
         <ontology_term>
-          <term_label>str1234</term_label>
-          <term_id>str1234</term_id>
+          <term_label>mouse</term_label>
+          <term_id>EMAPA_25765</term_id>
         </ontology_term>
-        <annotation_freetext>str1234</annotation_freetext>
         <annotation_mode>manual</annotation_mode>
       </el>
     </depicted_anatomical_structure>
-    <is_expression_pattern>true</is_expression_pattern>
-    <abnormality_in_anatomical_structure>
+    <is_expression_pattern>false</is_expression_pattern>
+    <!-- abnormality_in_anatomical_structure>
       <el>
         <ontology_term>
           <term_label>str1234</term_label>
@@ -216,8 +205,8 @@ The micro-X-ray fluorescence by synchrotron radiation (μ-XRF) is a method to de
         <annotation_freetext>str1234</annotation_freetext>
         <annotation_mode>manual</annotation_mode>
       </el>
-    </abnormality_in_anatomical_structure>
-    <phenotype_annotations>
+    </abnormality_in_anatomical_structure--> <!-- No abnormality in this image -->
+    <!-- phenotype_annotations>
       <el>
         <ontology_term>
           <term_label>str1234</term_label>
@@ -226,7 +215,7 @@ The micro-X-ray fluorescence by synchrotron radiation (μ-XRF) is a method to de
         <annotation_freetext>str1234</annotation_freetext>
         <annotation_mode>manual</annotation_mode>
       </el>
-    </phenotype_annotations>
+    </phenotype_annotations> <!-- No phenotype in this image -->
     <observations>
       <el>str1234</el>
     </observations>
