@@ -74,6 +74,8 @@ public class PopulateCores {
 		if (!f.isFile() || !f.canRead()) {
 			System.err.println("Context file " + contextFile + " not readable.");
 			help();
+		} else {
+			logger.info("--context OK");
 		}
 		
 		// Check data dir exists
@@ -82,6 +84,8 @@ public class PopulateCores {
 		if (!d.isDirectory() || !d.canRead()) {
 			System.err.println("dataDir file " + dataDir + " not readable.");
 			help();
+		}else {
+			logger.info("--dataDir OK");
 		}
 		
 		String releaseVersion = (String) options.valueOf("releaseVersion");

@@ -135,7 +135,7 @@ public class SangerXmlGenerator {
 			    		Organism organism = new Organism();
 			    		Sex sex = Sex.fromValue(norm.normalizeSex(res.getString("GENDER")));
 			    		organism.setSex(sex);
-			    		organism.setOrganismId(res.getString("MOUSE_NAME"));
+			    		organism.setNcbiTaxonId(res.getString("MOUSE_NAME"));
 			    		if (ageIsRelevant(procedure)){
 			 	    		organism.setAge(res.getString("AGE_IN_WEEKS"));
 			    		}
@@ -309,9 +309,9 @@ public class SangerXmlGenerator {
 				i++;
 				if (i % 100 == 0) {
 					System.out.println(i);
-//					if (i == 10000){
-//						break;
-//					}
+					if (i == 1000){
+						break;
+					}
 				}
 			}
 	        Date date = new Date();
