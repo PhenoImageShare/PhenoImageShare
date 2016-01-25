@@ -61,14 +61,15 @@ public class ImageService extends BasicService{
 		String bq = "";
 		String qf = "";
 		if (term != null){
-			solrQuery.setQuery(ImageDTO.GENERIC_SEARCH + ":" + handleSpecialCharacters(term));
+			solrQuery.setQuery("(" + ImageDTO.GENERIC_SEARCH + ":" + handleSpecialCharacters(term) + " OR " + ImageDTO.GENERIC_SEARCH_ANCESTORS + ":" +handleSpecialCharacters(term) + ")");
 			if (term.contains(" ")){
 				String[] splittedQuery = term.split(" ");
 				String query = ImageDTO.GENERIC_SEARCH + ":" + org.apache.commons.lang3.StringUtils.join(splittedQuery, "^10 " + ImageDTO.GENERIC_SEARCH + ":");			
-				bq += ImageDTO.GENERIC_SEARCH + ":\"" + term + "\"^100 " + handleSpecialCharacters(query) + " " + ImageDTO.GENERIC_SEARCH_ANCESTORS + ":\"" + term + "\"^1" ;
+				bq += ImageDTO.GENERIC_SEARCH + ":\"" + term + "\"^100 " + handleSpecialCharacters(query) + " " 
+						+ ImageDTO.GENERIC_SEARCH_ANCESTORS + ":\"" + term + "\"^1 " +ImageDTO.GENERIC_SEARCH_ANCESTORS + ":" + org.apache.commons.lang3.StringUtils.join(splittedQuery, "^0.1 " + ImageDTO.GENERIC_SEARCH_ANCESTORS + ":");
 				qf += ImageDTO.GENERIC_SEARCH;
 			}else{
-				solrQuery.addFilterQuery(ImageDTO.GENERIC_SEARCH + ":"+ handleSpecialCharacters(term));
+				solrQuery.addFilterQuery( "(" + ImageDTO.GENERIC_SEARCH + ":"+ handleSpecialCharacters(term) + " OR " + ImageDTO.GENERIC_SEARCH_ANCESTORS + ":" + handleSpecialCharacters(term) + ")");
 			}
 		}
 		if (phenotype != null){
