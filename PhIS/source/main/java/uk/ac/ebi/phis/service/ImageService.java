@@ -186,7 +186,6 @@ public class ImageService extends BasicService{
 		}
 		solrQuery.set("wt", "json");
 		solrQuery.setFacet(true);
-		solrQuery.addFacetField(ImageDTO.STAGE);
 		solrQuery.addFacetField(ImageDTO.STAGE_FACET);
 		solrQuery.addFacetField(ImageDTO.IMAGING_METHOD_LABEL);
 		solrQuery.addFacetField(ImageDTO.TAXON);
@@ -325,6 +324,7 @@ public class ImageService extends BasicService{
 	}
 	
 	public ArrayList<String> removeOnce(ArrayList<String> from, List<String> whatToDelete){
+		
 		ArrayList<String> res = from;
 		if ( res != null){
 			for(String toRemove : whatToDelete){
@@ -345,7 +345,9 @@ public class ImageService extends BasicService{
 		ImageDTO img = getImageDTOById(roi.getAssociatedImage());
 		
 		if (img == null){
-				throw new ParameterNotFoundException("Image id does not exist");
+			
+			throw new ParameterNotFoundException(PhisSubmissionException.IMAGE_ID_NOT_FOUND_EXCEPTION_MESSAGE);
+			
 		} else {
 		
 			if(img.getAssociatedRoi() == null || !img.getAssociatedRoi().contains(roi.getId())){
@@ -417,7 +419,7 @@ public class ImageService extends BasicService{
 			List<ImageDTO> images = solr.query(solrQuery).getBeans(ImageDTO.class);
 			img = images.get(0);
 		} catch (Exception e) { 
-			throw new PhisSubmissionException(PhisSubmissionException.ID_NOT_FOUND_EXCEPTION_MESSAGE);
+			throw new PhisSubmissionException(PhisSubmissionException.IMAGE_ID_NOT_FOUND_EXCEPTION_MESSAGE);
 		}
 		return img;
 	}
