@@ -301,7 +301,7 @@ public class OntologyUtils {
 	 * @param rootId
 	 * @param includePartOf
 	 * @param storeXrefs
-	 * @param external Weather external ont or Uberon. The field is only used when populating the mapping has "externalToUberon", to know which is the key and which the value
+	 * @param external Whether external ont or Uberon. The field is only used when populating the mapping has "externalToUberon", to know which is the key and which the value
 	 * @throws OWLOntologyStorageException
 	 */
 	private void fillHashesFor(String path, HashMap<String, OntologyObject> idLabelMap, String rootId, Boolean includePartOf, Boolean storeXrefs, Boolean external) 
@@ -312,7 +312,7 @@ public class OntologyUtils {
 		try {
 			logger.info("Lading: " + path);
 			
-			System.out.println("Lading: " + path);
+			System.out.println("Loading: " + path);
 			OWLOntology ontology = manager.loadOntologyFromOntologyDocument(IRI.create(new File(path)));
 			ontologyInst.setVersion(ontology.getOntologyID().getVersionIRI().toString());
 			ontologyInst.setName(path.split("/")[path.split("/").length - 1]);
@@ -321,8 +321,7 @@ public class OntologyUtils {
 	        
 	        OWLReasonerFactory reasonerFactory = new ElkReasonerFactory();
 	        OWLReasoner reasoner = reasonerFactory.createReasoner(ontology);
-	        reasoner.precomputeInferences(InferenceType.CLASS_HIERARCHY);
-	        	        
+	        reasoner.precomputeInferences(InferenceType.CLASS_HIERARCHY);     
 	        List<InferredAxiomGenerator<? extends OWLAxiom>> gens = new ArrayList<InferredAxiomGenerator<? extends OWLAxiom>>();
 	        gens.add(new InferredSubClassAxiomGenerator());
 	        gens.add(new InferredClassAssertionAxiomGenerator());

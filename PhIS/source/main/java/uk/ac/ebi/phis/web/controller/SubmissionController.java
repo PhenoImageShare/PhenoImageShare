@@ -108,19 +108,19 @@ import uk.ac.ebi.phis.utils.web.RestStatusMessage;
 				if (is.imageIdExists(associatedImageId)){
 
 					Date today = new Date();
-					
-					neo.createAnnotationWithDates(userId, userGroup, annotationId, associatedImageId, xCoordinates, yCoordinates, zCoordinates, 
-							associatedChannelId, depictedAnatomyId, depictedAnatomyFreetext, depictedAnatomyTerm, abnInAnatomyId, 
-							abnInAnatomyFreetext, abnInAnatomyTerm,	phenotypeId, phenotypeFreetext, phenotypeTerm, observations, 
-							expressionInAnatomyId, expressionInAnatomyTerm, expressionInAnatomyFreetext, today, today);
-					
+									
 					ArrayList<Float> zCoord = (zCoordinates != null ? new ArrayList<Float>(zCoordinates) : null);
 					RoiDTO roi = new RoiDTO(annotationId, associatedChannelId, associatedImageId, depictedAnatomyId, depictedAnatomyTerm, 
 							depictedAnatomyFreetext, abnInAnatomyId, abnInAnatomyTerm, abnInAnatomyFreetext, 
 							phenotypeId, phenotypeTerm, phenotypeFreetext, observations, new ArrayList<Float>(xCoordinates), 
 							new ArrayList<Float>(yCoordinates), zCoord, expressionInAnatomyTerm, expressionInAnatomyFreetext, expressionInAnatomyId,
 							userId, userGroup, today, today);
-					gus.addToCores(roi);					
+					gus.addToCores(roi);
+					
+					neo.createAnnotationWithDates(userId, userGroup, annotationId, associatedImageId, xCoordinates, yCoordinates, zCoordinates, 
+							associatedChannelId, depictedAnatomyId, depictedAnatomyFreetext, depictedAnatomyTerm, abnInAnatomyId, 
+							abnInAnatomyFreetext, abnInAnatomyTerm,	phenotypeId, phenotypeFreetext, phenotypeTerm, observations, 
+							expressionInAnatomyId, expressionInAnatomyTerm, expressionInAnatomyFreetext, today, today);
 				}				
 			} catch (PhisSubmissionException e) {
 				e.printStackTrace();

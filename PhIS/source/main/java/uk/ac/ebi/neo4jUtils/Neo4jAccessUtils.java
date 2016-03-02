@@ -305,6 +305,7 @@ public class Neo4jAccessUtils {
 	
 	
 	private Node setAnnotationProperty(Node node, AnnotationProperties property, String value){
+		
 		try ( Transaction tx = db.beginTx() )  {
 			node.setProperty(property.name(), value);
 			tx.success();
@@ -317,12 +318,15 @@ public class Neo4jAccessUtils {
 	
 	public Node addUser(String id) 
 	throws PhisSubmissionException{
-		return createNode(id, userLabel);	
+		
+		return createNode(id, userLabel);
+		
 	}
 	
 	
 	public Node addOntologyTerm(String id, String termLabel) 
 	throws PhisSubmissionException{
+		
 		Node ot = createNode(id, ontologyTermLabel);
 		if (termLabel != null){
 			try ( Transaction tx = db.beginTx() )
@@ -338,18 +342,23 @@ public class Neo4jAccessUtils {
 	
 	public Node addImage(String id) 
 	throws PhisSubmissionException{
+		
 		return createNode(id, imageLabel);
+		
 	}
 	
 	
 	public Node addChannel(String id) 
 	throws PhisSubmissionException{
+		
 		return createNode(id, channelLabel);
+		
 	}
 	
 	
 	private Node createNode(String id, Label label) 
 	throws PhisSubmissionException{
+		
 		Node myNode;
 		System.out.println("Label + " + label);
 		if (id == null || id.equals("")){
@@ -365,7 +374,9 @@ public class Neo4jAccessUtils {
             tx.success();
             tx.close();
         }   
+		
 		return myNode;
+		
 	}
 	
 	
