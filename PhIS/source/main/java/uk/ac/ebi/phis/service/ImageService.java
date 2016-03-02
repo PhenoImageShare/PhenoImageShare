@@ -348,7 +348,7 @@ public class ImageService extends BasicService{
 				throw new ParameterNotFoundException("Image id does not exist");
 		} else {
 		
-			if(!img.getAssociatedRoi().contains(roi.getId())){
+			if(img.getAssociatedRoi() == null || !img.getAssociatedRoi().contains(roi.getId())){
 				// If link to ROI id doesn't exists add it, otherwise only update the ROI
 				img.addAssociatedRoi(roi.getId());
 			}
