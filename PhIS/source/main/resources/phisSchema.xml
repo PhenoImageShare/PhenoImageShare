@@ -215,7 +215,7 @@ The micro-X-ray fluorescence by synchrotron radiation (μ-XRF) is a method to de
         <annotation_freetext>str1234</annotation_freetext>
         <annotation_mode>manual</annotation_mode>
       </el>
-    </phenotype_annotations> <!-- No phenotype in this image -->
+    </phenotype_annotations--> <!-- No phenotype in this image -->
     <observations>
       <el>str1234</el>
     </observations>
