@@ -105,7 +105,7 @@
    <field name="stage_id" type="string" indexed="true" stored="true"/>
    <field name="stage_facet" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="stage_ancestors" type="textCaseInsensitive" indexed="true" stored="false" multiValued="true"/>
-   <field name="stage" type="string" indexed="true" stored="true"/>
+   <field name="stage" type="textCaseInsensitive" indexed="true" stored="true"/>
    
    <!-- annotations -->
    
