@@ -79,6 +79,7 @@ public class Neo4jAccessUtils {
 		Node release = getOrCreateNode(releaseDoc.getReleaseVersion(), releaseDoc.getReleaseVersion(), releaseLabel, true);
 
 		release.setProperty(ReleaseProperties.VERSION.toString(), releaseDoc.getReleaseVersion().toString());
+		release.setProperty(ReleaseProperties.RELEASE_DATE.toString(), new Date().toString());
 		release.setProperty(ReleaseProperties.IMAGES_NUMBER.toString(), releaseDoc.getNumberOfImages());
 		release.setProperty(ReleaseProperties.GENES_NUMBER.toString(), releaseDoc.getGeneIds().size());
 		release.setProperty(ReleaseProperties.ROIS_NUMBER.toString(), releaseDoc.getNumberOfRois());

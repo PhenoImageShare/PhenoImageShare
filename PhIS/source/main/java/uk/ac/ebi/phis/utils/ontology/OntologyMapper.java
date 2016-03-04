@@ -23,6 +23,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -34,6 +35,7 @@ import org.obolibrary.oboformat.parser.OBOFormatParserException;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.search.EntitySearcher;
 
 import owltools.graph.OWLGraphWrapper;
 import owltools.io.ParserWrapper;
@@ -146,7 +148,7 @@ public class OntologyMapper {
 		try {
 			if ( subject != null){
 				
-				Set<OWLClassExpression> eqList = subject.getEquivalentClasses(graph.getSourceOntology());
+				Collection<OWLClassExpression> eqList = EntitySearcher.getEquivalentClasses(subject, graph.getSourceOntology());
 				for (OWLClassExpression eq: eqList){
 					for (String rel : relationsToFollow){
 						Pattern p = Pattern.compile(".*ObjectSomeValuesFrom\\(<" + rel + "> <(.*?)>\\)(.*)");
@@ -180,7 +182,7 @@ public class OntologyMapper {
 		try {
 			if ( subject != null){
 				
-				Set<OWLClassExpression> eqList = subject.getEquivalentClasses(graph.getSourceOntology());
+				Collection<OWLClassExpression> eqList = EntitySearcher.getEquivalentClasses(subject, graph.getSourceOntology());
 				for (OWLClassExpression eq: eqList){
 					for (String rel : overProperties){
 						Pattern p = Pattern.compile(".*ObjectSomeValuesFrom\\(<" + rel + "> <(.*?)>\\)(.*)");

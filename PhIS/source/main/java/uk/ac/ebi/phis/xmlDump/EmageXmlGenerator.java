@@ -61,7 +61,7 @@ public class EmageXmlGenerator {
 		InputStream xsd;
 		try {
 			for (int i = 0; i < urls.size(); i++){
-				xsd = new FileInputStream("/Users/tudose/git/PhenoImageShare_Jul_22/PhIS/source/main/resources/phisSchema.xsd");
+				xsd = classloader.getResourceAsStream("phisSchema.xsd");
 				Doc temp = readSingleDoc(urls.get(i), xsd);
 				doc.getImage().addAll(temp.getImage());
 				if (temp.getRoi() != null){
@@ -88,9 +88,8 @@ public class EmageXmlGenerator {
 				jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 	
 				jaxbMarshaller.marshal(doc, file);
-	//			jaxbMarshaller.marshal(doc, System.out);
 				
-		} catch (JAXBException | IOException e) {
+		} catch (JAXBException e) {
 			e.printStackTrace();
 		}
 		

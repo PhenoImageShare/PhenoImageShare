@@ -53,6 +53,23 @@
 	</searchComponent>
 		
 	<queryConverter name="queryConverter" class="solr.SpellingQueryConverter"/>
+	
+	<updateRequestProcessorChain name="concatFields">
+		<processor class="solr.CloneFieldUpdateProcessorFactory"> 
+	    	<str name="source">host_name</str> 
+	    	<str name="dest">concat</str> 
+	    </processor> 
+		<processor class="solr.CloneFieldUpdateProcessorFactory"> 
+	    	<str name="source">image_url</str> 
+	    	<str name="dest">concat</str> 
+	    </processor> 
+	    <processor class="solr.ConcatFieldUpdateProcessorFactory"> 
+		    <str name="fieldName">concat</str> 
+	    	<str name="delimiter">_</str> 
+	    </processor>
+	    <processor class="solr.LogUpdateProcessorFactory" /> 
+	    <processor class="solr.RunUpdateProcessorFactory" />
+	</updateRequestProcessorChain> 
 
 	<requestHandler name="/spellCheckCompRH" class="solr.SearchHandler">
 	  <lst name="defaults">
@@ -72,7 +89,11 @@
 	  </arr>
 	</requestHandler>
 
-	<requestHandler name="/update" class="solr.UpdateRequestHandler" />
+	<requestHandler name="/update" class="solr.UpdateRequestHandler" >
+		<lst name="defaults">
+     		<str name="update.chain">concatFields</str>
+   		</lst>
+	</requestHandler>
 
 	<requestHandler name="/get" class="solr.RealTimeGetHandler">
 		<lst name="defaults">
@@ -88,7 +109,6 @@
 
 	<requestHandler name="standard" class="solr.StandardRequestHandler" default="true" />
 	<requestHandler name="/analysis/field" startup="lazy" class="solr.FieldAnalysisRequestHandler" />
-	<requestHandler name="/update" class="solr.UpdateRequestHandler" />
 	<requestHandler name="/admin/" class="org.apache.solr.handler.admin.AdminHandlers" />
 
 	<requestHandler name="/admin/ping" class="solr.PingRequestHandler">

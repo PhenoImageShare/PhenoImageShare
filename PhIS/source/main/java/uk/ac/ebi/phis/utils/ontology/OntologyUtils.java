@@ -39,12 +39,14 @@ import org.semanticweb.owlapi.model.OWLNamedObject;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.reasoner.InferenceType;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
+import org.semanticweb.owlapi.search.EntitySearcher;
 import org.semanticweb.owlapi.util.InferredAxiomGenerator;
 import org.semanticweb.owlapi.util.InferredClassAssertionAxiomGenerator;
 import org.semanticweb.owlapi.util.InferredOntologyGenerator;
@@ -90,35 +92,63 @@ public class OntologyUtils {
 	private String fbbi = System.getProperty("user.home") + "/phis_ontologies/fbbi.owl";
 	
 	public OntologyUtils(){
+		
 
 		synonymRelations.add("http://www.geneontology.org/formats/oboInOwl#hasExactSynonym");
 		synonymRelations.add("http://www.geneontology.org/formats/oboInOwl#hasNarrowSynonym");
 		synonymRelations.add("http://www.geneontology.org/formats/oboInOwl#hasRelatedSynonym");
 		synonymRelations.add("http://www.geneontology.org/formats/oboInOwl#hasBroadSynonym");
 		
-		phenotypeOntologies.add(System.getProperty("user.home") + "/phis_ontologies/mp.owl");
+//		phenotypeOntologies.add(System.getProperty("user.home") + "/phis_ontologies/mp.owl");
 
-		anatomyOntologies.add(System.getProperty("user.home") + "/phis_ontologies/fbbt.owl");
-		anatomyOntologies.add(System.getProperty("user.home") + "/phis_ontologies/ma.owl");
+//		anatomyOntologies.add(System.getProperty("user.home") + "/phis_ontologies/fbbt.owl");
+//		anatomyOntologies.add(System.getProperty("user.home") + "/phis_ontologies/ma.owl");
 		anatomyOntologies.add(System.getProperty("user.home") + "/phis_ontologies/emapa.owl");
 		anatomyOntologies.add(System.getProperty("user.home") + "/phis_ontologies/emap.owl");
 		
 		stageOntologies.add(System.getProperty("user.home") + "/phis_ontologies/mmusdv.owl");
-		stageOntologies.add(System.getProperty("user.home") + "/phis_ontologies/fbdv.owl");
+//		stageOntologies.add(System.getProperty("user.home") + "/phis_ontologies/fbdv.owl");
 		
-		xrefOntologies.add(System.getProperty("user.home") + "/phis_ontologies/uberon.owl");
+//		xrefOntologies.add(System.getProperty("user.home") + "/phis_ontologies/uberon.owl");
 
 		partOfRelations.add("part_of");
 		partOfRelations.add("part of");
-		
-		long time = System.currentTimeMillis();
-		try {
-			loadHashes();
-		} catch (OWLOntologyStorageException e) {
-			e.printStackTrace();
-		}
-		logger.info("Loading all ontologies took " + (System.currentTimeMillis() - time) + "ms.");
+//		
+//		long time = System.currentTimeMillis();
+//		try {
+//			loadHashes();
+//		} catch (OWLOntologyStorageException e) {
+//			e.printStackTrace();
+//		}
+//		logger.info("Loading all ontologies took " + (System.currentTimeMillis() - time) + "ms.");
 	}
+	
+	public void getRoots() throws OWLOntologyCreationException{
+
+		OWLOntology ontology = manager.loadOntologyFromOntologyDocument(IRI.create(new File(System.getProperty("user.home") + "/phis_ontologies/mp.owl")));
+        OWLGraphWrapper graph = new OWLGraphWrapper(ontology);
+		String ontologyNamespace = "http://purl.obolibrary.org/obo/MP_";
+        
+		System.out.println(graph.getOntologyRoots().size() + "  " + graph.getOntologyRoots());
+		// This willl also contain "orphaned" classes imported from other ontologies
+		Set<OWLClass> allRoots = graph.getOntologyRoots();
+		
+		// This will be the top levels from the current ontology , i.e. "Mammalian prhenotype"
+		Set<OWLClass> currentOntologyRoots = new HashSet<>();
+		for (OWLClass root: allRoots){
+			System.out.println(root +  "  " + root.getIRI().getNamespace() + "  "+ ontologyNamespace);
+			if (root.getIRI().toString().contains(ontologyNamespace)){ // Class comes from current ontology
+				currentOntologyRoots.add(root);
+			}
+		}
+		
+		Set<OWLClass> topLevels = new HashSet<>();
+		for (OWLClass root: currentOntologyRoots){
+			topLevels.addAll(graph.getOWLClassDirectDescendants(root));
+		}
+		
+		System.out.println("TOP LEVELS " + topLevels.size() + "  " + topLevels);
+	} 
 	
 	public boolean isAnatomy(String id){
 		return checkIdIsIn(id, anatomyTerms);
@@ -326,7 +356,7 @@ public class OntologyUtils {
 	        gens.add(new InferredSubClassAxiomGenerator());
 	        gens.add(new InferredClassAssertionAxiomGenerator());
 	        InferredOntologyGenerator iog = new InferredOntologyGenerator(reasoner, gens);
-	        iog.fillOntology(manager, ontology);
+	        iog.fillOntology(manager.getOWLDataFactory(), ontology);
 	        manager.saveOntology(ontology, new StringDocumentTarget());
 
 	        System.out.println("Axioms after :" + ontology.getAxiomCount());
@@ -345,12 +375,13 @@ public class OntologyUtils {
 				if (!cls.getIRI().isNothing()){
 					OntologyObject temp = new OntologyObject();
 					temp.setId(getIdentifierShortForm(cls));
-					if (cls.getAnnotations(ontology, LABEL_ANNOTATION).size() > 0){
-						temp.setLabel(((OWLLiteral)cls.getAnnotations(ontology, LABEL_ANNOTATION).iterator().next().getValue()).getLiteral());
+					if (EntitySearcher.getAnnotations(cls,ontology, LABEL_ANNOTATION).size() > 0){
+						temp.setLabel(((OWLLiteral)EntitySearcher.getAnnotations(cls,ontology, LABEL_ANNOTATION).iterator().next().getValue()).getLiteral());
 						for (String synonymType : synonymRelations){
 							OWLAnnotationProperty label = factory.getOWLAnnotationProperty(IRI.create(synonymType));	
+							
 							// Get the annotations on the class that use the label property
-							for (OWLAnnotation annotation : cls.getAnnotations(ontology, label)) {
+							for (OWLAnnotation annotation : EntitySearcher.getAnnotations(cls,ontology, label)) {
 								if (annotation.getValue() instanceof OWLLiteral) {
 									OWLLiteral val = (OWLLiteral) annotation.getValue();
 									temp.addSynonym(val.getLiteral());
@@ -361,8 +392,8 @@ public class OntologyUtils {
 					}
 				}
 				
-				if (!cls.getIRI().isNothing() && cls.getAnnotations(ontology, ALT_ID) != null){
-					for (OWLAnnotation annotation : cls.getAnnotations(ontology, ALT_ID)) {
+				if (!cls.getIRI().isNothing() && EntitySearcher.getAnnotations(cls,ontology, ALT_ID) != null){
+					for (OWLAnnotation annotation : EntitySearcher.getAnnotations(cls,ontology, ALT_ID)) {
 						if (annotation.getValue() instanceof OWLLiteral) {
 							OWLLiteral val = (OWLLiteral) annotation.getValue();
 							alternateIds.put(val.getLiteral().replace(":", "_"), getIdentifierShortForm(cls));
@@ -370,8 +401,8 @@ public class OntologyUtils {
 					}
 				}
 				
-				if (storeXrefs && !cls.getIRI().isNothing() && cls.getAnnotations(ontology, X_REF) != null){
-					for (OWLAnnotation annotation : cls.getAnnotations(ontology, X_REF)) {
+				if (storeXrefs && !cls.getIRI().isNothing() && EntitySearcher.getAnnotations(cls,ontology, X_REF) != null){
+					for (OWLAnnotation annotation : EntitySearcher.getAnnotations(cls,ontology, X_REF)) {
 						if (annotation.getValue() instanceof OWLLiteral) {
 							OWLLiteral val = (OWLLiteral) annotation.getValue();
 							String id = val.getLiteral().replace(":", "_");
@@ -398,7 +429,7 @@ public class OntologyUtils {
 			
 			for (OWLClass cls : classesSubSet) {
 				
-				if (!cls.getIRI().isNothing() && cls.getAnnotations(ontology, LABEL_ANNOTATION).size() > 0) {
+				if (!cls.getIRI().isNothing() && EntitySearcher.getAnnotations(cls,ontology, LABEL_ANNOTATION).size() > 0) {
 					
 					OntologyObject temp = idLabelMap.get(getIdentifierShortForm(cls));
 					Set<OWLClass> ancestors = new HashSet<>();
@@ -471,7 +502,8 @@ public class OntologyUtils {
 			}
 		}
 		
-		for ( OWLClassExpression classExpression: cls.getSuperClasses(graph.getSourceOntology())){
+		
+		for ( OWLClassExpression classExpression: EntitySearcher.getSuperClasses(cls, graph.getSourceOntology())){
 			if (classExpression.isClassExpressionLiteral()){
 				res.add(classExpression.asOWLClass());
 			} else if (classExpression instanceof OWLObjectSomeValuesFrom){

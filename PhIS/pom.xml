@@ -99,8 +99,8 @@
 		<solrUrl>http://ves-ebi-d0.ebi.ac.uk:8170/mi/phis</solrUrl>
 		<internalSolrUrl>http://ves-ebi-d0.ebi.ac.uk:8170/mi/phis</internalSolrUrl>
 		<dbURI>http://phenoimageshare.ebi.ac.uk:7474/db/data/</dbURI>
-		<java.version>1.7</java.version>
-		<com.fasterxml.jackson.core.version>2.6.1</com.fasterxml.jackson.core.version>
+		<java.version>1.8</java.version>
+		<com.fasterxml.jackson.core.version>2.7.2</com.fasterxml.jackson.core.version>
 		<spring.security.version>4.0.2.RELEASE</spring.security.version>
 		<spring.version>4.2.3.RELEASE</spring.version>
 	</properties>
@@ -354,7 +354,7 @@
 		<dependency>
 			<groupId>org.apache.maven.plugins</groupId>
 			<artifactId>maven-resources-plugin</artifactId>
-			<version>2.7</version>
+			<version>2.3</version>
 		</dependency>
 		
 		<dependency>
@@ -386,7 +386,7 @@
 		<dependency>
 			<artifactId>solr-solrj</artifactId>
 			<groupId>org.apache.solr</groupId>
-			<version>3.6.1</version>
+			<version>4.9.1</version>
 		</dependency>
 		
 		<dependency>
@@ -405,13 +405,19 @@
 		<dependency>
 	   		<groupId>org.bbop</groupId>
 	   		<artifactId>OWLTools-Core</artifactId>
-	   		<version>0.2.1</version>
+	   		<version>0.3.0-SNAPSHOT</version>
+	   		<exclusions>
+	   			<exclusion>
+	   				<artifactId>owlapi-distribution</artifactId>
+	   				<groupId>net.sourceforge.owlapi</groupId>
+	   			</exclusion>
+	   		</exclusions>
 		</dependency>
 		
 		<dependency>
 		   	<groupId>org.bbop</groupId>
 		   	<artifactId>OWLTools-Oort</artifactId>
-			<version>0.2.1</version>
+			<version>0.3.0-SNAPSHOT</version>
 		</dependency>
 		
 		<dependency>
@@ -426,6 +432,12 @@
 			<version>4.1.4</version>
 		</dependency>
 
+		<dependency>
+			<groupId>net.sourceforge.owlapi</groupId>
+			<artifactId>owlapi-distribution</artifactId>
+			<version>4.1.4</version>
+		</dependency>
+		
 
   		<!-- HTTP components Dependencies -->
 		<dependency>
@@ -439,6 +451,7 @@
 			<artifactId>httpclient</artifactId>
 			<version>4.3.1</version>
 		</dependency>
+		
 
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
@@ -670,12 +683,7 @@
 		</dependency>
 		
 		<!-- Jackson JSON Mapper -->
-		<dependency>
-			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-mapper-asl</artifactId>
-			<version>1.9.13</version>
-		</dependency>
-		
+				
 		<dependency>
 		    <groupId>com.fasterxml.jackson.core</groupId>
 		    <artifactId>jackson-annotations</artifactId>

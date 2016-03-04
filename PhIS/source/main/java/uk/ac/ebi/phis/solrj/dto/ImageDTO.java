@@ -15,6 +15,7 @@
  *******************************************************************************/
 package uk.ac.ebi.phis.solrj.dto;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -82,6 +83,7 @@ public class ImageDTO {
 	public final static String IMAGING_METHOD_ANCESTORS = "imaging_method_ancestors";
 	public final static String IMAGE_CONTEXT_URL = "image_context_url";
 	public final static String IMAGE_URL = "image_url";
+	public final static String IMAGE_DATE = "image_date";
 	public final static String LICENCE = "licence";
 	public final static String THUMBNAIL_URL = "thumbnail_url";
 	public final static String IMAGE_GENERATED_BY = "image_generated_by";
@@ -178,6 +180,9 @@ public class ImageDTO {
 	@Field(THUMBNAIL_URL)
 	private String thumbnailUrl;
 
+	@Field(IMAGE_DATE)
+	private Date imageDate;
+	
 	@Field(IMAGE_CONTEXT_URL)
 	private String imageContextUrl;
 
@@ -2829,6 +2834,14 @@ public class ImageDTO {
 			this.stageFacets = new ArrayList<>();
 		}
 		this.stageFacets.add(facet);
+	}
+
+	public Date getImageDate() {
+		return imageDate;
+	}
+
+	public void setImageDate(Date imageDate) {
+		this.imageDate = imageDate;
 	}
 	
 }

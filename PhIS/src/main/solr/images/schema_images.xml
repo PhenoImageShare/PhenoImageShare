@@ -69,6 +69,7 @@
    <field name="thumbnail_url" type="string" indexed="true" stored="true" required="true"/>
    <field name="image_context_url" type="string" indexed="true" stored="true"/>
    <field name="image_generated_by" type="string" indexed="true" stored="true" multiValued="true" required="false"/>
+   <field name="image_date" type="date" indexed="true" stored="true" multiValued="true" required="false"/> <!-- Date when the image was taken-->
    <field name="imaging_method_label" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="imaging_method_synonym" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="imaging_method_label_analysed" type="textCaseInsensitive" indexed="true" stored="false" multiValued="true"/>
@@ -187,6 +188,10 @@
    <field name="generic_anatomy" type="textCaseInsensitive" indexed="true" stored="false" multiValued="true"/>
    <field name="generic_anatomy_ancestors" type="textCaseInsensitive" indexed="true" stored="false" multiValued="true"/>
    
+   
+   <!--  TESTING concatenation. Can delete if didn;t work. -->
+   <field name="concat" type="string" indexed="true" stored="true" required="false"/>
+   
    <!-- Autosuggest fields -->
    <!-- field name="term_autosuggest_analysed" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true" termVectors="true" termPositions="true" termOffsets="true"/-->
    <!-- field name="term_autosuggest" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true" /-->
@@ -290,4 +295,5 @@
    <copyField source="generic_anatomy" dest="generic_search_ancestors"/>
 
    <copyField source="imaging_method_label" dest="imaging_method_label_analysed"/>
+   
 </schema>
