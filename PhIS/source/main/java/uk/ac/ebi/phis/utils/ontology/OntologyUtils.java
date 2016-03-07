@@ -65,7 +65,7 @@ public class OntologyUtils {
 	public static final OWLAnnotationProperty ALT_ID = factory.getOWLAnnotationProperty(IRI.create("http://www.geneontology.org/formats/oboInOwl#hasAlternativeId"));	
 	public static final OWLAnnotationProperty X_REF = factory.getOWLAnnotationProperty(IRI.create("http://www.geneontology.org/formats/oboInOwl#hasDbXref"));
 	private static ArrayList<String> synonymRelations = new ArrayList<>();
-	private static Set<String> partOfRelations = new HashSet<>();	
+	private static Set<IRI> partOfRelations = new HashSet<>();	
 	
 	private ArrayList<String> anatomyOntologies = new ArrayList<String>();
 	private ArrayList<String> phenotypeOntologies = new ArrayList<String>();
@@ -111,8 +111,10 @@ public class OntologyUtils {
 		
 //		xrefOntologies.add(System.getProperty("user.home") + "/phis_ontologies/uberon.owl");
 
-		partOfRelations.add("part_of");
-		partOfRelations.add("part of");
+		partOfRelations.add(IRI.create("http://purl.obolibrary.org/obo/ma#part_of"));
+		partOfRelations.add(IRI.create("http://purl.obolibrary.org/obo/emap#part_of"));
+		partOfRelations.add(IRI.create("http://purl.obolibrary.org/obo/part_of"));
+		
 //		
 //		long time = System.currentTimeMillis();
 //		try {
@@ -125,7 +127,8 @@ public class OntologyUtils {
 	
 	public void getRoots() throws OWLOntologyCreationException{
 
-		OWLOntology ontology = manager.loadOntologyFromOntologyDocument(IRI.create(new File(System.getProperty("user.home") + "/phis_ontologies/mp.owl")));
+	//	OWLOntology ontology = manager.loadOntologyFromOntologyDocument(IRI.create(new File(System.getProperty("user.home") + "/phis_ontologies/ma.owl")));
+		OWLOntology ontology = manager.loadOntologyFromOntologyDocument(IRI.create(new File(System.getProperty("user.home") + "/Documents/ontologies/newMAOnt20160223.owl")));
         OWLGraphWrapper graph = new OWLGraphWrapper(ontology);
 		String ontologyNamespace = "http://purl.obolibrary.org/obo/MP_";
         
@@ -146,8 +149,28 @@ public class OntologyUtils {
 		for (OWLClass root: currentOntologyRoots){
 			topLevels.addAll(graph.getOWLClassDirectDescendants(root));
 		}
-		
+
 		System.out.println("TOP LEVELS " + topLevels.size() + "  " + topLevels);
+		
+		System.out.println("NAMED ANCESTORS (NamedAncestors):: " + graph.getNamedAncestors(graph.getOWLClass("http://purl.obolibrary.org/obo/MA_0000517")).size());
+		System.out.println("NAMED ANCESTORS 2 (getNamedAncestorsWithGCI) :: " + getAncestorsClassifiedPartOf(graph.getOWLClass("http://purl.obolibrary.org/obo/MA_0000517"), graph).size());
+		
+		Set<OWLPropertyExpression> oPropExp = new HashSet<>();
+
+		if (partOfRelations != null) {
+		    for (IRI iri: partOfRelations){
+		        oPropExp.add((OWLPropertyExpression) graph.getOWLObjectProperty(iri));
+		    }
+		}
+
+		Set<OWLNamedObject> onobjs = graph.getNamedAncestorsWithGCI(graph.getOWLClass("http://purl.obolibrary.org/obo/MA_0000517"), oPropExp);
+		for ( OWLNamedObject onobj : onobjs ){
+		    if (onobj instanceof OWLClass) {
+		        OWLClass ocls = (OWLClass) onobj;
+		        System.out.println("GCI GOT: "+ocls);
+		    }
+		}
+		
 	} 
 	
 	public boolean isAnatomy(String id){
@@ -497,8 +520,8 @@ public class OntologyUtils {
 		Set<OWLNamedObject> res = new HashSet<>();
 		
 		if (partOfRelations != null) {
-			for (String lbl: partOfRelations){
-				overProps.add((OWLPropertyExpression) graph.getOWLObjectByLabel(lbl));
+			for (IRI iri: partOfRelations){
+				overProps.add((OWLPropertyExpression) graph.getOWLObjectProperty(iri));
 			}
 		}
 		
@@ -526,11 +549,11 @@ public class OntologyUtils {
 		Set<OWLPropertyExpression> overProps = new HashSet<>();
 		
 		if (partOfRelations != null) {
-			for (String lbl: partOfRelations){
-				overProps.add((OWLPropertyExpression) graph.getOWLObjectByLabel(lbl));
+			for (IRI iri: partOfRelations){
+				overProps.add((OWLPropertyExpression) graph.getOWLObjectProperty(iri));
 			}
 		}
-		
+				
 		return graph.getNamedAncestorsWithGCI(cls, overProps);
 	}
 	
