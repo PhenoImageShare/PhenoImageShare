@@ -103,6 +103,7 @@
 		<com.fasterxml.jackson.core.version>2.7.2</com.fasterxml.jackson.core.version>
 		<spring.security.version>4.0.2.RELEASE</spring.security.version>
 		<spring.version>4.2.3.RELEASE</spring.version>
+		<apache.commons.collections>3.2.2</apache.commons.collections>
 	</properties>
 
 
@@ -545,7 +546,7 @@
 		<dependency>
 			<groupId>commons-collections</groupId>
 			<artifactId>commons-collections</artifactId>
-			<version>3.2.1</version>
+			<version>${apache.commons.collections}</version>
 		</dependency>
 
 		

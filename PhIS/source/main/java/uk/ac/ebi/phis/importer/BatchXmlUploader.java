@@ -409,12 +409,16 @@ public class BatchXmlUploader {
 		if (desc.getImagingMethod() != null){
 			for (Annotation im: desc.getImagingMethod().getEl()){
 				OntologyObject oo = ou.getOntologyTermById(im.getOntologyTerm().getTermId().trim());
-				bean.addImagingMethodId(oo.getId());
-				bean.addImagingMethodLabel(oo.getLabel()); 
-				bean.addImagingMethodSynonyms(oo.getSynonyms());
-				bean.addImagingMethodAncestors(oo.getAncestorsBag());
-				if (im.getAnnotationFreetext() != null && !im.getAnnotationFreetext().equalsIgnoreCase("")){
-					bean.addImagingMethodFreetext(im.getAnnotationFreetext());
+				if (oo == null){
+					System.out.println("Ontology id not found : " + im.getOntologyTerm().getTermId());
+				} else {
+					bean.addImagingMethodId(oo.getId());
+					bean.addImagingMethodLabel(oo.getLabel()); 
+					bean.addImagingMethodSynonyms(oo.getSynonyms());
+					bean.addImagingMethodAncestors(oo.getAncestorsBag());
+					if (im.getAnnotationFreetext() != null && !im.getAnnotationFreetext().equalsIgnoreCase("")){
+						bean.addImagingMethodFreetext(im.getAnnotationFreetext());
+					}
 				}
 			}
 		}
@@ -423,10 +427,14 @@ public class BatchXmlUploader {
 			for (Annotation sp: desc.getSamplePreparation().getEl()){
 				if (sp.getOntologyTerm() != null){
 					OntologyObject oo = ou.getOntologyTermById(sp.getOntologyTerm().getTermId().trim());
-					bean.addSamplePreparationId(oo.getId());
-					bean.addSamplePreparationLabel(oo.getLabel());
-					bean.addSamplePreparationSynonyms(oo.getSynonyms());
-					bean.addSamplePreparationAncestors(oo.getAncestorsBag());
+					if (oo == null){
+						System.out.println("Ontology id not found : " + sp.getOntologyTerm().getTermId());
+					} else {
+						bean.addSamplePreparationId(oo.getId());
+						bean.addSamplePreparationLabel(oo.getLabel());
+						bean.addSamplePreparationSynonyms(oo.getSynonyms());
+						bean.addSamplePreparationAncestors(oo.getAncestorsBag());
+					}
 				}
 				if (sp.getAnnotationFreetext() != null && !sp.getAnnotationFreetext().equalsIgnoreCase("")){
 					bean.addSamplePreparationFreetext(sp.getAnnotationFreetext());
@@ -637,13 +645,17 @@ public class BatchXmlUploader {
 					if (ann.getOntologyTerm() != null){
 						if (expression){
 							OntologyObject oo = ou.getOntologyTermById(ann.getOntologyTerm().getTermId());
-							expressionInAnatomyIds.add(oo.getId());
-							expressionInAnatomyLabels.add(oo.getLabel());
-							res.addExpressionInSynonymsBag(oo.getSynonyms());
-							for (OntologyObject anc : oo.getIntermediateTerms()){
-								res.addExpressionInAncestors(anc.getId());
-								res.addExpressionInAncestors(anc.getSynonyms());
-								res.addExpressionInAncestors(anc.getLabel());
+							if (oo == null){
+								System.out.println("Ontology id not found : " + ann.getOntologyTerm().getTermId());
+							} else {
+								expressionInAnatomyIds.add(oo.getId());
+								expressionInAnatomyLabels.add(oo.getLabel());
+								res.addExpressionInSynonymsBag(oo.getSynonyms());
+								for (OntologyObject anc : oo.getIntermediateTerms()){
+									res.addExpressionInAncestors(anc.getId());
+									res.addExpressionInAncestors(anc.getSynonyms());
+									res.addExpressionInAncestors(anc.getLabel());
+								}
 							}
 						}
 						else{
