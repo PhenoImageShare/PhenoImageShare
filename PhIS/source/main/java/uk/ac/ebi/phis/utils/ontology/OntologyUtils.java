@@ -99,30 +99,30 @@ public class OntologyUtils {
 		synonymRelations.add("http://www.geneontology.org/formats/oboInOwl#hasRelatedSynonym");
 		synonymRelations.add("http://www.geneontology.org/formats/oboInOwl#hasBroadSynonym");
 		
-//		phenotypeOntologies.add(System.getProperty("user.home") + "/phis_ontologies/mp.owl");
+		phenotypeOntologies.add(System.getProperty("user.home") + "/phis_ontologies/mp.owl");
 
-//		anatomyOntologies.add(System.getProperty("user.home") + "/phis_ontologies/fbbt.owl");
-//		anatomyOntologies.add(System.getProperty("user.home") + "/phis_ontologies/ma.owl");
+		anatomyOntologies.add(System.getProperty("user.home") + "/phis_ontologies/fbbt.owl");
+		anatomyOntologies.add(System.getProperty("user.home") + "/phis_ontologies/ma.owl");
 		anatomyOntologies.add(System.getProperty("user.home") + "/phis_ontologies/emapa.owl");
 		anatomyOntologies.add(System.getProperty("user.home") + "/phis_ontologies/emap.owl");
 		
 		stageOntologies.add(System.getProperty("user.home") + "/phis_ontologies/mmusdv.owl");
-//		stageOntologies.add(System.getProperty("user.home") + "/phis_ontologies/fbdv.owl");
+		stageOntologies.add(System.getProperty("user.home") + "/phis_ontologies/fbdv.owl");
 		
-//		xrefOntologies.add(System.getProperty("user.home") + "/phis_ontologies/uberon.owl");
+		xrefOntologies.add(System.getProperty("user.home") + "/phis_ontologies/uberon.owl");
 
 		partOfRelations.add(IRI.create("http://purl.obolibrary.org/obo/ma#part_of"));
 		partOfRelations.add(IRI.create("http://purl.obolibrary.org/obo/emap#part_of"));
 		partOfRelations.add(IRI.create("http://purl.obolibrary.org/obo/part_of"));
 		
-//		
-//		long time = System.currentTimeMillis();
-//		try {
-//			loadHashes();
-//		} catch (OWLOntologyStorageException e) {
-//			e.printStackTrace();
-//		}
-//		logger.info("Loading all ontologies took " + (System.currentTimeMillis() - time) + "ms.");
+		
+		long time = System.currentTimeMillis();
+		try {
+			loadHashes();
+		} catch (OWLOntologyStorageException e) {
+			e.printStackTrace();
+		}
+		logger.info("Loading all ontologies took " + (System.currentTimeMillis() - time) + "ms.");
 	}
 	
 	public void getRoots() throws OWLOntologyCreationException{
@@ -395,16 +395,20 @@ public class OntologyUtils {
 			}
 			
 			for (OWLClass cls : classesSubSet){
+				
 				if (!cls.getIRI().isNothing()){
 					OntologyObject temp = new OntologyObject();
 					temp.setId(getIdentifierShortForm(cls));
+					
 					if (EntitySearcher.getAnnotations(cls,ontology, LABEL_ANNOTATION).size() > 0){
 						temp.setLabel(((OWLLiteral)EntitySearcher.getAnnotations(cls,ontology, LABEL_ANNOTATION).iterator().next().getValue()).getLiteral());
+						
 						for (String synonymType : synonymRelations){
 							OWLAnnotationProperty label = factory.getOWLAnnotationProperty(IRI.create(synonymType));	
 							
 							// Get the annotations on the class that use the label property
 							for (OWLAnnotation annotation : EntitySearcher.getAnnotations(cls,ontology, label)) {
+								
 								if (annotation.getValue() instanceof OWLLiteral) {
 									OWLLiteral val = (OWLLiteral) annotation.getValue();
 									temp.addSynonym(val.getLiteral());
@@ -434,6 +438,7 @@ public class OntologyUtils {
 									externalToUberon.put(id, new ArrayList<String>());
 								}
 								externalToUberon.get(id).add(getIdentifierShortForm(cls));
+								System.out.println("Mapping from " + getIdentifierShortForm(cls) + " to " + id);
 							} else {
 								if (id.startsWith("UBERON")){
 									if (!externalToUberon.containsKey(getIdentifierShortForm(cls))){

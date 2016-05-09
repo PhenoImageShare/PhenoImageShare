@@ -211,7 +211,9 @@ public class OntologyMapper {
 		OWLGraphWrapper graph = pw.parseToOWLGraph(ontIri);
 		logger.debug("OWL file parsed and graph is created");
 		logger.info("Ontology is initialised completely");
+		
 		return graph;
+		
 	}
 	
 	

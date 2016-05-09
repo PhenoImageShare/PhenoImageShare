@@ -328,6 +328,7 @@
 			<element name="ontology_term" type="x:OntologyTerm" minOccurs="0" maxOccurs="1" />
 			<element name="annotation_freetext" type="string" minOccurs="0" maxOccurs="1" />
 			<element name="annotation_mode" type="x:AnnotationMode" minOccurs="0" maxOccurs="1" />
+			<element name="expression_value" type="string" minOccurs="0" maxOccurs="1" /> <!-- expressed/not expressed/ambiguous, strongly expressed, etc. -->
 		</all>
 	</complexType>
 	<complexType name="AnnotationArray">

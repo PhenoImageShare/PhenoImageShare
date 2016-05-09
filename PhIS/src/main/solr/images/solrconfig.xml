@@ -69,7 +69,11 @@
 	    </processor>
 	    <processor class="solr.LogUpdateProcessorFactory" /> 
 	    <processor class="solr.RunUpdateProcessorFactory" />
-	</updateRequestProcessorChain> 
+	</updateRequestProcessorChain>
+	
+	<queryResponseWriter name="xslt" class="org.apache.solr.response.XSLTResponseWriter">
+	  <int name="xsltCacheLifetimeSeconds">5</int>
+	</queryResponseWriter>
 
 	<requestHandler name="/spellCheckCompRH" class="solr.SearchHandler">
 	  <lst name="defaults">
