@@ -254,13 +254,14 @@ public class BatchXmlUploader {
 					bean.addAbnormalityAnatomyFreetext(ann.getAnnotationFreetext());
 				}
 				if (ann.getOntologyTerm() != null){
+					OntologyObject oo = ou.getOntologyTermById(ann.getOntologyTerm().getTermId());
 					if (ann.getAnnotationMode() != null && (ann.getAnnotationMode() == AnnotationMode.AUTOMATED)){
-						bean.addComputedAbnormalityAnatomyId(ann.getOntologyTerm().getTermId());
-						bean.addComputedAbnormalityAnatomyTerm(ann.getOntologyTerm().getTermLabel());
+						bean.addComputedAbnormalityAnatomyId(oo.getId());
+						bean.addComputedAbnormalityAnatomyTerm(oo.getLabel());
 					}
 					else {
-						bean.addAbnormalityAnatomyId(ann.getOntologyTerm().getTermId());
-						bean.addAbnormalityAnatomyTerm(ann.getOntologyTerm().getTermLabel());
+						bean.addAbnormalityAnatomyId(oo.getId());
+						bean.addAbnormalityAnatomyTerm(oo.getLabel());
 					}
 				}
 			}			
@@ -611,9 +612,9 @@ public class BatchXmlUploader {
 						for (String maId : maIds){
 							OntologyObject maOo= ou.getOntologyTermById(maId);
 							res.addAnatomyComputedIdBag(maOo.getId());
-							res.addAnatomyComputedLabelBag(oo.getLabel());
+							res.addAnatomyComputedLabelBag(maOo.getLabel());
 							res.addAnatomyComputedSynonymsBag(maOo.getSynonyms());
-							res.addAnatomyComputedAncestors(oo.getAncestorsBag());
+							res.addAnatomyComputedAncestors(maOo.getAncestorsBag());
 						}
 					}
 				}

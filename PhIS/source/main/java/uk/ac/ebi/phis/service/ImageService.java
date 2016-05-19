@@ -204,7 +204,9 @@ public class ImageService extends BasicService{
 		log.info("Solr URL in getImages : " + solr.getBaseURL() + "/select?" + solrQuery);
 		
 		try {
-			return JSONRestUtil.getResults(getQueryUrl(solrQuery)).remove("responseHeader").toString();
+			JSONObject res = JSONRestUtil.getResults(getQueryUrl(solrQuery));
+			res.remove("responseHeader");
+			return res.toString();
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (URISyntaxException e) {
