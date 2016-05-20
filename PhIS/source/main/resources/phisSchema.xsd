@@ -521,14 +521,14 @@
 				  </documentation>
 				</annotation>
 			</element> 	
-			<element name="creation_date" type="string" minOccurs="0" maxOccurs="1" >
+			<element name="creation_date" type="dateTime" minOccurs="0" maxOccurs="1" >
 				<annotation>
 				  <documentation xml:lang="en">
 					Date when the annotation was created by the owner.
 				  </documentation>
 				</annotation>
 			</element> 	
-			<element name="edit_date" type="string" minOccurs="0" maxOccurs="1" >
+			<element name="edit_date" type="dateTime" minOccurs="0" maxOccurs="1" >
 				<annotation>
 				  <documentation xml:lang="en">
 					Last edit date.

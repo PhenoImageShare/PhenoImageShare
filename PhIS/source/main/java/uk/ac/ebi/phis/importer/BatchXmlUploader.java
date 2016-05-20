@@ -267,6 +267,13 @@ public class BatchXmlUploader {
 			}			
 		}
 		
+		if (roi.getEditDate() != null){
+			bean.setEditDate(roi.getEditDate().normalize().toGregorianCalendar().getTime());
+		}
+		if (roi.getCreationDate() != null){
+			bean.setCreationDate(roi.getCreationDate().normalize().toGregorianCalendar().getTime());
+		}
+		
 		if (roi.getPhenotypeAnnotations() != null){
 			// Phenotypes
 			for ( Annotation ann: roi.getPhenotypeAnnotations().getEl()){

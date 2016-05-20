@@ -260,6 +260,25 @@
 				<td><var>0</var></td>
 				<td><var></var><br></td>
 			</tr>
+			
+			<tr>
+				<td>lastRoiEditAfter</td>
+				<td><var>Date</var></td>
+				<td> false </td>
+				<td>Get images with ROIs/annotations edited after the given date.</td>
+				<td><var>(none)</var></td>
+				<td><var>1976-03-06T23:59:59.999Z</var></td>
+			</tr>
+			
+			<tr>
+				<td>lastRoiEditBefore</td>
+				<td><var>Date</var></td>
+				<td> false </td>
+				<td>Get images with ROIs/annotations edited before the given date.Please note that not all annotations are provided to us with a date, so this method might return incomplete annotation sets.</td>
+				<td><var>(none)</var></td>
+				<td><var>2016-03-06T23:59:59.999Z</var></td>
+			</tr>
+			
 		</tbody>
 	</table>
 
