@@ -130,6 +130,8 @@ public class AutosuggestIndexer {
 		AutosuggestDTO res = termDto;
 		res.addStage(imageDto.getStage());
 		res.addStage(imageDto.getStageId());
+		res.addStage(imageDto.getStageFacets());
+		res.addStage(imageDto.getStageAncestors());
 		res.addTaxon(imageDto.getTaxon());
 		res.addTaxon(imageDto.getNcbiTaxonId());
 		res.addImagingMethod(imageDto.getImagingMethodLabel());

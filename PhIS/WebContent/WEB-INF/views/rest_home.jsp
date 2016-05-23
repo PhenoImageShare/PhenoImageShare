@@ -641,6 +641,14 @@
 				<td><var>WTSI</var><br></td>
 			</tr>
 			<tr>
+				<td>hostName</td>
+				<td><var>String</var></td>
+				<td> false </td>
+				<td> Restricts results for autosuggest to documents hosted on the website provided.</td>
+				<td><var> * </var></td>
+				<td><var>IMPC Portal</var><br></td>
+			</tr>
+			<tr>
 				<td>resultNo</td>
 				<td><var>Integer</var></td>
 				<td> false</td>

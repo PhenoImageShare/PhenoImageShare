@@ -410,6 +410,17 @@ public class AutosuggestDTO {
 			}
 		}
 
+		public void addStage(List<String> stages) {
+
+			if (this.stage == null) {
+				this.stage = new ArrayList<>();
+			}
+			if (stages != null && !this.stage.containsAll(stages)){
+				this.stage.addAll(stages);
+			}
+		}
+
+		
 		public void addSamplePreparation(String samplePreparation) {
 
 			if (this.samplePreparation == null) {

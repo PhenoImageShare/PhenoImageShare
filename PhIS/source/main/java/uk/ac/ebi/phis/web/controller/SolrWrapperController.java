@@ -130,10 +130,11 @@ public class SolrWrapperController {
 			@RequestParam(value = "stage", required = false) String stage,
 			@RequestParam(value = "imagingMethod", required = false) String imagingMethod,
 			@RequestParam(value = "imageGeneratedBy", required = false) String imageGeneratedBy,	
+			@RequestParam(value = "hostName", required = false) String hostName,	
 			Model model){
 			
 		if (term != null){
-			return as.getAutosuggest(term, (type != null ? AutosuggestTypes.valueOf(type) : null), stage, imagingMethod, taxon, sampleType, imageGeneratedBy, resultNo);
+			return as.getAutosuggest(term, (type != null ? AutosuggestTypes.valueOf(type) : null), stage, imagingMethod, taxon, sampleType, imageGeneratedBy, hostName, resultNo);
 		} 
 		
 		return "";
@@ -149,10 +150,11 @@ public class SolrWrapperController {
 			@RequestParam(value = "stage", required = false) String stage,
 			@RequestParam(value = "imagingMethod", required = false) String imagingMethod,
 			@RequestParam(value = "imageGeneratedBy", required = false) String imageGeneratedBy,
+			@RequestParam(value = "hostName", required = false) String hostName,	
 			Model model){
 			
 		if (term != null){
-			return as.getComplexAutosuggest(term, (type != null ? AutosuggestTypes.valueOf(type) : null), stage, imagingMethod, taxon, sampleType, imageGeneratedBy, resultNo);
+			return as.getComplexAutosuggest(term, (type != null ? AutosuggestTypes.valueOf(type) : null), stage, imagingMethod, taxon, sampleType, imageGeneratedBy, hostName, resultNo);
 		} 
 		
 		return "";

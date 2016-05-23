@@ -54,6 +54,7 @@ import org.semanticweb.owlapi.util.InferredSubClassAxiomGenerator;
 
 import owltools.graph.OWLGraphWrapper;
 import uk.ac.ebi.phis.release.OntologyInstance;
+import uk.ac.manchester.cs.owl.owlapi.OWLObjectPropertyImpl;
 
 
 //@Service
@@ -65,7 +66,7 @@ public class OntologyUtils {
 	public static final OWLAnnotationProperty ALT_ID = factory.getOWLAnnotationProperty(IRI.create("http://www.geneontology.org/formats/oboInOwl#hasAlternativeId"));	
 	public static final OWLAnnotationProperty X_REF = factory.getOWLAnnotationProperty(IRI.create("http://www.geneontology.org/formats/oboInOwl#hasDbXref"));
 	private static ArrayList<String> synonymRelations = new ArrayList<>();
-	private static Set<IRI> partOfRelations = new HashSet<>();	
+	private static Set<OWLPropertyExpression> partOfRelations = new HashSet<>();	
 	
 	private ArrayList<String> anatomyOntologies = new ArrayList<String>();
 	private ArrayList<String> phenotypeOntologies = new ArrayList<String>();
@@ -111,9 +112,10 @@ public class OntologyUtils {
 		
 		xrefOntologies.add(System.getProperty("user.home") + "/phis_ontologies/uberon.owl");
 
-		partOfRelations.add(IRI.create("http://purl.obolibrary.org/obo/ma#part_of"));
-		partOfRelations.add(IRI.create("http://purl.obolibrary.org/obo/emap#part_of"));
-		partOfRelations.add(IRI.create("http://purl.obolibrary.org/obo/part_of"));
+		partOfRelations.add(new OWLObjectPropertyImpl(IRI.create("http://purl.obolibrary.org/obo/ma#part_of")));
+		partOfRelations.add(new OWLObjectPropertyImpl(IRI.create("http://purl.obolibrary.org/obo/emap#part_of")));
+		partOfRelations.add(new OWLObjectPropertyImpl(IRI.create("http://purl.obolibrary.org/obo/part_of")));
+		partOfRelations.add(new OWLObjectPropertyImpl(IRI.create("http://purl.obolibrary.org/obo/BFO_0000050")));
 		
 		
 		long time = System.currentTimeMillis();
@@ -153,17 +155,9 @@ public class OntologyUtils {
 		System.out.println("TOP LEVELS " + topLevels.size() + "  " + topLevels);
 		
 		System.out.println("NAMED ANCESTORS (NamedAncestors):: " + graph.getNamedAncestors(graph.getOWLClass("http://purl.obolibrary.org/obo/MA_0000517")).size());
-		System.out.println("NAMED ANCESTORS 2 (getNamedAncestorsWithGCI) :: " + getAncestorsClassifiedPartOf(graph.getOWLClass("http://purl.obolibrary.org/obo/MA_0000517"), graph).size());
+		System.out.println("NAMED ANCESTORS 2 (getNamedAncestorsWithGCI) :: " + graph.getNamedAncestorsWithGCI(graph.getOWLClass("http://purl.obolibrary.org/obo/MA_0000517")).size());
 		
-		Set<OWLPropertyExpression> oPropExp = new HashSet<>();
-
-		if (partOfRelations != null) {
-		    for (IRI iri: partOfRelations){
-		        oPropExp.add((OWLPropertyExpression) graph.getOWLObjectProperty(iri));
-		    }
-		}
-
-		Set<OWLNamedObject> onobjs = graph.getNamedAncestorsWithGCI(graph.getOWLClass("http://purl.obolibrary.org/obo/MA_0000517"), oPropExp);
+		Set<OWLNamedObject> onobjs = graph.getNamedAncestorsWithGCI(graph.getOWLClass("http://purl.obolibrary.org/obo/MA_0000517"), partOfRelations);
 		for ( OWLNamedObject onobj : onobjs ){
 		    if (onobj instanceof OWLClass) {
 		        OWLClass ocls = (OWLClass) onobj;
@@ -273,9 +267,6 @@ public class OntologyUtils {
 				
 		for (String key:  terms.keySet()){
 			terms.get(key).setFacetTerms(getStageTopLevel(terms.get(key)));
-			if(terms.get(key).getFacetTerms() == null || terms.get(key).getFacetTerms().size() == 0){
-				Log.warn("stage_facet NOT found for " + terms.get(key).getId() + "  " + terms.get(key).label);
-			} 
 		}
 		
 	}
@@ -287,7 +278,7 @@ public class OntologyUtils {
 	 */
 	private List<OntologyObject> getStageTopLevel( OntologyObject obj){
 		
-		if (externalToUberon.containsKey(obj.getId()) && getStageHigherLevel(obj).size() > 0){
+		if (getStageHigherLevel(obj).size() > 0){
 			return getStageHigherLevel(obj);
 		} else if (obj.directParentTerms.size() > 0){
 			HashSet<OntologyObject> res = new HashSet<>();
@@ -303,9 +294,6 @@ public class OntologyUtils {
 		}
 	}
 	
-	
-	
-	
 	/**
 	 * @since 2015/08/25
 	 * @param uberonId
@@ -319,30 +307,23 @@ public class OntologyUtils {
 		topLevels.add(getOntologyTermById("UBERON_0000092")); // post-embryonic stage
 
 		HashSet<OntologyObject> list = new HashSet<OntologyObject>();
-		
-		for (String id: externalToUberon.get(obj.getId())){			
-			OntologyObject oo = getOntologyTermById(id);
-			if (oo != null){
-				list.add(oo);
-				list.addAll(oo.getIntermediateTerms());
-			} else {
-				System.out.println(oo);
+		if (externalToUberon.get(obj.getId()) != null){
+			for (String id: externalToUberon.get(obj.getId())){			
+				OntologyObject oo = getOntologyTermById(id);
+				if (oo != null){
+					list.add(oo);
+					list.addAll(oo.getIntermediateTerms());
+				} 
 			}
 		}
 		
-		for (OntologyObject o : list){
-			System.out.println("\t\t" + o.getLabel());
+		if (obj.getId().equalsIgnoreCase("MmusDv_0000092")){
+			System.out.println("List " + list);
+			System.out.println("Top levels: " + topLevels);
 		}
-		for (OntologyObject o : topLevels){
-			System.out.println("\t\t\t" + o.getLabel());
-		}
-		
+				
 		topLevels.retainAll(list);
-		
-		for (OntologyObject o : topLevels){
-			System.out.println("\t\t\t\t" + o.getLabel());
-		}
-		
+				
 		return topLevels;
 		
 	}
@@ -434,19 +415,21 @@ public class OntologyUtils {
 							OWLLiteral val = (OWLLiteral) annotation.getValue();
 							String id = val.getLiteral().replace(":", "_");
 							if (!external){
-								if (!externalToUberon.containsKey(id)){
-									externalToUberon.put(id, new ArrayList<String>());
+								List<String> mappings = externalToUberon.containsKey(id) ? externalToUberon.get(id) : new ArrayList<>(); 
+								if (!mappings.contains(getIdentifierShortForm(cls))) {
+									mappings.add(getIdentifierShortForm(cls));
 								}
-								externalToUberon.get(id).add(getIdentifierShortForm(cls));
-								System.out.println("Mapping from " + getIdentifierShortForm(cls) + " to " + id);
+								externalToUberon.put(id, mappings);
 							} else {
 								if (id.startsWith("UBERON")){
-									if (!externalToUberon.containsKey(getIdentifierShortForm(cls))){
-										externalToUberon.put(getIdentifierShortForm(cls), new ArrayList<String>());
+									List<String> mappings = externalToUberon.containsKey(getIdentifierShortForm(cls)) ? externalToUberon.get(getIdentifierShortForm(cls)) : new ArrayList<>(); 
+									if (!mappings.contains(id)) {
+										mappings.add(id); 
 									}
-									externalToUberon.get(getIdentifierShortForm(cls)).add(id);
+									externalToUberon.put(getIdentifierShortForm(cls), mappings);
 								}
 							}
+							
 						}
 					}
 				}
@@ -464,7 +447,7 @@ public class OntologyUtils {
 					Set<OWLClass> parents = new HashSet<>();
 					
 					if (includePartOf){
-						ancestors = new HashSet(getAncestorsClassifiedPartOf(cls, gr));
+						ancestors = new HashSet(gr.getNamedAncestorsWithGCI(cls));
 						parents = new HashSet(getParentsClassifiedPartOf(cls, gr));
 					} else {
 						ancestors = getAncestors(reasoner, cls);
@@ -521,22 +504,14 @@ public class OntologyUtils {
 	
 	public Set<OWLNamedObject> getParentsClassifiedPartOf(OWLClass cls, OWLGraphWrapper graph){
 		
-		Set<OWLPropertyExpression> overProps = new HashSet<>();
 		Set<OWLNamedObject> res = new HashSet<>();
-		
-		if (partOfRelations != null) {
-			for (IRI iri: partOfRelations){
-				overProps.add((OWLPropertyExpression) graph.getOWLObjectProperty(iri));
-			}
-		}
-		
-		
+				
 		for ( OWLClassExpression classExpression: EntitySearcher.getSuperClasses(cls, graph.getSourceOntology())){
 			if (classExpression.isClassExpressionLiteral()){
 				res.add(classExpression.asOWLClass());
 			} else if (classExpression instanceof OWLObjectSomeValuesFrom){
 				OWLObjectSomeValuesFrom svf = (OWLObjectSomeValuesFrom) classExpression;
-				if (overProps.contains(svf.getProperty().asOWLObjectProperty())){
+				if (partOfRelations.contains(svf.getProperty().asOWLObjectProperty())){
 					if (svf.getFiller() instanceof OWLNamedObject){
 						res.add((OWLNamedObject) svf.getFiller());
 					}
@@ -546,20 +521,6 @@ public class OntologyUtils {
 		
 		return res;
 			
-	}
-	
-	
-	public Set<OWLNamedObject> getAncestorsClassifiedPartOf(OWLClass cls, OWLGraphWrapper graph){
-		
-		Set<OWLPropertyExpression> overProps = new HashSet<>();
-		
-		if (partOfRelations != null) {
-			for (IRI iri: partOfRelations){
-				overProps.add((OWLPropertyExpression) graph.getOWLObjectProperty(iri));
-			}
-		}
-				
-		return graph.getNamedAncestorsWithGCI(cls, overProps);
 	}
 	
 	

@@ -58,7 +58,7 @@ public class PopulateAutosuggest {
 			StringBuffer buffer = new StringBuffer();
 			buffer.append("PopulateAutosuggest usage:\n\n");
 			buffer.append("PopulateAutosuggest --solrBaseUrl <http://ves-ebi-d0.ebi.ac.uk:8090/mi/phis>\n");
-			buffer.append("\t--solrBaseUrl\tURL for the solr to buils\n");
+			buffer.append("\t--solrBaseUrl\tURL for the solr to build in\n");
 			System.out.println(buffer);
 			System.exit(1);
 		}

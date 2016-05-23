@@ -42,9 +42,9 @@ public class AutosuggestService extends BasicService {
 	}
 
 
-	public String getAutosuggest(String term, AutosuggestTypes type, String stage, String imagingMethod, String taxon, String sampleType, String imageGeneratedBy, Integer rows) {
+	public String getAutosuggest(String term, AutosuggestTypes type, String stage, String imagingMethod, String taxon, String sampleType, String imageGeneratedBy, String hostName, Integer rows) {
 
-		SolrQuery solrQuery = buildAutosuggestQuery(term, type, stage, imagingMethod, taxon, sampleType, imageGeneratedBy, rows);
+		SolrQuery solrQuery = buildAutosuggestQuery(term, type, stage, imagingMethod, taxon, sampleType, imageGeneratedBy, hostName, rows);
 		ArrayList<String> suggestions = new ArrayList<>();
 
 		solrQuery.set("group", true);
@@ -70,9 +70,9 @@ public class AutosuggestService extends BasicService {
 	}
 
 	
-	public String getComplexAutosuggest(String term, AutosuggestTypes type, String stage, String imagingMethod, String taxon, String sampleType, String imageGeneratedBy, Integer rows) {
+	public String getComplexAutosuggest(String term, AutosuggestTypes type, String stage, String imagingMethod, String taxon, String sampleType, String imageGeneratedBy, String hostName, Integer rows) {
 
-		SolrQuery solrQuery = buildAutosuggestQuery(term, type, stage, imagingMethod, taxon, sampleType, imageGeneratedBy, rows);
+		SolrQuery solrQuery = buildAutosuggestQuery(term, type, stage, imagingMethod, taxon, sampleType, imageGeneratedBy, hostName, rows);
 		solrQuery.setFields(AutosuggestDTO.AUTOSUGGEST_TERM_ID, AutosuggestDTO.AUTOSUGGEST_TERM_LABEL, AutosuggestDTO.AUTOSUGGEST_TYPE, AutosuggestDTO.AUTOSUGGEST_TERM_SYNONYMS);		
 		
 		System.out.println("Solr URL : " + solr.getBaseURL() + "/select?" + solrQuery);
@@ -93,7 +93,7 @@ public class AutosuggestService extends BasicService {
 	
 	
 	private SolrQuery buildAutosuggestQuery( String term, AutosuggestTypes type, String stage, String imagingMethod, String taxon, 
-			String sampleType, String imageGeneratedBy, Integer rows) {
+			String sampleType, String imageGeneratedBy, String hostName, Integer rows) {
 
 		SolrQuery solrQuery = new SolrQuery();
 			
@@ -129,6 +129,9 @@ public class AutosuggestService extends BasicService {
 		if (imageGeneratedBy != null){
 			solrQuery.addFilterQuery(AutosuggestDTO.IMAGE_GENERATED_BY + ":\"" + imageGeneratedBy + "\"");
 		}		
+		if (hostName != null){
+			solrQuery.addFilterQuery(AutosuggestDTO.HOST_NAME + ":\"" + hostName + "\"");
+		}
 			
 		return solrQuery;
 	}
