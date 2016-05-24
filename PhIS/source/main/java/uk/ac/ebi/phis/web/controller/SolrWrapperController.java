@@ -121,13 +121,14 @@ public class SolrWrapperController {
 	
 
 	@RequestMapping(value="/getImage", method=RequestMethod.GET)	
-    public @ResponseBody String getImage(@RequestParam(value = "imageId", required = true) String imageId, Model model) 
+    public @ResponseBody ResponseEntity<String> getImage(@RequestParam(value = "imageId", required = true) String imageId, Model model) 
     throws SolrServerException, IOException, URISyntaxException {
 		
+		String responseString = "";
 		if (imageId != null){
-			return is.getImageAsJsonString(imageId);
+			responseString = is.getImageAsJsonString(imageId);
 		}
-		return "";
+		return new ResponseEntity<String>(responseString, createResponseHeaders(), HttpStatus.OK);
     }
 	
 	
