@@ -19,9 +19,16 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.solr.client.solrj.SolrServerException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -121,8 +128,8 @@ public class SolrWrapperController {
 	
 	
 	@RequestMapping(value="/getAutosuggest", method=RequestMethod.GET)
-	public  @ResponseBody String getSuggestions(
-			@RequestParam(value = "term", required = false) String term,
+	public  @ResponseBody ResponseEntity<String> getSuggestions(
+			@RequestParam(value = "term", required = true) String term,
 			@RequestParam(value = "autosuggestType", required = false) String type,
 			@RequestParam(value = "resultNo", required = false) Integer resultNo,
 			@RequestParam(value = "taxon", required = false) String taxon,
@@ -130,19 +137,21 @@ public class SolrWrapperController {
 			@RequestParam(value = "stage", required = false) String stage,
 			@RequestParam(value = "imagingMethod", required = false) String imagingMethod,
 			@RequestParam(value = "imageGeneratedBy", required = false) String imageGeneratedBy,	
-			@RequestParam(value = "hostName", required = false) String hostName,	
+			@RequestParam(value = "hostName", required = false) String hostName,
+			HttpServletRequest request,
+			HttpServletResponse response,	
 			Model model){
-			
-		if (term != null){
-			return as.getAutosuggest(term, (type != null ? AutosuggestTypes.valueOf(type) : null), stage, imagingMethod, taxon, sampleType, imageGeneratedBy, hostName, resultNo);
-		} 
 		
-		return "";
+		JSONObject jsonResponse = as.getAutosuggest(term, (type != null ? AutosuggestTypes.valueOf(type) : null), stage, imagingMethod, taxon, sampleType, imageGeneratedBy, hostName, resultNo);
+		ResponseEntity<String> resp = new ResponseEntity<String>(jsonResponse.toString(), createResponseHeaders(), HttpStatus.OK);
+
+		return resp ;
+		
 	}
 	
 	@RequestMapping(value="/getComplexAutosuggest", method=RequestMethod.GET)
-	public  @ResponseBody String getComplexSuggestions(
-			@RequestParam(value = "term", required = false) String term,
+	public  @ResponseBody ResponseEntity<String> getComplexSuggestions(
+			@RequestParam(value = "term", required = true) String term,
 			@RequestParam(value = "autosuggestType", required = false) String type,
 			@RequestParam(value = "resultNo", required = false) Integer resultNo,
 			@RequestParam(value = "taxon", required = false) String taxon,
@@ -152,15 +161,19 @@ public class SolrWrapperController {
 			@RequestParam(value = "imageGeneratedBy", required = false) String imageGeneratedBy,
 			@RequestParam(value = "hostName", required = false) String hostName,	
 			Model model){
-			
-		if (term != null){
-			return as.getComplexAutosuggest(term, (type != null ? AutosuggestTypes.valueOf(type) : null), stage, imagingMethod, taxon, sampleType, imageGeneratedBy, hostName, resultNo);
-		} 
-		
-		return "";
+
+		ResponseEntity<String> resp;
+		resp = new ResponseEntity<String>(as.getComplexAutosuggest(term, (type != null ? AutosuggestTypes.valueOf(type) : null), stage, imagingMethod, taxon, sampleType, imageGeneratedBy, hostName, resultNo), createResponseHeaders(), HttpStatus.OK); 
+				
+		return resp;
 	}
 	
-	
+
+	private HttpHeaders createResponseHeaders(){
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.setContentType(MediaType.APPLICATION_JSON);
+		return responseHeaders;
+	}
 	
 	
 	@RequestMapping(value="/getRois", method=RequestMethod.GET)	

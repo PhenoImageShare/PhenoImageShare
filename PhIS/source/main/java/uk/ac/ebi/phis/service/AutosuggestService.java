@@ -42,7 +42,7 @@ public class AutosuggestService extends BasicService {
 	}
 
 
-	public String getAutosuggest(String term, AutosuggestTypes type, String stage, String imagingMethod, String taxon, String sampleType, String imageGeneratedBy, String hostName, Integer rows) {
+	public JSONObject getAutosuggest(String term, AutosuggestTypes type, String stage, String imagingMethod, String taxon, String sampleType, String imageGeneratedBy, String hostName, Integer rows) {
 
 		SolrQuery solrQuery = buildAutosuggestQuery(term, type, stage, imagingMethod, taxon, sampleType, imageGeneratedBy, hostName, rows);
 		ArrayList<String> suggestions = new ArrayList<>();
@@ -66,7 +66,7 @@ public class AutosuggestService extends BasicService {
 		
 		JSONObject returnObj = new JSONObject();
 		returnObj.put("response", new JSONObject().put("suggestions", new JSONArray(suggestions)));
-		return returnObj.toString().replaceAll("<\\\\", "<");
+		return returnObj;
 	}
 
 	
