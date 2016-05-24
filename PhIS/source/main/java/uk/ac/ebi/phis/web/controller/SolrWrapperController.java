@@ -79,7 +79,7 @@ public class SolrWrapperController {
 	 * @throws URISyntaxException
 	 */
 	@RequestMapping(value="/getImages", method=RequestMethod.GET)	
-    public @ResponseBody String getExperimentalData(
+    public @ResponseBody ResponseEntity<String>  getImages(
     		@RequestParam(value = "term", required = false) String term,
     		@RequestParam(value = "phenotype", required = false) String phenotype,
             @RequestParam(value = "anatomy", required = false) String anatomy,
@@ -104,15 +104,19 @@ public class SolrWrapperController {
             @RequestParam(value = "start", required = false) Integer start,
     		Model model
             ) throws SolrServerException, IOException, URISyntaxException {
-				
+			
+		String responseString;
 		try{
-			return is.getImages(term, phenotype, mutantGene, anatomy, expressedGene, sex, taxon, image_type, sample_type, stage, visualisationMethod, 
+			responseString = is.getImages(term, phenotype, mutantGene, anatomy, expressedGene, sex, taxon, image_type, sample_type, stage, visualisationMethod, 
 						samplePreparation, imagingMethod, resultNo, start, gene, chromosome, strand, position, startPosition, endPosition, hostName);
+			
 		} catch (PhisQueryException e){
 			JSONObject succeded = RestStatusMessage.getFailJson();
 			succeded.put("message", e.getMessage());
-			return succeded.toString();
+			responseString = succeded.toString();
 		}
+		
+		return new ResponseEntity<String>(responseString, createResponseHeaders(), HttpStatus.OK);
     }
 	
 
@@ -149,6 +153,7 @@ public class SolrWrapperController {
 		
 	}
 	
+	
 	@RequestMapping(value="/getComplexAutosuggest", method=RequestMethod.GET)
 	public  @ResponseBody ResponseEntity<String> getComplexSuggestions(
 			@RequestParam(value = "term", required = true) String term,
@@ -177,7 +182,7 @@ public class SolrWrapperController {
 	
 	
 	@RequestMapping(value="/getRois", method=RequestMethod.GET)	
-    public @ResponseBody String getRois(
+    public @ResponseBody ResponseEntity<String> getRois(
     		@RequestParam(value = "roiId", required = false) String roiId,
     		@RequestParam(value = "imageId", required = false) String imageId,
     		@RequestParam(value = "resultNo", required = false) Integer resultNo,
@@ -190,13 +195,14 @@ public class SolrWrapperController {
     		Model model
             ) throws SolrServerException, IOException, URISyntaxException {
 				
-		return rs.getRois(imageId, roiId, userOwner, userGroup, createdAfter, createdBefore, lastEditAfter, lastEditBefore, resultNo);
+		return new ResponseEntity<String>(rs.getRois(imageId, roiId, userOwner, userGroup, createdAfter, createdBefore, lastEditAfter, lastEditBefore, resultNo),
+				createResponseHeaders(), HttpStatus.OK);
 		
     }
 
 	
 	@RequestMapping(value="/getChannels", method=RequestMethod.GET)	
-    public @ResponseBody String getChannels(
+    public @ResponseBody ResponseEntity<String> getChannels(
             @RequestParam(value = "channelId", required = false) String channelId,
     		@RequestParam(value = "imageId", required = false) String imageId,
     		@RequestParam(value = "resultNo", required = false) Integer resultNo,
@@ -204,37 +210,39 @@ public class SolrWrapperController {
             ) throws SolrServerException, IOException, URISyntaxException {
 		
 		if (channelId != null){
-			return cs.getChannelAsJsonString(channelId, resultNo);
-		}else if (imageId != null){
-			return cs.getChannels(imageId, resultNo);
+			return new ResponseEntity<String>(cs.getChannelAsJsonString(channelId, resultNo),createResponseHeaders(), HttpStatus.OK);
+		}else {
+			return new ResponseEntity<String>(cs.getChannels(imageId, resultNo),createResponseHeaders(), HttpStatus.OK);
 		}
-		return "";
     }
 		
 	
 	@RequestMapping(value="/getRoi", method=RequestMethod.GET)	
-    public @ResponseBody String getRoi(
-    		@RequestParam(value = "roiId", required = false) String roiId,
+    public @ResponseBody ResponseEntity<String> getRoi(
+    		@RequestParam(value = "roiId", required = true) String roiId,
     		Model model
             ) throws SolrServerException, IOException, URISyntaxException {
 				
+		String responseString = "";
 		if (roiId != null){
-			return rs.getRoiAsJsonString(roiId, 10);
+			responseString = rs.getRoiAsJsonString(roiId, 10);
 		}
-		return "";
+		return new ResponseEntity<String>(responseString, createResponseHeaders(), HttpStatus.OK);
     }
 	
 
 	@RequestMapping(value="/getChannel", method=RequestMethod.GET)	
-    public @ResponseBody String getChannel(
-            @RequestParam(value = "channelId", required = false) String channelId,
+    public @ResponseBody ResponseEntity<String> getChannel(
+            @RequestParam(value = "channelId", required = true) String channelId,
     		Model model
             ) throws SolrServerException, IOException, URISyntaxException {
 		
+		String responseString = "";
 		if (channelId != null){
-			return cs.getChannelAsJsonString(channelId, 10);
+			responseString = cs.getChannelAsJsonString(channelId, 10);
 		}
-		return "";
+		
+		return new ResponseEntity<String>(responseString, createResponseHeaders(), HttpStatus.OK);
     }
 	
 	
@@ -260,8 +268,10 @@ public class SolrWrapperController {
 	 * @return
 	 */
 	@RequestMapping(value="/getDataReleases", method=RequestMethod.GET)	
-    public @ResponseBody String getDataRelease(Model model){
-		return ns.getAllReleases().toString();
+    public @ResponseBody ResponseEntity<String> getDataRelease(Model model){
+		
+		return  new ResponseEntity<String>( ns.getAllReleases().toString(), createResponseHeaders(), HttpStatus.OK);
+		
 	}
 	
 	

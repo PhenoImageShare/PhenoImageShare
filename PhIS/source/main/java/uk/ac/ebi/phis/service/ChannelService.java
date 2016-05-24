@@ -115,14 +115,16 @@ public class ChannelService extends BasicService {
 	
 	public String getChannels(String imageId, Integer resNo){
 		
-		SolrQuery solrQuery = new SolrQuery();
-		imageId = handleSpecialCharacters(imageId);
-		solrQuery.setQuery(ChannelDTO.ASSOCIATED_IMAGE + ":\""+ imageId + "\"");
+		SolrQuery solrQuery = new SolrQuery().setQuery("*:*");
 		
+		if (imageId != null){
+			imageId = handleSpecialCharacters(imageId);
+			solrQuery.addFilterQuery(ChannelDTO.ASSOCIATED_IMAGE + ":\""+ imageId + "\"");
+		} 		
 		if (resNo != null){
 			solrQuery.setRows(resNo);
 		} else {
-			solrQuery.setRows(10000);
+			solrQuery.setRows(10);
 		}
 		solrQuery.set("wt", "json");
 		
