@@ -12,7 +12,10 @@
 		">
 
 	<context:component-scan base-package="uk.ac.ebi" />
-				
+	<context:annotation-config/>
+	
+	<bean class="uk.ac.ebi.phis.configuration.SwaggerConfig"/>
+					
 	<bean id="neo4jAccessUtils"	 class="uk.ac.ebi.neo4jUtils.Neo4jAccessUtils">
 		<constructor-arg  value="${dbURI}" />
 	</bean>
