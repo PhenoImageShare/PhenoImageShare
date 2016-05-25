@@ -45,14 +45,16 @@ public class GenericUpdateService {
 	}
 	
 	
-	public void addToCores(RoiDTO roi) throws PhisSubmissionException{
+	public void addToCores(RoiDTO roi) 
+	throws PhisSubmissionException{
 		is.addToImageFromRoi(roi);
 		rs.addRoi(roi);
 		cs.addAssociatedRoi(roi);		
 	}
 	
 	
-	public void deleteFromCores(String roiId) throws PhisSubmissionException{
+	public void deleteFromCores(String roiId) 
+	throws PhisSubmissionException{
 		RoiDTO roi = rs.getRoiById(roiId);
 		cs.deleteAssociatedRoi(roi);
 		is.deleteRoiRefferences(roi);

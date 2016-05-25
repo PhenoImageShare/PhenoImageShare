@@ -188,8 +188,7 @@ import uk.ac.ebi.phis.utils.web.RestStatusMessage;
 			return succeded.toString();
 	    }
 		
-		
-		
+				
 		@RequestMapping(value="/deleteAnnotation", method=RequestMethod.GET)	
 	    public @ResponseBody String createAnnotation(
 	    		@RequestParam(value = "userId", required = true) String userId,

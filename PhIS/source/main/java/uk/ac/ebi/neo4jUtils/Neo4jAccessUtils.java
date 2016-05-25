@@ -247,7 +247,7 @@ public class Neo4jAccessUtils {
         }   
 	}
 	
-	
+		
 	public void addUnidirectionalRelation(Node fromNode, Neo4jRelationship relation, Node toNode, boolean overwrite) 
 	throws PhisSubmissionException{
 		
