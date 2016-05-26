@@ -17,7 +17,6 @@ package uk.ac.ebi.phis.web.controller;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -36,6 +35,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import uk.ac.ebi.phis.exception.PhisQueryException;
 import uk.ac.ebi.phis.service.AutosuggestService;
 import uk.ac.ebi.phis.service.ChannelService;
@@ -131,7 +132,7 @@ public class SolrWrapperController {
 		return new ResponseEntity<String>(responseString, createResponseHeaders(), HttpStatus.OK);
     }
 	
-	
+    @ApiOperation(value = "Returns all products", notes = "Returns a complete list of products from catalog.")
 	@RequestMapping(value="/getAutosuggest", method=RequestMethod.GET)
 	public  @ResponseBody ResponseEntity<String> getSuggestions(
 			@RequestParam(value = "term", required = true) String term,
