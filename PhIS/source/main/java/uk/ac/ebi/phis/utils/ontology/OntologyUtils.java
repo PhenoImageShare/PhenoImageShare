@@ -414,7 +414,7 @@ public class OntologyUtils {
 							OWLLiteral val = (OWLLiteral) annotation.getValue();
 							String id = val.getLiteral().replace(":", "_");
 							if (!external){
-								List<String> mappings = externalToUberon.containsKey(id) ? externalToUberon.get(id) : new ArrayList<String>(); 
+								List<String> mappings = externalToUberon.containsKey(id) ? externalToUberon.get(id) : new ArrayList<>(); 
 								if (!mappings.contains(getIdentifierShortForm(cls))) {
 									mappings.add(getIdentifierShortForm(cls));
 								}
