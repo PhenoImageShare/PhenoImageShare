@@ -57,6 +57,9 @@ public class Neo4jService {
 			releaseObj.accumulate(ReleaseProperties.IMAGES_NUMBER.name(), release.getProperty(ReleaseProperties.IMAGES_NUMBER.name()));
 			releaseObj.accumulate(ReleaseProperties.GENES_NUMBER.name(), release.getProperty(ReleaseProperties.GENES_NUMBER.name()));
 			releaseObj.accumulate(ReleaseProperties.ROIS_NUMBER.name(), release.getProperty(ReleaseProperties.ROIS_NUMBER.name()));
+			if (release.hasProperty(ReleaseProperties.RELEASE_DATE.name())){
+				releaseObj.accumulate(ReleaseProperties.RELEASE_DATE.name(), release.getProperty(ReleaseProperties.RELEASE_DATE.name()));
+			}
 			
 			List<Node> ontologies = neo.getFirtsNodesFor(release.getId(), Neo4jRelationship.CONTAINS, "Ontology");
 			JSONArray ontologiesArray = new JSONArray();
