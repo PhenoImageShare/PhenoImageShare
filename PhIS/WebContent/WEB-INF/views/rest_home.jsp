@@ -59,7 +59,7 @@
 	</p>
 	
 	<h3>Parameters</h3>
-	<table class="table table-striped">
+	<table class="table">
 		<thead>
 			<tr  style="background-color: lightSteelBlue;">
 				<th>Name</th>
@@ -261,7 +261,7 @@
 				<td><var></var><br></td>
 			</tr>
 			
-			<tr>
+			<tr style="background-color: olive;">
 				<td>lastRoiEditAfter</td>
 				<td><var>Date</var></td>
 				<td> false </td>
@@ -270,7 +270,7 @@
 				<td><var>1976-03-06T23:59:59.999Z</var></td>
 			</tr>
 			
-			<tr>
+			<tr style="background-color: olive;">
 				<td>lastRoiEditBefore</td>
 				<td><var>Date</var></td>
 				<td> false </td>
@@ -640,7 +640,7 @@
 				<td><var> * </var></td>
 				<td><var>WTSI</var><br></td>
 			</tr>
-			<tr>
+			<tr style="background-color: olive;">
 				<td>hostName</td>
 				<td><var>String</var></td>
 				<td> false </td>
@@ -794,7 +794,7 @@
 	
 	<p>Get information about all public (live) releases.</p> 
 	<p class="code">$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}getDataReleases">http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}getDataReleases</a>'  -i -H 'Accept: application/json'</p>
-	
+		
 	<h3>Parameters</h3>
 	No parameters supported.
 	
