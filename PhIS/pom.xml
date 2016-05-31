@@ -439,6 +439,20 @@
 			<version>4.1.4</version>
 		</dependency>
 		
+		<!-- http://mvnrepository.com/artifact/org.semanticweb.elk/elk-reasoner -->
+		<dependency>
+		    <groupId>org.semanticweb.elk</groupId>
+		    <artifactId>elk-owlapi</artifactId>
+		    <version>0.4.2</version>
+		</dependency>
+
+
+		<!-- http://mvnrepository.com/artifact/com.google.code.gson/gson -->
+		<dependency>
+		    <groupId>com.google.code.gson</groupId>
+		    <artifactId>gson</artifactId>
+		    <version>2.6.2</version>
+		</dependency>
 
   		<!-- HTTP components Dependencies -->
 		<dependency>
@@ -741,17 +755,19 @@
   	<repositories> 
   	    
 	    <repository>
-	      	<id>BerkeleyBOPSnapshot</id>
-			<url>http://code.berkeleybop.org/maven/snapshot-repository/</url>
-	      	<snapshots>
-	      		<enabled>true</enabled>
-	      	</snapshots>
-	    </repository>
-	    
-	    <repository>
 		   <id>mouseinfo-thirdparty</id>
 		   <name>Third party jars</name>
 		   <url>http://ves-ebi-d9.ebi.ac.uk:8080/nexus/content/repositories/thirdparty/</url>
+		</repository>
+	    
+	    
+	    <repository>
+		   <id>mouseinfo-snapshots</id>
+		   <name>Third party snaphsot jars</name>
+		   <url>http://ves-ebi-d9.ebi.ac.uk:8080/nexus/content/repositories/snapshots/</url>
+		   <snapshots>
+	      		<enabled>true</enabled>
+	      	</snapshots>
 		</repository>
 	    
 	    <repository>
