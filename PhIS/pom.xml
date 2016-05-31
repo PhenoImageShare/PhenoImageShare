@@ -16,16 +16,7 @@
     </resources>
    
     <plugins>
-      
-    	<plugin>
-        	<artifactId>maven-compiler-plugin</artifactId>
-        	<version>3.1</version>
-        	<configuration>
-          		<source>1.7</source>
-          		<target>1.7</target>
-        	</configuration>
-      	</plugin>
-      
+            
 		<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
@@ -80,7 +71,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.3.2</version>
+				<version>3.1</version>
 				<configuration>
 					<source>${java.version}</source>
 					<target>${java.version}</target>
@@ -115,7 +106,6 @@
 				<solrUrl>http://wwwdev.ebi.ac.uk/mi/phis</solrUrl>
 				<internalSolrUrl>http://ves-ebi-d0.ebi.ac.uk:8170/mi/phis</internalSolrUrl>
 				<dbURI>http://phenoimageshare.ebi.ac.uk:7474/db/data/</dbURI>
-				<java.version>1.7</java.version>
 			</properties>
 			<build>
 				<plugins>
@@ -143,7 +133,6 @@
 				<!-- internalSolrUrl>http://ves-ebi-d1.ebi.ac.uk:8120/mi/phis/beta</internalSolrUrl-->
 				<internalSolrUrl>http://ves-ebi-d1:8120/mi/phis/beta</internalSolrUrl> <!--  This will do on d1 when called from d1 and d2 from d2. -->
 				<dbURI>http://phenoimageshare.ebi.ac.uk:7474/db/data/</dbURI>
-				<java.version>1.7</java.version>
 			</properties>
 			<build>
 				<plugins>
@@ -170,7 +159,6 @@
 				<solrUrl>http://???</solrUrl>
 				<internalSolrUrl>http://ves-ebi-d1:8120/mi/phis/beta/v0.0.5</internalSolrUrl>
 				<dbURI>http://phenoimageshare.ebi.ac.uk:7474/db/data/</dbURI>
-				<java.version>1.7</java.version>
 			</properties>
 			<build>
 				<plugins>
@@ -197,7 +185,6 @@
 				<solrUrl>http://???</solrUrl>
 				<internalSolrUrl>http://ves-ebi-d1:8120/mi/phis/beta/v0.0.7</internalSolrUrl>
 				<dbURI>http://phenoimageshare.ebi.ac.uk:7474/db/data/</dbURI>
-				<java.version>1.7</java.version>
 			</properties>
 			<build>
 				<plugins>
@@ -224,7 +211,6 @@
 				<solrUrl>http://???</solrUrl>
 				<internalSolrUrl>http://ves-ebi-d1:8120/mi/phis/beta/v0.0.8</internalSolrUrl>
 				<dbURI>http://phenoimageshare.ebi.ac.uk:7474/db/data/</dbURI>
-				<java.version>1.7</java.version>
 			</properties>
 			<build>
 				<plugins>
@@ -251,7 +237,6 @@
 				<solrUrl>http://???</solrUrl>
 				<internalSolrUrl>http://ves-ebi-d1:8120/mi/phis/beta/v1.0.0</internalSolrUrl>
 				<dbURI>http://phenoimageshare.ebi.ac.uk:7474/db/data/</dbURI>
-				<java.version>1.7</java.version>
 			</properties>
 			<build>
 				<plugins>
@@ -278,7 +263,6 @@
 				<solrUrl>http://???</solrUrl>
 				<internalSolrUrl>http://ves-ebi-d1:8120/mi/phis/beta/v1.0.1</internalSolrUrl>
 				<dbURI>http://phenoimageshare.ebi.ac.uk:7474/db/data/</dbURI>
-				<java.version>1.7</java.version>
 			</properties>
 			<build>
 				<plugins>
@@ -305,7 +289,6 @@
 				<solrUrl>http://???</solrUrl>
 				<internalSolrUrl>http://ves-ebi-d2.ebi.ac.uk:8140/mi/phis/v1.0.0</internalSolrUrl>
 				<dbURI>http://phenoimageshare-live.ebi.ac.uk:7474/db/data/</dbURI>
-				<java.version>1.7</java.version>
 			</properties>
 			<build>
 				<plugins>
@@ -328,7 +311,6 @@
 				<solrUrl>http://???</solrUrl>
 				<internalSolrUrl>http://ves-ebi-d2.ebi.ac.uk:8140/mi/phis/v1.0.0</internalSolrUrl>
 				<dbURI>http://phenoimageshare-live.ebi.ac.uk:7474/db/data/</dbURI>
-				<java.version>1.7</java.version>
 			</properties>
 			<build>
 				<plugins>
