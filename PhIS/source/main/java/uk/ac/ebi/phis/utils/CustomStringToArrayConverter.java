@@ -19,11 +19,9 @@
 package uk.ac.ebi.phis.utils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.core.convert.converter.Converter;
-import org.springframework.util.StringUtils;
 
 
 /**
@@ -31,10 +29,10 @@ import org.springframework.util.StringUtils;
  *
  */
 public class CustomStringToArrayConverter implements Converter<String, List<String>>{
-	   @Override
-	    public List<String> convert(String source) {
-		   	List<String> parsed = new ArrayList();
-		   	parsed.add(source);
-	       	return parsed;
-	    }
-	}
+   @Override
+    public List<String> convert(String source) {
+	   	List<String> parsed = new ArrayList<>();
+	   	parsed.add(source);
+       	return parsed;
+    }
+}
