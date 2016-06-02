@@ -21,15 +21,13 @@ import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
 
-import joptsimple.OptionParser;
-import joptsimple.OptionSet;
-
 import org.apache.log4j.Logger;
 import org.apache.solr.client.solrj.SolrServerException;
-import org.hibernate.dialect.DataDirectOracle9Dialect;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
+import joptsimple.OptionParser;
+import joptsimple.OptionSet;
 import uk.ac.ebi.neo4jUtils.Neo4jAccessUtils;
 import uk.ac.ebi.phis.importer.BatchXmlUploader;
 import uk.ac.ebi.phis.release.DatasourceInstance;
@@ -38,7 +36,6 @@ import uk.ac.ebi.phis.release.ReleaseEnvironment;
 import uk.ac.ebi.phis.service.ChannelService;
 import uk.ac.ebi.phis.service.ImageService;
 import uk.ac.ebi.phis.service.RoiService;
-import uk.ac.ebi.phis.utils.ontology.OntologyMapper;
 
 
 public class PopulateCores {
