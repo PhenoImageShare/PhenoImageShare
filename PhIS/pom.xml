@@ -355,7 +355,7 @@
 			<properties>
 				<baseUrl>http://??</baseUrl>
 				<solrUrl>http://???</solrUrl>
-				<internalSolrUrl>http://ves-ebi-d2.ebi.ac.uk:8140/mi/phis/v1.0.0</internalSolrUrl>
+				<internalSolrUrl>http://ves-ebi-d2.ebi.ac.uk:8140/mi/phis/v1.0.1</internalSolrUrl>
 				<dbURI>http://phenoimageshare-live.ebi.ac.uk:7474/db/data/</dbURI>
 			</properties>
 			<build>
@@ -372,6 +372,27 @@
 			</build>
 		</profile> 
 		
+		<profile>
+			<id>v1.0.2</id>
+			<properties>
+				<baseUrl>http://??</baseUrl>
+				<solrUrl>http://???</solrUrl>
+				<internalSolrUrl>http://ves-ebi-d2.ebi.ac.uk:8140/mi/phis/v1.0.2</internalSolrUrl>
+				<dbURI>http://phenoimageshare-live.ebi.ac.uk:7474/db/data/</dbURI>
+			</properties>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<version>2.4.2</version>
+						<configuration>
+							<skipTests>true</skipTests>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile> 
 		
 		</profiles>     
 		
