@@ -495,11 +495,11 @@ public class BatchXmlUploader {
 			}
 		}
 	
-		// field name="anatomy_computed_id" /-->
-		// field name="anatomy_computed_term" /-->
-		// field name="anatomy_ann_bag" /-->
-		// field name="other_ann_bag" /-->
-		// field name="phenotype_ann_bag" /-->
+		// field name="anatomy_computed_id" 
+		// field name="anatomy_computed_term" 
+		// field name="anatomy_ann_bag" 
+		// field name="other_ann_bag"
+		// field name="phenotype_ann_bag" 
 
 		if (img.getObservations() != null){
 			bean.setObservations(img.getObservations().getEl());
@@ -509,7 +509,7 @@ public class BatchXmlUploader {
 			bean.setConditions(img.getConditions().getEl());
 		}
 		
-		// genetic features -->
+		// genetic features 
 
 		if (img.getMutantGenotypeTraits() != null){
 			ArrayList<String> geneIds = new ArrayList<>();
@@ -822,8 +822,8 @@ public class BatchXmlUploader {
 			validator.validate(new StreamSource(xml));
 			return true;
 		} catch (SAXException e) {
-			System.out.println("NOT valid");
-			System.out.println("Reason: " + e.getLocalizedMessage());
+			System.out.println("NOT valid for reason: " + e.getLocalizedMessage());
+			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

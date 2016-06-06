@@ -449,12 +449,6 @@
 			<version>0.3.0-SNAPSHOT</version>
 		</dependency>
 		
-		<!-- http://mvnrepository.com/artifact/net.sourceforge.owlapi/owlapi-oboformat -->
-		<dependency>
-		    <groupId>net.sourceforge.owlapi</groupId>
-		    <artifactId>owlapi-oboformat</artifactId>
-		    <version>${owlapiversion}</version>
-		</dependency>
 		
 		<dependency>
 		    <groupId>net.sourceforge.owlapi</groupId>
@@ -795,7 +789,7 @@
 		   <url>http://ves-ebi-d9.ebi.ac.uk:8080/nexus/content/repositories/thirdparty/</url>
 		</repository>
 	    
-	    
+	   <!--  
 	    <repository>
 		   <id>mouseinfo-snapshots</id>
 		   <name>Third party snaphsot jars</name>
@@ -803,7 +797,7 @@
 		   <snapshots>
 	      		<enabled>true</enabled>
 	      	</snapshots>
-		</repository>
+		</repository> -->
 	    
 	    <repository>
 		    <id>spring-milestones</id>
@@ -823,6 +817,14 @@
                 <enabled>true</enabled>
             </snapshots>
         </repository>
+        
+        <repository>
+	      	<id>BerkeleyBOPSnapshot</id>
+			<url>http://code.berkeleybop.org/maven/snapshot-repository/</url>
+	      	<snapshots>
+	      		<enabled>true</enabled>
+	      	</snapshots>
+	    </repository>
         
 	 </repositories>
   

@@ -176,8 +176,8 @@ public class OntologyObject {
 	@Override
 	public String toString() {
 
-		return "OntologyObject [id=" + id + ", label=" + label + ", synonyms=" + synonyms + ", ancestorsBag=" + ancestorsBag + ", intermediateTerms=" 
-			+ intermediateTerms + ", topLevelTerms=" + facetTerms + ", directParentTerms=" + directParentTerms + "]";
+		return "OntologyObject [id=" + id + ", label=" + label + ", synonyms=" + synonyms + ", ancestorsBagSize=" + ancestorsBag.size() + ", intermediateTermsSize=" 
+			+ intermediateTerms.size() + ", facetTermsSize=" + facetTerms.size() + ", directParentTermsSize=" + directParentTerms.size() + "]";
 	}
 	
 }

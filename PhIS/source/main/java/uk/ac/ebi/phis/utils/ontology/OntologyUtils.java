@@ -365,15 +365,16 @@ public class OntologyUtils {
 	        System.out.println("Axioms after :" + ontology.getAxiomCount());
 	        
 	        OWLGraphWrapper gr = new OWLGraphWrapper(ontology);
-			Set<OWLClass> classesSubSet;
+			Set<OWLClass> classesSubSet = ontology.getClassesInSignature();;
 			
 			if (rootId != null){
-				OWLClass root = gr.getOWLClassByIdentifier(rootId);
-				classesSubSet = reasoner.getSubClasses(root, false).getFlattened();
-			}else {
-				classesSubSet = ontology.getClassesInSignature();
-			}
-			
+				/////OWLClass root = gr.getOWLClassByIdentifier(rootId); // Not working any more, possibly related to berkley maven repo being down and 
+				for (OWLClass cls : classesSubSet){
+					if (cls.getIRI().toString().equalsIgnoreCase(rootId)){
+						classesSubSet = reasoner.getSubClasses(cls, false).getFlattened();
+					}
+				}
+			}			
 			for (OWLClass cls : classesSubSet){
 				
 				if (!cls.getIRI().isNothing()){
