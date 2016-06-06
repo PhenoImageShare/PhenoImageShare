@@ -143,6 +143,7 @@ public class ValidationUtils {
 
 		List<Annotation> annList;
 		boolean res = true;
+		
 		if (roi.getAbnormalityInAnatomicalStructure() != null) {
 			// Do anatomy terms first
 			annList = roi.getAbnormalityInAnatomicalStructure().getEl();

@@ -287,8 +287,10 @@
 	<h2>/getImage</h2>
 	
 	<h3>Examples</h3>	
-	<p>Get image with id emage_EMAGE_2383.2.</p> 
-	<p class="code">$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}getImage?imageId=emage_EMAGE_2383.2">http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}getImage?imageId=emage_EMAGE_2383.2</a>'  -i -H 'Accept: application/json'</p>
+	<p>Get image with id vfb_image_VFB_00023288.</p> 
+	<p class="code">$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}getImage?imageId=vfb_image_VFB_00023288">
+	http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}getImage?imageId=vfb_image_VFB_00023288
+	</a>'  -i -H 'Accept: application/json'</p>
 	
 	
 	<h3>Parameters</h3>
@@ -323,7 +325,7 @@
 	
 	<h3>Examples</h3>	
 	<p>1. Get all annotations for image emage_EMAGE_2383.2. Note that there is a default limit of results, so in order to get all documents back, just provide a high result limit.</p> 
-	<p class="code">$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}getRois?imageId=emage_roi_EMAGE_2383.2&resultNo=10000000">http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}getRois?imageId=emage_roi_EMAGE_2383.2&resultNo=10000000</a>' 
+	<p class="code">$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}getRois?imageId=vfb_image_VFB_00022854&resultNo=10000000">http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}getRois?imageId=emage_roi_EMAGE_2383.2&resultNo=10000000</a>' 
 		-i -H 'Accept: application/json'</p>
 	
 	<p>2. Get annotations created after January 2012. The date must be provided in Zulu time. Please note that most annotations provided to us by our collaborators usually don't have the annotation date, so this will only query a small subset of annotations with the date provided.</p> 
@@ -426,7 +428,8 @@
 	
 	<h3>Examples</h3>	
 	<p>Get roi with id emage_roi_EMAGE_2383.2.</p> 
-	<p class="code">$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}getImage?imageId=emage_roi_EMAGE_2383.2">http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}getImage?imageId=emage_roi_EMAGE_2383.2</a>' 
+	<p class="code">$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}getRoi?roiId=emage_roi_EMAGE_2383.2">
+		http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}getRoi?roiId=emage_roi_EMAGE_2383.2</a>' 
 		-i -H 'Accept: application/json'</p>
 	
 	<h3>Parameters</h3>
@@ -498,7 +501,9 @@
 	
 	<h3>Examples</h3>	
 	<p>Get image with id emage_EMAGE_2383.2.</p> 
-	<p class="code">$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}getImage?getChannels=emage_EMAGE_2383.2">http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}getChannels?imageId=emage_EMAGE_2383.2</a>'  -i -H 'Accept: application/json'</p>
+	<p class="code">$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}getChannels?imageId=vfb_image_VFB_00023280">
+		http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}getChannels?imageId=vfb_image_VFB_00023280
+	</a>'  -i -H 'Accept: application/json'</p>
 	
 	
 	<h3>Parameters</h3>
