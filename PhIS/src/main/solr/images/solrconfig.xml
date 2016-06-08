@@ -56,11 +56,11 @@
 	
 	<updateRequestProcessorChain name="concatFields">
 		<processor class="solr.CloneFieldUpdateProcessorFactory"> 
-	    	<str name="source">host_name</str> 
+	    	<str name="source">expression_in_id_bag</str> 
 	    	<str name="dest">concat</str> 
 	    </processor> 
 		<processor class="solr.CloneFieldUpdateProcessorFactory"> 
-	    	<str name="source">image_url</str> 
+	    	<str name="source">expression_in_label_bag</str> 
 	    	<str name="dest">concat</str> 
 	    </processor> 
 	    <processor class="solr.ConcatFieldUpdateProcessorFactory"> 
@@ -104,8 +104,8 @@
 			<str name="omitHeader">true</str>
 		</lst>
 	</requestHandler>
-
-	<requestHandler name="/replication" class="solr.ReplicationHandler" startup="lazy" />
+<!-- 
+	<requestHandler name="/replication" class="solr.ReplicationHandler" startup="lazy" /> -->
 
 	<requestDispatcher handleSelect="true">
 		<requestParsers enableRemoteStreaming="false" multipartUploadLimitInKB="2048" formdataUploadLimitInKB="2048" />

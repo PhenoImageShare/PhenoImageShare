@@ -40,6 +40,7 @@ import uk.ac.ebi.phis.jaxb.Annotation;
 import uk.ac.ebi.phis.jaxb.AnnotationMode;
 import uk.ac.ebi.phis.jaxb.Channel;
 import uk.ac.ebi.phis.jaxb.Doc;
+import uk.ac.ebi.phis.jaxb.ExpressionAnnotation;
 import uk.ac.ebi.phis.jaxb.GenotypeComponent;
 import uk.ac.ebi.phis.jaxb.Image;
 import uk.ac.ebi.phis.jaxb.ImageDescription;
@@ -202,48 +203,25 @@ public class BatchXmlUploader {
 		}
 		
 		if (roi.getDepictedAnatomicalStructure() != null){
-			List<String> ids = new ArrayList<>(); 
-			List<String> labels = new ArrayList<>(); 
-			List<String> freetext = new ArrayList<>();
-			// Depicted anatomy
-			// TODO have to check if it's expression (from channel)
-			for ( Annotation ann: roi.getDepictedAnatomicalStructure().getEl()){
-				if (ann.getAnnotationFreetext() != null){
-					freetext.add(ann.getAnnotationFreetext());
+			// Expression in anatomy
+			for ( ExpressionAnnotation ann: roi.getDepictedAnatomicalStructure().getEl()){
+				String expressionConcat = "";
+				if (!ann.getAnnotationFreetext().isEmpty()){
+					bean.addExpressedAnatomyFreetext(ann.getAnnotationFreetext());
+					expressionConcat += ann.getAnnotationFreetext() + " " ;
 				}
 				if (ann.getOntologyTerm() != null){
 					OntologyObject oo = ou.getOntologyTermById(ann.getOntologyTerm().getTermId());
-					if (ann.getAnnotationMode() != null && (ann.getAnnotationMode() == AnnotationMode.AUTOMATED)){
-						bean.addComputedDepictedAnatomyId(oo.getId());
-						bean.addComputedDepictedAnatomyTerm(oo.getLabel());
-					}
-					else {
-						ids.add(oo.getId());
-						labels.add(oo.getLabel());
-					}
+					bean.addExpressedAnatomyId(oo.getId());
+					bean.addExpressedAnatomyTerm(oo.getLabel());
+					expressionConcat += oo.getId() + " " + oo.getLabel() + " ";
 				}
+				if (!ann.getExpressionValue().isEmpty()){
+					bean.addExpressionValue(ann.getExpressionValue());
+					expressionConcat += ann.getExpressionValue();
+					bean.addExpressionConcat(expressionConcat);
+				} 
 			}
-			//	if(roi.getIsExpressionPattern().equals(YesNo.YES)){
-				if (ids.size() > 0){
-					bean.setExpressedAnatomyId(ids);
-					bean.setExpressedAnatomyTerm(labels);
-				}
-				if (freetext.size() > 0){
-					bean.setExpressedAnatomyFreetext(freetext);
-				}
-		//	} else {
-	/*			if (ids.size() > 0){
-					bean.setDepictedAnatomyId(ids);
-					bean.setDepictedAnatomyTerm(labels);
-				}
-				if (freetext.size() > 0){
-					bean.setDepictedAnatomyFreetext(freetext);
-				}
-				if (computedIds.size() > 0){
-					bean.setComputedDepictedAnatomyId(computedIds);
-					bean.setComputedDepictedAnatomyTerm(computedLabels);
-				}
-	*/	//	}
 		}
 		
 		if (roi.getAbnormalityInAnatomicalStructure() != null){
@@ -641,7 +619,7 @@ public class BatchXmlUploader {
 					}
 				}
 				
-				for (Annotation ann: roi.getDepictedAnatomicalStructure().getEl()){
+				for (ExpressionAnnotation ann: roi.getDepictedAnatomicalStructure().getEl()){
 					if (ann.getAnnotationFreetext() != null){
 						if (expression){
 							expressionInAnatomyFreetext.add(ann.getAnnotationFreetext());

@@ -17,33 +17,8 @@
 	    </lst>
 	</requestHandler>
 
-	<requestHandler name="/replication" class="solr.ReplicationHandler" startup="lazy" />
+<!-- <requestHandler name="/replication" class="solr.ReplicationHandler" startup="lazy" /> -->
 	
-	<updateRequestProcessorChain name="concatFields">
-		<processor class="solr.CloneFieldUpdateProcessorFactory"> 
-	    	<str name="source">expression_value</str> 
-	    	<str name="dest">expression_concat</str> 
-	    </processor> 
-		<processor class="solr.CloneFieldUpdateProcessorFactory"> 
-	    	<str name="source">expressed_in_anatomy_term</str> 
-	    	<str name="dest">expression_concat</str> 
-	    </processor> 
-	    <processor class="solr.CloneFieldUpdateProcessorFactory"> 
-	    	<str name="source">expressed_in_anatomy_freetext</str> 
-	    	<str name="dest">expression_concat</str> 
-	    </processor> 
-	    <processor class="solr.CloneFieldUpdateProcessorFactory"> 
-	    	<str name="source">expressed_in_anatomy_id</str> 
-	    	<str name="dest">expression_concat</str> 
-	    </processor> 
-	    <processor class="solr.ConcatFieldUpdateProcessorFactory"> 
-		    <str name="fieldName">expression_concat</str> 
-	    	<str name="delimiter">_</str> 
-	    </processor>
-	    <processor class="solr.LogUpdateProcessorFactory" /> 
-	    <processor class="solr.RunUpdateProcessorFactory" />
-	</updateRequestProcessorChain> 
-
 	<requestDispatcher handleSelect="true" >
 	    <requestParsers enableRemoteStreaming="false" multipartUploadLimitInKB="2048" formdataUploadLimitInKB="2048" />
 	</requestDispatcher>

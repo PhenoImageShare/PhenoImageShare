@@ -21,6 +21,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.solr.client.solrj.beans.Field;
 
 import uk.ac.ebi.phis.service.ImageService;
@@ -119,6 +120,7 @@ public class ImageDTO {
 	public final static String EXPRESSION_IN_FREETEXT_BAG = "expression_in_freetext_bag";
 	public final static String EXPRESSION_IN_SYNONYMS_BAG = "expression_in_synonyms_bag";
 	public final static String EXPRESSION_IN_ANCESTORS = "expression_in_ancestors";
+	public final static String EXPRESSION_CONCAT_BAG = "expression_concat_bag";
 
 	public final static String OBSERVATION_BAG = "observation_bag";
 	public final static String MUTANT_GENE_ID_BAG = "mutant_gene_id_bag";
@@ -416,6 +418,11 @@ public class ImageDTO {
 	@Field(EXPRESSION_IN_ANCESTORS)
 	private ArrayList<String> expressionInAncestors;
 
+
+	@Field(EXPRESSION_CONCAT_BAG)
+	private ArrayList<String> expressionConcatBag;
+
+	
 	@Field(MUTANT_GENE_ID_BAG)
 	private ArrayList<String> mutantGeneIdBag;
 
@@ -1306,8 +1313,9 @@ public class ImageDTO {
 		if (this.expressedGfSynonymsBag == null) {
 			this.expressedGfSynonymsBag = new ArrayList<>();
 		}
-		if (expressedGfSynonymsBag != null)
+		if (expressedGfSynonymsBag != null){
 			this.expressedGfSynonymsBag.addAll(expressedGfSynonymsBag);
+		}
 	}
 
 
@@ -1319,6 +1327,23 @@ public class ImageDTO {
 		return expressionInSynonymsBag;
 	}
 
+	public ArrayList<String> getExpressionConcatBag() {
+		return expressionConcatBag;
+	}
+
+	public void setExpressionConcatBag(ArrayList<String> expressionConcatBag) {
+		this.expressionConcatBag = expressionConcatBag;
+	}
+	
+	public void addExpresstionConcatBag(String expressionConcat){
+		
+		if (expressionConcatBag == null){
+			expressionConcatBag = new ArrayList<>();
+		}
+		if(!expressionConcat.isEmpty()){
+			expressionConcatBag.add(expressionConcat);
+		}
+	}
 
 	/**
 	 * @param expressionInSynonymsBag

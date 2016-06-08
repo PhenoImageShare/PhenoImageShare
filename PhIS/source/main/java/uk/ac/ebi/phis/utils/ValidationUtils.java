@@ -21,6 +21,7 @@ import uk.ac.ebi.phis.jaxb.Annotation;
 import uk.ac.ebi.phis.jaxb.Channel;
 import uk.ac.ebi.phis.jaxb.Coordinates;
 import uk.ac.ebi.phis.jaxb.Dimensions;
+import uk.ac.ebi.phis.jaxb.ExpressionAnnotation;
 import uk.ac.ebi.phis.jaxb.Image;
 import uk.ac.ebi.phis.jaxb.OntologyTerm;
 import uk.ac.ebi.phis.jaxb.Roi;
@@ -118,7 +119,6 @@ public class ValidationUtils {
 
 	public boolean hasValidOntologyTerms(Channel channel) {
 
-		List<Annotation> annList;
 		boolean res = true;
 		List<Annotation> ontologyTermArray;
 		if (channel.getVisualisationMethod() != null) {
@@ -128,9 +128,6 @@ public class ValidationUtils {
 					OntologyTerm ot = a.getOntologyTerm();
 					res = res && checkOntologyTerm(ot, "visualisationMethod");
 					if (!res) {
-						// System.out.println(">>> Ontology term " +
-						// ot.getTermId() + "(" + ot.getTermLabel() +
-						// ") is not a valid entry for visualisationMethod.");
 						return false;
 					}
 				}
@@ -147,12 +144,15 @@ public class ValidationUtils {
 		if (roi.getAbnormalityInAnatomicalStructure() != null) {
 			// Do anatomy terms first
 			annList = roi.getAbnormalityInAnatomicalStructure().getEl();
-			annList.addAll(roi.getDepictedAnatomicalStructure().getEl());
 			// Check if any ids present
 			if (annList != null) {
 				for (Annotation ann : annList) {
 					res = res && checkOntologyTerm(ann, "anatomy");
 				}
+			}
+
+			for (ExpressionAnnotation ann: roi.getDepictedAnatomicalStructure().getEl()){
+				res = res && checkOntologyTerm(ann.getOntologyTerm(), "anatomy");
 			}
 		}
 

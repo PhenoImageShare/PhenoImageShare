@@ -43,6 +43,8 @@ import uk.ac.ebi.phis.jaxb.Channel;
 import uk.ac.ebi.phis.jaxb.Coordinates;
 import uk.ac.ebi.phis.jaxb.Dimensions;
 import uk.ac.ebi.phis.jaxb.Doc;
+import uk.ac.ebi.phis.jaxb.ExpressionAnnotation;
+import uk.ac.ebi.phis.jaxb.ExpressionAnnotationArray;
 import uk.ac.ebi.phis.jaxb.GenomicLocation;
 import uk.ac.ebi.phis.jaxb.GenotypeComponent;
 import uk.ac.ebi.phis.jaxb.Image;
@@ -236,7 +238,7 @@ public class TracerXmlGenerator {
 		    	    			roi.setAssociatedChannel(new StringArray());
 		    	    			roi.getAssociatedChannel().getEl().add(channelId);
 		    	    			roi.setAssociatedImage(internalId);
-		    	    			roi.setDepictedAnatomicalStructure(new AnnotationArray());
+		    	    			roi.setDepictedAnatomicalStructure(new ExpressionAnnotationArray());
 		    	    			// set coordinates
 		    	    			Coordinates coords = new Coordinates();
 		    	    			PercentArray xcoords = new PercentArray();
@@ -249,7 +251,7 @@ public class TracerXmlGenerator {
 		    	    			coords.setXCoordinates(xcoords);
 		    	    			roi.setCoordinates(coords);
 		    	    		}
-		        			Annotation anatomy = new Annotation();
+		        			ExpressionAnnotation anatomy = new ExpressionAnnotation();
 		        			anatomy.setAnnotationFreetext(anat);
 		        			addedAnnoations.add(anat); // in the DB the entries are repeated for each neighbouring gene to the insertions site.
 			    	    	
@@ -259,7 +261,7 @@ public class TracerXmlGenerator {
 			    			else {	
 			    				try {
 			    					if (!getAnatomyId(anat, a).equalsIgnoreCase("")){
-			    						Annotation automatedAnn = new Annotation();
+			    						ExpressionAnnotation automatedAnn = new ExpressionAnnotation();
 			    						automatedAnn.setOntologyTerm(getOntologyTerm(getAnatomyLabels(anat, a), getAnatomyId(anat, a)));
 			    						automatedAnn.setAnnotationMode(AnnotationMode.AUTOMATED); 		
 			    						roi.getDepictedAnatomicalStructure().getEl().add(automatedAnn);

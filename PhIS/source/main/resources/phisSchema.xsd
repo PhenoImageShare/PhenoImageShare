@@ -329,12 +329,25 @@
 			<element name="ontology_term" type="x:OntologyTerm" minOccurs="0" maxOccurs="1" />
 			<element name="annotation_freetext" type="string" minOccurs="0" maxOccurs="1" />
 			<element name="annotation_mode" type="x:AnnotationMode" minOccurs="0" maxOccurs="1" />
+		</all>
+	</complexType>
+	<complexType name="ExpressionAnnotation">
+		<all minOccurs="1">
+			<element name="ontology_term" type="x:OntologyTerm" minOccurs="0" maxOccurs="1" />
+			<element name="annotation_freetext" type="string" minOccurs="0" maxOccurs="1" />
+			<element name="annotation_mode" type="x:AnnotationMode" minOccurs="0" maxOccurs="1" />
 			<element name="expression_value" type="string" minOccurs="0" maxOccurs="1" /> <!-- expressed/not expressed/ambiguous, strongly expressed, etc. -->
 		</all>
 	</complexType>
+	
 	<complexType name="AnnotationArray">
 		<sequence>
 			<element name="el" type="x:Annotation" minOccurs="1" maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+	<complexType name="ExpressionAnnotationArray">
+		<sequence>
+			<element name="el" type="x:ExpressionAnnotation" minOccurs="1" maxOccurs="unbounded" />
 		</sequence>
 	</complexType>
 
@@ -538,14 +551,7 @@
 			</element> 	
 		
 			<!-- Annotations -->
-			<element name="depicted_anatomical_structure" type="x:AnnotationArray" minOccurs="0" maxOccurs="1" >
-				<annotation>
-				  <documentation xml:lang="en">
-					Anatomy structure depicted in the ROI, without abnormalities but of interest. 
-				  </documentation>
-				</annotation>
-			</element>
-			<element name="anatomical_structure_with_expression" type="x:AnnotationArray" minOccurs="0" maxOccurs="1" >
+			<element name="depicted_anatomical_structure" type="x:ExpressionAnnotationArray" minOccurs="0" maxOccurs="1" >
 				<annotation>
 				  <documentation xml:lang="en">
 					Anatomy structure depicting gene expression in the current region of interest.

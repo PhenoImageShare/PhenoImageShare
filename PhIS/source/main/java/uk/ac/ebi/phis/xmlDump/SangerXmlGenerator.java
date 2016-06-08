@@ -44,6 +44,8 @@ import uk.ac.ebi.phis.jaxb.Channel;
 import uk.ac.ebi.phis.jaxb.Coordinates;
 import uk.ac.ebi.phis.jaxb.Dimensions;
 import uk.ac.ebi.phis.jaxb.Doc;
+import uk.ac.ebi.phis.jaxb.ExpressionAnnotation;
+import uk.ac.ebi.phis.jaxb.ExpressionAnnotationArray;
 import uk.ac.ebi.phis.jaxb.Genotype;
 import uk.ac.ebi.phis.jaxb.GenotypeComponent;
 import uk.ac.ebi.phis.jaxb.Image;
@@ -358,14 +360,11 @@ public class SangerXmlGenerator {
 				if (isAnatomy(res)) {																																								// 4=MA
 					if (isExpressionImg) {
 						// we have expression in the annotated anatomy term
-						roi.setDepictedAnatomicalStructure(addToAnnotationArray(new AnnotationArray(), res.getString("TERM_ID").toString().trim(),
+						roi.setDepictedAnatomicalStructure(addToExpressionAnnotationArray(new ExpressionAnnotationArray(), res.getString("TERM_ID").toString().trim(),
 							res.getString("TERM_NAME").toString(), null, AnnotationMode.MANUAL));
-					}
-					else {
-						// we have somthin interesting but not expression in the
-						// anatomy term
-						roi.setDepictedAnatomicalStructure(addToAnnotationArray(new AnnotationArray(), res.getString("TERM_ID").toString().trim(),
-							res.getString("TERM_NAME").toString(), null, AnnotationMode.MANUAL));
+					} else {
+						
+						System.out.println("WHAT to do here: " + roi.getId() + res + "????");
 					}
 				}
 				else if (isMp(res)) { 
@@ -578,6 +577,17 @@ public class SangerXmlGenerator {
 		 return pa;
 	 }
 	 
+	 ExpressionAnnotationArray addToExpressionAnnotationArray(ExpressionAnnotationArray pa, String id, String label, String freetext, AnnotationMode annMode){
+			
+		 ExpressionAnnotation p = new ExpressionAnnotation();
+		 
+		 if (!freetext.isEmpty()){
+			 p.setAnnotationFreetext(freetext);
+		 }
+		 pa.getEl().add(p);
+		 return pa;
+	 }
+	 
 	 /**
 	  * 
 	  * @param id
@@ -589,11 +599,12 @@ public class SangerXmlGenerator {
 	 Annotation getAnnotation( String id, String label, String freetext, AnnotationMode annMode){
 		 Annotation p = new Annotation();
 		 
-		 if (label != null && id != null)
+		 if (!(label.isEmpty() || id.isEmpty()))
 			 p.setOntologyTerm(getOntologyTerm(label, id));
 
-		 if (freetext != null)
+		 if (!freetext.isEmpty()){
 			 p.setAnnotationFreetext(freetext);
+		 }
 		 p.setAnnotationMode(annMode);
 		 return p;
 	 }

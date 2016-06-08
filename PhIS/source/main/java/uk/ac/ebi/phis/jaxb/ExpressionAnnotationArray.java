@@ -13,21 +13,20 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for ImageTypeArray complex type.
+ * <p>Java class for ExpressionAnnotationArray complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="ImageTypeArray">
+ * &lt;complexType name="ExpressionAnnotationArray">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="el" type="{http://www.example.org/phisSchema}ImageType" maxOccurs="unbounded"/>
+ *         &lt;element name="el" type="{http://www.example.org/phisSchema}ExpressionAnnotation" maxOccurs="unbounded"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -37,14 +36,13 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "ImageTypeArray", propOrder = {
+@XmlType(name = "ExpressionAnnotationArray", propOrder = {
     "el"
 })
-public class ImageTypeArray {
+public class ExpressionAnnotationArray {
 
     @XmlElement(required = true)
-    @XmlSchemaType(name = "string")
-    protected List<ImageType> el;
+    protected List<ExpressionAnnotation> el;
 
     /**
      * Gets the value of the el property.
@@ -64,13 +62,13 @@ public class ImageTypeArray {
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link ImageType }
+     * {@link ExpressionAnnotation }
      * 
      * 
      */
-    public List<ImageType> getEl() {
+    public List<ExpressionAnnotation> getEl() {
         if (el == null) {
-            el = new ArrayList<ImageType>();
+            el = new ArrayList<ExpressionAnnotation>();
         }
         return this.el;
     }

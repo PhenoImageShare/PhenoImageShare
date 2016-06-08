@@ -161,6 +161,7 @@
    <field name="abnormal_anatomy_ancestors" type="textCaseInsensitive" indexed="true" stored="false" multiValued="true"/>
    
    <field name="expression_in_id_bag" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="expression_concat_bag" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="expression_in_label_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
    <field name="expression_in_freetext_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
    <field name="expression_in_synonyms_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
@@ -189,8 +190,8 @@
    <field name="generic_anatomy_ancestors" type="textCaseInsensitive" indexed="true" stored="false" multiValued="true"/>
    
    
-   <!--  TESTING concatenation. Can delete if didn;t work. -->
-   <field name="concat" type="string" indexed="true" stored="true" required="false"/>
+   <!--  TESTING concatenation. Works fine on single valued fields but streams multivalued fields to one string. Output is always a single string. -->
+   <field name="concat" type="string" indexed="false" stored="true" required="false" multiValued="true"/>
    
    <!-- Autosuggest fields -->
    <!-- field name="term_autosuggest_analysed" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true" termVectors="true" termPositions="true" termOffsets="true"/-->

@@ -34,6 +34,8 @@ public class RoiDTO {
 	public static final String  EXPRESSED_IN_ANATOMY_ID = "expressed_in_anatomy_id";
 	public static final String  EXPRESSED_IN_ANATOMY_FREETEXT = "expressed_in_anatomy_freetext";
 	public static final String  EXPRESSED_IN_ANATOMY_TERM = "expressed_in_anatomy_term";
+	public static final String  EXPRESSION_VALUE = "expression_value";
+	public static final String  EXPRESSION_CONCAT = "expression_concat";
 	public static final String  DEPICTED_ANATOMY_ID = "depicted_anatomy_id";
 	public static final String  DEPICTED_ANATOMY_TERM = "depicted_anatomy_term";
 	public static final String  DEPICTED_ANATOMY_FREETEXT = "depicted_anatomy_freetext";
@@ -83,6 +85,12 @@ public class RoiDTO {
 
 	@Field(EXPRESSED_IN_ANATOMY_TERM)
 	List<String> expressedAnatomyTerm;
+	
+	@Field(EXPRESSION_VALUE)
+	List<String> expressionValue;
+
+	@Field(EXPRESSION_CONCAT)
+	List<String> expressionConcat;
 	
 	@Field(DEPICTED_ANATOMY_ID)
 	List<String> depictedAnatomyId;
@@ -183,9 +191,6 @@ public class RoiDTO {
 	}
 
 	
-	
-
-	
 	/**
 	 * @return the expressedAnatomyId
 	 */
@@ -193,8 +198,6 @@ public class RoiDTO {
 	
 		return expressedAnatomyId;
 	}
-
-	
 	/**
 	 * @param expressedAnatomyId the expressedAnatomyId to set
 	 */
@@ -202,8 +205,33 @@ public class RoiDTO {
 	
 		this.expressedAnatomyId = expressedAnatomyId;
 	}
-
 	
+	public void addExpressedAnatomyId(String expressedAnatomyId){
+		if (this.expressedAnatomyId == null){
+			this.expressedAnatomyId = new ArrayList<>();
+		}
+		if (!expressedAnatomyId.isEmpty()){
+			this.expressedAnatomyId.add(expressedAnatomyId);
+		}
+	}
+	
+	public List<String> getExpressionConcat() {
+		return expressionConcat;
+	}
+
+	public void setExpressionConcat(List<String> expressionConcat) {
+		this.expressionConcat = expressionConcat;
+	}
+	
+	public void addExpressionConcat(String expressionConcat){
+		if (this.expressionConcat == null){
+			this.expressionConcat = new ArrayList<>();
+		}
+		if (!expressionConcat.isEmpty()){
+			this.expressionConcat.add(expressionConcat);
+		}
+	}
+
 	public Date getCreationDate() {
 		return creationDate;
 	}
@@ -235,7 +263,6 @@ public class RoiDTO {
 	
 		return expressedAnatomyFreetext;
 	}
-
 	
 	/**
 	 * @param expressedAnatomyFreetext the expressedAnatomyFreetext to set
@@ -244,7 +271,15 @@ public class RoiDTO {
 	
 		this.expressedAnatomyFreetext = expressedAnatomyFreetext;
 	}
-
+	
+	public void addExpressedAnatomyFreetext(String expressedAnatomyFreetext) {
+		if (this.expressedAnatomyFreetext != null){
+			this.expressedAnatomyFreetext = new ArrayList<>();
+		}
+		if (!expressedAnatomyFreetext.isEmpty()){
+			this.expressedAnatomyFreetext.add(expressedAnatomyFreetext);
+		}
+	}
 	
 	/**
 	 * @return the expressedAnatomyTerm
@@ -253,16 +288,39 @@ public class RoiDTO {
 	
 		return expressedAnatomyTerm;
 	}
-
 	
 	/**
 	 * @param expressedAnatomyTerm the expressedAnatomyTerm to set
 	 */
-	public void setExpressedAnatomyTerm(List<String> expressedAnatomyTerm) {
-	
+	public void setExpressedAnatomyTerm(List<String> expressedAnatomyTerm) {	
 		this.expressedAnatomyTerm = expressedAnatomyTerm;
 	}
+	
+	public void addExpressedAnatomyTerm(String expressedAnatomyTerm) {
+		if (this.expressedAnatomyTerm != null){
+			this.expressedAnatomyTerm = new ArrayList<>();
+		}
+		if (!expressedAnatomyTerm.isEmpty()){
+			this.expressedAnatomyTerm.add(expressedAnatomyTerm);
+		}
+	}	
+	
+	public List<String> getExpressionValue() {
+		return expressionValue;
+	}
 
+	public void setExpressionValue(List<String> expressionValue) {
+		this.expressionValue = expressionValue;
+	}
+
+	public void addExpressionValue(String expressionValue) {
+		if (this.expressionValue != null){
+			this.expressionValue = new ArrayList<>();
+		}
+		if (!expressionValue.isEmpty()){
+			this.expressionValue.add(expressionValue);
+		}
+	}
 	
 	/**
 	 * @param xCoordinates the xCoordinates to set

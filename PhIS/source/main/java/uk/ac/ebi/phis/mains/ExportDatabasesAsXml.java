@@ -26,26 +26,24 @@ public class ExportDatabasesAsXml {
 
 	public static void main(String[] args){
 
-		// OntologyMapper mapper = new
-		// OntologyMapper(OntologyMapperPredefinedTypes.MA_MP);
-		// mapper.getMappings("http://purl.obolibrary.org/obo/MP_0003684",
-		// "MA");
+		// OntologyMapper mapper = new OntologyMapper(OntologyMapperPredefinedTypes.MA_MP);
+		// mapper.getMappings("http://purl.obolibrary.org/obo/MP_0003684", "MA");
 		// System.out.println("\t\t " + mapper.getAnatomyLabel("MA_0000003"));
 		
 		try {
 			long time = System.currentTimeMillis();
-			SangerXmlGenerator sg = new SangerXmlGenerator();
-			sg.exportImages();
-			System.out.println("Generating xml for Sanger took " + (System.currentTimeMillis() - time));
+//			SangerXmlGenerator sg = new SangerXmlGenerator();
+//			sg.exportImages();
+//			System.out.println("Generating xml for Sanger took " + (System.currentTimeMillis() - time));
 
 			time = System.currentTimeMillis();
 			TracerXmlGenerator tg = new TracerXmlGenerator();
 			tg.exportImages();
 			System.out.println("Generating XML for Tracer took " + (System.currentTimeMillis() - time));
-
-			time = System.currentTimeMillis();
-			EmageXmlGenerator emage = new EmageXmlGenerator();
-			emage.aggregateXml();
+//
+//			time = System.currentTimeMillis();
+//			EmageXmlGenerator emage = new EmageXmlGenerator();
+//			emage.aggregateXml();
 			
 			System.out.println("Generating XML for Emage took " + (System.currentTimeMillis() - time));
 
