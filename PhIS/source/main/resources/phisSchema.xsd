@@ -290,6 +290,7 @@
 			</element>
 			<element name="background_strain" type="x:StringArray" minOccurs="0" />
 			<element name="organism_id" type="string" minOccurs="0" maxOccurs="1"/> <!-- will be used to group multiple images taken from the same organism, i.e. animal. -->
+			<element name="group" type="x:StringArray" minOccurs="0" maxOccurs="1"/>
 		</all>
 	</complexType>
 
