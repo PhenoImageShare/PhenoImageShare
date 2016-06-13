@@ -49,7 +49,7 @@ public class EnsemblClient {
 	 * @param species
 	 * @param start
 	 * @param end
-	 * @return Location converted to the required assembly
+	 * @return Location converted to the required assembly.
 	 */
 	@Retryable
 	public Position convertLocation(String currentAssembly, String newAssembly, String chromosome, String species, long start, long end){ //https://rest.ensembl.org/map/Mus_musculus/NCBIM37/18:33607548-34607548/GRCm38?content-type=application/json
@@ -76,7 +76,7 @@ public class EnsemblClient {
 	 * @param species
 	 * @param start
 	 * @param end
-	 * @return list of genes within window
+	 * @return List of genes within window. If start-end are the same it will return a single gene, if the location is intragenic. 
 	 */
 	@Retryable
 	public List<Feature> getGeneList(String chromosome, String species, long start, long end){ // https://rest.ensembl.org/overlap/region/Mus_musculus/18:33607548-34607548?feature=gene;content-type=application/json .

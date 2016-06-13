@@ -55,6 +55,8 @@
 	</bean>
 
 
+	<bean id="ensemblClient" class="uk.ac.ebi.phis.utils.ensemblclient.EnsemblClient"></bean>
+
 	<bean id="komp2DataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
