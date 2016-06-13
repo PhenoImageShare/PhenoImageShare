@@ -71,6 +71,7 @@ public class TracerXmlGenerator {
 	// hand made mapping between TRACER anatomy terms and EMAPA ids. See e-mail thread Fwd: [Phenoimageshare] Call 6 February 2014
 	Map<String, String> emapLabels = new HashMap<String, String>(); 
 	Map<String, String> emapIds = new HashMap<String, String>(); 
+	EnsemblClient ensemblClient = new EnsemblClient();
 	
 	public TracerXmlGenerator(){
 		norm = new Normalizer();
@@ -119,12 +120,11 @@ public class TracerXmlGenerator {
 			doc.setExportDate(datatypeFactory.newXMLGregorianCalendar(gregorianCalendar));
 			
 	        while ( res.next()){
+
 	        	boolean sameImage = true;
 	        	String imageName = res.getString("image_name");
 	        	String internalId =  "tracer_" + i;
-	        		    		
 	    		String url = "http://www.ebi.ac.uk/panda-srv/tracer/sblac/" + res.getString("file_path") + "/" + res.getString("image_name") + ".jpg";
-	    		
 	    		Map<String, Integer> dimensions = EnrichingUtils.getImageMeasuresFromUrl(url);
 	    		
 	    		if (dimensions != null){ //index info only if the image could be loaded 	    		
@@ -212,8 +212,8 @@ public class TracerXmlGenerator {
 	    			
 	    			//Get location mapping to new assembly
 	    			
-	    			Position location = EnsemblClient.convertLocation(EnsemblClient.LATEST_MOUSE_GENOME_ASSEMBLY, EnsemblClient.MOUSE_GENOME_ASSEMBLY_37, res.getString("chr_name"), "Mus_musculus", 
-	    					res.getLong("position")-500000, res.getLong("position") + 500000);
+	    			Position location = ensemblClient.convertLocation(EnsemblClient.MOUSE_GENOME_ASSEMBLY_37 , EnsemblClient.LATEST_MOUSE_GENOME_ASSEMBLY, res.getString("chr_name"), "Mus_musculus", 
+	    					res.getLong("position")-500000, res.getLong("position")+500000);
 	    			gl.setChromosone(location.getSeqRegionName());
 	    			gl.setStartPos(location.getStart());
 	    			gl.setEndPos(location.getEnd());
@@ -312,6 +312,7 @@ public class TracerXmlGenerator {
 			        	doc.getChannel().add(channel);
 			        }
 	    		} 
+	    		i++;
 	    	//	if (i == 50 ){
 	    	//		break;
 	    	//	}
