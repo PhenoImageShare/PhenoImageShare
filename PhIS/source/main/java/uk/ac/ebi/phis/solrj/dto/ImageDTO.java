@@ -63,6 +63,7 @@ public class ImageDTO {
 	public final static String WIDTH = "width";
 	public final static String IMAGE_TYPE = "image_type";
 	public final static String SAMPLE_TYPE = "sample_type";
+	public static final String GROUP = "group";
 
 	public final static String ORIGINAL_IMAGE_ID = "original_image_id";
 	public final static String MACHINE = "machine";
@@ -239,6 +240,9 @@ public class ImageDTO {
 	@Field(WIDTH)
 	private Integer width;
 
+	@Field(GROUP)
+	private List<String> groups;
+	
 	@Field(GENERIC_SEARCH)
 	private List<String> genericSearch;
 
@@ -519,7 +523,22 @@ public class ImageDTO {
 		this.mutationType = mutationType;
 	}
 
+	public List<String> getGroups() {
+		return groups;
+	}
 	
+	public void addGroup(String group) {
+		
+		if (this.groups == null){
+			this.groups = new ArrayList<>();
+		}
+		this.groups.add(group);
+	}
+
+	public void setGroups(List<String> groups) {
+		this.groups = groups;
+	}
+
 	public ArrayList<String> getExpressedGfMutationType() {
 	
 		return expressedGfMutationType;
@@ -2819,6 +2838,14 @@ public class ImageDTO {
 	public void setGenomeAssembly(List<String> genomeAssembly) {
 	
 		this.genomeAssembly = genomeAssembly;
+	}
+	
+	public void addGenomeAssembly(String genomeAssembly) {
+		
+		if (this.genomeAssembly == null){
+			this.genomeAssembly = new ArrayList<>();
+		}
+		this.genomeAssembly.add(genomeAssembly);
 	}
 
 	public List<String> getBackgroundStrain() {

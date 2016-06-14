@@ -87,7 +87,9 @@ public class BatchXmlUploader {
 	
 
 	public List<OntologyInstance> getontologyInstances (){
+		
 		return ou.getOntologyInstances();
+		
 	}
 	
 
@@ -150,6 +152,7 @@ public class BatchXmlUploader {
 			}
 		}
 		is.addBeans(imageDocs);
+		
 	}
 
 	private void addRoiDocuments(List<Roi> rois, String datasource)
@@ -206,7 +209,7 @@ public class BatchXmlUploader {
 			// Expression in anatomy
 			for ( ExpressionAnnotation ann: roi.getDepictedAnatomicalStructure().getEl()){
 				String expressionConcat = "";
-				if (!ann.getAnnotationFreetext().isEmpty()){
+				if (ann.getAnnotationFreetext() != null && ann.getAnnotationFreetext().length() > 0){
 					bean.addExpressedAnatomyFreetext(ann.getAnnotationFreetext());
 					expressionConcat += ann.getAnnotationFreetext() + " " ;
 				}
@@ -216,7 +219,7 @@ public class BatchXmlUploader {
 					bean.addExpressedAnatomyTerm(oo.getLabel());
 					expressionConcat += oo.getId() + " " + oo.getLabel() + " ";
 				}
-				if (!ann.getExpressionValue().isEmpty()){
+				if (ann.getExpressionValue() != null && ann.getExpressionValue().length() > 0){
 					bean.addExpressionValue(ann.getExpressionValue());
 					expressionConcat += ann.getExpressionValue();
 					bean.addExpressionConcat(expressionConcat);
@@ -330,6 +333,12 @@ public class BatchXmlUploader {
 
 		if (img.getOrganism().getBackgroundStrain() != null){
 			bean.setBackgroundStrain(img.getOrganism().getBackgroundStrain().getEl());
+		}
+		
+		if (img.getOrganism().getGroup() != null && !img.getOrganism().getGroup().getEl().isEmpty()){
+			for (String group : img.getOrganism().getGroup().getEl()){
+				bean.addGroup(group);
+			}
 		}
 		
 		ImageDescription desc = img.getImageDescription();
@@ -778,8 +787,10 @@ public class BatchXmlUploader {
 					if (gf.getGenomicLocation().getEndPos() != null){
 						res.addEndPosition(gf.getGenomicLocation().getEndPos());
 					}
+					
 					res.addChromosome(gf.getGenomicLocation().getChromosone());
 					res.addStrand(gf.getGenomicLocation().getStrand());
+					res.addGenomeAssembly(gf.getGenomeAssembly());
 				}
 			}
 			

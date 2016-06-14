@@ -212,8 +212,7 @@ public class TracerXmlGenerator {
 	    			GenotypeComponent expressed = new GenotypeComponent();
 	    			GenomicLocation gl = new GenomicLocation();
 	    			
-	    			//Get location mapping to new assembly
-	    			
+	    			//Get location mapping to new assembly	    			
 	    			Position location = ensemblClient.convertLocation(EnsemblClient.MOUSE_GENOME_ASSEMBLY_37 , EnsemblClient.LATEST_MOUSE_GENOME_ASSEMBLY, 
 	    					res.getString("chr_name"), "Mus_musculus", res.getLong("position"), res.getLong("position"));
 	    			gl.setChromosone(location.getSeqRegionName());

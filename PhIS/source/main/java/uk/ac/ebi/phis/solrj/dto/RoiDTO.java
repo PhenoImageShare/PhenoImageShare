@@ -273,7 +273,7 @@ public class RoiDTO {
 	}
 	
 	public void addExpressedAnatomyFreetext(String expressedAnatomyFreetext) {
-		if (this.expressedAnatomyFreetext != null){
+		if (this.expressedAnatomyFreetext == null){
 			this.expressedAnatomyFreetext = new ArrayList<>();
 		}
 		if (!expressedAnatomyFreetext.isEmpty()){
@@ -297,7 +297,7 @@ public class RoiDTO {
 	}
 	
 	public void addExpressedAnatomyTerm(String expressedAnatomyTerm) {
-		if (this.expressedAnatomyTerm != null){
+		if (this.expressedAnatomyTerm == null){
 			this.expressedAnatomyTerm = new ArrayList<>();
 		}
 		if (!expressedAnatomyTerm.isEmpty()){
@@ -314,7 +314,7 @@ public class RoiDTO {
 	}
 
 	public void addExpressionValue(String expressionValue) {
-		if (this.expressionValue != null){
+		if (this.expressionValue == null){
 			this.expressionValue = new ArrayList<>();
 		}
 		if (!expressionValue.isEmpty()){

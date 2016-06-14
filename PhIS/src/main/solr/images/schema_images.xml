@@ -141,6 +141,7 @@
    <field name="strand" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="zygosity" type="string" indexed="true" stored="true" multiValued="true"/>
    
+  <field name="group" type="string" indexed="true" stored="true" multiValued="true"/> <!--  group images by these groups. Could be used for genotype, sample id, ptoject, procedure etc.  -->
   
    <!--  Annotation/gene info bags -->
    <field name="anatomy_computed_id_bag" type="string" indexed="true" stored="true" multiValued="true"/>
