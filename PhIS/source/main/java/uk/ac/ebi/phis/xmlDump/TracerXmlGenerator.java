@@ -224,11 +224,10 @@ public class TracerXmlGenerator {
 	    			
 	    			// Get gene from ensembl only when insertion point is intragenic. Nat thinks providing the big list of flanking genes is confusing.
 	    			List<Feature> geneList = ensemblClient.getGeneList(gl.getChromosone(), "Mus_musculus", gl.getStartPos(), gl.getEndPos());
-	    			
 	    			if (!geneList.isEmpty()){
 	    				Feature feature = geneList.get(0);
-	    				expressed.setGeneId(feature.getGeneId());
-		    			expressed.setGeneName(feature.getExternalName());
+	    				expressed.setGeneId(feature.getGene_id());
+		    			expressed.setGeneName(feature.getExternal_name());
 	    			}
 	    			
 	    			Annotation mt = new Annotation ();
