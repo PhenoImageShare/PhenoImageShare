@@ -141,9 +141,9 @@ public class PopulateCores {
 //			DatasourceInstance ds7 = processXml(xmlToLoad, "emage", reader);
 //			exportDates.put(ds7.getName(), ds7);
 //			
-//			xmlToLoad = dataDir + "/sangerExport.xml";
-//			DatasourceInstance ds8 = processXml(xmlToLoad, "wtsi", reader);
-//			exportDates.put(ds8.getName(), ds8);
+			xmlToLoad = dataDir + "/sangerExport.xml";
+			DatasourceInstance ds8 = processXml(xmlToLoad, "wtsi", reader);
+			exportDates.put(ds8.getName(), ds8);
 //			
 //			xmlToLoad = dataDir + "/VFB_flycircuit_plus.xml";
 //			DatasourceInstance ds9 = processXml(xmlToLoad, "vfb", reader);

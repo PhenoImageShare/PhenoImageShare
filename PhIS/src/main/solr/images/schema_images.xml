@@ -133,6 +133,7 @@
    <field name="genetic_feature_synonyms" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/>
    <field name="genetic_feature_ensembl_id" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="mutation_type" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="organism_id" type="string" indexed="true" stored="true" multiValued="false"/>
    
    <field name="chromosome" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="insertion_site" type="string" indexed="true" stored="true" multiValued="true"/>

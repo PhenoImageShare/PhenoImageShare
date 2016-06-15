@@ -341,6 +341,10 @@ public class BatchXmlUploader {
 			}
 		}
 		
+		if (img.getOrganism().getOrganismId() != null){
+			bean.setOrganismId(img.getOrganism().getOrganismId());
+		}
+		
 		ImageDescription desc = img.getImageDescription();
 		if (desc.getImageGeneratedBy() != null){
 			bean.addImageGeneratedBy(desc.getImageGeneratedBy().getDisplayName());

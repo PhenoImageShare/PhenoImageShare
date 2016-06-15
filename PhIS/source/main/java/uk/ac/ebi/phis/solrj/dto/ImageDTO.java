@@ -64,6 +64,7 @@ public class ImageDTO {
 	public final static String IMAGE_TYPE = "image_type";
 	public final static String SAMPLE_TYPE = "sample_type";
 	public static final String GROUP = "group";
+	public final static String ORGANISM_ID = "organism_id";
 
 	public final static String ORIGINAL_IMAGE_ID = "original_image_id";
 	public final static String MACHINE = "machine";
@@ -146,6 +147,9 @@ public class ImageDTO {
 
 	@Field(ID)
 	private String id;
+	
+	@Field(ORGANISM_ID)
+	private String organismId;
 
 	@Field(ASSOCIATED_ROI)
 	private List<String> associatedRoi;
@@ -503,8 +507,15 @@ public class ImageDTO {
 	
 		this.geneticFeatureSynonyms = geneticFeatureSynonyms;
 	}
-	
-	
+		
+	public String getOrganismId() {
+		return organismId;
+	}
+
+	public void setOrganismId(String organismId) {
+		this.organismId = organismId;
+	}
+
 	public List<String> getMutationType() {
 	
 		return mutationType;

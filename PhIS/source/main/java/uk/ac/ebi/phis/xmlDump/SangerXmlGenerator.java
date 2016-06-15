@@ -82,7 +82,7 @@ public class SangerXmlGenerator {
         					"aa.TERM_ID, aa.TERM_NAME, aa.ONTOLOGY_DICT_ID, " +
         					"imam.MOUSE_ID, imam.MOUSE_NAME, imam.GENDER, imam.AGE_IN_WEEKS, imam.GENE, imam.ALLELE, imam.GENOTYPE, " +
         					"ied.NAME as procedure_name, " +
-        					"allele.symbol, allele.name, allele.acc, allele.gf_acc " +
+        					"allele.symbol, allele.name, allele.acc, allele.gf_acc, imam.COLONY_PREFIX  " +
         				"FROM IMA_IMAGE_RECORD iir " +
         					"LEFT OUTER JOIN IMA_IMAGE_TAG iit ON iit.IMAGE_RECORD_ID=iir.ID " +
         					"LEFT OUTER JOIN ANN_ANNOTATION aa ON aa.FOREIGN_KEY_ID=iit.ID " +
@@ -137,7 +137,12 @@ public class SangerXmlGenerator {
 			    		Organism organism = new Organism();
 			    		Sex sex = Sex.fromValue(norm.normalizeSex(res.getString("GENDER")));
 			    		organism.setSex(sex);
-			    		organism.setNcbiTaxonId(res.getString("MOUSE_NAME"));
+			    		organism.setNcbiTaxonId("10090");
+			    		organism.setOrganismId(res.getString("MOUSE_NAME"));
+			    		StringArray colony = new StringArray();
+			    		colony.getEl().add(res.getString("COLONY_PREFIX") );
+			    		organism.setGroup(colony);
+			    		
 			    		if (ageIsRelevant(procedure)){
 			 	    		organism.setAge(res.getString("AGE_IN_WEEKS"));
 			    		}
@@ -581,7 +586,7 @@ public class SangerXmlGenerator {
 			
 		 ExpressionAnnotation p = new ExpressionAnnotation();
 		 
-		 if (!freetext.isEmpty()){
+		 if (freetext != null && !freetext.isEmpty()){
 			 p.setAnnotationFreetext(freetext);
 		 }
 		 pa.getEl().add(p);
@@ -600,10 +605,10 @@ public class SangerXmlGenerator {
 		 
 		 Annotation p = new Annotation();
 		 
-		 if (!(label.isEmpty() || id.isEmpty()))
+		 if (label != null && !label.isEmpty() && !id.isEmpty()){
 			 p.setOntologyTerm(getOntologyTerm(label, id));
-
-		 if (!freetext.isEmpty()){
+		 }
+		 if (freetext != null && !freetext.isEmpty()){
 			 p.setAnnotationFreetext(freetext);
 		 }
 		 p.setAnnotationMode(annMode);
