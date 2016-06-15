@@ -597,6 +597,7 @@ public class SangerXmlGenerator {
 	  * @return Annotation object matching the description in XSD
 	  */
 	 Annotation getAnnotation( String id, String label, String freetext, AnnotationMode annMode){
+		 
 		 Annotation p = new Annotation();
 		 
 		 if (!(label.isEmpty() || id.isEmpty()))
@@ -607,6 +608,7 @@ public class SangerXmlGenerator {
 		 }
 		 p.setAnnotationMode(annMode);
 		 return p;
+		 
 	 }
 	 
 	 /**

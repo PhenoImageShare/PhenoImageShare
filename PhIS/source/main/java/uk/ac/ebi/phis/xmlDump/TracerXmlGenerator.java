@@ -227,7 +227,7 @@ public class TracerXmlGenerator {
 	    			if (!geneList.isEmpty()){
 	    				Feature feature = geneList.get(0);
 	    				expressed.setGeneId(feature.getGene_id());
-		    			expressed.setGeneName(feature.getExternal_name());
+		    			expressed.setGeneSymbol(feature.getExternal_name());
 	    			}
 	    			
 	    			Annotation mt = new Annotation ();
