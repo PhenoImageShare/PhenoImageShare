@@ -15,18 +15,18 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Link complex type.
+ * <p>Java class for ProjectSpecific complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="Link">
+ * &lt;complexType name="ProjectSpecific">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;all>
- *         &lt;element name="display_name" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="url" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="details" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="parameter" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="procedure" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="pipeline" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *       &lt;/all>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -36,86 +36,88 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Link", propOrder = {
+@XmlType(name = "ProjectSpecific", propOrder = {
 
 })
-public class Link {
+public class ProjectSpecific {
 
-    @XmlElement(name = "display_name", required = true)
-    protected String displayName;
-    protected String url;
-    protected String details;
+    @XmlElement(required = true)
+    protected String parameter;
+    @XmlElement(required = true)
+    protected String procedure;
+    @XmlElement(required = true)
+    protected String pipeline;
 
     /**
-     * Gets the value of the displayName property.
+     * Gets the value of the parameter property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getDisplayName() {
-        return displayName;
+    public String getParameter() {
+        return parameter;
     }
 
     /**
-     * Sets the value of the displayName property.
+     * Sets the value of the parameter property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setDisplayName(String value) {
-        this.displayName = value;
+    public void setParameter(String value) {
+        this.parameter = value;
     }
 
     /**
-     * Gets the value of the url property.
+     * Gets the value of the procedure property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getUrl() {
-        return url;
+    public String getProcedure() {
+        return procedure;
     }
 
     /**
-     * Sets the value of the url property.
+     * Sets the value of the procedure property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setUrl(String value) {
-        this.url = value;
+    public void setProcedure(String value) {
+        this.procedure = value;
     }
 
     /**
-     * Gets the value of the details property.
+     * Gets the value of the pipeline property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getDetails() {
-        return details;
+    public String getPipeline() {
+        return pipeline;
     }
 
     /**
-     * Sets the value of the details property.
+     * Sets the value of the pipeline property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setDetails(String value) {
-        this.details = value;
+    public void setPipeline(String value) {
+        this.pipeline = value;
     }
 
 }

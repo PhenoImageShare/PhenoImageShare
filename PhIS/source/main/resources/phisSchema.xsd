@@ -130,6 +130,17 @@
 			<element name="strand" type="x:Strand" minOccurs="0" maxOccurs="1" />
 		</all>
 	</complexType>
+	
+	<complexType name="Group">
+		<all>
+			<element name="experiment_id" type="string" minOccurs="0" maxOccurs="1" />
+			<element name="colony_id" type="string" minOccurs="0" maxOccurs="1" />
+			<element name="project_id" type="string" minOccurs="0" maxOccurs="1" />
+			<element name="sb_id" type="string" minOccurs="0" maxOccurs="1" />
+			<element name="other" type="x:StringArray" minOccurs="0" maxOccurs="1" />
+		</all>
+	</complexType>
+	
 	<complexType name="GenomicLocationArray">
 		<sequence>
 			<element name="el" type="x:GenomicLocation" minOccurs="0" maxOccurs="unbounded" />
@@ -289,8 +300,8 @@
 				</annotation>
 			</element>
 			<element name="background_strain" type="x:StringArray" minOccurs="0" />
-			<element name="organism_id" type="string" minOccurs="0" maxOccurs="1"/> <!-- will be used to group multiple images taken from the same organism, i.e. animal. -->
-			<element name="group" type="x:StringArray" minOccurs="0" maxOccurs="1"/>
+			<element name="organism_id" type="string" minOccurs="0" maxOccurs="1"/> 
+			<element name="group" type="x:Group" minOccurs="0" maxOccurs="1"/> <!-- will be used to group multiple images taken from the same organism, i.e. animal. -->
 		</all>
 	</complexType>
 
@@ -340,7 +351,14 @@
 			<element name="expression_value" type="string" minOccurs="0" maxOccurs="1" /> <!-- expressed/not expressed/ambiguous, strongly expressed, etc. -->
 		</all>
 	</complexType>
-	
+	<complexType name="ProjectSpecific">
+		<all minOccurs="1">
+			<element name="parameter" type="string" minOccurs="1" maxOccurs="1" />
+			<element name="procedure" type="string" minOccurs="1" maxOccurs="1" />
+			<element name="pipeline" type="string" minOccurs="1" maxOccurs="1" />
+		</all>
+	</complexType>
+		
 	<complexType name="AnnotationArray">
 		<sequence>
 			<element name="el" type="x:Annotation" minOccurs="1" maxOccurs="unbounded" />
@@ -403,6 +421,8 @@
 			</element>
 			<element name="organism" type="x:Organism" minOccurs="1" maxOccurs="1" />
 			<element name="image_description" type="x:ImageDescription" minOccurs="1" maxOccurs="1" />
+			<element name="project_annotations" type="x:ProjectSpecific" minOccurs="0" maxOccurs="1" />
+			
 			<element name="mutant_genotype_traits" type="x:Genotype" minOccurs="0" maxOccurs="1" >
 				<annotation>
 				  <documentation xml:lang="en">

@@ -22,6 +22,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Map;
@@ -30,6 +31,7 @@ import javax.sql.DataSource;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 
@@ -48,6 +50,7 @@ import uk.ac.ebi.phis.jaxb.ExpressionAnnotation;
 import uk.ac.ebi.phis.jaxb.ExpressionAnnotationArray;
 import uk.ac.ebi.phis.jaxb.Genotype;
 import uk.ac.ebi.phis.jaxb.GenotypeComponent;
+import uk.ac.ebi.phis.jaxb.Group;
 import uk.ac.ebi.phis.jaxb.Image;
 import uk.ac.ebi.phis.jaxb.ImageDescription;
 import uk.ac.ebi.phis.jaxb.ImageType;
@@ -78,7 +81,7 @@ public class SangerXmlGenerator {
 		DataSource dataSource = (DataSource) ac.getBean("komp2DataSource");
         
         String command = "SELECT iir.ID, iir.LARGE_THUMBNAIL_FILE_PATH, iir.PUBLISHED_STATUS_ID, " +
-        					"iit.TAG_NAME, iit.TAG_VALUE, iit.X_START, iit.X_END, iit.Y_START, iit.Y_END, " +
+        					"iit.TAG_NAME, iit.TAG_VALUE, iit.X_START, iit.X_END, iit.Y_START, iit.Y_END, iit.CREATED_DATE, iit.EDIT_DATE, " +
         					"aa.TERM_ID, aa.TERM_NAME, aa.ONTOLOGY_DICT_ID, " +
         					"imam.MOUSE_ID, imam.MOUSE_NAME, imam.GENDER, imam.AGE_IN_WEEKS, imam.GENE, imam.ALLELE, imam.GENOTYPE, " +
         					"ied.NAME as procedure_name, " +
@@ -139,9 +142,9 @@ public class SangerXmlGenerator {
 			    		organism.setSex(sex);
 			    		organism.setNcbiTaxonId("10090");
 			    		organism.setOrganismId(res.getString("MOUSE_NAME"));
-			    		StringArray colony = new StringArray();
-			    		colony.getEl().add(res.getString("COLONY_PREFIX") );
-			    		organism.setGroup(colony);
+			    		Group group = new Group();
+			    		group.setColonyId(res.getString("COLONY_PREFIX"));
+			    		organism.setGroup(group);
 			    		
 			    		if (ageIsRelevant(procedure)){
 			 	    		organism.setAge(res.getString("AGE_IN_WEEKS"));
@@ -208,6 +211,19 @@ public class SangerXmlGenerator {
 					    		String roiId = internalId.replace("komp2_", "komp2_roi_") + "_" + k;
 					    		roi.setId(roiId);
 					    		roi.setAssociatedImage(internalId);
+					    		if (res.getDate("EDIT_DATE") != null){
+					    			String date = res.getString("EDIT_DATE");
+					    			XMLGregorianCalendar xmlDate = datatypeFactory.newXMLGregorianCalendar(Integer.parseInt(date.split("-")[0]),
+					    					Integer.parseInt(date.split("-")[1]), Integer.parseInt(date.split("-")[2]), 0, 0, 0, 0, 0);
+					    			roi.setEditDate(xmlDate);
+					    		}
+					    		if (res.getDate("CREATED_DATE") != null){
+					    			String date = res.getString("CREATED_DATE");
+					    			XMLGregorianCalendar xmlDate = datatypeFactory.newXMLGregorianCalendar(Integer.parseInt(date.split("-")[0]),
+					    					Integer.parseInt(date.split("-")[1]), Integer.parseInt(date.split("-")[2]), 0, 0, 0, 0, 0);
+					    			roi.setCreationDate(xmlDate);
+					    		}
+					    		
 					    		// Need to decide first if we associate annotations to a ROI or to the whole image
 					    		// 1. Phenotypes should always be associated to a region of interest
 					    		// 2. Existing ROI should be kept if the coordinates != 0 
@@ -217,8 +233,7 @@ public class SangerXmlGenerator {
 					    			if (!imageType.equalsIgnoreCase("expression")){
 					    				phenotypeAnatomy = true;
 					    			}
-					    		}
-					    									       
+					    		}					    		
 					    		// 3. Anatomy from expression annotations should always be associated to it's ROI
 					    		// Sanger expression images: if an anatomy term is associated to the whole expression image it means there is expression in that anatomical structure
 					    		else if (imageType.equalsIgnoreCase("expression"))
@@ -316,7 +331,7 @@ public class SangerXmlGenerator {
 				i++;
 				if (i % 100 == 0) {
 					System.out.println(i);
-					if (i == 1000){
+					if (i == 200){
 						break;
 					}
 				}

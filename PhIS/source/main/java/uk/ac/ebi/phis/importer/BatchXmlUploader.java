@@ -42,6 +42,7 @@ import uk.ac.ebi.phis.jaxb.Channel;
 import uk.ac.ebi.phis.jaxb.Doc;
 import uk.ac.ebi.phis.jaxb.ExpressionAnnotation;
 import uk.ac.ebi.phis.jaxb.GenotypeComponent;
+import uk.ac.ebi.phis.jaxb.Group;
 import uk.ac.ebi.phis.jaxb.Image;
 import uk.ac.ebi.phis.jaxb.ImageDescription;
 import uk.ac.ebi.phis.jaxb.ImageType;
@@ -335,9 +336,22 @@ public class BatchXmlUploader {
 			bean.setBackgroundStrain(img.getOrganism().getBackgroundStrain().getEl());
 		}
 		
-		if (img.getOrganism().getGroup() != null && !img.getOrganism().getGroup().getEl().isEmpty()){
-			for (String group : img.getOrganism().getGroup().getEl()){
-				bean.addGroup(group);
+		if (img.getOrganism().getGroup() != null){
+			Group group = img.getOrganism().getGroup();
+			if (group.getProjectId() != null){
+				//TODO bean.addGroup(group);
+			}
+			if (group.getColonyId() != null){
+				//TODO bean.addGroup(group);
+			}
+			if (group.getExperimentId() != null){
+				//TODO bean.addGroup(group);
+			}
+			if (group.getSbId() != null){
+				//TODO bean.addGroup(group);
+			}
+			if (group.getOther() != null){
+				//TODO bean.addGroup(group);
 			}
 		}
 		

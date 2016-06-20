@@ -48,6 +48,7 @@ import uk.ac.ebi.phis.jaxb.ExpressionAnnotation;
 import uk.ac.ebi.phis.jaxb.ExpressionAnnotationArray;
 import uk.ac.ebi.phis.jaxb.GenomicLocation;
 import uk.ac.ebi.phis.jaxb.GenotypeComponent;
+import uk.ac.ebi.phis.jaxb.Group;
 import uk.ac.ebi.phis.jaxb.Image;
 import uk.ac.ebi.phis.jaxb.ImageDescription;
 import uk.ac.ebi.phis.jaxb.ImageType;
@@ -190,9 +191,9 @@ public class TracerXmlGenerator {
 	    			stage.setTermLabel("embryonic mouse stage");
 	    			org.setStage(stage);
 	    			image.setOrganism(org);
-	    			StringArray groups = new StringArray();
-	    			groups.getEl().add(res.getString("sbname"));
-	    			org.setGroup(groups);
+	    			Group group = new Group();
+	    			group.setSbId(res.getString("sbname"));
+	    			org.setGroup(group);
 
 	    			// We always have 1 channel
 	    			Channel channel = new Channel();
