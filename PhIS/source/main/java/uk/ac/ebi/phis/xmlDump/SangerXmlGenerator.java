@@ -469,11 +469,14 @@ public class SangerXmlGenerator {
 			vm.setOntologyTerm(getOntologyTerm("optically dense stain", "FBbi_00000567"));
 			a.getEl().add(vm);
 		}
-		/*
-		 * else if (procedure.equalsIgnoreCase("Histology Slide")){
-		 * 
-		 * }
-		 */
+		else if (procedure.equalsIgnoreCase("Skin Histopathology")) {
+			vm.setOntologyTerm(getOntologyTerm("hematoxylin", "FFBbi_00000041"));
+			Annotation vm1 = new Annotation();
+			vm.setOntologyTerm(getOntologyTerm("eosin", "FFBbi_00000037"));			
+			vm.setAnnotationFreetext("Stained with H&E on autostainer and coverslipper.");
+			a.getEl().add(vm);			
+			a.getEl().add(vm1);
+		}
 		else if (procedure.equalsIgnoreCase("Brain Histopathology")) {
 			vm.setOntologyTerm(getOntologyTerm("fluorescent protein tag", "FBbi_00000405"));
 			a.getEl().add(vm);
@@ -550,11 +553,11 @@ public class SangerXmlGenerator {
 			ann2.setOntologyTerm(getOntologyTerm("bright-field microscopy", "FBbi_00000243"));
 			imArray.getEl().add(ann2);
 		}
-		/*
-		 * else if (procedure.equalsIgnoreCase("Histology Slide")){
-		 * 
-		 * }
-		 */
+		else if (procedure.equalsIgnoreCase("Skin Histopathology")) {
+			// TODO what sample preparation??
+			ann2.setOntologyTerm(getOntologyTerm("mode of light microscopy", "FFBbi_00000345"));
+			imArray.getEl().add(ann2);
+		}
 		else if (procedure.equalsIgnoreCase("Brain Histopathology")) {
 			ann.setOntologyTerm(getOntologyTerm("sectioned tissue", "FBbi_00000026"));
 			spArray.getEl().add(ann);

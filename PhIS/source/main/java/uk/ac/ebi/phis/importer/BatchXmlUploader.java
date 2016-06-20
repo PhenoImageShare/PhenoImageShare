@@ -148,11 +148,15 @@ public class BatchXmlUploader {
 			// flush every 1000 docs
 			if (i++ % 1000 == 0) {
 				is.addBeans(imageDocs);
-				imageDocs = new ArrayList<>();
+				System.out.println("Doc " + imageDocs.get(0));
 				System.out.println("Documents added " + i);
+				imageDocs = new ArrayList<>();
 			}
 		}
-		is.addBeans(imageDocs);
+		if (imageDocs.size() != 0){
+			is.addBeans(imageDocs);
+		}
+		System.out.println("Added image docs.");
 		
 	}
 
@@ -171,7 +175,10 @@ public class BatchXmlUploader {
 				roiDocs = new ArrayList<>();
 			}
 		}
-		rs.addBeans(roiDocs);
+		if (roiDocs.size() > 0){
+			rs.addBeans(roiDocs);
+		}
+		System.out.println("Added roi list");
 	}
 
 	
@@ -190,7 +197,9 @@ public class BatchXmlUploader {
 				chDocs = new ArrayList<>();
 			}
 		}
-		cs.addBeans(chDocs);
+		if (chDocs.size() > 0){
+			cs.addBeans(chDocs);
+		}
 	}
 
 	
@@ -321,7 +330,20 @@ public class BatchXmlUploader {
 				bean.setStrand(gc.getGenomicLocation().getStrand());
 			}
 		}
-		
+		if (channel.getVisualisationMethod() != null){
+			for (Annotation vm: channel.getVisualisationMethod().getEl()){
+				OntologyObject oo = ou.getOntologyTermById(vm.getOntologyTerm().getTermId().trim());
+				if (oo != null){
+					bean.addVisualisationMethodId(oo.getId());
+					bean.addVisualisationMethodLabel(oo.getLabel());
+					bean.addVisualisationMethodSynonyms(oo.getSynonyms());
+				} 
+				String freetext = vm.getAnnotationFreetext();
+				if (freetext != null && !freetext.equals("")){
+					bean.addVisualisationMethodFreetext(freetext);
+				}
+			}
+		}
 		return bean;	
 	}
 	
@@ -339,19 +361,28 @@ public class BatchXmlUploader {
 		if (img.getOrganism().getGroup() != null){
 			Group group = img.getOrganism().getGroup();
 			if (group.getProjectId() != null){
-				//TODO bean.addGroup(group);
+				bean.setDynamicGroups("project_group", group.getProjectId());
 			}
 			if (group.getColonyId() != null){
-				//TODO bean.addGroup(group);
+				bean.setDynamicGroups("colony_group", group.getColonyId());
+				System.out.println("--------- Added colony " + group.getColonyId());
 			}
 			if (group.getExperimentId() != null){
-				//TODO bean.addGroup(group);
+				bean.setDynamicGroups("experiment_group", group.getExperimentId());
 			}
 			if (group.getSbId() != null){
-				//TODO bean.addGroup(group);
+				bean.setDynamicGroups("sb_group", group.getSbId());
 			}
 			if (group.getOther() != null){
-				//TODO bean.addGroup(group);
+				bean.setDynamicGroups("other_group", group.getOther());
+			}
+		}
+		
+		if (img.getProjectAnnotations() != null){
+			if (img.getProjectAnnotations().getParameter() != null){
+				bean.setParameter(img.getProjectAnnotations().getParameter());			
+				bean.setPipeline(img.getProjectAnnotations().getPipeline());
+				bean.setProcedure(img.getProjectAnnotations().getProcedure());
 			}
 		}
 		
@@ -493,9 +524,10 @@ public class BatchXmlUploader {
 				bean.addStageAncestors(oo.getAncestorsBag());
 				if (oo.getFacetTerms() == null || oo.getFacetTerms().size() == 0){
 					System.out.println("No facet terms for " + oo.getLabel() + " " + oo.getId());
-				}
-				for (OntologyObject facetOo: oo.getFacetTerms()){
-					bean.addStageFacet(facetOo.getLabel());
+				} else {
+					for (OntologyObject facetOo: oo.getFacetTerms()){
+						bean.addStageFacet(facetOo.getLabel());
+					}
 				}
 			}
 		}
@@ -760,13 +792,13 @@ public class BatchXmlUploader {
 			Channel channel = channelIdMap.get(channelId);		
 			if (channel.getVisualisationMethod() != null){
 				for (Annotation vm: channel.getVisualisationMethod().getEl()){
-					OntologyObject oo = ou.getOntologyTermById(vm.getOntologyTerm().getTermId());
+					OntologyObject oo = ou.getOntologyTermById(vm.getOntologyTerm().getTermId().trim());
 					if (oo != null){
 						res.addVisualisationMethodId(oo.getId());
 						res.addVisualisationMethodLabel(oo.getLabel());
 						res.addVisualisationMethodSynonyms(oo.getSynonyms());
 						res.addVisualisationMethodAncestors(oo.getAncestorsBag());
-					}
+					} 
 					String freetext = vm.getAnnotationFreetext();
 					if (freetext != null && !freetext.equals("")){
 						res.addVisualisationMethodFreetext(freetext);

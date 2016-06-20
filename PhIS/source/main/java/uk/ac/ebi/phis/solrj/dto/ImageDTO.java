@@ -17,14 +17,12 @@ package uk.ac.ebi.phis.solrj.dto;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+import java.util.Map;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.solr.client.solrj.beans.Field;
-
-import uk.ac.ebi.phis.service.ImageService;
 
 public class ImageDTO {
 
@@ -65,6 +63,9 @@ public class ImageDTO {
 	public final static String SAMPLE_TYPE = "sample_type";
 	public static final String GROUP = "group";
 	public final static String ORGANISM_ID = "organism_id";
+	public final static String PROCEDURE = "procedure";
+	public final static String PIPELINE = "pipeline";
+	public final static String PARAMETER = "parameter";
 
 	public final static String ORIGINAL_IMAGE_ID = "original_image_id";
 	public final static String MACHINE = "machine";
@@ -255,6 +256,15 @@ public class ImageDTO {
 	
 	@Field(GENERIC_ANATOMY_ANCESTORS)
 	private List<String> genericAnatomyAncestors;
+
+	@Field(PIPELINE)
+	private String pipeline;
+
+	@Field(PARAMETER)
+	private String parameter;
+
+	@Field(PROCEDURE)
+	private String procedure;
 	
 	@Field(AGE)
 	private String age;
@@ -457,6 +467,10 @@ public class ImageDTO {
 
 	@Field(PHENOTYPE_ANCESTORS)
 	private ArrayList<String> phenotypeAncestors;
+	
+	@Field("*_group")
+	private Map<String, Object> dynamicGroups;
+	
 	
 	public List<String> getGenericSearch() {
 	
@@ -2906,5 +2920,46 @@ public class ImageDTO {
 	public void setImageDate(Date imageDate) {
 		this.imageDate = imageDate;
 	}
+	
+	/**
+	 * Sets value for dynamic field of type string
+	 * @param fieldName
+	 * @param fieldValue
+	 */
+	public void setDynamicGroups(String fieldName, String fieldValue){
+		if (dynamicGroups == null){
+			dynamicGroups = new HashMap<>();
+		}
+		dynamicGroups.put(fieldName, fieldValue);
+	}
+	
+	public Map<String, Object> getDynamicGroups(){
+		return dynamicGroups;
+	}
+
+	public String getPipeline() {
+		return pipeline;
+	}
+
+	public void setPipeline(String pipeline) {
+		this.pipeline = pipeline;
+	}
+
+	public String getParameter() {
+		return parameter;
+	}
+
+	public void setParameter(String parameter) {
+		this.parameter = parameter;
+	}
+
+	public String getProcedure() {
+		return procedure;
+	}
+
+	public void setProcedure(String procedure) {
+		this.procedure = procedure;
+	}
+	
 	
 }

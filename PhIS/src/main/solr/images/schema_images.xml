@@ -65,11 +65,11 @@
    <field name="host_url" type="string" indexed="true" stored="true" required="true"/>
    <field name="host_name" type="string" indexed="true" stored="true" required="true"/>
    <field name="image_url" type="string" indexed="true" stored="true" required="true"/>
-   <field name="image_licence" type="string" indexed="true" stored="true" required="false"/>
+   <field name="image_licence" type="string" indexed="true" stored="true" />
    <field name="thumbnail_url" type="string" indexed="true" stored="true" required="true"/>
    <field name="image_context_url" type="string" indexed="true" stored="true"/>
-   <field name="image_generated_by" type="string" indexed="true" stored="true" multiValued="true" required="false"/>
-   <field name="image_date" type="date" indexed="true" stored="true" multiValued="true" required="false"/> <!-- Date when the image was taken-->
+   <field name="image_generated_by" type="string" indexed="true" stored="true" multiValued="true" />
+   <field name="image_date" type="date" indexed="true" stored="true" multiValued="true" /> <!-- Date when the image was taken-->
    <field name="imaging_method_label" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="imaging_method_synonym" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="imaging_method_label_analysed" type="textCaseInsensitive" indexed="true" stored="false" multiValued="true"/>
@@ -142,8 +142,13 @@
    <field name="strand" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="zygosity" type="string" indexed="true" stored="true" multiValued="true"/>
    
-  <field name="group" type="string" indexed="true" stored="true" multiValued="true"/> <!--  group images by these groups. Could be used for genotype, sample id, ptoject, procedure etc.  -->
-  
+   <field name="group" type="string" indexed="true" stored="true" multiValued="true"/> <!--  group images by these groups. Could be used for genotype, sample id, project, procedure etc.  -->
+   <dynamicField name="*_group" type="string" indexed="true"  stored="true"/>
+   <field name="pipeline" type="string" indexed="true" stored="true" multiValued="false"/>
+   <field name="procedure" type="string" indexed="true" stored="true" multiValued="false"/>
+   <field name="parameter" type="string" indexed="true" stored="true" multiValued="false"/>
+   
+   
    <!--  Annotation/gene info bags -->
    <field name="anatomy_computed_id_bag" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="anatomy_computed_term_bag" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true"/> 
@@ -193,13 +198,15 @@
    
    
    <!--  TESTING concatenation. Works fine on single valued fields but streams multivalued fields to one string. Output is always a single string. -->
-   <field name="concat" type="string" indexed="false" stored="true" required="false" multiValued="true"/>
+   <field name="concat" type="string" indexed="false" stored="true"  multiValued="true"/>
    
    <!-- Autosuggest fields -->
    <!-- field name="term_autosuggest_analysed" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true" termVectors="true" termPositions="true" termOffsets="true"/-->
    <!-- field name="term_autosuggest" type="textCaseInsensitive" indexed="true" stored="true" multiValued="true" /-->
   
  </fields>
+ 
+   <copyField source="*_group" dest="group"/>
  
    <copyField source="expression_in_label_bag" dest="generic_anatomy"/>
    <copyField source="expression_in_id_bag" dest="generic_anatomy"/>

@@ -16,6 +16,7 @@
 package uk.ac.ebi.phis.solrj.dto;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import org.apache.solr.client.solrj.beans.Field;
@@ -41,6 +42,7 @@ public class ChannelDTO {
 	public final static String VISUALISATION_METHOD_LABEL = "visualisation_method_label";
 	public final static String VISUALISATION_METHOD_ID = "visualisation_method_id";
 	public final static String VISUALISATION_METHOD_SYNONYMS = "visualisation_method_synonyms";
+	public final static String VISUALISATION_METHOD_FREETEXT = "visualisation_method_freetext";
 
 	@Field(ChannelDTO.ID)
 	String id;
@@ -73,11 +75,13 @@ public class ChannelDTO {
 	@Field(ChannelDTO.ZYGOSITY)
 	String zygosity;
 	@Field(ChannelDTO.VISUALISATION_METHOD_ID)
-	String vizualisationMethodId;
+	ArrayList<String> visualisationMethodId;
 	@Field(ChannelDTO.VISUALISATION_METHOD_LABEL)
-	String vizualisationMethodLabel;
+	ArrayList<String> visualisationMethodLabel;
 	@Field(ChannelDTO.VISUALISATION_METHOD_SYNONYMS)
-	ArrayList<String> vizualisationMethodSynonyms;
+	ArrayList<String> visualisationMethodSynonyms;
+	@Field(ChannelDTO.VISUALISATION_METHOD_FREETEXT)
+	ArrayList<String> visualisationMethodFreetext;
 	
 	/**
 	 * @return the id
@@ -105,61 +109,6 @@ public class ChannelDTO {
 	public void setMutationType(String mutationType) {
 	
 		this.mutationType = mutationType;
-	}
-
-	/**
-	 * @return the vizualisationMethodId
-	 */
-	public String getVizualisationMethodId() {
-	
-		return vizualisationMethodId;
-	}
-
-	
-	/**
-	 * @param vizualisationMethodId the vizualisationMethodId to set
-	 */
-	public void setVizualisationMethodId(String vizualisationMethodId) {
-	
-		this.vizualisationMethodId = vizualisationMethodId;
-	}
-
-	
-	/**
-	 * @return the vizualisationMethodLabel
-	 */
-	public String getVizualisationMethodLabel() {
-	
-		return vizualisationMethodLabel;
-	}
-
-	
-	/**
-	 * @param vizualisationMethodLabel the vizualisationMethodLabel to set
-	 */
-	public void setVizualisationMethodLabel(String vizualisationMethodLabel) {
-	
-		this.vizualisationMethodLabel = vizualisationMethodLabel;
-	}
-
-	
-	/**
-	 * @return the vizualisationMethodSynonyms
-	 */
-	public ArrayList<String> getVizualisationMethodSynonyms() {
-	
-		return vizualisationMethodSynonyms;
-	}
-
-	
-	/**
-	 * @param vizualisationMethodSynonyms the vizualisationMethodSynonyms to set
-	 */
-	public void addVizualisationMethodSynonyms(String vizualisationMethodSynonyms) {
-		if (this.vizualisationMethodSynonyms == null){
-			this.vizualisationMethodSynonyms = new ArrayList<>();
-		}
-		this.vizualisationMethodSynonyms.add(vizualisationMethodSynonyms);
 	}
 
 	/**
@@ -377,7 +326,62 @@ public class ChannelDTO {
 	
 		this.zygosity = zygosity;
 	}
+
+	public ArrayList<String> getVisualisationMethodSynonyms() {
+		return visualisationMethodSynonyms;
+	}
+
+	public void setVisualisationMethodSynonyms(ArrayList<String> visualisationMethodSynonyms) {
+		this.visualisationMethodSynonyms = visualisationMethodSynonyms;
+	}
 	
-	
+	public void addVisualisationMethodSynonyms(ArrayList<String> visualisationMethodSynonyms) {
+		if (this.visualisationMethodSynonyms == null){
+			this.visualisationMethodSynonyms = new ArrayList<>();
+		}
+		this.visualisationMethodSynonyms.addAll(visualisationMethodSynonyms);
+	}
+
+	public ArrayList<String> getVisualisationMethodId() {
+		return visualisationMethodId;
+	}
+
+	public void setVisualisationMethodId(ArrayList<String> visualisationMethodId) {
+		this.visualisationMethodId = visualisationMethodId;
+	}
+	public void addVisualisationMethodId(String visualisationMethodId) {
+		if (this.visualisationMethodId == null){
+			this.visualisationMethodId = new ArrayList<>();
+		}
+		this.visualisationMethodId.add(visualisationMethodId);
+	}
+
+	public ArrayList<String> getVisualisationMethodLabel() {
+		return visualisationMethodLabel;
+	}
+
+	public void setVisualisationMethodLabel(ArrayList<String> visualisationMethodLabel) {
+		this.visualisationMethodLabel = visualisationMethodLabel;
+	}
+	public void addVisualisationMethodLabel(String visualisationMethodLabel) {
+		if (this.visualisationMethodLabel == null){
+			this.visualisationMethodLabel = new ArrayList<>();
+		}
+		this.visualisationMethodLabel.add(visualisationMethodLabel);
+	}
+
+	public ArrayList<String> getVisualisationMethodFreetext() {
+		return visualisationMethodFreetext;
+	}
+
+	public void setVisualisationMethodFreetext(ArrayList<String> visualisationMethodFreetext) {
+		this.visualisationMethodFreetext = visualisationMethodFreetext;
+	}
+	public void addVisualisationMethodFreetext(String visualisationMethodFreetext) {
+		if (this.visualisationMethodFreetext == null){
+			this.visualisationMethodFreetext = new ArrayList<>();
+		}
+		this.visualisationMethodFreetext.add(visualisationMethodFreetext);
+	}
 	
 }

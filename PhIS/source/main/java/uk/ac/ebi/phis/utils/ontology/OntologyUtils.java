@@ -101,13 +101,13 @@ public class OntologyUtils {
 		
 		phenotypeOntologies.add(System.getProperty("user.home") + "/phis_ontologies/mp.owl");
 
-		anatomyOntologies.add(System.getProperty("user.home") + "/phis_ontologies/fbbt.owl");
+////		anatomyOntologies.add(System.getProperty("user.home") + "/phis_ontologies/fbbt.owl");
 		anatomyOntologies.add(System.getProperty("user.home") + "/phis_ontologies/ma.owl");
-		anatomyOntologies.add(System.getProperty("user.home") + "/phis_ontologies/emapa.owl");
-		anatomyOntologies.add(System.getProperty("user.home") + "/phis_ontologies/emap.owl");
+////		anatomyOntologies.add(System.getProperty("user.home") + "/phis_ontologies/emapa.owl");
+////		anatomyOntologies.add(System.getProperty("user.home") + "/phis_ontologies/emap.owl");
 		
 		stageOntologies.add(System.getProperty("user.home") + "/phis_ontologies/mmusdv.owl");
-		stageOntologies.add(System.getProperty("user.home") + "/phis_ontologies/fbdv.owl");
+////		stageOntologies.add(System.getProperty("user.home") + "/phis_ontologies/fbdv.owl");
 		
 		xrefOntologies.add(System.getProperty("user.home") + "/phis_ontologies/uberon.owl");
 
@@ -354,13 +354,13 @@ public class OntologyUtils {
 	        
 	        OWLReasonerFactory reasonerFactory = new ElkReasonerFactory();
 	        OWLReasoner reasoner = reasonerFactory.createReasoner(ontology);
-	        reasoner.precomputeInferences(InferenceType.CLASS_HIERARCHY);     
-	        List<InferredAxiomGenerator<? extends OWLAxiom>> gens = new ArrayList<InferredAxiomGenerator<? extends OWLAxiom>>();
-	        gens.add(new InferredSubClassAxiomGenerator());
-	        gens.add(new InferredClassAssertionAxiomGenerator());
-	        InferredOntologyGenerator iog = new InferredOntologyGenerator(reasoner, gens);
-	        iog.fillOntology(manager.getOWLDataFactory(), ontology);
-	        manager.saveOntology(ontology, new StringDocumentTarget());
+//	        reasoner.precomputeInferences(InferenceType.CLASS_HIERARCHY);     
+//	        List<InferredAxiomGenerator<? extends OWLAxiom>> gens = new ArrayList<InferredAxiomGenerator<? extends OWLAxiom>>();
+//	        gens.add(new InferredSubClassAxiomGenerator());
+//	        gens.add(new InferredClassAssertionAxiomGenerator());
+//	        InferredOntologyGenerator iog = new InferredOntologyGenerator(reasoner, gens);
+//	        iog.fillOntology(manager.getOWLDataFactory(), ontology);
+//	        manager.saveOntology(ontology, new StringDocumentTarget());
 
 	        System.out.println("Axioms after :" + ontology.getAxiomCount());
 	        
@@ -438,39 +438,39 @@ public class OntologyUtils {
 			
 			System.out.println("Done, going for ancestors");
 			
-			for (OWLClass cls : classesSubSet) {
-				
-				if (!cls.getIRI().isNothing() && EntitySearcher.getAnnotations(cls,ontology, LABEL_ANNOTATION).size() > 0) {
-					
-					OntologyObject temp = idLabelMap.get(getIdentifierShortForm(cls));
-					Set<OWLClass> ancestors = new HashSet<>();
-					Set<OWLClass> parents = new HashSet<>();
-					
-					if (includePartOf){
-						ancestors = new HashSet(gr.getNamedAncestorsWithGCI(cls));
-						parents = new HashSet(getParentsClassifiedPartOf(cls, gr));
-					} else {
-						ancestors = getAncestors(reasoner, cls);
-						parents = new HashSet(getParentsClassifiedPartOf(cls, gr));
-					}
-					
-					for (OWLObject obj : ancestors) {
-						OntologyObject ancestorObject = idLabelMap.get(getIdentifierShortForm((OWLClass) obj));
-						if (ancestorObject != null){
-							temp.addIntermediateTerms(ancestorObject);
-						}
-					}
-					
-					for (OWLObject obj : parents) {
-						OntologyObject parent = idLabelMap.get(getIdentifierShortForm((OWLClass) obj));
-						if (parent != null){
-							temp.addDirectparentTerms(parent);
-						} 
-					}
-					
-					idLabelMap.put(getIdentifierShortForm(cls), temp);
-				}
-			}
+//			for (OWLClass cls : classesSubSet) {
+//				
+//				if (!cls.getIRI().isNothing() && EntitySearcher.getAnnotations(cls,ontology, LABEL_ANNOTATION).size() > 0) {
+//					
+//					OntologyObject temp = idLabelMap.get(getIdentifierShortForm(cls));
+//					Set<OWLClass> ancestors = new HashSet<>();
+//					Set<OWLClass> parents = new HashSet<>();
+//					
+//					if (includePartOf){
+//						ancestors = new HashSet(gr.getNamedAncestorsWithGCI(cls));
+//						parents = new HashSet(getParentsClassifiedPartOf(cls, gr));
+//					} else {
+//						ancestors = getAncestors(reasoner, cls);
+//						parents = new HashSet(getParentsClassifiedPartOf(cls, gr));
+//					}
+//					
+//					for (OWLObject obj : ancestors) {
+//						OntologyObject ancestorObject = idLabelMap.get(getIdentifierShortForm((OWLClass) obj));
+//						if (ancestorObject != null){
+//							temp.addIntermediateTerms(ancestorObject);
+//						}
+//					}
+//					
+//					for (OWLObject obj : parents) {
+//						OntologyObject parent = idLabelMap.get(getIdentifierShortForm((OWLClass) obj));
+//						if (parent != null){
+//							temp.addDirectparentTerms(parent);
+//						} 
+//					}
+//					
+//					idLabelMap.put(getIdentifierShortForm(cls), temp);
+//				}
+//			}
 			
 			manager.removeOntology(ontology);
 			

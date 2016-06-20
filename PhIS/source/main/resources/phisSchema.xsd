@@ -137,7 +137,7 @@
 			<element name="colony_id" type="string" minOccurs="0" maxOccurs="1" />
 			<element name="project_id" type="string" minOccurs="0" maxOccurs="1" />
 			<element name="sb_id" type="string" minOccurs="0" maxOccurs="1" />
-			<element name="other" type="x:StringArray" minOccurs="0" maxOccurs="1" />
+			<element name="other" type="string" minOccurs="0" maxOccurs="1" />
 		</all>
 	</complexType>
 	
