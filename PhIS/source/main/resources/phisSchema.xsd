@@ -223,14 +223,14 @@
 			<element name="imaging_method" type="x:AnnotationArray" minOccurs="0" maxOccurs="1" >
 				<annotation>
 				  <documentation xml:lang="en">
-				  The ontology terms accepted are children of "imaging method" in FBBI, see http://www.ebi.ac.uk/ols/beta/ontologies/fbbi/terms?iri=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FFBbi_00000222 . 
+				  The ontology terms accepted are children of "imaging method" in FBBI, see http://www.ebi.ac.uk/ols/ontologies/fbbi/terms?iri=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FFBbi_00000222
 				  </documentation>
 				</annotation>
 			</element>
 			<element name="sample_preparation" type="x:AnnotationArray" minOccurs="0" maxOccurs="1" >
 				<annotation>
 				  <documentation xml:lang="en">
-				  The ontology terms accepted are children of "sample prearation" in FBBI, see http://www.ebi.ac.uk/ols/beta/ontologies/fbbi/terms?iri=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FFBbi_00000001 . 
+				  The ontology terms accepted are children of "sample prearation" in FBBI, see http://www.ebi.ac.uk/ols/ontologies/fbbi/terms?iri=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FFBbi_00000001
 				  </documentation>
 				</annotation>
 			</element> 
@@ -288,7 +288,7 @@
 			<element name="ncbi_taxon_id" type="string" minOccurs="0" maxOccurs="1">
 				<annotation>
 				  <documentation xml:lang="en">
-				  Organism taxon id provided by NCBI (if existing). Example NCBITaxon_862507. http://www.ebi.ac.uk/ols/beta/ontologies/ncbitaxon . 
+				  Organism taxon id provided by NCBI (if existing). Example NCBITaxon_862507. http://www.ebi.ac.uk/ols/ontologies/ncbitaxon . 
 				  </documentation>
 				</annotation>
 			</element>
@@ -395,7 +395,7 @@
 			<element name="mutation_type" type="x:Annotation" minOccurs="0" maxOccurs="1" >
 				<annotation>
 				  <documentation xml:lang="en">
-				   If an ontology term is provided, see the Sequence ontology ontology. Please contact us if you want to use a different ontology, as this should be possible. See SO ontology: http://www.ebi.ac.uk/ols/beta/ontologies/so/terms?iri=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FSO_0001059 
+				   If an ontology term is provided, see the Sequence ontology ontology. Please contact us if you want to use a different ontology, as this should be possible. See SO ontology: http://www.ebi.ac.uk/ols/ontologies/so/terms?iri=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FSO_0001059
 				  </documentation>
 				</annotation>
 			</element>
@@ -482,7 +482,7 @@
 			<element name="visualisation_method" type="x:AnnotationArray" minOccurs="0" maxOccurs="1" >
 				<annotation>
 				  <documentation xml:lang="en">
-					 Information on staining, markers and such. For ontology terms Visualization method children should be provided, from the Fbbi ontology:  http://www.ebi.ac.uk/ols/beta/ontologies/fbbi/terms?iri=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FFBbi_00000031  
+					 Information on staining, markers and such. For ontology terms Visualization method children should be provided, from the Fbbi ontology:  http://www.ebi.ac.uk/ols/ontologies/fbbi/terms?iri=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FFBbi_00000031
 				  </documentation>
 				</annotation>
 			</element> 	
