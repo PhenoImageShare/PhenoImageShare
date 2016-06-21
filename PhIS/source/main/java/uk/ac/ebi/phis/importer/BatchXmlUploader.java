@@ -148,7 +148,6 @@ public class BatchXmlUploader {
 			// flush every 1000 docs
 			if (i++ % 1000 == 0) {
 				is.addBeans(imageDocs);
-				System.out.println("Doc " + imageDocs.get(0));
 				System.out.println("Documents added " + i);
 				imageDocs = new ArrayList<>();
 			}
@@ -156,7 +155,6 @@ public class BatchXmlUploader {
 		if (imageDocs.size() != 0){
 			is.addBeans(imageDocs);
 		}
-		System.out.println("Added image docs.");
 		
 	}
 
@@ -167,7 +165,6 @@ public class BatchXmlUploader {
 		System.out.println("rois list is " + rois.size());
 		List<RoiDTO> roiDocs = new ArrayList<>();
 		for (Roi roi : rois) {
-			// add it
 			roiDocs.add(fillPojo(roi, datasource));
 			// flush every 1000 docs
 			if (i++ % 1000 == 0) {
@@ -178,7 +175,6 @@ public class BatchXmlUploader {
 		if (roiDocs.size() > 0){
 			rs.addBeans(roiDocs);
 		}
-		System.out.println("Added roi list");
 	}
 
 	
@@ -189,7 +185,6 @@ public class BatchXmlUploader {
 		List<ChannelDTO> chDocs = new ArrayList<>();
 		System.out.println("channel list is " + channels.size());
 		for (Channel channel : channels) {
-			// add it
 			chDocs.add(fillPojo(channel, datasource));
 			// flush every 1000 docs
 			if (i++ % 1000 == 0) {
