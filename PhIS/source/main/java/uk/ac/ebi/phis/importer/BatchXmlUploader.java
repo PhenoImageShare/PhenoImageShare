@@ -360,7 +360,6 @@ public class BatchXmlUploader {
 			}
 			if (group.getColonyId() != null){
 				bean.setDynamicGroups("colony_group", group.getColonyId());
-				System.out.println("--------- Added colony " + group.getColonyId());
 			}
 			if (group.getExperimentId() != null){
 				bean.setDynamicGroups("experiment_group", group.getExperimentId());

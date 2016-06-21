@@ -178,6 +178,7 @@ public class OntologyObject {
 
 		return "OntologyObject [id=" + id + ", label=" + label + ", synonyms=" + synonyms + ", ancestorsBagSize=" + ancestorsBag.size() + ", intermediateTermsSize=" 
 			+ intermediateTerms.size() + ", facetTermsSize=" + facetTerms.size() + ", directParentTermsSize=" + directParentTerms.size() + "]";
+		
 	}
 	
 }

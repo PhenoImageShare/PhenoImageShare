@@ -4,17 +4,14 @@
  
  <fields>
 
-	<!-- Main Channel document. Must be associated to the right image and ROI. -->
-						  
+	<!-- Main Channel document. Must be associated to the right image and ROI. -->						  
    <field name="_version_" type="long" indexed="true" stored="true"/>
    <field name="_root_" type="string" indexed="true" stored="false"/>
    
    <!-- phis ids-->
-
    <field name="id" type="string" indexed="true" stored="true" required="true" multiValued="false" />
    
-   <!-- image documents - general info -->
-   
+   <!-- image documents - general info -->   
    <field name="associated_roi" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="associated_image" type="string" indexed="true" stored="true" required="true"/>
    
@@ -35,8 +32,7 @@
    <field name="visualisation_method_label" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="visualisation_method_id" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="visualisation_method_synonyms" type="string" indexed="true" stored="true" multiValued="true"/>
-   <field name="visualisation_method_freetext" type="string" indexed="true" stored="true" multiValued="true"/>
-   
+   <field name="visualisation_method_freetext" type="string" indexed="true" stored="true" multiValued="true"/>   
 
  </fields>
 
