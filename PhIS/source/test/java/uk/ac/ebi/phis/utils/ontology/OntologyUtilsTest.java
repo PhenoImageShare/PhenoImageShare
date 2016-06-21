@@ -32,11 +32,8 @@ public class OntologyUtilsTest {
 	public void testIntermediateTerms(){
 		
 		OntologyObject obj = ou.getOntologyTermById("MmusDv_0000092");
-		System.out.println("---- " + obj.getIntermediateTerms().size());
 		assertTrue(obj.getIntermediateTerms().size() == 2);		// 2, including part-of  
 		
 	}
-	
-	
-	
+		
 }

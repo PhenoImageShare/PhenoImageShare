@@ -99,15 +99,15 @@ public class OntologyUtils {
 		synonymRelations.add("http://www.geneontology.org/formats/oboInOwl#hasRelatedSynonym");
 		synonymRelations.add("http://www.geneontology.org/formats/oboInOwl#hasBroadSynonym");
 		
-////		phenotypeOntologies.add(System.getProperty("user.home") + "/phis_ontologies/mp.owl");
+		phenotypeOntologies.add(System.getProperty("user.home") + "/phis_ontologies/mp.owl");
 
-////		anatomyOntologies.add(System.getProperty("user.home") + "/phis_ontologies/fbbt.owl");
-////		anatomyOntologies.add(System.getProperty("user.home") + "/phis_ontologies/ma.owl");
-////		anatomyOntologies.add(System.getProperty("user.home") + "/phis_ontologies/emapa.owl");
-////		anatomyOntologies.add(System.getProperty("user.home") + "/phis_ontologies/emap.owl");
+		anatomyOntologies.add(System.getProperty("user.home") + "/phis_ontologies/fbbt.owl");
+		anatomyOntologies.add(System.getProperty("user.home") + "/phis_ontologies/ma.owl");
+		anatomyOntologies.add(System.getProperty("user.home") + "/phis_ontologies/emapa.owl");
+		anatomyOntologies.add(System.getProperty("user.home") + "/phis_ontologies/emap.owl");
 		
 		stageOntologies.add(System.getProperty("user.home") + "/phis_ontologies/mmusdv.owl");
-////		stageOntologies.add(System.getProperty("user.home") + "/phis_ontologies/fbdv.owl");
+		stageOntologies.add(System.getProperty("user.home") + "/phis_ontologies/fbdv.owl");
 		
 		xrefOntologies.add(System.getProperty("user.home") + "/phis_ontologies/uberon.owl");
 

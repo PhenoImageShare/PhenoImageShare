@@ -460,9 +460,9 @@
 			</element> 
 			<element name="depicted_anatomical_structure" type="x:Annotation" minOccurs="0" maxOccurs="1" >
 				<annotation>
-				  <documentation xml:lang="en">
-					Use most general anatomy term describing the anatomical part depicted in the image. It is not necessarily the anatomical part of interest, but merely what is depicted in the image.   
-				  </documentation>
+					<documentation xml:lang="en">
+						Use most general anatomy term describing the anatomical part depicted in the image. It is not necessarily the anatomical part of interest, but merely what is depicted in the image.   
+					</documentation>
 				</annotation>
 			</element> 	
 		</all>

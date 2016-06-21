@@ -22,10 +22,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Map;
+import java.util.*;
 
 import javax.sql.DataSource;
 import javax.xml.bind.JAXBContext;
@@ -80,7 +77,7 @@ public class SangerXmlGenerator {
         ApplicationContext ac = new ClassPathXmlApplicationContext("app-config.xml");
 		DataSource dataSource = (DataSource) ac.getBean("komp2DataSource");
         
-        String command = "SELECT iir.ID, iir.LARGE_THUMBNAIL_FILE_PATH, iir.PUBLISHED_STATUS_ID, " +
+        String command = "SELECT iir.ID, iir.LARGE_THUMBNAIL_FILE_PATH, iir.PUBLISHED_STATUS_ID, iit.ID as TAG_ID, " +
         					"iit.TAG_NAME, iit.TAG_VALUE, iit.X_START, iit.X_END, iit.Y_START, iit.Y_END, iit.CREATED_DATE, iit.EDIT_DATE, " +
         					"aa.TERM_ID, aa.TERM_NAME, aa.ONTOLOGY_DICT_ID, " +
         					"imam.MOUSE_ID, imam.MOUSE_NAME, imam.GENDER, imam.AGE_IN_WEEKS, imam.GENE, imam.ALLELE, imam.GENOTYPE, " +
@@ -93,8 +90,8 @@ public class SangerXmlGenerator {
         					"LEFT OUTER JOIN IMA_SUBCONTEXT isub ON iir.subcontext_id=isub.id " +
         					"LEFT OUTER JOIN IMA_EXPERIMENT_DICT ied ON isub.experiment_dict_id=ied.id " +
         					"LEFT OUTER JOIN allele ON allele.symbol=imam.ALLELE " + 
-        				"WHERE ied.NAME != 'Mouse Necropsy' " +
-        				"ORDER BY iir.ID;";
+        				"WHERE ied.NAME != 'Mouse Necropsy'  AND TAG_NAME like \"Annotation\" " +
+        				"ORDER BY iir.ID, TAG_ID;";
         
         try {
         	
@@ -112,11 +109,8 @@ public class SangerXmlGenerator {
 	        	if (res.getString("gf_acc") != null && res.getString("gf_acc").startsWith("MGI:")){
     				
 		        	boolean sameImage = true;
-		        	
-		        	String internalId =  "komp2_" + res.getString("ID");
-		        	
-		        	String imageId = res.getString("ID");		        
-		    		
+		        	String internalId =  "komp2_" + res.getString("ID");		        	
+		        	String imageId = res.getString("ID");
 		    		String url = "http://www.mousephenotype.org/data/media/" + res.getString("LARGE_THUMBNAIL_FILE_PATH") ;
 		    		Map<String, Integer> dimensions = EnrichingUtils.getImageMeasuresFromUrl(url);
 		    		
@@ -203,36 +197,45 @@ public class SangerXmlGenerator {
 
 				        /*	ROI	*/
 			    		int k = 0;
+			    		String tagId = "-1";
+			    		Roi roi = new Roi();
+			    		Map<String,Roi> rois = new HashMap<>();
+			    		
 			    		// Go through all annotations for the same image
 			    		while(sameImage){
 			    			
 			    			if (res.getString("ONTOLOGY_DICT_ID") != null){
-					    		Roi roi = new Roi();
-					    		String roiId = internalId.replace("komp2_", "komp2_roi_") + "_" + k;
-					    		roi.setId(roiId);
-					    		roi.setAssociatedImage(internalId);
-					    		if (res.getDate("EDIT_DATE") != null){
-					    			String date = res.getString("EDIT_DATE");
-					    			XMLGregorianCalendar xmlDate = datatypeFactory.newXMLGregorianCalendar(Integer.parseInt(date.split("-")[0]),
-					    					Integer.parseInt(date.split("-")[1]), Integer.parseInt(date.split("-")[2]), 0, 0, 0, 0, 0);
-					    			roi.setEditDate(xmlDate);
-					    		}
-					    		if (res.getDate("CREATED_DATE") != null){
-					    			String date = res.getString("CREATED_DATE");
-					    			XMLGregorianCalendar xmlDate = datatypeFactory.newXMLGregorianCalendar(Integer.parseInt(date.split("-")[0]),
-					    					Integer.parseInt(date.split("-")[1]), Integer.parseInt(date.split("-")[2]), 0, 0, 0, 0, 0);
-					    			roi.setCreationDate(xmlDate);
-					    		}
+				    			//TODO check id new ROI is needed i.e. coordinates differ
+					    		if (!tagId.equalsIgnoreCase(res.getString("TAG_ID"))){
+					    			roi = new Roi();
+					    			String roiId = internalId.replace("komp2_", "komp2_roi_") + "_" + k;
+						    		roi.setId(roiId);
+						    		roi.setAssociatedImage(internalId);
+						    		if (res.getDate("EDIT_DATE") != null){
+						    			String date = res.getString("EDIT_DATE");
+						    			XMLGregorianCalendar xmlDate = datatypeFactory.newXMLGregorianCalendar(Integer.parseInt(date.split("-")[0]),
+						    					Integer.parseInt(date.split("-")[1]), Integer.parseInt(date.split("-")[2]), 0, 0, 0, 0, 0);
+						    			roi.setEditDate(xmlDate);
+						    		}
+						    		if (res.getDate("CREATED_DATE") != null){
+						    			String date = res.getString("CREATED_DATE");
+						    			XMLGregorianCalendar xmlDate = datatypeFactory.newXMLGregorianCalendar(Integer.parseInt(date.split("-")[0]),
+						    					Integer.parseInt(date.split("-")[1]), Integer.parseInt(date.split("-")[2]), 0, 0, 0, 0, 0);
+						    			roi.setCreationDate(xmlDate);
+						    		}
+						    		k++;
+					    			tagId = res.getString("TAG_ID");
+					    		}					    		
 					    		
 					    		// Need to decide first if we associate annotations to a ROI or to the whole image
 					    		// 1. Phenotypes should always be associated to a region of interest
-					    		// 2. Existing ROI should be kept if the coordinates != 0 
-					    		if ( res.getString("ONTOLOGY_DICT_ID").equalsIgnoreCase("1") || 
-					    				notZeroCoordinates(res) ){ // 1 = MP
+					    		// 2. Existing ROI should be kept if the coordinates != 0
+					    		if ( res.getString("ONTOLOGY_DICT_ID").equalsIgnoreCase("1") || notZeroCoordinates(res) ){ // 1 = MP
 					    			roi = fillRoi(roi, res, d, imageType.equalsIgnoreCase("expression"));
 					    			if (!imageType.equalsIgnoreCase("expression")){
 					    				phenotypeAnatomy = true;
 					    			}
+						        	rois.put(roi.getId(), roi);
 					    		}					    		
 					    		// 3. Anatomy from expression annotations should always be associated to it's ROI
 					    		// Sanger expression images: if an anatomy term is associated to the whole expression image it means there is expression in that anatomical structure
@@ -240,12 +243,9 @@ public class SangerXmlGenerator {
 					    		{
 					    			roi = fillRoi(roi, res, d, imageType.equalsIgnoreCase("expression"));
 					    			roi.setAssociatedChannel(new StringArray());
-					    			roi.getAssociatedChannel().getEl().add(channelId);
-					    			if (channel.getAssociatedRoi() == null){
-						    			channel.setAssociatedRoi(new StringArray());
-					    			}
-					    			channel.getAssociatedRoi().getEl().add(roiId);
+					    			roi.getAssociatedChannel().getEl().add(channelId);					    			
 					    			expression = true;
+						        	rois.put(roi.getId(), roi);
 					    		}
 					    		// Otherwise associate annotation to the whole image
 					    		else {
@@ -256,25 +256,25 @@ public class SangerXmlGenerator {
 										}
 						    			image.setDepictedAnatomicalStructure(getAnnotation(res.getString("TERM_ID").toString(), res.getString("TERM_NAME").toString(), null, AnnotationMode.MANUAL));
 					    			}
-					    			roi = null;
 					    		}
-					    								        
-						        if (roi != null){
-						        	if (image.getAssociatedRoi() == null){
-						    			image.setAssociatedRoi(new StringArray());
-						        	}
-						        	image.getAssociatedRoi().getEl().add(roi.getId());
-						        	doc.getRoi().add(roi);
-						        }
 			    			}
 			    			
-			    			if (res.next() && imageId.equalsIgnoreCase(res.getString("ID"))){
-						        k++;	
-							}
-					        else {
+			    			if (!(res.next() && imageId.equalsIgnoreCase(res.getString("ID"))) && rois.size() > 0){
+			    				
 					        	sameImage=false;
 					        	res.previous();
-					        }
+					        	image.setAssociatedRoi(new StringArray());
+					        	image.getAssociatedRoi().getEl().addAll(rois.keySet());
+					        	doc.getRoi().addAll(rois.values());
+								 
+					        	if (expression){
+					        		if (channel.getAssociatedRoi() == null){
+						    			channel.setAssociatedRoi(new StringArray());
+					    			} 
+					    			channel.getAssociatedRoi().getEl().addAll(rois.keySet());
+									 
+					        	}
+			    			}
 						}
 			    		
 						ImageDescription imageDesc = new ImageDescription();
@@ -380,17 +380,15 @@ public class SangerXmlGenerator {
 				if (isAnatomy(res)) {																																								// 4=MA
 					if (isExpressionImg) {
 						// we have expression in the annotated anatomy term
-						roi.setDepictedAnatomicalStructure(addToExpressionAnnotationArray(new ExpressionAnnotationArray(), res.getString("TERM_ID").toString().trim(),
+						roi.setDepictedAnatomicalStructure(addToExpressionAnnotationArray(roi.getDepictedAnatomicalStructure(), res.getString("TERM_ID").toString().trim(),
 							res.getString("TERM_NAME").toString(), null, AnnotationMode.MANUAL));
-					} else {
-						
+					} else {						
 						System.out.println("WHAT to do here: " + roi.getId() + res + "????");
 					}
 				}
 				else if (isMp(res)) { 
-					// we know there's only one phenotype associated so we don't
-					// need to check if the array is empty
-					roi.setPhenotypeAnnotations(addToAnnotationArray(new AnnotationArray(), res.getString("TERM_ID").toString().trim(), 
+					System.out.println("\t adding " + res.getString("TERM_ID").toString().trim() + " " + (roi == null));
+					roi.setPhenotypeAnnotations(addToAnnotationArray(roi.getPhenotypeAnnotations(), res.getString("TERM_ID").toString().trim(), 
 						res.getString("TERM_NAME").toString(), null, AnnotationMode.MANUAL));
 				}
 			}
@@ -427,6 +425,7 @@ public class SangerXmlGenerator {
 			}
 
 			roi.setCoordinates(coord);
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -596,7 +595,11 @@ public class SangerXmlGenerator {
 	 AnnotationArray addToAnnotationArray(AnnotationArray pa, String id, String label, String freetext, AnnotationMode annMode){
 		
 		 Annotation p = getAnnotation(id, label, freetext, annMode);
+		 if (pa == null){
+			 pa = new AnnotationArray();
+		 }
 		 pa.getEl().add(p);
+		 System.out.println("Added " + p + " for " + id);
 		 return pa;
 	 }
 	 
@@ -604,10 +607,27 @@ public class SangerXmlGenerator {
 			
 		 ExpressionAnnotation p = new ExpressionAnnotation();
 		 
+		 if (id != null && label != null){
+			 OntologyTerm term = new OntologyTerm();
+			 term.setTermId(id);
+			 term.setTermLabel(label);
+			 p.setOntologyTerm(term);
+		 }
+		 
+		 if (annMode != null){
+			 p.setAnnotationMode(annMode);
+		 }
+		 
 		 if (freetext != null && !freetext.isEmpty()){
 			 p.setAnnotationFreetext(freetext);
 		 }
+		 
+		 if(pa == null){
+			 pa = new ExpressionAnnotationArray();
+		 }
+		 
 		 pa.getEl().add(p);
+		 
 		 return pa;
 	 }
 	 

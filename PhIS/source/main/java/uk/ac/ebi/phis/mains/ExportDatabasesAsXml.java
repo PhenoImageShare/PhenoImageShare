@@ -40,12 +40,11 @@ public class ExportDatabasesAsXml {
 //			TracerXmlGenerator tg = new TracerXmlGenerator();
 //			tg.exportImages();
 //			System.out.println("Generating XML for Tracer took " + (System.currentTimeMillis() - time));
-//
+
 //			time = System.currentTimeMillis();
 //			EmageXmlGenerator emage = new EmageXmlGenerator();
-//			emage.aggregateXml();
-			
-			System.out.println("Generating XML for Emage took " + (System.currentTimeMillis() - time));
+//			emage.aggregateXml();			
+//			System.out.println("Generating XML for Emage took " + (System.currentTimeMillis() - time));
 
 		} catch (Exception e) {
 			e.printStackTrace();
