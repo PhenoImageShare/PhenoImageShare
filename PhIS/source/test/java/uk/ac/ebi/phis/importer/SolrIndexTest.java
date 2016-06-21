@@ -1,6 +1,6 @@
 package uk.ac.ebi.phis.importer;
 
-public class TestSolrIndex {
+public class SolrIndexTest {
 
 	
 	//TODO Check all databases are indexed
