@@ -33,13 +33,16 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import uk.ac.ebi.phis.exception.PhenoImageShareException;
+import uk.ac.ebi.phis.exception.PhisQueryException;
+
 public class Normalizer {
 
 	public Normalizer(){
 	}
 	
 	
-	public String normalizeZygosity(String zygosity) throws Exception{
+	public String normalizeZygosity(String zygosity) throws PhenoImageShareException{
 		String z = zygosity.toLowerCase();
 		
 		if (z.startsWith("hom")){
@@ -57,10 +60,12 @@ public class Normalizer {
 		else if (z.equals("?") || z.equals("fail")){
 			return "unspecified";
 		}
-		else throw new Exception("Could not match \"" + zygosity + "\"to an existing zygosity");
+		else throw new PhenoImageShareException("Could not match \"" + zygosity + "\"to an existing zygosity");
 	}
 	
-	public String normalizeSex(String sex) throws Exception{
+	public String normalizeSex(String sex) 
+	throws PhenoImageShareException{
+	
 		String z = sex.toLowerCase();
 		
 		if (z.startsWith("m")){
@@ -75,7 +80,7 @@ public class Normalizer {
 		else if (z.equalsIgnoreCase("") || z == null){
 			return "unknown";
 		}
-		else throw new Exception("Could not match \"" + sex + "\"to an existing zygosity");
+		else throw new PhenoImageShareException("Could not match \"" + sex + "\"to an existing zygosity");
 	}
 	
 	public float getAgeInDays(String inputAge){

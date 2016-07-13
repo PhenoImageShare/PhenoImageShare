@@ -113,6 +113,13 @@ public class PopulateCores {
 			
 			Map<String, DatasourceInstance> exportDates = new HashMap<>(); // <resourceName, resource object>
 			
+			
+
+			xmlToLoad = "/Users/ilinca/Documents/temp/brainHistopath2.xml";
+			DatasourceInstance ds8 = processXml(xmlToLoad, "wtsi", reader);
+			exportDates.put(ds8.getName(), ds8);
+			
+			
 //			xmlToLoad = dataDir + "/tracerExport.xml";
 //			DatasourceInstance ds1 = processXml(xmlToLoad, "tracer", reader);
 //			exportDates.put(ds1.getName(), ds1);
@@ -140,10 +147,10 @@ public class PopulateCores {
 //			xmlToLoad = dataDir + "/emageExport.xml";
 //			DatasourceInstance ds7 = processXml(xmlToLoad, "emage", reader);
 //			exportDates.put(ds7.getName(), ds7);
-			
-			xmlToLoad = dataDir + "/sangerExport.xml";
-			DatasourceInstance ds8 = processXml(xmlToLoad, "wtsi", reader);
-			exportDates.put(ds8.getName(), ds8);
+//			
+//			xmlToLoad = dataDir + "/sangerExport.xml";
+//			DatasourceInstance ds8 = processXml(xmlToLoad, "wtsi", reader);
+//			exportDates.put(ds8.getName(), ds8);
 			
 //			
 //			xmlToLoad = dataDir + "/VFB_flycircuit_plus.xml";

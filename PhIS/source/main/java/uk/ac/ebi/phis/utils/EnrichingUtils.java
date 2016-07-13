@@ -15,6 +15,7 @@
  *******************************************************************************/
 package uk.ac.ebi.phis.utils;
 
+import uk.ac.ebi.phis.jaxb.Dimensions;
 import uk.ac.ebi.phis.jaxb.GenomicLocation;
 
 import java.awt.image.BufferedImage;
@@ -37,17 +38,21 @@ import org.json.JSONObject;
 
 public class EnrichingUtils {
 
-	public static Map<String, Integer> getImageMeasuresFromUrl(String url) {
-		Map<String, Integer> map = new HashMap<String, Integer>();
+	public static Dimensions getImageMeasuresFromUrl(String url) {
+		
+		Dimensions d = null;
+		
 		try {
 			BufferedImage image = ImageIO.read(new URL(url));
-			map.put("height", image.getHeight());
-			map.put("width", image.getWidth());
-		} catch (IOException e) {
-			// e.printStackTrace();
-			return null;
+			d = new Dimensions();
+			d.setImageHeight(image.getHeight());
+			d.setImageWidth(image.getWidth());
+		} catch (IOException e) { 
+			// e.printStackTrace();			
+			//TODO log warning + URL
 		}
-		return map;
+		
+		return d;
 	}
 
 	public String getSequence(String geneSymbol, String specieSnakeCase)

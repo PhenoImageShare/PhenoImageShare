@@ -31,6 +31,7 @@ public class ExportDatabasesAsXml {
 		// System.out.println("\t\t " + mapper.getAnatomyLabel("MA_0000003"));
 		
 		try {
+			
 			long time = System.currentTimeMillis();
 			SangerXmlGenerator sg = new SangerXmlGenerator();
 			sg.exportImages();

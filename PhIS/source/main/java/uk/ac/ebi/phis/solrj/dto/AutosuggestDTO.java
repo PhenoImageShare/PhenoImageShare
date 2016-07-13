@@ -73,99 +73,99 @@ public class AutosuggestDTO {
 	private String autosuggestType;
 
 	@Field(IMAGE_TYPE)
-	private ArrayList<String> imageType;
+	private List<String> imageType;
 
 	@Field(SAMPLE_TYPE)
-	private ArrayList<String> sampleType;
+	private List<String> sampleType;
 
 	@Field(IMAGING_METHOD)
-	private ArrayList<String> imagingMethod;
+	private List<String> imagingMethod;
 
 	@Field(SAMPLE_PREPARATION)
-	private ArrayList<String> samplePreparation;
+	private List<String> samplePreparation;
 
 	@Field(IMAGE_GENERATED_BY)
-	private ArrayList<String> imageGeneratedBy;
+	private List<String> imageGeneratedBy;
 
 	@Field(SAMPLE_GENERATED_BY)
-	private ArrayList<String> sampleGeneratedBy;
+	private List<String> sampleGeneratedBy;
 	
 	@Field(HOST_NAME)
-	private ArrayList<String> hostName;
+	private List<String> hostName;
 
 	@Field(TAXON)
-	private ArrayList<String> taxon;
+	private List<String> taxon;
 
 	@Field(STAGE)
-	private ArrayList<String> stage;
+	private List<String> stage;
 	
 	@Field(VISUALIZATION_METHOD)
-	private ArrayList<String> visualizationMethod;
+	private List<String> visualizationMethod;
 	
 	
 
 	@Field(SEX)
-	private ArrayList<String> sex;
+	private List<String> sex;
 
 	@Field(DEPICTED_ANATOMY)
-	private ArrayList<String> depictedAnatomy;
+	private List<String> depictedAnatomy;
 	
 	@Field(ANATOMY)
-	private ArrayList<String> anatomy;
+	private List<String> anatomy;
 	
 	@Field(GENETIC_FEATURE)
-	private ArrayList<String> geneticFeature;
+	private List<String> geneticFeature;
 
 	@Field(GENE)
-	private ArrayList<String> gene;
+	private List<String> gene;
 
 	@Field(ZYGOSITY)
-	private ArrayList<String> zygosity;
+	private List<String> zygosity;
 
 	@Field(ANATOMY_COMPUTED)
-	private ArrayList<String> anatomyComputed;
+	private List<String> anatomyComputed;
 	
 	@Field(ABNORMAL_ANATOMY)
-	private ArrayList<String> abnormalAnatomy;
+	private List<String> abnormalAnatomy;
 
 	@Field(EXPRESSED_GF)
-	private ArrayList<String> expressedGf;
+	private List<String> expressedGf;
 
 	@Field(EXPRESSION_IN)
-	private ArrayList<String> expressionIn;
+	private List<String> expressionIn;
 
 	@Field(MUTANT_GENE)
-	private ArrayList<String> mutantGene;
+	private List<String> mutantGene;
 	
 	@Field(PHENOTYPE)
-	private ArrayList<String> phenotype;
+	private List<String> phenotype;
 			
-		public ArrayList<String> getHostName() {
+		public List<String> getHostName() {
 
 			return hostName;
 		}
 
-		public void setHostName(ArrayList<String> hostName) {
+		public void setHostName(List<String> hostName) {
 
 			this.hostName = hostName;
 		}
 
-		public ArrayList<String> getImageGeneratedBy() {
+		public List<String> getImageGeneratedBy() {
 
 			return imageGeneratedBy;
 		}
 
-		public void setImageGeneratedBy(ArrayList<String> imageGeneratedBy) {
+		public void setImageGeneratedBy(List<String> imageGeneratedBy) {
 
 			this.imageGeneratedBy = imageGeneratedBy;
 		}
 
-		public ArrayList<String> getSampleGeneratedBy() {
+		public List<String> getSampleGeneratedBy() {
 
 			return sampleGeneratedBy;
 		}
 
-		public void setSampleGeneratedBy(ArrayList<String> sampleGeneratedBy) {
+		public void setSampleGeneratedBy(List<String> sampleGeneratedBy) {
 
 			this.sampleGeneratedBy = sampleGeneratedBy;
 		}
@@ -181,188 +181,188 @@ public class AutosuggestDTO {
 		}
 
 			
-		public ArrayList<String> getImagingMethod() {
+		public List<String> getImagingMethod() {
 		
 			return imagingMethod;
 		}
 
 		
-		public void setImagingMethod(ArrayList<String> imagingMethod) {
+		public void setImagingMethod(List<String> imagingMethod) {
 		
 			this.imagingMethod = imagingMethod;
 		}
 
 		
-		public ArrayList<String> getSamplePreparation() {
+		public List<String> getSamplePreparation() {
 		
 			return samplePreparation;
 		}
 
 		
-		public void setSamplePreparation(ArrayList<String> samplePreparation) {
+		public void setSamplePreparation(List<String> samplePreparation) {
 		
 			this.samplePreparation = samplePreparation;
 		}
 
 		
-		public ArrayList<String> getVisualizationMethod() {
+		public List<String> getVisualizationMethod() {
 		
 			return visualizationMethod;
 		}
 
 		
-		public void setVisualizationMethod(ArrayList<String> visualizationMethod) {
+		public void setVisualizationMethod(List<String> visualizationMethod) {
 		
 			this.visualizationMethod = visualizationMethod;
 		}
 	
 		
-		public ArrayList<String> getSex() {
+		public List<String> getSex() {
 		
 			return sex;
 		}
 
 		
-		public void setSex(ArrayList<String> sex) {
+		public void setSex(List<String> sex) {
 		
 			this.sex = sex;
 		}
 
 		
-		public ArrayList<String> getDepictedAnatomy() {
+		public List<String> getDepictedAnatomy() {
 		
 			return depictedAnatomy;
 		}
 
 		
-		public void setDepictedAnatomy(ArrayList<String> depictedAnatomy) {
+		public void setDepictedAnatomy(List<String> depictedAnatomy) {
 		
 			this.depictedAnatomy = depictedAnatomy;
 		}
 
 		
-		public ArrayList<String> getAnatomy() {
+		public List<String> getAnatomy() {
 		
 			return anatomy;
 		}
 
 		
-		public void setAnatomy(ArrayList<String> anatomy) {
+		public void setAnatomy(List<String> anatomy) {
 		
 			this.anatomy = anatomy;
 		}
 
 		
-		public ArrayList<String> getGene() {
+		public List<String> getGene() {
 		
 			return gene;
 		}
 
 		
-		public void setGene(ArrayList<String> gene) {
+		public void setGene(List<String> gene) {
 		
 			this.gene = gene;
 		}
 
 		
-		public ArrayList<String> getZygosity() {
+		public List<String> getZygosity() {
 		
 			return zygosity;
 		}
 
 		
-		public void setZygosity(ArrayList<String> zygosity) {
+		public void setZygosity(List<String> zygosity) {
 		
 			this.zygosity = zygosity;
 		}
 
-		public ArrayList<String> getAnatomyComputed() {
+		public List<String> getAnatomyComputed() {
 		
 			return anatomyComputed;
 		}
 
 		
-		public void setAnatomyComputed(ArrayList<String> anatomyComputed) {
+		public void setAnatomyComputed(List<String> anatomyComputed) {
 		
 			this.anatomyComputed = anatomyComputed;
 		}
 
 		
-		public ArrayList<String> getAbnormalAnatomy() {
+		public List<String> getAbnormalAnatomy() {
 		
 			return abnormalAnatomy;
 		}
 
 		
-		public void setAbnormalAnatomy(ArrayList<String> abnormalAnatomy) {
+		public void setAbnormalAnatomy(List<String> abnormalAnatomy) {
 		
 			this.abnormalAnatomy = abnormalAnatomy;
 		}
 
 		
-		public ArrayList<String> getExpressedGf() {
+		public List<String> getExpressedGf() {
 		
 			return expressedGf;
 		}
 
 		
-		public void setExpressedGf(ArrayList<String> expressedGf) {
+		public void setExpressedGf(List<String> expressedGf) {
 		
 			this.expressedGf = expressedGf;
 		}
 
 		
-		public ArrayList<String> getExpressionIn() {
+		public List<String> getExpressionIn() {
 		
 			return expressionIn;
 		}
 
 		
-		public void setExpressionIn(ArrayList<String> expressionIn) {
+		public void setExpressionIn(List<String> expressionIn) {
 		
 			this.expressionIn = expressionIn;
 		}
 
 		
-		public ArrayList<String> getMutantGene() {
+		public List<String> getMutantGene() {
 		
 			return mutantGene;
 		}
 
 		
-		public void setMutantGene(ArrayList<String> mutantGene) {
+		public void setMutantGene(List<String> mutantGene) {
 		
 			this.mutantGene = mutantGene;
 		}
 
 		
-		public ArrayList<String> getPhenotype() {
+		public List<String> getPhenotype() {
 		
 			return phenotype;
 		}
 
 		
-		public void setPhenotype(ArrayList<String> phenotype) {
+		public void setPhenotype(List<String> phenotype) {
 		
 			this.phenotype = phenotype;
 		}
 
-		public ArrayList<String> getImageType() {
+		public List<String> getImageType() {
 		
 			return imageType;
 		}
 
-		public void setImageType(ArrayList<String> imageType) {
+		public void setImageType(List<String> imageType) {
 		
 			this.imageType = imageType;
 		}
 		
-		public ArrayList<String> getSampleType() {
+		public List<String> getSampleType() {
 		
 			return sampleType;
 		}
 		
-		public void setSampleType(ArrayList<String> sampleType) {
+		public void setSampleType(List<String> sampleType) {
 		
 			this.sampleType = sampleType;
 		}
@@ -370,12 +370,12 @@ public class AutosuggestDTO {
 		
 		
 		
-		public ArrayList<String> getTaxon() {
+		public List<String> getTaxon() {
 		
 			return taxon;
 		}
 
-		public void setTaxon(ArrayList<String> taxon) {
+		public void setTaxon(List<String> taxon) {
 
 			this.taxon = taxon;
 		}
@@ -390,12 +390,12 @@ public class AutosuggestDTO {
 			}
 		}
 
-		public ArrayList<String> getStage() {
+		public List<String> getStage() {
 		
 			return stage;
 		}
 
-		public void setStage(ArrayList<String> stage) {
+		public void setStage(List<String> stage) {
 		
 			this.stage = stage;
 		}
@@ -451,7 +451,7 @@ public class AutosuggestDTO {
 			}
 		}
 		
-		public void addImageGeneratedBy(ArrayList<String> imageGeneratedBy) {
+		public void addImageGeneratedBy(List<String> imageGeneratedBy) {
 
 			if (imageGeneratedBy != null){
 				if (this.imageGeneratedBy == null) {
@@ -495,7 +495,7 @@ public class AutosuggestDTO {
 			}
 		}
 
-		public void addImagingMethod(ArrayList<String> imagingMethod) {
+		public void addImagingMethod(List<String> imagingMethod) {
 		
 			if (imagingMethod != null){
 				Set<String> set =  new HashSet(imagingMethod);
@@ -517,7 +517,7 @@ public class AutosuggestDTO {
 		}
 
 
-		public void addPhenotype(ArrayList<String> phenotype) {
+		public void addPhenotype(List<String> phenotype) {
 
 			if (phenotype != null) {
 				Set<String> set = new HashSet(phenotype);
@@ -528,7 +528,7 @@ public class AutosuggestDTO {
 			}
 		}
 		
-		public void addSamplePreparation(ArrayList<String> samplePreparation) {
+		public void addSamplePreparation(List<String> samplePreparation) {
 			
 			if (samplePreparation != null) {
 				Set<String> set = new HashSet(samplePreparation);
@@ -562,7 +562,7 @@ public class AutosuggestDTO {
 		}
 
 
-	public void addExpressionIn(ArrayList<String> expressionIn) {
+	public void addExpressionIn(List<String> expressionIn) {
 
 		if (expressionIn != null) {
 			Set<String> set = new HashSet(expressionIn);
@@ -573,7 +573,7 @@ public class AutosuggestDTO {
 		}
 	}
 	
-	public void addAbnormalAnatomy(ArrayList<String> abnormalAnatomy) {
+	public void addAbnormalAnatomy(List<String> abnormalAnatomy) {
 
 		if (abnormalAnatomy != null) {
 			Set<String> set = new HashSet(abnormalAnatomy);
@@ -584,7 +584,7 @@ public class AutosuggestDTO {
 		}
 	}
 	
-	public void addMutantGenes(ArrayList<String> mutantGene) {
+	public void addMutantGenes(List<String> mutantGene) {
 
 		if (mutantGene != null) {
 			Set<String> set = new HashSet(mutantGene);
@@ -595,7 +595,7 @@ public class AutosuggestDTO {
 		}
 	}
 	
-	public void addDepictedAnatomy(ArrayList<String> depictedAnatomy) {
+	public void addDepictedAnatomy(List<String> depictedAnatomy) {
 
 		if (depictedAnatomy != null) {
 			Set<String> set = new HashSet(depictedAnatomy);
@@ -605,7 +605,7 @@ public class AutosuggestDTO {
 			this.depictedAnatomy = new ArrayList<String>(set);
 		}
 	}
-	public void addVisualizationMethod(ArrayList<String> visualizationMethod) {
+	public void addVisualizationMethod(List<String> visualizationMethod) {
 
 			Set<String> set = new HashSet(imageType);
 			if (this.visualizationMethod != null) {
@@ -615,7 +615,7 @@ public class AutosuggestDTO {
 		}
 
 		
-		public void addImageType(ArrayList<String> imageType) {
+		public void addImageType(List<String> imageType) {
 
 			Set<String> set = new HashSet(imageType);
 			if (this.imageType != null) {

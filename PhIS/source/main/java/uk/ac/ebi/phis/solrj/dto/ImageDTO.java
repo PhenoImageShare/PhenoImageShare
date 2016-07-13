@@ -17,10 +17,12 @@ package uk.ac.ebi.phis.solrj.dto;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.solr.client.solrj.beans.Field;
 
@@ -153,10 +155,10 @@ public class ImageDTO {
 	private String organismId;
 
 	@Field(ASSOCIATED_ROI)
-	private List<String> associatedRoi;
+	private Set<String> associatedRoi;
 
 	@Field(ASSOCIATED_CHANNEL)
-	private List<String> associatedChannel;
+	private Set<String> associatedChannel;
 
 	@Field(HEIGHT)
 	private Integer height;
@@ -168,10 +170,10 @@ public class ImageDTO {
 	private String hostName;
 
 	@Field(IMAGE_GENERATED_BY)
-	private ArrayList<String> imageGeneratedBy;
+	private List<String> imageGeneratedBy;
 
 	@Field(IMAGE_TYPE)
-	private ArrayList<String> imageType;
+	private List<String> imageType;
 
 	@Field(SAMPLE_TYPE)
 	private String sampleType;
@@ -195,49 +197,49 @@ public class ImageDTO {
 	private String imageContextUrl;
 
 	@Field(IMAGING_METHOD_ID)
-	private ArrayList<String> imagingMethodId;
+	private List<String> imagingMethodId;
 
 	@Field(IMAGING_METHOD_LABEL)
-	private ArrayList<String> imagingMethodLabel;
+	private List<String> imagingMethodLabel;
 
 	@Field(IMAGING_METHOD_SYNONYMS)
-	private ArrayList<String> imagingMethodSynonyms;
+	private List<String> imagingMethodSynonyms;
 
 	@Field(IMAGING_METHOD_FREETEXT)
-	private ArrayList<String> imagingMethodFreetext;
+	private List<String> imagingMethodFreetext;
 	
 	@Field(IMAGING_METHOD_ANCESTORS)
-	private ArrayList<String> imagingMethodAncestors;
+	private List<String> imagingMethodAncestors;
 
 	@Field(SAMPLE_PREPARATION_ID)
-	private ArrayList<String> samplePreparationId;
+	private List<String> samplePreparationId;
 
 	@Field(SAMPLE_PREPARATION_LABEL)
-	private ArrayList<String> samplePreparationLabel;
+	private List<String> samplePreparationLabel;
 
 	@Field(SAMPLE_PREPARATION_SYNONYMS)
-	private ArrayList<String> samplePreparationSynonyms;
+	private List<String> samplePreparationSynonyms;
 	
 	@Field(SAMPLE_PREPARATION_FREETEXT)
-	private ArrayList<String> samplePreparationFreetext;
+	private List<String> samplePreparationFreetext;
 	
 	@Field(SAMPLE_PREPARATION_ANCESTORS)
-	private ArrayList<String> samplePreparationAncestors;
+	private List<String> samplePreparationAncestors;
 
 	@Field(VISUALISATION_METHOD_ID)
-	private ArrayList<String> visualisationMethodId;
+	private List<String> visualisationMethodId;
 
 	@Field(VISUALISATION_METHOD_LABEL)
-	private ArrayList<String> visualisationMethodLabel;
+	private List<String> visualisationMethodLabel;
 	
 	@Field(VISUALISATION_METHOD_FREETEXT)
-	private ArrayList<String> visualisationMethodFreetext;
+	private List<String> visualisationMethodFreetext;
 
 	@Field(VISUALISATION_METHOD_SYNONYMS)
-	private ArrayList<String> visualisationMethodSynonyms;
+	private List<String> visualisationMethodSynonyms;
 	
 	@Field(VISUALISATION_METHOD_ANCESTORS)
-	private ArrayList<String> visualisationMethodAncestors;
+	private List<String> visualisationMethodAncestors;
 
 	@Field(MACHINE)
 	private String machine;
@@ -288,10 +290,10 @@ public class ImageDTO {
 	private String stageId;
 
 	@Field(STAGE_ANCESTORS)
-	private ArrayList<String> stageAncestors;
+	private List<String> stageAncestors;
 	
 	@Field(STAGE_FACET)
-	private ArrayList<String> stageFacets;
+	private List<String> stageFacets;
 	
 	@Field(PUBLICATION)
 	private List<String> publication;
@@ -314,10 +316,10 @@ public class ImageDTO {
 	private String anatomyFreetext;
 
 	@Field(ANATOMY_SYNONYMS)
-	private ArrayList<String> anatomySynonyms;
+	private List<String> anatomySynonyms;
 	
 	@Field(ANATOMY_ANCESTORS)
-	private ArrayList<String> anatomyAncestors;
+	private List<String> anatomyAncestors;
 
 	@Field(OBSERVATIONS)
 	private List<String> observations;
@@ -368,105 +370,105 @@ public class ImageDTO {
 	private int depth;
 
 	@Field(ANATOMY_COMPUTED_ID_BAG)
-	private ArrayList<String> anatomyComputedIdBag;
+	private List<String> anatomyComputedIdBag;
 
 	@Field(ANATOMY_COMPUTED_TERM_BAG)
-	private ArrayList<String> anatomyComputedLabelBag;
+	private List<String> anatomyComputedLabelBag;
 
 	@Field(ANATOMY_COMPUTED_SYNONYMS_BAG)
-	private ArrayList<String> anatomyComputedSynonymsBag;
+	private List<String> anatomyComputedSynonymsBag;
 
 	@Field(ANATOMY_COMPUTED_ANCESTORS)
-	private ArrayList<String> anatomyComputedAncestors;
+	private List<String> anatomyComputedAncestors;
 
 	@Field(DEPICTED_ANATOMY_ID_BAG)
-	private ArrayList<String> depictedAnatomyIdBag;
+	private List<String> depictedAnatomyIdBag;
 
 	@Field(DEPICTED_ANATOMY_TERM_BAG)
-	private ArrayList<String> depictedAnatomyTermBag;
+	private List<String> depictedAnatomyTermBag;
 
 	@Field(DEPICTED_ANATOMY_FREETEXT_BAG)
-	private ArrayList<String> depictedAnatomyFreetextBag;
+	private List<String> depictedAnatomyFreetextBag;
 
 	@Field(DEPICTED_ANATOMY_SYNONYMS_BAG)
-	private ArrayList<String> depictedAnatomySynonymsBag;
+	private List<String> depictedAnatomySynonymsBag;
 
 	@Field(DEPICTED_ANATOMY_ANCESTORS)
-	private ArrayList<String> depictedAnatomyAncestors;
+	private List<String> depictedAnatomyAncestors;
 
 	@Field(ABNORMAL_ANATOMY_ID_BAG)
-	private ArrayList<String> abnormalAnatomyIdBag;
+	private List<String> abnormalAnatomyIdBag;
 
 	@Field(ABNORMAL_ANATOMY_TERM_BAG)
-	private ArrayList<String> abnormalAnatomyTermBag;
+	private List<String> abnormalAnatomyTermBag;
 
 	@Field(ABNORMAL_ANATOMY_FREETEXT_BAG)
-	private ArrayList<String> abnormalAnatomyFreetextBag;
+	private List<String> abnormalAnatomyFreetextBag;
 
 	@Field(ABNORMAL_ANATOMY_SYNONYMS_BAG)
-	private ArrayList<String> abnormalAnatomySynonymsBag;
+	private List<String> abnormalAnatomySynonymsBag;
 
 	@Field(ABNORMAL_ANATOMY_ANCESTORS)
-	private ArrayList<String> abnormalAnatomyAncestors;
+	private List<String> abnormalAnatomyAncestors;
 
 	@Field(EXPRESSED_GF_ID_BAG)
-	private ArrayList<String> expressedGfIdBag;
+	private List<String> expressedGfIdBag;
 
 	@Field(EXPRESSED_GF_SYMBOL_BAG)
-	private ArrayList<String> expressedGfSymbolBag;
+	private List<String> expressedGfSymbolBag;
 
 	@Field(EXPRESSED_GF_SYNONYMS_BAG)
-	private ArrayList<String> expressedGfSynonymsBag;
+	private List<String> expressedGfSynonymsBag;
 	
 	@Field(EXPRESSED_GF_MUTATION_TYPE)
-	private ArrayList<String> expressedGfMutationType;
+	private List<String> expressedGfMutationType;
 
 	@Field(EXPRESSION_IN_ID_BAG)
-	private ArrayList<String> expressionInIdBag;
+	private List<String> expressionInIdBag;
 
 	@Field(EXPRESSION_IN_LABEL_BAG)
-	private ArrayList<String> expressionInLabelBag;
+	private List<String> expressionInLabelBag;
 
 	@Field(EXPRESSION_IN_FREETEXT_BAG)
-	private ArrayList<String> expressionInFreetextBag;
+	private List<String> expressionInFreetextBag;
 
 	@Field(EXPRESSION_IN_SYNONYMS_BAG)
-	private ArrayList<String> expressionInSynonymsBag;
+	private List<String> expressionInSynonymsBag;
 
 	@Field(EXPRESSION_IN_ANCESTORS)
-	private ArrayList<String> expressionInAncestors;
+	private List<String> expressionInAncestors;
 
 
 	@Field(EXPRESSION_CONCAT_BAG)
-	private ArrayList<String> expressionConcatBag;
+	private List<String> expressionConcatBag;
 
 	
 	@Field(MUTANT_GENE_ID_BAG)
-	private ArrayList<String> mutantGeneIdBag;
+	private List<String> mutantGeneIdBag;
 
 	@Field(MUTANT_GENE_SYMBOL_BAG)
-	private ArrayList<String> mutantGeneSymbolBag;
+	private List<String> mutantGeneSymbolBag;
 
 	@Field(MUTANT_GENE_SYNONYMS_BAG)
-	private ArrayList<String> mutantGeneSynonymsBag;
+	private List<String> mutantGeneSynonymsBag;
 
 	@Field(OBSERVATION_BAG)
-	private ArrayList<String> observationBag;
+	private List<String> observationBag;
 
 	@Field(PHENOTYPE_ID_BAG)
-	private ArrayList<String> phenotypeIdBag;
+	private List<String> phenotypeIdBag;
 
 	@Field(PHENOTYPE_LABEL_BAG)
-	private ArrayList<String> phenotypeLabelBag;
+	private List<String> phenotypeLabelBag;
 
 	@Field(PHENOTYPE_FREETEXT_BAG)
-	private ArrayList<String> phenotypeFreetextBag;
+	private List<String> phenotypeFreetextBag;
 
 	@Field(PHENOTYPE_SYNONYMS_BAG)
-	private ArrayList<String> phenotypeSynonymsBag;
+	private List<String> phenotypeSynonymsBag;
 
 	@Field(PHENOTYPE_ANCESTORS)
-	private ArrayList<String> phenotypeAncestors;
+	private List<String> phenotypeAncestors;
 	
 	@Field("*_group")
 	private Map<String, Object> dynamicGroups;
@@ -482,32 +484,32 @@ public class ImageDTO {
 		this.genericSearch = genericSearch;
 	}
 
-	public ArrayList<String> getImagingMethodSynonyms() {
+	public List<String> getImagingMethodSynonyms() {
 	
 		return imagingMethodSynonyms;
 	}
 
-	public void setSamplePreparationSynonyms(ArrayList<String> samplePreparationSynonyms) {
+	public void setSamplePreparationSynonyms(List<String> samplePreparationSynonyms) {
 	
 		this.samplePreparationSynonyms = samplePreparationSynonyms;
 	}
 	
-	public void setVisualisationMethodId(ArrayList<String> visualisationMethodId) {
+	public void setVisualisationMethodId(List<String> visualisationMethodId) {
 	
 		this.visualisationMethodId = visualisationMethodId;
 	}
 
-	public void setVisualisationMethodLabel(ArrayList<String> visualisationMethodLabel) {
+	public void setVisualisationMethodLabel(List<String> visualisationMethodLabel) {
 	
 		this.visualisationMethodLabel = visualisationMethodLabel;
 	}
 
-	public void setVisualisationMethodSynonyms(ArrayList<String> visualisationMethodSynonyms) {
+	public void setVisualisationMethodSynonyms(List<String> visualisationMethodSynonyms) {
 	
 		this.visualisationMethodSynonyms = visualisationMethodSynonyms;
 	}
 
-	public void setAnatomySynonyms(ArrayList<String> anatomySynonyms) {
+	public void setAnatomySynonyms(List<String> anatomySynonyms) {
 	
 		this.anatomySynonyms = anatomySynonyms;
 	}
@@ -564,13 +566,13 @@ public class ImageDTO {
 		this.groups = groups;
 	}
 
-	public ArrayList<String> getExpressedGfMutationType() {
+	public List<String> getExpressedGfMutationType() {
 	
 		return expressedGfMutationType;
 	}
 
 	
-	public void setExpressedGfMutationType(ArrayList<String> expressedGfMutationType) {
+	public void setExpressedGfMutationType(List<String> expressedGfMutationType) {
 	
 		this.expressedGfMutationType = expressedGfMutationType;
 	}
@@ -586,13 +588,13 @@ public class ImageDTO {
 		this.licence = licence;
 	}
 
-	public void setAnatomyComputedSynonymsBag(ArrayList<String> anatomyComputedSynonymsBag) {
+	public void setAnatomyComputedSynonymsBag(List<String> anatomyComputedSynonymsBag) {
 	
 		this.anatomyComputedSynonymsBag = anatomyComputedSynonymsBag;
 	}
 
 	
-	public ArrayList<String> getImagingMethodFreetext() {
+	public List<String> getImagingMethodFreetext() {
 	
 		return imagingMethodFreetext;
 	}
@@ -611,42 +613,42 @@ public class ImageDTO {
 	}
 
 	
-	public ArrayList<String> getStageAncestors() {
+	public List<String> getStageAncestors() {
 	
 		return stageAncestors;
 	}
 
 	
-	public void setStageAncestors(ArrayList<String> stageAncestors) {
+	public void setStageAncestors(List<String> stageAncestors) {
 	
 		this.stageAncestors = stageAncestors;
 	}
 
-	public void setImagingMethodFreetext(ArrayList<String> imagingMethodFreetext) {
+	public void setImagingMethodFreetext(List<String> imagingMethodFreetext) {
 	
 		this.imagingMethodFreetext = imagingMethodFreetext;
 	}
 
 	
-	public ArrayList<String> getSamplePreparationFreetext() {
+	public List<String> getSamplePreparationFreetext() {
 	
 		return samplePreparationFreetext;
 	}
 
 	
-	public void setSamplePreparationFreetext(ArrayList<String> samplePreparationFreetext) {
+	public void setSamplePreparationFreetext(List<String> samplePreparationFreetext) {
 	
 		this.samplePreparationFreetext = samplePreparationFreetext;
 	}
 
 	
-	public ArrayList<String> getVisualisationMethodFreetext() {
+	public List<String> getVisualisationMethodFreetext() {
 	
 		return visualisationMethodFreetext;
 	}
 
 	
-	public void setVisualisationMethodFreetext(ArrayList<String> visualisationMethodFreetext) {
+	public void setVisualisationMethodFreetext(List<String> visualisationMethodFreetext) {
 	
 		this.visualisationMethodFreetext = visualisationMethodFreetext;
 	}
@@ -675,79 +677,79 @@ public class ImageDTO {
 	}
 
 	
-	public ArrayList<String> getAnatomyAncestors() {
+	public List<String> getAnatomyAncestors() {
 	
 		return anatomyAncestors;
 	}
 
 	
-	public void setAnatomyAncestors(ArrayList<String> anatomyAncestors) {
+	public void setAnatomyAncestors(List<String> anatomyAncestors) {
 	
 		this.anatomyAncestors = anatomyAncestors;
 	}
 
 	
-	public void setAnatomyComputedAncestors(ArrayList<String> anatomyComputedAncestors) {
+	public void setAnatomyComputedAncestors(List<String> anatomyComputedAncestors) {
 	
 		this.anatomyComputedAncestors = anatomyComputedAncestors;
 	}
 
 	
-	public void setDepictedAnatomyAncestors(ArrayList<String> depictedAnatomyAncestors) {
+	public void setDepictedAnatomyAncestors(List<String> depictedAnatomyAncestors) {
 	
 		this.depictedAnatomyAncestors = depictedAnatomyAncestors;
 	}
 
 	
-	public void setAbnormalAnatomyAncestors(ArrayList<String> abnormalAnatomyAncestors) {
+	public void setAbnormalAnatomyAncestors(List<String> abnormalAnatomyAncestors) {
 	
 		this.abnormalAnatomyAncestors = abnormalAnatomyAncestors;
 	}
 
 		
 	
-	public ArrayList<String> getImagingMethodAncestors() {
+	public List<String> getImagingMethodAncestors() {
 	
 		return imagingMethodAncestors;
 	}
 
 	
-	public void setImagingMethodAncestors(ArrayList<String> imagingMethodAncestors) {
+	public void setImagingMethodAncestors(List<String> imagingMethodAncestors) {
 	
 		this.imagingMethodAncestors = imagingMethodAncestors;
 	}
 
 	
-	public ArrayList<String> getSamplePreparationAncestors() {
+	public List<String> getSamplePreparationAncestors() {
 	
 		return samplePreparationAncestors;
 	}
 
 	
-	public void setSamplePreparationAncestors(ArrayList<String> samplePreparationAncestors) {
+	public void setSamplePreparationAncestors(List<String> samplePreparationAncestors) {
 	
 		this.samplePreparationAncestors = samplePreparationAncestors;
 	}
 
 	
-	public ArrayList<String> getVisualisationMethodAncestors() {
+	public List<String> getVisualisationMethodAncestors() {
 	
 		return visualisationMethodAncestors;
 	}
 
 	
-	public void setVisualisationMethodAncestors(ArrayList<String> visualisationMethodAncestors) {
+	public void setVisualisationMethodAncestors(List<String> visualisationMethodAncestors) {
 	
 		this.visualisationMethodAncestors = visualisationMethodAncestors;
 	}
 
-	public void setExpressionInAncestors(ArrayList<String> expressionInAncestors) {
+	public void setExpressionInAncestors(List<String> expressionInAncestors) {
 	
 		this.expressionInAncestors = expressionInAncestors;
 	}
 
 	
-	public void setPhenotypeAncestors(ArrayList<String> phenotypeAncestors) {
+	public void setPhenotypeAncestors(List<String> phenotypeAncestors) {
 	
 		this.phenotypeAncestors = phenotypeAncestors;
 	}
@@ -755,7 +757,7 @@ public class ImageDTO {
 	/**
 	 * @param anatomyComputedAncestorsIdBag the anatomyComputedAncestorsIdBag to set
 	 */
-	public void setAnatomyComputedAncestorsIdBag(ArrayList<String> anatomyComputedAncestorsIdBag) {
+	public void setAnatomyComputedAncestorsIdBag(List<String> anatomyComputedAncestorsIdBag) {
 	
 		this.anatomyComputedAncestors = anatomyComputedAncestorsIdBag;
 	}
@@ -764,7 +766,7 @@ public class ImageDTO {
 	/**
 	 * @param depictedAnatomySynonymsBag the depictedAnatomySynonymsBag to set
 	 */
-	public void setDepictedAnatomySynonymsBag(ArrayList<String> depictedAnatomySynonymsBag) {
+	public void setDepictedAnatomySynonymsBag(List<String> depictedAnatomySynonymsBag) {
 	
 		this.depictedAnatomySynonymsBag = depictedAnatomySynonymsBag;
 	}
@@ -774,7 +776,7 @@ public class ImageDTO {
 	/**
 	 * @param depictedAnatomyAncestorsIdBag the depictedAnatomyAncestorsIdBag to set
 	 */
-	public void setDepictedAnatomyAncestorsIdBag(ArrayList<String> depictedAnatomyAncestorsIdBag) {
+	public void setDepictedAnatomyAncestorsIdBag(List<String> depictedAnatomyAncestorsIdBag) {
 	
 		this.depictedAnatomyAncestors = depictedAnatomyAncestorsIdBag;
 	}
@@ -783,7 +785,7 @@ public class ImageDTO {
 	/**
 	 * @param abnormalAnatomySynonymsBag the abnormalAnatomySynonymsBag to set
 	 */
-	public void setAbnormalAnatomySynonymsBag(ArrayList<String> abnormalAnatomySynonymsBag) {
+	public void setAbnormalAnatomySynonymsBag(List<String> abnormalAnatomySynonymsBag) {
 	
 		this.abnormalAnatomySynonymsBag = abnormalAnatomySynonymsBag;
 	}
@@ -793,7 +795,7 @@ public class ImageDTO {
 	/**
 	 * @param abnormalAnatomyAncestorsIdBag the abnormalAnatomyAncestorsIdBag to set
 	 */
-	public void setAbnormalAnatomyAncestorsIdBag(ArrayList<String> abnormalAnatomyAncestorsIdBag) {
+	public void setAbnormalAnatomyAncestorsIdBag(List<String> abnormalAnatomyAncestorsIdBag) {
 	
 		this.abnormalAnatomyAncestors = abnormalAnatomyAncestorsIdBag;
 	}
@@ -802,7 +804,7 @@ public class ImageDTO {
 	/**
 	 * @param expressedGfSynonymsBag the expressedGfSynonymsBag to set
 	 */
-	public void setExpressedGfSynonymsBag(ArrayList<String> expressedGfSynonymsBag) {
+	public void setExpressedGfSynonymsBag(List<String> expressedGfSynonymsBag) {
 	
 		this.expressedGfSynonymsBag = expressedGfSynonymsBag;
 	}
@@ -812,7 +814,7 @@ public class ImageDTO {
 	/**
 	 * @param expressionInAncestorsIdBag the expressionInAncestorsIdBag to set
 	 */
-	public void setExpressionInAncestorsIdBag(ArrayList<String> expressionInAncestorsIdBag) {
+	public void setExpressionInAncestorsIdBag(List<String> expressionInAncestorsIdBag) {
 	
 		this.expressionInAncestors = expressionInAncestorsIdBag;
 	}
@@ -821,7 +823,7 @@ public class ImageDTO {
 	/**
 	 * @param mutantGeneSynonymsBag the mutantGeneSynonymsBag to set
 	 */
-	public void setMutantGeneSynonymsBag(ArrayList<String> mutantGeneSynonymsBag) {
+	public void setMutantGeneSynonymsBag(List<String> mutantGeneSynonymsBag) {
 	
 		this.mutantGeneSynonymsBag = mutantGeneSynonymsBag;
 	}
@@ -831,7 +833,7 @@ public class ImageDTO {
 	/**
 	 * @param phenotypeSynonymsBag the phenotypeSynonymsBag to set
 	 */
-	public void setPhenotypeSynonymsBag(ArrayList<String> phenotypeSynonymsBag) {
+	public void setPhenotypeSynonymsBag(List<String> phenotypeSynonymsBag) {
 	
 		this.phenotypeSynonymsBag = phenotypeSynonymsBag;
 	}
@@ -841,7 +843,7 @@ public class ImageDTO {
 	/**
 	 * @param phenotypeAncestorsIdBag the phenotypeAncestorsIdBag to set
 	 */
-	public void setPhenotypeAncestorsIdBag(ArrayList<String> phenotypeAncestorsIdBag) {
+	public void setPhenotypeAncestorsIdBag(List<String> phenotypeAncestorsIdBag) {
 	
 		this.phenotypeAncestors = phenotypeAncestorsIdBag;
 	}
@@ -851,7 +853,7 @@ public class ImageDTO {
 	/**
 	 * @return the anatomyComputedAncestorsIdBag
 	 */
-	public ArrayList<String> getAnatomyComputedAncestors() {
+	public List<String> getAnatomyComputedAncestors() {
 
 		return anatomyComputedAncestors;
 	}
@@ -881,7 +883,7 @@ public class ImageDTO {
 	/**
 	 * @return the depictedAnatomyAncestorsIdBag
 	 */
-	public ArrayList<String> getDepictedAnatomyAncestors() {
+	public List<String> getDepictedAnatomyAncestors() {
 
 		return depictedAnatomyAncestors;
 	}
@@ -907,7 +909,7 @@ public class ImageDTO {
 	 * @param depictedAnatomyAncestorId
 	 *            the depictedAnatomyAncestorsIdBag to set
 	 */
-	public void addDepictedAnatomyAncestors(ArrayList<String> depictedAnatomyAncestors) {
+	public void addDepictedAnatomyAncestors(List<String> depictedAnatomyAncestors) {
 		
 		if (depictedAnatomyAncestors != null){
 			HashSet<String> ancestors = new HashSet<String>(depictedAnatomyAncestors);
@@ -934,7 +936,7 @@ public class ImageDTO {
 	/**
 	 * @return the abnormalAnatomyAncestorsIdBag
 	 */
-	public ArrayList<String> getAbnormalAnatomyAncestors() {
+	public List<String> getAbnormalAnatomyAncestors() {
 
 		return abnormalAnatomyAncestors;
 	}
@@ -975,7 +977,7 @@ public class ImageDTO {
 		}
 	}
 	
-	public void addAbnormalAnatomyAncestors(ArrayList<String> abnormalAnatomyAncestors) {
+	public void addAbnormalAnatomyAncestors(List<String> abnormalAnatomyAncestors) {
 		if (abnormalAnatomyAncestors != null){
 			HashSet<String> ancestors = new HashSet<String>(abnormalAnatomyAncestors);
 			if (this.abnormalAnatomyAncestors == null){
@@ -988,7 +990,7 @@ public class ImageDTO {
 	/**
 	 * @return the expressionInAncestorsIdBag
 	 */
-	public ArrayList<String> getExpressionInAncestors() {
+	public List<String> getExpressionInAncestors() {
 
 		return expressionInAncestors;
 	}
@@ -1008,7 +1010,7 @@ public class ImageDTO {
 		}
 	}
 	
-	public void addExpressionInSynonymsBag(ArrayList<String> expressionInSynonyms) {
+	public void addExpressionInSynonymsBag(List<String> expressionInSynonyms) {
 
 		if (this.expressionInSynonymsBag == null){
 			this.expressionInSynonymsBag = new ArrayList<>(expressionInSynonyms);
@@ -1017,7 +1019,7 @@ public class ImageDTO {
 		}
 	}
 	
-	public void addExpressionInAncestors(ArrayList<String> expressionInAncestor) {
+	public void addExpressionInAncestors(List<String> expressionInAncestor) {
 
 		if (expressionInAncestor != null){
 			HashSet<String> set = new HashSet<String>(expressionInAncestor);
@@ -1034,7 +1036,7 @@ public class ImageDTO {
 	/**
 	 * @return the phenotypeAncestorsIdBag
 	 */
-	public ArrayList<String> getPhenotypeAncestors() {
+	public List<String> getPhenotypeAncestors() {
 
 		return phenotypeAncestors;
 	}
@@ -1055,7 +1057,7 @@ public class ImageDTO {
 	}
 
 	
-	public void addPhenotypeAncestors(ArrayList<String> phenotypeAncestors) {
+	public void addPhenotypeAncestors(List<String> phenotypeAncestors) {
 		
 		if (phenotypeAncestors != null){
 			HashSet<String> set = new HashSet<String>(phenotypeAncestors);
@@ -1068,7 +1070,7 @@ public class ImageDTO {
 	}
 
 	
-	public void addVisualizationMethodAncestors(ArrayList<String> vmAncestors) {
+	public void addVisualizationMethodAncestors(List<String> vmAncestors) {
 			
 		if (vmAncestors != null){
 			HashSet<String> set = new HashSet<String>(vmAncestors);
@@ -1109,7 +1111,7 @@ public class ImageDTO {
 	 * @param imagingMethodSynonyms
 	 *            the imagingMethodSynonyms to set
 	 */
-	public void setImagingMethodSynonyms(ArrayList<String> imagingMethodSynonyms) {
+	public void setImagingMethodSynonyms(List<String> imagingMethodSynonyms) {
 
 		this.imagingMethodSynonyms = imagingMethodSynonyms;
 	}
@@ -1119,7 +1121,7 @@ public class ImageDTO {
 	 * @param imagingMethodSynonyms
 	 *            the imagingMethodSynonyms to set
 	 */
-	public void addImagingMethodSynonyms(ArrayList<String> imagingMethodSynonyms) {
+	public void addImagingMethodSynonyms(List<String> imagingMethodSynonyms) {
 
 		if (this.imagingMethodSynonyms == null) {
 			this.imagingMethodSynonyms = new ArrayList<>();
@@ -1158,7 +1160,7 @@ public class ImageDTO {
 	/**
 	 * @return the samplePreparationSynonyms
 	 */
-	public ArrayList<String> getSamplePreparationSynonyms() {
+	public List<String> getSamplePreparationSynonyms() {
 
 		return samplePreparationSynonyms;
 	}
@@ -1168,7 +1170,7 @@ public class ImageDTO {
 	 * @param samplePreparationSynonyms
 	 *            the samplePreparationSynonyms to set
 	 */
-	public void addSamplePreparationSynonyms(ArrayList<String> samplePreparationSynonyms) {
+	public void addSamplePreparationSynonyms(List<String> samplePreparationSynonyms) {
 
 		if (this.samplePreparationSynonyms == null) {
 			this.samplePreparationSynonyms = new ArrayList<>();
@@ -1181,7 +1183,7 @@ public class ImageDTO {
 	/**
 	 * @return the visualisationMethodSynonyms
 	 */
-	public ArrayList<String> getVisualisationMethodSynonyms() {
+	public List<String> getVisualisationMethodSynonyms() {
 
 		return visualisationMethodSynonyms;
 	}
@@ -1191,7 +1193,7 @@ public class ImageDTO {
 	 * @param visualisationMethodSynonyms
 	 *            the visualisationMethodSynonyms to set
 	 */
-	public void addVisualisationMethodSynonyms(ArrayList<String> visualisationMethodSynonyms) {
+	public void addVisualisationMethodSynonyms(List<String> visualisationMethodSynonyms) {
 
 		if (this.visualisationMethodSynonyms == null) {
 			this.visualisationMethodSynonyms = new ArrayList<>();
@@ -1204,7 +1206,7 @@ public class ImageDTO {
 	/**
 	 * @return the anatomySynonyms
 	 */
-	public ArrayList<String> getAnatomySynonyms() {
+	public List<String> getAnatomySynonyms() {
 
 		return anatomySynonyms;
 	}
@@ -1214,7 +1216,7 @@ public class ImageDTO {
 	 * @param anatomySynonyms
 	 *            the anatomySynonyms to set
 	 */
-	public void addAnatomySynonyms(ArrayList<String> anatomySynonyms) {
+	public void addAnatomySynonyms(List<String> anatomySynonyms) {
 
 		if (this.anatomySynonyms == null) {
 			this.anatomySynonyms = new ArrayList<>();
@@ -1273,7 +1275,7 @@ public class ImageDTO {
 	/**
 	 * @return the anatomyComputedSynonymsBag
 	 */
-	public ArrayList<String> getAnatomyComputedSynonymsBag() {
+	public List<String> getAnatomyComputedSynonymsBag() {
 
 		return anatomyComputedSynonymsBag;
 	}
@@ -1283,7 +1285,7 @@ public class ImageDTO {
 	 * @param anatomyComputedSynonymsBag
 	 *            the anatomyComputedSynonymsBag to set
 	 */
-	public void addAnatomyComputedSynonymsBag(ArrayList<String> anatomyComputedSynonymsBag) {
+	public void addAnatomyComputedSynonymsBag(List<String> anatomyComputedSynonymsBag) {
 
 		if (this.anatomyComputedSynonymsBag == null) {
 			this.anatomyComputedSynonymsBag = new ArrayList<>();
@@ -1296,7 +1298,7 @@ public class ImageDTO {
 	/**
 	 * @return the depictedAnatomySynonymsBag
 	 */
-	public ArrayList<String> getDepictedAnatomySynonymsBag() {
+	public List<String> getDepictedAnatomySynonymsBag() {
 
 		return depictedAnatomySynonymsBag;
 	}
@@ -1306,7 +1308,7 @@ public class ImageDTO {
 	 * @param depictedAnatomySynonymsBag
 	 *            the depictedAnatomySynonymsBag to set
 	 */
-	public void addDepictedAnatomySynonymsBag(ArrayList<String> depictedAnatomySynonymsBag) {
+	public void addDepictedAnatomySynonymsBag(List<String> depictedAnatomySynonymsBag) {
 
 		if (this.depictedAnatomySynonymsBag == null) {
 			this.depictedAnatomySynonymsBag = new ArrayList<>();
@@ -1319,7 +1321,7 @@ public class ImageDTO {
 	/**
 	 * @return the abnormalAnatomySynonymsBag
 	 */
-	public ArrayList<String> getAbnormalAnatomySynonymsBag() {
+	public List<String> getAbnormalAnatomySynonymsBag() {
 
 		return abnormalAnatomySynonymsBag;
 	}
@@ -1329,7 +1331,7 @@ public class ImageDTO {
 	 * @param abnormalAnatomySynonymsBag
 	 *            the abnormalAnatomySynonymsBag to set
 	 */
-	public void addAbnormalAnatomySynonymsBag(ArrayList<String> abnormalAnatomySynonymsBag) {
+	public void addAbnormalAnatomySynonymsBag(List<String> abnormalAnatomySynonymsBag) {
 
 		if (this.abnormalAnatomySynonymsBag == null) {
 			this.abnormalAnatomySynonymsBag = new ArrayList<>();
@@ -1342,7 +1344,7 @@ public class ImageDTO {
 	/**
 	 * @return the expressedGfSynonymsBag
 	 */
-	public ArrayList<String> getExpressedGfSynonymsBag() {
+	public List<String> getExpressedGfSynonymsBag() {
 
 		return expressedGfSynonymsBag;
 	}
@@ -1352,7 +1354,7 @@ public class ImageDTO {
 	 * @param expressedGfSynonymsBag
 	 *            the expressedGfSynonymsBag to set
 	 */
-	public void addExpressedGfSynonymsBag(ArrayList<String> expressedGfSynonymsBag) {
+	public void addExpressedGfSynonymsBag(List<String> expressedGfSynonymsBag) {
 
 		if (this.expressedGfSynonymsBag == null) {
 			this.expressedGfSynonymsBag = new ArrayList<>();
@@ -1366,16 +1368,16 @@ public class ImageDTO {
 	/**
 	 * @return the expressionInSynonymsBag
 	 */
-	public ArrayList<String> getExpressionInSynonymsBag() {
+	public List<String> getExpressionInSynonymsBag() {
 
 		return expressionInSynonymsBag;
 	}
 
-	public ArrayList<String> getExpressionConcatBag() {
+	public List<String> getExpressionConcatBag() {
 		return expressionConcatBag;
 	}
 
-	public void setExpressionConcatBag(ArrayList<String> expressionConcatBag) {
+	public void setExpressionConcatBag(List<String> expressionConcatBag) {
 		this.expressionConcatBag = expressionConcatBag;
 	}
 	
@@ -1393,7 +1395,7 @@ public class ImageDTO {
 	 * @param expressionInSynonymsBag
 	 *            the expressionInSynonymsBag to set
 	 */
-	public void setExpressionInSynonymsBag(ArrayList<String> expressionInSynonymsBag) {
+	public void setExpressionInSynonymsBag(List<String> expressionInSynonymsBag) {
 
 		if (this.expressionInSynonymsBag == null) {
 			this.expressionInSynonymsBag = new ArrayList<>();
@@ -1406,7 +1408,7 @@ public class ImageDTO {
 	/**
 	 * @return the mutantGeneSynonymsBag
 	 */
-	public ArrayList<String> getMutantGeneSynonymsBag() {
+	public List<String> getMutantGeneSynonymsBag() {
 
 		return mutantGeneSynonymsBag;
 	}
@@ -1416,7 +1418,7 @@ public class ImageDTO {
 	 * @param mutantGeneSynonymsBag
 	 *            the mutantGeneSynonymsBag to set
 	 */
-	public void addMutantGeneSynonymsBag(ArrayList<String> mutantGeneSynonymsBag) {
+	public void addMutantGeneSynonymsBag(List<String> mutantGeneSynonymsBag) {
 
 		if (this.mutantGeneSynonymsBag == null) {
 			this.mutantGeneSynonymsBag = new ArrayList<>();
@@ -1429,7 +1431,7 @@ public class ImageDTO {
 	/**
 	 * @return the phenotypeSynonymsBag
 	 */
-	public ArrayList<String> getPhenotypeSynonymsBag() {
+	public List<String> getPhenotypeSynonymsBag() {
 
 		return phenotypeSynonymsBag;
 	}
@@ -1439,7 +1441,7 @@ public class ImageDTO {
 	 * @param phenotypeSynonymsBag
 	 *            the phenotypeSynonymsBag to set
 	 */
-	public void addPhenotypeSynonymsBag(ArrayList<String> phenotypeSynonymsBag) {
+	public void addPhenotypeSynonymsBag(List<String> phenotypeSynonymsBag) {
 
 		if (this.phenotypeSynonymsBag == null) {
 			this.phenotypeSynonymsBag = new ArrayList<>();
@@ -1490,7 +1492,7 @@ public class ImageDTO {
 	/**
 	 * @return the associatedRoi
 	 */
-	public List<String> getAssociatedRoi() {
+	public Set<String> getAssociatedRoi() {
 
 		return associatedRoi;
 	}
@@ -1500,15 +1502,16 @@ public class ImageDTO {
 	 * @param associatedRoi
 	 *            the associatedRoi to set
 	 */
-	public void setAssociatedRoi(List<String> associatedRoi) {
+	public void setAssociatedRoi(Collection<String> associatedRoi) {
 
-		this.associatedRoi = associatedRoi;
+		this.associatedRoi = new HashSet<>();
+		this.associatedRoi.addAll(associatedRoi);
 	}
 	
 	public void addAssociatedRoi(String associatedRoiId) {
 
 		if (associatedRoi == null){
-			associatedRoi = new ArrayList<>();
+			associatedRoi = new HashSet<>();
 		}
 		this.associatedRoi.add(associatedRoiId);
 	}
@@ -1517,7 +1520,7 @@ public class ImageDTO {
 	/**
 	 * @return the associatedChannel
 	 */
-	public List<String> getAssociatedChannel() {
+	public Set<String> getAssociatedChannel() {
 
 		return associatedChannel;
 	}
@@ -1527,9 +1530,10 @@ public class ImageDTO {
 	 * @param associatedChannel
 	 *            the associatedChannel to set
 	 */
-	public void setAssociatedChannel(List<String> associatedChannel) {
+	public void setAssociatedChannel(Collection<String> associatedChannel) {
 
-		this.associatedChannel = associatedChannel;
+		this.associatedChannel = new HashSet<>();
+		this.associatedChannel.addAll(associatedChannel);
 	}
 
 	/**
@@ -1592,7 +1596,7 @@ public class ImageDTO {
 	/**
 	 * @return the imageGeneratedBy
 	 */
-	public ArrayList<String> getImageGeneratedBy() {
+	public List<String> getImageGeneratedBy() {
 
 		return imageGeneratedBy;
 	}
@@ -1602,7 +1606,7 @@ public class ImageDTO {
 	 * @param imageGeneratedBy
 	 *            the imageGeneratedBy to set
 	 */
-	public void setImageGeneratedBy( ArrayList<String> imageGeneratedBy) {
+	public void setImageGeneratedBy( List<String> imageGeneratedBy) {
 
 		this.imageGeneratedBy = imageGeneratedBy;
 	}
@@ -1661,7 +1665,7 @@ public class ImageDTO {
 	/**
 	 * @return the imagingMethodId
 	 */
-	public ArrayList<String> getImagingMethodId() {
+	public List<String> getImagingMethodId() {
 
 		return imagingMethodId;
 	}
@@ -1671,7 +1675,7 @@ public class ImageDTO {
 	 * @param imagingMethodId
 	 *            the imagingMethodId to set
 	 */
-	public void setImagingMethodId(ArrayList<String> imagingMethodId) {
+	public void setImagingMethodId(List<String> imagingMethodId) {
 
 		this.imagingMethodId = imagingMethodId;
 	}
@@ -1687,7 +1691,7 @@ public class ImageDTO {
 	/**
 	 * @return the samplePreparationId
 	 */
-	public ArrayList<String> getSamplePreparationId() {
+	public List<String> getSamplePreparationId() {
 
 		return samplePreparationId;
 	}
@@ -1697,7 +1701,7 @@ public class ImageDTO {
 	 * @param samplePreparationId
 	 *            the samplePreparationId to set
 	 */
-	public void setSamplePreparationId(ArrayList<String> samplePreparationId) {
+	public void setSamplePreparationId(List<String> samplePreparationId) {
 
 		this.samplePreparationId = samplePreparationId;
 	}
@@ -1714,7 +1718,7 @@ public class ImageDTO {
 	/**
 	 * @return the visualisationMethodId
 	 */
-	public ArrayList<String> getVisualisationMethodId() {
+	public List<String> getVisualisationMethodId() {
 
 		return visualisationMethodId;
 	}
@@ -1735,7 +1739,7 @@ public class ImageDTO {
 	/**
 	 * @return the imagingMethodLabel
 	 */
-	public ArrayList<String> getImagingMethodLabel() {
+	public List<String> getImagingMethodLabel() {
 
 		return imagingMethodLabel;
 	}
@@ -1751,7 +1755,7 @@ public class ImageDTO {
 	 * @param imagingMethodLabel
 	 *            the imagingMethodLabel to set
 	 */
-	public void setImagingMethodLabel(ArrayList<String> imagingMethodLabel) {
+	public void setImagingMethodLabel(List<String> imagingMethodLabel) {
 
 		this.imagingMethodLabel = imagingMethodLabel;
 	}
@@ -1760,7 +1764,7 @@ public class ImageDTO {
 	/**
 	 * @return the samplePreparationLabel
 	 */
-	public ArrayList<String> getSamplePreparationLabel() {
+	public List<String> getSamplePreparationLabel() {
 
 		return samplePreparationLabel;
 	}
@@ -1776,7 +1780,7 @@ public class ImageDTO {
 	 * @param samplePreparationLabel
 	 *            the samplePreparationLabel to set
 	 */
-	public void setSamplePreparationLabel(ArrayList<String> samplePreparationLabel) {
+	public void setSamplePreparationLabel(List<String> samplePreparationLabel) {
 
 		this.samplePreparationLabel = samplePreparationLabel;
 	}
@@ -1785,7 +1789,7 @@ public class ImageDTO {
 	/**
 	 * @return the visualisationMethodLabel
 	 */
-	public ArrayList<String> getVisualisationMethodLabel() {
+	public List<String> getVisualisationMethodLabel() {
 
 		return visualisationMethodLabel;
 	}
@@ -2301,7 +2305,7 @@ public class ImageDTO {
 	/**
 	 * @return the anatomyComputedIdBag
 	 */
-	public ArrayList<String> getAnatomyComputedIdBag() {
+	public List<String> getAnatomyComputedIdBag() {
 
 		return anatomyComputedIdBag;
 	}
@@ -2310,7 +2314,7 @@ public class ImageDTO {
 	 * @param anatomyComputedIdBag
 	 *            the anatomyComputedIdBag to set
 	 */
-	public void setAnatomyComputedIdBag(ArrayList<String> anatomyComputedIdBag) {
+	public void setAnatomyComputedIdBag(List<String> anatomyComputedIdBag) {
 
 		this.anatomyComputedIdBag = anatomyComputedIdBag;
 	}
@@ -2327,7 +2331,7 @@ public class ImageDTO {
 	/**
 	 * @return the anatomyComputedLabelBag
 	 */
-	public ArrayList<String> getAnatomyComputedLabelBag() {
+	public List<String> getAnatomyComputedLabelBag() {
 
 		return anatomyComputedLabelBag;
 	}
@@ -2336,7 +2340,7 @@ public class ImageDTO {
 	 * @param anatomyComputedLabelBag
 	 *            the anatomyComputedLabelBag to set
 	 */
-	public void setAnatomyComputedLabelBag(ArrayList<String> anatomyComputedLabelBag) {
+	public void setAnatomyComputedLabelBag(List<String> anatomyComputedLabelBag) {
 
 		this.anatomyComputedLabelBag = anatomyComputedLabelBag;
 	}
@@ -2352,7 +2356,7 @@ public class ImageDTO {
 	/**
 	 * @return the depictedAnatomyIdBag
 	 */
-	public ArrayList<String> getDepictedAnatomyIdBag() {
+	public List<String> getDepictedAnatomyIdBag() {
 
 		return depictedAnatomyIdBag;
 	}
@@ -2362,7 +2366,7 @@ public class ImageDTO {
 	 * @param depictedAnatomyIdBag
 	 *            the depictedAnatomyIdBag to set
 	 */
-	public void setDepictedAnatomyIdBag(ArrayList<String> depictedAnatomyIdBag) {
+	public void setDepictedAnatomyIdBag(List<String> depictedAnatomyIdBag) {
 
 		this.depictedAnatomyIdBag = depictedAnatomyIdBag;
 	}
@@ -2371,7 +2375,7 @@ public class ImageDTO {
 	/**
 	 * @return the depictedAnatomyTermBag
 	 */
-	public ArrayList<String> getDepictedAnatomyTermBag() {
+	public List<String> getDepictedAnatomyTermBag() {
 
 		return depictedAnatomyTermBag;
 	}
@@ -2381,7 +2385,7 @@ public class ImageDTO {
 	 * @param depictedAnatomyTermBag
 	 *            the depictedAnatomyTermBag to set
 	 */
-	public void setDepictedAnatomyTermBag(ArrayList<String> depictedAnatomyTermBag) {
+	public void setDepictedAnatomyTermBag(List<String> depictedAnatomyTermBag) {
 
 		this.depictedAnatomyTermBag = depictedAnatomyTermBag;
 	}
@@ -2390,7 +2394,7 @@ public class ImageDTO {
 	/**
 	 * @return the expressedGfIdBag
 	 */
-	public ArrayList<String> getExpressedGfIdBag() {
+	public List<String> getExpressedGfIdBag() {
 
 		return expressedGfIdBag;
 	}
@@ -2400,7 +2404,7 @@ public class ImageDTO {
 	 * @param expressedGfIdBag
 	 *            the expressedGfIdBag to set
 	 */
-	public void setExpressedGfIdBag(ArrayList<String> expressedGfIdBag) {
+	public void setExpressedGfIdBag(List<String> expressedGfIdBag) {
 
 		this.expressedGfIdBag = expressedGfIdBag;
 	}
@@ -2409,7 +2413,7 @@ public class ImageDTO {
 	/**
 	 * @return the expressedGfSymbolBag
 	 */
-	public ArrayList<String> getExpressedGfSymbolBag() {
+	public List<String> getExpressedGfSymbolBag() {
 
 		return expressedGfSymbolBag;
 	}
@@ -2419,7 +2423,7 @@ public class ImageDTO {
 	 * @param expressedGfSymbolBag
 	 *            the expressedGfSymbolBag to set
 	 */
-	public void setExpressedGfSymbolBag(ArrayList<String> expressedGfSymbolBag) {
+	public void setExpressedGfSymbolBag(List<String> expressedGfSymbolBag) {
 
 		this.expressedGfSymbolBag = expressedGfSymbolBag;
 	}
@@ -2428,7 +2432,7 @@ public class ImageDTO {
 	/**
 	 * @return the expressionInIdBag
 	 */
-	public ArrayList<String> getExpressionInIdBag() {
+	public List<String> getExpressionInIdBag() {
 
 		return expressionInIdBag;
 	}
@@ -2438,7 +2442,7 @@ public class ImageDTO {
 	 * @param expressionInIdBag
 	 *            the expressionInIdBag to set
 	 */
-	public void setExpressionInIdBag(ArrayList<String> expressionInIdBag) {
+	public void setExpressionInIdBag(List<String> expressionInIdBag) {
 
 		this.expressionInIdBag = expressionInIdBag;
 	}
@@ -2447,7 +2451,7 @@ public class ImageDTO {
 	/**
 	 * @return the expressionInLabelBag
 	 */
-	public ArrayList<String> getExpressionInLabelBag() {
+	public List<String> getExpressionInLabelBag() {
 
 		return expressionInLabelBag;
 	}
@@ -2457,7 +2461,7 @@ public class ImageDTO {
 	 * @param expressionInLabelBag
 	 *            the expressionInLabelBag to set
 	 */
-	public void setExpressionInLabelBag(ArrayList<String> expressionInLabelBag) {
+	public void setExpressionInLabelBag(List<String> expressionInLabelBag) {
 
 		this.expressionInLabelBag = expressionInLabelBag;
 	}
@@ -2466,7 +2470,7 @@ public class ImageDTO {
 	/**
 	 * @return the mutantGeneIdBag
 	 */
-	public ArrayList<String> getMutantGeneIdBag() {
+	public List<String> getMutantGeneIdBag() {
 
 		return mutantGeneIdBag;
 	}
@@ -2476,7 +2480,7 @@ public class ImageDTO {
 	 * @param mutantGeneIdBag
 	 *            the mutantGeneIdBag to set
 	 */
-	public void setMutantGeneIdBag(ArrayList<String> mutantGeneIdBag) {
+	public void setMutantGeneIdBag(List<String> mutantGeneIdBag) {
 
 		this.mutantGeneIdBag = mutantGeneIdBag;
 	}
@@ -2485,7 +2489,7 @@ public class ImageDTO {
 	/**
 	 * @return the mutantGeneSymbolBag
 	 */
-	public ArrayList<String> getMutantGeneSymbolBag() {
+	public List<String> getMutantGeneSymbolBag() {
 
 		return mutantGeneSymbolBag;
 	}
@@ -2495,7 +2499,7 @@ public class ImageDTO {
 	 * @param mutantGeneSymbolBag
 	 *            the mutantGeneSymbolBag to set
 	 */
-	public void setMutantGeneSymbolBag(ArrayList<String> mutantGeneSymbolBag) {
+	public void setMutantGeneSymbolBag(List<String> mutantGeneSymbolBag) {
 
 		this.mutantGeneSymbolBag = mutantGeneSymbolBag;
 	}
@@ -2504,7 +2508,7 @@ public class ImageDTO {
 	/**
 	 * @return the observationBag
 	 */
-	public ArrayList<String> getObservationBag() {
+	public List<String> getObservationBag() {
 
 		return observationBag;
 	}
@@ -2514,7 +2518,7 @@ public class ImageDTO {
 	 * @param observationBag
 	 *            the observationBag to set
 	 */
-	public void setObservationBag(ArrayList<String> observationBag) {
+	public void setObservationBag(List<String> observationBag) {
 
 		this.observationBag = observationBag;
 	}
@@ -2523,7 +2527,7 @@ public class ImageDTO {
 	/**
 	 * @return the phenotypeIdBag
 	 */
-	public ArrayList<String> getPhenotypeIdBag() {
+	public List<String> getPhenotypeIdBag() {
 
 		return phenotypeIdBag;
 	}
@@ -2533,7 +2537,7 @@ public class ImageDTO {
 	 * @param phenotypeIdBag
 	 *            the phenotypeIdBag to set
 	 */
-	public void setPhenotypeIdBag(ArrayList<String> phenotypeIdBag) {
+	public void setPhenotypeIdBag(List<String> phenotypeIdBag) {
 
 		this.phenotypeIdBag = phenotypeIdBag;
 	}
@@ -2641,7 +2645,7 @@ public class ImageDTO {
 	/**
 	 * @return the phenotypelabelBag
 	 */
-	public ArrayList<String> getPhenotypeLabelBag() {
+	public List<String> getPhenotypeLabelBag() {
 
 		return phenotypeLabelBag;
 	}
@@ -2651,7 +2655,7 @@ public class ImageDTO {
 	 * @param phenotypelabelBag
 	 *            the phenotypelabelBag to set
 	 */
-	public void setPhenotypeLabelBag(ArrayList<String> phenotypelabelBag) {
+	public void setPhenotypeLabelBag(List<String> phenotypelabelBag) {
 
 		this.phenotypeLabelBag = phenotypelabelBag;
 	}
@@ -2660,7 +2664,7 @@ public class ImageDTO {
 	/**
 	 * @return the depictedAnatomyFreetextBag
 	 */
-	public ArrayList<String> getDepictedAnatomyFreetextBag() {
+	public List<String> getDepictedAnatomyFreetextBag() {
 
 		return depictedAnatomyFreetextBag;
 	}
@@ -2670,7 +2674,7 @@ public class ImageDTO {
 	 * @param depictedAnatomyFreetextBag
 	 *            the depictedAnatomyFreetextBag to set
 	 */
-	public void setDepictedAnatomyFreetextBag(ArrayList<String> depictedAnatomyFreetextBag) {
+	public void setDepictedAnatomyFreetextBag(List<String> depictedAnatomyFreetextBag) {
 
 		this.depictedAnatomyFreetextBag = depictedAnatomyFreetextBag;
 	}
@@ -2679,7 +2683,7 @@ public class ImageDTO {
 	/**
 	 * @return the expressionInFreetextBag
 	 */
-	public ArrayList<String> getExpressionInFreetextBag() {
+	public List<String> getExpressionInFreetextBag() {
 
 		return expressionInFreetextBag;
 	}
@@ -2689,7 +2693,7 @@ public class ImageDTO {
 	 * @param expressionInFreetextBag
 	 *            the expressionInFreetextBag to set
 	 */
-	public void setExpressionInFreetextBag(ArrayList<String> expressionInFreetextBag) {
+	public void setExpressionInFreetextBag(List<String> expressionInFreetextBag) {
 
 		this.expressionInFreetextBag = expressionInFreetextBag;
 	}
@@ -2698,7 +2702,7 @@ public class ImageDTO {
 	/**
 	 * @return the phenotypeFreetextBag
 	 */
-	public ArrayList<String> getPhenotypeFreetextBag() {
+	public List<String> getPhenotypeFreetextBag() {
 
 		return phenotypeFreetextBag;
 	}
@@ -2708,7 +2712,7 @@ public class ImageDTO {
 	 * @param phenotypeFreetextBag
 	 *            the phenotypeFreetextBag to set
 	 */
-	public void setPhenotypeFreetextBag(ArrayList<String> phenotypeFreetextBag) {
+	public void setPhenotypeFreetextBag(List<String> phenotypeFreetextBag) {
 
 		this.phenotypeFreetextBag = phenotypeFreetextBag;
 	}
@@ -2717,7 +2721,7 @@ public class ImageDTO {
 	/**
 	 * @return the abnormalAnatomyIdBag
 	 */
-	public ArrayList<String> getAbnormalAnatomyIdBag() {
+	public List<String> getAbnormalAnatomyIdBag() {
 
 		return abnormalAnatomyIdBag;
 	}
@@ -2727,7 +2731,7 @@ public class ImageDTO {
 	 * @param abnormalAnatomyIdBag
 	 *            the abnormalAnatomyIdBag to set
 	 */
-	public void setAbnormalAnatomyIdBag(ArrayList<String> abnormalAnatomyIdBag) {
+	public void setAbnormalAnatomyIdBag(List<String> abnormalAnatomyIdBag) {
 
 		this.abnormalAnatomyIdBag = abnormalAnatomyIdBag;
 	}
@@ -2743,7 +2747,7 @@ public class ImageDTO {
 	/**
 	 * @return the abnormalAnatomyTermBag
 	 */
-	public ArrayList<String> getAbnormalAnatomyTermBag() {
+	public List<String> getAbnormalAnatomyTermBag() {
 
 		return abnormalAnatomyTermBag;
 	}
@@ -2753,7 +2757,7 @@ public class ImageDTO {
 	 * @param abnormalAnatomyTermBag
 	 *            the abnormalAnatomyTermBag to set
 	 */
-	public void setAbnormalAnatomyTermBag(ArrayList<String> abnormalAnatomyTermBag) {
+	public void setAbnormalAnatomyTermBag(List<String> abnormalAnatomyTermBag) {
 
 		this.abnormalAnatomyTermBag = abnormalAnatomyTermBag;
 	}
@@ -2762,7 +2766,7 @@ public class ImageDTO {
 	/**
 	 * @return the abnormalAnatomyFreetextBag
 	 */
-	public ArrayList<String> getAbnormalAnatomyFreetextBag() {
+	public List<String> getAbnormalAnatomyFreetextBag() {
 
 		return abnormalAnatomyFreetextBag;
 	}
@@ -2779,7 +2783,7 @@ public class ImageDTO {
 	 * @param abnormalAnatomyFreetextBag
 	 *            the abnormalAnatomyFreetextBag to set
 	 */
-	public void setAbnormalAnatomyFreetextBag(ArrayList<String> abnormalAnatomyFreetextBag) {
+	public void setAbnormalAnatomyFreetextBag(List<String> abnormalAnatomyFreetextBag) {
 
 		this.abnormalAnatomyFreetextBag = abnormalAnatomyFreetextBag;
 	}
@@ -2788,7 +2792,7 @@ public class ImageDTO {
 	/**
 	 * @return the imageType
 	 */
-	public ArrayList<String> getImageType() {
+	public List<String> getImageType() {
 
 		return imageType;
 	}
@@ -2798,7 +2802,7 @@ public class ImageDTO {
 	 * @param imageType
 	 *            the imageType to set
 	 */
-	public void setImageType(ArrayList<String> imageType) {
+	public void setImageType(List<String> imageType) {
 
 		this.imageType = imageType;
 	}
@@ -2894,13 +2898,13 @@ public class ImageDTO {
 	}
 
 	
-	public ArrayList<String> getStageFacets() {
+	public List<String> getStageFacets() {
 	
 		return stageFacets;
 	}
 
 	
-	public void setStageFacets(ArrayList<String> stageFacets) {
+	public void setStageFacets(List<String> stageFacets) {
 	
 		this.stageFacets = stageFacets;
 	}

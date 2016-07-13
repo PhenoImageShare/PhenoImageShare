@@ -20,6 +20,7 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.apache.solr.client.solrj.SolrQuery;
@@ -266,7 +267,7 @@ public class ImageService extends BasicService{
 		ImageDTO img = getImageDTOById(roi.getAssociatedImage());
 
 		System.out.println("Roi list before " + img.getAssociatedRoi().size() + "  " + img.getAssociatedRoi());
-		List<String> list = img.getAssociatedRoi();
+		Set<String> list = img.getAssociatedRoi();
 		list.remove(roi.getId());
 		img.setAssociatedRoi(list);
 		
@@ -325,9 +326,9 @@ public class ImageService extends BasicService{
 		addBeans(update);
 	}
 	
-	public ArrayList<String> removeOnce(ArrayList<String> from, List<String> whatToDelete){
+	public List<String> removeOnce(List<String> from, List<String> whatToDelete){
 		
-		ArrayList<String> res = from;
+		List<String> res = from;
 		if ( res != null){
 			for(String toRemove : whatToDelete){
 				from.remove(toRemove);

@@ -128,19 +128,16 @@ public class TracerXmlGenerator {
 	        	String imageName = res.getString("image_name");
 	        	String internalId =  "tracer_" + i;
 	    		String url = "http://www.ebi.ac.uk/panda-srv/tracer/sblac/" + res.getString("file_path") + "/" + res.getString("image_name") + ".jpg";
-	    		Map<String, Integer> dimensions = EnrichingUtils.getImageMeasuresFromUrl(url);
+	    		Dimensions dimensions = EnrichingUtils.getImageMeasuresFromUrl(url);
 	    		
 	    		if (dimensions != null){ //index info only if the image could be loaded 	    		
 
 		    		Image image = new Image();
 		    		image.setId(internalId);
 	    			
-	    			Dimensions d = new Dimensions();
-	    			d.setImageHeight(dimensions.get("height"));
-	    			d.setImageWidth(dimensions.get("width"));
 		    		ImageDescription imageDesc = new ImageDescription();
 		    		imageDesc.setImageUrl(url);
-		    		imageDesc.setImageDimensions(d);
+		    		imageDesc.setImageDimensions(dimensions);
 		    		Link ogb = new Link();
 		    		ogb.setDisplayName("Spitz Lab, EMBL");
 		    		ogb.setUrl("http://www.embl.de/research/units/dev_biology/spitz/");

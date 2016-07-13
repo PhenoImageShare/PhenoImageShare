@@ -26,16 +26,16 @@ import java.util.*;
 
 import javax.sql.DataSource;
 import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.w3c.dom.DOMException;
 
+import uk.ac.ebi.phis.exception.PhenoImageShareException;
 import uk.ac.ebi.phis.jaxb.Annotation;
 import uk.ac.ebi.phis.jaxb.AnnotationArray;
 import uk.ac.ebi.phis.jaxb.AnnotationMode;
@@ -67,17 +67,20 @@ import uk.ac.ebi.phis.utils.Normalizer;
 public class SangerXmlGenerator {
 	
 	Normalizer norm;
-		
-	public SangerXmlGenerator(){
+	GregorianCalendar gregorianCalendar = new GregorianCalendar();
+    DatatypeFactory datatypeFactory;
+    
+	public SangerXmlGenerator() throws DatatypeConfigurationException{
 		norm = new Normalizer();
+		datatypeFactory = DatatypeFactory.newInstance();
 	}
 	
-	public void exportImages() throws IOException{
+	public void exportImages() throws IOException, JAXBException, SQLException, PhenoImageShareException{
 		
         ApplicationContext ac = new ClassPathXmlApplicationContext("app-config.xml");
 		DataSource dataSource = (DataSource) ac.getBean("komp2DataSource");
         
-        String command = "SELECT iir.ID, iir.LARGE_THUMBNAIL_FILE_PATH, iir.PUBLISHED_STATUS_ID, iit.ID as TAG_ID, " +
+        String command = "SELECT iir.ID, iir.LARGE_THUMBNAIL_FILE_PATH, iir.SMALL_THUMBNAIL_FILE_PATH, iir.PUBLISHED_STATUS_ID, iit.ID as TAG_ID, " +
         					"iit.TAG_NAME, iit.TAG_VALUE, iit.X_START, iit.X_END, iit.Y_START, iit.Y_END, iit.CREATED_DATE, iit.EDIT_DATE, " +
         					"aa.TERM_ID, aa.TERM_NAME, aa.ONTOLOGY_DICT_ID, " +
         					"imam.MOUSE_ID, imam.MOUSE_NAME, imam.GENDER, imam.AGE_IN_WEEKS, imam.GENE, imam.ALLELE, imam.GENOTYPE, " +
@@ -90,252 +93,127 @@ public class SangerXmlGenerator {
         					"LEFT OUTER JOIN IMA_SUBCONTEXT isub ON iir.subcontext_id=isub.id " +
         					"LEFT OUTER JOIN IMA_EXPERIMENT_DICT ied ON isub.experiment_dict_id=ied.id " +
         					"LEFT OUTER JOIN allele ON allele.symbol=imam.ALLELE " + 
-        				"WHERE ied.NAME != 'Mouse Necropsy'  AND TAG_NAME like \"Annotation\" " +
-        				"ORDER BY iir.ID, TAG_ID;";
+        				"WHERE ied.NAME != 'Mouse Necropsy' " +
+        				"ORDER BY iir.ID, TAG_ID ;";
         
-        try {
-        	
         	PreparedStatement statement = dataSource.getConnection().prepareStatement(command);
      		ResultSet res = statement.executeQuery();
+     		
+     		System.out.println("Finished execution of QL query.");
                   	
-			Doc doc = new Doc();
-			GregorianCalendar gregorianCalendar = new GregorianCalendar();
-	        DatatypeFactory datatypeFactory = DatatypeFactory.newInstance();
-			doc.setExportDate(datatypeFactory.newXMLGregorianCalendar(gregorianCalendar));
 			int i = 0;
-			
-	        while ( res.next()){
+			String imageId = "";
+			String tagId = "";
+    		String channelId = "";
+	        String internalId =  "";
+        	Roi roi = null;
+        	Image image = null;
+    		Map<String,Roi> rois = new HashMap<>();
+    		Channel channel = null;
+	    	Dimensions dimensions = new Dimensions();
+    		Genotype genotype = null;
+			Doc doc = new Doc();
+			doc.setExportDate(datatypeFactory.newXMLGregorianCalendar(gregorianCalendar));
+    		 			
+	        while ( res.next() ){
 
-	        	if (res.getString("gf_acc") != null && res.getString("gf_acc").startsWith("MGI:")){
-    				
-		        	boolean sameImage = true;
-		        	String internalId =  "komp2_" + res.getString("ID");		        	
-		        	String imageId = res.getString("ID");
-		    		String url = "http://www.mousephenotype.org/data/media/" + res.getString("LARGE_THUMBNAIL_FILE_PATH") ;
-		    		Map<String, Integer> dimensions = EnrichingUtils.getImageMeasuresFromUrl(url);
-		    		
-		    		if (dimensions != null){// the image could be loaded 	    		
+			    String url = "http://www.mousephenotype.org/data/media/" + res.getString("LARGE_THUMBNAIL_FILE_PATH") ;
+			    dimensions = EnrichingUtils.getImageMeasuresFromUrl(url);
+////	        	System.out.println("-- " + res.getString("ID"));
+			    if (dimensions != null){// the image could be loaded 
 
-			    		Boolean expression = false;
-			    		Boolean phenotypeAnatomy = false;
-		    			Boolean isMutant = true;
+			    	String procedure = res.getString("procedure_name");	
+////			    	System.out.println("\t could download" );
+				    
+			    	if (!res.getString("ID").equals(imageId)){
 			    		
-		    			Image image = new Image();
-			    		image.setId(internalId);
-			    		
-			    		Dimensions d = new Dimensions();
-		    			d.setImageHeight(dimensions.get("height"));
-		    			d.setImageWidth(dimensions.get("width"));
-			    		String procedure = res.getString("procedure_name");
-			    		// store procedure name as observation
-			    		image.setObservations(new StringArray());
-			    		image.getObservations().getEl().add("Procedure name: " + procedure);
+////	        			System.out.println("Writing " + imageId);	    		
+				        writeDocs(image, channel, doc, rois); // write current docs so we can move to the new image
 
-			    		Organism organism = new Organism();
-			    		Sex sex = Sex.fromValue(norm.normalizeSex(res.getString("GENDER")));
-			    		organism.setSex(sex);
-			    		organism.setNcbiTaxonId("10090");
-			    		organism.setOrganismId(res.getString("MOUSE_NAME"));
-			    		Group group = new Group();
-			    		group.setColonyId(res.getString("COLONY_PREFIX"));
-			    		organism.setGroup(group);
-			    		
-			    		if (ageIsRelevant(procedure)){
-			 	    		organism.setAge(res.getString("AGE_IN_WEEKS"));
+				    	internalId =  "komp2_" + res.getString("ID");		        	
+					    imageId = res.getString("ID");	    		
+			    		image = new Image();
+				    	image.setId(internalId);				    		
+				    	image.setObservations(new StringArray());
+				    	image.getObservations().getEl().add("Procedure name: " + procedure);
+			    		image.setOrganism(getOrganism(res, procedure));
+			    		genotype = null;
+			    		if (!res.getString("GENOTYPE").equalsIgnoreCase("WT")){
+			    			genotype = getGenotype(res);
+				    		image.setMutantGenotypeTraits(genotype);
 			    		}
-			    		OntologyTerm stageOt = getStageFromProcedureOrAge(procedure, res.getString("AGE_IN_WEEKS"));
-			    		if (stageOt != null){
-			    			organism.setStage(stageOt);
-			    		}
-			    			
-			    		organism.setTaxon("Mus musculus");
-			    		image.setOrganism(organism);
-		  	    		GenotypeComponent gt = new GenotypeComponent();
-			    		
-			    		if (res.getString("GENOTYPE").equalsIgnoreCase("WT")){
-			    			isMutant = false;
-			    		} else {
-				    		gt.setGeneId(res.getString("gf_acc"));
-				    		gt.setGeneSymbol(res.getString("GENE"));
-				    		gt.setGeneticFeatureId(res.getString("acc"));
-				    		gt.setGeneticFeatureSymbol(res.getString("ALLELE"));
-				    		Zygosity zyg = Zygosity.fromValue(norm.normalizeZygosity(res.getString("GENOTYPE")));
-				    		gt.setZygosity(zyg);
-				    		Annotation mt = new Annotation();
-				    		if (norm.getImageType(res.getString("procedure_name")).equalsIgnoreCase("expression")){
-				    			mt.setAnnotationFreetext("null allele with LacZ reporter");
-				    			gt.setMutationType(mt);
-				    		} else {
-				    			mt.setAnnotationFreetext("null mutation");
-				    			gt.setMutationType(mt);
-				    		}
-
-				    		Genotype gta = new Genotype();
-				    		gta.getEl().add(gt);
-				    		image.setMutantGenotypeTraits(gta);
-			    		}			    		
-				        
+		                image.setImageDescription(createImageDescription(url, dimensions, genotype, res));			    		
+					        
 				        /* 	Channel 	*/
-			    		String imageType = norm.getImageType(res.getString("procedure_name"));
-			    		Channel channel = null;
-			    		String channelId = "";
-			    		if (imageType.equalsIgnoreCase("expression")){
-			    			expression = true;
+			    		channel = null;
+			    		channelId = "";
+			    		if (isExpression(procedure)){
 			    			channelId = internalId.replace("komp2_", "komp2_channel_") + "_" + 0; // we know that for Sanger data there is at most one channel.
 			    			channel = new Channel();
-					        channel.setAssociatedImage(internalId);
-					        // KOMP2 always has at most 1 channel
-					        StringArray c = new StringArray();
-					        c.getEl().add(channelId);
-					        image.setAssociatedChannel(c);
 				    		channel.setId(channelId);
-				    		if (isMutant){
-				    			channel.setDepictsExpressionOf(gt);
+				    		if (genotype != null){ // not WT
+				    			channel.setDepictsExpressionOf(genotype.getEl().get(0));
 				    		}
-		    			}
-			    			    			
-
-				        /*	ROI	*/
-			    		int k = 0;
-			    		String tagId = "-1";
-			    		Roi roi = new Roi();
-			    		Map<String,Roi> rois = new HashMap<>();
-			    		
-			    		// Go through all annotations for the same image
-			    		while(sameImage){
-			    			
-			    			if (res.getString("ONTOLOGY_DICT_ID") != null){
-				    			//TODO check id new ROI is needed i.e. coordinates differ
-					    		if (!tagId.equalsIgnoreCase(res.getString("TAG_ID"))){
-					    			roi = new Roi();
-					    			String roiId = internalId.replace("komp2_", "komp2_roi_") + "_" + k;
-						    		roi.setId(roiId);
-						    		roi.setAssociatedImage(internalId);
-						    		if (res.getDate("EDIT_DATE") != null){
-						    			String date = res.getString("EDIT_DATE");
-						    			XMLGregorianCalendar xmlDate = datatypeFactory.newXMLGregorianCalendar(Integer.parseInt(date.split("-")[0]),
-						    					Integer.parseInt(date.split("-")[1]), Integer.parseInt(date.split("-")[2]), 0, 0, 0, 0, 0);
-						    			roi.setEditDate(xmlDate);
-						    		}
-						    		if (res.getDate("CREATED_DATE") != null){
-						    			String date = res.getString("CREATED_DATE");
-						    			XMLGregorianCalendar xmlDate = datatypeFactory.newXMLGregorianCalendar(Integer.parseInt(date.split("-")[0]),
-						    					Integer.parseInt(date.split("-")[1]), Integer.parseInt(date.split("-")[2]), 0, 0, 0, 0, 0);
-						    			roi.setCreationDate(xmlDate);
-						    		}
-						    		k++;
-					    			tagId = res.getString("TAG_ID");
-					    		}					    		
-					    		
-					    		// Need to decide first if we associate annotations to a ROI or to the whole image
-					    		// 1. Phenotypes should always be associated to a region of interest
-					    		// 2. Existing ROI should be kept if the coordinates != 0
-					    		if ( res.getString("ONTOLOGY_DICT_ID").equalsIgnoreCase("1") || notZeroCoordinates(res) ){ // 1 = MP
-					    			roi = fillRoi(roi, res, d, imageType.equalsIgnoreCase("expression"));
-					    			if (!imageType.equalsIgnoreCase("expression")){
-					    				phenotypeAnatomy = true;
-					    			}
-						        	rois.put(roi.getId(), roi);
-					    		}					    		
-					    		// 3. Anatomy from expression annotations should always be associated to it's ROI
-					    		// Sanger expression images: if an anatomy term is associated to the whole expression image it means there is expression in that anatomical structure
-					    		else if (imageType.equalsIgnoreCase("expression"))
-					    		{
-					    			roi = fillRoi(roi, res, d, imageType.equalsIgnoreCase("expression"));
-					    			roi.setAssociatedChannel(new StringArray());
-					    			roi.getAssociatedChannel().getEl().add(channelId);					    			
-					    			expression = true;
-						        	rois.put(roi.getId(), roi);
-					    		}
-					    		// Otherwise associate annotation to the whole image
-					    		else {
-					    			if (res.getString("TERM_ID") != null && res.getString("TERM_NAME") != null){
-						    			// Add annotation to the whole image
-						    			if (!res.getString("TAG_VALUE").equalsIgnoreCase("null")){
-											image.getObservations().getEl().add(res.getString("TAG_NAME") + ": " + res.getString("TAG_VALUE"));
-										}
-						    			image.setDepictedAnatomicalStructure(getAnnotation(res.getString("TERM_ID").toString(), res.getString("TERM_NAME").toString(), null, AnnotationMode.MANUAL));
-					    			}
-					    		}
-			    			}
-			    			
-			    			if (!(res.next() && imageId.equalsIgnoreCase(res.getString("ID"))) && rois.size() > 0){
-			    				
-					        	sameImage=false;
-					        	res.previous();
-					        	image.setAssociatedRoi(new StringArray());
-					        	image.getAssociatedRoi().getEl().addAll(rois.keySet());
-					        	doc.getRoi().addAll(rois.values());
-								 
-					        	if (expression){
-					        		if (channel.getAssociatedRoi() == null){
-						    			channel.setAssociatedRoi(new StringArray());
-					    			} 
-					    			channel.getAssociatedRoi().getEl().addAll(rois.keySet());
-									 
-					        	}
-			    			}
-						}
-			    		
-						ImageDescription imageDesc = new ImageDescription();
-						imageDesc.setImageUrl(url);
-						imageDesc.setImageDimensions(d);
-						Link ogb = new Link();
-						ogb.setDisplayName("WTSI");
-						imageDesc.setOrganismGeneratedBy(ogb);
-						Link igb = new Link();
-						igb.setDisplayName("WTSI");
-						igb.setUrl("http://www.sanger.ac.uk");
-						imageDesc.setImageGeneratedBy(igb);
-						Link host = new Link();
-						host.setDisplayName("IMPC Portal");
-						host.setUrl("http://www.mousephenotype.org/");
-						imageDesc.setHost(host);
-						// Parse procedure names to get most info out of them.
-						// Mappings done by David can be found at
-						// https://docs.google.com/spreadsheet/ccc?key=0AmK8olNJT0Z7dEN2MklCX2g1TmhJWTk0N3VlUERVaVE&usp=drive_web#gid=0
-						imageDesc = setSamplePrep(procedure, imageDesc);
-
-						ImageTypeArray it = new ImageTypeArray();
-						if (phenotypeAnatomy) {
-							it.getEl().add(ImageType.PHENOTYPE_ANATOMY);
-						} else if (!expression) {
-							// this will happen when no phenotype annotation was
-							// found or no anatomy ann with ROI and we just
-							// supposed the annotation referes to the whole
-							// image. But since we have the image, it must be of
-							// some anatomy/phenotype part of interest.
-							it.getEl().add(ImageType.PHENOTYPE_ANATOMY);
-						}
-						if (expression) {
-							it.getEl().add(ImageType.EXPRESSION);
-						}
-						imageDesc.setImageType(it);
-						if (isMutant) {
-							imageDesc.setSampleType(SampleType.MUTANT);
-						} else {
-							imageDesc.setSampleType(SampleType.WILD_TYPE);
-						}
-						image.setImageDescription(imageDesc);
-
-						// !!! Last thing in this block !!!
-						doc.getImage().add(image);
-
-						if (channel != null) {
 							channel = setVisualizationMethod(procedure, channel);
-							doc.getChannel().add(channel);
-						}
-					}
-	        }
+		    			}
+				    			    			
+				        /*	ROI	*/;
+			    		tagId = "";
+			    		roi = new Roi();
+			    		rois = new HashMap<>();
 
-				i++;
-				if (i % 100 == 0) {
-					System.out.println(i);
-					if (i == 200){
-						break;
+			    	} 			    	
+	        	
+		        	
+			    	// Add annotations to ROI
+	    			if (res.getString("ONTOLOGY_DICT_ID") != null){
+	
+			    		if (!tagId.equalsIgnoreCase(res.getString("TAG_ID"))){
+			    			tagId = res.getString("TAG_ID");
+			    			roi = createROI(internalId, res);					    			
+			    		}				    		
+			    		// Need to decide first if we associate annotations to a ROI or to the whole image
+			    		// 1. Phenotypes should always be associated to a region of interest
+			    		// 2. Existing ROI should be kept if the coordinates != 0
+			    		if ( res.getString("ONTOLOGY_DICT_ID").equalsIgnoreCase("1") || notZeroCoordinates(res) ){ // 1 = MP
+			    			roi = fillRoi(roi, res, dimensions, isExpression(procedure));
+				        	rois.put(roi.getId(), roi);
+			    		}					    		
+			    		// 3. Anatomy from expression annotations should always be associated to it's ROI
+			    		// Sanger expression images: if an anatomy term is associated to the whole expression image it means there is expression in that anatomical structure
+			    		else if ( isExpression(procedure))
+			    		{
+			    			roi = fillRoi(roi, res, dimensions,  isExpression(procedure));
+			    			roi.setAssociatedChannel(new StringArray());
+			    			roi.getAssociatedChannel().getEl().add(channelId);
+				        	rois.put(roi.getId(), roi);
+			    		}
+			    		// Otherwise associate annotation to the whole image
+			    		else {
+			    			if (res.getString("TERM_ID") != null && res.getString("TERM_NAME") != null){
+				    			// Add annotation to the whole image
+				    			if (!res.getString("TAG_VALUE").equalsIgnoreCase("null")){
+									image.getObservations().getEl().add(res.getString("TAG_NAME") + ": " + res.getString("TAG_VALUE"));
+								}
+				    			image.setDepictedAnatomicalStructure(getAnnotation(res.getString("TERM_ID").toString(), res.getString("TERM_NAME").toString(), null, AnnotationMode.MANUAL));
+			    			}
+			    		}
+	    			}
+		        	
+		        	if (res.isLast()){
+		                writeDocs(image, channel, doc, rois);
+		        	}
+		        	
+		        	i++;
+					if (i % 100 == 0) {
+						System.out.println(i);
+//						if (i == 200){
+//							break;
+//						}
 					}
-				}
+			    }
 			}
+	        	
 	        Date date = new Date();
 	        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 		//	File file = new File("source/main/resources/" + dateFormat.format(date) + "_sangerExport.xml");
@@ -347,20 +225,183 @@ public class SangerXmlGenerator {
 			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 			jaxbMarshaller.marshal(doc, file);
 			// jaxbMarshaller.marshal(doc, System.out);
-
-		} catch (ParserConfigurationException pce) {
-			pce.printStackTrace();
-		} catch (TransformerException tfe) {
-			tfe.printStackTrace();
-		} catch (DOMException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
+			
 	}
 
+	
+	private boolean isPhenotypeAnatomy(ResultSet res) 
+	throws SQLException{
+		
+		boolean isPa = false; 
+		if ( (res.getString("ONTOLOGY_DICT_ID") != null && res.getString("ONTOLOGY_DICT_ID").equalsIgnoreCase("1")) || notZeroCoordinates(res) ){ // 1 = MP
+			if (!isExpression(res.getString("PROCEDURE_NAME"))){
+				isPa = true;
+			}
+		}	
+		return isPa;
+	}
+	
+	
+	private void writeDocs(Image image, Channel channel, Doc doc, Map<String, Roi> rois){
+			
+			if (rois != null && rois.size() > 0){
+	        	image.setAssociatedRoi(new StringArray());
+	        	image.getAssociatedRoi().getEl().addAll(rois.keySet());
+	        	doc.getRoi().addAll(rois.values());
+			}
+			
+			if (channel != null ) {
+				if(rois.size() > 0){
+	        		if (channel.getAssociatedRoi() == null){
+		    			channel.setAssociatedRoi(new StringArray());
+	    			} 
+	        		channel.getAssociatedRoi().getEl().addAll(rois.keySet());
+				}
+		        channel.setAssociatedImage(image.getId());
+		        // KOMP2 always has at most 1 channel
+		        StringArray c = new StringArray();
+		        c.getEl().add(channel.getId());
+		        image.setAssociatedChannel(c);
+				doc.getChannel().add(channel);
+			}
+			
+			// Last thing in this block, to get associated ids
+			if (image != null){
+				doc.getImage().add(image);
+			}
+			
+	}
+	
+	
+	private boolean isExpression(String procedure){
 
+		return norm.getImageType(procedure).equalsIgnoreCase("expression");
+	}
+	
+	
+	private ImageDescription createImageDescription(String url, Dimensions dimensions, Genotype genotype, ResultSet res) 
+	throws SQLException{
+		
+		String procedure = res.getString("PROCEDURE_NAME");
+		ImageDescription imageDesc = new ImageDescription();
+		imageDesc.setImageUrl(url);
+		imageDesc.setThumbnailUrl("http://www.mousephenotype.org/data/media/" + res.getString("SMALL_THUMBNAIL_FILE_PATH"));
+		imageDesc.setImageDimensions(dimensions);
+		Link ogb = new Link();
+		ogb.setDisplayName("WTSI");
+		imageDesc.setOrganismGeneratedBy(ogb);
+		Link igb = new Link();
+		igb.setDisplayName("WTSI");
+		igb.setUrl("http://www.sanger.ac.uk");
+		imageDesc.setImageGeneratedBy(igb);
+		Link host = new Link();
+		host.setDisplayName("IMPC Portal");
+		host.setUrl("http://www.mousephenotype.org/");
+		imageDesc.setHost(host);
+		// Parse procedure names to get most info out of them.
+		// Mappings done by David can be found at
+		// https://docs.google.com/spreadsheet/ccc?key=0AmK8olNJT0Z7dEN2MklCX2g1TmhJWTk0N3VlUERVaVE&usp=drive_web#gid=0
+		imageDesc = setSamplePrep(procedure, imageDesc);
+
+		ImageTypeArray it = new ImageTypeArray();
+		if (isPhenotypeAnatomy(res)) {
+			it.getEl().add(ImageType.PHENOTYPE_ANATOMY);
+		} else if (!isExpression(procedure)) {
+			// this will happen when no phenotype annotation was
+			// found or no anatomy ann with ROI and we just
+			// supposed the annotation referes to the whole
+			// image. But since we have the image, it must be of
+			// some anatomy/phenotype part of interest.
+			it.getEl().add(ImageType.PHENOTYPE_ANATOMY);
+		}
+		if (isExpression(procedure)) {
+			it.getEl().add(ImageType.EXPRESSION);
+		}
+		imageDesc.setImageType(it);
+		if (genotype != null) {
+			imageDesc.setSampleType(SampleType.MUTANT);
+		} else {
+			imageDesc.setSampleType(SampleType.WILD_TYPE);
+		}
+		
+		return imageDesc;
+	}
+	
+	
+	private Roi createROI(String internalId, ResultSet res) 
+	throws NumberFormatException, SQLException{
+		
+		Roi roi = new Roi();
+		String roiId = internalId.replace("komp2_", "komp2_roi_") + "_" + res.getString("TAG_ID");
+		roi.setId(roiId);
+		roi.setAssociatedImage(internalId);
+		if (res.getDate("EDIT_DATE") != null){
+			String date = res.getString("EDIT_DATE");
+			XMLGregorianCalendar xmlDate = datatypeFactory.newXMLGregorianCalendar(Integer.parseInt(date.split("-")[0]),
+					Integer.parseInt(date.split("-")[1]), Integer.parseInt(date.split("-")[2]), 0, 0, 0, 0, 0);
+			roi.setEditDate(xmlDate);
+		}
+		if (res.getDate("CREATED_DATE") != null){
+			String date = res.getString("CREATED_DATE");
+			XMLGregorianCalendar xmlDate = datatypeFactory.newXMLGregorianCalendar(Integer.parseInt(date.split("-")[0]),
+					Integer.parseInt(date.split("-")[1]), Integer.parseInt(date.split("-")[2]), 0, 0, 0, 0, 0);
+			roi.setCreationDate(xmlDate);
+		}
+		return roi;
+	}
+
+	private Genotype getGenotype(ResultSet res) 
+	throws SQLException,PhenoImageShareException{
+
+		Genotype genotype = null;
+    	if (res.getString("gf_acc") != null && res.getString("gf_acc").startsWith("MGI:")){
+    		GenotypeComponent gt = new GenotypeComponent();
+	  		gt.setGeneId(res.getString("gf_acc"));
+			gt.setGeneSymbol(res.getString("GENE"));
+			gt.setGeneticFeatureId(res.getString("acc"));
+			gt.setGeneticFeatureSymbol(res.getString("ALLELE"));
+			Zygosity zyg = Zygosity.fromValue(norm.normalizeZygosity(res.getString("GENOTYPE")));
+			gt.setZygosity(zyg);
+			Annotation mt = new Annotation();
+			if (norm.getImageType(res.getString("procedure_name")).equalsIgnoreCase("expression")){
+				mt.setAnnotationFreetext("null allele with LacZ reporter");
+				gt.setMutationType(mt);
+			} else {
+				mt.setAnnotationFreetext("null mutation");
+				gt.setMutationType(mt);
+			}
+	
+			genotype = new Genotype();
+			genotype.getEl().add(gt);
+    	}
+		return genotype;
+	}
+	
+	private Organism getOrganism(ResultSet res, String procedure) throws PhenoImageShareException, SQLException{
+		
+		Organism organism = new Organism();
+		Sex sex = Sex.fromValue(norm.normalizeSex(res.getString("GENDER")));
+		organism.setSex(sex);
+		organism.setNcbiTaxonId("10090");
+		organism.setOrganismId(res.getString("MOUSE_NAME"));
+		Group group = new Group();
+		group.setColonyId(res.getString("COLONY_PREFIX"));
+		organism.setGroup(group);
+		
+		if (ageIsRelevant(procedure)){
+	 		organism.setAge(res.getString("AGE_IN_WEEKS"));
+		}
+		OntologyTerm stageOt = getStageFromProcedureOrAge(procedure, res.getString("AGE_IN_WEEKS"));
+		if (stageOt != null){
+			organism.setStage(stageOt);
+		}
+			
+		organism.setTaxon("Mus musculus");
+		
+		return organism;
+	}
+	
+	
 	private Roi fillRoi(Roi roi, ResultSet res, Dimensions d, Boolean isExpressionImg) {
 
 		// From TAG NAMES & VALUES I need to make observations
@@ -387,7 +428,6 @@ public class SangerXmlGenerator {
 					}
 				}
 				else if (isMp(res)) { 
-					System.out.println("\t adding " + res.getString("TERM_ID").toString().trim() + " " + (roi == null));
 					roi.setPhenotypeAnnotations(addToAnnotationArray(roi.getPhenotypeAnnotations(), res.getString("TERM_ID").toString().trim(), 
 						res.getString("TERM_NAME").toString(), null, AnnotationMode.MANUAL));
 				}
@@ -599,7 +639,6 @@ public class SangerXmlGenerator {
 			 pa = new AnnotationArray();
 		 }
 		 pa.getEl().add(p);
-		 System.out.println("Added " + p + " for " + id);
 		 return pa;
 	 }
 	 
