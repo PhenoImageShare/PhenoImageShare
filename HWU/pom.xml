@@ -1,74 +1,31 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0                              http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>uk.ac.hw.macs.bisel.phis</groupId>
-    <artifactId>IQS</artifactId>
-    <packaging>war</packaging>
-    <version>0.0.7</version>
-    <name>IQS</name>
-    <url>http://maven.apache.org</url>
-    <dependencies>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>3.1.0</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.10</version>
-            <scope>test</scope>
-        </dependency>        
-    </dependencies>
+
+    <groupId>uk.bisel</groupId>
+    <artifactId>phis-parent</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0.0</version>
+    <name>HWU PhIS code</name>
+
+    <modules>
+        <module>iss</module>
+        <module>iqs</module>
+    <module>SpatialDemoTool</module>
+  </modules>
+
     <build>
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>true</filtering>
-            </resource>        
-        </resources>
-        <finalName>IQS</finalName>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.0</version>
-                <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
-                </configuration>
-            </plugin>
-        </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <configuration>
+                        <source>1.7</source>
+                        <target>1.7</target>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
-    <profiles>
-        <profile>
-            <id>local</id>
-            <properties>
-                <host>http://localhost:8080/IQS/</host>
-                <ebi>http://beta.phenoimageshare.org/data/v0.0.7/rest/</ebi>
-            </properties>
-        </profile>
-        <profile>
-            <id>hwu</id>
-            <properties>
-                <host>http://lxbisel.macs.hw.ac.uk:8080/ja/IQS/</host>
-                <ebi>http://beta.phenoimageshare.org/data/v0.0.7/rest/</ebi>
-            </properties>
-        </profile>
-        <profile>
-            <id>beta</id>
-            <properties>
-                <host>http://aberlour.hgu.mrc.ac.uk:9090/IQS/</host>
-                <ebi>http://beta.phenoimageshare.org/data/v0.0.7/rest/</ebi>
-            </properties>
-        </profile> 	
-        <profile>
-            <id>dev</id>
-            <properties>
-                <host>http://glengarioch.igmm.ed.ac.uk:8080/IQS/</host>
-                <ebi>http://dev.phenoimageshare.org/data/rest/</ebi>
-            </properties>
-        </profile> 	
-    </profiles>
 </project>
