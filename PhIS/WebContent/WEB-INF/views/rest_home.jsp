@@ -79,6 +79,7 @@
 				<td><var> * </var></td>
 				<td><var>eye</var><br></td>
 			</tr>
+
 			<tr>
 				<td>phenotype</td>
 				<td><var>String</var></td>
@@ -87,6 +88,7 @@
 				<td><var> * </var></td>
 				<td><var>MP:0010254</var><br></td>
 			</tr>
+
 			<tr>
 				<td>anatomy</td>
 				<td><var>String</var></td>
@@ -96,6 +98,17 @@
 				<td><var> * </var></td>
 				<td><var>MA:0000261, eye</var></td>
 			</tr>
+
+			<tr>
+				<td>-anatomy</td>
+				<td><var>String</var></td>
+				<td>false</td>
+				<td>Images NOT depicting the given anatomical structure, with or without
+					of abnormalities.</td>
+				<td><var> * </var></td>
+				<td><var>MA:0000261, eye</var></td>
+			</tr>
+
 			<tr>
 				<td>gene</td>
 				<td><var>String</var></td>
@@ -103,7 +116,8 @@
 				<td> Use mutantGene instead. Filters for samples with a mutation in the specified gene.</td>
 				<td><var> * </var></td>
 				<td><var>MGI:1891295, Spns2</var></td>
-			</tr>			
+			</tr>
+
 			<tr>
 				<td>mutantGene</td>
 				<td><var>String</var></td>

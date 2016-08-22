@@ -68,8 +68,9 @@ public class BasicService {
 			query = query.replace(")"  , "\\)");
 			query = query.replace("/", "\\/");
 			query = query.replace("`", "\\`");
-			query = query.replace("~"  , "\\~"); 
+			query = query.replace("~"  , "\\~");
 			query = query.replace("%"  , "\\%");
+			query = query.replace(" "  , "\\ ");
 	
 			query = query.replace("%7B", "\\{");
 			query = query.replace("%7D", "\\}");

@@ -15,13 +15,6 @@
  *******************************************************************************/
 package uk.ac.ebi.phis.web.controller;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.util.Date;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.solr.client.solrj.SolrServerException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,15 +28,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import uk.ac.ebi.phis.exception.PhisQueryException;
-import uk.ac.ebi.phis.service.AutosuggestService;
-import uk.ac.ebi.phis.service.ChannelService;
-import uk.ac.ebi.phis.service.ImageService;
-import uk.ac.ebi.phis.service.Neo4jService;
-import uk.ac.ebi.phis.service.RoiService;
+import uk.ac.ebi.phis.service.*;
 import uk.ac.ebi.phis.solrj.dto.AutosuggestTypes;
 import uk.ac.ebi.phis.utils.web.RestStatusMessage;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.List;
 
 //CrossOrigin(origins = "http://fiddle.jshell.net", maxAge = 3600)
 @Controller
@@ -83,6 +77,7 @@ public class SolrWrapperController {
     		@RequestParam(value = "term", required = false) String term,
     		@RequestParam(value = "phenotype", required = false) String phenotype,
             @RequestParam(value = "anatomy", required = false) String anatomy,
+			@RequestParam(value = "-anatomy", required = false) List<String> excludeAnatomy,
             @RequestParam(value = "gene", required = false) String gene,
             @RequestParam(value = "mutantGene", required = false) String mutantGene,
             @RequestParam(value = "expressedFeature", required = false) String expressedGene,
@@ -108,7 +103,7 @@ public class SolrWrapperController {
 		String responseString;
 		try{
 			responseString = is.getImages(term, phenotype, mutantGene, anatomy, expressedGene, sex, taxon, image_type, sample_type, stage, visualisationMethod, 
-						samplePreparation, imagingMethod, resultNo, start, gene, chromosome, strand, position, startPosition, endPosition, hostName);
+						samplePreparation, imagingMethod, resultNo, start, gene, chromosome, strand, position, startPosition, endPosition, hostName, excludeAnatomy);
 			
 		} catch (PhisQueryException e){
 			JSONObject succeded = RestStatusMessage.getFailJson();

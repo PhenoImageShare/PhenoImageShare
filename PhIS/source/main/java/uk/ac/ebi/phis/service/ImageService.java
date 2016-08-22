@@ -15,13 +15,6 @@
  *******************************************************************************/
 package uk.ac.ebi.phis.service;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.apache.log4j.Logger;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
@@ -30,7 +23,6 @@ import org.apache.solr.client.solrj.response.QueryResponse;
 import org.json.JSONObject;
 import org.neo4j.cypher.ParameterNotFoundException;
 import org.springframework.stereotype.Service;
-
 import uk.ac.ebi.phis.exception.PhisQueryException;
 import uk.ac.ebi.phis.exception.PhisSubmissionException;
 import uk.ac.ebi.phis.release.DatasourceInstance;
@@ -38,6 +30,13 @@ import uk.ac.ebi.phis.release.SpeciesData;
 import uk.ac.ebi.phis.solrj.dto.ImageDTO;
 import uk.ac.ebi.phis.solrj.dto.RoiDTO;
 import uk.ac.ebi.phis.utils.web.JSONRestUtil;
+
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 
 @Service
@@ -53,7 +52,7 @@ public class ImageService extends BasicService{
 	public String getImages(String term, String phenotype, String mutantGene, String anatomy, String expressedGene, String sex, 
 							String taxon, String imageType, String sampleType, String stage, String visualisationMethod, String samplePreparation, 
 							String imagingMethod, Integer rows, Integer start, String genericGene, String chromosome, String strand, Long position,
-							Long startPosition, Long endPosition, String hostName) 
+							Long startPosition, Long endPosition, String hostName, List<String> excludeAnatomy)
 	throws SolrServerException, PhisQueryException{
 
 		SolrQuery solrQuery = new SolrQuery();
@@ -113,6 +112,11 @@ public class ImageService extends BasicService{
 			anatomy = handleSpecialCharacters(anatomy);
 			bq += ImageDTO.GENERIC_ANATOMY + ":\""+ anatomy + "\"^100 " + ImageDTO.GENERIC_ANATOMY_ANCESTORS + ":\"" + anatomy + "\"^0.001 ";
 			solrQuery.addFilterQuery(ImageDTO.GENERIC_ANATOMY + ":\""+ anatomy + "\" OR " + ImageDTO.GENERIC_ANATOMY_ANCESTORS + ":\"" + anatomy + "\"");
+		}
+		if (excludeAnatomy != null){
+			excludeAnatomy.stream()
+					.map(item -> handleSpecialCharacters(item))
+					.forEach(item -> {solrQuery.addFilterQuery("-" + ImageDTO.GENERIC_ANATOMY + ":" + item); solrQuery.addFilterQuery("-" + ImageDTO.GENERIC_ANATOMY_ANCESTORS + ":" + item);});
 		}
 		if (!bq.equals("")){
 			solrQuery.set("defType", "edismax");
