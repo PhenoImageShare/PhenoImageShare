@@ -25,13 +25,13 @@
    <field name="computed_depicted_anatomy_term" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="depicted_anatomy_freetext" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="depicted_anatomy_annotation_source" type="string" indexed="true" stored="true" multiValued="true"/>
-   
-   
+
+   <field name="expression_value" type="string" indexed="true" stored="true" multiValued="true"/> <!-- How strong it is expressed -->
    <field name="expressed_in_anatomy_id" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="expressed_in_anatomy_term" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="expressed_in_anatomy_freetext" type="string" indexed="true" stored="true" multiValued="true"/>
-   
-   
+   <field name="expression_concat" type="string" indexed="true" stored="true" multiValued="true"/> <!-- Anatomy part + expression value for exact search, since fields are multiValued can't be sure otherwise. -->
+
    <field name="abnormality_anatomy_id" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="abnormality_anatomy_term" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="computed_abnormality_anatomy_id" type="string" indexed="true" stored="true" multiValued="true"/>

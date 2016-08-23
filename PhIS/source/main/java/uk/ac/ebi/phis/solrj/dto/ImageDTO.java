@@ -93,7 +93,7 @@ public class ImageDTO {
 	public final static String ASSOCIATED_CHANNEL = "associated_channel";
 	public final static String ASSOCIATED_ROI = "associated_roi";
 	public final static String PUBLICATION_NAME = "publication_name";
-	public final static String PUBLICATION_DESCRIPTION = "publication_description";
+	public final static String PUBLICATION_DESCRIPTION = "publication_details";
 	public final static String PUBLICATION_URL = "publication_url";
 	public final static String MAGNIFICATION_LEVEL = "magnification_level";
 	public final static String GENOME_ASSEMBLY = "genome_assembly";

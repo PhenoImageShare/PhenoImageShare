@@ -15,19 +15,12 @@
  *******************************************************************************/
 package uk.ac.ebi.phis.mains;
 
-import java.io.File;
-import java.io.IOException;
-import java.text.ParseException;
-import java.util.HashMap;
-import java.util.Map;
-
+import joptsimple.OptionParser;
+import joptsimple.OptionSet;
 import org.apache.log4j.Logger;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
-
-import joptsimple.OptionParser;
-import joptsimple.OptionSet;
 import uk.ac.ebi.neo4jUtils.Neo4jAccessUtils;
 import uk.ac.ebi.phis.importer.BatchXmlUploader;
 import uk.ac.ebi.phis.release.DatasourceInstance;
@@ -36,6 +29,12 @@ import uk.ac.ebi.phis.release.ReleaseEnvironment;
 import uk.ac.ebi.phis.service.ChannelService;
 import uk.ac.ebi.phis.service.ImageService;
 import uk.ac.ebi.phis.service.RoiService;
+
+import java.io.File;
+import java.io.IOException;
+import java.text.ParseException;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class PopulateCores {
@@ -115,10 +114,13 @@ public class PopulateCores {
 			
 			
 
-			xmlToLoad = "/Users/ilinca/Documents/temp/brainHistopath2.xml";
-			DatasourceInstance ds8 = processXml(xmlToLoad, "wtsi", reader);
-			exportDates.put(ds8.getName(), ds8);
-			
+//			xmlToLoad = "/Users/ilinca/Documents/temp/brainHistopath2.xml";
+//			DatasourceInstance ds8 = processXml(xmlToLoad, "wtsi", reader);
+//			exportDates.put(ds8.getName(), ds8);
+
+			xmlToLoad = "/Users/ilinca/Desktop/emage.xml";
+			DatasourceInstance ds7 = processXml(xmlToLoad, "emage", reader);
+			exportDates.put(ds7.getName(), ds7);
 			
 //			xmlToLoad = dataDir + "/tracerExport.xml";
 //			DatasourceInstance ds1 = processXml(xmlToLoad, "tracer", reader);
