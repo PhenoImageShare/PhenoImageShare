@@ -92,7 +92,9 @@
    <field name="sample_type" type="string" indexed="true" stored="true" multiValued="false"/> <!--  2 possible values, needed for the facets : mutant or wildtype -->
    
    <field name="magnification_level" type="string" indexed="true" stored="true"/>
-   <field name="publication" type="string" indexed="true" stored="true"/>
+   <field name="publication_name" type="string" indexed="true" stored="true"/>
+   <field name="publication_url" type="string" indexed="true" stored="true"/>
+   <field name="publication_details" type="string" indexed="true" stored="true"/>
    <field name="machine" type="string" indexed="true" stored="true"/>
 
    <!-- Sample -->

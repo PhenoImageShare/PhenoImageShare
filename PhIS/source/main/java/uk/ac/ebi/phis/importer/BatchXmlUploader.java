@@ -15,40 +15,9 @@
  *******************************************************************************/
 package uk.ac.ebi.phis.importer;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
-import javax.xml.XMLConstants;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.transform.stream.StreamSource;
-import javax.xml.validation.Schema;
-import javax.xml.validation.SchemaFactory;
-import javax.xml.validation.Validator;
-
 import org.apache.solr.client.solrj.SolrServerException;
 import org.xml.sax.SAXException;
-
-import uk.ac.ebi.phis.jaxb.Annotation;
-import uk.ac.ebi.phis.jaxb.AnnotationMode;
-import uk.ac.ebi.phis.jaxb.Channel;
-import uk.ac.ebi.phis.jaxb.Doc;
-import uk.ac.ebi.phis.jaxb.ExpressionAnnotation;
-import uk.ac.ebi.phis.jaxb.GenotypeComponent;
-import uk.ac.ebi.phis.jaxb.Group;
-import uk.ac.ebi.phis.jaxb.Image;
-import uk.ac.ebi.phis.jaxb.ImageDescription;
-import uk.ac.ebi.phis.jaxb.ImageType;
-import uk.ac.ebi.phis.jaxb.Link;
-import uk.ac.ebi.phis.jaxb.Organism;
-import uk.ac.ebi.phis.jaxb.Roi;
+import uk.ac.ebi.phis.jaxb.*;
 import uk.ac.ebi.phis.release.DatasourceInstance;
 import uk.ac.ebi.phis.release.OntologyInstance;
 import uk.ac.ebi.phis.service.ChannelService;
@@ -60,6 +29,23 @@ import uk.ac.ebi.phis.solrj.dto.RoiDTO;
 import uk.ac.ebi.phis.utils.ValidationUtils;
 import uk.ac.ebi.phis.utils.ontology.OntologyObject;
 import uk.ac.ebi.phis.utils.ontology.OntologyUtils;
+
+import javax.xml.XMLConstants;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
+import javax.xml.transform.stream.StreamSource;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
+import javax.xml.validation.Validator;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class BatchXmlUploader {
 
@@ -407,9 +393,13 @@ public class BatchXmlUploader {
 		if (desc.getPublication() != null && desc.getPublication().getEl() != null &&  desc.getPublication().getEl().size() > 0){
 			for ( Link link : desc.getPublication().getEl()){
 				if (link.getUrl() != null){
-					bean.addPublication(link.getDisplayName() + "(" + link.getUrl() + ")");
-				} else{
-					bean.addPublication(link.getDisplayName());
+					bean.addPublicationUrl(link.getUrl());
+				}
+				if (link.getDetails() != null){
+					bean.addPublicationDescription(link.getDetails());
+				}
+				if (link.getDisplayName() != null){
+					bean.addPublicationName(link.getDetails());
 				}
 			}
 		}

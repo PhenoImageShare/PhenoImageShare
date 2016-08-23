@@ -15,16 +15,10 @@
  *******************************************************************************/
 package uk.ac.ebi.phis.solrj.dto;
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.apache.solr.client.solrj.beans.Field;
+
+import java.sql.Date;
+import java.util.*;
 
 public class ImageDTO {
 
@@ -98,7 +92,9 @@ public class ImageDTO {
 	public final static String HEIGHT = "height";
 	public final static String ASSOCIATED_CHANNEL = "associated_channel";
 	public final static String ASSOCIATED_ROI = "associated_roi";
-	public final static String PUBLICATION = "publication";
+	public final static String PUBLICATION_NAME = "publication_name";
+	public final static String PUBLICATION_DESCRIPTION = "publication_description";
+	public final static String PUBLICATION_URL = "publication_url";
 	public final static String MAGNIFICATION_LEVEL = "magnification_level";
 	public final static String GENOME_ASSEMBLY = "genome_assembly";
 	public final static String ID = "id";
@@ -294,9 +290,15 @@ public class ImageDTO {
 	
 	@Field(STAGE_FACET)
 	private List<String> stageFacets;
-	
-	@Field(PUBLICATION)
-	private List<String> publication;
+
+	@Field(PUBLICATION_NAME)
+	private List<String> publicationName;
+
+	@Field(PUBLICATION_URL)
+	private List<String> publicationUrl;
+
+	@Field(PUBLICATION_DESCRIPTION)
+	private List<String> publicationDescription;
 	
 	@Field(MAGNIFICATION_LEVEL)
 	private String magnificationLevel;
@@ -906,7 +908,7 @@ public class ImageDTO {
 
 
 	/**
-	 * @param depictedAnatomyAncestorId
+	 * @param depictedAnatomyAncestors
 	 *            the depictedAnatomyAncestorsIdBag to set
 	 */
 	public void addDepictedAnatomyAncestors(List<String> depictedAnatomyAncestors) {
@@ -943,7 +945,7 @@ public class ImageDTO {
 
 
 	/**
-	 * @param abnormalAnatomyAncestorId
+	 * @param abnormalAnatomyAncestor
 	 *            the abnormalAnatomyAncestorsIdBag to set
 	 */
 	public void addAbnormalAnatomyAncestors(String abnormalAnatomyAncestor) {
@@ -997,7 +999,7 @@ public class ImageDTO {
 
 
 	/**
-	 * @param expressionInAncestorId
+	 * @param expressionInAncestor
 	 *            the expressionInAncestorsIdBag to set
 	 */
 	public void addExpressionInAncestors(String expressionInAncestor) {
@@ -1041,9 +1043,53 @@ public class ImageDTO {
 		return phenotypeAncestors;
 	}
 
+	public List<String> getPublicationName() {
+		return publicationName;
+	}
+
+	public void setPublicationName(List<String> publicationName) {
+		this.publicationName = publicationName;
+	}
+
+	public void addPublicationName(String publicationName) {
+		if ( this.publicationName == null){
+			this.publicationName = new ArrayList<>();
+		}
+		this.publicationName.add(publicationName);
+	}
+
+	public List<String> getPublicationUrl() {
+		return publicationUrl;
+	}
+
+	public void setPublicationUrl(List<String> publicationUrl) {
+		this.publicationUrl = publicationUrl;
+	}
+
+	public void addPublicationUrl(String publicationUrl) {
+		if ( this.publicationUrl == null){
+			this.publicationUrl = new ArrayList<>();
+		}
+		this.publicationUrl.add(publicationUrl);
+	}
+
+	public List<String> getPublicationDescription() {
+		return publicationDescription;
+	}
+
+	public void setPublicationDescription(List<String> publicationDescription) {
+		this.publicationDescription = publicationDescription;
+	}
+
+	public void addPublicationDescription(String publicationDescription) {
+		if ( this.publicationDescription == null){
+			this.publicationDescription = new ArrayList<>();
+		}
+		this.publicationDescription.add(publicationDescription);
+	}
 
 	/**
-	 * @param phenotypeAncestorId
+	 * @param phenotypeAncestor
 	 *            the phenotypeAncestorsIdBag to set
 	 */
 	public void addPhenotypeAncestors(String phenotypeAncestor) {
@@ -2826,26 +2872,6 @@ public class ImageDTO {
 		this.sampleType = sampleType;
 	}
 
-	
-	public List<String> getPublication() {
-	
-		return publication;
-	}
-
-	
-	public void setPublication(List<String> publication) {
-	
-		this.publication = publication;
-	}
-
-	public void addPublication(String publication) {
-		
-		if (this.publication == null){
-			this.publication = new ArrayList<>();
-		}
-		
-		this.publication.add(publication);
-	}
 	
 	public String getMagnificationLevel() {
 	
