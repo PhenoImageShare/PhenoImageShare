@@ -13,7 +13,8 @@
    <!--field name="type" type="string" indexed="true" stored="true" required="true" /--> 
    
    <!-- image documents - general info -->
-   
+
+   <field name="associated_channel" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="associated_channel" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="associated_image" type="string" indexed="true" stored="true" required="true"/>
    
