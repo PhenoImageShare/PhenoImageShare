@@ -399,7 +399,7 @@ public class BatchXmlUploader {
 					bean.addPublicationDescription(link.getDetails().trim());
 				}
 				if (link.getDisplayName() != null){
-					bean.addPublicationName(link.getDetails().trim());
+					bean.addPublicationName(link.getDisplayName().trim());
 				}
 			}
 		}
