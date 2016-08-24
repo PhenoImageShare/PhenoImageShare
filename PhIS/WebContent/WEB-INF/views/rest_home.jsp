@@ -32,33 +32,36 @@
 
 <body>
 	<div class="container">
-	<h1>PhIS RESTful Sevice Documentation</h1>
-	<p>Base URL <a href="${requestScope['javax.servlet.forward.request_uri']}"> ${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}</a> </p>
-	<br/>
-	<h2>/getImages</h2>
-	<p> This method should be the main one used to explore the data. If you find a parameter missing, please contact us on 
-	<a href="mailto:webmaster@phenoimageshare.org">webmaster@phenoimageshare.org</a> . </p>
-	<h3>Examples</h3>
-	
-	<p>1. Get "eye" images, restrict the result number to 5.</p> 
-	<p class="code">$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}getImages?term=eye&resultNo=5">http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}getImages?term=eye&resultNo=5</a>'  -i -H 'Accept: application/json'</p>
-	
+		<h1>PhIS RESTful Sevice Documentation</h1>
+		<p>Base URL <a href="${requestScope['javax.servlet.forward.request_uri']}"> ${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}</a> </p>
+		<br/>
+		<h2>/getImages</h2>
+		<p> This method should be the main one used to explore the data. If you find a parameter missing, please contact us on
+		<a href="mailto:webmaster@phenoimageshare.org">webmaster@phenoimageshare.org</a> . </p>
+		<h3>Examples</h3>
 
-	<p>2. Get images with eye phenotypes in post natal females. </p>
-	<p class="code">
-		$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}getImages?phenotype=eye&sex=FEMALE&stage=postnatal%20stage">
-			http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}getImages?phenotype=eye&sex=FEMALE&stage=postnatal%20stage&resultNo=1</a>' 
-			-i -H 'Accept: application/json' 
-	</p>
-	
-	<p> 3. Get mouse images associated with genetic features located on chromosome 2.</p>
-	<p class="code">
-		$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}getImages?chromosome=2&taxon=Mus%20musculus&resultNo=10">
-			http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}getImages?chromosome=2&taxon=Mus%20musculus&resultNo=10</a>' 
-			-i -H 'Accept: application/json' 
-	</p>
-	
-	<h3>Parameters</h3>
+		<p>1. Get "eye" images, restrict the result number to 5.</p>
+		<p class="code">$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}getImages?term=eye&resultNo=5">http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}getImages?term=eye&resultNo=5</a>'  -i -H 'Accept: application/json'</p>
+
+		<p>2. Get images with eye phenotypes in post natal females. </p>
+		<p class="code">
+			$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}getImages?phenotype=eye&sex=FEMALE&stage=postnatal%20stage">
+				http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}getImages?phenotype=eye&sex=FEMALE&stage=postnatal%20stage&resultNo=1</a>'
+				-i -H 'Accept: application/json'
+		</p>
+
+		<p> 3. Get mouse images associated with genetic features located on chromosome 2.</p>
+		<p class="code">
+			$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}getImages?chromosome=2&taxon=Mus%20musculus&resultNo=10">
+				http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}getImages?chromosome=2&taxon=Mus%20musculus&resultNo=10</a>'
+				-i -H 'Accept: application/json'
+		</p>
+
+		<p>4. Get "eye" images, that are not annotated neither with heart, nor with liver.</p>
+		<p class="code">$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}getImages?term=eye&-anatomy=liver&-anatomy=heart">http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}getImages?term=eye&-anatomy=liver&-anatomy=heart&</a>'  -i -H 'Accept: application/json'</p>
+
+
+		<h3>Parameters</h3>
 	<table class="table">
 		<thead>
 			<tr  style="background-color: lightSteelBlue;">
@@ -101,7 +104,7 @@
 
 			<tr>
 				<td>-anatomy</td>
-				<td><var>String</var></td>
+				<td><var>String[]</var></td>
 				<td>false</td>
 				<td>Images NOT depicting the given anatomical structure, with or without
 					of abnormalities.</td>
