@@ -15,18 +15,16 @@
  *******************************************************************************/
 package uk.ac.ebi.phis.service;
 
-import static org.junit.Assert.*;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import org.junit.Ignore;
 import org.junit.Test;
 import org.neo4j.cypher.ParameterNotFoundException;
-
 import uk.ac.ebi.phis.exception.PhisSubmissionException;
 import uk.ac.ebi.phis.solrj.dto.ImageDTO;
 import uk.ac.ebi.phis.solrj.dto.RoiDTO;
+
+import java.util.ArrayList;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 
 public class ImageServiceTest {

@@ -61,24 +61,24 @@ public class BatchXmlUploader {
 	ImageService is;
 	RoiService rs;
 	ChannelService cs;
-	
-	
+
+
 	public BatchXmlUploader(ImageService is, RoiService rs, ChannelService cs) {
-		
+
 		classloader = Thread.currentThread().getContextClassLoader();
 		this.is = is;
 		this.rs = rs;
 		this.cs = cs;
-		
+
 	}
-	
+
 
 	public List<OntologyInstance> getontologyInstances (){
-		
+
 		return ou.getOntologyInstances();
-		
+
 	}
-	
+
 
 	public boolean validate(String xmlLocation) {
 
@@ -87,46 +87,46 @@ public class BatchXmlUploader {
 		boolean isValid = false;
 		// Unmarshal XML
 		Doc doc = convertXmlToObjects(xmlLocation);
-		
+
 		try {
-			
+
 			xsd = classloader.getResourceAsStream("phisSchema.xsd");
 			xml = new FileInputStream(xmlLocation);
 			isValid = validateAgainstXSD(xml, xsd);
-			
+
 			xsd.close();
 			xml.close();
 			isValid = (isValid && checkInformation(doc));
-			
+
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		return isValid;
 	}
 
 
 	public DatasourceInstance index(String xmlLocation, String datasourceName)
-	throws IOException, SolrServerException, ParseException {
-		
+			throws IOException, SolrServerException, ParseException {
+
 		Doc doc = convertXmlToObjects(xmlLocation);
 		addImageDocuments(doc.getImage(), datasourceName);
 		addRoiDocuments(doc.getRoi(), datasourceName);
 		addChannelDocuments(doc.getChannel(), datasourceName);
-		
+
 		DatasourceInstance dataSource = new DatasourceInstance();
 		dataSource.setExportDate(doc.getExportDate());
 		dataSource.setName(doc.getImage().get(0).getImageDescription().getHost().getDisplayName());
-		
+
 		return dataSource;
 	}
 
 
 	private void addImageDocuments(List<Image> images, String datasource)
-	throws IOException, SolrServerException {
-		
+			throws IOException, SolrServerException {
+
 		int i = 0;
 		List<ImageDTO> imageDocs = new ArrayList<>();
 		for (Image img : images) {
@@ -141,12 +141,12 @@ public class BatchXmlUploader {
 		if (imageDocs.size() != 0){
 			is.addBeans(imageDocs);
 		}
-		
+
 	}
 
 	private void addRoiDocuments(List<Roi> rois, String datasource)
-	throws IOException, SolrServerException {
-		
+			throws IOException, SolrServerException {
+
 		int i = 0;
 		System.out.println("rois list is " + rois.size());
 		List<RoiDTO> roiDocs = new ArrayList<>();
@@ -163,10 +163,10 @@ public class BatchXmlUploader {
 		}
 	}
 
-	
+
 	private void addChannelDocuments(List<Channel> channels, String datasource)
-	throws IOException, SolrServerException {
-		
+			throws IOException, SolrServerException {
+
 		int i = 0;
 		List<ChannelDTO> chDocs = new ArrayList<>();
 		System.out.println("channel list is " + channels.size());
@@ -183,19 +183,19 @@ public class BatchXmlUploader {
 		}
 	}
 
-	
+
 	private RoiDTO fillPojo(Roi roi, String host){
-		
+
 		RoiDTO bean = new RoiDTO();
-		
+
 		bean.setId(getRoiId(roi.getId(), host));
 
 		bean.setAssociatedImage(getImageId(roi.getAssociatedImage(), host));
-		
+
 		if (roi.getAssociatedChannel() != null){
 			bean.setAssociatedChannel(getChannelId(roi.getAssociatedChannel().getEl(), host));
 		}
-		
+
 		if (roi.getDepictedAnatomicalStructure() != null){
 			// Expression in anatomy
 			for ( ExpressionAnnotation ann: roi.getDepictedAnatomicalStructure().getEl()){
@@ -214,12 +214,12 @@ public class BatchXmlUploader {
 					bean.addExpressionValue(ann.getExpressionValue());
 					expressionConcat += ann.getExpressionValue();
 					bean.addExpressionConcat(expressionConcat);
-				} 
+				}
 			}
 		}
-		
+
 		if (roi.getAbnormalityInAnatomicalStructure() != null){
-			
+
 			// Abnormality in anatomical part
 			for ( Annotation ann: roi.getAbnormalityInAnatomicalStructure().getEl()){
 				if (ann.getAnnotationFreetext() != null){
@@ -236,16 +236,16 @@ public class BatchXmlUploader {
 						bean.addAbnormalityAnatomyTerm(oo.getLabel());
 					}
 				}
-			}			
+			}
 		}
-		
+
 		if (roi.getEditDate() != null){
 			bean.setEditDate(roi.getEditDate().normalize().toGregorianCalendar().getTime());
 		}
 		if (roi.getCreationDate() != null){
 			bean.setCreationDate(roi.getCreationDate().normalize().toGregorianCalendar().getTime());
 		}
-		
+
 		if (roi.getPhenotypeAnnotations() != null){
 			// Phenotypes
 			for ( Annotation ann: roi.getPhenotypeAnnotations().getEl()){
@@ -259,7 +259,7 @@ public class BatchXmlUploader {
 				}
 			}
 		}
-		
+
 		if (roi.getObservations() != null){
 			bean.setObservations(roi.getObservations().getEl());
 		}
@@ -269,15 +269,15 @@ public class BatchXmlUploader {
 		if (roi.getCoordinates().getZCoordinates() != null){
 			bean.setZCoordinates(roi.getCoordinates().getZCoordinates().getEl());
 		}
-		
+
 		return bean;
 	}
-	
-	
+
+
 	private ChannelDTO fillPojo(Channel channel, String datasource) {
 
 		ChannelDTO bean = new ChannelDTO();
-		
+
 		bean.setId(getChannelId(channel.getId(), datasource));
 		bean.setAssociatedImage(getImageId(channel.getAssociatedImage(), datasource));
 		if (channel.getAssociatedRoi() != null){
@@ -318,16 +318,16 @@ public class BatchXmlUploader {
 					bean.addVisualisationMethodId(oo.getId());
 					bean.addVisualisationMethodLabel(oo.getLabel());
 					bean.addVisualisationMethodSynonyms(oo.getSynonyms());
-				} 
+				}
 				String freetext = vm.getAnnotationFreetext();
 				if (freetext != null && !freetext.equals("")){
 					bean.addVisualisationMethodFreetext(freetext);
 				}
 			}
 		}
-		return bean;	
+		return bean;
 	}
-	
+
 
 	private ImageDTO fillPojo(Image img, String datasource) {
 
@@ -338,7 +338,7 @@ public class BatchXmlUploader {
 		if (img.getOrganism().getBackgroundStrain() != null){
 			bean.setBackgroundStrain(img.getOrganism().getBackgroundStrain().getEl());
 		}
-		
+
 		if (img.getOrganism().getGroup() != null){
 			Group group = img.getOrganism().getGroup();
 			if (group.getProjectId() != null){
@@ -357,53 +357,53 @@ public class BatchXmlUploader {
 				bean.setDynamicGroups("other_group", group.getOther());
 			}
 		}
-		
+
 		if (img.getProjectAnnotations() != null){
 			if (img.getProjectAnnotations().getParameter() != null){
-				bean.setParameter(img.getProjectAnnotations().getParameter());			
+				bean.setParameter(img.getProjectAnnotations().getParameter());
 				bean.setPipeline(img.getProjectAnnotations().getPipeline());
 				bean.setProcedure(img.getProjectAnnotations().getProcedure());
 			}
 		}
-		
+
 		if (img.getOrganism().getOrganismId() != null){
 			bean.setOrganismId(img.getOrganism().getOrganismId());
 		}
-		
+
 		ImageDescription desc = img.getImageDescription();
 		if (desc.getImageGeneratedBy() != null){
 			bean.addImageGeneratedBy(desc.getImageGeneratedBy().getDisplayName());
 		}
-		
+
 		if (desc.getLicence() != null){
 			bean.setLicence(desc.getLicence());
 		}
-		
+
 		if (desc.getOrganismGeneratedBy() != null){
 			bean.setSampleGeneratedBy(desc.getOrganismGeneratedBy().getDisplayName());
 		}
-		
+
 		bean.setHostName(desc.getHost().getDisplayName());
 		bean.setHostUrl(desc.getHost().getUrl());
 		bean.setImageUrl(desc.getImageUrl());
-		
+
 		if (desc.getMagnificationLevel() != null){
 			bean.setMagnificationLevel(desc.getMagnificationLevel());
 		}
 		if (desc.getPublication() != null && desc.getPublication().getEl() != null &&  desc.getPublication().getEl().size() > 0){
 			for ( Link link : desc.getPublication().getEl()){
 				if (link.getUrl() != null){
-					bean.addPublicationUrl(link.getUrl());
+					bean.addPublicationUrl(link.getUrl().trim());
 				}
 				if (link.getDetails() != null){
-					bean.addPublicationDescription(link.getDetails());
+					bean.addPublicationDescription(link.getDetails().trim());
 				}
 				if (link.getDisplayName() != null){
-					bean.addPublicationName(link.getDetails());
+					bean.addPublicationName(link.getDetails().trim());
 				}
 			}
 		}
-		
+
 		if (desc.getImageContextUrl() != null){
 			bean.setImageContextUrl(desc.getImageContextUrl());
 		}
@@ -419,7 +419,7 @@ public class BatchXmlUploader {
 			// Need to copy some fields for search purposes
 			bean = copyFieldsFromChannel(img, bean);
 		}
-		
+
 		if (desc.getImageDimensions().getImageDepth() != null){
 			bean.setDepth(desc.getImageDimensions().getImageDepth());
 		}
@@ -429,7 +429,7 @@ public class BatchXmlUploader {
 		} else {
 			bean.setThumbnailUrl(desc.getImageUrl());
 		}
-				
+
 		bean.setHeight(desc.getImageDimensions().getImageHeight());
 
 		bean.setWidth(desc.getImageDimensions().getImageWidth());
@@ -441,7 +441,7 @@ public class BatchXmlUploader {
 					System.out.println("Ontology id not found : " + im.getOntologyTerm().getTermId());
 				} else {
 					bean.addImagingMethodId(oo.getId());
-					bean.addImagingMethodLabel(oo.getLabel()); 
+					bean.addImagingMethodLabel(oo.getLabel());
 					bean.addImagingMethodSynonyms(oo.getSynonyms());
 					bean.addImagingMethodAncestors(oo.getAncestorsBag());
 					if (im.getAnnotationFreetext() != null && !im.getAnnotationFreetext().equalsIgnoreCase("")){
@@ -450,7 +450,7 @@ public class BatchXmlUploader {
 				}
 			}
 		}
-		
+
 		if (desc.getSamplePreparation() != null){
 			for (Annotation sp: desc.getSamplePreparation().getEl()){
 				if (sp.getOntologyTerm() != null){
@@ -469,9 +469,9 @@ public class BatchXmlUploader {
 				}
 			}
 		}
-		
+
 		if (desc.getMachine() != null){
-			bean.setMachine(desc.getMachine());			
+			bean.setMachine(desc.getMachine());
 		}
 
 		bean.setSampleType(desc.getSampleType().name());
@@ -481,15 +481,15 @@ public class BatchXmlUploader {
 				imageType.add(it.name());
 			}
 		}
-		
-		bean.setImageType(imageType);		
+
+		bean.setImageType(imageType);
 
 		// Sample
-		
+
 		Organism org = img.getOrganism();
-		
+
 		if (org.getAge() != null){
-				bean.setAge(org.getAge());
+			bean.setAge(org.getAge());
 		}
 
 		if (org.getNcbiTaxonId() != null){
@@ -515,7 +515,7 @@ public class BatchXmlUploader {
 				}
 			}
 		}
-	
+
 		// field name="anatomy_computed_id" 
 		// field name="anatomy_computed_term" 
 		// field name="anatomy_ann_bag" 
@@ -529,7 +529,7 @@ public class BatchXmlUploader {
 		if (img.getConditions() != null ){
 			bean.setConditions(img.getConditions().getEl());
 		}
-		
+
 		// genetic features 
 
 		if (img.getMutantGenotypeTraits() != null){
@@ -544,7 +544,7 @@ public class BatchXmlUploader {
 			ArrayList<String> strand = new ArrayList<>();
 			ArrayList<String> zygosity = new ArrayList<>();
 			List<String> genomeAssembly = new ArrayList<>();
-			
+
 			for (GenotypeComponent g : img.getMutantGenotypeTraits().getEl()){
 				// We need to fill all of these arrays because they need to be parallel
 				geneIds.add(g.getGeneId());
@@ -569,32 +569,32 @@ public class BatchXmlUploader {
 					genomeAssembly.add(g.getGenomeAssembly());
 				}
 			}
-			
+
 			bean.setGeneIds(geneIds);
 			bean.setGeneSymbols(geneSymbols);
 			bean.setGeneticFeatureIds(gfIds);
 			bean.setGenetifFeatureEnsemlIds(gfEnsembl);
 			bean.setGeneticFeatureSymbols(gfSymbols);
-			
+
 			bean.setChromosome(chromosome);
 			bean.setStartPosition(startPosition);
 			bean.setEndPosition(endPosition);
 			bean.setStrand(strand);
 			bean.setZygosity(zygosity);
 			bean.setGenomeAssembly(genomeAssembly);
-			
+
 		}
 
 		return bean;
 	}
 
 	/**
-	 * 
+	 *
 	 * @param img
 	 * @return The passed image with added annotations copied from the ROI
 	 */
 	private ImageDTO copyFieldsFromRoi(Image img, ImageDTO pojo){
-		
+
 		ImageDTO res = pojo;
 
 		ArrayList<String> phenotypeFreetext = new ArrayList<>();
@@ -610,12 +610,12 @@ public class BatchXmlUploader {
 		ArrayList<String> abnormalityInAnatomyIds = new ArrayList<>();
 		ArrayList<String> abnormalityInAnatomyLabels = new ArrayList<>();
 		ArrayList<String> observations = new ArrayList<>();
-		
+
 		// For all associated ROIs, check available annotations and copy them as needed in the bag fields
 		for (String roiId : img.getAssociatedRoi().getEl()){
-			
-			Roi roi = roiIdMap.get(roiId);		
-			
+
+			Roi roi = roiIdMap.get(roiId);
+
 			// phenotype annotations
 			if (roi.getPhenotypeAnnotations() != null){
 				for (Annotation ann: roi.getPhenotypeAnnotations().getEl()){
@@ -647,11 +647,11 @@ public class BatchXmlUploader {
 					}
 				}
 			}
-			
+
 			// depicted anatomy annotations
 			// expression in anatomy annotation 
 			if (roi.getDepictedAnatomicalStructure() != null){
-				
+
 				boolean expression = false;
 				if (roi.getAssociatedChannel() != null){
 					for (String channelId : roi.getAssociatedChannel().getEl()){
@@ -661,7 +661,7 @@ public class BatchXmlUploader {
 						}
 					}
 				}
-				
+
 				for (ExpressionAnnotation ann: roi.getDepictedAnatomicalStructure().getEl()){
 					if (ann.getAnnotationFreetext() != null){
 						if (expression){
@@ -705,7 +705,7 @@ public class BatchXmlUploader {
 					}
 				}
 			}
-			
+
 			//anatomy with abnormality
 			if (roi.getAbnormalityInAnatomicalStructure() != null){
 				for (Annotation ann: roi.getAbnormalityInAnatomicalStructure().getEl()){
@@ -725,7 +725,7 @@ public class BatchXmlUploader {
 					}
 				}
 			}
-			
+
 			// observations
 			if (roi.getObservations() != null){
 				for (String obs : roi.getObservations().getEl()){
@@ -733,47 +733,47 @@ public class BatchXmlUploader {
 				}
 			}
 		}
-		
+
 		res.setDepictedAnatomyFreetextBag(depictedAnatomyFreetext);
 		res.setDepictedAnatomyIdBag(depictedAnatomyIds);
 		res.setDepictedAnatomyTermBag(depictedAnatomyLabels);
 //		res.setAnatomyComputedIdBag(anatomyComputedIdBag);
 //		res.setAnatomyComputedLabelBag(anatomyComputedLabelBag);
-		
+
 		res.setAbnormalAnatomyFreetextBag(abnormalityInAnatomyFreetext);
 		res.setAbnormalAnatomyIdBag(abnormalityInAnatomyIds);
 		res.setAbnormalAnatomyTermBag(abnormalityInAnatomyLabels);
-		
+
 		// TODO get this from channel
 //		res.setExpressedGfIdBag(expressedGfIdBag);
 //		res.setExpressedGfSymbolBag(expressedGfSymbolBag);
-		
+
 		res.setExpressionInFreetextBag(expressionInAnatomyFreetext);
 		res.setExpressionInIdBag(expressionInAnatomyIds);
 		res.setExpressionInLabelBag(expressionInAnatomyLabels);
-		
+
 		res.setPhenotypeFreetextBag(phenotypeFreetext);
 		res.setPhenotypeIdBag(phenotypeIds);
 		res.setPhenotypeLabelBag(phenotypeLabels);
-		
+
 		res.setObservationBag(observations);
-		
+
 		return res;
 	}
-	
-	
+
+
 	private ImageDTO copyFieldsFromChannel(Image img, ImageDTO pojo){
-		
+
 		ImageDTO res = pojo;
 
 		ArrayList<String> expressedGfIdBag = new ArrayList<>();
 		ArrayList<String> expressedGfLabelBag = new ArrayList<>();
-		
+
 		//TODO fill gf synonyms and name from ENSEMBL
-		
+
 		for (String channelId : img.getAssociatedChannel().getEl()){
-			
-			Channel channel = channelIdMap.get(channelId);		
+
+			Channel channel = channelIdMap.get(channelId);
 			if (channel.getVisualisationMethod() != null){
 				for (Annotation vm: channel.getVisualisationMethod().getEl()){
 					OntologyObject oo = ou.getOntologyTermById(vm.getOntologyTerm().getTermId().trim());
@@ -782,14 +782,14 @@ public class BatchXmlUploader {
 						res.addVisualisationMethodLabel(oo.getLabel());
 						res.addVisualisationMethodSynonyms(oo.getSynonyms());
 						res.addVisualisationMethodAncestors(oo.getAncestorsBag());
-					} 
+					}
 					String freetext = vm.getAnnotationFreetext();
 					if (freetext != null && !freetext.equals("")){
 						res.addVisualisationMethodFreetext(freetext);
 					}
 				}
 			}
-			
+
 			// expressed features
 			if (channel.getDepictsExpressionOf() != null){
 				GenotypeComponent gf = channel.getDepictsExpressionOf();
@@ -807,7 +807,7 @@ public class BatchXmlUploader {
 				}
 				if (gf.getGeneticFeatureSymbol() != null){
 					expressedGfLabelBag.add(gf.getGeneticFeatureSymbol());
-				}	
+				}
 				if (gf.getZygosity() != null){
 					res.addZygosity(gf.getZygosity().name());
 				}
@@ -815,27 +815,27 @@ public class BatchXmlUploader {
 					res.addMutationType(gf.getMutationType().getAnnotationFreetext());
 				}
 				if (gf.getGenomicLocation() != null){
-					
+
 					res.addStartPosition(gf.getGenomicLocation().getStartPos());
-					
+
 					if (gf.getGenomicLocation().getEndPos() != null){
 						res.addEndPosition(gf.getGenomicLocation().getEndPos());
 					}
-					
+
 					res.addChromosome(gf.getGenomicLocation().getChromosone());
 					res.addStrand(gf.getGenomicLocation().getStrand());
 					res.addGenomeAssembly(gf.getGenomeAssembly());
 				}
 			}
-			
+
 		}
 
 		res.setExpressedGfIdBag(expressedGfIdBag);
 		res.setExpressedGfSymbolBag(expressedGfLabelBag);
 		return res;
 	}
-	
-	
+
+
 	boolean validateAgainstXSD(InputStream xml, InputStream xsd) {
 
 		try {
@@ -974,44 +974,44 @@ public class BatchXmlUploader {
 		}
 		return null;
 	}
-	
-	
+
+
 	private String getImageId(String id, String datasource){
 		return datasource.replaceAll(" ", "_") + "_" + id.replaceAll(":", "_");
 	}
-	
-	
+
+
 	private String getChannelId(String id, String datasource){
 		return datasource.replaceAll(" ", "_") + "_channel_" + id.replaceAll(":", "_");
 	}
-	
-	
+
+
 	private List<String> getChannelId(List<String> ids, String datasource){
-		
+
 		List<String> newIds = new ArrayList<>();
 		for (String id: ids){
 			newIds.add(getChannelId(id, datasource));
 		}
-		
+
 		return newIds;
 	}
-	
-	
+
+
 	private String getRoiId(String id, String datasource){
-		
+
 		return datasource.replaceAll(" ", "_") + "_roi_" + id.replaceAll(":", "_");
-		
+
 	}
-	
-	
+
+
 	private List<String> getRoiId(List<String> ids, String datasource){
-		
+
 		List<String> newIds = new ArrayList<>();
 		for (String id: ids){
 			newIds.add(getRoiId(id, datasource));
 		}
-		
+
 		return newIds;
-		
+
 	}
 }

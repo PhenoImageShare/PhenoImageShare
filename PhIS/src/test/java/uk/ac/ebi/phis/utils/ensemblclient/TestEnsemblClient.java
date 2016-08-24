@@ -1,10 +1,11 @@
 package uk.ac.ebi.phis.utils.ensemblclient;
 
-import static org.junit.Assert.*;
+import org.junit.Test;
 
 import java.util.List;
 
-import org.junit.Test;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 
 /**

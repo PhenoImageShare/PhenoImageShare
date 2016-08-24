@@ -1,842 +1,811 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  	<modelVersion>4.0.0</modelVersion>
-  	<groupId>uk.ac.ebi.phis</groupId>
-  	<artifactId>PhenoImageShare</artifactId>
-  	<version>0.0.4</version>
-	<packaging>war</packaging>
-	<name>PhenoImageShare</name>
-	<description>PhenoImageShare Project</description>
-  <build>
-    
-	<finalName>phis</finalName> <!-- Will produce phis.war file, ignoring version -->
-    <sourceDirectory>source/main/java</sourceDirectory>
-    
-    <resources>
-    	<resource><directory>source/main/resources</directory> </resource>
-    </resources>
-   
-    <plugins>
-            
-		<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-war-plugin</artifactId>
-				<!-- 2.2 => 2.0.1 -->
-				<version>2.2</version>
-				<executions>
-					<!-- added for making the replace plugin run in the exploded phase -->
-					<execution>
-						<id>prepare-war</id>
-						<phase>prepare-package</phase>
-						<goals>
-							<goal>war</goal>
-						</goals>
-					</execution>
-				</executions>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>uk.ac.ebi.phis</groupId>
+    <artifactId>PhenoImageShare</artifactId>
+    <version>0.0.4</version>
+    <packaging>war</packaging>
+    <name>PhenoImageShare</name>
+    <description>PhenoImageShare Project</description>
+    <build>
 
-				<configuration>
+        <finalName>phis</finalName> <!-- Will produce phis.war file, ignoring version -->
 
-					<!-- Overiddes default Maven configuration for Admin Tools -->
-					<warSourceDirectory>WebContent</warSourceDirectory>
+        <plugins>
 
-					<!-- excluded because these resources are minified -->
-					<warSourceExcludes>
-						<!-- **/bootstrap.min.css ,**/bootstrap-responsive.min.css -->
-					</warSourceExcludes>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <!-- 2.2 => 2.0.1 -->
+                <version>2.2</version>
+                <executions>
+                    <!-- added for making the replace plugin run in the exploded phase -->
+                    <execution>
+                        <id>prepare-war</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>war</goal>
+                        </goals>
+                    </execution>
+                </executions>
 
-					<webResources>
-						<resource>
-							<directory>${basedir}/WebContent/WEB-INF</directory>
-							<filtering>true</filtering>
-							<targetPath>WEB-INF</targetPath>
-							<includes>
-								<include>**/web.xml</include>
-								<include>**/app-config.xml</include>
-								<include>**/views/404.jsp</include>
-							</includes>
-						</resource>
-					</webResources>
+                <configuration>
 
-					<archive>
-						<addMavenDescriptor>true</addMavenDescriptor>
-						<manifest>
-							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-							<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
-						</manifest>
-					</archive>
+                    <!-- Overiddes default Maven configuration for Admin Tools -->
+                    <warSourceDirectory>WebContent</warSourceDirectory>
 
-				</configuration>
-			</plugin>
+                    <!-- excluded because these resources are minified -->
+                    <warSourceExcludes>
+                        <!-- **/bootstrap.min.css ,**/bootstrap-responsive.min.css -->
+                    </warSourceExcludes>
 
-			<!-- Ensures we are compiling at 1.7 level -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.1</version>
-				<configuration>
-					<source>${java.version}</source>
-					<target>${java.version}</target>
-					<excludes>
-						<exclude>${project.basedir}/src/test/java/**/*.java</exclude>
-					</excludes>
-				</configuration>
-			</plugin>
-		
-		</plugins>
-		
-	</build>
-  
-  	<properties>
-		<baseUrl>http://??</baseUrl>
-		<solrUrl>http://ves-ebi-d0.ebi.ac.uk:8170/mi/phis</solrUrl>
-		<internalSolrUrl>http://ves-ebi-d0.ebi.ac.uk:8170/mi/phis</internalSolrUrl>
-		<dbURI>http://phenoimageshare.ebi.ac.uk:7474/db/data/</dbURI>
-		<java.version>1.8</java.version>
-		<com.fasterxml.jackson.core.version>2.7.4</com.fasterxml.jackson.core.version>
-		<spring.security.version>4.0.2.RELEASE</spring.security.version>
-		<spring.version>4.2.3.RELEASE</spring.version>
-		<apache.commons.collections>3.2.2</apache.commons.collections>
-		<owlapiversion>4.1.4</owlapiversion>
-	</properties>
+                    <webResources>
+                        <resource>
+                            <directory>${basedir}/WebContent/WEB-INF</directory>
+                            <filtering>true</filtering>
+                            <targetPath>WEB-INF</targetPath>
+                            <includes>
+                                <include>**/web.xml</include>
+                                <include>**/app-config.xml</include>
+                                <include>**/views/404.jsp</include>
+                            </includes>
+                        </resource>
+                    </webResources>
+
+                    <archive>
+                        <addMavenDescriptor>true</addMavenDescriptor>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                        </manifest>
+                    </archive>
+
+                </configuration>
+            </plugin>
+
+            <!-- Ensures we are compiling at 1.7 level -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <excludes>
+                        <exclude>${project.basedir}/src/test/java/**/*.java</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+
+        </plugins>
+
+    </build>
+
+    <properties>
+        <internalSolrUrl>http://localhost:8086/solr-example</internalSolrUrl>
+        <dbURI>http://phenoimageshare.ebi.ac.uk:7474/db/data/</dbURI>
+        <java.version>1.8</java.version>
+        <com.fasterxml.jackson.core.version>2.7.4</com.fasterxml.jackson.core.version>
+        <spring.security.version>4.0.2.RELEASE</spring.security.version>
+        <spring.version>4.2.3.RELEASE</spring.version>
+        <apache.commons.collections>3.2.2</apache.commons.collections>
+        <owlapiversion>4.1.4</owlapiversion>
+    </properties>
 
 
-	<profiles>
-		<profile>
-			<id>external-dev</id>
-			<properties>
-				<baseUrl>http://??</baseUrl>
-				<solrUrl>http://wwwdev.ebi.ac.uk/mi/phis</solrUrl>
-				<internalSolrUrl>http://ves-ebi-d0.ebi.ac.uk:8170/mi/phis</internalSolrUrl>
-				<dbURI>http://phenoimageshare.ebi.ac.uk:7474/db/data/</dbURI>
-			</properties>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-surefire-plugin</artifactId>
-						<version>2.4.2</version>
-						<configuration>
-							<skipTests>true</skipTests>
-							<!-- excludes>
-								<exclude>**PageTest.java</exclude>
-								<exclude>**/org/mousephenotype/www/**</exclude>
-							</excludes-->
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-		
-		<profile>
-			<id>solr-build</id>
-			<properties>
-				<baseUrl>http://??</baseUrl>
-				<solrUrl>http://wwwdev.ebi.ac.uk/mi/phis</solrUrl>
-				<internalSolrUrl>http://ves-ebi-d0.ebi.ac.uk:8170/mi/phis</internalSolrUrl>
-				<dbURI>http://phenoimageshare.ebi.ac.uk:7474/db/data/</dbURI>
-                
-			</properties>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-surefire-plugin</artifactId>
-						<version>2.4.2</version>
-						<configuration>
-							<skipTests>true</skipTests>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-		
-		<profile>
-			<id>beta</id>
-			<properties>
-				<baseUrl>http://??</baseUrl>
-				<solrUrl>http://???</solrUrl>
-				<!-- internalSolrUrl>http://ves-ebi-d1.ebi.ac.uk:8120/mi/phis/beta</internalSolrUrl-->
-				<internalSolrUrl>http://ves-ebi-d1:8120/mi/phis/beta</internalSolrUrl> <!--  This will do on d1 when called from d1 and d2 from d2. -->
-				<dbURI>http://phenoimageshare.ebi.ac.uk:7474/db/data/</dbURI>
-			</properties>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-surefire-plugin</artifactId>
-						<version>2.4.2</version>
-						<configuration>
-							<skipTests>true</skipTests>
-							<!-- excludes>
-								<exclude>**PageTest.java</exclude>
-								<exclude>**/org/mousephenotype/www/**</exclude>
-							</excludes-->
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-		
-		<profile>
-			<id>beta-v0.0.5</id>
-			<properties>
-				<baseUrl>http://??</baseUrl>
-				<solrUrl>http://???</solrUrl>
-				<internalSolrUrl>http://ves-ebi-d1:8120/mi/phis/beta/v0.0.5</internalSolrUrl>
-				<dbURI>http://phenoimageshare.ebi.ac.uk:7474/db/data/</dbURI>
-			</properties>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-surefire-plugin</artifactId>
-						<version>2.4.2</version>
-						<configuration>
-							<skipTests>true</skipTests>
-							<!-- excludes>
-								<exclude>**PageTest.java</exclude>
-								<exclude>**/org/mousephenotype/www/**</exclude>
-							</excludes-->
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile> 
-		
-		<profile>
-			<id>beta-v0.0.7</id>
-			<properties>
-				<baseUrl>http://??</baseUrl>
-				<solrUrl>http://???</solrUrl>
-				<internalSolrUrl>http://ves-ebi-d1:8120/mi/phis/beta/v0.0.7</internalSolrUrl>
-				<dbURI>http://phenoimageshare.ebi.ac.uk:7474/db/data/</dbURI>
-			</properties>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-surefire-plugin</artifactId>
-						<version>2.4.2</version>
-						<configuration>
-							<skipTests>true</skipTests>
-							<!-- excludes>
-								<exclude>**PageTest.java</exclude>
-								<exclude>**/org/mousephenotype/www/**</exclude>
-							</excludes-->
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile> 
-		
-		<profile>
-		<id>beta-v0.0.8</id>
-			<properties>
-				<baseUrl>http://??</baseUrl>
-				<solrUrl>http://???</solrUrl>
-				<internalSolrUrl>http://ves-ebi-d1:8120/mi/phis/beta/v0.0.8</internalSolrUrl>
-				<dbURI>http://phenoimageshare.ebi.ac.uk:7474/db/data/</dbURI>
-			</properties>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-surefire-plugin</artifactId>
-						<version>2.4.2</version>
-						<configuration>
-							<skipTests>true</skipTests>
-							<!-- excludes>
-								<exclude>**PageTest.java</exclude>
-								<exclude>**/org/mousephenotype/www/**</exclude>
-							</excludes-->
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile> 
-		
-		<profile>
-		<id>beta-v1.0.0</id>
-			<properties>
-				<baseUrl>http://??</baseUrl>
-				<solrUrl>http://???</solrUrl>
-				<internalSolrUrl>http://ves-ebi-d1:8120/mi/phis/beta/v1.0.0</internalSolrUrl>
-				<dbURI>http://phenoimageshare.ebi.ac.uk:7474/db/data/</dbURI>
-			</properties>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-surefire-plugin</artifactId>
-						<version>2.4.2</version>
-						<configuration>
-							<skipTests>true</skipTests>
-							<!-- excludes>
-								<exclude>**PageTest.java</exclude>
-								<exclude>**/org/mousephenotype/www/**</exclude>
-							</excludes-->
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile> 
-		
-		<profile>
-		<id>beta-v1.0.1</id>
-			<properties>
-				<baseUrl>http://??</baseUrl>
-				<solrUrl>http://???</solrUrl>
-				<internalSolrUrl>http://ves-ebi-d1:8120/mi/phis/beta/v1.0.1</internalSolrUrl>
-				<dbURI>http://phenoimageshare.ebi.ac.uk:7474/db/data/</dbURI>
-			</properties>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-surefire-plugin</artifactId>
-						<version>2.4.2</version>
-						<configuration>
-							<skipTests>true</skipTests>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile> 
-				
-		<profile>
-		<id>beta-v1.0.2</id>
-			<properties>
-				<baseUrl>http://??</baseUrl>
-				<solrUrl>http://???</solrUrl>
-				<internalSolrUrl>http://ves-ebi-d1:8120/mi/phis/beta/v1.0.2</internalSolrUrl>
-				<dbURI>http://phenoimageshare.ebi.ac.uk:7474/db/data/</dbURI>
-			</properties>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-surefire-plugin</artifactId>
-						<version>2.4.2</version>
-						<configuration>
-							<skipTests>true</skipTests>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile> 
-		
-		<!-- ************* -->
-		<!-- LIVE PROFILES -->
-		<!-- ************* -->
-		
-		<profile>
-		<id>v1.0.0</id>
-			<properties>
-				<baseUrl>http://??</baseUrl>
-				<solrUrl>http://???</solrUrl>
-				<internalSolrUrl>http://ves-ebi-d2.ebi.ac.uk:8140/mi/phis/v1.0.0</internalSolrUrl>
-				<dbURI>http://phenoimageshare-live.ebi.ac.uk:7474/db/data/</dbURI>
-			</properties>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-surefire-plugin</artifactId>
-						<version>2.4.2</version>
-						<configuration>
-							<skipTests>true</skipTests>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile> 
-		
-		<profile>
-			<id>v1.0.1</id>
-			<properties>
-				<baseUrl>http://??</baseUrl>
-				<solrUrl>http://???</solrUrl>
-				<internalSolrUrl>http://ves-ebi-d2.ebi.ac.uk:8140/mi/phis/v1.0.1</internalSolrUrl>
-				<dbURI>http://phenoimageshare-live.ebi.ac.uk:7474/db/data/</dbURI>
-			</properties>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-surefire-plugin</artifactId>
-						<version>2.4.2</version>
-						<configuration>
-							<skipTests>true</skipTests>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile> 
-		
-		<profile>
-			<id>v1.0.2</id>
-			<properties>
-				<baseUrl>http://??</baseUrl>
-				<solrUrl>http://???</solrUrl>
-				<internalSolrUrl>http://ves-ebi-d2.ebi.ac.uk:8140/mi/phis/v1.0.2</internalSolrUrl>
-				<dbURI>http://phenoimageshare-live.ebi.ac.uk:7474/db/data/</dbURI>
-			</properties>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-surefire-plugin</artifactId>
-						<version>2.4.2</version>
-						<configuration>
-							<skipTests>true</skipTests>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile> 
-		
-		</profiles>     
-		
-	
-     
-   <!--	DEPENDENCIES -->
-	<dependencies>
-	
-		<dependency>
-			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-resources-plugin</artifactId>
-			<version>2.3</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.12</version>
-		</dependency>
-		
-		<!--  Neo4j dependencies  -->
-		<dependency>
-			<groupId>org.neo4j</groupId>
-			<artifactId>neo4j-rest-graphdb</artifactId>
-			<version>2.0.1</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.neo4j</groupId>
-			<artifactId>neo4j-kernel</artifactId>
-			<version>2.1.6</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.neo4j</groupId>
-			<artifactId>neo4j</artifactId>
-			<version>2.1.6</version>
-		</dependency>
-	
-		<!--  SOLR Dependencies -->
-		<dependency>
-			<artifactId>solr-solrj</artifactId>
-			<groupId>org.apache.solr</groupId>
-			<version>4.9.1</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.json</groupId>
-			<artifactId>json</artifactId>
-			<version>20131018</version>
-		</dependency>
+    <profiles>
+        <profile>
+            <id>external-dev</id>
+            <properties>
+                <internalSolrUrl>http://ves-ebi-d0.ebi.ac.uk:8170/mi/phis</internalSolrUrl>
+                <dbURI>http://phenoimageshare.ebi.ac.uk:7474/db/data/</dbURI>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.4.2</version>
+                        <configuration>
+                            <skipTests>true</skipTests>
+                            <!-- excludes>
+                                <exclude>**PageTest.java</exclude>
+                                <exclude>**/org/mousephenotype/www/**</exclude>
+                            </excludes-->
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
 
-		<dependency>
-			<groupId>net.sf.jopt-simple</groupId>
-			<artifactId>jopt-simple</artifactId>
-			<version>4.3</version>
-		</dependency>
-		
-		<!--  OWL Depenencies -->
-		<dependency>
-	   		<groupId>org.bbop</groupId>
-	   		<artifactId>OWLTools-Core</artifactId>
-	   		<version>0.3.0-SNAPSHOT</version>
-	   		<exclusions>
-	   			<exclusion>
-	   				<artifactId>owlapi-distribution</artifactId>
-	   				<groupId>net.sourceforge.owlapi</groupId>
-	   			</exclusion>
-	   		</exclusions>
-		</dependency>
-		
-		<dependency>
-		   	<groupId>org.bbop</groupId>
-		   	<artifactId>OWLTools-Oort</artifactId>
-			<version>0.3.0-SNAPSHOT</version>
-		</dependency>
-		
-		
-		<dependency>
-		    <groupId>net.sourceforge.owlapi</groupId>
-		    <artifactId>owlapi-api</artifactId>
-		    <version>${owlapiversion}</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>net.sourceforge.owlapi</groupId>
-			<artifactId>owlapi-apibinding</artifactId>
-			<version>${owlapiversion}</version>
-		</dependency>
+        <profile>
+            <id>solr-build</id>
+            <properties>
+                <internalSolrUrl>http://ves-ebi-d0.ebi.ac.uk:8170/mi/phis</internalSolrUrl>
+                <dbURI>http://phenoimageshare.ebi.ac.uk:7474/db/data/</dbURI>
 
-		<dependency>
-			<groupId>net.sourceforge.owlapi</groupId>
-			<artifactId>owlapi-distribution</artifactId>
-			<version>${owlapiversion}</version>
-		</dependency>
-		
-		<!-- http://mvnrepository.com/artifact/org.semanticweb.elk/elk-reasoner -->
-		<dependency>
-		    <groupId>org.semanticweb.elk</groupId>
-		    <artifactId>elk-owlapi</artifactId>
-		    <version>0.4.2</version>
-		</dependency>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.4.2</version>
+                        <configuration>
+                            <skipTests>true</skipTests>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>beta</id>
+            <properties>
+                <!-- internalSolrUrl>http://ves-ebi-d1.ebi.ac.uk:8120/mi/phis/beta</internalSolrUrl-->
+                <internalSolrUrl>http://ves-ebi-d1:8120/mi/phis/beta
+                </internalSolrUrl> <!--  This will do on d1 when called from d1 and d2 from d2. -->
+                <dbURI>http://phenoimageshare.ebi.ac.uk:7474/db/data/</dbURI>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.4.2</version>
+                        <configuration>
+                            <skipTests>true</skipTests>
+                            <!-- excludes>
+                                <exclude>**PageTest.java</exclude>
+                                <exclude>**/org/mousephenotype/www/**</exclude>
+                            </excludes-->
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>beta-v0.0.5</id>
+            <properties>
+                <internalSolrUrl>http://ves-ebi-d1:8120/mi/phis/beta/v0.0.5</internalSolrUrl>
+                <dbURI>http://phenoimageshare.ebi.ac.uk:7474/db/data/</dbURI>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.4.2</version>
+                        <configuration>
+                            <skipTests>true</skipTests>
+                            <!-- excludes>
+                                <exclude>**PageTest.java</exclude>
+                                <exclude>**/org/mousephenotype/www/**</exclude>
+                            </excludes-->
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>beta-v0.0.7</id>
+            <properties>
+                <internalSolrUrl>http://ves-ebi-d1:8120/mi/phis/beta/v0.0.7</internalSolrUrl>
+                <dbURI>http://phenoimageshare.ebi.ac.uk:7474/db/data/</dbURI>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.4.2</version>
+                        <configuration>
+                            <skipTests>true</skipTests>
+                            <!-- excludes>
+                                <exclude>**PageTest.java</exclude>
+                                <exclude>**/org/mousephenotype/www/**</exclude>
+                            </excludes-->
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>beta-v0.0.8</id>
+            <properties>
+                <internalSolrUrl>http://ves-ebi-d1:8120/mi/phis/beta/v0.0.8</internalSolrUrl>
+                <dbURI>http://phenoimageshare.ebi.ac.uk:7474/db/data/</dbURI>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.4.2</version>
+                        <configuration>
+                            <skipTests>true</skipTests>
+                            <!-- excludes>
+                                <exclude>**PageTest.java</exclude>
+                                <exclude>**/org/mousephenotype/www/**</exclude>
+                            </excludes-->
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>beta-v1.0.0</id>
+            <properties>
+                <internalSolrUrl>http://ves-ebi-d1:8120/mi/phis/beta/v1.0.0</internalSolrUrl>
+                <dbURI>http://phenoimageshare.ebi.ac.uk:7474/db/data/</dbURI>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.4.2</version>
+                        <configuration>
+                            <skipTests>true</skipTests>
+                            <!-- excludes>
+                                <exclude>**PageTest.java</exclude>
+                                <exclude>**/org/mousephenotype/www/**</exclude>
+                            </excludes-->
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>beta-v1.0.1</id>
+            <properties>
+                <internalSolrUrl>http://ves-ebi-d1:8120/mi/phis/beta/v1.0.1</internalSolrUrl>
+                <dbURI>http://phenoimageshare.ebi.ac.uk:7474/db/data/</dbURI>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.4.2</version>
+                        <configuration>
+                            <skipTests>true</skipTests>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>beta-v1.0.2</id>
+            <properties>
+                <internalSolrUrl>http://ves-ebi-d1:8120/mi/phis/beta/v1.0.2</internalSolrUrl>
+                <dbURI>http://phenoimageshare.ebi.ac.uk:7474/db/data/</dbURI>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.4.2</version>
+                        <configuration>
+                            <skipTests>true</skipTests>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <!-- ************* -->
+        <!-- LIVE PROFILES -->
+        <!-- ************* -->
+
+        <profile>
+            <id>v1.0.0</id>
+            <properties>
+                <internalSolrUrl>http://ves-ebi-d2.ebi.ac.uk:8140/mi/phis/v1.0.0</internalSolrUrl>
+                <dbURI>http://phenoimageshare-live.ebi.ac.uk:7474/db/data/</dbURI>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.4.2</version>
+                        <configuration>
+                            <skipTests>true</skipTests>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>v1.0.1</id>
+            <properties>
+                <internalSolrUrl>http://ves-ebi-d2.ebi.ac.uk:8140/mi/phis/v1.0.1</internalSolrUrl>
+                <dbURI>http://phenoimageshare-live.ebi.ac.uk:7474/db/data/</dbURI>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.4.2</version>
+                        <configuration>
+                            <skipTests>true</skipTests>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>v1.0.2</id>
+            <properties>
+                <internalSolrUrl>http://ves-ebi-d2.ebi.ac.uk:8140/mi/phis/v1.0.2</internalSolrUrl>
+                <dbURI>http://phenoimageshare-live.ebi.ac.uk:7474/db/data/</dbURI>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.4.2</version>
+                        <configuration>
+                            <skipTests>true</skipTests>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+    </profiles>
 
 
-		<!-- http://mvnrepository.com/artifact/com.google.code.gson/gson -->
-		<dependency>
-		    <groupId>com.google.code.gson</groupId>
-		    <artifactId>gson</artifactId>
-		    <version>2.6.2</version>
-		</dependency>
+    <!--	DEPENDENCIES -->
+    <dependencies>
 
-  		<!-- HTTP components Dependencies -->
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpcore</artifactId>
-			<version>4.3</version>
-		</dependency>
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-resources-plugin</artifactId>
+            <version>2.3</version>
+        </dependency>
 
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient</artifactId>
-			<version>4.3.1</version>
-		</dependency>
-		
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+        </dependency>
 
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpmime</artifactId>
-			<version>4.3.1</version>
-		</dependency>
-		
-		<!-- http://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
-		<dependency>
-		    <groupId>javax.servlet</groupId>
-		    <artifactId>javax.servlet-api</artifactId>
-		    <version>3.0.1</version>
-		    <scope>provided</scope>
-		</dependency>
-           
-     	<!-- Logging -->
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>1.7.7</version>
-		</dependency>
-	
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>jcl-over-slf4j</artifactId>
-			<version>1.7.7</version>
-			<scope>runtime</scope>
-		</dependency>
-	
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>1.7.7</version>
-			<scope>runtime</scope>
-		</dependency>
-		
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>1.2.12</version>
-			<exclusions>
-				<exclusion>
-					<groupId>com.sun.jdmk</groupId>
-					<artifactId>jmxtools</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>com.sun.jmx</groupId>
-					<artifactId>jmxri</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>javax.jms</groupId>
-					<artifactId>jms</artifactId>
-				</exclusion>
-			</exclusions>
-			<scope>compile</scope>
-		</dependency>
-		
-		<dependency>
-			<groupId>jstl</groupId>
-			<artifactId>jstl</artifactId>
-			<version>1.2</version>
-		</dependency>
-		
-		
-		<!-- DB Dependencies -->
+        <!--  Neo4j dependencies  -->
+        <dependency>
+            <groupId>org.neo4j</groupId>
+            <artifactId>neo4j-rest-graphdb</artifactId>
+            <version>2.0.1</version>
+        </dependency>
 
-		<dependency>
-			<groupId>commons-dbcp</groupId>
-			<artifactId>commons-dbcp</artifactId>
-			<version>20030825.184428</version>
-			<type>jar</type>
-			<scope>compile</scope>
-		</dependency>
-		
-		<dependency>
-			<groupId>commons-pool</groupId>
-			<artifactId>commons-pool</artifactId>
-			<version>20030825.183949</version>
-			<type>jar</type>
-			<scope>compile</scope>
-		</dependency>
+        <dependency>
+            <groupId>org.neo4j</groupId>
+            <artifactId>neo4j-kernel</artifactId>
+            <version>2.1.6</version>
+        </dependency>
 
-		<dependency>
-			<groupId>commons-net</groupId>
-			<artifactId>commons-net</artifactId>
-			<version>3.1</version>
-			<type>jar</type>
-			<scope>compile</scope>
-		</dependency>
-			
-		<dependency>
-			<groupId>commons-collections</groupId>
-			<artifactId>commons-collections</artifactId>
-			<version>${apache.commons.collections}</version>
-		</dependency>
+        <dependency>
+            <groupId>org.neo4j</groupId>
+            <artifactId>neo4j</artifactId>
+            <version>2.1.6</version>
+        </dependency>
 
-		
-		<!-- MySQL database driver -->
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.21</version>
-		</dependency>
+        <!--  SOLR Dependencies -->
+        <dependency>
+            <artifactId>solr-solrj</artifactId>
+            <groupId>org.apache.solr</groupId>
+            <version>4.9.1</version>
+        </dependency>
 
-		
-		<!-- Spring Security -->
-		
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-web</artifactId>
-			<version>${spring.security.version}</version>
-		</dependency>
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20131018</version>
+        </dependency>
 
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-config</artifactId>
-			<version>${spring.security.version}</version>
-		</dependency>
+        <dependency>
+            <groupId>net.sf.jopt-simple</groupId>
+            <artifactId>jopt-simple</artifactId>
+            <version>4.3</version>
+        </dependency>
 
-		<!-- Spring -->
-		
-		<dependency>
-		    <groupId>org.springframework.retry</groupId>
-		    <artifactId>spring-retry</artifactId>
-		    <version>1.1.2.RELEASE</version>
-		</dependency>		
-		
-	    <dependency>
-	    	<groupId>org.springframework</groupId>
-	   	 	<artifactId>spring-web</artifactId>
-	    	<version>${spring.version}</version>
-		</dependency>
-			
-		<dependency>
-	    	<groupId>org.springframework</groupId>
-	   	 	<artifactId>spring-core</artifactId>
-	    	<version>${spring.version}</version>
-		</dependency>
-			
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-beans</artifactId>
-	    	<version>${spring.version}</version>
-		</dependency>
-			
-	    <dependency>
-	        <groupId>org.springframework</groupId>
-	        <artifactId>spring-webmvc</artifactId>
-	        <version>${spring.version}</version>
-	    </dependency>
-	    
-	    <dependency>
-	        <groupId>org.springframework</groupId>
-	        <artifactId>spring-context</artifactId>
-	        <version>${spring.version}</version>
-			<type>jar</type>
-			<scope>compile</scope>
-			<!-- Exclude Commons Logging in favor of SLF4j -->
-			<exclusions>
-				<exclusion>
-					<groupId>commons-logging</groupId>
-					<artifactId>commons-logging</artifactId>
-				</exclusion>
-			</exclusions>
-    	</dependency>
-    
-		<dependency>
-		  <groupId>org.springframework.boot</groupId>
-		  <artifactId>spring-boot-starter</artifactId>
-		  <version>1.1.1.RELEASE</version>
-		</dependency>
-		
-		<dependency>
-		  	<groupId>org.springframework.boot</groupId>
-		  	<artifactId>spring-boot-parent</artifactId>
-		  	<version>1.1.1.RELEASE</version>
-	 	 	<type>pom</type>
-		</dependency>
-		
-			
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-orm</artifactId>
-			<version>${spring.version}</version>
-			<type>jar</type>
-			<scope>compile</scope>
-		</dependency>
+        <!--  OWL Depenencies -->
+        <dependency>
+            <groupId>org.bbop</groupId>
+            <artifactId>OWLTools-Core</artifactId>
+            <version>0.3.0-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>owlapi-distribution</artifactId>
+                    <groupId>net.sourceforge.owlapi</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
 
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-context-support</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
+        <dependency>
+            <groupId>org.bbop</groupId>
+            <artifactId>OWLTools-Oort</artifactId>
+            <version>0.3.0-SNAPSHOT</version>
+        </dependency>
 
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-oxm</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
 
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-test</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
+        <dependency>
+            <groupId>net.sourceforge.owlapi</groupId>
+            <artifactId>owlapi-api</artifactId>
+            <version>${owlapiversion}</version>
+        </dependency>
 
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-aop</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
+        <dependency>
+            <groupId>net.sourceforge.owlapi</groupId>
+            <artifactId>owlapi-apibinding</artifactId>
+            <version>${owlapiversion}</version>
+        </dependency>
 
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-jdbc</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>net.wimpi</groupId>
-			<artifactId>telnetd-x</artifactId>
-			<version>2.1.1</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<version>1.3.175</version>
-		</dependency>
+        <dependency>
+            <groupId>net.sourceforge.owlapi</groupId>
+            <artifactId>owlapi-distribution</artifactId>
+            <version>${owlapiversion}</version>
+        </dependency>
 
-		<dependency>
-			<groupId>org.scala-lang</groupId>
-			<artifactId>scala-library</artifactId>
-			<version>2.10.3</version>
-		</dependency>
-		
-		<!-- Jackson JSON Mapper -->
-				
-		<dependency>
-		    <groupId>com.fasterxml.jackson.core</groupId>
-		    <artifactId>jackson-annotations</artifactId>
-		    <version>${com.fasterxml.jackson.core.version}</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-core</artifactId>
-			<version>${com.fasterxml.jackson.core.version}</version>
-		</dependency>
-	
-		<dependency>
-		    <groupId>com.fasterxml.jackson.core</groupId>
-		    <artifactId>jackson-databind</artifactId>
-		    <version>${com.fasterxml.jackson.core.version}</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>xml-apis</groupId>
-			<artifactId>xml-apis</artifactId>
-			<version>1.4.01</version>
-		</dependency>
+        <!-- http://mvnrepository.com/artifact/org.semanticweb.elk/elk-reasoner -->
+        <dependency>
+            <groupId>org.semanticweb.elk</groupId>
+            <artifactId>elk-owlapi</artifactId>
+            <version>0.4.2</version>
+        </dependency>
 
-		<dependency>
-			<groupId>org.apache.activemq</groupId>
-			<artifactId>activemq-client</artifactId>
-			<version>5.9.1</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-remote-shell</artifactId>
-			<version>1.1.1.RELEASE</version>
-		</dependency>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-solr</artifactId>
-			<version>1.1.1.RELEASE</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
-			<version>1.1.1.RELEASE</version>
-		</dependency>
-	</dependencies>
-  
-  
-  
-  <!-- REPOSITORIES -->
-  
-  	<repositories> 
-  	    
-	    <repository>
-		   <id>mouseinfo-thirdparty</id>
-		   <name>Third party jars</name>
-		   <url>http://ves-ebi-d9.ebi.ac.uk:8080/nexus/content/repositories/thirdparty/</url>
-		</repository>
-	    
-	   <!--  
-	    <repository>
-		   <id>mouseinfo-snapshots</id>
-		   <name>Third party snaphsot jars</name>
-		   <url>http://ves-ebi-d9.ebi.ac.uk:8080/nexus/content/repositories/snapshots/</url>
-		   <snapshots>
-	      		<enabled>true</enabled>
-	      	</snapshots>
-		</repository> -->
-	    
-	    <repository>
-		    <id>spring-milestones</id>
-		    <url>http://repo.springsource.org/libs-milestone/</url>
-		</repository>
-		 
-		<repository>
-        	<id>spring-releases</id>
-        	<url>https://repo.spring.io/libs-release</url>
-     	</repository>
-		  
-		<repository>
+        <!-- http://mvnrepository.com/artifact/com.google.code.gson/gson -->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.6.2</version>
+        </dependency>
+
+        <!-- HTTP components Dependencies -->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpcore</artifactId>
+            <version>4.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.3.1</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpmime</artifactId>
+            <version>4.3.1</version>
+        </dependency>
+
+        <!-- http://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.0.1</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Logging -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.7</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+            <version>1.7.7</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.7</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.12</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.sun.jdmk</groupId>
+                    <artifactId>jmxtools</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.sun.jmx</groupId>
+                    <artifactId>jmxri</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>javax.jms</groupId>
+                    <artifactId>jms</artifactId>
+                </exclusion>
+            </exclusions>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>jstl</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
+        </dependency>
+
+
+        <!-- DB Dependencies -->
+
+        <dependency>
+            <groupId>commons-dbcp</groupId>
+            <artifactId>commons-dbcp</artifactId>
+            <version>20030825.184428</version>
+            <type>jar</type>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-pool</groupId>
+            <artifactId>commons-pool</artifactId>
+            <version>20030825.183949</version>
+            <type>jar</type>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-net</groupId>
+            <artifactId>commons-net</artifactId>
+            <version>3.1</version>
+            <type>jar</type>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>${apache.commons.collections}</version>
+        </dependency>
+
+
+        <!-- MySQL database driver -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.21</version>
+        </dependency>
+
+
+        <!-- Spring Security -->
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>${spring.security.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>${spring.security.version}</version>
+        </dependency>
+
+        <!-- Spring -->
+
+        <dependency>
+            <groupId>org.springframework.retry</groupId>
+            <artifactId>spring-retry</artifactId>
+            <version>1.1.2.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${spring.version}</version>
+            <type>jar</type>
+            <scope>compile</scope>
+            <!-- Exclude Commons Logging in favor of SLF4j -->
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+            <version>1.1.1.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-parent</artifactId>
+            <version>1.1.1.RELEASE</version>
+            <type>pom</type>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+            <version>${spring.version}</version>
+            <type>jar</type>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-oxm</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aop</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>net.wimpi</groupId>
+            <artifactId>telnetd-x</artifactId>
+            <version>2.1.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>1.3.175</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.scala-lang</groupId>
+            <artifactId>scala-library</artifactId>
+            <version>2.10.3</version>
+        </dependency>
+
+        <!-- Jackson JSON Mapper -->
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>${com.fasterxml.jackson.core.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>${com.fasterxml.jackson.core.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${com.fasterxml.jackson.core.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>xml-apis</groupId>
+            <artifactId>xml-apis</artifactId>
+            <version>1.4.01</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-client</artifactId>
+            <version>5.9.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-remote-shell</artifactId>
+            <version>1.1.1.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-solr</artifactId>
+            <version>1.1.1.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <version>1.1.1.RELEASE</version>
+        </dependency>
+    </dependencies>
+
+
+    <!-- REPOSITORIES -->
+
+    <repositories>
+
+        <repository>
+            <id>mouseinfo-thirdparty</id>
+            <name>Third party jars</name>
+            <url>http://ves-ebi-d9.ebi.ac.uk:8080/nexus/content/repositories/thirdparty/</url>
+        </repository>
+
+        <!--
+         <repository>
+            <id>mouseinfo-snapshots</id>
+            <name>Third party snaphsot jars</name>
+            <url>http://ves-ebi-d9.ebi.ac.uk:8080/nexus/content/repositories/snapshots/</url>
+            <snapshots>
+                   <enabled>true</enabled>
+               </snapshots>
+         </repository> -->
+
+        <repository>
+            <id>spring-milestones</id>
+            <url>http://repo.springsource.org/libs-milestone/</url>
+        </repository>
+
+        <repository>
+            <id>spring-releases</id>
+            <url>https://repo.spring.io/libs-release</url>
+        </repository>
+
+        <repository>
             <id>spring-snapshots</id>
             <name>Spring Snapshots</name>
             <url>http://repo.spring.io/libs-snapshot</url>
@@ -844,15 +813,15 @@
                 <enabled>true</enabled>
             </snapshots>
         </repository>
-        
+
         <repository>
-	      	<id>BerkeleyBOPSnapshot</id>
-			<url>http://code.berkeleybop.org/maven/snapshot-repository/</url>
-	      	<snapshots>
-	      		<enabled>true</enabled>
-	      	</snapshots>
-	    </repository>
-        
-	 </repositories>
-  
+            <id>BerkeleyBOPSnapshot</id>
+            <url>http://code.berkeleybop.org/maven/snapshot-repository/</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+
+    </repositories>
+
 </project>

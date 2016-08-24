@@ -15,11 +15,11 @@
  *******************************************************************************/
 package uk.ac.ebi.phis.service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Date;
-
 import uk.ac.ebi.phis.solrj.dto.RoiDTO;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 
 public class TestUtils {

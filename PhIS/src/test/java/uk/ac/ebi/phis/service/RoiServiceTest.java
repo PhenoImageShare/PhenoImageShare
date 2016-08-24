@@ -15,14 +15,13 @@
  *******************************************************************************/
 package uk.ac.ebi.phis.service;
 
-import static org.junit.Assert.*;
+import org.junit.Test;
+import uk.ac.ebi.phis.solrj.dto.RoiDTO;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.*;
-
-import uk.ac.ebi.phis.solrj.dto.RoiDTO;
+import static org.junit.Assert.assertTrue;
 
 
 public class RoiServiceTest {

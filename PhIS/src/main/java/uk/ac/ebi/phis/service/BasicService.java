@@ -15,6 +15,7 @@
  *******************************************************************************/
 package uk.ac.ebi.phis.service;
 
+import jena.query;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.HttpSolrServer;
@@ -49,8 +50,9 @@ public class BasicService {
 		return solr.query(solrQuery);		
 	}
 	
-	public String handleSpecialCharacters(String query){
+	public String handleSpecialCharacters(String q){
 
+		String query = new String(q);
 		if (query != null){
 			
 			query = query.replace("\\", "\\\\");

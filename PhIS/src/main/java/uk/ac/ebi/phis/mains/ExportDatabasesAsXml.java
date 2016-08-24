@@ -26,9 +26,9 @@ public class ExportDatabasesAsXml {
 		// OntologyMapper mapper = new OntologyMapper(OntologyMapperPredefinedTypes.MA_MP);
 		// mapper.getMappings("http://purl.obolibrary.org/obo/MP_0003684", "MA");
 		// System.out.println("\t\t " + mapper.getAnatomyLabel("MA_0000003"));
-		
+
 		try {
-			
+
 			long time = System.currentTimeMillis();
 //			SangerXmlGenerator sg = new SangerXmlGenerator();
 //			sg.exportImages();

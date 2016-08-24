@@ -33,10 +33,9 @@ import uk.ac.ebi.phis.utils.web.JSONRestUtil;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 @Service
@@ -61,12 +60,16 @@ public class ImageService extends BasicService{
 		String bq = "";
 		String qf = "";
 		if (term != null){
-			solrQuery.setQuery("(" + ImageDTO.GENERIC_SEARCH + ":" + handleSpecialCharacters(term) + " OR " + ImageDTO.GENERIC_SEARCH_ANCESTORS + ":" +handleSpecialCharacters(term) + ")");
+			term = term.trim();
+			solrQuery.setQuery("(" + ImageDTO.GENERIC_SEARCH + ":" + handleSpecialCharacters(term) + " OR " + ImageDTO.GENERIC_SEARCH_ANCESTORS + ":" + handleSpecialCharacters(term) + ")");
 			if (term.contains(" ")){
 				String[] splittedQuery = term.split(" ");
-				String query = ImageDTO.GENERIC_SEARCH + ":" + org.apache.commons.lang3.StringUtils.join(splittedQuery, "^10 " + ImageDTO.GENERIC_SEARCH + ":");			
-				bq += ImageDTO.GENERIC_SEARCH + ":\"" + term + "\"^100 " + handleSpecialCharacters(query) + " " 
-						+ ImageDTO.GENERIC_SEARCH_ANCESTORS + ":\"" + term + "\"^1 " +ImageDTO.GENERIC_SEARCH_ANCESTORS + ":" + org.apache.commons.lang3.StringUtils.join(splittedQuery, "^0.1 " + ImageDTO.GENERIC_SEARCH_ANCESTORS + ":");
+
+				Stream<String> stream = Arrays.stream(splittedQuery);
+				String query = stream.map(item -> ImageDTO.GENERIC_SEARCH + ":" + handleSpecialCharacters(item) + "^10 ").collect(Collectors.joining());
+				bq += ImageDTO.GENERIC_SEARCH + ":\"" + term + "\"^100 " + query + " " + ImageDTO.GENERIC_SEARCH_ANCESTORS + ":\"" + term + "\"^1 "
+						+ stream.map(item -> ImageDTO.GENERIC_SEARCH_ANCESTORS + ":" + handleSpecialCharacters(item) + "^0.1 ").collect(Collectors.joining())
+				bq += " ";
 				qf += ImageDTO.GENERIC_SEARCH;
 			} else {
 				solrQuery.addFilterQuery( "(" + ImageDTO.GENERIC_SEARCH + ":"+ handleSpecialCharacters(term) + " OR " + ImageDTO.GENERIC_SEARCH_ANCESTORS + ":" + handleSpecialCharacters(term) + ")");
@@ -79,6 +82,7 @@ public class ImageService extends BasicService{
 				ImageDTO.PHENOTYPE_LABEL_BAG + ":\""+ phenotype + "\"^100 " + 
 				ImageDTO.PHENOTYPE_ANCESTORS + ":\"" + phenotype + "\"^0.001 " + 
 				ImageDTO.PHENOTYPE_SYNONYMS_BAG + ":\"" + phenotype + "\"^0.1 ";
+			bq += " ";
 			solrQuery.addFilterQuery(ImageDTO.PHENOTYPE_ID_BAG + ":\""+ phenotype + "\" OR " + 
 				ImageDTO.PHENOTYPE_FREETEXT_BAG + ":\""+ phenotype + "\" OR " + 
 				ImageDTO.PHENOTYPE_LABEL_BAG + ":\""+ phenotype + "\" OR " + ImageDTO.PHENOTYPE_ANCESTORS + ":\"" + phenotype + "\"");			
@@ -88,6 +92,7 @@ public class ImageService extends BasicService{
 			bq += ImageDTO.VISUALISATION_METHOD_ID + ":\"" + visualisationMethod + "\"^100 " + 
 				ImageDTO.VISUALISATION_METHOD_LABEL + ":\"" + visualisationMethod + "\"^100 " + 
 				ImageDTO.VISUALISATION_METHOD_ANCESTORS + ":\"" + visualisationMethod + "\"^0.001 ";
+			bq += " ";
 			solrQuery.addFilterQuery(ImageDTO.VISUALISATION_METHOD_ID + ":\"" + visualisationMethod + "\" OR " + 
 				ImageDTO.VISUALISATION_METHOD_LABEL + ":\"" + visualisationMethod + "\" OR " + 
 				ImageDTO.VISUALISATION_METHOD_ANCESTORS + ":\"" + visualisationMethod + "\"");
@@ -97,6 +102,7 @@ public class ImageService extends BasicService{
 			bq += ImageDTO.SAMPLE_PREPARATION_ID + ":\"" + samplePreparation + "\"^100 " + 
 				ImageDTO.SAMPLE_PREPARATION_LABEL + ":\"" + samplePreparation + "\"^100 " + 
 				ImageDTO.SAMPLE_PREPARATION_ANCESTORS + ":\"" + samplePreparation + "\"^0.001 ";
+			bq += " ";
 			solrQuery.addFilterQuery(ImageDTO.SAMPLE_PREPARATION_ID + ":\"" + samplePreparation + "\" OR " + 
 				ImageDTO.SAMPLE_PREPARATION_LABEL + ":\"" + samplePreparation + "\" OR " + ImageDTO.SAMPLE_PREPARATION_ANCESTORS + ":\"" + samplePreparation + "\"");
 		}
@@ -105,17 +111,18 @@ public class ImageService extends BasicService{
 			bq = ImageDTO.IMAGING_METHOD_LABEL_ANALYSED + ":\"" + imagingMethod + "\"^100 " + 
 				ImageDTO.IMAGING_METHOD_ID + ":\"" + imagingMethod + "\"^100 " + 
 				ImageDTO.IMAGING_METHOD_ANCESTORS + ":\"" + imagingMethod + "\"^0.001 ";
+			bq += " ";
 			solrQuery.addFilterQuery(ImageDTO.IMAGING_METHOD_LABEL_ANALYSED + ":\"" + imagingMethod + "\" OR " + 
 				ImageDTO.IMAGING_METHOD_ID + ":\"" + imagingMethod + "\" OR " + ImageDTO.IMAGING_METHOD_ANCESTORS + ":\"" + imagingMethod + "\"");
 		}		
 		if (anatomy != null){
 			anatomy = handleSpecialCharacters(anatomy);
 			bq += ImageDTO.GENERIC_ANATOMY + ":\""+ anatomy + "\"^100 " + ImageDTO.GENERIC_ANATOMY_ANCESTORS + ":\"" + anatomy + "\"^0.001 ";
+			bq += " ";
 			solrQuery.addFilterQuery(ImageDTO.GENERIC_ANATOMY + ":\""+ anatomy + "\" OR " + ImageDTO.GENERIC_ANATOMY_ANCESTORS + ":\"" + anatomy + "\"");
 		}
 		if (excludeAnatomy != null){
-			excludeAnatomy.stream()
-					.map(item -> handleSpecialCharacters(item))
+			excludeAnatomy.stream().map(item -> handleSpecialCharacters(item))
 					.forEach(item -> {solrQuery.addFilterQuery("-" + ImageDTO.GENERIC_ANATOMY + ":" + item); solrQuery.addFilterQuery("-" + ImageDTO.GENERIC_ANATOMY_ANCESTORS + ":" + item);});
 		}
 		if (!bq.equals("")){
