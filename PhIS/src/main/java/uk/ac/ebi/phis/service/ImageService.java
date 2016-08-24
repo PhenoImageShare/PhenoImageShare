@@ -68,7 +68,7 @@ public class ImageService extends BasicService{
 				Stream<String> stream = Arrays.stream(splittedQuery);
 				String query = stream.map(item -> ImageDTO.GENERIC_SEARCH + ":" + handleSpecialCharacters(item) + "^10 ").collect(Collectors.joining());
 				bq += ImageDTO.GENERIC_SEARCH + ":\"" + term + "\"^100 " + query + " " + ImageDTO.GENERIC_SEARCH_ANCESTORS + ":\"" + term + "\"^1 "
-						+ stream.map(item -> ImageDTO.GENERIC_SEARCH_ANCESTORS + ":" + handleSpecialCharacters(item) + "^0.1 ").collect(Collectors.joining())
+						+ stream.map(item -> ImageDTO.GENERIC_SEARCH_ANCESTORS + ":" + handleSpecialCharacters(item) + "^0.1 ").collect(Collectors.joining());
 				bq += " ";
 				qf += ImageDTO.GENERIC_SEARCH;
 			} else {
