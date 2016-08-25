@@ -52,9 +52,9 @@ public class BasicService {
 	
 	public String handleSpecialCharacters(String q){
 
-		String query = new String(q);
-		if (query != null){
-			
+		if (q != null){
+
+			String query = new String(q);
 			query = query.replace("\\", "\\\\");
 			query = query.replace("%5C", "\\\\");
 			
@@ -81,10 +81,11 @@ public class BasicService {
 			query = query.replace("%3E", "\\>");
 			query = query.replace("%2F", "\\/");
 			query = query.replace("%60", "\\`");
-		
+
+			return query;
 		}
 	
-		return query;
+		return null;
 
 	}
 	
