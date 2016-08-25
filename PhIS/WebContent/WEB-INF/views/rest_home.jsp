@@ -102,7 +102,7 @@
 				<td><var>MA:0000261, eye</var></td>
 			</tr>
 
-			<tr>
+			<tr style="background-color: olive;">
 				<td>-anatomy</td>
 				<td><var>String[]</var></td>
 				<td>false</td>
@@ -278,7 +278,7 @@
 				<td><var></var><br></td>
 			</tr>
 			
-			<tr style="background-color: olive;">
+			<tr>
 				<td>lastRoiEditAfter</td>
 				<td><var>Date</var></td>
 				<td> false </td>
@@ -287,7 +287,7 @@
 				<td><var>1976-03-06T23:59:59.999Z</var></td>
 			</tr>
 			
-			<tr style="background-color: olive;">
+			<tr>
 				<td>lastRoiEditBefore</td>
 				<td><var>Date</var></td>
 				<td> false </td>
@@ -662,7 +662,7 @@
 				<td><var> * </var></td>
 				<td><var>WTSI</var><br></td>
 			</tr>
-			<tr style="background-color: olive;">
+			<tr>
 				<td>hostName</td>
 				<td><var>String</var></td>
 				<td> false </td>

@@ -15,7 +15,6 @@
  *******************************************************************************/
 package uk.ac.ebi.phis.service;
 
-import jena.query;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.HttpSolrServer;
