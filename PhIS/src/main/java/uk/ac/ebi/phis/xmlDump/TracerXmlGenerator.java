@@ -15,56 +15,27 @@
  *******************************************************************************/
 package uk.ac.ebi.phis.xmlDump;
 
+import org.json.JSONException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import uk.ac.ebi.phis.jaxb.*;
+import uk.ac.ebi.phis.utils.EnrichingUtils;
+import uk.ac.ebi.phis.utils.Normalizer;
+import uk.ac.ebi.phis.utils.ensemblclient.EnsemblClient;
+import uk.ac.ebi.phis.utils.ensemblclient.Feature;
+import uk.ac.ebi.phis.utils.ensemblclient.Position;
+
+import javax.sql.DataSource;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
+import javax.xml.datatype.DatatypeFactory;
 import java.io.File;
 import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.sql.DataSource;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Marshaller;
-import javax.xml.datatype.DatatypeFactory;
-
-import org.json.JSONException;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import uk.ac.ebi.phis.jaxb.Annotation;
-import uk.ac.ebi.phis.jaxb.AnnotationArray;
-import uk.ac.ebi.phis.jaxb.AnnotationMode;
-import uk.ac.ebi.phis.jaxb.Channel;
-import uk.ac.ebi.phis.jaxb.Coordinates;
-import uk.ac.ebi.phis.jaxb.Dimensions;
-import uk.ac.ebi.phis.jaxb.Doc;
-import uk.ac.ebi.phis.jaxb.ExpressionAnnotation;
-import uk.ac.ebi.phis.jaxb.ExpressionAnnotationArray;
-import uk.ac.ebi.phis.jaxb.GenomicLocation;
-import uk.ac.ebi.phis.jaxb.GenotypeComponent;
-import uk.ac.ebi.phis.jaxb.Group;
-import uk.ac.ebi.phis.jaxb.Image;
-import uk.ac.ebi.phis.jaxb.ImageDescription;
-import uk.ac.ebi.phis.jaxb.ImageType;
-import uk.ac.ebi.phis.jaxb.ImageTypeArray;
-import uk.ac.ebi.phis.jaxb.Link;
-import uk.ac.ebi.phis.jaxb.OntologyTerm;
-import uk.ac.ebi.phis.jaxb.Organism;
-import uk.ac.ebi.phis.jaxb.PercentArray;
-import uk.ac.ebi.phis.jaxb.Roi;
-import uk.ac.ebi.phis.jaxb.SampleType;
-import uk.ac.ebi.phis.jaxb.StringArray;
-import uk.ac.ebi.phis.utils.EnrichingUtils;
-import uk.ac.ebi.phis.utils.Normalizer;
-import uk.ac.ebi.phis.utils.ensemblclient.EnsemblClient;
-import uk.ac.ebi.phis.utils.ensemblclient.Feature;
-import uk.ac.ebi.phis.utils.ensemblclient.Position;
+import java.util.*;
 
 
 public class TracerXmlGenerator {
@@ -183,6 +154,7 @@ public class TracerXmlGenerator {
 	    			String a = norm.normalizeAge(res.getString("stage"));
 	    			org.setAge(res.getString("stage"));
 	    			org.setTaxon("Mus musculus");
+					org.setNcbiTaxonId("NCBITaxon_10090");
 	    			OntologyTerm stage = new OntologyTerm();
 	    			stage.setTermId("MmusDv_0000002");
 	    			stage.setTermLabel("embryonic mouse stage");

@@ -15,14 +15,12 @@
  *******************************************************************************/
 package uk.ac.ebi.phis.xmlDump;
 
-import java.io.File;
-import java.io.IOException;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import uk.ac.ebi.phis.exception.PhenoImageShareException;
+import uk.ac.ebi.phis.jaxb.*;
+import uk.ac.ebi.phis.utils.EnrichingUtils;
+import uk.ac.ebi.phis.utils.Normalizer;
 
 import javax.sql.DataSource;
 import javax.xml.bind.JAXBContext;
@@ -31,38 +29,17 @@ import javax.xml.bind.Marshaller;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
-
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import uk.ac.ebi.phis.exception.PhenoImageShareException;
-import uk.ac.ebi.phis.jaxb.Annotation;
-import uk.ac.ebi.phis.jaxb.AnnotationArray;
-import uk.ac.ebi.phis.jaxb.AnnotationMode;
-import uk.ac.ebi.phis.jaxb.Channel;
-import uk.ac.ebi.phis.jaxb.Coordinates;
-import uk.ac.ebi.phis.jaxb.Dimensions;
-import uk.ac.ebi.phis.jaxb.Doc;
-import uk.ac.ebi.phis.jaxb.ExpressionAnnotation;
-import uk.ac.ebi.phis.jaxb.ExpressionAnnotationArray;
-import uk.ac.ebi.phis.jaxb.Genotype;
-import uk.ac.ebi.phis.jaxb.GenotypeComponent;
-import uk.ac.ebi.phis.jaxb.Group;
-import uk.ac.ebi.phis.jaxb.Image;
-import uk.ac.ebi.phis.jaxb.ImageDescription;
-import uk.ac.ebi.phis.jaxb.ImageType;
-import uk.ac.ebi.phis.jaxb.ImageTypeArray;
-import uk.ac.ebi.phis.jaxb.Link;
-import uk.ac.ebi.phis.jaxb.OntologyTerm;
-import uk.ac.ebi.phis.jaxb.Organism;
-import uk.ac.ebi.phis.jaxb.PercentArray;
-import uk.ac.ebi.phis.jaxb.Roi;
-import uk.ac.ebi.phis.jaxb.SampleType;
-import uk.ac.ebi.phis.jaxb.Sex;
-import uk.ac.ebi.phis.jaxb.StringArray;
-import uk.ac.ebi.phis.jaxb.Zygosity;
-import uk.ac.ebi.phis.utils.EnrichingUtils;
-import uk.ac.ebi.phis.utils.Normalizer;
+import java.io.File;
+import java.io.IOException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.Map;
 
 public class SangerXmlGenerator {
 	
@@ -614,7 +591,7 @@ public class SangerXmlGenerator {
 	}
 
 
-	OntologyTerm getOntologyTerm(String label, String id) {
+	protected static OntologyTerm getOntologyTerm(String label, String id) {
 
 		OntologyTerm term = new OntologyTerm();
 		term.setTermId(id);
