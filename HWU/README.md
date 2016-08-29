@@ -22,8 +22,8 @@ Start by downloading / cloning the repository.
 
 #### IQS + ISS ####
 
-2. Either edit the pom.xml files in the iqs & iss subdirectories or ask mcleod.kc@gmail.com to do it.  You need to edit or add a profile that contains:
-    1. The \<host\> tag specifies the location of the IQS you wish to use.
+2. Edit the pom.xml files in the iqs & iss subdirectories.  You need to edit or add a profile that contains:
+    1. The \<host\> tag specifies the location of the IQS (or ISS);
     2. The \<ebi\> tag allows you to chose between *beta* OR *www* (live) EBI endpoints.
 
 3. The ISS security token is stored in *host.properties* so that file is no longer included in this repository.  Please ask mcleod.kc@gmail.com for instructions here.
