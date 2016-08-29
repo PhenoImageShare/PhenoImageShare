@@ -28,7 +28,7 @@ Start by downloading / cloning the repository.
 
 3. The ISS security token is stored in *host.properties* so that file is no longer included in this repository.  Please ask mcleod.kc@gmail.com for instructions here.
 
-4. Enter the top level directory and run maven:
+4. Enter the **top level directory** and run maven:
 
         mvn package -P profile_name
 
