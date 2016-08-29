@@ -5,13 +5,12 @@
     <groupId>uk.bisel</groupId>
     <artifactId>phis-parent</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.0</version>
+    <version>1.0.2</version>
     <name>HWU PhIS code</name>
 
     <modules>
         <module>iss</module>
         <module>iqs</module>
-    <module>SpatialDemoTool</module>
   </modules>
 
     <build>
