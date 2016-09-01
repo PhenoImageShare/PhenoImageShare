@@ -688,8 +688,8 @@
 	<h2>/getComplexAutosuggest</h2>
 	<p>Returns a JSONArray of suggestions for autosuggest. Like /getAutosuggest but offers more info on the term such as ontology id, type of annotation in which it is used and synonyms when available.</p> 
 	
-	<p>Get 5 generic autosuggest options for the string "ab".</p> 
-	<p class="code">$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}getAutosuggest?term=ab&resultNo=5">http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}getAutosuggest?term=ab&resultNo=5</a>' 
+	<p>Get 5 autosuggest options for the string "ab".</p>
+	<p class="code">$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}getComplexAutosuggest?term=ab&resultNo=5">http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}getComplexAutosuggest?term=ab&resultNo=5</a>'
 		-i -H 'Accept: application/json'
 	</p>
 	<p>Result example: </p>
@@ -726,9 +726,15 @@
 		}
 	}
 	</p>
-	
-	
-	<h3>Parameters</h3>
+
+		<p>Get gene autosuggest options for the string "ab".</p>
+		<p class="code">$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}getComplexAutosuggest?term=ab&type=GENE">http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}getComplexAutosuggest?term=ab&type=GENE</a>'
+			-i -H 'Accept: application/json'
+		</p>
+
+
+
+		<h3>Parameters</h3>
 	<table class="table table-striped">
 		<thead>
 			<tr  style="background-color: lightSteelBlue;">
