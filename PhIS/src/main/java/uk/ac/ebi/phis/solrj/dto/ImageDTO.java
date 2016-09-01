@@ -19,6 +19,7 @@ import org.apache.solr.client.solrj.beans.Field;
 
 import java.sql.Date;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class ImageDTO {
 
@@ -151,10 +152,10 @@ public class ImageDTO {
 	private String organismId;
 
 	@Field(ASSOCIATED_ROI)
-	private Set<String> associatedRoi;
+	private Collection<String> associatedRoi;
 
 	@Field(ASSOCIATED_CHANNEL)
-	private Set<String> associatedChannel;
+	private Collection<String> associatedChannel;
 
 	@Field(HEIGHT)
 	private Integer height;
@@ -1538,7 +1539,7 @@ public class ImageDTO {
 	/**
 	 * @return the associatedRoi
 	 */
-	public Set<String> getAssociatedRoi() {
+	public Collection<String> getAssociatedRoi() {
 
 		return associatedRoi;
 	}
@@ -1566,7 +1567,7 @@ public class ImageDTO {
 	/**
 	 * @return the associatedChannel
 	 */
-	public Set<String> getAssociatedChannel() {
+	public Collection<String> getAssociatedChannel() {
 
 		return associatedChannel;
 	}
@@ -2327,6 +2328,55 @@ public class ImageDTO {
 				", mutantGeneSynonymsBag=" + mutantGeneSynonymsBag + ", observationBag=" + observationBag + ", phenotypeIdBag=" + phenotypeIdBag  +
 				", phenotypeLabelBag=" + phenotypeLabelBag + ", phenotypeFreetextBag=" + phenotypeFreetextBag + ", phenotypeSynonymsBag=" + phenotypeSynonymsBag +
 				", phenotypeAncestorsIdBag=" + phenotypeAncestors + "]";
+	}
+
+	public String getTabbedHeader(){
+
+		return "Image id\t" +
+				"Species\t"+
+				"Mutant gene symbols\t"+
+				"Mutant gene ids\t"+
+				"Mutation type\t"+
+				"Expressed gene symbols\t"+
+				"Expressed gene ids\t"+
+				"Sex\t"+
+				"Age\t"+
+				"Stage\t"+
+				"Expression\t"+
+				"Abnormality\t"+
+				"Phenotype\t"+
+				"Depicts\t" +
+				"Source\t"+
+				"Link\t";
+	}
+
+	public  String getTabbedToString(String baseURL){
+
+		String tabbed = "";
+		tabbed += getId() + "\t" +
+			getTaxon() + "\t" +
+			getMutantGeneSymbolBag().stream().collect(Collectors.joining(",")) + "\t" +
+			getMutantGeneIdBag().stream().collect(Collectors.joining(",")) + "\t" +
+			getMutationType().stream().collect(Collectors.joining(",")) + "\t" +
+			getExpressedGfSymbolBag().stream().collect(Collectors.joining(",")) + "\t" +
+			getExpressedGfIdBag().stream().collect(Collectors.joining(",")) + "\t" +
+			getSex() + "\t" +
+			getAge() + "\t" +
+			getStage() + "\t" +
+			getExpressionInLabelBag().stream().collect(Collectors.joining(",")) + getExpressionInFreetextBag().stream().collect(Collectors.joining(",")) + "\t" +
+			getAbnormalAnatomyTermBag().stream().collect(Collectors.joining(",")) + getAbnormalAnatomyFreetextBag().stream().collect(Collectors.joining(",")) + "\t" +
+			getPhenotypeLabelBag().stream().collect(Collectors.joining(",")) + getPhenotypeFreetextBag().stream().collect(Collectors.joining(",")) + "\t" +
+			getDepictedAnatomyTermBag().stream().collect(Collectors.joining(",")) + getDepictedAnatomyFreetextBag().stream().collect(Collectors.joining(",")) + "\t" +
+			getImageGeneratedBy() + "\t" +
+			getImagePageLink(baseURL);
+
+		return tabbed;
+
+	}
+
+
+	public String getImagePageLink(String baseUrl){
+		return baseUrl + "/WHATEVERTHELINKWILLBE/" + getId();
 	}
 
 	/**

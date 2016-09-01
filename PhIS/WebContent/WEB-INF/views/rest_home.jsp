@@ -727,14 +727,13 @@
 	}
 	</p>
 
-		<p>Get gene autosuggest options for the string "ab".</p>
-		<p class="code">$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}getComplexAutosuggest?term=ab&type=GENE">http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}getComplexAutosuggest?term=ab&type=GENE</a>'
+	<p>Get gene autosuggest options for the string "ab".</p>
+	<p class="code">$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}getComplexAutosuggest?term=ab&type=GENE">http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}getComplexAutosuggest?term=ab&type=GENE</a>'
 			-i -H 'Accept: application/json'
-		</p>
+	</p>
 
 
-
-		<h3>Parameters</h3>
+	<h3>Parameters</h3>
 	<table class="table table-striped">
 		<thead>
 			<tr  style="background-color: lightSteelBlue;">

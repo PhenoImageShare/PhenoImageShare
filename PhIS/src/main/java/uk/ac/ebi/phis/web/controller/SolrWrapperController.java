@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import uk.ac.ebi.phis.exception.PhisQueryException;
+import uk.ac.ebi.phis.exception.PhisSubmissionException;
 import uk.ac.ebi.phis.service.*;
 import uk.ac.ebi.phis.solrj.dto.AutosuggestTypes;
 import uk.ac.ebi.phis.utils.web.RestStatusMessage;
@@ -125,7 +126,23 @@ public class SolrWrapperController {
 		}
 		return new ResponseEntity<String>(responseString, createResponseHeaders(), HttpStatus.OK);
     }
-	
+
+	@RequestMapping(value="/similar", method=RequestMethod.GET)
+	public @ResponseBody ResponseEntity<String> getSimilarImages(@RequestParam(value = "imageId", required = true) String imageId,
+																 @RequestParam(value = "resultNo", required = false) Integer resultNo,
+																 @RequestParam(value = "start", required = false) Integer start,
+																 Model model)
+			throws SolrServerException, IOException, URISyntaxException {
+
+		try {
+			return new ResponseEntity<String>(is.getSimilarImages(imageId, resultNo, start), createResponseHeaders(), HttpStatus.OK);
+		} catch (PhisSubmissionException | PhisQueryException e) {
+			e.printStackTrace();
+			return new ResponseEntity<String>("Request could not be processed.", createResponseHeaders(), HttpStatus.UNPROCESSABLE_ENTITY);
+		}
+
+	}
+
 	
 	@RequestMapping(value="/getAutosuggest", method=RequestMethod.GET)
 	public  @ResponseBody ResponseEntity<String> getSuggestions(

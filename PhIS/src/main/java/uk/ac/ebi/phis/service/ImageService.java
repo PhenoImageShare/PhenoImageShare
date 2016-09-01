@@ -35,7 +35,6 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 
 @Service
@@ -47,7 +46,72 @@ public class ImageService extends BasicService{
 		super(solrUrl);
 
 	}
-			
+
+	public String getSimilarImages(String imageId, Integer resultNo, Integer start)
+			throws SolrServerException, PhisQueryException, PhisSubmissionException, IOException, URISyntaxException {
+
+		ImageDTO img = getImageDTOById(imageId);
+
+		SolrQuery solrQuery = new SolrQuery();
+		solrQuery.setQuery("-" + ImageDTO.ID + ":" + imageId);
+		String bq = "";
+		String qf = ImageDTO.GENERIC_SEARCH;
+
+		// phenotype
+		if (img.getPhenotypeIdBag() != null){
+			bq += img.getPhenotypeIdBag().stream().map(item -> ImageDTO.PHENOTYPE_ID_BAG + ":" + handleSpecialCharacters(item) + "^1000 ").collect(Collectors.joining());
+			bq += img.getPhenotypeIdBag().stream().map(item -> ImageDTO.PHENOTYPE_ANCESTORS + ":" + handleSpecialCharacters(item) + "^10 ").collect(Collectors.joining());
+		}
+		if (img.getPhenotypeAncestors() != null){
+			bq += img.getPhenotypeAncestors().stream().map(item -> ImageDTO.PHENOTYPE_ANCESTORS + ":" + handleSpecialCharacters(item) + "^10 ").collect(Collectors.joining());
+		}
+		if (img.getPhenotypeFreetextBag() != null){
+			bq += img.getPhenotypeFreetextBag().stream().map(item -> ImageDTO.PHENOTYPE_FREETEXT_BAG + ":" + handleSpecialCharacters(item) + "^1000 " + ImageDTO.GENERIC_SEARCH + ":" + handleSpecialCharacters(item) + "^10 ").collect(Collectors.joining());
+		}
+
+		// anatomy
+		if (img.getAnatomyComputedIdBag() != null){
+			bq += img.getAnatomyComputedIdBag().stream().map(item -> ImageDTO.GENERIC_ANATOMY + ":" + handleSpecialCharacters(item) + "^1 ").collect(Collectors.joining());
+		}
+		if (img.getAbnormalAnatomyIdBag() != null){
+			bq += img.getAbnormalAnatomyIdBag().stream().map(item -> ImageDTO.ABNORMAL_ANATOMY_ID_BAG + ":" + handleSpecialCharacters(item) + "^1000 ").collect(Collectors.joining());
+			bq += img.getAbnormalAnatomyIdBag().stream().map(item -> ImageDTO.ABNORMAL_ANATOMY_ANCESTORS + ":" + handleSpecialCharacters(item) + "^10 ").collect(Collectors.joining());
+			bq += img.getAbnormalAnatomyIdBag().stream().map(item -> ImageDTO.GENERIC_ANATOMY + ":" + handleSpecialCharacters(item) + "^1 ").collect(Collectors.joining());
+		}
+		if (img.getDepictedAnatomyIdBag() != null){
+			bq += img.getAnatomyComputedIdBag().stream().map(item -> ImageDTO.DEPICTED_ANATOMY_ID_BAG + ":" + handleSpecialCharacters(item) + "^1 ").collect(Collectors.joining());
+		}
+		if (img.getExpressionInIdBag() != null){
+			bq += img.getExpressionInIdBag().stream().map(item -> ImageDTO.EXPRESSION_IN_ID_BAG + ":" + handleSpecialCharacters(item) + "^1000 ").collect(Collectors.joining());
+			bq += img.getExpressionInIdBag().stream().map(item -> ImageDTO.EXPRESSION_IN_ANCESTORS + ":" + handleSpecialCharacters(item) + "^1000 ").collect(Collectors.joining());
+		}
+
+		// species
+		if (img.getTaxon() != null){
+			bq += ImageDTO.TAXON + ":" + handleSpecialCharacters(img.getTaxon()) + "^1 ";
+		}
+
+		Integer rows = resultNo != null ? resultNo : 10;
+		if (start != null){
+			solrQuery.setStart(start);
+		}
+
+		solrQuery.setRows(rows);
+		solrQuery.set("defType", "edismax");
+		solrQuery.set("wt", "json");
+		solrQuery.add("bq", bq);
+		solrQuery.add("qf", qf);
+
+		System.out.println("\nSolr URL : " + solr.getBaseURL() + "/select?" + solrQuery);
+		log.info("Solr URL in getImages : " + solr.getBaseURL() + "/select?" + solrQuery);
+
+		JSONObject res = JSONRestUtil.getResults(getQueryUrl(solrQuery));
+		res.remove("responseHeader");
+		return res.toString();
+
+	}
+
+
 	public String getImages(String term, String phenotype, String mutantGene, String anatomy, String expressedGene, String sex, 
 							String taxon, String imageType, String sampleType, String stage, String visualisationMethod, String samplePreparation, 
 							String imagingMethod, Integer rows, Integer start, String genericGene, String chromosome, String strand, Long position,
@@ -277,7 +341,7 @@ public class ImageService extends BasicService{
 		ImageDTO img = getImageDTOById(roi.getAssociatedImage());
 
 		System.out.println("Roi list before " + img.getAssociatedRoi().size() + "  " + img.getAssociatedRoi());
-		Set<String> list = img.getAssociatedRoi();
+		Collection<String> list = img.getAssociatedRoi();
 		list.remove(roi.getId());
 		img.setAssociatedRoi(list);
 		
@@ -431,7 +495,8 @@ public class ImageService extends BasicService{
 		try {
 			List<ImageDTO> images = solr.query(solrQuery).getBeans(ImageDTO.class);
 			img = images.get(0);
-		} catch (Exception e) { 
+		} catch (Exception e) {
+			e.printStackTrace();
 			throw new PhisSubmissionException(PhisSubmissionException.IMAGE_ID_NOT_FOUND_EXCEPTION_MESSAGE);
 		}
 		return img;
