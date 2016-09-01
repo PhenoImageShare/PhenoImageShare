@@ -824,7 +824,56 @@
 		
 	<h3>Parameters</h3>
 	No parameters supported.
-	
+
+
+	<h2 style="background-color: olive;">/similar</h2>
+
+		<h3>Examples</h3>
+
+		<p>Get images similar to image with id wtsi_358432.</p>
+		<p class="code">$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}similar/imageId=wtsi_358432">http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}similar/imageId=wtsi_358432</a>'  -i -H 'Accept: application/json'</p>
+
+		<h3>Parameters</h3>
+
+		<table class="table table-striped">
+			<thead>
+			<tr  style="background-color: lightSteelBlue;">
+				<th>Name</th>
+				<th>Type</th>
+				<th>Required</th>
+				<th>Description</th>
+				<th>Default</th>
+				<th>Example Values</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr style="background-color: olive;">
+				<td>imageId</td>
+				<td><var>String</var></td>
+				<td> false </td>
+				<td>Id of the image of interest. Phenotype and anatomy fields will be used in search for similar images.</td>
+				<td><var> * </var></td>
+				<td><var>abn</var><br></td>
+			</tr>
+			<tr style="background-color: olive;">
+				<td>resultNo</td>
+				<td><var>Integer</var></td>
+				<td> false</td>
+				<td>Max number of results to be returned. Can be used with "start" for pagination.</td>
+				<td><var> 10 </var></td>
+				<td><var>20</var><br></td>
+			</tr>
+			<tr style="background-color: olive;">
+				<td>start</td>
+				<td><var>Integer</var></td>
+				<td>false</td>
+				<td>Start position to return the results. Useful for pagination.</td>
+				<td><var>0</var></td>
+				<td><var></var><br></td>
+			</tr>
+		</tbody>
+		</table>
+
 </div>
 </body>
 </html>

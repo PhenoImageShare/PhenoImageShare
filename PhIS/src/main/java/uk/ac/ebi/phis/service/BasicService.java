@@ -53,7 +53,7 @@ public class BasicService {
 
 		if (q != null){
 
-			String query = new String(q);
+			String query = q;
 			query = query.replace("\\", "\\\\");
 			query = query.replace("%5C", "\\\\");
 			
