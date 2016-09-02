@@ -109,7 +109,12 @@
    <field name="stage_facet" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="stage_ancestors" type="textCaseInsensitive" indexed="true" stored="false" multiValued="true"/>
    <field name="stage" type="textCaseInsensitive" indexed="true" stored="true"/>
-   
+
+   <!-- Default ontologies to display on annotation tool for this image -->
+
+   <field name="anatomy_default_ontologies" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="phenotype_default_ontologies" type="string" indexed="true" stored="true" multiValued="true"/>
+
    <!-- annotations -->
    
    <field name="anatomy_id" type="string" indexed="true" stored="true" multiValued="false"/>

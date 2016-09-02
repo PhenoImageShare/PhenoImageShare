@@ -6,15 +6,14 @@
                         http://www.springframework.org/schema/mvc     http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd">
 
 	<mvc:resources mapping="/css/**" location="/WEB-INF/resources/css/" />
-	<mvc:resources mapping="/js/**" location="/resources/js/" />
 
 	<mvc:annotation-driven conversion-service="conversionService" />
 
 	<bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
 	    <property name="converters">
-	        <list>
+	        <set>
 	            <bean class="uk.ac.ebi.phis.utils.CustomStringToArrayConverter" />
-	        </list>
+	        </set>
 	    </property>
 	</bean>	
 

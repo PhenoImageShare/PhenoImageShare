@@ -49,7 +49,7 @@ import java.util.List;
 public class SolrWrapperController {
 
 	@NotNull
-	@Value("${baseURL}")
+	@Value("${baseUrl}")
 	private String baseUrl;
 
 	@Autowired

@@ -27,6 +27,7 @@ import uk.ac.ebi.phis.solrj.dto.ChannelDTO;
 import uk.ac.ebi.phis.solrj.dto.ImageDTO;
 import uk.ac.ebi.phis.solrj.dto.RoiDTO;
 import uk.ac.ebi.phis.utils.ValidationUtils;
+import uk.ac.ebi.phis.utils.ontology.OntologyGroups;
 import uk.ac.ebi.phis.utils.ontology.OntologyObject;
 import uk.ac.ebi.phis.utils.ontology.OntologyUtils;
 
@@ -62,6 +63,7 @@ public class BatchXmlUploader {
 	RoiService rs;
 	ChannelService cs;
 
+	OntologyGroups ontologyGroups = new OntologyGroups();
 
 	public BatchXmlUploader(ImageService is, RoiService rs, ChannelService cs) {
 
@@ -328,11 +330,26 @@ public class BatchXmlUploader {
 		return bean;
 	}
 
+	private OntologyGroups.Species getSpecies(String taxon){
+
+		if (taxon.toLowerCase().contains("mus musculus") || taxon.toLowerCase().contains("mouse")){
+			return OntologyGroups.Species.MUS_MUSCULUS;
+		} else if (taxon.toLowerCase().contains("homo sapiens") || taxon.toLowerCase().contains("human")){
+			return OntologyGroups.Species.HOMO_SAPIENS;
+		} else if (taxon.toLowerCase().contains("drosophila")){
+			return OntologyGroups.Species.DROSOPHILA_MELANOGASTER;
+		}
+
+		return null;
+
+	}
 
 	private ImageDTO fillPojo(Image img, String datasource) {
 
 		ImageDTO bean = new ImageDTO();
 		bean.setTaxon(img.getOrganism().getTaxon());
+		bean.setAnatomyDefaultOntologies(ontologyGroups.getDefaultOntologies(getSpecies(img.getOrganism().getTaxon()) , OntologyGroups.Subjects.ANATOMY));
+		bean.setPhenotypeDefaultOntologies(ontologyGroups.getDefaultOntologies( getSpecies(img.getOrganism().getTaxon()), OntologyGroups.Subjects.PHENOTYPE));
 		bean.setId(getImageId(img.getId(), datasource));
 
 		if (img.getOrganism().getBackgroundStrain() != null){

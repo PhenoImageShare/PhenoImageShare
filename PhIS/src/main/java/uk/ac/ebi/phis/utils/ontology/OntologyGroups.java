@@ -67,13 +67,12 @@ public class OntologyGroups {
     public Set<String> getDefaultOntologies( Species species, Subjects subjects){
 
         Set<String> res = null;
-
         if ( species != null){
-            res = speciesMap.get(species);
+            res = new HashSet<>(speciesMap.get(species));
         }
         if (subjects != null){
             if (res == null){
-                res = subjectMap.get(subjects);
+                res = new HashSet<>(subjectMap.get(subjects));
             } else {
                 res.retainAll(subjectMap.get(subjects));
             }

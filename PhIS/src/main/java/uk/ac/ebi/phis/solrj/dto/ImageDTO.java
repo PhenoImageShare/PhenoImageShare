@@ -145,6 +145,9 @@ public class ImageDTO {
 	public final static String GENERIC_ANATOMY = "generic_anatomy";
 	public final static String GENERIC_ANATOMY_ANCESTORS = "generic_anatomy_ancestors";
 
+	public final static String PHENOTYPE_DEFAULT_ONTOLOGIES = "phenotype_default_ontologies";
+	public final static String ANATOMY_DEFAULT_ONTOLOGIES = "anatomy_default_ontologies";
+
 	@Field(ID)
 	private String id;
 
@@ -156,6 +159,12 @@ public class ImageDTO {
 
 	@Field(ASSOCIATED_CHANNEL)
 	private Collection<String> associatedChannel;
+
+	@Field(PHENOTYPE_DEFAULT_ONTOLOGIES)
+	private Collection<String> phenotypeDefaultOntologies;
+
+	@Field(ANATOMY_DEFAULT_ONTOLOGIES)
+	private Collection<String> anatomyDefaultOntologies;
 
 	@Field(HEIGHT)
 	private Integer height;
@@ -632,6 +641,21 @@ public class ImageDTO {
 		this.imagingMethodFreetext = imagingMethodFreetext;
 	}
 
+	public Collection<String> getPhenotypeDefaultOntologies() {
+		return phenotypeDefaultOntologies;
+	}
+
+	public void setPhenotypeDefaultOntologies(Collection<String> phenotypeDefaultOntologies) {
+		this.phenotypeDefaultOntologies = phenotypeDefaultOntologies;
+	}
+
+	public Collection<String> getAnatomyDefaultOntologies() {
+		return anatomyDefaultOntologies;
+	}
+
+	public void setAnatomyDefaultOntologies(Collection<String> anatomyDefaultOntologies) {
+		this.anatomyDefaultOntologies = anatomyDefaultOntologies;
+	}
 
 	public List<String> getSamplePreparationFreetext() {
 
