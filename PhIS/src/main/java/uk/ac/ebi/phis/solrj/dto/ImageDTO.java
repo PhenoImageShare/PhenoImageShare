@@ -2330,7 +2330,7 @@ public class ImageDTO {
 				", phenotypeAncestorsIdBag=" + phenotypeAncestors + "]";
 	}
 
-	public String getTabbedHeader(){
+	public static String getTabbedHeader(){
 
 		return "Image id\t" +
 				"Species\t"+

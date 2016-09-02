@@ -32,12 +32,16 @@
 
 <body>
 	<div class="container">
-		<h1>PhIS RESTful Sevice Documentation</h1>
+		<h1>PhenoImageShare API Documentation</h1>
 		<p>Base URL <a href="${requestScope['javax.servlet.forward.request_uri']}"> ${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}</a> </p>
 		<br/>
-		<h2>/getImages</h2>
+
+
+
+		<h2 id="getImages">/getImages</h2>
 		<p> This method should be the main one used to explore the data. If you find a parameter missing, please contact us on
 		<a href="mailto:webmaster@phenoimageshare.org">webmaster@phenoimageshare.org</a> . </p>
+
 		<h3>Examples</h3>
 
 		<p>1. Get "eye" images, restrict the result number to 5.</p>
@@ -62,7 +66,7 @@
 
 
 		<h3>Parameters</h3>
-	<table class="table">
+		<table class="table">
 		<thead>
 			<tr  style="background-color: lightSteelBlue;">
 				<th>Name</th>
@@ -826,7 +830,7 @@
 	No parameters supported.
 
 
-	<h2 style="background-color: olive;">/similar</h2>
+	<h2>/similar</h2>
 
 		<h3>Examples</h3>
 
@@ -850,10 +854,10 @@
 			<tr style="background-color: olive;">
 				<td>imageId</td>
 				<td><var>String</var></td>
-				<td> false </td>
+				<td> true </td>
 				<td>Id of the image of interest. Phenotype and anatomy fields will be used in search for similar images.</td>
 				<td><var> * </var></td>
-				<td><var>abn</var><br></td>
+				<td><var>wtsi_358432</var><br></td>
 			</tr>
 			<tr style="background-color: olive;">
 				<td>resultNo</td>
@@ -875,7 +879,7 @@
 		</table>
 
 
-		<h2 style="background-color: olive;">/download</h2>
+		<h2>/download</h2>
 
 		<h3>Examples</h3>
 
@@ -902,8 +906,9 @@
 				<td> false </td>
 				<td>Id of the image to download details for.</td>
 				<td><var> * </var></td>
-				<td><var>abn</var><br></td>
+				<td><var>wtsi_358432</var><br></td>
 			</tr>
+			<tr> <td>All parameters from <a href="#getImages">getImages/</a> are applied in the same way.</td></tr>
 			</tbody>
 		</table>
 

@@ -120,13 +120,10 @@ public class ImageService extends BasicService{
 
 	}
 
-
-	public String getImages(String term, String phenotype, String mutantGene, String anatomy, String expressedGene, String sex, 
-							String taxon, String imageType, String sampleType, String stage, String visualisationMethod, String samplePreparation, 
-							String imagingMethod, Integer rows, Integer start, String genericGene, String chromosome, String strand, Long position,
-							Long startPosition, Long endPosition, String hostName, List<String> excludeAnatomy)
-	throws SolrServerException, PhisQueryException{
-
+	private SolrQuery getQuery (String term, String phenotype, String mutantGene, String anatomy, String expressedGene, String sex,
+								String taxon, String imageType, String sampleType, String stage, String visualisationMethod, String samplePreparation,
+								String imagingMethod, Integer rows, Integer start, String genericGene, String chromosome, String strand, Long position,
+								Long startPosition, Long endPosition, String hostName, List<String> excludeAnatomy) throws PhisQueryException {
 		SolrQuery solrQuery = new SolrQuery();
 		solrQuery.setQuery("*:*");
 		// boosted queries
@@ -149,44 +146,44 @@ public class ImageService extends BasicService{
 		}
 		if (phenotype != null){
 			phenotype = handleSpecialCharacters(phenotype);
-			bq += ImageDTO.PHENOTYPE_ID_BAG + ":\""+ phenotype + "\"^100 " + 
-				ImageDTO.PHENOTYPE_FREETEXT_BAG + ":\""+ phenotype + "\"^70 " + 
-				ImageDTO.PHENOTYPE_LABEL_BAG + ":\""+ phenotype + "\"^100 " + 
-				ImageDTO.PHENOTYPE_ANCESTORS + ":\"" + phenotype + "\"^0.001 " + 
-				ImageDTO.PHENOTYPE_SYNONYMS_BAG + ":\"" + phenotype + "\"^0.1 ";
+			bq += ImageDTO.PHENOTYPE_ID_BAG + ":\""+ phenotype + "\"^100 " +
+					ImageDTO.PHENOTYPE_FREETEXT_BAG + ":\""+ phenotype + "\"^70 " +
+					ImageDTO.PHENOTYPE_LABEL_BAG + ":\""+ phenotype + "\"^100 " +
+					ImageDTO.PHENOTYPE_ANCESTORS + ":\"" + phenotype + "\"^0.001 " +
+					ImageDTO.PHENOTYPE_SYNONYMS_BAG + ":\"" + phenotype + "\"^0.1 ";
 			bq += " ";
-			solrQuery.addFilterQuery(ImageDTO.PHENOTYPE_ID_BAG + ":\""+ phenotype + "\" OR " + 
-				ImageDTO.PHENOTYPE_FREETEXT_BAG + ":\""+ phenotype + "\" OR " + 
-				ImageDTO.PHENOTYPE_LABEL_BAG + ":\""+ phenotype + "\" OR " + ImageDTO.PHENOTYPE_ANCESTORS + ":\"" + phenotype + "\"");			
+			solrQuery.addFilterQuery(ImageDTO.PHENOTYPE_ID_BAG + ":\""+ phenotype + "\" OR " +
+					ImageDTO.PHENOTYPE_FREETEXT_BAG + ":\""+ phenotype + "\" OR " +
+					ImageDTO.PHENOTYPE_LABEL_BAG + ":\""+ phenotype + "\" OR " + ImageDTO.PHENOTYPE_ANCESTORS + ":\"" + phenotype + "\"");
 		}
 		if (visualisationMethod != null){
 			visualisationMethod = handleSpecialCharacters (visualisationMethod);
-			bq += ImageDTO.VISUALISATION_METHOD_ID + ":\"" + visualisationMethod + "\"^100 " + 
-				ImageDTO.VISUALISATION_METHOD_LABEL + ":\"" + visualisationMethod + "\"^100 " + 
-				ImageDTO.VISUALISATION_METHOD_ANCESTORS + ":\"" + visualisationMethod + "\"^0.001 ";
+			bq += ImageDTO.VISUALISATION_METHOD_ID + ":\"" + visualisationMethod + "\"^100 " +
+					ImageDTO.VISUALISATION_METHOD_LABEL + ":\"" + visualisationMethod + "\"^100 " +
+					ImageDTO.VISUALISATION_METHOD_ANCESTORS + ":\"" + visualisationMethod + "\"^0.001 ";
 			bq += " ";
-			solrQuery.addFilterQuery(ImageDTO.VISUALISATION_METHOD_ID + ":\"" + visualisationMethod + "\" OR " + 
-				ImageDTO.VISUALISATION_METHOD_LABEL + ":\"" + visualisationMethod + "\" OR " + 
-				ImageDTO.VISUALISATION_METHOD_ANCESTORS + ":\"" + visualisationMethod + "\"");
+			solrQuery.addFilterQuery(ImageDTO.VISUALISATION_METHOD_ID + ":\"" + visualisationMethod + "\" OR " +
+					ImageDTO.VISUALISATION_METHOD_LABEL + ":\"" + visualisationMethod + "\" OR " +
+					ImageDTO.VISUALISATION_METHOD_ANCESTORS + ":\"" + visualisationMethod + "\"");
 		}
 		if (samplePreparation != null){
 			samplePreparation = handleSpecialCharacters(samplePreparation);
-			bq += ImageDTO.SAMPLE_PREPARATION_ID + ":\"" + samplePreparation + "\"^100 " + 
-				ImageDTO.SAMPLE_PREPARATION_LABEL + ":\"" + samplePreparation + "\"^100 " + 
-				ImageDTO.SAMPLE_PREPARATION_ANCESTORS + ":\"" + samplePreparation + "\"^0.001 ";
+			bq += ImageDTO.SAMPLE_PREPARATION_ID + ":\"" + samplePreparation + "\"^100 " +
+					ImageDTO.SAMPLE_PREPARATION_LABEL + ":\"" + samplePreparation + "\"^100 " +
+					ImageDTO.SAMPLE_PREPARATION_ANCESTORS + ":\"" + samplePreparation + "\"^0.001 ";
 			bq += " ";
-			solrQuery.addFilterQuery(ImageDTO.SAMPLE_PREPARATION_ID + ":\"" + samplePreparation + "\" OR " + 
-				ImageDTO.SAMPLE_PREPARATION_LABEL + ":\"" + samplePreparation + "\" OR " + ImageDTO.SAMPLE_PREPARATION_ANCESTORS + ":\"" + samplePreparation + "\"");
+			solrQuery.addFilterQuery(ImageDTO.SAMPLE_PREPARATION_ID + ":\"" + samplePreparation + "\" OR " +
+					ImageDTO.SAMPLE_PREPARATION_LABEL + ":\"" + samplePreparation + "\" OR " + ImageDTO.SAMPLE_PREPARATION_ANCESTORS + ":\"" + samplePreparation + "\"");
 		}
 		if (imagingMethod != null){
 			imagingMethod = handleSpecialCharacters(imagingMethod);
-			bq = ImageDTO.IMAGING_METHOD_LABEL_ANALYSED + ":\"" + imagingMethod + "\"^100 " + 
-				ImageDTO.IMAGING_METHOD_ID + ":\"" + imagingMethod + "\"^100 " + 
-				ImageDTO.IMAGING_METHOD_ANCESTORS + ":\"" + imagingMethod + "\"^0.001 ";
+			bq = ImageDTO.IMAGING_METHOD_LABEL_ANALYSED + ":\"" + imagingMethod + "\"^100 " +
+					ImageDTO.IMAGING_METHOD_ID + ":\"" + imagingMethod + "\"^100 " +
+					ImageDTO.IMAGING_METHOD_ANCESTORS + ":\"" + imagingMethod + "\"^0.001 ";
 			bq += " ";
-			solrQuery.addFilterQuery(ImageDTO.IMAGING_METHOD_LABEL_ANALYSED + ":\"" + imagingMethod + "\" OR " + 
-				ImageDTO.IMAGING_METHOD_ID + ":\"" + imagingMethod + "\" OR " + ImageDTO.IMAGING_METHOD_ANCESTORS + ":\"" + imagingMethod + "\"");
-		}		
+			solrQuery.addFilterQuery(ImageDTO.IMAGING_METHOD_LABEL_ANALYSED + ":\"" + imagingMethod + "\" OR " +
+					ImageDTO.IMAGING_METHOD_ID + ":\"" + imagingMethod + "\" OR " + ImageDTO.IMAGING_METHOD_ANCESTORS + ":\"" + imagingMethod + "\"");
+		}
 		if (anatomy != null){
 			anatomy = handleSpecialCharacters(anatomy);
 			bq += ImageDTO.GENERIC_ANATOMY + ":\""+ anatomy + "\"^100 " + ImageDTO.GENERIC_ANATOMY_ANCESTORS + ":\"" + anatomy + "\"^0.001 ";
@@ -208,17 +205,17 @@ public class ImageService extends BasicService{
 		if (mutantGene != null){
 			mutantGene = handleSpecialCharacters(mutantGene);
 			solrQuery.addFilterQuery(ImageDTO.GENE_ID + ":\""+ mutantGene + "\" OR " +
-				ImageDTO.GENE_SYMBOL + ":\""+ mutantGene + "\"");		
+					ImageDTO.GENE_SYMBOL + ":\""+ mutantGene + "\"");
 		}
 		if (hostName != null){
 			solrQuery.addFilterQuery(ImageDTO.HOST_NAME + ":\"" + hostName + "\"");
 		}
 		if (genericGene != null){
 			genericGene = handleSpecialCharacters(genericGene);
-			solrQuery.addFilterQuery(ImageDTO.GENE_ID + ":\""+ genericGene + "\" OR " +	ImageDTO.GENE_SYMBOL + ":\""+ genericGene + "\" OR " + 
-				ImageDTO.EXPRESSED_GF_ID_BAG + ":\"" + genericGene + "\" OR " + ImageDTO.EXPRESSED_GF_SYMBOL_BAG + ":\"" + genericGene + "\" OR " +  
-				ImageDTO.MUTANT_GENE_ID_BAG + ":\"" + genericGene + "\" OR " + ImageDTO.MUTANT_GENE_SYMBOL_BAG + ":\"" + genericGene + "\" OR " +
-				ImageDTO.MUTANT_GENE_SYNONYMS_BAG + ":\"" + genericGene +"\"");		
+			solrQuery.addFilterQuery(ImageDTO.GENE_ID + ":\""+ genericGene + "\" OR " +	ImageDTO.GENE_SYMBOL + ":\""+ genericGene + "\" OR " +
+					ImageDTO.EXPRESSED_GF_ID_BAG + ":\"" + genericGene + "\" OR " + ImageDTO.EXPRESSED_GF_SYMBOL_BAG + ":\"" + genericGene + "\" OR " +
+					ImageDTO.MUTANT_GENE_ID_BAG + ":\"" + genericGene + "\" OR " + ImageDTO.MUTANT_GENE_SYMBOL_BAG + ":\"" + genericGene + "\" OR " +
+					ImageDTO.MUTANT_GENE_SYNONYMS_BAG + ":\"" + genericGene +"\"");
 		}
 		if (expressedGene != null){
 			expressedGene = handleSpecialCharacters(expressedGene);
@@ -226,8 +223,8 @@ public class ImageService extends BasicService{
 		}
 		if (taxon != null){
 			taxon = handleSpecialCharacters(taxon);
-			solrQuery.addFilterQuery(ImageDTO.TAXON + ":\"" + taxon + "\" OR " + 
-				ImageDTO.NCBI_TAXON_ID + ":\"" + taxon + "\"");
+			solrQuery.addFilterQuery(ImageDTO.TAXON + ":\"" + taxon + "\" OR " +
+					ImageDTO.NCBI_TAXON_ID + ":\"" + taxon + "\"");
 		}
 		if (imageType != null){
 			imageType = handleSpecialCharacters(imageType);
@@ -239,8 +236,8 @@ public class ImageService extends BasicService{
 		}
 		if (stage != null){
 			stage = handleSpecialCharacters(stage);
-			solrQuery.addFilterQuery(ImageDTO.STAGE + ":\"" + stage + "\" OR " + 
-				ImageDTO.STAGE_ID + ":\"" + stage + "\" OR " + ImageDTO.STAGE_ANCESTORS + ":\"" + stage + "\" OR " + ImageDTO.STAGE_FACET + ":\"" + stage + "\"" );
+			solrQuery.addFilterQuery(ImageDTO.STAGE + ":\"" + stage + "\" OR " +
+					ImageDTO.STAGE_ID + ":\"" + stage + "\" OR " + ImageDTO.STAGE_ANCESTORS + ":\"" + stage + "\" OR " + ImageDTO.STAGE_FACET + ":\"" + stage + "\"" );
 		}
 		if (sex != null){
 			sex = handleSpecialCharacters(sex);
@@ -264,10 +261,35 @@ public class ImageService extends BasicService{
 			solrQuery.setRows(rows);
 		}
 		else solrQuery.setRows(100);
-		
+
 		if (start != null){
 			solrQuery.set("start", start);
 		}
+		return solrQuery;
+
+	}
+
+
+	public List<ImageDTO> getImagesDTO(String term, String phenotype, String mutantGene, String anatomy, String expressedGene, String sex,
+						String taxon, String imageType, String sampleType, String stage, String visualisationMethod, String samplePreparation,
+						String imagingMethod, Integer rows, Integer start, String genericGene, String chromosome, String strand, Long position,
+						Long startPosition, Long endPosition, String hostName, List<String> excludeAnatomy) throws PhisQueryException, SolrServerException {
+
+		SolrQuery solrQuery = getQuery(term, phenotype, mutantGene, anatomy, expressedGene, sex, taxon, imageType, sampleType, stage, visualisationMethod, samplePreparation, imagingMethod, rows, start, genericGene, chromosome, strand, position, startPosition, endPosition, hostName, excludeAnatomy);
+		List<ImageDTO> images = solr.query(solrQuery).getBeans(ImageDTO.class);
+		return  images;
+
+	}
+
+
+	public String getImages(String term, String phenotype, String mutantGene, String anatomy, String expressedGene, String sex,
+							String taxon, String imageType, String sampleType, String stage, String visualisationMethod, String samplePreparation, 
+							String imagingMethod, Integer rows, Integer start, String genericGene, String chromosome, String strand, Long position,
+							Long startPosition, Long endPosition, String hostName, List<String> excludeAnatomy)
+	throws SolrServerException, PhisQueryException{
+
+		SolrQuery solrQuery = getQuery(term, phenotype, mutantGene, anatomy, expressedGene, sex, taxon, imageType, sampleType, stage, visualisationMethod, samplePreparation, imagingMethod, rows, start, genericGene, chromosome, strand, position, startPosition, endPosition, hostName, excludeAnatomy);
+
 		solrQuery.set("wt", "json");
 		solrQuery.setFacet(true);
 		solrQuery.addFacetField(ImageDTO.STAGE_FACET);
