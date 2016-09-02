@@ -151,7 +151,7 @@ public class SolrWrapperController {
 	}
 
 	@RequestMapping(value="/download", method=RequestMethod.GET)
-	public @ResponseBody ResponseEntity<String> downloadImage(@RequestParam(value = "imageId", required = true) String imageId,
+	public @ResponseBody ResponseEntity<String> downloadImage(@RequestParam(value = "imageId", required = false) String imageId,
 															  // Parameters from getImages
 															  @RequestParam(value = "term", required = false) String term,
 															  @RequestParam(value = "phenotype", required = false) String phenotype,
