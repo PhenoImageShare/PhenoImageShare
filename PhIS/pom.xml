@@ -84,6 +84,7 @@
     <properties>
         <internalSolrUrl>http://localhost:8086/solr-example</internalSolrUrl>
         <dbURI>http://phenoimageshare.ebi.ac.uk:7474/db/data/</dbURI>
+        <baseURL>http://localhost:8080/</baseURL>
         <java.version>1.8</java.version>
         <com.fasterxml.jackson.core.version>2.7.4</com.fasterxml.jackson.core.version>
         <spring.security.version>4.0.2.RELEASE</spring.security.version>
@@ -94,11 +95,37 @@
 
 
     <profiles>
+
+
+        <profile>
+            <id>local</id>
+            <properties>
+                <baseURL>http://localhost:8080/</baseURL>
+            </properties>
+            <activation><activeByDefault>true</activeByDefault></activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.4.2</version>
+                        <configuration>
+                            <skipTests>true</skipTests>
+                            <!-- excludes>
+                                <exclude>**PageTest.java</exclude>
+                                <exclude>**/org/mousephenotype/www/**</exclude>
+                            </excludes-->
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
         <profile>
             <id>external-dev</id>
             <properties>
                 <internalSolrUrl>http://ves-ebi-d0.ebi.ac.uk:8170/mi/phis</internalSolrUrl>
                 <dbURI>http://phenoimageshare.ebi.ac.uk:7474/db/data/</dbURI>
+                <baseURL>http://dev.phenoimageshare.org/</baseURL>
             </properties>
             <build>
                 <plugins>
@@ -686,6 +713,11 @@
             <type>pom</type>
         </dependency>
 
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <version>1.1.0.Final</version>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework</groupId>
@@ -799,11 +831,11 @@
 
     <repositories>
 
-        <repository>
-            <id>mouseinfo-thirdparty</id>
-            <name>Third party jars</name>
-            <url>http://ves-ebi-d9.ebi.ac.uk:8080/nexus/content/repositories/thirdparty/</url>
-        </repository>
+        <!--<repository>-->
+            <!--<id>mouseinfo-thirdparty</id>-->
+            <!--<name>Third party jars</name>-->
+            <!--<url>http://ves-ebi-d9.ebi.ac.uk:8080/nexus/content/repositories/thirdparty/</url>-->
+        <!--</repository>-->
 
         <!--
          <repository>

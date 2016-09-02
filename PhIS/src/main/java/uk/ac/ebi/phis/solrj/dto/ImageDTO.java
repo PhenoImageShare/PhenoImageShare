@@ -2334,11 +2334,13 @@ public class ImageDTO {
 
 		return "Image id\t" +
 				"Species\t"+
-				"Mutant gene symbols\t"+
-				"Mutant gene ids\t"+
+				"Gene symbols\t"+
+				"Gene ids\t"+
+				"Insertion point\t" +
+				"Genome assembly\t" +
 				"Mutation type\t"+
-				"Expressed gene symbols\t"+
-				"Expressed gene ids\t"+
+				"Zygosity\t" +
+				"Background strain\t" +
 				"Sex\t"+
 				"Age\t"+
 				"Stage\t"+
@@ -2346,7 +2348,12 @@ public class ImageDTO {
 				"Abnormality\t"+
 				"Phenotype\t"+
 				"Depicts\t" +
-				"Source\t"+
+				"Image source\t"+
+				"Imaging method\t"+
+				"Sample preparation\t"+
+				"Visualization method\t"+
+				"Magnification\t" +
+				"Publication\t"+
 				"Link\t";
 	}
 
@@ -2355,19 +2362,30 @@ public class ImageDTO {
 		String tabbed = "";
 		tabbed += getId() + "\t" +
 			getTaxon() + "\t" +
-			getMutantGeneSymbolBag().stream().collect(Collectors.joining(",")) + "\t" +
-			getMutantGeneIdBag().stream().collect(Collectors.joining(",")) + "\t" +
-			getMutationType().stream().collect(Collectors.joining(",")) + "\t" +
-			getExpressedGfSymbolBag().stream().collect(Collectors.joining(",")) + "\t" +
-			getExpressedGfIdBag().stream().collect(Collectors.joining(",")) + "\t" +
+			(getMutantGeneSymbolBag() != null ? getMutantGeneSymbolBag().stream().collect(Collectors.joining(", "))  : "") +
+				(getGeneSymbols() != null ? getGeneSymbols().stream().collect(Collectors.joining(", "))  : "") +
+				(getExpressedGfSymbolBag() != null ? getExpressedGfSymbolBag().stream().collect(Collectors.joining(","))  : "") + "\t" +
+			(getMutantGeneIdBag() != null ? getMutantGeneIdBag().stream().collect(Collectors.joining(", "))  : "") +
+				(getGeneIds() != null ? getGeneIds().stream().collect(Collectors.joining(", "))  : "") +
+				(getExpressedGfIdBag() != null ? getExpressedGfIdBag().stream().collect(Collectors.joining(","))  : "") + "\t" +
+			(getStartPosition() != null ? getStartPosition() : "" ) + "\t" +
+			(getGenomeAssembly() != null ? getGenomeAssembly() : "Unspecified") + "\t" +
+			(getMutationType() != null ? getMutationType().stream().collect(Collectors.joining(", "))  : "") + "\t" +
+			(getZygosity() != null ? getZygosity().stream().collect(Collectors.joining(", "))  : "") + "\t" +
+			(getBackgroundStrain() != null ? getBackgroundStrain() : "" ) + "\t" +
 			getSex() + "\t" +
 			getAge() + "\t" +
 			getStage() + "\t" +
-			getExpressionInLabelBag().stream().collect(Collectors.joining(",")) + getExpressionInFreetextBag().stream().collect(Collectors.joining(",")) + "\t" +
-			getAbnormalAnatomyTermBag().stream().collect(Collectors.joining(",")) + getAbnormalAnatomyFreetextBag().stream().collect(Collectors.joining(",")) + "\t" +
-			getPhenotypeLabelBag().stream().collect(Collectors.joining(",")) + getPhenotypeFreetextBag().stream().collect(Collectors.joining(",")) + "\t" +
-			getDepictedAnatomyTermBag().stream().collect(Collectors.joining(",")) + getDepictedAnatomyFreetextBag().stream().collect(Collectors.joining(",")) + "\t" +
-			getImageGeneratedBy() + "\t" +
+			(getExpressionInLabelBag() != null ? getExpressionInLabelBag().stream().collect(Collectors.joining(", ")) : "" ) + (getExpressionInFreetextBag() != null ? getExpressionInFreetextBag().stream().collect(Collectors.joining(", ")) : "" ) + "\t" +
+			(getAbnormalAnatomyTermBag() != null ? getAbnormalAnatomyTermBag().stream().collect(Collectors.joining(", ")) : "" ) + (getAbnormalAnatomyFreetextBag() != null ? getAbnormalAnatomyFreetextBag().stream().collect(Collectors.joining(", ")) : "" ) + "\t" +
+			(getPhenotypeLabelBag() != null ? getPhenotypeLabelBag().stream().collect(Collectors.joining(",")) : "" )+ (getPhenotypeFreetextBag() != null ? getPhenotypeFreetextBag().stream().collect(Collectors.joining(", ")) : "") + "\t" +
+			(getDepictedAnatomyTermBag() != null ? getDepictedAnatomyTermBag().stream().collect(Collectors.joining(", ")) : "" ) + (getDepictedAnatomyFreetextBag() != null ? getDepictedAnatomyFreetextBag().stream().collect(Collectors.joining(", ")) :"") + "\t" +
+			(getImageGeneratedBy() != null ? getImageGeneratedBy().stream().collect(Collectors.joining(", ")) : "") + "\t" +
+			(getImagingMethodLabel() != null ? getImagingMethodLabel().stream().collect(Collectors.joining(", ")) : "" ) + (getImagingMethodFreetext() != null ? getImagingMethodFreetext().stream().collect(Collectors.joining(", ")) : "") + "\t" +
+			(getSamplePreparationLabel() != null ? getSamplePreparationLabel().stream().collect(Collectors.joining(", " )) : "" ) + (getSamplePreparationFreetext() != null ? getSamplePreparationFreetext().stream().collect(Collectors.joining(", ")) : "")  + "\t" +
+			(getVisualisationMethodLabel() != null ? getVisualisationMethodLabel().stream().collect(Collectors.joining(", " )) : "" ) + (getVisualisationMethodFreetext() != null ? getVisualisationMethodFreetext().stream().collect(Collectors.joining(", " )) : "" ) + "\t" +
+			(getMagnificationLevel() != null ? getMagnificationLevel() : "Unspecified") + "\t" +
+			getPublicationName() + "\t" +
 			getImagePageLink(baseURL);
 
 		return tabbed;

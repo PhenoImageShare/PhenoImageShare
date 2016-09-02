@@ -15,9 +15,11 @@
  *******************************************************************************/
 package uk.ac.ebi.phis.web.controller;
 
+
 import org.apache.solr.client.solrj.SolrServerException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -36,15 +38,18 @@ import uk.ac.ebi.phis.utils.web.RestStatusMessage;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.constraints.NotNull;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.List;
 
-//CrossOrigin(origins = "http://fiddle.jshell.net", maxAge = 3600)
 @Controller
 @RequestMapping("/rest")
 public class SolrWrapperController {
 
+	@NotNull
+	@Value("${baseURL}")
+	private String baseUrl;
 
 	@Autowired
 	ImageService is;
@@ -112,7 +117,7 @@ public class SolrWrapperController {
 			responseString = succeded.toString();
 		}
 		
-		return new ResponseEntity<String>(responseString, createResponseHeaders(), HttpStatus.OK);
+		return new ResponseEntity<String>(responseString, getJsonResponseHeaders(), HttpStatus.OK);
     }
 	
 
@@ -124,7 +129,7 @@ public class SolrWrapperController {
 		if (imageId != null){
 			responseString = is.getImageAsJsonString(imageId);
 		}
-		return new ResponseEntity<String>(responseString, createResponseHeaders(), HttpStatus.OK);
+		return new ResponseEntity<String>(responseString, getJsonResponseHeaders(), HttpStatus.OK);
     }
 
 	@RequestMapping(value="/similar", method=RequestMethod.GET)
@@ -135,15 +140,29 @@ public class SolrWrapperController {
 			throws SolrServerException, IOException, URISyntaxException {
 
 		try {
-			return new ResponseEntity<String>(is.getSimilarImages(imageId, resultNo, start), createResponseHeaders(), HttpStatus.OK);
+			return new ResponseEntity<String>(is.getSimilarImages(imageId, resultNo, start), getJsonResponseHeaders(), HttpStatus.OK);
 		} catch (PhisSubmissionException | PhisQueryException e) {
 			e.printStackTrace();
-			return new ResponseEntity<String>("Request could not be processed.", createResponseHeaders(), HttpStatus.UNPROCESSABLE_ENTITY);
+			return new ResponseEntity<String>("Request could not be processed.", getJsonResponseHeaders(), HttpStatus.UNPROCESSABLE_ENTITY);
 		}
 
 	}
 
-	
+	@RequestMapping(value="/download", method=RequestMethod.GET)
+	public @ResponseBody ResponseEntity<String> downloadImage(@RequestParam(value = "imageId", required = true) String imageId,
+															  HttpServletRequest request, Model model) {
+		System.out.println("In DOWNLOAD  " + baseUrl  + ".");
+		try {
+			return new ResponseEntity<String>(is.getDownoadInfo(imageId, baseUrl + request.getRequestURI()), getTextResponseHeaders(), HttpStatus.OK);
+		} catch (PhisSubmissionException e) {
+			e.printStackTrace();
+			return new ResponseEntity<String>("Request could not be processed.", getJsonResponseHeaders(), HttpStatus.UNPROCESSABLE_ENTITY);
+		}
+
+	}
+
+
+
 	@RequestMapping(value="/getAutosuggest", method=RequestMethod.GET)
 	public  @ResponseBody ResponseEntity<String> getSuggestions(
 			@RequestParam(value = "term", required = true) String term,
@@ -160,7 +179,7 @@ public class SolrWrapperController {
 			Model model){
 		
 		JSONObject jsonResponse = as.getAutosuggest(term, (type != null ? AutosuggestTypes.valueOf(type) : null), stage, imagingMethod, taxon, sampleType, imageGeneratedBy, hostName, resultNo);
-		ResponseEntity<String> resp = new ResponseEntity<String>(jsonResponse.toString(), createResponseHeaders(), HttpStatus.OK);
+		ResponseEntity<String> resp = new ResponseEntity<String>(jsonResponse.toString(), getJsonResponseHeaders(), HttpStatus.OK);
 
 		return resp ;
 		
@@ -181,13 +200,18 @@ public class SolrWrapperController {
 			Model model){
 
 		ResponseEntity<String> resp;
-		resp = new ResponseEntity<String>(as.getComplexAutosuggest(term, (type != null ? AutosuggestTypes.valueOf(type) : null), stage, imagingMethod, taxon, sampleType, imageGeneratedBy, hostName, resultNo), createResponseHeaders(), HttpStatus.OK); 
+		resp = new ResponseEntity<String>(as.getComplexAutosuggest(term, (type != null ? AutosuggestTypes.valueOf(type) : null), stage, imagingMethod, taxon, sampleType, imageGeneratedBy, hostName, resultNo), getJsonResponseHeaders(), HttpStatus.OK);
 				
 		return resp;
 	}
-	
 
-	private HttpHeaders createResponseHeaders(){
+	private HttpHeaders getTextResponseHeaders(){
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.setContentType(MediaType.TEXT_PLAIN);
+		return responseHeaders;
+	}
+
+	private HttpHeaders getJsonResponseHeaders(){
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.setContentType(MediaType.APPLICATION_JSON);
 		return responseHeaders;
@@ -209,7 +233,7 @@ public class SolrWrapperController {
             ) throws SolrServerException, IOException, URISyntaxException {
 				
 		return new ResponseEntity<String>(rs.getRois(imageId, roiId, userOwner, userGroup, createdAfter, createdBefore, lastEditAfter, lastEditBefore, resultNo),
-				createResponseHeaders(), HttpStatus.OK);
+				getJsonResponseHeaders(), HttpStatus.OK);
 		
     }
 
@@ -223,9 +247,9 @@ public class SolrWrapperController {
             ) throws SolrServerException, IOException, URISyntaxException {
 		
 		if (channelId != null){
-			return new ResponseEntity<String>(cs.getChannelAsJsonString(channelId, resultNo),createResponseHeaders(), HttpStatus.OK);
+			return new ResponseEntity<String>(cs.getChannelAsJsonString(channelId, resultNo), getJsonResponseHeaders(), HttpStatus.OK);
 		}else {
-			return new ResponseEntity<String>(cs.getChannels(imageId, resultNo),createResponseHeaders(), HttpStatus.OK);
+			return new ResponseEntity<String>(cs.getChannels(imageId, resultNo), getJsonResponseHeaders(), HttpStatus.OK);
 		}
     }
 		
@@ -240,7 +264,7 @@ public class SolrWrapperController {
 		if (roiId != null){
 			responseString = rs.getRoiAsJsonString(roiId, 10);
 		}
-		return new ResponseEntity<String>(responseString, createResponseHeaders(), HttpStatus.OK);
+		return new ResponseEntity<String>(responseString, getJsonResponseHeaders(), HttpStatus.OK);
     }
 	
 
@@ -255,7 +279,7 @@ public class SolrWrapperController {
 			responseString = cs.getChannelAsJsonString(channelId, 10);
 		}
 		
-		return new ResponseEntity<String>(responseString, createResponseHeaders(), HttpStatus.OK);
+		return new ResponseEntity<String>(responseString, getJsonResponseHeaders(), HttpStatus.OK);
     }
 	
 	
@@ -283,7 +307,7 @@ public class SolrWrapperController {
 	@RequestMapping(value="/getDataReleases", method=RequestMethod.GET)	
     public @ResponseBody ResponseEntity<String> getDataRelease(Model model){
 		
-		return  new ResponseEntity<String>( ns.getAllReleases().toString(), createResponseHeaders(), HttpStatus.OK);
+		return  new ResponseEntity<String>( ns.getAllReleases().toString(), getJsonResponseHeaders(), HttpStatus.OK);
 		
 	}
 	

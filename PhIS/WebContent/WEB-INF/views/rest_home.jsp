@@ -835,7 +835,7 @@
 
 		<h3>Parameters</h3>
 
-		<table class="table table-striped">
+		<table class="table">
 			<thead>
 			<tr  style="background-color: lightSteelBlue;">
 				<th>Name</th>

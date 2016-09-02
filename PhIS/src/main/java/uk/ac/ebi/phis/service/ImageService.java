@@ -47,6 +47,15 @@ public class ImageService extends BasicService{
 
 	}
 
+
+	public String getDownoadInfo(String imageId, String baseUrl) throws PhisSubmissionException {
+
+		ImageDTO img = getImageDTOById(imageId);
+		return img.getTabbedHeader() + "\n" + img.getTabbedToString(baseUrl);
+
+	}
+
+
 	public String getSimilarImages(String imageId, Integer resultNo, Integer start)
 			throws SolrServerException, PhisQueryException, PhisSubmissionException, IOException, URISyntaxException {
 
@@ -296,8 +305,6 @@ public class ImageService extends BasicService{
 		imageId = handleSpecialCharacters(imageId);
 		solrQuery.setQuery(ImageDTO.ID + ":\""+ imageId + "\"");
 		solrQuery.set("wt", "json");
-		
-		System.out.println("------ ImagePojo" + getQueryUrl(solrQuery));
 
 		try {
 			return JSONRestUtil.getResults(getQueryUrl(solrQuery)).toString();
