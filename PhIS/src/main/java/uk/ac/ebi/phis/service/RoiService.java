@@ -15,22 +15,18 @@
  *******************************************************************************/
 package uk.ac.ebi.phis.service;
 
+import org.apache.solr.client.solrj.SolrQuery;
+import org.apache.solr.client.solrj.SolrServerException;
+import org.apache.solr.client.solrj.response.QueryResponse;
+import org.json.JSONObject;
+import uk.ac.ebi.phis.solrj.dto.RoiDTO;
+import uk.ac.ebi.phis.utils.web.JSONRestUtil;
+
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-
-import org.apache.solr.client.solrj.SolrQuery;
-import org.apache.solr.client.solrj.SolrServerException;
-import org.apache.solr.client.solrj.impl.HttpSolrServer;
-import org.apache.solr.client.solrj.response.QueryResponse;
-import org.json.JSONObject;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import uk.ac.ebi.phis.solrj.dto.ChannelDTO;
-import uk.ac.ebi.phis.solrj.dto.RoiDTO;
-import uk.ac.ebi.phis.utils.web.JSONRestUtil;
+import java.util.stream.Collectors;
 
 
 public class RoiService extends BasicService{
@@ -64,7 +60,14 @@ public class RoiService extends BasicService{
 		}
 		
 		return "Couldn't get anything back from solr.";
-	}	
+	}
+
+	public String getDownloadInfo(String imageId) throws SolrServerException {
+
+		List<RoiDTO>rois = getRoisDTOs(imageId);
+		return RoiDTO.getTabbedHeader() + "\n" + rois.stream().map(item -> item.getTabbedToString()).collect(Collectors.joining("\n"));
+
+	}
 
 
 	public RoiDTO getRoiById(String id){
@@ -82,19 +85,45 @@ public class RoiService extends BasicService{
 		}
 		return null;
 	}
-	
+
+	public List<RoiDTO> getRoisDTOs(String imageId) throws SolrServerException {
+
+		SolrQuery solrQuery = getRoiQuery(imageId,null, null, null, null, null, null, null,  Integer.MAX_VALUE);
+
+		return solr.query(solrQuery).getBeans(RoiDTO.class);
+
+	}
+
+
 	public String getRois(String imageId, String roiId, String owner, String group, 
 			String createdAfter, String createdBefore, String lastEditAfter, String lastEditBefore, Integer resNo){
 		
+		SolrQuery solrQuery = getRoiQuery(imageId, roiId, owner, group, createdAfter, createdBefore, lastEditAfter, lastEditBefore, resNo);
+		
+		try {
+			return JSONRestUtil.getResults(getQueryUrl(solrQuery)).toString();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+		
+		return "Couldn't get anything back from solr.";
+	}
+
+
+	private SolrQuery getRoiQuery(String imageId, String roiId, String owner, String group,
+						  String createdAfter, String createdBefore, String lastEditAfter, String lastEditBefore, Integer resNo){
+
 		SolrQuery solrQuery = new SolrQuery();
 		solrQuery.setQuery("*:*");
 		imageId = handleSpecialCharacters(imageId);
 		if (imageId != null){
 			solrQuery.setFilterQueries(RoiDTO.ASSOCIATED_IMAGE_ID + ":\""+ imageId + "\"");
-		} 
+		}
 		if (roiId != null){
 			solrQuery.addFilterQuery(RoiDTO.ID + ":\"" + roiId + "\"");
-		} 
+		}
 		if (owner != null){
 			solrQuery.addFilterQuery(RoiDTO.USER_OWNER + ":\"" + owner + "\"");
 		}
@@ -129,25 +158,20 @@ public class RoiService extends BasicService{
 				solrQuery.addFilterQuery(RoiDTO.CREATION_DATE + ":[* TO " + createdBefore + "]");
 			}
 		}
-		
+
 		if (resNo != null){
 			solrQuery.setRows(resNo);
 		} else {
 			solrQuery.setRows(10000);
 		}
 		solrQuery.set("wt", "json");
-		
-		try {
-			return JSONRestUtil.getResults(getQueryUrl(solrQuery)).toString();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (URISyntaxException e) {
-			e.printStackTrace();
-		}
-		
-		return "Couldn't get anything back from solr.";
-	}	
-	
+
+		return solrQuery;
+	}
+
+
+
+
 	public void updateRoi(RoiDTO roi){
 		List<RoiDTO> list = new ArrayList<>();
 		list.add(roi);

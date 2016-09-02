@@ -151,10 +151,10 @@ public class SolrWrapperController {
 	@RequestMapping(value="/download", method=RequestMethod.GET)
 	public @ResponseBody ResponseEntity<String> downloadImage(@RequestParam(value = "imageId", required = true) String imageId,
 															  HttpServletRequest request, Model model) {
-		System.out.println("In DOWNLOAD  " + baseUrl  + ".");
 		try {
-			return new ResponseEntity<String>(is.getDownoadInfo(imageId, baseUrl + request.getRequestURI()), getTextResponseHeaders(), HttpStatus.OK);
-		} catch (PhisSubmissionException e) {
+			String download = is.getDownoadInfo(imageId, baseUrl + request.getRequestURI()) + "\n\n" + rs.getDownloadInfo(imageId);
+			return new ResponseEntity<String>(download, getTextResponseHeaders(), HttpStatus.OK);
+		} catch (PhisSubmissionException | SolrServerException e) {
 			e.printStackTrace();
 			return new ResponseEntity<String>("Request could not be processed.", getJsonResponseHeaders(), HttpStatus.UNPROCESSABLE_ENTITY);
 		}

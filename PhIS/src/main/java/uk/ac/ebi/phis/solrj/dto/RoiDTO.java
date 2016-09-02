@@ -15,11 +15,12 @@
  *******************************************************************************/
 package uk.ac.ebi.phis.solrj.dto;
 
+import org.apache.solr.client.solrj.beans.Field;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import org.apache.solr.client.solrj.beans.Field;
+import java.util.stream.Collectors;
 
 public class RoiDTO {
 	
@@ -923,7 +924,43 @@ public class RoiDTO {
 		} else if (!zCoordinates.equals(other.zCoordinates)) return false;
 		return true;
 	}
-	
-	
-	
+
+
+	public static String getTabbedHeader(){
+
+		return "Annotation id\t" +
+				"Last edit date\t"+
+				"Creation date\t"+
+				"Created by\t"+
+				"Expression in\t" +
+				"Expression value\t" +
+				"Phenotype\t"+
+				"Abnormality in \t" +
+				"Depicts" ;
+	}
+
+	public  String getTabbedToString(){
+
+		String tabbed = "";
+		tabbed += getId() + "\t" +
+				getEditDate() + "\t" +
+				getCreationDate() + "\t" +
+				getUserOwner() + "\t" +
+				(getExpressedAnatomyTerm() != null ? getExpressedAnatomyTerm().stream().collect(Collectors.joining(","))  : "") +
+					(getExpressedAnatomyFreetext() != null ? getExpressedAnatomyFreetext().stream().collect(Collectors.joining(", ")) : "") + "\t" +
+				(getExpressionValue() != null ? getExpressionValue().stream().collect(Collectors.joining(", ")) : "") + "\t" +
+				(getPhenotypeTerm() != null ? getPhenotypeTerm().stream().collect(Collectors.joining(","))  : "") +
+					(getPhenotypeFreetext() != null ? getPhenotypeFreetext().stream().collect(Collectors.joining(", ")) : "") + "\t" +
+				(getAbnormalityAnatomyTerm() != null ? getAbnormalityAnatomyTerm().stream().collect(Collectors.joining(","))  : "") +
+					(getAbnormalityAnatomyFreetext() != null ? getAbnormalityAnatomyFreetext().stream().collect(Collectors.joining(", ")) : "") + "\t" +
+				(getDepictedAnatomyTerm() != null ? getDepictedAnatomyTerm().stream().collect(Collectors.joining(", "))  : "")+
+					(getDepictedAnatomyFreetext() != null ? getDepictedAnatomyFreetext().stream().collect(Collectors.joining(", ")) :"") + "\t" ;
+
+		return tabbed;
+
+	}
+
+
+
+
 }
