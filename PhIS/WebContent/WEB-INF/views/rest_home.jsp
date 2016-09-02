@@ -874,6 +874,39 @@
 		</tbody>
 		</table>
 
+
+		<h2 style="background-color: olive;">/download</h2>
+
+		<h3>Examples</h3>
+
+		<p>Get tab separated details image with id wtsi_358432.</p>
+		<p class="code">$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}download/imageId=wtsi_358432">http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}download/imageId=wtsi_358432</a>'  -i -H 'Accept: application/json'</p>
+
+		<h3>Parameters</h3>
+
+		<table class="table">
+			<thead>
+			<tr  style="background-color: lightSteelBlue;">
+				<th>Name</th>
+				<th>Type</th>
+				<th>Required</th>
+				<th>Description</th>
+				<th>Default</th>
+				<th>Example Values</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr style="background-color: olive;">
+				<td>imageId</td>
+				<td><var>String</var></td>
+				<td> false </td>
+				<td>Id of the image to download details for.</td>
+				<td><var> * </var></td>
+				<td><var>abn</var><br></td>
+			</tr>
+			</tbody>
+		</table>
+
 </div>
 </body>
 </html>
