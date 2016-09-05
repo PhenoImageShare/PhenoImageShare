@@ -58,6 +58,14 @@
 				<td><var>user_021897401</var></td>
 			</tr>
 			<tr>
+				<td>publish</td>
+				<td><var>Boolean</var></td>
+				<td> true </td>
+				<td>All annotations submitted are saved. They are only published if the parameter is explicitly set to true.</td>
+				<td><var>(none)</var></td>
+				<td><var>true</var></td>
+			</tr>
+			<tr>
 				<td>annotationId</td>
 				<td><var>String</var></td>
 				<td> true </td>

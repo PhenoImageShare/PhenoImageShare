@@ -15,12 +15,6 @@
  *******************************************************************************/
 package uk.ac.ebi.phis.web.controller;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 import org.apache.solr.client.solrj.SolrServerException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import uk.ac.ebi.neo4jUtils.AnnotationProperties;
 import uk.ac.ebi.neo4jUtils.Neo4jAccessUtils;
 import uk.ac.ebi.phis.exception.PhisSubmissionException;
@@ -38,6 +31,12 @@ import uk.ac.ebi.phis.service.GenericUpdateService;
 import uk.ac.ebi.phis.service.ImageService;
 import uk.ac.ebi.phis.solrj.dto.RoiDTO;
 import uk.ac.ebi.phis.utils.web.RestStatusMessage;
+
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 	@Controller
 	@RequestMapping("/rest/submission")
@@ -79,6 +78,8 @@ import uk.ac.ebi.phis.utils.web.RestStatusMessage;
 	            
 	            @RequestParam(value = "xCoordinates", required = true) List<Float> xCoordinates,
 	            @RequestParam(value = "yCoordinates", required = true) List<Float> yCoordinates,
+                @RequestParam(value = "publish", required = true) Boolean publish,
+
 	            @RequestParam(value = "zCoordinates", required = false) List<Float> zCoordinates,
 	            
 	    		@RequestParam(value = "associatedChannelId", required = false) List<String> associatedChannelId,
@@ -98,7 +99,7 @@ import uk.ac.ebi.phis.utils.web.RestStatusMessage;
 	            @RequestParam(value = "phenotypeId", required = false) List<String> phenotypeId,
 	            @RequestParam(value = "phenotypeFreetext", required = false) List<String> phenotypeFreetext,
 	            @RequestParam(value = "phenotypeTerm", required = false) List<String> phenotypeTerm,
-	            
+
 	            @RequestParam(value = "observation", required = false) List<String> observations,
 	    		Model model  ) {
 			
@@ -110,13 +111,14 @@ import uk.ac.ebi.phis.utils.web.RestStatusMessage;
 					Date today = new Date();
 									
 					ArrayList<Float> zCoord = (zCoordinates != null ? new ArrayList<Float>(zCoordinates) : null);
-					RoiDTO roi = new RoiDTO(annotationId, associatedChannelId, associatedImageId, depictedAnatomyId, depictedAnatomyTerm, 
-							depictedAnatomyFreetext, abnInAnatomyId, abnInAnatomyTerm, abnInAnatomyFreetext, 
-							phenotypeId, phenotypeTerm, phenotypeFreetext, observations, new ArrayList<Float>(xCoordinates), 
-							new ArrayList<Float>(yCoordinates), zCoord, expressionInAnatomyTerm, expressionInAnatomyFreetext, expressionInAnatomyId,
-							userId, userGroup, today, today);
-					gus.addToCores(roi);
-					
+
+                    RoiDTO roi = new RoiDTO(annotationId, associatedChannelId, associatedImageId, depictedAnatomyId, depictedAnatomyTerm,
+                                depictedAnatomyFreetext, abnInAnatomyId, abnInAnatomyTerm, abnInAnatomyFreetext,
+                                phenotypeId, phenotypeTerm, phenotypeFreetext, observations, new ArrayList<Float>(xCoordinates),
+                                new ArrayList<Float>(yCoordinates), zCoord, expressionInAnatomyTerm, expressionInAnatomyFreetext, expressionInAnatomyId,
+                                userId, userGroup, today, today, publish);
+                    gus.addToCores(roi, publish);
+
 					neo.createAnnotationWithDates(userId, userGroup, annotationId, associatedImageId, xCoordinates, yCoordinates, zCoordinates, 
 							associatedChannelId, depictedAnatomyId, depictedAnatomyFreetext, depictedAnatomyTerm, abnInAnatomyId, 
 							abnInAnatomyFreetext, abnInAnatomyTerm,	phenotypeId, phenotypeFreetext, phenotypeTerm, observations, 
@@ -153,6 +155,7 @@ import uk.ac.ebi.phis.utils.web.RestStatusMessage;
 	            @RequestParam(value = "phenotypeTerm", required = false) List<String> phenotypeTerm,
 	            @RequestParam(value = "phenotypeFreetext", required = false) List<String> phenotypeFreetext,
 	            @RequestParam(value = "observation", required = false) List<String> observations,
+                @RequestParam(value = "publish", required = true) Boolean publish,
 	    		Model model ) {
 			
 			JSONObject succeded = RestStatusMessage.getSuccessJson();
@@ -168,15 +171,14 @@ import uk.ac.ebi.phis.utils.web.RestStatusMessage;
 						depictedAnatomyId, depictedAnatomyFreetext, depictedAnatomyTerm, abnInAnatomyId, abnInAnatomyFreetext, abnInAnatomyTerm, phenotypeId, 
 						phenotypeFreetext, phenotypeTerm, observations, expressionInAnatomyId, expressionInAnatomyTerm, expressionInAnatomyFreetext,
 						creationDate, today);
-					
-					RoiDTO roi = new RoiDTO(annotationId, associatedChannelId, associatedImageId, depictedAnatomyId, depictedAnatomyTerm, 
-						depictedAnatomyFreetext, abnInAnatomyId, abnInAnatomyTerm, abnInAnatomyFreetext, 
-						phenotypeId, phenotypeTerm, phenotypeFreetext, observations, new ArrayList<Float>(xCoordinates), 
-						new ArrayList<Float>(yCoordinates), zCoordinates != null ? new ArrayList<Float>(zCoordinates) : null,
-						expressionInAnatomyTerm, expressionInAnatomyFreetext, expressionInAnatomyId, userId, userGroupId, creationDate, today);
-					
-					gus.addToCores(roi);
-						
+
+					RoiDTO roi = new RoiDTO(annotationId, associatedChannelId, associatedImageId, depictedAnatomyId, depictedAnatomyTerm,
+                                depictedAnatomyFreetext, abnInAnatomyId, abnInAnatomyTerm, abnInAnatomyFreetext,
+                                phenotypeId, phenotypeTerm, phenotypeFreetext, observations, new ArrayList<Float>(xCoordinates),
+                                new ArrayList<Float>(yCoordinates), zCoordinates != null ? new ArrayList<Float>(zCoordinates) : null,
+                                expressionInAnatomyTerm, expressionInAnatomyFreetext, expressionInAnatomyId, userId, userGroupId, creationDate, today, publish);
+
+					gus.updateCores(roi, publish);
 				}
 				
 			} catch (PhisSubmissionException e) {

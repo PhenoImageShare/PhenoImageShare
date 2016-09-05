@@ -31,25 +31,43 @@ public class GenericUpdateService {
 	@Autowired 
 	ImageService is;
 		
+
 	@Autowired
 	ChannelService cs;
-	
+
+
 	@Autowired
 	RoiService rs;
 	
 	
-	public void updateCores(RoiDTO roi) throws PhisSubmissionException{
-		RoiDTO roiToReplace  = rs.getRoiById(roi.getId());
-		is.updateImageFromRoi(roiToReplace, roi);
+	public void updateCores(RoiDTO roi, Boolean publish) throws PhisSubmissionException{
+
 		rs.updateRoi(roi);
+
+		RoiDTO roiToReplace = rs.getRoiById(roi.getId());
+		if (publish) {
+			if (roiToReplace != null) {
+				is.updateImageFromRoi(roiToReplace, roi);
+			} else {
+				is.addToImageFromRoi(roi);
+				cs.addAssociatedRoi(roi);
+			}
+		} else {
+			if (roiToReplace != null){
+				is.deleteRoiRefferences(roiToReplace);
+				cs.deleteAssociatedRoi(roi);
+			}
+		}
 	}
 	
 	
-	public void addToCores(RoiDTO roi) 
+	public void addToCores(RoiDTO roi, Boolean publish)
 	throws PhisSubmissionException{
-		is.addToImageFromRoi(roi);
 		rs.addRoi(roi);
-		cs.addAssociatedRoi(roi);		
+		if (publish) {
+			is.addToImageFromRoi(roi);
+			cs.addAssociatedRoi(roi);
+		}
 	}
 	
 	

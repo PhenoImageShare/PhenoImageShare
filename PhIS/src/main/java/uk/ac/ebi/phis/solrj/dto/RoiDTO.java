@@ -56,6 +56,7 @@ public class RoiDTO {
 	public static final String  X_COORDINATES = "x_coordinates";
 	public static final String  Y_COORDINATES = "y_coordinates";
 	public static final String  Z_COORDINATES = "z_coordinates";
+	public static final String  PUBLISHED = "published";
 	
 	@Field(ID)
 	String id;
@@ -65,6 +66,9 @@ public class RoiDTO {
 	
 	@Field(EDIT_DATE)
 	Date editDate;
+
+	@Field(PUBLISHED)
+	Boolean published;
 
 	@Field(USER_OWNER)
 	String userOwner;
@@ -161,7 +165,7 @@ public class RoiDTO {
 	List<String> abnormalityAnatomyTerm, List<String> abnormalityAnatomyFreetext, List<String> phenotypeId, List<String> phenotypeTerm, 
 	List<String> phenotypeFreetext, List<String> observations, List<Float> xCoordinates, List<Float> yCoordinates, List<Float> zCoordinates,
 	List<String> expressionInTerm, List<String> expressionInFreetext, List<String> expressionInId, String userOwner, String usergroup, 
-	Date creationDate, Date lastEditDate) {
+	Date creationDate, Date lastEditDate, Boolean publish) {
 
 		super();
 		this.id = id;
@@ -189,6 +193,7 @@ public class RoiDTO {
 		this.userOwner = userOwner;
 		this.creationDate = creationDate;
 		this.editDate = lastEditDate;
+		this.published = publish;
 	}
 
 	
@@ -215,7 +220,15 @@ public class RoiDTO {
 			this.expressedAnatomyId.add(expressedAnatomyId);
 		}
 	}
-	
+
+	public Boolean getPublished() {
+		return published;
+	}
+
+	public void setPublished(Boolean published) {
+		this.published = published;
+	}
+
 	public List<String> getExpressionConcat() {
 		return expressionConcat;
 	}

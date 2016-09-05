@@ -79,7 +79,7 @@ public class TestUtils {
 		roi = new RoiDTO(id, associatedChannel, associatedImage, depictedAnatomyId, depictedAnatomyTerm, depictedAnatomyFreetext, 
 			abnormalityAnatomyId, abnormalityAnatomyTerm, abnormalityAnatomyFreetext, 
 			phenotypeId, phenotypeTerm, phenotypeFreetext, observations, xCoordinates, yCoordinates, zCoordinates,
-			expressedInTerm, expressedInFreetext, expressedInId, userOwner, usergroup, creationDate, lastEditDate);
+			expressedInTerm, expressedInFreetext, expressedInId, userOwner, usergroup, creationDate, lastEditDate, true);
 		
 		return roi;
 	}
