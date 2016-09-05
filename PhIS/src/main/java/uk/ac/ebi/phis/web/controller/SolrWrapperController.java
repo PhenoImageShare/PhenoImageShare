@@ -34,11 +34,8 @@ import uk.ac.ebi.phis.exception.PhisQueryException;
 import uk.ac.ebi.phis.exception.PhisSubmissionException;
 import uk.ac.ebi.phis.service.*;
 import uk.ac.ebi.phis.solrj.dto.AutosuggestTypes;
-import uk.ac.ebi.phis.solrj.dto.ImageDTO;
 import uk.ac.ebi.phis.utils.web.RestStatusMessage;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.NotNull;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -66,9 +63,9 @@ public class SolrWrapperController {
 
 	@Autowired
 	Neo4jService ns;
-		
+
 	/**
-	 * 
+	 *
 	 * @param phenotype
 	 * @param anatomy
 	 * @param gene
@@ -80,7 +77,7 @@ public class SolrWrapperController {
 	 * @throws URISyntaxException
 	 */
 	 // Keep parameters in synch with /download
-	@RequestMapping(value="/getImages", method=RequestMethod.GET)	
+	@RequestMapping(value="/getImages", method=RequestMethod.GET)
     public @ResponseBody ResponseEntity<String>  getImages(
     		@RequestParam(value = "term", required = false) String term,
     		@RequestParam(value = "phenotype", required = false) String phenotype,
@@ -107,26 +104,26 @@ public class SolrWrapperController {
             @RequestParam(value = "start", required = false) Integer start,
     		Model model
             ) throws SolrServerException, IOException, URISyntaxException {
-			
+
 		String responseString;
 		try{
-			responseString = is.getImages(term, phenotype, mutantGene, anatomy, expressedGene, sex, taxon, image_type, sample_type, stage, visualisationMethod, 
+			responseString = is.getImages(term, phenotype, mutantGene, anatomy, expressedGene, sex, taxon, image_type, sample_type, stage, visualisationMethod,
 						samplePreparation, imagingMethod, resultNo, start, gene, chromosome, strand, position, startPosition, endPosition, hostName, excludeAnatomy);
-			
+
 		} catch (PhisQueryException e){
 			JSONObject succeded = RestStatusMessage.getFailJson();
 			succeded.put("message", e.getMessage());
 			responseString = succeded.toString();
 		}
-		
+
 		return new ResponseEntity<String>(responseString, getJsonResponseHeaders(), HttpStatus.OK);
     }
-	
 
-	@RequestMapping(value="/getImage", method=RequestMethod.GET)	
-    public @ResponseBody ResponseEntity<String> getImage(@RequestParam(value = "imageId", required = true) String imageId, Model model) 
+
+	@RequestMapping(value="/getImage", method=RequestMethod.GET)
+    public @ResponseBody ResponseEntity<String> getImage(@RequestParam(value = "imageId", required = true) String imageId, Model model)
     throws SolrServerException, IOException, URISyntaxException {
-		
+
 		String responseString = "";
 		if (imageId != null){
 			responseString = is.getImageAsJsonString(imageId);
@@ -149,81 +146,81 @@ public class SolrWrapperController {
 		}
 
 	}
+//
+//	@RequestMapping(value="/download", method=RequestMethod.GET)
+//	public @ResponseBody ResponseEntity<String> downloadImage(@RequestParam(value = "imageId", required = false) String imageId,
+//                                                              // Parameters from getImages
+//                                                              @RequestParam(value = "term", required = false) String term,
+//                                                              @RequestParam(value = "phenotype", required = false) String phenotype,
+//                                                              @RequestParam(value = "anatomy", required = false) String anatomy,
+//                                                              @RequestParam(value = "-anatomy", required = false) List<String> excludeAnatomy,
+//                                                              @RequestParam(value = "gene", required = false) String gene,
+//                                                              @RequestParam(value = "mutantGene", required = false) String mutantGene,
+//                                                              @RequestParam(value = "expressedFeature", required = false) String expressedGene,
+//                                                              @RequestParam(value = "sex", required = false) String sex,
+//                                                              @RequestParam(value = "taxon", required = false) String taxon,
+//                                                              @RequestParam(value = "imageType", required = false) String image_type,
+//                                                              @RequestParam(value = "sampleType", required = false) String sample_type,
+//                                                              @RequestParam(value = "stage", required = false) String stage,
+//                                                              @RequestParam(value = "visualisationMethod", required = false) String visualisationMethod,
+//                                                              @RequestParam(value = "samplePreparation", required = false) String samplePreparation,
+//                                                              @RequestParam(value = "imagingMethod", required = false) String imagingMethod,
+//                                                              @RequestParam(value = "chromosome", required = false) String chromosome,
+//                                                              @RequestParam(value = "position", required = false) String strand,
+//                                                              @RequestParam(value = "hostName", required = false) String hostName,
+//                                                              @RequestParam(value = "location", required = false) Long position,
+//                                                              @RequestParam(value = "startPosition", required = false) Long startPosition,
+//                                                              @RequestParam(value = "endPosition", required = false) Long endPosition,
+//                                                              @RequestParam(value = "resultNo", required = false) Integer resultNo,
+//                                                              @RequestParam(value = "start", required = false) Integer start,
+//                                                              HttpServletRequest request, Model model) {
+//		try {
+//			if (imageId != null) {
+//				String download = is.getDownoadInfo(imageId, baseUrl + request.getRequestURI()) + "\n\n" + rs.getDownloadInfo(imageId);
+//				return new ResponseEntity<String>(download, getTextResponseHeaders(), HttpStatus.OK);
+//			} else {
+//				StringBuffer download = new StringBuffer();
+//				download.append(ImageDTO.getTabbedHeader() + "\n");
+//				List<ImageDTO> images = is.getImagesDTO(term, phenotype, mutantGene, anatomy, expressedGene, sex, taxon, image_type, sample_type, stage, visualisationMethod,
+//						samplePreparation, imagingMethod, resultNo, start, gene, chromosome, strand, position, startPosition, endPosition, hostName, excludeAnatomy);
+//				for (ImageDTO img : images){
+//					download.append(img.getTabbedToString(baseUrl + request.getRequestURI()) + "\n");
+//				}
+//				return new ResponseEntity<String>(download.toString(), getTextResponseHeaders(), HttpStatus.OK);
+//			}
+//
+//		} catch (PhisSubmissionException | SolrServerException | PhisQueryException e) {
+//			e.printStackTrace();
+//			return new ResponseEntity<String>("Request could not be processed.", getJsonResponseHeaders(), HttpStatus.UNPROCESSABLE_ENTITY);
+//		}
+//
+//	}
 
-	@RequestMapping(value="/download", method=RequestMethod.GET)
-	public @ResponseBody ResponseEntity<String> downloadImage(@RequestParam(value = "imageId", required = false) String imageId,
-															  // Parameters from getImages
-															  @RequestParam(value = "term", required = false) String term,
-															  @RequestParam(value = "phenotype", required = false) String phenotype,
-															  @RequestParam(value = "anatomy", required = false) String anatomy,
-															  @RequestParam(value = "-anatomy", required = false) List<String> excludeAnatomy,
-															  @RequestParam(value = "gene", required = false) String gene,
-															  @RequestParam(value = "mutantGene", required = false) String mutantGene,
-															  @RequestParam(value = "expressedFeature", required = false) String expressedGene,
-															  @RequestParam(value = "sex", required = false) String sex,
-															  @RequestParam(value = "taxon", required = false) String taxon,
-															  @RequestParam(value = "imageType", required = false) String image_type,
-															  @RequestParam(value = "sampleType", required = false) String sample_type,
-															  @RequestParam(value = "stage", required = false) String stage,
-															  @RequestParam(value = "visualisationMethod", required = false) String visualisationMethod,
-															  @RequestParam(value = "samplePreparation", required = false) String samplePreparation,
-															  @RequestParam(value = "imagingMethod", required = false) String imagingMethod,
-															  @RequestParam(value = "chromosome", required = false) String chromosome,
-															  @RequestParam(value = "position", required = false) String strand,
-															  @RequestParam(value = "hostName", required = false) String hostName,
-															  @RequestParam(value = "location", required = false) Long position,
-															  @RequestParam(value = "startPosition", required = false) Long startPosition,
-															  @RequestParam(value = "endPosition", required = false) Long endPosition,
-															  @RequestParam(value = "resultNo", required = false) Integer resultNo,
-															  @RequestParam(value = "start", required = false) Integer start,
-															  HttpServletRequest request, Model model) {
-		try {
-			if (imageId != null) {
-				String download = is.getDownoadInfo(imageId, baseUrl + request.getRequestURI()) + "\n\n" + rs.getDownloadInfo(imageId);
-				return new ResponseEntity<String>(download, getTextResponseHeaders(), HttpStatus.OK);
-			} else {
-				StringBuffer download = new StringBuffer();
-				download.append(ImageDTO.getTabbedHeader() + "\n");
-				List<ImageDTO> images = is.getImagesDTO(term, phenotype, mutantGene, anatomy, expressedGene, sex, taxon, image_type, sample_type, stage, visualisationMethod,
-						samplePreparation, imagingMethod, resultNo, start, gene, chromosome, strand, position, startPosition, endPosition, hostName, excludeAnatomy);
-				for (ImageDTO img : images){
-					download.append(img.getTabbedToString(baseUrl + request.getRequestURI()) + "\n");
-				}
-				return new ResponseEntity<String>(download.toString(), getTextResponseHeaders(), HttpStatus.OK);
-			}
 
-		} catch (PhisSubmissionException | SolrServerException | PhisQueryException e) {
-			e.printStackTrace();
-			return new ResponseEntity<String>("Request could not be processed.", getJsonResponseHeaders(), HttpStatus.UNPROCESSABLE_ENTITY);
-		}
-
-	}
+//
+//	@RequestMapping(value="/getAutosuggest", method=RequestMethod.GET)
+//	public  @ResponseBody ResponseEntity<String> getSuggestions(
+//			@RequestParam(value = "term", required = true) String term,
+//			@RequestParam(value = "autosuggestType", required = false) String type,
+//			@RequestParam(value = "resultNo", required = false) Integer resultNo,
+//			@RequestParam(value = "taxon", required = false) String taxon,
+//			@RequestParam(value = "sampleType", required = false) String sampleType,
+//			@RequestParam(value = "stage", required = false) String stage,
+//			@RequestParam(value = "imagingMethod", required = false) String imagingMethod,
+//			@RequestParam(value = "imageGeneratedBy", required = false) String imageGeneratedBy,
+//			@RequestParam(value = "hostName", required = false) String hostName,
+//			HttpServletRequest request,
+//			HttpServletResponse response,
+//			Model model){
+//
+//		JSONObject jsonResponse = as.getAutosuggest(term, (type != null ? AutosuggestTypes.valueOf(type) : null), stage, imagingMethod, taxon, sampleType, imageGeneratedBy, hostName, resultNo);
+//		ResponseEntity<String> resp = new ResponseEntity<String>(jsonResponse.toString(), getJsonResponseHeaders(), HttpStatus.OK);
+//
+//		return resp ;
+//
+//	}
 
 
-
-	@RequestMapping(value="/getAutosuggest", method=RequestMethod.GET)
-	public  @ResponseBody ResponseEntity<String> getSuggestions(
-			@RequestParam(value = "term", required = true) String term,
-			@RequestParam(value = "autosuggestType", required = false) String type,
-			@RequestParam(value = "resultNo", required = false) Integer resultNo,
-			@RequestParam(value = "taxon", required = false) String taxon,
-			@RequestParam(value = "sampleType", required = false) String sampleType,
-			@RequestParam(value = "stage", required = false) String stage,
-			@RequestParam(value = "imagingMethod", required = false) String imagingMethod,
-			@RequestParam(value = "imageGeneratedBy", required = false) String imageGeneratedBy,	
-			@RequestParam(value = "hostName", required = false) String hostName,
-			HttpServletRequest request,
-			HttpServletResponse response,	
-			Model model){
-		
-		JSONObject jsonResponse = as.getAutosuggest(term, (type != null ? AutosuggestTypes.valueOf(type) : null), stage, imagingMethod, taxon, sampleType, imageGeneratedBy, hostName, resultNo);
-		ResponseEntity<String> resp = new ResponseEntity<String>(jsonResponse.toString(), getJsonResponseHeaders(), HttpStatus.OK);
-
-		return resp ;
-		
-	}
-	
-	
 	@RequestMapping(value="/getComplexAutosuggest", method=RequestMethod.GET)
 	public  @ResponseBody ResponseEntity<String> getComplexSuggestions(
 			@RequestParam(value = "term", required = true) String term,
@@ -234,12 +231,12 @@ public class SolrWrapperController {
 			@RequestParam(value = "stage", required = false) String stage,
 			@RequestParam(value = "imagingMethod", required = false) String imagingMethod,
 			@RequestParam(value = "imageGeneratedBy", required = false) String imageGeneratedBy,
-			@RequestParam(value = "hostName", required = false) String hostName,	
+			@RequestParam(value = "hostName", required = false) String hostName,
 			Model model){
 
 		ResponseEntity<String> resp;
 		resp = new ResponseEntity<String>(as.getComplexAutosuggest(term, (type != null ? AutosuggestTypes.valueOf(type) : null), stage, imagingMethod, taxon, sampleType, imageGeneratedBy, hostName, resultNo), getJsonResponseHeaders(), HttpStatus.OK);
-				
+
 		return resp;
 	}
 
@@ -254,9 +251,9 @@ public class SolrWrapperController {
 		responseHeaders.setContentType(MediaType.APPLICATION_JSON);
 		return responseHeaders;
 	}
-	
-	
-	@RequestMapping(value="/getRois", method=RequestMethod.GET)	
+
+
+	@RequestMapping(value="/getRois", method=RequestMethod.GET)
     public @ResponseBody ResponseEntity<String> getRois(
     		@RequestParam(value = "roiId", required = false) String roiId,
     		@RequestParam(value = "imageId", required = false) String imageId,
@@ -269,87 +266,89 @@ public class SolrWrapperController {
     		@RequestParam(value = "lastEditBefore", required = false) String lastEditBefore,
     		Model model
             ) throws SolrServerException, IOException, URISyntaxException {
-				
+
 		return new ResponseEntity<String>(rs.getRois(imageId, roiId, userOwner, userGroup, createdAfter, createdBefore, lastEditAfter, lastEditBefore, resultNo),
 				getJsonResponseHeaders(), HttpStatus.OK);
-		
+
     }
 
-	
-	@RequestMapping(value="/getChannels", method=RequestMethod.GET)	
+
+	@RequestMapping(value="/getChannels", method=RequestMethod.GET)
     public @ResponseBody ResponseEntity<String> getChannels(
             @RequestParam(value = "channelId", required = false) String channelId,
     		@RequestParam(value = "imageId", required = false) String imageId,
     		@RequestParam(value = "resultNo", required = false) Integer resultNo,
     		Model model
             ) throws SolrServerException, IOException, URISyntaxException {
-		
+
 		if (channelId != null){
 			return new ResponseEntity<String>(cs.getChannelAsJsonString(channelId, resultNo), getJsonResponseHeaders(), HttpStatus.OK);
 		}else {
 			return new ResponseEntity<String>(cs.getChannels(imageId, resultNo), getJsonResponseHeaders(), HttpStatus.OK);
 		}
     }
-		
-	
-	@RequestMapping(value="/getRoi", method=RequestMethod.GET)	
+
+
+	@RequestMapping(value="/getRoi", method=RequestMethod.GET)
     public @ResponseBody ResponseEntity<String> getRoi(
     		@RequestParam(value = "roiId", required = true) String roiId,
     		Model model
             ) throws SolrServerException, IOException, URISyntaxException {
-				
+
 		String responseString = "";
 		if (roiId != null){
 			responseString = rs.getRoiAsJsonString(roiId, 10);
 		}
 		return new ResponseEntity<String>(responseString, getJsonResponseHeaders(), HttpStatus.OK);
     }
-	
 
-	@RequestMapping(value="/getChannel", method=RequestMethod.GET)	
+
+	@RequestMapping(value="/getChannel", method=RequestMethod.GET)
     public @ResponseBody ResponseEntity<String> getChannel(
             @RequestParam(value = "channelId", required = true) String channelId,
     		Model model
             ) throws SolrServerException, IOException, URISyntaxException {
-		
+
 		String responseString = "";
 		if (channelId != null){
 			responseString = cs.getChannelAsJsonString(channelId, 10);
 		}
-		
+
 		return new ResponseEntity<String>(responseString, getJsonResponseHeaders(), HttpStatus.OK);
     }
-	
-	
+
+
 	/**
-	 * 
+	 *
 	 * @param model
 	 * @return
 	 * @throws SolrServerException
 	 * @throws IOException
 	 * @throws URISyntaxException
 	 */
-	@RequestMapping(value="/", method=RequestMethod.GET)	
+	@RequestMapping(value="/", method=RequestMethod.GET)
     public String showSomething( Model model ) throws SolrServerException, IOException, URISyntaxException {
-	
+
 		System.out.println("Try /getImages .");
 		return "rest_home";
     }
-		
-	
+
+
 	/**
 	 * @since 2015/08/18
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value="/getDataReleases", method=RequestMethod.GET)	
+	@RequestMapping(value="/getDataReleases", method=RequestMethod.GET)
     public @ResponseBody ResponseEntity<String> getDataRelease(Model model){
-		
+
 		return  new ResponseEntity<String>( ns.getAllReleases().toString(), getJsonResponseHeaders(), HttpStatus.OK);
-		
+
 	}
-	
-	
+
+
+
+
 }
 
 
