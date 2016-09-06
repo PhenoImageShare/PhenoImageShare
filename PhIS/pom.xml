@@ -47,6 +47,7 @@
                             <includes>
                                 <include>**/web.xml</include>
                                 <include>**/app-config.xml</include>
+                                <include>**/web-config.xml</include>
                                 <include>**/views/404.jsp</include>
                             </includes>
                         </resource>
@@ -669,6 +670,12 @@
 
         <dependency>
             <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
             <version>${spring.version}</version>
         </dependency>
@@ -676,12 +683,6 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-beans</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webmvc</artifactId>
             <version>${spring.version}</version>
         </dependency>
 
@@ -824,6 +825,7 @@
             <artifactId>spring-boot-starter-data-jpa</artifactId>
             <version>1.1.1.RELEASE</version>
         </dependency>
+
     </dependencies>
 
 
