@@ -53,7 +53,7 @@ public class GenericUpdateService {
 				cs.addAssociatedRoi(roi);
 			}
 		} else {
-			if (roiToReplace != null){
+			if (roiToReplace != null && roiToReplace.getPublished()){
 				is.deleteRoiRefferences(roiToReplace);
 				cs.deleteAssociatedRoi(roi);
 			}
