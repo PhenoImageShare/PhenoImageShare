@@ -49,7 +49,10 @@ public class ImpcXmlGenerator {
             }
             img = addImageSpecificDecorations(dto);
         }
+
         //TODO write
+
+
 
     }
 

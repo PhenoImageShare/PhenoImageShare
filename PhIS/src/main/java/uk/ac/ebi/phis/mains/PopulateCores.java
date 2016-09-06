@@ -116,10 +116,10 @@ public class PopulateCores {
 			xmlToLoad = "/Users/ilinca/Documents/temp/brainHistopath2.xml";
 			DatasourceInstance ds8 = processXml(xmlToLoad, "wtsi", reader);
 			exportDates.put(ds8.getName(), ds8);
-//
-//			xmlToLoad = "/Users/ilinca/Desktop/emage.xml";
-//			DatasourceInstance ds7 = processXml(xmlToLoad, "emage", reader);
-//			exportDates.put(ds7.getName(), ds7);
+
+			xmlToLoad = "/Users/ilinca/IdeaProjects/PhenoImageShare/PhIS/src/main/resources/emageExport.xml";
+			DatasourceInstance ds7 = processXml(xmlToLoad, "emage", reader);
+			exportDates.put(ds7.getName(), ds7);
 			
 //			xmlToLoad = dataDir + "/tracerExport.xml";
 //			DatasourceInstance ds1 = processXml(xmlToLoad, "tracer", reader);

@@ -291,7 +291,7 @@ public class TracerXmlGenerator {
 	        Date date = new Date();
 	        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 	        // File file = new File("source/main/resources/" + dateFormat.format(date) + "tracerExport.xml");
-	        File file = new File("source/main/resources/tracerExport.xml");
+	        File file = new File("/Users/ilinca/IdeaProjects/PhenoImageShare/PhIS/src/main/resources/tracerExport.xml");
 			JAXBContext jaxbContext = JAXBContext.newInstance(Doc.class);
 			Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 	 

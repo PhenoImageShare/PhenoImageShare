@@ -15,13 +15,12 @@
  *******************************************************************************/
 package uk.ac.ebi.phis.xmlDump;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.GregorianCalendar;
+import org.xml.sax.SAXException;
+import uk.ac.ebi.phis.jaxb.Doc;
+import uk.ac.ebi.phis.jaxb.Image;
+import uk.ac.ebi.phis.jaxb.OntologyTerm;
+import uk.ac.ebi.phis.jaxb.emage.ImageContentSummary;
+import uk.ac.ebi.phis.jaxb.emage.ImageContentSummary.ImageRecord;
 
 import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
@@ -34,14 +33,12 @@ import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
-
-import org.xml.sax.SAXException;
-
-import uk.ac.ebi.phis.jaxb.Doc;
-import uk.ac.ebi.phis.jaxb.Image;
-import uk.ac.ebi.phis.jaxb.OntologyTerm;
-import uk.ac.ebi.phis.jaxb.emage.ImageContentSummary;
-import uk.ac.ebi.phis.jaxb.emage.ImageContentSummary.ImageRecord;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.GregorianCalendar;
 
 
 public class EmageXmlGenerator {
@@ -73,12 +70,12 @@ public class EmageXmlGenerator {
 				if (i % 100 == 0){
 					System.out.println("Added "  + i + " documents");
 				}
-			//	if (i == 1000){
-			//		break;
-			//	}
+//				if (i == 1000){
+//					break;
+//				}
 			}
 			
-			File file = new File("source/main/resources/emageExport.xml");
+			File file = new File("/Users/ilinca/IdeaProjects/PhenoImageShare/PhIS/src/main/resources/emageExport.xml");
 			JAXBContext jaxbContext;
 			
 				jaxbContext = JAXBContext.newInstance(Doc.class);
