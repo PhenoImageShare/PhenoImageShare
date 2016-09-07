@@ -30,10 +30,10 @@ public class TestUtils {
 		RoiDTO roi;
 		String id = "madeup_id";
 		List<String> associatedChannel = new ArrayList<>();
-		associatedChannel.add("komp2_channel_112967_0");
-		String associatedImage = "komp2_112967";
+		associatedChannel.add("emage_channel_EMAGE_1065.1");
+		String associatedImage = "emage_EMAGE_1065.1";
 		List<String> depictedAnatomyId = new ArrayList<>();
-		depictedAnatomyId.add("MADEUP_0001");
+		depictedAnatomyId.add("MADEUP_00001");
 		List<String> depictedAnatomyTerm = new ArrayList<>();
 		depictedAnatomyTerm.add("some anatomy part");
 		List<String> depictedAnatomyFreetext = new ArrayList<>();
@@ -41,7 +41,7 @@ public class TestUtils {
 //		List<String> depictedAnatomyAnnotationSource = new ArrayList<>();
 //		depictedAnatomyAnnotationSource.add("USER_ADDED");
 		List<String> abnormalityAnatomyId = new ArrayList<>();
-		abnormalityAnatomyId.add("MADEUP_0921");
+		abnormalityAnatomyId.add("MADEUP_00921");
 		List<String> abnormalityAnatomyTerm = new ArrayList<>();
 		abnormalityAnatomyTerm.add("anat made up term No 2");
 		List<String> abnormalityAnatomyFreetext = new ArrayList<>();
@@ -49,13 +49,13 @@ public class TestUtils {
 //		List<String> abnormalityAnatomyAnnotationSource = new ArrayList<>();
 //		abnormalityAnatomyAnnotationSource.add("USER_ADDED"); 
 		List<String> phenotypeId = new ArrayList<>();
-		phenotypeId.add("MADEUP_928013");
+		phenotypeId.add("MADEUP_9280013");
 		List<String> phenotypeTerm = new ArrayList<>();
 		phenotypeTerm.add("phen term");
 		List<String> phenotypeFreetext = new ArrayList<>();
 		phenotypeFreetext.add("phen freetext");
 		List<String> expressedInId = new ArrayList<>();
-		expressedInId.add("MADEUP_43013");
+		expressedInId.add("MADEUP_430013");
 		List<String> expressedInTerm = new ArrayList<>();
 		expressedInTerm.add("anat term with expression");
 		List<String> expressedInFreetext = new ArrayList<>();

@@ -12,75 +12,7 @@
 		">
 
 	<context:component-scan base-package="uk.ac.ebi" />
-				
-	<bean id="neo4jAccessUtils"	 class="uk.ac.ebi.neo4jUtils.Neo4jAccessUtils">
-		<constructor-arg  value="${dbURI}" />
-	</bean>
-		
-	<bean id="imageService" class="uk.ac.ebi.phis.service.ImageService">
-		<constructor-arg  value="${internalSolrUrl}/images" />
-	</bean>
-	
-	<bean id="autosuggestService" class="uk.ac.ebi.phis.service.AutosuggestService">
-		<constructor-arg  value="${internalSolrUrl}/autosuggest" />
-	</bean>
-	
-	<bean id="genericUpdateService" class="uk.ac.ebi.phis.service.GenericUpdateService">
-	</bean>
-	
-	<bean id="roiService" class="uk.ac.ebi.phis.service.RoiService">
-		<constructor-arg  value="${internalSolrUrl}/rois" />
-	</bean>
-	
-	<bean id="channelService" class="uk.ac.ebi.phis.service.ChannelService">
-		<constructor-arg  value="${internalSolrUrl}/channels" />
-	</bean>
 
-  	<bean id="propertyPlaceholderConfigurer"
-		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="locations">
-			<list>
-      	<value>file:${user.home}/configfiles/pisAppConfig.properties</value>
-			</list>
-		</property>
-	</bean>
-	
-	
-	<bean id="tracerDB" class="org.apache.commons.dbcp.BasicDataSource"
-		destroy-method="close">
-		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://mysql-mi-prod.ebi.ac.uk:4404/sblac?autoReconnect=true&amp;zeroDateTimeBehavior=convertToNull" />
-		<property name="username" value="admin" />
-		<property name="password" value="${tracerDBPass}" />
-	</bean>
-
-
-	<bean id="ensemblClient" class="uk.ac.ebi.phis.utils.ensemblclient.EnsemblClient"></bean>
-
-	<bean id="komp2DataSource" class="org.apache.commons.dbcp.BasicDataSource"
-		destroy-method="close">
-		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://mysql-mi-dev:4356/ilinca_komp2_test?autoReconnect=true&amp;useUnicode=true&amp;connectionCollation=utf8_general_ci&amp;characterEncoding=utf8&amp;characterSetResults=utf8"/>
-		<property name="username" value="migrw" />
-		<property name="password" value="${kompDBPass}" />
-	</bean>
-	
-
-	<bean id="globalConfiguration" class="org.springframework.beans.factory.config.MapFactoryBean">
-		<property name="targetMapClass">
-			<value>java.util.HashMap</value>
-		</property>
-		<property name="sourceMap">
-			<map key-type="java.lang.String" value-type="java.lang.String">
-				<entry key="baseUrl" value="${baseUrl}" />
-				<entry key="solrUrl" value="${solrUrl}" />
-				<entry key="internalSolrUrl" value="${internalSolrUrl}" />
-				<entry key="tracerDBPass" value="${tracerDBPass}" />
-				<entry key="kompDBPass" value="${kompDBPass}" />
-			</map>
-		</property>
-	</bean>
-	
-	
+	<import resource="beans.xml"/>
 	
 </beans>

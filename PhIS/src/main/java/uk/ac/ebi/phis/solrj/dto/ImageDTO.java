@@ -2733,11 +2733,11 @@ public class ImageDTO {
 		}
 		this.abnormalAnatomyTermBag.addAll(abnormalAnatomyTermBag);
 	}
-	public void addAbnormalAnatomyIdBag(List<String> abnormalAnatomyFreetextBag){
+	public void addAbnormalAnatomyIdBag(List<String> abnormalAnatomyIdBag){
 		if (this.abnormalAnatomyFreetextBag == null){
 			this.abnormalAnatomyFreetextBag = new ArrayList<>();
 		}
-		this.abnormalAnatomyFreetextBag.addAll(abnormalAnatomyFreetextBag);
+		this.abnormalAnatomyFreetextBag.addAll(abnormalAnatomyIdBag);
 	}
 
 

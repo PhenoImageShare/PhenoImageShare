@@ -30,11 +30,9 @@ public class GenericUpdateService {
 	
 	@Autowired 
 	ImageService is;
-		
 
 	@Autowired
 	ChannelService cs;
-
 
 	@Autowired
 	RoiService rs;

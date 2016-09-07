@@ -6,6 +6,7 @@
                         http://www.springframework.org/schema/mvc     http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd">
 
 	<mvc:resources mapping="/css/**" location="/WEB-INF/resources/css/" />
+	<mvc:resources mapping="/js/**" location="/WEB-INF/resources/js/" />
 
 	<mvc:annotation-driven conversion-service="conversionService" />
 
@@ -27,15 +28,7 @@
 	</bean>
 
 
-	<bean id="propertyPlaceholderConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="locations">
-			<list>
-				<value>file:${user.home}/configfiles/pisAppConfig.properties</value>
-			</list>
-		</property>
-	</bean>
-
-	<context:component-scan base-package="uk.ac.ebi.phis.web.controller" />
+	<context:component-scan base-package="uk.ac.ebi" />
 
 	<!-- <mvc:annotation-driven/> use this if you don't need extra converters -->
 	<mvc:annotation-driven>
