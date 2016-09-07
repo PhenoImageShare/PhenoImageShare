@@ -23,14 +23,33 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 		<title>PhIS rest</title>
+        <script src="js/openseadragon/openseadragon.min.js"></script>
 	</head>
 	
 	<body>
-		<h1>PhIS restful service is up</h1>
+		<h1>PhenoImageShare API</h1>
 		<h2>
-			For the Query rest service go here : <a href="/data/rest/">rest/</a>
+			For the Query API go here : <a href="/data/rest/">rest/</a>
 		</h2>
-		<h2>For the id Generator service go here : <a href="data/rest/idGen/">/rest/idGen/</a></h2>
-	</body>
+		<h2>For the id Generator API go here : <a href="data/rest/idGen/">/rest/idGen/</a></h2>
+
+
+        <div id ="container" style="width:550px; height: 500px; border: 1px solid #466d98; margin-bottom: 10px; margin-top: 10px;"></div>
+
+        <script type="text/javascript">
+
+        Viewer = OpenSeadragon({
+            id: "container",
+            showNavigator:  true,
+            tileSources: {
+                type: 'image',
+                url:  "http://idr-demo.openmicroscopy.org/webclient/render_thumbnail/size/10000/1920093/"
+            }
+
+        });
+
+
+    </script>
+    </body>
 	
 </html>
