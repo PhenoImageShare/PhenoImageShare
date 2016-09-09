@@ -16,7 +16,7 @@
 package uk.ac.ebi.phis.xmlDump;
 
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
 import uk.ac.ebi.phis.exception.PhenoImageShareException;
 import uk.ac.ebi.phis.jaxb.*;
 import uk.ac.ebi.phis.utils.EnrichingUtils;
@@ -52,9 +52,9 @@ public class SangerXmlGenerator {
 		datatypeFactory = DatatypeFactory.newInstance();
 	}
 	
-	public void exportImages() throws IOException, JAXBException, SQLException, PhenoImageShareException{
-		
-        ApplicationContext ac = new ClassPathXmlApplicationContext("app-config.xml");
+	public void exportImages(String pathToContextFile) throws IOException, JAXBException, SQLException, PhenoImageShareException{
+
+        ApplicationContext ac = new FileSystemXmlApplicationContext("file:" + pathToContextFile);
 		DataSource dataSource = (DataSource) ac.getBean("komp2DataSource");
         
         String command = "SELECT iir.ID, iir.LARGE_THUMBNAIL_FILE_PATH, iir.SMALL_THUMBNAIL_FILE_PATH, iir.PUBLISHED_STATUS_ID, iit.ID as TAG_ID, " +
@@ -655,7 +655,7 @@ public class SangerXmlGenerator {
 	  * @param annMode
 	  * @return Annotation object matching the description in XSD
 	  */
-	 Annotation getAnnotation( String id, String label, String freetext, AnnotationMode annMode){
+	 public static Annotation getAnnotation( String id, String label, String freetext, AnnotationMode annMode){
 		 
 		 Annotation p = new Annotation();
 		 
@@ -665,7 +665,7 @@ public class SangerXmlGenerator {
 		 if (freetext != null && !freetext.isEmpty()){
 			 p.setAnnotationFreetext(freetext);
 		 }
-		 p.setAnnotationMode(annMode);
+		 if (annMode != null) {p.setAnnotationMode(annMode);}
 		 return p;
 		 
 	 }

@@ -111,15 +111,18 @@ public class PopulateCores {
 			release.setOntologiesUsed(reader.getontologyInstances());
 			
 			Map<String, DatasourceInstance> exportDates = new HashMap<>(); // <resourceName, resource object>
-			
 
-			xmlToLoad = "/Users/ilinca/Documents/temp/brainHistopath2.xml";
+			xmlToLoad = "/Users/ilinca/Desktop/test.xml";
 			DatasourceInstance ds8 = processXml(xmlToLoad, "wtsi", reader);
 			exportDates.put(ds8.getName(), ds8);
 
-			xmlToLoad = "/Users/ilinca/IdeaProjects/PhenoImageShare/PhIS/src/main/resources/emageExport.xml";
-			DatasourceInstance ds7 = processXml(xmlToLoad, "emage", reader);
-			exportDates.put(ds7.getName(), ds7);
+//			xmlToLoad = "/Users/ilinca/Documents/temp/brainHistopath2.xml";
+//			DatasourceInstance ds8 = processXml(xmlToLoad, "wtsi", reader);
+//			exportDates.put(ds8.getName(), ds8);
+//
+//			xmlToLoad = "/Users/ilinca/IdeaProjects/PhenoImageShare/PhIS/src/main/resources/emageExport.xml";
+//			DatasourceInstance ds7 = processXml(xmlToLoad, "emage", reader);
+//			exportDates.put(ds7.getName(), ds7);
 			
 //			xmlToLoad = dataDir + "/tracerExport.xml";
 //			DatasourceInstance ds1 = processXml(xmlToLoad, "tracer", reader);
@@ -148,7 +151,7 @@ public class PopulateCores {
 //			xmlToLoad = dataDir + "/emageExport.xml";
 //			DatasourceInstance ds7 = processXml(xmlToLoad, "emage", reader);
 //			exportDates.put(ds7.getName(), ds7);
-//			
+
 //			xmlToLoad = dataDir + "/sangerExport.xml";
 //			DatasourceInstance ds8 = processXml(xmlToLoad, "wtsi", reader);
 //			exportDates.put(ds8.getName(), ds8);
