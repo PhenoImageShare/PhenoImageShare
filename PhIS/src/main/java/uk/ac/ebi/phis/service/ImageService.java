@@ -120,7 +120,12 @@ public class ImageService extends BasicService{
 
 	}
 
-	private SolrQuery getQuery (String term, String phenotype, String mutantGene, String anatomy, String expressedGene, String sex,
+	private int getBoostFactor(Integer max, Integer desiredPosition){
+		max++;
+		return 2 * (max - desiredPosition);
+	}
+
+	private SolrQuery getQuery (String term, String phenotype, String mutantGene, TreeMap<Integer, List<String>> anatomy, String expressedGene, String sex,
 								String taxon, String imageType, String sampleType, String stage, String visualisationMethod, String samplePreparation,
 								String imagingMethod, Integer rows, Integer start, String genericGene, String chromosome, String strand, Long position,
 								Long startPosition, Long endPosition, String hostName, List<String> excludeAnatomy) throws PhisQueryException {
@@ -185,10 +190,20 @@ public class ImageService extends BasicService{
 					ImageDTO.IMAGING_METHOD_ID + ":\"" + imagingMethod + "\" OR " + ImageDTO.IMAGING_METHOD_ANCESTORS + ":\"" + imagingMethod + "\"");
 		}
 		if (anatomy != null){
-			anatomy = handleSpecialCharacters(anatomy);
-			bq += ImageDTO.GENERIC_ANATOMY + ":\""+ anatomy + "\"^100 " + ImageDTO.GENERIC_ANATOMY_ANCESTORS + ":\"" + anatomy + "\"^0.001 ";
-			bq += " ";
-			solrQuery.addFilterQuery(ImageDTO.GENERIC_ANATOMY + ":\""+ anatomy + "\" OR " + ImageDTO.GENERIC_ANATOMY_ANCESTORS + ":\"" + anatomy + "\"");
+
+			Integer maxAnatomy = anatomy.keySet().stream().max(Comparator.naturalOrder()).get();
+
+			for ( Map.Entry <Integer, List<String>> entry : anatomy.entrySet()) {
+				bq += ImageDTO.GENERIC_ANATOMY + ":\"" + entry.getValue().stream().map(item -> handleSpecialCharacters(item)).collect(Collectors.joining("\"^" + 100 * getBoostFactor(maxAnatomy, entry.getKey()) + " " + ImageDTO.GENERIC_ANATOMY + ":\"")) + "\"^" + 100 * getBoostFactor(maxAnatomy, entry.getKey()) + " ";
+				bq += ImageDTO.GENERIC_ANATOMY_ANCESTORS + ":\"" + entry.getValue().stream().map(item -> handleSpecialCharacters(item)).collect(Collectors.joining("\"^" + 0.001 * getBoostFactor(maxAnatomy, entry.getKey()) + " " + ImageDTO.GENERIC_ANATOMY_ANCESTORS + ":\"")) + "\"^" + 0.001 * getBoostFactor(maxAnatomy, entry.getKey()) + " ";
+			}
+			String fq = ImageDTO.GENERIC_ANATOMY + ":\"" ;
+			fq += anatomy.values().stream().map(list -> list.stream().map(
+									item -> handleSpecialCharacters(item)).collect(Collectors.joining("\" OR " + ImageDTO.GENERIC_ANATOMY + ":\""))).collect(Collectors.joining("\" OR " + ImageDTO.GENERIC_ANATOMY + ":\""));
+			fq += "\"" + " OR " + ImageDTO.GENERIC_ANATOMY_ANCESTORS + ":\"" ;
+			fq += anatomy.values().stream().map( list -> list.stream().map(
+									item -> handleSpecialCharacters(item)).collect(Collectors.joining("\" OR " + ImageDTO.GENERIC_ANATOMY_ANCESTORS + ":\""))).collect(Collectors.joining("\" OR " + ImageDTO.GENERIC_ANATOMY_ANCESTORS + ":\"")) + "\"";
+			solrQuery.addFilterQuery(fq);
 		}
 		if (excludeAnatomy != null){
 			excludeAnatomy.stream().map(item -> handleSpecialCharacters(item))
@@ -270,25 +285,27 @@ public class ImageService extends BasicService{
 	}
 
 
-	public List<ImageDTO> getImagesDTO(String term, String phenotype, String mutantGene, String anatomy, String expressedGene, String sex,
+	public List<ImageDTO> getImagesDTO(String term, String phenotype, String mutantGene, List<String> anatomy, String expressedGene, String sex,
 						String taxon, String imageType, String sampleType, String stage, String visualisationMethod, String samplePreparation,
 						String imagingMethod, Integer rows, Integer start, String genericGene, String chromosome, String strand, Long position,
 						Long startPosition, Long endPosition, String hostName, List<String> excludeAnatomy) throws PhisQueryException, SolrServerException {
 
-		SolrQuery solrQuery = getQuery(term, phenotype, mutantGene, anatomy, expressedGene, sex, taxon, imageType, sampleType, stage, visualisationMethod, samplePreparation, imagingMethod, rows, start, genericGene, chromosome, strand, position, startPosition, endPosition, hostName, excludeAnatomy);
+		TreeMap<Integer, List<String>> anatomyMap = getAnatomyOrder(anatomy);
+		SolrQuery solrQuery = getQuery(term, phenotype, mutantGene, anatomyMap, expressedGene, sex, taxon, imageType, sampleType, stage, visualisationMethod, samplePreparation, imagingMethod, rows, start, genericGene, chromosome, strand, position, startPosition, endPosition, hostName, excludeAnatomy);
 		List<ImageDTO> images = solr.query(solrQuery).getBeans(ImageDTO.class);
 		return  images;
 
 	}
 
 
-	public String getImages(String term, String phenotype, String mutantGene, String anatomy, String expressedGene, String sex,
+	public String getImages(String term, String phenotype, String mutantGene, List<String> anatomy, String expressedGene, String sex,
 							String taxon, String imageType, String sampleType, String stage, String visualisationMethod, String samplePreparation, 
 							String imagingMethod, Integer rows, Integer start, String genericGene, String chromosome, String strand, Long position,
 							Long startPosition, Long endPosition, String hostName, List<String> excludeAnatomy)
 	throws SolrServerException, PhisQueryException{
 
-		SolrQuery solrQuery = getQuery(term, phenotype, mutantGene, anatomy, expressedGene, sex, taxon, imageType, sampleType, stage, visualisationMethod, samplePreparation, imagingMethod, rows, start, genericGene, chromosome, strand, position, startPosition, endPosition, hostName, excludeAnatomy);
+		TreeMap<Integer, List<String>> anatomyOrdered = getAnatomyOrder(anatomy);
+		SolrQuery solrQuery = getQuery(term, phenotype, mutantGene, anatomyOrdered, expressedGene, sex, taxon, imageType, sampleType, stage, visualisationMethod, samplePreparation, imagingMethod, rows, start, genericGene, chromosome, strand, position, startPosition, endPosition, hostName, excludeAnatomy);
 
 		solrQuery.set("wt", "json");
 		solrQuery.setFacet(true);
@@ -313,15 +330,40 @@ public class ImageService extends BasicService{
 			JSONObject res = JSONRestUtil.getResults(getQueryUrl(solrQuery));
 			res.remove("responseHeader");
 			return res.toString();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (URISyntaxException e) {
+		} catch (IOException | URISyntaxException e) {
 			e.printStackTrace();
 		}
 		
 		return "Couldn't get anything back from solr.";
 	}
-	
+
+
+	private TreeMap<Integer, List<String>> getAnatomyOrder(List<String> anatomy){
+
+		TreeMap<Integer, List<String>> map = new TreeMap<>();
+
+		if (anatomy != null) {
+			anatomy.stream().forEach(item -> {
+				if (item.contains("^")) {
+					addItemToMap(map, new Integer(item.split("\\^")[1]), item.split("\\^")[0]);
+				} else {
+					addItemToMap(map, 0, item);
+				}
+			});
+		}
+		return map;
+	}
+
+	private void addItemToMap(TreeMap<Integer, List<String>> map, Integer pos, String str){
+
+		if (!map.containsKey(pos)){
+			map.put(pos, new ArrayList<>());
+		}
+
+		map.get(pos).add(str);
+
+	}
+
 	public String getImageAsJsonString(String imageId){
 		SolrQuery solrQuery = new SolrQuery();
 		imageId = handleSpecialCharacters(imageId);
@@ -330,9 +372,7 @@ public class ImageService extends BasicService{
 
 		try {
 			return JSONRestUtil.getResults(getQueryUrl(solrQuery)).toString();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (URISyntaxException e) {
+		} catch (IOException | URISyntaxException e) {
 			e.printStackTrace();
 		}
 		

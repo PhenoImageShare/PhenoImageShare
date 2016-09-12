@@ -46,7 +46,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/rest")
-public class SolrWrapperController {
+public class QueryController {
 
 	@NotNull
 	@Value("${baseUrl}")
@@ -84,7 +84,7 @@ public class SolrWrapperController {
     public @ResponseBody ResponseEntity<String>  getImages(
     		@RequestParam(value = "term", required = false) String term,
     		@RequestParam(value = "phenotype", required = false) String phenotype,
-            @RequestParam(value = "anatomy", required = false) String anatomy,
+            @RequestParam(value = "anatomy", required = false) List<String> anatomy,
 			@RequestParam(value = "-anatomy", required = false) List<String> excludeAnatomy,
             @RequestParam(value = "gene", required = false) String gene,
             @RequestParam(value = "mutantGene", required = false) String mutantGene,
@@ -110,6 +110,8 @@ public class SolrWrapperController {
 			
 		String responseString;
 		try{
+
+
 			responseString = is.getImages(term, phenotype, mutantGene, anatomy, expressedGene, sex, taxon, image_type, sample_type, stage, visualisationMethod, 
 						samplePreparation, imagingMethod, resultNo, start, gene, chromosome, strand, position, startPosition, endPosition, hostName, excludeAnatomy);
 			
@@ -155,7 +157,7 @@ public class SolrWrapperController {
 															  // Parameters from getImages
 															  @RequestParam(value = "term", required = false) String term,
 															  @RequestParam(value = "phenotype", required = false) String phenotype,
-															  @RequestParam(value = "anatomy", required = false) String anatomy,
+															  @RequestParam(value = "anatomy", required = false) List<String> anatomy,
 															  @RequestParam(value = "-anatomy", required = false) List<String> excludeAnatomy,
 															  @RequestParam(value = "gene", required = false) String gene,
 															  @RequestParam(value = "mutantGene", required = false) String mutantGene,

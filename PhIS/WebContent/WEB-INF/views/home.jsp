@@ -34,7 +34,7 @@
 		<h2>For the id Generator API go here : <a href="data/rest/idGen/">/rest/idGen/</a></h2>
 
 
-        <div id ="container" style="width:550px; height: 500px; border: 1px solid #466d98; margin-bottom: 10px; margin-top: 10px;"></div>
+        <%--<div id ="container" style="width:550px; height: 500px; border: 1px solid #466d98; margin-bottom: 10px; margin-top: 10px;"></div>--%>
 
         <%--<script type="text/javascript">--%>
         <%--Viewer = OpenSeadragon({--%>
