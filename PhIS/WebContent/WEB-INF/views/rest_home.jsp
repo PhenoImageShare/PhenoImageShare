@@ -62,7 +62,11 @@
 		</p>
 
 		<p>4. Get "eye" images, that are not annotated neither with heart, nor with liver.</p>
-		<p class="code">$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}getImages?term=eye&-anatomy=liver&-anatomy=heart">http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}getImages?term=eye&-anatomy=liver&-anatomy=heart&</a>'  -i -H 'Accept: application/json'</p>
+		<p class="code">$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}getImages?term=eye&-anatomy=liver&-anatomy=heart">http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}getImages?term=eye&-anatomy=liver&-anatomy=heart</a>'  -i -H 'Accept: application/json'</p>
+
+
+		<p>5. Get images of "lens vesicle" or "heart", but <b>pioritize</b> images of lens vesicle first.</p>
+		<p class="code">$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}getImages?anatomy=lens%20vesicle^1&anatomy=heart^2&resNo=70">http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}/getImages?anatomy=lens%20vesicle^1&anatomy=heart^2&resNo=70</a>'  -i -H 'Accept: application/json'</p>
 
 
 		<h3>Parameters</h3>
@@ -96,12 +100,13 @@
 				<td><var>MP:0010254</var><br></td>
 			</tr>
 
-			<tr>
+			<tr  style="background-color: olive;">
 				<td>anatomy</td>
-				<td><var>String</var></td>
+				<td><var>String[]</var></td>
 				<td>false</td>
 				<td>Images depicting the given anatomical structure, regardless
-					of abnormalities.</td>
+					of abnormalities. You can request to prioritize certain queries with ^[desired_position], see example above. Default position is 0. These values are used to boost the queries
+					so the order cannot be guaranteed.</td>
 				<td><var> * </var></td>
 				<td><var>MA:0000261, eye</var></td>
 			</tr>
