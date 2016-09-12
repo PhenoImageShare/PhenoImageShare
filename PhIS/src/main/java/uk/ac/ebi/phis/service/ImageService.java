@@ -189,7 +189,7 @@ public class ImageService extends BasicService{
 			solrQuery.addFilterQuery(ImageDTO.IMAGING_METHOD_LABEL_ANALYSED + ":\"" + imagingMethod + "\" OR " +
 					ImageDTO.IMAGING_METHOD_ID + ":\"" + imagingMethod + "\" OR " + ImageDTO.IMAGING_METHOD_ANCESTORS + ":\"" + imagingMethod + "\"");
 		}
-		if (anatomy != null){
+		if (anatomy != null && anatomy.size()> 0){
 
 			Integer maxAnatomy = anatomy.keySet().stream().max(Comparator.naturalOrder()).get();
 
