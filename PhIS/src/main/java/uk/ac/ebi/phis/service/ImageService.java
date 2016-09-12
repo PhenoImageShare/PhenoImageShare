@@ -292,6 +292,9 @@ public class ImageService extends BasicService{
 
 		TreeMap<Integer, List<String>> anatomyMap = getAnatomyOrder(anatomy);
 		SolrQuery solrQuery = getQuery(term, phenotype, mutantGene, anatomyMap, expressedGene, sex, taxon, imageType, sampleType, stage, visualisationMethod, samplePreparation, imagingMethod, rows, start, genericGene, chromosome, strand, position, startPosition, endPosition, hostName, excludeAnatomy);
+
+		System.out.println("\n\n\n" + solr.getBaseURL() + "/select?" +solrQuery);
+
 		List<ImageDTO> images = solr.query(solrQuery).getBeans(ImageDTO.class);
 		return  images;
 
