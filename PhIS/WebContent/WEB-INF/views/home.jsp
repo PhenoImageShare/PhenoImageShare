@@ -23,7 +23,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 		<title>PhIS rest</title>
-        <script src="js/openseadragon/openseadragon.min.js"></script>
+        <%--<script src="js/openseadragon/openseadragon.min.js"></script>--%>
 	</head>
 	
 	<body>
@@ -36,20 +36,18 @@
 
         <div id ="container" style="width:550px; height: 500px; border: 1px solid #466d98; margin-bottom: 10px; margin-top: 10px;"></div>
 
-        <script type="text/javascript">
+        <%--<script type="text/javascript">--%>
+        <%--Viewer = OpenSeadragon({--%>
+            <%--id: "container",--%>
+            <%--showNavigator:  true,--%>
+            <%--tileSources: {--%>
+                <%--type: 'image',--%>
+                <%--url:  "http://idr-demo.openmicroscopy.org/webclient/render_thumbnail/size/10000/1920093/"--%>
+            <%--}--%>
 
-        Viewer = OpenSeadragon({
-            id: "container",
-            showNavigator:  true,
-            tileSources: {
-                type: 'image',
-                url:  "http://idr-demo.openmicroscopy.org/webclient/render_thumbnail/size/10000/1920093/"
-            }
+        <%--});--%>
+        <%--</script>--%>
 
-        });
-
-
-    </script>
     </body>
 	
 </html>
