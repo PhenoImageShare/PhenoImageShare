@@ -57,7 +57,7 @@
 				<td><var>(none)</var></td>
 				<td><var>user_021897401</var></td>
 			</tr>
-			<tr>
+			<tr  style="background-color: olive;">
 				<td>publish</td>
 				<td><var>Boolean</var></td>
 				<td> true </td>
@@ -110,7 +110,7 @@
 				<td><var>(none)</var></td>
 				<td><var>0,100</var><br></td>
 			</tr>
-			<tr style="background-color: olive;">
+			<tr >
 				<td>userGroupId</td>
 				<td><var>String</var></td>
 				<td> false </td>
