@@ -16,7 +16,7 @@ import static uk.ac.ebi.phis.xmlDump.SangerXmlGenerator.getOntologyTerm;
 /**
  * Created by ilinca on 25/08/2016.
  */
-public class ImpcXmlGenerator {
+public class ImpcXmlGenerator extends BasicXmlGenerator{
 
     private HttpSolrServer solr;
     private final static String ulr = "http://ves-ebi-d0.ebi.ac.uk:8090/mi/impc/dev/solr/impc_images/";
@@ -75,18 +75,10 @@ public class ImpcXmlGenerator {
         img.setOrganism(org);
 
         ImageDescription desc = img.getImageDescription();
-        Link iGen = new Link();
-        iGen.setDisplayName(dto.getPhenotypingCenter());
-        iGen.setUrl("");
-        desc.setImageGeneratedBy(iGen);
-
+        desc.setImageGeneratedBy(getLink(null, dto.getPhenotypingCenter(), null));
         desc.setImageUrl(dto.getJpegUrl());
         desc.setThumbnailUrl(dto.getJpegUrl().replace("render_image", "render_birds_eye_view"));
-
-        Link oGen = new Link();
-        oGen.setDisplayName(dto.getProductionCenter());
-        oGen.setUrl("");
-        desc.setOrganismGeneratedBy(oGen);
+        desc.setOrganismGeneratedBy(getLink(null, dto.getProductionCenter(), null));
         desc.setSamplePreparation(getSamplePrep(dto.getProcedureName()));
 
 

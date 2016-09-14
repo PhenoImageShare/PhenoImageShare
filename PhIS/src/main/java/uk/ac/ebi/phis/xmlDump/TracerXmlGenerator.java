@@ -38,7 +38,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 
-public class TracerXmlGenerator {
+public class TracerXmlGenerator extends BasicXmlGenerator{
 	
 	Normalizer norm;
 	
@@ -109,18 +109,9 @@ public class TracerXmlGenerator {
 		    		ImageDescription imageDesc = new ImageDescription();
 		    		imageDesc.setImageUrl(url);
 		    		imageDesc.setImageDimensions(dimensions);
-		    		Link ogb = new Link();
-		    		ogb.setDisplayName("Spitz Lab, EMBL");
-		    		ogb.setUrl("http://www.embl.de/research/units/dev_biology/spitz/");
-		      		imageDesc.setOrganismGeneratedBy(ogb);
-		    		Link igb = new Link();
-		    		igb.setDisplayName("Spitz Lab, EMBL");
-		    		igb.setUrl("http://www.embl.de/research/units/dev_biology/spitz/");
-		    		imageDesc.setImageGeneratedBy(igb);
-		    		Link host = new Link();
-		    		host.setDisplayName("Tracer Database");
-		    		host.setUrl("http://www.ebi.ac.uk/panda-srv/tracer/");
-		    		imageDesc.setHost(host);
+		      		imageDesc.setOrganismGeneratedBy(getLink("http://www.embl.de/research/units/dev_biology/spitz/", "Spitz Lab, EMBL", null));
+		    		imageDesc.setImageGeneratedBy(getLink("http://www.embl.de/research/units/dev_biology/spitz/", "Spitz Lab, EMBL", null));
+		    		imageDesc.setHost(getLink("http://www.ebi.ac.uk/panda-srv/tracer/", "Tracer Database", null));
 		    		
 		    		ImageTypeArray ita = new ImageTypeArray();
 		    		ita.getEl().add(ImageType.EXPRESSION);

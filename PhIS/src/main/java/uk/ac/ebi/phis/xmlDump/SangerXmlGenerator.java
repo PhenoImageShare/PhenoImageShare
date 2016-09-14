@@ -41,7 +41,7 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SangerXmlGenerator {
+public class SangerXmlGenerator extends BasicXmlGenerator{
 	
 	Normalizer norm;
 	GregorianCalendar gregorianCalendar = new GregorianCalendar();
@@ -264,17 +264,10 @@ public class SangerXmlGenerator {
 		imageDesc.setImageUrl(url);
 		imageDesc.setThumbnailUrl("http://www.mousephenotype.org/data/media/" + res.getString("SMALL_THUMBNAIL_FILE_PATH"));
 		imageDesc.setImageDimensions(dimensions);
-		Link ogb = new Link();
-		ogb.setDisplayName("WTSI");
-		imageDesc.setOrganismGeneratedBy(ogb);
-		Link igb = new Link();
-		igb.setDisplayName("WTSI");
-		igb.setUrl("http://www.sanger.ac.uk");
-		imageDesc.setImageGeneratedBy(igb);
-		Link host = new Link();
-		host.setDisplayName("IMPC Portal");
-		host.setUrl("http://www.mousephenotype.org/");
-		imageDesc.setHost(host);
+		Link sanger = getLink("http://www.sanger.ac.uk", "WTSI", null);
+		imageDesc.setOrganismGeneratedBy(sanger);
+		imageDesc.setImageGeneratedBy(sanger);
+		imageDesc.setHost(getLink("http://www.mousephenotype.org/", "IMPC Portal", null));
 		// Parse procedure names to get most info out of them.
 		// Mappings done by David can be found at
 		// https://docs.google.com/spreadsheet/ccc?key=0AmK8olNJT0Z7dEN2MklCX2g1TmhJWTk0N3VlUERVaVE&usp=drive_web#gid=0
@@ -646,30 +639,7 @@ public class SangerXmlGenerator {
 		 
 		 return pa;
 	 }
-	 
-	 /**
-	  * 
-	  * @param id
-	  * @param label
-	  * @param freetext
-	  * @param annMode
-	  * @return Annotation object matching the description in XSD
-	  */
-	 public static Annotation getAnnotation( String id, String label, String freetext, AnnotationMode annMode){
-		 
-		 Annotation p = new Annotation();
-		 
-		 if (label != null && !label.isEmpty() && !id.isEmpty()){
-			 p.setOntologyTerm(getOntologyTerm(label, id));
-		 }
-		 if (freetext != null && !freetext.isEmpty()){
-			 p.setAnnotationFreetext(freetext);
-		 }
-		 if (annMode != null) {p.setAnnotationMode(annMode);}
-		 return p;
-		 
-	 }
-	 
+
 	 /**
 	  * On live procedures the age is not relevant and we should not import it. It does not mean it's the age at which the picture was taken.
 	  *  See David's document https://docs.google.com/spreadsheet/ccc?key=0AmK8olNJT0Z7dEN2MklCX2g1TmhJWTk0N3VlUERVaVE&usp=drive_web#gid=0. 

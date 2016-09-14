@@ -58,11 +58,11 @@ public class ExportDatabasesAsXml {
 //			sg.exportImages(contextFile);
 //			System.out.println("Generating xml for Sanger took " + (System.currentTimeMillis() - time));
 //
-//			time = System.currentTimeMillis();
+			time = System.currentTimeMillis();
 			IdrXmlGenerator idr = new IdrXmlGenerator();
 			idr.export();
 			System.out.println("Generating xml for Sanger took " + (System.currentTimeMillis() - time));
-
+//
 //			time = System.currentTimeMillis();
 //			TracerXmlGenerator tg = new TracerXmlGenerator();
 //			tg.exportImages();
