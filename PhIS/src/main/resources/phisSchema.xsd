@@ -155,7 +155,14 @@
 				  URL to the image itself, not a web page containing the image. This URL will be used to download or embed the image in a website.
 				  </documentation>
 				</annotation>
-			</element> 
+			</element>
+			<element name="original_image_url" type="string" minOccurs="0" maxOccurs="1" >
+				<annotation>
+					<documentation xml:lang="en">
+						URL to the image in original format.
+					</documentation>
+				</annotation>
+			</element>
 			<element name="thumbnail_url" type="string" minOccurs="0" maxOccurs="1">
 				<annotation>
 				  <documentation xml:lang="en">
