@@ -98,8 +98,9 @@ public class OntologyUtils {
 		synonymRelations.add("http://www.geneontology.org/formats/oboInOwl#hasNarrowSynonym");
 		synonymRelations.add("http://www.geneontology.org/formats/oboInOwl#hasRelatedSynonym");
 		synonymRelations.add("http://www.geneontology.org/formats/oboInOwl#hasBroadSynonym");
-		
+
 		phenotypeOntologies.add(System.getProperty("user.home") + "/phis_ontologies/mp.owl");
+		phenotypeOntologies.add(System.getProperty("user.home") + "/phis_ontologies/cmpo.owl");
 
 		anatomyOntologies.add(System.getProperty("user.home") + "/phis_ontologies/fbbt.owl");
 		anatomyOntologies.add(System.getProperty("user.home") + "/phis_ontologies/ma.owl");
@@ -314,7 +315,6 @@ public class OntologyUtils {
 	
 	/**
 	 * @since 2015/08/25
-	 * @param uberonId
 	 * @return
 	 */
 	private List<OntologyObject> getStageHigherLevel(OntologyObject obj){

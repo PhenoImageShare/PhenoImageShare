@@ -1,8 +1,6 @@
 package uk.ac.ebi.phis.xmlDump;
 
-import uk.ac.ebi.phis.jaxb.Annotation;
-import uk.ac.ebi.phis.jaxb.AnnotationMode;
-import uk.ac.ebi.phis.jaxb.Link;
+import uk.ac.ebi.phis.jaxb.*;
 
 import static uk.ac.ebi.phis.xmlDump.SangerXmlGenerator.getOntologyTerm;
 
@@ -42,6 +40,24 @@ public class BasicXmlGenerator {
         }
         if (annMode != null) {p.setAnnotationMode(annMode);}
         return p;
+
+    }
+
+    public static PercentArray getCoordinatesWholeImage(){
+
+        PercentArray xCoord = new PercentArray();
+        xCoord.getEl().add(new Float(0));
+        xCoord.getEl().add(new Float(100));
+
+        return xCoord;
+
+    }
+
+    public static StringArray getStringArray(String str){
+
+        StringArray array = new StringArray();
+        array.getEl().add(str);
+        return array;
 
     }
 

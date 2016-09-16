@@ -6,13 +6,20 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import uk.ac.ebi.phis.jaxb.*;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 
 /**
  * Created by ilinca on 08/09/2016.
@@ -24,39 +31,166 @@ public class IdrXmlGenerator extends BasicXmlGenerator {
     String thumbnailUrl = "http://idr-demo.openmicroscopy.org/webclient/render_thumbnail/size/";
     String mapUrl = "http://idr-demo.openmicroscopy.org/webclient/api/annotations/?type=map&image=";
 
-    public void export() throws IOException, JSONException {
+    public void export() throws IOException, JSONException, JAXBException {
 
-        Integer dataseId = 101;
-        JSONArray datasets = getJsonArray(listDatasetsUrl + dataseId, "datasets");
-        for (int i = 0 ; i < datasets.length() ; i ++){
-            JSONArray imagesArray =getJsonArray(listImagesUrl + datasets.getJSONObject(i).getInt("id"), "images");
-            for (int j = 0 ; j < imagesArray.length(); j ++){
-                int imageId = imagesArray.getJSONObject(j).getInt("id");
-                JSONArray annotationsArray = getJsonArray(mapUrl + imageId, "annotations");
-                System.out.println(imageId + " ++ " + annotationsArray);
 
-                Image img = createImageFromMap(annotationsArray, imageId, dataseId);
+        Doc idr = new Doc();
+        List<Image> images = new ArrayList();
+        List<Roi> rois = new ArrayList();
+        List<Channel> channels = new ArrayList();
 
+        List<Integer> datasetIds = new ArrayList<>();
+        datasetIds.add(101);
+        datasetIds.add(52);
+        datasetIds.add(51);
+
+        for (Integer datasetId : datasetIds) {
+
+            JSONArray datasets = getJsonArray(listDatasetsUrl + datasetId, "datasets");
+            for (int i = 0; i < datasets.length(); i++) {
+
+                System.out.println("IMAGES LIST " + listImagesUrl + datasets.getJSONObject(i).getInt("id"));
+                JSONArray imagesArray = getJsonArray(listImagesUrl + datasets.getJSONObject(i).getInt("id"), "images");
+                for (int j = 0; j < imagesArray.length(); j++) {
+
+                    int imageId = imagesArray.getJSONObject(j).getInt("id");
+                    JSONArray annotationsArray = getJsonArray(mapUrl + imageId, "annotations");
+                    System.out.println(imageId + " ++ " + annotationsArray);
+
+                    if (annotationsArray.length() > 0) {
+                        Map<String, String> map = convertAnnotationValuesToMap(annotationsArray);
+                        Image img = createImageFromMap(map, imageId, datasetId);
+
+                        if (img != null) {
+
+                            Roi roi = createRoiFromMap(map, img);
+                            Channel channel = createChannelFrom(img, roi, datasetId);
+
+                            if (roi != null) {
+                                rois.add(roi);
+                            }
+
+                            if (channel != null) {
+                                channels.add(channel);
+                            }
+                            images.add(img);
+                        }
+                    }
+//                    if (j == 100) {
+//                        break;
+//                    }
+                }
             }
         }
+
+        idr.getImage().addAll(images);
+        idr.getRoi().addAll(rois);
+        idr.getChannel().addAll(channels);
+        File file = new File("/Users/ilinca/IdeaProjects/PhenoImageShare/PhIS/src/main/resources/idrExport.xml");
+        JAXBContext jaxbContext;
+
+        jaxbContext = JAXBContext.newInstance(Doc.class);
+        Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+
+        jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+        jaxbMarshaller.marshal(idr, file);
+
     }
 
-    private Image createImageFromMap (JSONArray annotations, Integer imageId, Integer dataseId){
+    private Channel createChannelFrom (Image img, Roi roi, Integer datasetId){
+
+        Channel channel = new Channel();
+
+        if (datasetId == 101) {
+
+            channel.setId("channel_" + img.getId());
+
+            channel.setAssociatedImage(img.getId());
+            img.setAssociatedChannel(getStringArray(channel.getId()));
+
+            if (roi != null) {
+                channel.setAssociatedRoi(getStringArray(roi.getId()));
+                roi.setAssociatedChannel(getStringArray(channel.getId()));
+            }
+
+            AnnotationArray visualisationMethod = new AnnotationArray();
+            visualisationMethod.getEl().add(getAnnotation("FBbi_00000041", "hematoxylin", null, null));
+            visualisationMethod.getEl().add(getAnnotation("FBbi_00000037", "eosin", null, null));
+
+            channel.setVisualisationMethod(visualisationMethod);
+
+        } else {
+            channel = null;
+        }
+        return channel;
+
+    }
+
+
+    private Roi createRoiFromMap ( Map<String, String> map, Image image){
+
+        Boolean hasAnnotations = false;
+
+        Roi roi  = new Roi();
+        roi.setAssociatedImage(image.getId());
+
+        Coordinates coordinates = new Coordinates();
+        coordinates.setXCoordinates(getCoordinatesWholeImage());
+        coordinates.setYCoordinates(getCoordinatesWholeImage());
+        roi.setCoordinates(coordinates);
+
+        roi.setId("roi_" + image.getId());
+
+
+//        StringArray channels = new StringArray();
+//        channels.getEl().add("channel_" + getI);
+//        roi.setAssociatedChannel(channels);
+
+        // phenotype terms are numbered. need to get all of them.
+        // map.get("Phenotype 3 Term Name");
+        // map.get("Phenotype 3 Term Accession");
+        Pattern phenotypePattern = Pattern.compile("Phenotype (.+) Term Name");
+        for (String key : map.keySet()) {
+            Matcher matcher = phenotypePattern.matcher(key);
+            if (matcher.matches()) {
+                String number = matcher.group();
+                AnnotationArray phenotypes = new AnnotationArray();
+                phenotypes.getEl().add(getAnnotation(map.get("Phenotype " + number + " Term Accession"), map.get("Phenotype " + number + " Term Name"), null, AnnotationMode.MANUAL));
+                roi.setPhenotypeAnnotations(phenotypes);
+                hasAnnotations = true;
+            }
+        }
+
+        if (!hasAnnotations){
+            roi = null;
+        } else {
+            image.setAssociatedRoi(getStringArray("roi_" + image.getId()));
+        }
+
+        return roi;
+
+    }
+
+    private Image createImageFromMap (Map<String, String> map, Integer imageId, Integer dataseId){
 
         Image img = new Image();
-        Map<String, String> map = convertAnnotationValuesToMap(annotations);
         img.setId(imageId.toString());
 
         Organism org = new Organism();
-        org.setSex(Sex.fromValue(map.get("Sex")));
+        if (map.get("Sex") != null) {
+            org.setSex(Sex.fromValue(map.get("Sex")));
+        }
         org.setOrganismId(map.get("Individual"));
         img.setOrganism(org);
+
+        org = addStudySpecificToOrg(org, dataseId);
 
         Genotype genotype = new Genotype();
         GenotypeComponent gc = new GenotypeComponent();
         gc.setGeneId(map.get("Gene Identifier"));
         gc.setGeneSymbol(map.get("Gene Symbol"));
-        if (map.get("Genotype").contains("knockout")){
+
+        if (map.get("Genotype") != null && map.get("Genotype").contains("knockout")) {
             gc.setMutationType(getAnnotation(null, null, "null mutation", null));
         } else {
             System.out.println("What mutation is this   " + map.get("Genotype"));
@@ -66,63 +200,33 @@ public class IdrXmlGenerator extends BasicXmlGenerator {
         description.setHost(getLink("http://idr-demo.openmicroscopy.org/", "Image Data Repository (IDR)", null));
         description.setImageUrl(thumbnailUrl + "3000/" + imageId);
         description.setThumbnailUrl(thumbnailUrl + "200/" + imageId);
-        //description.setOriginalImageUrl();
         description.setSampleType(SampleType.MUTANT);
         ImageTypeArray type = new ImageTypeArray();
         type.getEl().add(ImageType.PHENOTYPE_ANATOMY);
         description.setImageType(type);
 
         addProjectSpecificAnnotations(dataseId, description);
-//        description.setSamplePreparation();
-//        // study file look at growth protocol
-//
-//        description.setImagingMethod();
-//        // neff -> bright field microscopy
-//        // 21 ->
-//        // 23 -> super resolution fluorescence microscopy ; dSTORM
-//
-//        description.setOrganismGeneratedBy();
-//        // No
-//
-//        description.setImageGeneratedBy();
-//        // 23 -> EMBL heidelberg
-//        // 21 -> http://www.lunenfeld.ca/about-us
-//        // Neff -> Helmholz, munich
-//        description.setImageProcessedBy();
-//        // no
-//        description.setLicence();
-//        // no
-//        description.setMagnificationLevel();
-//        // no
-//        description.setPublication();
-//        // neff no publication ; other 2 in study file
-//
-//        // genome build neff -> GRCm38.p4
-//
-//        // neff  hematoxylin and eosin (often abbreviated H&E)
 
-//      !! use Protocol Description from study file
+        img.setImageDescription(description);
+
         genotype.getEl().add(gc);
         img.setMutantGenotypeTraits(genotype);
 
-        img.setDepictedAnatomicalStructure(getAnnotation(null, null,  map.get("Organism Part"), AnnotationMode.MANUAL));
-
-        // phenotype terms are numbered. need to get all of them.
-        // map.get("Phenotype 3 Term Name");
-        // map.get("Phenotype 3 Term Accession");
-        Pattern phenotypePattern = Pattern.compile("Phenotype (.+) Term Name");
-        for (String key : map.keySet()){
-
-            Matcher matcher = phenotypePattern.matcher(key);
-            if (matcher.matches()){
-                // TODO add to ROIS, not IMAGE
-                String number = matcher.group();
-                map.get("Phenotype " + number + " Term Name");
-                map.get("Phenotype " + number + " Term Accession");
-            }
-        }
+        img.setDepictedAnatomicalStructure(getAnnotation(null, null, map.get("Organism Part"), AnnotationMode.MANUAL));
 
         return img;
+    }
+
+
+    private Organism addStudySpecificToOrg(Organism org, Integer datasetId){
+
+        if (datasetId == 101){
+            org.setTaxon("Mus musculus");
+        } else if (datasetId == 52 || datasetId == 51){
+            org.setTaxon("Homo sapiens");
+        }
+        return org;
+
     }
 
 
@@ -136,7 +240,7 @@ public class IdrXmlGenerator extends BasicXmlGenerator {
             description.setSamplePreparation(samplePreparation);
 
             AnnotationArray imagingMethod = new AnnotationArray();
-            imagingMethod.getEl().add(getAnnotation("FBbi:00000243", "bright-field microscopy", null, null));
+            imagingMethod.getEl().add(getAnnotation("FBbi_00000243", "bright-field microscopy", null, null));
             description.setImagingMethod(imagingMethod);
 
             description.setImageGeneratedBy(getLink("https://www.helmholtz-muenchen.de/", "Institute of Pathology, Helmholtz Zentrum Muenchen, Germany", null));
@@ -184,26 +288,41 @@ public class IdrXmlGenerator extends BasicXmlGenerator {
             publications.getEl().add(getLink("http://www.ncbi.nlm.nih.gov/pubmed/23086237", "Subdiffraction imaging of centrosomes reveals higher-order organizational features of pericentriolar material.", "Lawo S, Hasegan M, Gupta GD, Pelletier L., Nat Cell Biol. 2012 Nov;14(11):1148-58. doi: 10.1038/ncb2591. Epub 2012 Oct 21."));
             description.setPublication(publications);
 
+        } else  if (datasetId == 52 ) { // 23
 
+            AnnotationArray imagingMethod = new AnnotationArray();
+            imagingMethod.getEl().add(getAnnotation("FBbi_00000246", "fluorescence microscopy", "Super-resolution fluorescence microscopy", null));
+            description.setImagingMethod(imagingMethod);
+
+            description.setImageGeneratedBy(getLink("http://www.embl.de/", " EMBL Heidelberg, Germany", null));
+
+            LinkArray publications = new LinkArray();
+            publications.getEl().add(getLink("http://dx.doi.org/10.1126/science.1240672", "Nuclear pore scaffold structure analyzed by super-resolution microscopy and particle averaging.", "Szymborska A, de Marco A, Daigle N, Cordes VC, Briggs JA, Ellenberg J."));
+            description.setPublication(publications);
 
         }
 
-
     }
+
 
     private Map<String, String> convertAnnotationValuesToMap(JSONArray array){
 
         Map<String, String> map = new HashMap<>();
-        System.out.println("=== " + array);
-        // Annotation format : [["Organism Part", "gastrointestinal system"],[ "Sex", "female"],...]
-        for (int i = 0; i < array.length(); i++){
-            JSONArray ann = array.getJSONArray(i);
-            map.put(ann.getString(0), ann.getString(1));
+
+        if (array.length() > 0 && array.getJSONObject(0).getJSONArray("values") != null) {
+            JSONArray annotations = array.getJSONObject(0).getJSONArray("values");
+//            System.out.println("=== " + annotations);
+            // Annotation format : [["Organism Part", "gastrointestinal system"],[ "Sex", "female"],...]
+            for (int i = 0; i < annotations.length(); i++) {
+                JSONArray ann = annotations.getJSONArray(i);
+                map.put(ann.getString(0), ann.getString(1));
+            }
         }
 
         return map;
 
     }
+
 
     private JSONArray getJsonArray(String url, String fieldName) throws IOException {
 

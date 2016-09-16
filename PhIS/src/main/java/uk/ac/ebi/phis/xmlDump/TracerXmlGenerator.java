@@ -17,7 +17,7 @@ package uk.ac.ebi.phis.xmlDump;
 
 import org.json.JSONException;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
 import uk.ac.ebi.phis.jaxb.*;
 import uk.ac.ebi.phis.utils.EnrichingUtils;
 import uk.ac.ebi.phis.utils.Normalizer;
@@ -63,9 +63,9 @@ public class TracerXmlGenerator extends BasicXmlGenerator{
 		emapLabels.put("somites", "somite group"); emapIds.put("somites", "EMAPA:31169");
 	}
 	
-	public void exportImages() throws IOException{
+	public void exportImages( String appConfig) throws IOException{
     
-        ApplicationContext ac = new ClassPathXmlApplicationContext("app-config.xml");
+        ApplicationContext ac = new FileSystemXmlApplicationContext("file:" + appConfig);
 		DataSource dataSource = (DataSource) ac.getBean("tracerDB");
 		EnsemblClient ensemblClient = (EnsemblClient) ac.getBean("ensemblClient");
 		

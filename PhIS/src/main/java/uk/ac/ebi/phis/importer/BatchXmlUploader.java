@@ -437,7 +437,7 @@ public class BatchXmlUploader {
 			bean = copyFieldsFromChannel(img, bean);
 		}
 
-		if (desc.getImageDimensions().getImageDepth() != null){
+		if (desc.getImageDimensions() != null && desc.getImageDimensions().getImageDepth() != null){
 			bean.setDepth(desc.getImageDimensions().getImageDepth());
 		}
 
@@ -447,9 +447,10 @@ public class BatchXmlUploader {
 			bean.setThumbnailUrl(desc.getImageUrl());
 		}
 
-		bean.setHeight(desc.getImageDimensions().getImageHeight());
-
-		bean.setWidth(desc.getImageDimensions().getImageWidth());
+		if (desc.getImageDimensions() != null) {
+			bean.setHeight(desc.getImageDimensions().getImageHeight());
+			bean.setWidth(desc.getImageDimensions().getImageWidth());
+		}
 
 		if (desc.getImagingMethod() != null){
 			for (Annotation im: desc.getImagingMethod().getEl()){
@@ -897,7 +898,7 @@ public class BatchXmlUploader {
 			if (!vu.hasValidOntologyTerms(img)) {
 				System.out.println("there was something wrong with the ontology terms for img id = " + img.getId());
 			}
-			if (!vu.hasPositieDimensions(img.getImageDescription().getImageDimensions())) {
+			if (img.getImageDescription().getImageDimensions() != null && !vu.hasPositieDimensions(img.getImageDescription().getImageDimensions())) {
 				System.out.println("Dimensions are not positive! Validation failed.");
 				return false;
 			}

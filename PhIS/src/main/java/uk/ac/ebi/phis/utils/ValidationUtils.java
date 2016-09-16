@@ -15,17 +15,10 @@
  *******************************************************************************/
 package uk.ac.ebi.phis.utils;
 
-import java.util.List;
-
-import uk.ac.ebi.phis.jaxb.Annotation;
-import uk.ac.ebi.phis.jaxb.Channel;
-import uk.ac.ebi.phis.jaxb.Coordinates;
-import uk.ac.ebi.phis.jaxb.Dimensions;
-import uk.ac.ebi.phis.jaxb.ExpressionAnnotation;
-import uk.ac.ebi.phis.jaxb.Image;
-import uk.ac.ebi.phis.jaxb.OntologyTerm;
-import uk.ac.ebi.phis.jaxb.Roi;
+import uk.ac.ebi.phis.jaxb.*;
 import uk.ac.ebi.phis.utils.ontology.OntologyUtils;
+
+import java.util.List;
 
 public class ValidationUtils {
 
@@ -73,7 +66,7 @@ public class ValidationUtils {
 		// depicted anatomy
 		res = res && checkOntologyTerm(ann, "anatomy");
 		if (!res) {
-			System.out.println(">>> anatomy >>> " + ann.getOntologyTerm().getTermId() );
+			System.out.println(">>> anatomy >>> " + ann.getOntologyTerm() + " img id " + img.getId());
 			return false;
 		}
 		// stage
@@ -178,7 +171,7 @@ public class ValidationUtils {
 	 */
 	private boolean checkOntologyTerm(Annotation ann, String type) {
 
-		if (ann != null) { return checkOntologyTerm(ann.getOntologyTerm(), type); }
+		if (ann != null && ann.getOntologyTerm() != null) { return checkOntologyTerm(ann.getOntologyTerm(), type); }
 
 		return true;
 	}
@@ -207,7 +200,7 @@ public class ValidationUtils {
 				} else if (type.equalsIgnoreCase("imagingMethod")) {
 					isValid = ou.isImagingMethod(ot.getTermId());
 				}
-				// Removed check to see if label & id match. If label doesn't match we'll add it from 
+				// Removed check to see if label & id match. If label doesn't match we'll use the one from the ontology
 /*				isValid = isValid && ou.labelMatchesId(ot.getTermLabel(), ot.getTermId());
 				if (!isValid) {
 //					System.out.println(">> Label matches id? " + ou.labelMatchesId(ot.getTermLabel(), ot.getTermId()) + " for " + ot.getTermId() + " " + ot.getTermLabel() + "\n>> Or the term is not present in the ontologies known for this field. ");

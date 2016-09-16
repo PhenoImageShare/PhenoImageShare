@@ -112,9 +112,9 @@ public class PopulateCores {
 			
 			Map<String, DatasourceInstance> exportDates = new HashMap<>(); // <resourceName, resource object>
 
-			xmlToLoad = "/Users/ilinca/Desktop/test.xml";
-			DatasourceInstance ds8 = processXml(xmlToLoad, "wtsi", reader);
-			exportDates.put(ds8.getName(), ds8);
+//			xmlToLoad = "/Users/ilinca/IdeaProjects/PhenoImageShare/PhIS/src/main/resources/idrExport.xml";
+//			DatasourceInstance ds7 = processXml(xmlToLoad, "IDR", reader);
+//			exportDates.put(ds7.getName(), ds7);
 
 //			xmlToLoad = "/Users/ilinca/Documents/temp/brainHistopath2.xml";
 //			DatasourceInstance ds8 = processXml(xmlToLoad, "wtsi", reader);
@@ -156,10 +156,10 @@ public class PopulateCores {
 //			DatasourceInstance ds8 = processXml(xmlToLoad, "wtsi", reader);
 //			exportDates.put(ds8.getName(), ds8);
 			
-//			
-//			xmlToLoad = dataDir + "/VFB_flycircuit_plus.xml";
-//			DatasourceInstance ds9 = processXml(xmlToLoad, "vfb", reader);
-//			exportDates.put(ds9.getName(), ds9);
+
+			xmlToLoad = dataDir + "/VFB_flycircuit_plus.xml";
+			DatasourceInstance ds9 = processXml(xmlToLoad, "vfb", reader);
+			exportDates.put(ds9.getName(), ds9);
 			
 			System.out.println("Solr url is : " + is.getSolrUrl());			
 

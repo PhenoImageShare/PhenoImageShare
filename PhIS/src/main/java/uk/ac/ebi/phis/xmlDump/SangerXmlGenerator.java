@@ -46,12 +46,16 @@ public class SangerXmlGenerator extends BasicXmlGenerator{
 	Normalizer norm;
 	GregorianCalendar gregorianCalendar = new GregorianCalendar();
     DatatypeFactory datatypeFactory;
-    
+
+	float zero = 0;
+	float hunderd = 100;
+
+
 	public SangerXmlGenerator() throws DatatypeConfigurationException{
 		norm = new Normalizer();
 		datatypeFactory = DatatypeFactory.newInstance();
 	}
-	
+
 	public void exportImages(String pathToContextFile) throws IOException, JAXBException, SQLException, PhenoImageShareException{
 
         ApplicationContext ac = new FileSystemXmlApplicationContext("file:" + pathToContextFile);
@@ -71,7 +75,7 @@ public class SangerXmlGenerator extends BasicXmlGenerator{
         					"LEFT OUTER JOIN IMA_EXPERIMENT_DICT ied ON isub.experiment_dict_id=ied.id " +
         					"LEFT OUTER JOIN allele ON allele.symbol=imam.ALLELE " + 
         				"WHERE ied.NAME != 'Mouse Necropsy' " +
-        				"ORDER BY iir.ID, TAG_ID ;";
+        				"ORDER BY iir.ID, TAG_ID  ;";
         
         	PreparedStatement statement = dataSource.getConnection().prepareStatement(command);
      		ResultSet res = statement.executeQuery();
@@ -403,10 +407,10 @@ public class SangerXmlGenerator extends BasicXmlGenerator{
 				}
 			}
 			Coordinates coord = new Coordinates();
-			PercentArray xCoord = new PercentArray();
-			PercentArray yCoord = new PercentArray();
 
 			if (notZeroCoordinates(res)) {
+				PercentArray xCoord = new PercentArray();
+				PercentArray yCoord = new PercentArray();
 				// we have coordinates
 				// Order is important: (start, end)
 				// Sanger stores percentages so no need to compute them here, we
@@ -421,17 +425,10 @@ public class SangerXmlGenerator extends BasicXmlGenerator{
 				coord.setYCoordinates(yCoord);
 			}
 			else {
-				float zero = 0;
-				float hunderd = 100;
 				// create the coordinates
-				xCoord.getEl().add(zero);
-				xCoord.getEl().add(hunderd);
-				coord.setXCoordinates(xCoord);
-
+				coord.setXCoordinates(getCoordinatesWholeImage());
 				// Order is important: (start, end)
-				yCoord.getEl().add(zero);
-				yCoord.getEl().add(hunderd);
-				coord.setYCoordinates(yCoord);
+				coord.setYCoordinates(getCoordinatesWholeImage());
 			}
 
 			roi.setCoordinates(coord);
