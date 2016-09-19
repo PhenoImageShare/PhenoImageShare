@@ -40,7 +40,6 @@ import java.util.Map;
 public class PopulateCores {
 
 	private static ApplicationContext applicationContext;
-	Map<String, DatasourceInstance> datasources = new HashMap<String, DatasourceInstance>();
 
 	private static Logger logger = Logger.getLogger(PopulateCores.class);
 
@@ -114,47 +113,47 @@ public class PopulateCores {
 
 
 			xmlToLoad = dataDir + "/tracerExport.xml";
-			DatasourceInstance ds1 = processXml(xmlToLoad, "tracer", reader);
+			DatasourceInstance ds1 = processXml(xmlToLoad, DatasourceIds.TRACER,  reader);
 			exportDates.put(ds1.getName(), ds1);
 
 			xmlToLoad = dataDir + "/VFB_Cachero2010.xml";
-			DatasourceInstance ds2 = processXml(xmlToLoad, "vfb", reader);
+			DatasourceInstance ds2 = processXml(xmlToLoad, DatasourceIds.VFB_CACHERO, reader);
 			exportDates.put(ds2.getName(), ds2);
 
 			xmlToLoad = dataDir + "/VFB_Ito2013.xml";
-			DatasourceInstance ds3 = processXml(xmlToLoad, "vfb", reader);
+			DatasourceInstance ds3 = processXml(xmlToLoad, DatasourceIds.VFB_ITO, reader);
 			exportDates.put(ds3.getName(), ds3);
 
 			xmlToLoad = dataDir + "/VFB_Jenett2012_full.xml";
-			DatasourceInstance ds4 = processXml(xmlToLoad, "vfb", reader);
+			DatasourceInstance ds4 = processXml(xmlToLoad, DatasourceIds.VFB_JENETT, reader);
 			exportDates.put(ds4.getName(), ds4);
 
 			xmlToLoad = dataDir + "/VFB_Yu2013.xml";
-			DatasourceInstance ds5 = processXml(xmlToLoad, "vfb", reader);
+			DatasourceInstance ds5 = processXml(xmlToLoad, DatasourceIds.VFB_YU, reader);
 			exportDates.put(ds5.getName(), ds5);
 
 			xmlToLoad = dataDir + "/VFB_flycircuit_plus.xml";
-			DatasourceInstance ds6 = processXml(xmlToLoad, "vfb", reader);
+			DatasourceInstance ds6 = processXml(xmlToLoad, DatasourceIds.VFB_FLYCIRCUIT, reader);
 			exportDates.put(ds6.getName(), ds6);
 
 			xmlToLoad = dataDir + "/emageExport.xml";
-			DatasourceInstance ds7 = processXml(xmlToLoad, "emage", reader);
+			DatasourceInstance ds7 = processXml(xmlToLoad, DatasourceIds.EMAGE, reader);
 			exportDates.put(ds7.getName(), ds7);
 
-//			xmlToLoad = dataDir + "/sangerExport.xml";
-//			DatasourceInstance ds8 = processXml(xmlToLoad, "wtsi", reader);
-//			exportDates.put(ds8.getName(), ds8);
+			xmlToLoad = dataDir + "/sangerExport.xml";
+			DatasourceInstance ds8 = processXml(xmlToLoad, DatasourceIds.WTSI, reader);
+			exportDates.put(ds8.getName(), ds8);
 
 			xmlToLoad =  dataDir + "/idrExport.xml";
-			DatasourceInstance ds9 = processXml(xmlToLoad, "IDR", reader);
+			DatasourceInstance ds9 = processXml(xmlToLoad, DatasourceIds.IDR, reader);
 			exportDates.put(ds9.getName(), ds9);
 
 			xmlToLoad =  dataDir + "/brainHistopathExport.xml";
-			DatasourceInstance ds10 = processXml(xmlToLoad, "wtsi - brain histopathology", reader);
+			DatasourceInstance ds10 = processXml(xmlToLoad, DatasourceIds.BRAIN_HISTOPATH, reader);
 			exportDates.put(ds10.getName(), ds10);
 
 			xmlToLoad = dataDir + "/VFB_flycircuit_plus.xml";
-			DatasourceInstance ds11 = processXml(xmlToLoad, "vfb", reader);
+			DatasourceInstance ds11 = processXml(xmlToLoad, DatasourceIds.VFB_FLYCIRCUIT_PLUS, reader);
 			exportDates.put(ds11.getName(), ds11);
 			
 			System.out.println("Solr url is : " + is.getSolrUrl());			
@@ -182,13 +181,12 @@ public class PopulateCores {
 	 * @author tudose
 	 * @since 2015/08/17
 	 * @param xmlToLoad
-	 * @param resourceName
 	 * @param reader
 	 * @throws SolrServerException 
 	 * @throws IOException 
 	 * @throws ParseException 
 	 */
-	private static DatasourceInstance processXml (String xmlToLoad, String resourceName, BatchXmlUploader reader) 
+	private static DatasourceInstance processXml (String xmlToLoad, Integer datasourceId, BatchXmlUploader reader)
 	throws IOException, SolrServerException, ParseException{
 
 		Long time = System.currentTimeMillis();
@@ -196,7 +194,7 @@ public class PopulateCores {
 		
 		if (reader.validate(xmlToLoad)){
 			System.out.println(xmlToLoad + " is valid.");
-			ds = reader.index(xmlToLoad, resourceName);
+			ds = reader.index(xmlToLoad, datasourceId);
 			System.out.println("Importing " + xmlToLoad + " XML took " + (System.currentTimeMillis() - time));
 		} else {
 			System.out.println(xmlToLoad + " is NOT valid.");
@@ -219,5 +217,20 @@ public class PopulateCores {
 		System.out.println(buffer);
 		System.exit(1);
 	}
+
+	private static class DatasourceIds{
+		static final Integer TRACER = 1 ;
+		static final Integer VFB_CACHERO = 2;
+		static final Integer VFB_ITO = 3;
+		static final Integer VFB_JENETT = 4;
+		static final Integer VFB_YU = 5;
+		static final Integer VFB_FLYCIRCUIT = 6;
+		static final Integer EMAGE = 7;
+		static final Integer WTSI = 8;
+		static final Integer IDR = 9;
+		static final Integer BRAIN_HISTOPATH = 10;
+		static final Integer VFB_FLYCIRCUIT_PLUS = 11;
+	}
+
 
 }

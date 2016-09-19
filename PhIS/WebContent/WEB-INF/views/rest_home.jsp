@@ -313,9 +313,9 @@
 	<h2>/getImage</h2>
 	
 	<h3>Examples</h3>	
-	<p>Get image with id vfb_image_VFB_00023288.</p> 
-	<p class="code">$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}getImage?imageId=vfb_image_VFB_00023288">
-	http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}getImage?imageId=vfb_image_VFB_00023288
+	<p>Get image with id 6_image_VFB_00009318.</p>
+	<p class="code">$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}getImage?imageId=6_image_VFB_00009318">
+	http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}getImage?imageId=6_image_VFB_00009318
 	</a>'  -i -H 'Accept: application/json'</p>
 	
 	
@@ -338,7 +338,7 @@
 				<td> true</td>
 				<td>Image document with the specified id.</td>
 				<td><var> (none) </var></td>
-				<td><var>emage_EMAGE_2333.1</var><br></td>
+				<td><var>6_image_VFB_00009318</var><br></td>
 			</tr>
 		</tbody>
 	</table>
@@ -350,8 +350,8 @@
 	<h2>/getRois</h2>
 	
 	<h3>Examples</h3>	
-	<p>1. Get all annotations for image emage_EMAGE_2383.2. Note that there is a default limit of results, so in order to get all documents back, just provide a high result limit.</p> 
-	<p class="code">$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}getRois?imageId=vfb_image_VFB_00022854&resultNo=10000000">http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}getRois?imageId=emage_roi_EMAGE_2383.2&resultNo=10000000</a>' 
+	<p>1. Get all annotations for image 6_image_VFB_00009318. Note that there is a default limit of results, so in order to get all documents back, just provide a high result limit.</p>
+	<p class="code">$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}getRois?imageId=6_image_VFB_00009318&resultNo=10000000">http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}getRois?imageId=6_image_VFB_00009318&resultNo=10000000</a>'
 		-i -H 'Accept: application/json'</p>
 	
 	<p>2. Get annotations created after January 2012. The date must be provided in Zulu time. Please note that most annotations provided to us by our collaborators usually don't have the annotation date, so this will only query a small subset of annotations with the date provided.</p> 
@@ -378,7 +378,7 @@
 				<td> false</td>
 				<td>ROI associated to the image.</td>
 				<td><var> * </var></td>
-				<td><var>emage_EMAGE_2333.1</var><br></td>
+				<td><var>6_image_VFB_00009318</var><br></td>
 			</tr>
 			<tr>
 				<td>userId</td>
@@ -453,9 +453,9 @@
 	<h2>/getRoi</h2>
 	
 	<h3>Examples</h3>	
-	<p>Get roi with id emage_roi_EMAGE_2383.2.</p> 
-	<p class="code">$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}getRoi?roiId=emage_roi_EMAGE_2383.2">
-		http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}getRoi?roiId=emage_roi_EMAGE_2383.2</a>' 
+	<p>Get roi with id 4_roi_roi_VFB_00022854-b.</p>
+	<p class="code">$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}getRoi?roiId=4_roi_roi_VFB_00022854-b">
+		http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}getRoi?roiId=4_roi_roi_VFB_00022854-b</a>'
 		-i -H 'Accept: application/json'</p>
 	
 	<h3>Parameters</h3>
@@ -477,7 +477,7 @@
 				<td> true</td>
 				<td>ROI with the specified id.</td>
 				<td><var> (none) </var></td>
-				<td><var>emage_roi_EMAGE_2333.1</var><br></td>
+				<td><var>4_roi_roi_VFB_00022854-b</var><br></td>
 			</tr>
 		</tbody>
 	</table>
@@ -491,8 +491,8 @@
 	
 		
 	<h3>Examples</h3>	
-	<p>Get channel with id emage_channel_EMAGE_2383.2.</p> 
-	<p class="code">$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}getChannel?channelId=emage_channel_EMAGE_2383.2">http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}getChannel?channelId=emage_channel_EMAGE_2383.2</a>'  -i -H 'Accept: application/json'</p>
+	<p>Get channel with id 4_channel_channel_VFB_00022854-b.</p>
+	<p class="code">$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}getChannel?channelId=4_channel_channel_VFB_00022854-b">http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}getChannel?channelId=4_channel_channel_VFB_00022854-b</a>'  -i -H 'Accept: application/json'</p>
 	
 	
 	<h3>Parameters</h3>
@@ -514,7 +514,7 @@
 				<td> true</td>
 				<td>Channel with the specified id.</td>
 				<td><var> (none) </var></td>
-				<td><var>emage_channel_EMAGE_2333.1</var><br></td>
+				<td><var>4_channel_channel_VFB_00022854-b</var><br></td>
 			</tr>
 		</tbody>
 	</table>
@@ -526,9 +526,9 @@
 	<p>Channels contain information about the visualization method, i.e. type of fluorescent marker used or the gene whose expression is to be seen in the rois associated to this channel. </p>
 	
 	<h3>Examples</h3>	
-	<p>Get image with id emage_EMAGE_2383.2.</p> 
-	<p class="code">$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}getChannels?imageId=vfb_image_VFB_00023280">
-		http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}getChannels?imageId=vfb_image_VFB_00023280
+	<p>Get chanels for image with id 4_image_VFB_00022854.</p>
+	<p class="code">$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}getChannels?imageId=4_image_VFB_00022854">
+		http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}getChannels?imageId=4_image_VFB_00022854
 	</a>'  -i -H 'Accept: application/json'</p>
 	
 	
@@ -552,7 +552,7 @@
 				<td> true</td>
 				<td>Channel with the specified id.</td>
 				<td><var> * </var></td>
-				<td><var>emage_EMAGE_2333.1</var><br></td>
+				<td><var>4_image_VFB_00022854</var><br></td>
 			</tr>
 		
 			<tr>
@@ -839,8 +839,8 @@
 
 		<h3>Examples</h3>
 
-		<p>Get images similar to image with id wtsi_358432.</p>
-		<p class="code">$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}similar?imageId=wtsi_358432">http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}similar?imageId=wtsi_358432</a>'  -i -H 'Accept: application/json'</p>
+		<p>Get images similar to image with id 4_image_VFB_00022854.</p>
+		<p class="code">$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}similar?imageId=4_image_VFB_00022854">http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}similar?imageId=4_image_VFB_00022854</a>'  -i -H 'Accept: application/json'</p>
 
 		<h3>Parameters</h3>
 
@@ -862,7 +862,7 @@
 				<td> true </td>
 				<td>Id of the image of interest. Phenotype and anatomy fields will be used in search for similar images.</td>
 				<td><var> * </var></td>
-				<td><var>wtsi_358432</var><br></td>
+				<td><var>4_image_VFB_00022854</var><br></td>
 			</tr>
 			<tr style="background-color: olive;">
 				<td>resultNo</td>
@@ -888,8 +888,8 @@
 
 		<h3>Examples</h3>
 
-		<p>Get tab separated details image with id wtsi_358432.</p>
-		<p class="code">$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}download?imageId=wtsi_358432">http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}download?imageId=wtsi_358432</a>'  -i -H 'Accept: application/json'</p>
+		<p>Get tab separated details image with id 4_image_VFB_00022854.</p>
+		<p class="code">$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}download?imageId=4_image_VFB_00022854">http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}download?imageId=4_image_VFB_00022854</a>'  -i -H 'Accept: application/json'</p>
 
 		<h3>Parameters</h3>
 
@@ -911,7 +911,7 @@
 				<td> false </td>
 				<td>Id of the image to download details for.</td>
 				<td><var> * </var></td>
-				<td><var>wtsi_358432</var><br></td>
+				<td><var>4_image_VFB_00022854</var><br></td>
 			</tr>
 			<tr> <td>All parameters from <a href="#getImages">getImages/</a> are applied in the same way.</td></tr>
 			</tbody>

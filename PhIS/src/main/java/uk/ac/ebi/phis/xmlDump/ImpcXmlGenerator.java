@@ -80,9 +80,17 @@ public class ImpcXmlGenerator extends BasicXmlGenerator{
         desc.setThumbnailUrl(dto.getJpegUrl().replace("render_image", "render_birds_eye_view"));
         desc.setOrganismGeneratedBy(getLink(null, dto.getProductionCenter(), null));
         desc.setSamplePreparation(getSamplePrep(dto.getProcedureName()));
-
+        desc.setHost(getLink("http://www.mousephenotype.org/", "IMPC Mouse Phenotype", null));
+        desc.setImagingMethod(getImagingMethod(dto.getProcedureName()));
+        desc.setSamplePreparation(getSamplePrep(dto.getProcedureName()));
 
         img.setImageDescription(desc);
+
+
+        Genotype genotype = new Genotype();
+        GenotypeComponent gc = new GenotypeComponent();
+
+        img.setMutantGenotypeTraits(genotype);
 
         return img;
 

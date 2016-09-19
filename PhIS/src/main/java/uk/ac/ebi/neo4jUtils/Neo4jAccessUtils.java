@@ -15,28 +15,26 @@
  *******************************************************************************/
 package uk.ac.ebi.neo4jUtils;
 
+import org.neo4j.graphdb.DynamicLabel;
+import org.neo4j.graphdb.Label;
+import org.neo4j.graphdb.Node;
+import org.neo4j.graphdb.Transaction;
+import org.neo4j.rest.graphdb.RestGraphDatabase;
+import org.neo4j.rest.graphdb.query.RestCypherQueryEngine;
+import org.neo4j.rest.graphdb.util.QueryResult;
+import org.springframework.stereotype.Service;
+import uk.ac.ebi.phis.exception.PhisSubmissionException;
+import uk.ac.ebi.phis.release.DatasourceInstance;
+import uk.ac.ebi.phis.release.OntologyInstance;
+import uk.ac.ebi.phis.release.ReleaseDocument;
+import uk.ac.ebi.phis.release.SpeciesData;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-
-import org.neo4j.graphdb.DynamicLabel;
-import org.neo4j.graphdb.Label;
-import org.neo4j.graphdb.Node;
-import org.neo4j.graphdb.Relationship;
-import org.neo4j.graphdb.Transaction;
-import org.neo4j.rest.graphdb.RestGraphDatabase;
-import org.neo4j.rest.graphdb.query.RestCypherQueryEngine;
-import org.neo4j.rest.graphdb.util.QueryResult;
-import org.springframework.stereotype.Service;
-
-import uk.ac.ebi.phis.exception.PhisSubmissionException;
-import uk.ac.ebi.phis.release.DatasourceInstance;
-import uk.ac.ebi.phis.release.OntologyInstance;
-import uk.ac.ebi.phis.release.ReleaseDocument;
-import uk.ac.ebi.phis.release.SpeciesData;
 
 
 @Service 
@@ -85,7 +83,8 @@ public class Neo4jAccessUtils {
 		release.setProperty(ReleaseProperties.ROIS_NUMBER.toString(), releaseDoc.getNumberOfRois());
 		
 		for (DatasourceInstance datasource : releaseDoc.getDatasourcesUsed()){
-			
+
+			System.out.println("Datasources used " + datasource.getName());
 			String id = releaseDoc.getReleaseVersion() + "_" + datasource.getName();
 			Node node = getOrCreateNode(id, datasource.getName(), datasourceLabel, true);
 			node.setProperty(ReleaseProperties.IMAGES_NUMBER.toString(), datasource.getNumberOfImages());

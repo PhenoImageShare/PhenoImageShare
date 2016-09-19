@@ -97,6 +97,7 @@ public class IdrXmlGenerator extends BasicXmlGenerator {
 
     }
 
+
     private Channel createChannelFrom (Image img, Roi roi, Integer datasetId){
 
         Channel channel = new Channel();
