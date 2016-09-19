@@ -144,7 +144,10 @@ public class QueryController {
 			throws SolrServerException, IOException, URISyntaxException {
 
 		try {
+
+			System.out.println("SIMILAR " + is.getSimilarImages(imageId, resultNo, start));
 			return new ResponseEntity<String>(is.getSimilarImages(imageId, resultNo, start), getJsonResponseHeaders(), HttpStatus.OK);
+
 		} catch (PhisSubmissionException | PhisQueryException e) {
 			e.printStackTrace();
 			return new ResponseEntity<String>("Request could not be processed.", getJsonResponseHeaders(), HttpStatus.UNPROCESSABLE_ENTITY);
@@ -179,6 +182,7 @@ public class QueryController {
 															  @RequestParam(value = "resultNo", required = false) Integer resultNo,
 															  @RequestParam(value = "start", required = false) Integer start,
 															  HttpServletRequest request, Model model) {
+		System.out.println("GOT IN DWNLOAD");
 		try {
 			if (imageId != null) {
 				String download = is.getDownoadInfo(imageId, baseUrl + request.getRequestURI()) + "\n\n" + rs.getDownloadInfo(imageId);
@@ -191,6 +195,7 @@ public class QueryController {
 				for (ImageDTO img : images){
 					download.append(img.getTabbedToString(baseUrl + request.getRequestURI()) + "\n");
 				}
+				System.out.println("|-----" + download.toString());
 				return new ResponseEntity<String>(download.toString(), getTextResponseHeaders(), HttpStatus.OK);
 			}
 

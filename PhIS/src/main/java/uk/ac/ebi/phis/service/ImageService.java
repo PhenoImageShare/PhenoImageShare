@@ -88,7 +88,7 @@ public class ImageService extends BasicService{
 			bq += img.getAbnormalAnatomyIdBag().stream().map(item -> ImageDTO.GENERIC_ANATOMY + ":" + handleSpecialCharacters(item) + "^1 ").collect(Collectors.joining());
 		}
 		if (img.getDepictedAnatomyIdBag() != null){
-			bq += img.getAnatomyComputedIdBag().stream().map(item -> ImageDTO.DEPICTED_ANATOMY_ID_BAG + ":" + handleSpecialCharacters(item) + "^1 ").collect(Collectors.joining());
+			bq += img.getDepictedAnatomyIdBag().stream().map(item -> ImageDTO.DEPICTED_ANATOMY_ID_BAG + ":" + handleSpecialCharacters(item) + "^1 ").collect(Collectors.joining());
 		}
 		if (img.getExpressionInIdBag() != null){
 			bq += img.getExpressionInIdBag().stream().map(item -> ImageDTO.EXPRESSION_IN_ID_BAG + ":" + handleSpecialCharacters(item) + "^1000 ").collect(Collectors.joining());

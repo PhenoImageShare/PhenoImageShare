@@ -95,14 +95,12 @@ public class BatchXmlUploader {
 			xsd = classloader.getResourceAsStream("phisSchema.xsd");
 			xml = new FileInputStream(xmlLocation);
 			isValid = validateAgainstXSD(xml, xsd);
-
+			System.out.println("IS VALID HERE " + isValid);
 			xsd.close();
 			xml.close();
 			isValid = (isValid && checkInformation(doc));
 
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
+		} catch (IOException  e) {
 			e.printStackTrace();
 		}
 
@@ -862,10 +860,8 @@ public class BatchXmlUploader {
 			Validator validator = schema.newValidator();
 			validator.validate(new StreamSource(xml));
 			return true;
-		} catch (SAXException e) {
+		} catch (SAXException | IOException e) {
 			System.out.println("NOT valid for reason: " + e.getLocalizedMessage());
-			e.printStackTrace();
-		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return false;
@@ -892,7 +888,10 @@ public class BatchXmlUploader {
 		// Check associated image/channel/roi ids are valid a) they exist , b)
 		// the link is reflezive
 		boolean res = checkIdsReferenceExistingObjects();
-		if (!res) { return false; }
+		if (!res) {
+			System.out.println("IDS don\t reference existing objects. ");
+			return false;
+		}
 
 		for (Image img : imageIdMap.values()) {
 			if (!vu.hasValidOntologyTerms(img)) {
