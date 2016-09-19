@@ -1004,7 +1004,7 @@ public class BatchXmlUploader {
 	private String getChannelId(String id, Integer datasourceId){
 
 		String newId = datasourceId + "_channel_" + id.replaceAll(":", "_");
-		newId.replace("channel_channel", "channel");
+		newId = newId.replace("channel_channel", "channel");
 		return newId;
 
 	}
@@ -1024,7 +1024,7 @@ public class BatchXmlUploader {
 	private String getRoiId(String id, Integer datasourceId){
 
 		String newId = datasourceId + "_roi_" + id.replaceAll(":", "_");
-		newId.replace("roi_roi", "roi");
+		newId = newId.replace("roi_roi", "roi");
 		return newId;
 
 	}

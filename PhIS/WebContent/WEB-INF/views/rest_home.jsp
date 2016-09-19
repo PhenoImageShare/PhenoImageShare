@@ -453,9 +453,9 @@
 	<h2>/getRoi</h2>
 	
 	<h3>Examples</h3>	
-	<p>Get roi with id 4_roi_roi_VFB_00022854-b.</p>
-	<p class="code">$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}getRoi?roiId=4_roi_roi_VFB_00022854-b">
-		http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}getRoi?roiId=4_roi_roi_VFB_00022854-b</a>'
+	<p>Get roi with id 4_roi_VFB_00022854-b.</p>
+	<p class="code">$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}getRoi?roiId=4_roi_VFB_00022854-b">
+		http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}getRoi?roiId=4_roi_VFB_00022854-b</a>'
 		-i -H 'Accept: application/json'</p>
 	
 	<h3>Parameters</h3>
@@ -491,8 +491,8 @@
 	
 		
 	<h3>Examples</h3>	
-	<p>Get channel with id 4_channel_channel_VFB_00022854-b.</p>
-	<p class="code">$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}getChannel?channelId=4_channel_channel_VFB_00022854-b">http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}getChannel?channelId=4_channel_channel_VFB_00022854-b</a>'  -i -H 'Accept: application/json'</p>
+	<p>Get channel with id 4_channel_VFB_00022854-b.</p>
+	<p class="code">$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}getChannel?channelId=4_channel_VFB_00022854-b">http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}getChannel?channelId=4_channel_VFB_00022854-b</a>'  -i -H 'Accept: application/json'</p>
 	
 	
 	<h3>Parameters</h3>
@@ -514,7 +514,7 @@
 				<td> true</td>
 				<td>Channel with the specified id.</td>
 				<td><var> (none) </var></td>
-				<td><var>4_channel_channel_VFB_00022854-b</var><br></td>
+				<td><var>4_channel_VFB_00022854-b</var><br></td>
 			</tr>
 		</tbody>
 	</table>
