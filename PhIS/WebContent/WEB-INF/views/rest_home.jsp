@@ -840,7 +840,7 @@
 		<h3>Examples</h3>
 
 		<p>Get images similar to image with id wtsi_358432.</p>
-		<p class="code">$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}similar?imageId=wtsi_358432">http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}similar/imageId=wtsi_358432</a>'  -i -H 'Accept: application/json'</p>
+		<p class="code">$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}similar?imageId=wtsi_358432">http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}similar?imageId=wtsi_358432</a>'  -i -H 'Accept: application/json'</p>
 
 		<h3>Parameters</h3>
 
@@ -889,7 +889,7 @@
 		<h3>Examples</h3>
 
 		<p>Get tab separated details image with id wtsi_358432.</p>
-		<p class="code">$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}download?imageId=wtsi_358432">http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}download/imageId=wtsi_358432</a>'  -i -H 'Accept: application/json'</p>
+		<p class="code">$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}download?imageId=wtsi_358432">http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}download?imageId=wtsi_358432</a>'  -i -H 'Accept: application/json'</p>
 
 		<h3>Parameters</h3>
 
