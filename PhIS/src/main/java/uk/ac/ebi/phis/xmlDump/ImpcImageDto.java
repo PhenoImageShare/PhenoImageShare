@@ -106,8 +106,6 @@ public class ImpcImageDto {
     public static final String UBERON_ID = "uberon_id";
 
     public static final String SYMBOL_GENE = "symbol_gene";
-    public static final String SYMBOL = "symbol";
-    public static final String SUBTYPE = "subtype";
 
     // Genes annotated to this MA through images
     public static final String MGI_ACCESSION_ID = "mgi_accession_id";
@@ -174,9 +172,9 @@ public class ImpcImageDto {
 
     @Field(UBERON_ID)
     private List<String> uberonId;
-
-    @Field(SYMBOL_GENE)
-    private String symbolGene;//for search and annotation view
+//
+//    @Field(SYMBOL_GENE)
+//    private String symbolGene;//for search and annotation view
 
     @Field(STATUS)
     private List<String> status;
@@ -211,17 +209,11 @@ public class ImpcImageDto {
     @Field(MARKER_SYNONYM)
     private List<String> markerSynonym;
 
-    @Field(MARKER_TYPE)
-    private String markerType;
+//    @Field(MARKER_TYPE)
+//    private String markerType;
 
     @Field(HUMAN_GENE_SYMBOL)
     private List<String> humanGeneSymbol;
-
-    @Field(SYMBOL)
-    private String symbol;
-
-    @Field(SUBTYPE)
-    private String subtype;
 
     @Field(INCREMENT_VALUE)
     private Integer increment;
@@ -1145,9 +1137,9 @@ public class ImpcImageDto {
         this.imitsPhenotypeStarted = imitsPhenotypeStarted;
     }
 
-    public String getSymbolGene() {
-        return symbolGene;
-    }
+//    public String getSymbolGene() {
+//        return symbolGene;
+//    }
 
     public String getDevelopmentalStageAcc() {
         return developmentalStageAcc;
@@ -1205,24 +1197,12 @@ public class ImpcImageDto {
         this.markerSynonym = markerSynonym;
     }
 
-    public String getMarkerType() {
-        return markerType;
-    }
-
-    public void setMarkerType(String markerType) {
-        this.markerType = markerType;
-    }
-
     public List<String> getHumanGeneSymbol() {
         return humanGeneSymbol;
     }
 
     public void setHumanGeneSymbol(List<String> humanGeneSymbol) {
         this.humanGeneSymbol = humanGeneSymbol;
-    }
-
-    public void setSymbol(String symbol) {
-        this.symbol = symbol;
     }
 
     public void setIncrement(Integer increment) {
@@ -1257,11 +1237,6 @@ public class ImpcImageDto {
         this.imageLink = imageLink;
     }
 
-    public String getSubtype() {
-
-        return subtype;
-    }
-
     public List<String> getMarkerName() {
 
         return markerName;
@@ -1281,12 +1256,6 @@ public class ImpcImageDto {
 
         this.markerSymbol = markerSymbol;
     }
-
-    public void setSubtype(String subtype) {
-
-        this.subtype = subtype;
-    }
-
 
     public List<String> getEfoId() {
 
@@ -1433,22 +1402,12 @@ public class ImpcImageDto {
         this.markerSynonym.addAll(markerSynonym);
     }
 
-    public void addMarkerType(String markerType) {
-
-        this.markerType = markerType;
-    }
-
     public void addHumanGeneSymbol(List<String> humanGeneSymbol) {
 
         if (this.humanGeneSymbol == null) {
             this.humanGeneSymbol = new ArrayList<String>();
         }
         this.humanGeneSymbol.addAll(humanGeneSymbol);
-    }
-
-    public void addSymbol(String markerName) {
-
-        this.symbol = markerName;
     }
 
     public void setLatestPhenotypeStatus(List<String> latestPhenotypeStatus) {
@@ -1463,15 +1422,10 @@ public class ImpcImageDto {
         this.latestPhenotypeStatus.add(latestPhenotypeStatus);
     }
 
-    public String getSymbol() {
-        // TODO Auto-generated method stub
-        return symbol;
-    }
-
-    public void setSymbolGene(String symbolGene) {
-        this.symbolGene = symbolGene;
-
-    }
+//    public void setSymbolGene(String symbolGene) {
+//        this.symbolGene = symbolGene;
+//
+//    }
 
     public String getExpression(String maId) {
 
@@ -1500,7 +1454,6 @@ public class ImpcImageDto {
                 ", jpegUrl='" + jpegUrl + '\'' +
                 ", efoId=" + efoId +
                 ", uberonId=" + uberonId +
-                ", symbolGene='" + symbolGene + '\'' +
                 ", status=" + status +
                 ", imitsPhenotypeStarted=" + imitsPhenotypeStarted +
                 ", imitsPhenotypeComplete=" + imitsPhenotypeComplete +
@@ -1512,10 +1465,7 @@ public class ImpcImageDto {
                 ", markerSymbol=" + markerSymbol +
                 ", markerName=" + markerName +
                 ", markerSynonym=" + markerSynonym +
-                ", markerType='" + markerType + '\'' +
                 ", humanGeneSymbol=" + humanGeneSymbol +
-                ", symbol='" + symbol + '\'' +
-                ", subtype='" + subtype + '\'' +
                 ", increment=" + increment +
                 ", stage='" + stage + '\'' +
                 ", latestPhenotypeStatus=" + latestPhenotypeStatus +
@@ -1540,7 +1490,6 @@ public class ImpcImageDto {
         if (jpegUrl != null ? !jpegUrl.equals(that.jpegUrl) : that.jpegUrl != null) return false;
         if (efoId != null ? !efoId.equals(that.efoId) : that.efoId != null) return false;
         if (uberonId != null ? !uberonId.equals(that.uberonId) : that.uberonId != null) return false;
-        if (symbolGene != null ? !symbolGene.equals(that.symbolGene) : that.symbolGene != null) return false;
         if (status != null ? !status.equals(that.status) : that.status != null) return false;
         if (imitsPhenotypeStarted != null ? !imitsPhenotypeStarted.equals(that.imitsPhenotypeStarted) : that.imitsPhenotypeStarted != null)
             return false;
@@ -1559,11 +1508,8 @@ public class ImpcImageDto {
         if (markerName != null ? !markerName.equals(that.markerName) : that.markerName != null) return false;
         if (markerSynonym != null ? !markerSynonym.equals(that.markerSynonym) : that.markerSynonym != null)
             return false;
-        if (markerType != null ? !markerType.equals(that.markerType) : that.markerType != null) return false;
         if (humanGeneSymbol != null ? !humanGeneSymbol.equals(that.humanGeneSymbol) : that.humanGeneSymbol != null)
             return false;
-        if (symbol != null ? !symbol.equals(that.symbol) : that.symbol != null) return false;
-        if (subtype != null ? !subtype.equals(that.subtype) : that.subtype != null) return false;
         if (increment != null ? !increment.equals(that.increment) : that.increment != null) return false;
         if (stage != null ? !stage.equals(that.stage) : that.stage != null) return false;
         return latestPhenotypeStatus != null ? latestPhenotypeStatus.equals(that.latestPhenotypeStatus) : that.latestPhenotypeStatus == null;
@@ -1582,7 +1528,6 @@ public class ImpcImageDto {
         result = 31 * result + (jpegUrl != null ? jpegUrl.hashCode() : 0);
         result = 31 * result + (efoId != null ? efoId.hashCode() : 0);
         result = 31 * result + (uberonId != null ? uberonId.hashCode() : 0);
-        result = 31 * result + (symbolGene != null ? symbolGene.hashCode() : 0);
         result = 31 * result + (status != null ? status.hashCode() : 0);
         result = 31 * result + (imitsPhenotypeStarted != null ? imitsPhenotypeStarted.hashCode() : 0);
         result = 31 * result + (imitsPhenotypeComplete != null ? imitsPhenotypeComplete.hashCode() : 0);
@@ -1594,10 +1539,7 @@ public class ImpcImageDto {
         result = 31 * result + (markerSymbol != null ? markerSymbol.hashCode() : 0);
         result = 31 * result + (markerName != null ? markerName.hashCode() : 0);
         result = 31 * result + (markerSynonym != null ? markerSynonym.hashCode() : 0);
-        result = 31 * result + (markerType != null ? markerType.hashCode() : 0);
         result = 31 * result + (humanGeneSymbol != null ? humanGeneSymbol.hashCode() : 0);
-        result = 31 * result + (symbol != null ? symbol.hashCode() : 0);
-        result = 31 * result + (subtype != null ? subtype.hashCode() : 0);
         result = 31 * result + (increment != null ? increment.hashCode() : 0);
         result = 31 * result + (stage != null ? stage.hashCode() : 0);
         result = 31 * result + (latestPhenotypeStatus != null ? latestPhenotypeStatus.hashCode() : 0);

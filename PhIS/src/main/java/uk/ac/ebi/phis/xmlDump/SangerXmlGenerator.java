@@ -585,7 +585,7 @@ public class SangerXmlGenerator extends BasicXmlGenerator{
 
 		OntologyTerm term = new OntologyTerm();
 		term.setTermId(id);
-		term.setTermLabel(label);
+		term.setTermLabel((label != null) ? label : "MISSING LABEL");
 		return term;
 	}
 

@@ -23,6 +23,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 import uk.ac.ebi.neo4jUtils.Neo4jAccessUtils;
 import uk.ac.ebi.phis.importer.BatchXmlUploader;
+import uk.ac.ebi.phis.jaxb.Doc;
 import uk.ac.ebi.phis.release.DatasourceInstance;
 import uk.ac.ebi.phis.release.ReleaseDocument;
 import uk.ac.ebi.phis.release.ReleaseEnvironment;
@@ -110,7 +111,9 @@ public class PopulateCores {
 			release.setOntologiesUsed(reader.getontologyInstances());
 			
 			Map<String, DatasourceInstance> exportDates = new HashMap<>(); // <resourceName, resource object>
-
+			xmlToLoad = dataDir + "/impcExport.xml";
+			DatasourceInstance ds0 = processXml(xmlToLoad, DatasourceIds.IMPC,  reader);
+			exportDates.put(ds0.getName(), ds0);
 
 			xmlToLoad = dataDir + "/tracerExport.xml";
 			DatasourceInstance ds1 = processXml(xmlToLoad, DatasourceIds.TRACER,  reader);
@@ -191,10 +194,12 @@ public class PopulateCores {
 
 		Long time = System.currentTimeMillis();
 		DatasourceInstance ds = null;
-		
-		if (reader.validate(xmlToLoad)){
+
+		Doc doc = reader.validate(xmlToLoad);
+
+		if (doc != null){
 			System.out.println(xmlToLoad + " is valid.");
-			ds = reader.index(xmlToLoad, datasourceId);
+			ds = reader.index(doc, datasourceId);
 			System.out.println("Importing " + xmlToLoad + " XML took " + (System.currentTimeMillis() - time));
 		} else {
 			System.out.println(xmlToLoad + " is NOT valid.");
@@ -230,6 +235,7 @@ public class PopulateCores {
 		static final Integer IDR = 9;
 		static final Integer BRAIN_HISTOPATH = 10;
 		static final Integer VFB_FLYCIRCUIT_PLUS = 11;
+		static final Integer IMPC = 12;
 	}
 
 

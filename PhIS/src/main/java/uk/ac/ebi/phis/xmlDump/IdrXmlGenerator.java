@@ -197,6 +197,9 @@ public class IdrXmlGenerator extends BasicXmlGenerator {
             System.out.println("What mutation is this   " + map.get("Genotype"));
         }
 
+        genotype.getEl().add(gc);
+        img.setMutantGenotypeTraits(genotype);
+
         ImageDescription description = new ImageDescription();
         description.setHost(getLink("http://idr-demo.openmicroscopy.org/", "Image Data Repository (IDR)", null));
         description.setImageUrl(thumbnailUrl + "3000/" + imageId);
@@ -210,8 +213,6 @@ public class IdrXmlGenerator extends BasicXmlGenerator {
 
         img.setImageDescription(description);
 
-        genotype.getEl().add(gc);
-        img.setMutantGenotypeTraits(genotype);
 
         img.setDepictedAnatomicalStructure(getAnnotation(null, null, map.get("Organism Part"), AnnotationMode.MANUAL));
 
