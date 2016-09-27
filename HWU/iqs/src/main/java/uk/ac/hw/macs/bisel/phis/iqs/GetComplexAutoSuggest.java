@@ -54,14 +54,16 @@ public class GetComplexAutoSuggest extends HttpServlet {
         String[] versions = params.get("version");
 
         if (versions == null) {            
-            request.getRequestDispatcher("/v101CAS").forward(request, response);
+            request.getRequestDispatcher("/v103CAS").forward(request, response);
         } else if (versions[0].equals("101")) {
             request.getRequestDispatcher("/v101CAS").forward(request, response);                 
         } else if (versions[0].equals("102")) {
             request.getRequestDispatcher("/v102CAS").forward(request, response);                 
+        } else if (versions[0].equals("103")) {
+            request.getRequestDispatcher("/v103CAS").forward(request, response);                             
         } else {
             // otherwise forward to default
-            request.getRequestDispatcher("/v101CAS").forward(request, response);
+            request.getRequestDispatcher("/v103CAS").forward(request, response);
         }
     }
 

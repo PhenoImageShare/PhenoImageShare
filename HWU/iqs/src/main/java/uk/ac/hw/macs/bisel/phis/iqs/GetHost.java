@@ -56,7 +56,7 @@ public class GetHost {
         } else if(version.equals("102")) {
             return "http://"+machine+".phenoimageshare.org/data/v1.0.2/rest/";
         }
-        return "http://"+machine+".phenoimageshare.org/data/v1.0.1/rest/";
+        return "http://"+machine+".phenoimageshare.org/data/v1.0.3/rest/";
     }
     
     public static void main(String[] args) {        

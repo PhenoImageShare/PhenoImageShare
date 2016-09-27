@@ -55,13 +55,15 @@ public class GetDataRelease extends HttpServlet {
         String version = request.getParameter("version");
         String url = "";
         if(version == null) {
-            url = GetHost.getEBI("101")+"getDataReleases";        
+            url = GetHost.getEBI("103")+"getDataReleases";        
         } else if(version.equals("101")) {
             url = GetHost.getEBI("101")+"getDataReleases"; 
         } else if(version.equals("102")) {
             url = GetHost.getEBI("102")+"getDataReleases"; 
+        } else if(version.equals("103")) {
+            url = GetHost.getEBI("103")+"getDataReleases";             
         } else {
-            url = GetHost.getEBI("101")+"getDataReleases";        
+            url = GetHost.getEBI("103")+"getDataReleases";        
         }
 
         try (PrintWriter out = response.getWriter()) {
