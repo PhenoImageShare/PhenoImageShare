@@ -54,7 +54,7 @@ public class GetISSURL {
         } else if (version.equals("102")) {
             return "https://" + machine + ".phenoimageshare.org/data/v1.0.2/rest/submission/";
         }
-        return "https://" + machine + ".phenoimageshare.org/data/v1.0.1/rest/submission/";
+        return "https://" + machine + ".phenoimageshare.org/data/v1.0.3/rest/submission/";
     }
 
     public static String getEBIToken() {

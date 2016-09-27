@@ -61,10 +61,10 @@ public class EBIClient {
     public boolean sendAnnotation(Request guiRequest, String version) {
 
         String query;
-        if (version.equals("101") | version.equals("102")) {
+        if (version.equals("103") | version.equals("102")) {
             query = buildURL(guiRequest, GetISSURL.getEBI(version) + "createAnnotation?");
         } else {
-            query = buildURL(guiRequest, GetISSURL.getEBI("101") + "createAnnotation?");
+            query = buildURL(guiRequest, GetISSURL.getEBI("103") + "createAnnotation?");
         }
 
         if (query == null) {
@@ -91,10 +91,10 @@ public class EBIClient {
 
         String query;
 
-        if (version.equals("101") | version.equals("102")) {
+        if (version.equals("103") | version.equals("102")) {
             query = GetISSURL.getEBI(version) + "deleteAnnotation?";
         } else {
-            query = GetISSURL.getEBI("101") + "deleteAnnotation?";
+            query = GetISSURL.getEBI("103") + "deleteAnnotation?";
         }
 
         try {
@@ -128,10 +128,10 @@ public class EBIClient {
     public boolean updateAnnotation(Request guiRequest, String version) {
         String query;
 
-        if (version.equals("101") | version.equals("102")) {
+        if (version.equals("103") | version.equals("102")) {
             query = buildURL(guiRequest, GetISSURL.getEBI(version) + "updateAnnotation?");
         } else {
-            query = buildURL(guiRequest, GetISSURL.getEBI("101") + "updateAnnotation?");
+            query = buildURL(guiRequest, GetISSURL.getEBI("103") + "updateAnnotation?");
         }
 
         if (query == null) {
@@ -162,6 +162,7 @@ public class EBIClient {
             query += "associatedImageId=" + URLEncoder.encode(guiRequest.getImageID(), "UTF-8");
             query += "&annotationId=" + URLEncoder.encode(guiRequest.getPhisID(), "UTF-8");
             query += "&userId=" + URLEncoder.encode(guiRequest.getCreatorID(), "UTF-8");
+            query += "&publish=" + URLEncoder.encode(guiRequest.getPublish().toString(), "UTF-8");
 
             // deal with whole images   
             // don't think this is needed now as everything is a "real value"

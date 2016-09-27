@@ -95,7 +95,7 @@ public class Annotation extends HttpServlet {
                     return;
                 }
 
-                if (!(version.equals("101") || version.equals("102"))) {
+                if (!(version.equals("103") || version.equals("102"))) {
                     String JSON = "{\"annotationId\" : \"" + phisID + "\", \"status\" : \"fail\", \"message\" : \"invalid version number!\", \"time\" : \"" + getTime() + "\", \"action\" : \"delete annotation\"}";
                     out.println(JSON);
                     return;
@@ -143,7 +143,7 @@ public class Annotation extends HttpServlet {
                     return;
                 }
 
-                if (!(version.equals("101") || version.equals("102"))) {
+                if (!(version.equals("103") || version.equals("102"))) {
                     String JSON = "{\"annotationId\" : \" new annotation with no ID \", \"status\" : \"fail\", \"message\" : \"invalid version number!\", \"time\" : \"" + getTime() + "\", \"action\" : \"create annotation\"}";
                     out.println(JSON);
                     return;
@@ -201,7 +201,7 @@ public class Annotation extends HttpServlet {
                     return;
                 }
 
-                if (!(version.equals("101") || version.equals("102"))) {
+                if (!(version.equals("103") || version.equals("102"))) {
                     String JSON = "{\"annotationId\" : \"" + phisID + "\", \"status\" : \"fail\", \"message\" : \"invalid version number!\", \"time\" : \"" + getTime() + "\", \"action\" : \"edit annotation\"}";
                     out.println(JSON);
                     return;
@@ -264,6 +264,14 @@ public class Annotation extends HttpServlet {
         String creatorId = request.getParameter("creatorid");
         String userGroupId = request.getParameter("usergroupid");
         String channelId = request.getParameter("channelid");
+        
+        Boolean publish = null;
+        try {
+            publish = new Boolean(request.getParameter("publish"));
+        } catch(RuntimeException e) {
+            message = "invalid value for publish param";
+            return null;
+        }
 
         ArrayList<String> xValues = new ArrayList<>();
         ArrayList<String> yValues = new ArrayList<>();
@@ -319,14 +327,14 @@ public class Annotation extends HttpServlet {
                 abnTs.addAll(Arrays.asList(request.getParameterValues(name)));
             } else if (name.equalsIgnoreCase("abn_anatomy_text")) {
                 abnDes.addAll(Arrays.asList(request.getParameterValues(name)));
-            } else if (name.equalsIgnoreCase("action") || name.equalsIgnoreCase("phisid") || name.equalsIgnoreCase("version") || name.equalsIgnoreCase("creatorid") || name.equalsIgnoreCase("imageid")) {
+            } else if (name.equalsIgnoreCase("action") || name.equalsIgnoreCase("phisid") || name.equalsIgnoreCase("version") || name.equalsIgnoreCase("creatorid") || name.equalsIgnoreCase("imageid") || name.equals("publish")) {
             } else {
                 message = "invalid parameter (" + name + ")";
                 return null;
             }
         }
 
-        Request guiRequest = new Request(phisID, creatorId, userGroupId, imageId, channelId, xValues, yValues, zValues, dptIDs, dptTs, dptDes, geIDs, geTs, geDes, abnIDs, abnTs, abnDes, phenoIDs, phenoTs, phenoDes);
+        Request guiRequest = new Request(phisID, creatorId, userGroupId, imageId, channelId, publish, xValues, yValues, zValues, dptIDs, dptTs, dptDes, geIDs, geTs, geDes, abnIDs, abnTs, abnDes, phenoIDs, phenoTs, phenoDes);
         return guiRequest;
     }
 
