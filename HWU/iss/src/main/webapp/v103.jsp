@@ -63,7 +63,7 @@
         </ol>
 
 
-        <p>The ISS is 3D so x, y & z coords must be supplied!</p>
+        <p>The ISS is 2D so x & y coords must be supplied!</p>
 
         <h4>parameters</h4>
 
@@ -150,7 +150,7 @@
                     <tr>
                         <td>x_value</td>
                         <td><var>String</var></td>
-                        <td>false</td>
+                        <td>true: create & edit</td>
                         <td>x coordinates of points</td>                
                         <td><var>1.8</var></td>
                     </tr>			
@@ -164,7 +164,7 @@
                     <tr>
                         <td>z_value</td>
                         <td><var>String</var></td>
-                        <td>true: create & edit</td>
+                        <td>false</td>
                         <td>z coordinates of points</td>                
                         <td><var>1.8</var></td>
                     </tr>            
