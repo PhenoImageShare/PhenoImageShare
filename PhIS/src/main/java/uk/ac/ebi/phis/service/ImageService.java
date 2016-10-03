@@ -369,7 +369,6 @@ public class ImageService extends BasicService{
 
 	public String getImageAsJsonString(String imageId){
 		SolrQuery solrQuery = new SolrQuery();
-		imageId = handleSpecialCharacters(imageId);
 		solrQuery.setQuery(ImageDTO.ID + ":"+ handleSpecialCharacters(imageId));
 		solrQuery.set("wt", "json");
 
