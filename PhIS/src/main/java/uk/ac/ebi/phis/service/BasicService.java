@@ -76,7 +76,7 @@ public class BasicService {
 			query = query.replace("|", "\\|");
 			query = query.replace("<", "\\<");
 			query = query.replace(">", "\\>");
-			query = query.replace("."  , "\\.");
+//			query = query.replace("."  , "\\.");
 			query = query.replace("("  , "\\(");
 			query = query.replace(")"  , "\\)");
 			query = query.replace("/", "\\/");
