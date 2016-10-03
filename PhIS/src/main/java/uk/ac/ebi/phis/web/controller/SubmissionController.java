@@ -167,14 +167,14 @@ import java.util.List;
 				
 				if (!is.imageIdExists(associatedImageId)) {
 					throw new PhisSubmissionException(PhisSubmissionException.IMAGE_ID_NOT_FOUND_EXCEPTION_MESSAGE);
-				} else  if (rs.getRoiById(annotationId) == null || neo.getNodeById(annotationId) == null) {
+				} else  if (rs.getRoiById(annotationId) == null ) {
 					throw new PhisSubmissionException(PhisSubmissionException.ROI_ID_NOT_FOUND_EXCEPTION_MESSAGE);
 				} else {
 
 					System.out.println();
 
 					Date today = new Date();
-					Date creationDate = (neo.getNodeById(annotationId).getProperty(AnnotationProperties.CREATION_DATE.name()) != null) ? new Date(neo.getNodeById(annotationId).getProperty(AnnotationProperties.CREATION_DATE.name()).toString()) :  null;
+					Date creationDate = (neo.getNodeById(annotationId) != null) ? new Date(neo.getNodeById(annotationId).getProperty(AnnotationProperties.CREATION_DATE.name()).toString()) :  null;
 					
 					neo.updateAnnotation(userId, userGroupId, annotationId, associatedImageId, xCoordinates, yCoordinates, zCoordinates, associatedChannelId,
 						depictedAnatomyId, depictedAnatomyFreetext, depictedAnatomyTerm, abnInAnatomyId, abnInAnatomyFreetext, abnInAnatomyTerm, phenotypeId, 
@@ -199,7 +199,8 @@ import java.util.List;
 			return succeded.toString();
 	    }
 		
-				
+
+
 		@RequestMapping(value="/deleteAnnotation", method=RequestMethod.GET)	
 	    public @ResponseBody String createAnnotation(
 	    		@RequestParam(value = "userId", required = true) String userId,

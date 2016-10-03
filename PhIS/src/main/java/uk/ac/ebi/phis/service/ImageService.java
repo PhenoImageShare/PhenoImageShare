@@ -560,6 +560,7 @@ public class ImageService extends BasicService{
 		ImageDTO img = null;
 		SolrQuery solrQuery = new SolrQuery();
 		solrQuery.setQuery(ImageDTO.ID + ":" + handleSpecialCharacters(imageId));
+		System.out.println("+++ "+ solr.getBaseURL() + "/select?" + solrQuery);
 		try {
 			List<ImageDTO> images = solr.query(solrQuery).getBeans(ImageDTO.class);
 			img = images.get(0);

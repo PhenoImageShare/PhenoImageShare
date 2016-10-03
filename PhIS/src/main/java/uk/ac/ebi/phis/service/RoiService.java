@@ -40,7 +40,7 @@ public class RoiService extends BasicService{
 		SolrQuery solrQuery = new SolrQuery();
 		solrQuery.setQuery("*:*");
 		roiId = handleSpecialCharacters(roiId);
-		solrQuery.setFilterQueries(RoiDTO.ID + ":\""+ roiId + "\"");
+		solrQuery.setFilterQueries(RoiDTO.ID + ":"+ roiId);
 		if (resNo != null){
 			solrQuery.setRows(resNo);
 		} else {
@@ -52,9 +52,7 @@ public class RoiService extends BasicService{
 
 		try {
 			return JSONRestUtil.getResults(getQueryUrl(solrQuery)).toString();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (URISyntaxException e) {
+		} catch (IOException | URISyntaxException e) {
 			e.printStackTrace();
 		}
 		
@@ -72,8 +70,8 @@ public class RoiService extends BasicService{
 	public RoiDTO getRoiById(String id){
 		
 		SolrQuery solrQuery = new SolrQuery();
-		id = handleSpecialCharacters(id);
 		solrQuery.setQuery(RoiDTO.ID + ":"+ handleSpecialCharacters(id) );
+		System.out.println("---- " + solr.getBaseURL() + "/select?" + solrQuery);
 		try {
 			List<RoiDTO> results = solr.query(solrQuery).getBeans(RoiDTO.class);
 			if (results.size() > 0){
@@ -180,8 +178,7 @@ public class RoiService extends BasicService{
 
 
 	public void deleteRoi(String roiId){
-		
-		roiId = handleSpecialCharacters(roiId);
+
 		try {
 			solr.deleteByQuery(RoiDTO.ID + ":" + handleSpecialCharacters(roiId));
 			solr.commit();
