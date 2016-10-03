@@ -167,6 +167,16 @@ public class RoiService extends BasicService{
 	}
 
 
+
+	public void updateRoi(RoiDTO roi){
+		addBean(roi);
+	}
+
+	public void addRoi(RoiDTO roi){
+		addBean(roi);
+	}
+
+
 	public void addBean(RoiDTO doc){
 		try {
 			solr.addBean(doc, 30000);
