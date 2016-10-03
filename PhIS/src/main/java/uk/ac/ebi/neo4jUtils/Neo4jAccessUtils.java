@@ -637,9 +637,9 @@ public class Neo4jAccessUtils {
 				throw new PhisSubmissionException("User provided does not match the owner.");
 			}
 		} else {
-			throw new PhisSubmissionException("Annotation id does not exist.");
+			throw new PhisSubmissionException("Annotation id does not exist in user-annotation database. You cannot edit annotations submitted from source.");
 		}
-	
+
 	}
 	
 	
