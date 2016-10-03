@@ -595,7 +595,9 @@ public class ImageService extends BasicService{
 	
 
 	public String getQueryUrl(SolrQuery q){
-		return solr.getBaseURL() + "/select?" + q.toString();
+		String url = solr.getBaseURL() + "/select?" + q.toString();;
+		System.out.println("Solr URL " + url);
+		return url;
 	}
 	
 	
