@@ -168,7 +168,7 @@ import java.util.List;
 				if (!is.imageIdExists(associatedImageId)) {
 					throw new PhisSubmissionException(PhisSubmissionException.IMAGE_ID_NOT_FOUND_EXCEPTION_MESSAGE);
 				} else  if (rs.getRoiById(annotationId) == null || neo.getNodeById(annotationId) == null) {
-					throw new PhisSubmissionException(PhisSubmissionException.ID_NOT_FOUND_EXCEPTION_MESSAGE);
+					throw new PhisSubmissionException(PhisSubmissionException.ROI_ID_NOT_FOUND_EXCEPTION_MESSAGE);
 				} else {
 
 					System.out.println();
