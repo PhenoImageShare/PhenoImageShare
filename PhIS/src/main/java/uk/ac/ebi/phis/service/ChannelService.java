@@ -86,7 +86,7 @@ public class ChannelService extends BasicService {
 	public String getChannelAsJsonString(String channelId, Integer resNo){
 		SolrQuery solrQuery = new SolrQuery();
 		channelId = handleSpecialCharacters(channelId);
-		solrQuery.setQuery(ChannelDTO.ID + ":\""+ channelId + "\"");
+		solrQuery.setQuery(ChannelDTO.ID + ":"+ handleSpecialCharacters(channelId) );
 		if (resNo != null){
 			solrQuery.setRows(resNo);
 		} else {

@@ -29,6 +29,7 @@ import uk.ac.ebi.neo4jUtils.Neo4jAccessUtils;
 import uk.ac.ebi.phis.exception.PhisSubmissionException;
 import uk.ac.ebi.phis.service.GenericUpdateService;
 import uk.ac.ebi.phis.service.ImageService;
+import uk.ac.ebi.phis.service.RoiService;
 import uk.ac.ebi.phis.solrj.dto.RoiDTO;
 import uk.ac.ebi.phis.utils.web.RestStatusMessage;
 
@@ -38,12 +39,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-	@Controller
+@Controller
 	@RequestMapping("/rest/submission")
 	public class SubmissionController {
 
-		@Autowired
-		ImageService is;
+	@Autowired
+	ImageService is;
+	@Autowired
+	RoiService rs;
 		
 		@Autowired
 		Neo4jAccessUtils neo;
@@ -162,10 +165,16 @@ import java.util.List;
 			
 			try {
 				
-				if (is.imageIdExists(associatedImageId)){
-					
+				if (!is.imageIdExists(associatedImageId)) {
+					throw new PhisSubmissionException(PhisSubmissionException.IMAGE_ID_NOT_FOUND_EXCEPTION_MESSAGE);
+				} else  if (rs.getRoiById(annotationId) == null || neo.getNodeById(annotationId) == null) {
+					throw new PhisSubmissionException(PhisSubmissionException.ROI_ID_NOT_FOUND_EXCEPTION_MESSAGE);
+				} else {
+
+					System.out.println();
+
 					Date today = new Date();
-					Date creationDate = new Date(neo.getNodeById(annotationId).getProperty(AnnotationProperties.CREATION_DATE.name()).toString());
+					Date creationDate = (neo.getNodeById(annotationId).getProperty(AnnotationProperties.CREATION_DATE.name()) != null) ? new Date(neo.getNodeById(annotationId).getProperty(AnnotationProperties.CREATION_DATE.name()).toString()) :  null;
 					
 					neo.updateAnnotation(userId, userGroupId, annotationId, associatedImageId, xCoordinates, yCoordinates, zCoordinates, associatedChannelId,
 						depictedAnatomyId, depictedAnatomyFreetext, depictedAnatomyTerm, abnInAnatomyId, abnInAnatomyFreetext, abnInAnatomyTerm, phenotypeId, 

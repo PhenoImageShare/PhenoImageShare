@@ -620,7 +620,7 @@
 
 	<element name="Doc">
 		<complexType>
-			<sequence>			
+			<sequence>
 				<element name="exportDate" type="date" minOccurs="0" maxOccurs="1" />
 				<element name="image" type="x:Image" minOccurs="0" maxOccurs="unbounded" />
 				<element name="channel" type="x:Channel" minOccurs="0" maxOccurs="unbounded" />
@@ -628,6 +628,4 @@
 			</sequence>
 		</complexType>
 	</element>
-
-
 </schema>

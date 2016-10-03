@@ -43,6 +43,29 @@ public class BasicXmlGenerator {
 
     }
 
+    public static ExpressionAnnotation getExpressionAnnotation (String id, String label, String freetext, String expressionValue, AnnotationMode annotationMode){
+
+        ExpressionAnnotation expressionAnn = new ExpressionAnnotation();
+
+        if (freetext != null) { expressionAnn.setAnnotationFreetext(freetext); }
+        if (annotationMode != null) { expressionAnn.setAnnotationMode(annotationMode); }
+        if (id != null ) { expressionAnn.setOntologyTerm(getOntologyTerm(label, id)); }
+        if (expressionValue != null) { expressionAnn.setExpressionValue(expressionValue); }
+
+        return expressionAnn;
+
+    }
+
+
+    public static AnnotationArray getAnnotationArray(String id, String label, String freetext, AnnotationMode annMode){
+
+        AnnotationArray annArray = new AnnotationArray();
+        annArray.getEl().add(getAnnotation(id, label, freetext, annMode));
+        return annArray;
+
+    }
+
+
     public static PercentArray getCoordinatesWholeImage(){
 
         PercentArray xCoord = new PercentArray();
@@ -52,6 +75,7 @@ public class BasicXmlGenerator {
         return xCoord;
 
     }
+
 
     public static StringArray getStringArray(String str){
 

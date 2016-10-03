@@ -288,7 +288,9 @@ public class Neo4jAccessUtils {
             if (observation != null){
             	myNode.setProperty( AnnotationProperties.OBSERVATION.name(), observation );
             }
-            myNode.setProperty( AnnotationProperties.CREATION_DATE.name(), DATE_FORMAT.format(creationDate) );
+            if (creationDate != null) {
+				myNode.setProperty(AnnotationProperties.CREATION_DATE.name(), DATE_FORMAT.format(creationDate));
+			}
             if (lastModifiedDate != null){
             	myNode.setProperty( AnnotationProperties.LAST_MODIFIED_DATE.name(), DATE_FORMAT.format(lastModifiedDate) );
             }

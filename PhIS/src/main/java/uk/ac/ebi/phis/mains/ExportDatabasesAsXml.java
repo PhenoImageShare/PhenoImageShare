@@ -18,7 +18,7 @@ package uk.ac.ebi.phis.mains;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 import org.springframework.stereotype.Component;
-import uk.ac.ebi.phis.xmlDump.SangerXmlGenerator;
+import uk.ac.ebi.phis.xmlDump.ImpcXmlGenerator;
 
 import java.io.File;
 
@@ -54,9 +54,14 @@ public class ExportDatabasesAsXml {
 		try {
 
 			long time = System.currentTimeMillis();
-			SangerXmlGenerator sg = new SangerXmlGenerator();
-			sg.exportImages(contextFile);
+			ImpcXmlGenerator impcGenerator = new ImpcXmlGenerator();
+			impcGenerator.exportImages();
 			System.out.println("Generating xml for Sanger took " + (System.currentTimeMillis() - time));
+
+//			long time = System.currentTimeMillis();
+//			SangerXmlGenerator sg = new SangerXmlGenerator();
+//			sg.exportImages(contextFile);
+//			System.out.println("Generating xml for Sanger took " + (System.currentTimeMillis() - time));
 //
 //			time = System.currentTimeMillis();
 //			IdrXmlGenerator idr = new IdrXmlGenerator();

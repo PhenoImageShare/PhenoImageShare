@@ -82,7 +82,7 @@ public class BatchXmlUploader {
 	}
 
 
-	public boolean validate(String xmlLocation) {
+	public Doc validate(String xmlLocation) {
 
 		InputStream xsd;
 		InputStream xml;
@@ -95,7 +95,6 @@ public class BatchXmlUploader {
 			xsd = classloader.getResourceAsStream("phisSchema.xsd");
 			xml = new FileInputStream(xmlLocation);
 			isValid = validateAgainstXSD(xml, xsd);
-			System.out.println("IS VALID HERE " + isValid);
 			xsd.close();
 			xml.close();
 			isValid = (isValid && checkInformation(doc));
@@ -104,14 +103,13 @@ public class BatchXmlUploader {
 			e.printStackTrace();
 		}
 
-		return isValid;
+		return isValid? doc : null;
 	}
 
 
-	public DatasourceInstance index(String xmlLocation, Integer datasourceId)
+	public DatasourceInstance index(Doc doc , Integer datasourceId)
 			throws IOException, SolrServerException, ParseException {
 
-		Doc doc = convertXmlToObjects(xmlLocation);
 		addImageDocuments(doc.getImage(), datasourceId);
 		addRoiDocuments(doc.getRoi(), datasourceId);
 		addChannelDocuments(doc.getChannel(), datasourceId);
@@ -952,11 +950,8 @@ public class BatchXmlUploader {
 			JAXBContext jaxbContext = JAXBContext.newInstance(Doc.class);
 			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 			System.out.println(">>>>>>" + xmlFullPathLocation + "  " + (jaxbUnmarshaller != null));
-			Doc doc = (Doc) jaxbUnmarshaller.unmarshal(new FileInputStream(xmlFullPathLocation));
-			return doc;
-		} catch (JAXBException e) {
-			e.printStackTrace();
-		} catch (FileNotFoundException e) {
+			return (Doc) jaxbUnmarshaller.unmarshal(new FileInputStream(xmlFullPathLocation));
+		} catch (JAXBException | FileNotFoundException e) {
 			e.printStackTrace();
 		}
 		return null;
