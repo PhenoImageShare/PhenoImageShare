@@ -13,56 +13,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.ac.hw.macs.bisel.phis.iqs;
+package uk.ac.hw.macs.bisel.phis.iqs.v103;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.URLEncoder;
+import java.util.Enumeration;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import uk.ac.hw.macs.bisel.phis.iqs.CommunicateWithSolr;
+import uk.ac.hw.macs.bisel.phis.iqs.GetHost;
 
 /**
  *
- * Connects client (presumably a GUI) to the SOLR API that wraps the SOLR
- * repository for image channels
- *
  * @author kcm
  */
-public class GetChannel extends HttpServlet {
+@WebServlet(name = "v103GR", urlPatterns = {"/v103GR"})
+public class v103GR extends HttpServlet {
 
+    private static final String url = GetHost.getEBI("103")+"getRoi?"; // stem of every SOLR query
     private static final Logger logger = Logger.getLogger(System.class.getName());
-
+    
+    
     /**
-     * Enables discovery of channel information for a single channel.
-     *
-     * Handles requests from the PhIS UI by simply forwarding them to the SOLR
-     * API and then returning the result directly to the UI. Provides very basic
-     * error handling (only deals with unknown parameters).
-     *
-     *
-     * This has no need for pagination as only 1 channel can be returned per
-     * query
-     *
-     * NOTE: this communicates with SOLR API not the SOLR core directly
-     *
-     * Parameters expected:
-     * <ol>
-     * <li>id = channel ID, e.g., komp2_channel_112003_0</li>
-     * </ol>
-     *
-     * Future versions will:
-     * <ol>
-     * <li>send queries to the SIS, and then integrate the results with those
-     * from SOLR</li>
-     * <li>likely to include sorting the results</li>
-     * <li>include a wider range of query parameters</li>
-     * <li>provide access to the "OLS" functionality from SOLR</li>
-     * </ol>
-     *
-     *
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
      *
@@ -73,27 +52,54 @@ public class GetChannel extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        logger.log(Level.INFO, "[GUI QUERY] {0}", request.getRequestURI()+"?"+request.getQueryString());
+  
+        // set response type to JS and allow programs from other servers to send and receive
+        response.setContentType("application/json;charset=UTF-8");
+        response.setHeader("Access-Control-Allow-Origin", "*");
 
-        // check to fiÈnd version and forward
+        boolean error = false; // has an error been detected?
+        String solrResult = ""; // JSON doc sent back to UI
+
+        // create URL for SOLR query
+        String queryURL = url;
+        boolean first = true;
         Map<String, String[]> params = request.getParameterMap(); // get map of parameters and their values
-        String[] versions = params.get("version");
+        Enumeration<String> allParams = request.getParameterNames(); // get a list of parameter names
+        while (allParams.hasMoreElements()) {
+            String param = allParams.nextElement();
+            if (param.equalsIgnoreCase("id")) { // deal with phenotypes
+                if (!first) { // if this is not the first parameter added to queryURL include separator
+                    queryURL += "&";
+                }
 
-        if (versions == null) {            
-            request.getRequestDispatcher("/v103GC").forward(request, response);
-        } else if (versions[0].equals("101")) {
-            request.getRequestDispatcher("/v101GC").forward(request, response);    
-        } else if (versions[0].equals("102")) {
-            request.getRequestDispatcher("/v102GC").forward(request, response);    
-        } else if (versions[0].equals("103")) {
-            request.getRequestDispatcher("/v103GC").forward(request, response);                
+                queryURL += "roiId=" + URLEncoder.encode(params.get("id")[0], "UTF-8"); // extend stem with parameter
+                first = false; // next time you need a seperator
+            } else if (param.equalsIgnoreCase("version")) {
+                // do nothing
+
+            } else { // parameter was not recognised, send error
+                error = true; // error has been detected
+                logger.log(Level.WARNING, "Client sent invalid parameter: {0}", param);
+                solrResult = "{\"invalid_paramater\": \"" + param + "\"}";
+                break;
+            }
+        }
+
+        // run solr query
+        if (!error) { // if no error detected
+            CommunicateWithSolr cws = new CommunicateWithSolr();
+            solrResult = cws.talk(queryURL);
         } else {
-            // otherwise forward to default
-            request.getRequestDispatcher("/v103GC").forward(request, response);
+            logger.log(Level.SEVERE, "[BAD QUERY] {0}", queryURL);
+        }
+
+        try ( // send result to client (UI)
+                PrintWriter out = response.getWriter()) {
+            out.println(solrResult); // may be error or genuine result
         }
     }
 
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -129,7 +135,7 @@ public class GetChannel extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Simple service that wraps the SOLR API to enable searching of channel information";
+        return "Short description";
     }// </editor-fold>
 
 }

@@ -4,7 +4,7 @@
     <groupId>org.bisel.phis</groupId>
     <artifactId>ISS</artifactId>
     <packaging>war</packaging>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
     <name>PhIS ISS</name>
     <url>http://maven.apache.org</url>
     <dependencies>

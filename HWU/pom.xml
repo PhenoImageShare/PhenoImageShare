@@ -5,7 +5,7 @@
     <groupId>uk.bisel</groupId>
     <artifactId>phis-parent</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
     <name>HWU PhIS code</name>
 
     <modules>

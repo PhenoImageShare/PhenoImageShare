@@ -33,6 +33,7 @@ public class Request {
     private String imageID;
     private String userGroupID;
     private String channelID;
+    private Boolean publish;
     private ArrayList<String> xValues;
     private ArrayList<String> yValues;
     private ArrayList<String> zValues;
@@ -74,6 +75,11 @@ public class Request {
             message = "missing image id";
             return false;
         }
+        
+        if (publish == null) {
+            message = "missing publish param";
+            return false;
+        }        
 
         // otherwise points needed
         if (xValues == null || xValues.isEmpty()) {
@@ -115,16 +121,16 @@ public class Request {
                 } else {
                     message = "some of the y values are outwith bounds";
                     return false;
-                }                
+                }
             }
-            for(String temp : zValues) {
+            for (String temp : zValues) {
                 Float z = new Float(temp);
                 if (z >= 0 && z <= 100) {
 
                 } else {
                     message = "some of the z values are outwith bounds";
                     return false;
-                }                
+                }
             }
         } catch (RuntimeException e) {
             message = "some of the coordinate values cannot be converted into floats";
@@ -186,11 +192,11 @@ public class Request {
     
     
      */
-    
     /**
      * Returns the error message if validation failed
+     *
      * @return Error message
-     * @see #validate() 
+     * @see #validate()
      */
     public String getMessage() {
         return this.message;
@@ -206,33 +212,39 @@ public class Request {
 
     /**
      * Constructor that allows creation of a Request object
+     *
      * @param phisID Mandatory
      * @param creatorID Mandatory
      * @param imageID Mandatory
      * @param userGroupID Optional
-     * @param channelID Optional 
+     * @param channelID Optional
      * @param xValues Mandatory - can have more than 1
      * @param yValues Mandatory - can have more than 1
      * @param zValues Mandatory - can have more than 1
-     * @param depictedAnatomyID Optional - if supplied must have equal number of phenoTypeTerms
+     * @param depictedAnatomyID Optional - if supplied must have equal number of
+     * phenoTypeTerms
      * @param depictedAnatomyTerm Optional
      * @param depictedAnatomyDescription Optional
-     * @param geneExpressionAnatomyID Optional - if supplied must have equal number of phenoTypeTerms
+     * @param geneExpressionAnatomyID Optional - if supplied must have equal
+     * number of phenoTypeTerms
      * @param geneExpressionAnatomyTerm Optional
      * @param geneExpressionAnatomyDescription
-     * @param abnAnatomyID Optional - if supplied must have equal number of phenoTypeTerms
+     * @param abnAnatomyID Optional - if supplied must have equal number of
+     * phenoTypeTerms
      * @param abnAnatomyTerm Optional
      * @param abnAnatomyDescription Optional
-     * @param phenotypeID Optional - if supplied must have equal number of phenoTypeTerms
+     * @param phenotypeID Optional - if supplied must have equal number of
+     * phenoTypeTerms
      * @param phenotypeTerm Optional
      * @param phenotypeDescription Optional
      */
-    public Request(String phisID, String creatorID, String userGroupID, String imageID, String channelID, ArrayList<String> xValues, ArrayList<String> yValues, ArrayList<String> zValues, ArrayList<String> depictedAnatomyID, ArrayList<String> depictedAnatomyTerm, ArrayList<String> depictedAnatomyDescription, ArrayList<String> geneExpressionAnatomyID, ArrayList<String> geneExpressionAnatomyTerm, ArrayList<String> geneExpressionAnatomyDescription, ArrayList<String> abnAnatomyID, ArrayList<String> abnAnatomyTerm, ArrayList<String> abnAnatomyDescription, ArrayList<String> phenotypeID, ArrayList<String> phenotypeTerm, ArrayList<String> phenotypeDescription) {
+    public Request(String phisID, String creatorID, String userGroupID, String imageID, String channelID, Boolean publish, ArrayList<String> xValues, ArrayList<String> yValues, ArrayList<String> zValues, ArrayList<String> depictedAnatomyID, ArrayList<String> depictedAnatomyTerm, ArrayList<String> depictedAnatomyDescription, ArrayList<String> geneExpressionAnatomyID, ArrayList<String> geneExpressionAnatomyTerm, ArrayList<String> geneExpressionAnatomyDescription, ArrayList<String> abnAnatomyID, ArrayList<String> abnAnatomyTerm, ArrayList<String> abnAnatomyDescription, ArrayList<String> phenotypeID, ArrayList<String> phenotypeTerm, ArrayList<String> phenotypeDescription) {
         this.phisID = phisID;
         this.creatorID = creatorID;
         this.imageID = imageID;
         this.userGroupID = userGroupID;
         this.channelID = channelID;
+        this.publish = publish;
         this.xValues = xValues;
         this.yValues = yValues;
         this.zValues = zValues;
@@ -273,9 +285,13 @@ public class Request {
     public String getUserGroupID() {
         return userGroupID;
     }
-    
+
     public String getChannelID() {
         return channelID;
+    }
+    
+    public Boolean getPublish() {
+        return publish;
     }
 
     public ArrayList<String> getxValues() {

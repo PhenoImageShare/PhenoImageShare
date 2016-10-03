@@ -81,16 +81,17 @@ public class GetImages extends HttpServlet {
         Map<String, String[]> params = request.getParameterMap(); // get map of parameters and their values
         String[] versions = params.get("version");
         
-        if(versions == null || versions[0] == null) {
-            // default is v003
-            request.getRequestDispatcher("/v101GIs").forward(request, response);
+        if(versions == null || versions[0] == null) {            
+            request.getRequestDispatcher("/v103GIs").forward(request, response);
         } else if(versions[0].equals("101")) {
             request.getRequestDispatcher("/v101GIs").forward(request, response);
         } else if(versions[0].equals("102")) {
             request.getRequestDispatcher("/v102GIs").forward(request, response);
+        } else if(versions[0].equals("103")) {
+            request.getRequestDispatcher("/v103GIs").forward(request, response);            
         } else {                
             // otherwise forward to default
-            request.getRequestDispatcher("/v101GIs").forward(request, response);
+            request.getRequestDispatcher("/v103GIs").forward(request, response);
         }
     }
 
