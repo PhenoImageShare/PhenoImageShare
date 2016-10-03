@@ -23,6 +23,7 @@ public class PhisSubmissionException extends Exception{
 	public static final String EXISTING_ID_EXCEPTION_MESSAGE = "Id already exists. The id provided is ";
 	public static final String IMAGE_ID_NOT_FOUND_EXCEPTION_MESSAGE = "The image id provided is not valid.";
 	public static final String ID_NOT_FOUND_EXCEPTION_MESSAGE = "No id was provided.";
+	public static final String ROI_ID_NOT_FOUND_EXCEPTION_MESSAGE = "Provided roi id is not valid. Are you sure the id exists?";
 	public static final String NO_COORDINATES_EXCEPTION = "Please provide coordinates for each Annotation. At least x and y coordinates are required.";
 	public static final String RELATIONSHIP_EXISTS_EXCEPTION = "Relationship exits and was not added again.";	
 	public static final String NO_ANNOTATION_EXCEPTION = "At least 1 annotation is required to create a ROI. Please provide some observation, phenotype, expression or anatomy information. ";
