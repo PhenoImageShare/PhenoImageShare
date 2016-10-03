@@ -74,7 +74,7 @@ public class RoiService extends BasicService{
 		
 		SolrQuery solrQuery = new SolrQuery();
 		id = handleSpecialCharacters(id);
-		solrQuery.setQuery(RoiDTO.ID + ":\""+ id + "\"");
+		solrQuery.setQuery(RoiDTO.ID + ":"+ handleSpecialCharacters(id) );
 		try {
 			List<RoiDTO> results = solr.query(solrQuery).getBeans(RoiDTO.class);
 			if (results.size() > 0){
@@ -119,10 +119,10 @@ public class RoiService extends BasicService{
 		solrQuery.setQuery("*:*");
 		imageId = handleSpecialCharacters(imageId);
 		if (imageId != null){
-			solrQuery.setFilterQueries(RoiDTO.ASSOCIATED_IMAGE_ID + ":\""+ imageId + "\"");
+			solrQuery.setFilterQueries(RoiDTO.ASSOCIATED_IMAGE_ID + ":"+ imageId);
 		}
 		if (roiId != null){
-			solrQuery.addFilterQuery(RoiDTO.ID + ":\"" + roiId + "\"");
+			solrQuery.addFilterQuery(RoiDTO.ID + ":" + handleSpecialCharacters(roiId) );
 		}
 		if (owner != null){
 			solrQuery.addFilterQuery(RoiDTO.USER_OWNER + ":\"" + owner + "\"");
@@ -198,7 +198,7 @@ public class RoiService extends BasicService{
 		
 		roiId = handleSpecialCharacters(roiId);
 		try {
-			solr.deleteByQuery(RoiDTO.ID + ":" + roiId);
+			solr.deleteByQuery(RoiDTO.ID + ":" + handleSpecialCharacters(roiId));
 			solr.commit();
 		} catch (SolrServerException e) {
 			e.printStackTrace();

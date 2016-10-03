@@ -370,7 +370,7 @@ public class ImageService extends BasicService{
 	public String getImageAsJsonString(String imageId){
 		SolrQuery solrQuery = new SolrQuery();
 		imageId = handleSpecialCharacters(imageId);
-		solrQuery.setQuery(ImageDTO.ID + ":\""+ imageId + "\"");
+		solrQuery.setQuery(ImageDTO.ID + ":"+ handleSpecialCharacters(imageId));
 		solrQuery.set("wt", "json");
 
 		try {
@@ -563,7 +563,7 @@ public class ImageService extends BasicService{
 	public ImageDTO getImageDTOById(String imageId) throws PhisSubmissionException{
 		ImageDTO img = null;
 		SolrQuery solrQuery = new SolrQuery();
-		solrQuery.setQuery(ImageDTO.ID + ":" + imageId);
+		solrQuery.setQuery(ImageDTO.ID + ":" + handleSpecialCharacters(imageId));
 		try {
 			List<ImageDTO> images = solr.query(solrQuery).getBeans(ImageDTO.class);
 			img = images.get(0);

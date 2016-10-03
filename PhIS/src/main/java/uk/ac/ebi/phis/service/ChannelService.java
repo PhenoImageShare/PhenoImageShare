@@ -15,20 +15,18 @@
  *******************************************************************************/
 package uk.ac.ebi.phis.service;
 
+import org.apache.solr.client.solrj.SolrQuery;
+import org.apache.solr.client.solrj.SolrServerException;
+import org.apache.solr.client.solrj.response.FacetField.Count;
+import org.apache.solr.client.solrj.response.QueryResponse;
+import uk.ac.ebi.phis.solrj.dto.ChannelDTO;
+import uk.ac.ebi.phis.solrj.dto.RoiDTO;
+import uk.ac.ebi.phis.utils.web.JSONRestUtil;
+
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.apache.solr.client.solrj.SolrQuery;
-import org.apache.solr.client.solrj.SolrServerException;
-import org.apache.solr.client.solrj.response.QueryResponse;
-import org.apache.solr.client.solrj.response.FacetField.Count;
-
-import uk.ac.ebi.phis.solrj.dto.ChannelDTO;
-import uk.ac.ebi.phis.solrj.dto.ImageDTO;
-import uk.ac.ebi.phis.solrj.dto.RoiDTO;
-import uk.ac.ebi.phis.utils.web.JSONRestUtil;
 
 public class ChannelService extends BasicService {
 
@@ -92,7 +90,7 @@ public class ChannelService extends BasicService {
 	public String getChannelAsJsonString(String channelId, Integer resNo){
 		SolrQuery solrQuery = new SolrQuery();
 		channelId = handleSpecialCharacters(channelId);
-		solrQuery.setQuery(ChannelDTO.ID + ":\""+ channelId + "\"");
+		solrQuery.setQuery(ChannelDTO.ID + ":"+ handleSpecialCharacters(channelId) );
 		if (resNo != null){
 			solrQuery.setRows(resNo);
 		} else {
