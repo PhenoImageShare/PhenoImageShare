@@ -127,40 +127,19 @@ public class BatchXmlUploader {
 	private void addImageDocuments(List<Image> images, Integer datasourceId)
 			throws IOException, SolrServerException {
 
-		int i = 0;
 		List<ImageDTO> imageDocs = new ArrayList<>();
 		for (Image img : images) {
-			imageDocs.add(fillPojo(img, datasourceId));
-			// flush every 1000 docs
-			if (i++ % 1000 == 0) {
-				is.addBeans(imageDocs);
-				System.out.println("Documents added " + i);
-				imageDocs = new ArrayList<>();
-			}
+			is.addBean(fillPojo(img, datasourceId));
 		}
-		if (imageDocs.size() != 0){
-			is.addBeans(imageDocs);
-		}
-
 	}
 
 
 	private void addRoiDocuments(List<Roi> rois, Integer datasourceId)
 			throws IOException, SolrServerException {
 
-		int i = 0;
 		System.out.println("rois list is " + rois.size());
-		List<RoiDTO> roiDocs = new ArrayList<>();
 		for (Roi roi : rois) {
-			roiDocs.add(fillPojo(roi, datasourceId));
-			// flush every 1000 docs
-			if (i++ % 1000 == 0) {
-				rs.addBeans(roiDocs);
-				roiDocs = new ArrayList<>();
-			}
-		}
-		if (roiDocs.size() > 0){
-			rs.addBeans(roiDocs);
+			rs.addBean(fillPojo(roi, datasourceId));
 		}
 	}
 
@@ -168,19 +147,9 @@ public class BatchXmlUploader {
 	private void addChannelDocuments(List<Channel> channels, Integer datasourceId)
 			throws IOException, SolrServerException {
 
-		int i = 0;
-		List<ChannelDTO> chDocs = new ArrayList<>();
 		System.out.println("channel list is " + channels.size());
 		for (Channel channel : channels) {
-			chDocs.add(fillPojo(channel, datasourceId));
-			// flush every 1000 docs
-			if (i++ % 1000 == 0) {
-				cs.addBeans(chDocs);
-				chDocs = new ArrayList<>();
-			}
-		}
-		if (chDocs.size() > 0){
-			cs.addBeans(chDocs);
+			cs.addBean(fillPojo(channel, datasourceId));
 		}
 	}
 

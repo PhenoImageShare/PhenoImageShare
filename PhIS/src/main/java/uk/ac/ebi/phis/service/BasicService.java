@@ -20,6 +20,8 @@ import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.HttpSolrServer;
 import org.apache.solr.client.solrj.response.QueryResponse;
 
+import java.io.IOException;
+
 
 public class BasicService {
 
@@ -40,7 +42,17 @@ public class BasicService {
 		solrQuery.setStart(start);
 		return solr.query(solrQuery);		
 	}
-	
+
+
+	public void commit() {
+
+		try {
+			solr.commit();
+		} catch (SolrServerException | IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 	public QueryResponse getDocumentsById(String field, String fieldValue) 
 	throws SolrServerException{
 

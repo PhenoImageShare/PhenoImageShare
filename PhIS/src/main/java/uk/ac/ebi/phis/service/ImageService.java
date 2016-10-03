@@ -467,9 +467,7 @@ public class ImageService extends BasicService{
 		}
 		img.setGenericSearch(new ArrayList<String>());
 				
-		List<ImageDTO> update = new ArrayList<>();
-		update.add(img);
-		addBeans(update);
+		addBean(img);
 	}
 	
 	public List<String> removeOnce(List<String> from, List<String> whatToDelete){
@@ -554,9 +552,7 @@ public class ImageService extends BasicService{
 			}
 
 			img.setGenericSearch(new ArrayList<String>());
-			List<ImageDTO> update = new ArrayList<>();
-			update.add(img);
-			addBeans(update);
+			addBean(img);
 		}
 	}
 	
@@ -577,11 +573,11 @@ public class ImageService extends BasicService{
 	public String getSolrUrl () {
 		return solr.getBaseURL();
 	}
-	
-	public void addBeans(List<ImageDTO> imageDocs){
+
+	public void addBean(ImageDTO doc) {
+
 		try {
-			solr.addBeans(imageDocs);
-			solr.commit();
+			solr.addBean(doc, 30000);
 		} catch (SolrServerException | IOException e) {
 			e.printStackTrace();
 		}

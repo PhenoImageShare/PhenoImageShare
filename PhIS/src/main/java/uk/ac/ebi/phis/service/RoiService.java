@@ -24,7 +24,6 @@ import uk.ac.ebi.phis.utils.web.JSONRestUtil;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -170,30 +169,16 @@ public class RoiService extends BasicService{
 	}
 
 
-
-
-	public void updateRoi(RoiDTO roi){
-		List<RoiDTO> list = new ArrayList<>();
-		list.add(roi);
-		addBeans(list);
-	}
-	
-	public void addRoi(RoiDTO roi){
-		List<RoiDTO> list = new ArrayList<>();
-		list.add(roi);
-		addBeans(list);
-	}
-	
-	public void addBeans(List<RoiDTO> docs){
+	public void addBean(RoiDTO doc){
 		try {
-			solr.addBeans(docs);
-			solr.commit();
+			solr.addBean(doc, 30000);
 		} catch (SolrServerException | IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
-	
+
+
+
 	public void deleteRoi(String roiId){
 		
 		roiId = handleSpecialCharacters(roiId);

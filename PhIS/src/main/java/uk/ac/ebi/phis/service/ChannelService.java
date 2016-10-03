@@ -15,20 +15,18 @@
  *******************************************************************************/
 package uk.ac.ebi.phis.service;
 
+import org.apache.solr.client.solrj.SolrQuery;
+import org.apache.solr.client.solrj.SolrServerException;
+import org.apache.solr.client.solrj.response.FacetField.Count;
+import org.apache.solr.client.solrj.response.QueryResponse;
+import uk.ac.ebi.phis.solrj.dto.ChannelDTO;
+import uk.ac.ebi.phis.solrj.dto.RoiDTO;
+import uk.ac.ebi.phis.utils.web.JSONRestUtil;
+
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.apache.solr.client.solrj.SolrQuery;
-import org.apache.solr.client.solrj.SolrServerException;
-import org.apache.solr.client.solrj.response.QueryResponse;
-import org.apache.solr.client.solrj.response.FacetField.Count;
-
-import uk.ac.ebi.phis.solrj.dto.ChannelDTO;
-import uk.ac.ebi.phis.solrj.dto.ImageDTO;
-import uk.ac.ebi.phis.solrj.dto.RoiDTO;
-import uk.ac.ebi.phis.utils.web.JSONRestUtil;
 
 public class ChannelService extends BasicService {
 
@@ -49,9 +47,7 @@ public class ChannelService extends BasicService {
 				while (channel.getAssociatedRoi().contains(roiId)){
 					channel.getAssociatedRoi().remove(roiId);
 				}
-				List<ChannelDTO> docs = new ArrayList<>();
-				docs.add(channel);
-				addBeans(docs);
+				addBean(channel);
 			}
 		}
 	}
@@ -63,9 +59,7 @@ public class ChannelService extends BasicService {
 			for(String channelId : channelIds){
 				ChannelDTO channel = getChannelBean(channelId);
 				channel.addAssociatedRoi(roiId);
-				List<ChannelDTO> docs = new ArrayList<>();
-				docs.add(channel);
-				addBeans(docs);
+				addBean(channel);
 			}
 		}
 	}
@@ -138,13 +132,11 @@ public class ChannelService extends BasicService {
 		
 		return "getChannels : Couldn't get anything back from solr.";
 	}
-	
 
-	public void addBeans(List<ChannelDTO> docs) {
+	public void addBean(ChannelDTO doc) {
 
 		try {
-			solr.addBeans(docs);
-			solr.commit();
+			solr.addBean(doc, 30000);
 		} catch (SolrServerException | IOException e) {
 			e.printStackTrace();
 		}
