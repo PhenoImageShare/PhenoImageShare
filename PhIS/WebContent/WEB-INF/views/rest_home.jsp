@@ -344,6 +344,33 @@
 	</table>
 
 
+		<br/>
+		<h2>/getImageDetails</h2>
+
+		<h3>Parameters</h3>
+		<table class="table table-striped">
+			<thead>
+			<tr style="background-color: lightSteelBlue;">
+				<th>Name</th>
+				<th>Type</th>
+				<th>Required</th>
+				<th>Description</th>
+				<th>Default</th>
+				<th>Example Values</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr style="background-color: olive;">
+				<td>imageId</td>
+				<td><var>String</var></td>
+				<td> true</td>
+				<td>Image document with the specified id.</td>
+				<td><var> (none) </var></td>
+				<td><var>6_image_VFB_00009318</var><br></td>
+			</tr>
+			</tbody>
+		</table>
+
 	<!-- h2>Getting ROIs & annotations</h2-->
 
 	<br/>
