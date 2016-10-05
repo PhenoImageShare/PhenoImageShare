@@ -130,7 +130,7 @@ public class QueryController {
 
 		JSONObject obj = new JSONObject();
 		JSONObject imageRes = new JSONObject(is.getImageAsJsonString(imageId));
-		if (imageRes == null || imageRes.getJSONObject("response").getJSONArray("docs") == null){
+		if (imageRes == null || imageRes.getJSONObject("response").getJSONArray("docs") == null || imageRes.getJSONObject("response").getJSONArray("docs").length() == 0){
 			return "Image id does not exist";
 		}
 		obj.accumulate("image", imageRes.getJSONObject("response").getJSONArray("docs").get(0));
