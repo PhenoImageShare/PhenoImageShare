@@ -140,8 +140,7 @@ public class QueryController {
 			if (roiRes.getJSONObject("response").getJSONArray("docs") != null){
 				for (int i = 0; i< roiRes.getJSONObject("response").getJSONArray("docs").length(); i++ ){
 					JSONObject roi = (JSONObject) roiRes.getJSONObject("response").getJSONArray("docs").get(i);
-					System.out.println("\n\n\n" + roi);
-					obj.accumulate("rois",(new JSONObject()).accumulate(roi.get("id").toString(), roi));
+					obj.append("rois",(new JSONObject()).accumulate(roi.get("id").toString(), roi));
 				}
 			}
 		} catch (Exception e){e.printStackTrace();}
@@ -151,7 +150,7 @@ public class QueryController {
 			if (channelRes.getJSONObject("response").getJSONArray("docs") != null){
 				for (int i = 0; i< channelRes.getJSONObject("response").getJSONArray("docs").length(); i++ ){
 					JSONObject channel = (JSONObject) channelRes.getJSONObject("response").getJSONArray("docs").get(i);
-					obj.accumulate("channels", (new JSONObject()).accumulate(channel.get("id").toString(), channel));
+					obj.append("channels", (new JSONObject()).accumulate(channel.get("id").toString(), channel));
 				}
 			}
 		} catch (Exception e){e.printStackTrace();}
