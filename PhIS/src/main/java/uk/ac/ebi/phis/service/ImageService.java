@@ -619,8 +619,7 @@ public class ImageService extends BasicService{
 		return obj.getInt("numFound");
 		
 	}
-	
-	
+
 	/**
 	 * @since 2015/08/13
 	 * @return List of species and number of images for each of them

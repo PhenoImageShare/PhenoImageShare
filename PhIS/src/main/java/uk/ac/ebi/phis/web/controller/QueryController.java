@@ -123,7 +123,41 @@ public class QueryController {
 		
 		return new ResponseEntity<String>(responseString, getJsonResponseHeaders(), HttpStatus.OK);
     }
-	
+
+	@RequestMapping(value="/getImageDetails", method=RequestMethod.GET)
+	public  @ResponseBody String getImageInfo(@RequestParam(value = "imageId", required = true) String imageId, Model model)
+			throws SolrServerException, PhisQueryException{
+
+		JSONObject obj = new JSONObject();
+		JSONObject imageRes = new JSONObject(is.getImageAsJsonString(imageId));
+		if (imageRes == null || imageRes.getJSONObject("response").getJSONArray("docs") == null){
+			return "Image id does not exist";
+		}
+		obj.accumulate("image", imageRes.getJSONObject("response").getJSONArray("docs").get(0));
+
+		try{
+			JSONObject roiRes = new JSONObject(rs.getRois(imageId, null, null, null, null, null, null, null, 100000));
+			if (roiRes.getJSONObject("response").getJSONArray("docs") != null){
+				for (int i = 0; i< roiRes.getJSONObject("response").getJSONArray("docs").length(); i++ ){
+					JSONObject roi = (JSONObject) roiRes.getJSONObject("response").getJSONArray("docs").get(i);
+					System.out.println("\n\n\n" + roi);
+					obj.accumulate("rois",(new JSONObject()).accumulate(roi.get("id").toString(), roi));
+				}
+			}
+		} catch (Exception e){e.printStackTrace();}
+
+		try{
+			JSONObject channelRes  = new JSONObject(cs.getChannelAsJsonString(imageId, 10000));
+			if (channelRes.getJSONObject("response").getJSONArray("docs") != null){
+				for (int i = 0; i< channelRes.getJSONObject("response").getJSONArray("docs").length(); i++ ){
+					JSONObject channel = (JSONObject) channelRes.getJSONObject("response").getJSONArray("docs").get(i);
+					obj.accumulate("channels", (new JSONObject()).accumulate(channel.get("id").toString(), channel));
+				}
+			}
+		} catch (Exception e){e.printStackTrace();}
+
+		return obj.toString();
+	}
 
 	@RequestMapping(value="/getImage", method=RequestMethod.GET)	
     public @ResponseBody ResponseEntity<String> getImage(@RequestParam(value = "imageId", required = true) String imageId, Model model) 
@@ -154,6 +188,9 @@ public class QueryController {
 		}
 
 	}
+
+
+
 
 	@RequestMapping(value="/download", method=RequestMethod.GET)
 	public @ResponseBody ResponseEntity<String> downloadImage(@RequestParam(value = "imageId", required = false) String imageId,
