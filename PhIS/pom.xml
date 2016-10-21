@@ -90,6 +90,7 @@
         <com.fasterxml.jackson.core.version>2.7.4</com.fasterxml.jackson.core.version>
         <spring.security.version>4.0.2.RELEASE</spring.security.version>
         <spring.version>4.2.3.RELEASE</spring.version>
+        <spring.boot.version>1.4.1.RELEASE</spring.boot.version>
         <apache.commons.collections>3.2.2</apache.commons.collections>
         <owlapiversion>4.1.4</owlapiversion>
     </properties>
@@ -586,12 +587,12 @@
             <scope>runtime</scope>
         </dependency>
 
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>1.7.7</version>
-            <scope>runtime</scope>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.slf4j</groupId>-->
+            <!--<artifactId>slf4j-log4j12</artifactId>-->
+            <!--<version>1.7.7</version>-->
+            <!--<scope>runtime</scope>-->
+        <!--</dependency>-->
 
         <dependency>
             <groupId>log4j</groupId>
@@ -726,14 +727,21 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
-            <version>1.1.1.RELEASE</version>
+            <version>${spring.boot.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-parent</artifactId>
-            <version>1.1.1.RELEASE</version>
+            <version>${spring.boot.version}</version>
             <type>pom</type>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-tomcat -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <version>${spring.boot.version}</version>
         </dependency>
 
         <dependency>
@@ -833,19 +841,19 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-remote-shell</artifactId>
-            <version>1.1.1.RELEASE</version>
+            <version>${spring.boot.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-solr</artifactId>
-            <version>1.1.1.RELEASE</version>
+            <version>${spring.boot.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
-            <version>1.1.1.RELEASE</version>
+            <version>${spring.boot.version}</version>
         </dependency>
 
     </dependencies>
