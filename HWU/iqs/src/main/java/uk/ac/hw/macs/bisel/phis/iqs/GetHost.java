@@ -51,18 +51,10 @@ public class GetHost {
             LOGGER.warning("File 'host.properties' was not found or error while reading current version.");
         }   
         
-       if(version.equals("101")) {
-            return "http://"+machine+".phenoimageshare.org/data/v1.0.1/rest/";
-        } else if(version.equals("102")) {
+       if(version.equals("102")) {
             return "http://"+machine+".phenoimageshare.org/data/v1.0.2/rest/";
         }
         return "http://"+machine+".phenoimageshare.org/data/v1.0.3/rest/";
-    }
-    
-    public static void main(String[] args) {        
-        System.out.println(getURI());
-        System.out.println(getEBI("101"));
-        System.out.println(getEBI("102"));
     }
     
 }
