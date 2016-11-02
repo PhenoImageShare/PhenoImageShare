@@ -71,14 +71,14 @@
         <profile>
             <id>beta</id>
             <properties>
-                <host></host>
+	        <host>http://aberlour.hgu.mrc.ac.uk:9090/IQS/</host>
                 <ebi>beta</ebi>
             </properties>
         </profile> 	
         <profile>
             <id>live</id>
             <properties>
-                <host></host>
+		    <host>http://aberlour.hgu.mrc.ac.uk:9191/IQS/</host>
                 <ebi>www</ebi>
             </properties>
         </profile> 	

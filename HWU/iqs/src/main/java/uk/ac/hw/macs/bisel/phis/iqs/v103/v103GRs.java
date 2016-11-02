@@ -52,21 +52,22 @@ public class v103GRs extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // set response type to JS and allow programs from other servers to send and receive
-        response.setContentType("application/json;charset=UTF-8");
         response.setHeader("Access-Control-Allow-Origin", "*");
 
         boolean error = false; // has an error been detected?
         String solrResult = ""; // JSON doc sent back to UI
 
         // create URL for SOLR query
+        String callback = "";
         String queryURL = url;
         boolean first = true;
         Map<String, String[]> params = request.getParameterMap(); // get map of parameters and their values
         Enumeration<String> allParams = request.getParameterNames(); // get a list of parameter names
         while (allParams.hasMoreElements()) {
             String param = allParams.nextElement();
-            if (param.equalsIgnoreCase("imageId")) { // deal with phenotypes
+            if (param.toLowerCase().contains("callback")) {
+                callback = params.get(param)[0];
+            } else if (param.equalsIgnoreCase("imageId")) { // deal with phenotypes
                 if (!first) { // if this is not the first parameter added to queryURL include separator
                     queryURL += "&";
                 }
@@ -155,9 +156,27 @@ public class v103GRs extends HttpServlet {
             logger.log(Level.SEVERE, "[BAD QUERY] " + queryURL);
         }
 
+        // jsonp code from yiya
+        String type = "";
+        if (null == callback || callback.trim().equals("")) {
+            type = "application/json; charset=utf-8";
+        } else {
+            type = "application/javascript; charset=utf-8";
+            // you may want to get sender url to check whether
+            // this operation is allowed
+            // out.print('Access-Control-Allow-Origin: http://www.example.com/');
+
+            if (null != solrResult) {
+                solrResult = callback + "(" + solrResult + ")";
+            } else {
+                solrResult = callback + "()";
+            }
+        }        
+        response.setContentType(type);
+        
         try ( // send result to client (UI)
                 PrintWriter out = response.getWriter()) {
-            out.println(solrResult); // may be error or genuine result
+            out.print(solrResult); // may be error or genuine result
         }
     }
 

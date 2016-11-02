@@ -37,7 +37,7 @@ import uk.ac.hw.macs.bisel.phis.iqs.GetHost;
 @WebServlet(name = "v103AS", urlPatterns = {"/v103AS"})
 public class v103AS extends HttpServlet {
 
-    private static final String url = GetHost.getEBI("103")+"getAutosuggest?"; // stem of every SOLR query
+    private static final String url = GetHost.getEBI("103") + "getAutosuggest?"; // stem of every SOLR query
     private static final Logger logger = Logger.getLogger(System.class.getName());
 
     /**
@@ -51,20 +51,22 @@ public class v103AS extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("application/json;charset=UTF-8");
-        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Cache-Control", "no-cache");
 
         boolean error = false; // has an error been detected?
         String solrResult = ""; // JSON doc sent back to UI
 
         // create URL for SOLR query
         String queryURL = url;
+        String callback = "";
         boolean first = true;
         Map<String, String[]> params = request.getParameterMap(); // get map of parameters and their values
         Enumeration<String> allParams = request.getParameterNames(); // get a list of parameter names
         while (allParams.hasMoreElements()) {
             String param = allParams.nextElement();
-            if (param.equals("term")) { // ID of channel
+            if (param.toLowerCase().contains("callback")) {
+                callback = params.get(param)[0];
+            } else if (param.equals("term")) { // ID of channel
                 if (!first) { // at the moment it will always be the first (and only) param
                     queryURL += "&";
                 }
@@ -80,16 +82,16 @@ public class v103AS extends HttpServlet {
                 // ensure a number is supplied by GUI
                 Integer temp = 1;
                 try {
-                    temp = new Integer(params.get("num")[0]);                                                       
+                    temp = new Integer(params.get("num")[0]);
                 } catch (NumberFormatException nfe) {
                     error = true;
-                    solrResult = "{\"invalid_num_specified\": \"" + params.get("num")[0] + "\"}";     
-                    break;                    
-                }                
-                
+                    solrResult = "{\"invalid_num_specified\": \"" + params.get("num")[0] + "\"}";
+                    break;
+                }
+
                 queryURL += "resultNo=" + URLEncoder.encode(params.get("num")[0], "UTF-8");
                 first = false;  // next time you need a separator                            
-                
+
                 // 2015-03-17
             } else if (param.equals("type")) {
                 if (!first) {
@@ -127,35 +129,35 @@ public class v103AS extends HttpServlet {
                 }
                 queryURL += "imageGeneratedBy=" + URLEncoder.encode(params.get("imageGeneratedBy")[0], "UTF-8");
                 first = false;  // next time you need a separator 
-                
+
             } else if (param.equalsIgnoreCase("asType")) {
                 if (!first) {
                     queryURL += "&";
                 }
-                
+
                 String asType = params.get("asType")[0];
-                if(asType.equals("GENE") || asType.equals("ANATOMY") || asType.equals("PHENOTYPE")) {
+                if (asType.equals("GENE") || asType.equals("ANATOMY") || asType.equals("PHENOTYPE")) {
                     queryURL += "autosuggestType=" + URLEncoder.encode(asType, "UTF-8");
                 } else {
                     error = true;
-                    solrResult = "{\"invalid_paramater_value\": \"" + asType + "\"}";     
+                    solrResult = "{\"invalid_paramater_value\": \"" + asType + "\"}";
                     break;
-                }                                
+                }
                 first = false;  // next time you need a separator  
-             
-            // v102    
-            } else if(param.equalsIgnoreCase("hostName")) {
+
+                // v102    
+            } else if (param.equalsIgnoreCase("hostName")) {
                 if (!first) {
                     queryURL += "&";
                 }
-                
+
                 String host = params.get("hostName")[0];
                 queryURL += "hostName=" + URLEncoder.encode(host, "UTF-8");
                 first = false;  // next time you need a separator  
-                
+
             } else if (param.equalsIgnoreCase("version")) {
                 // do nothing
-                
+
                 //
                 //
                 //
@@ -163,11 +165,10 @@ public class v103AS extends HttpServlet {
             } else if (param.equals("mutantGene")) {
                 if (!first) { // at the moment it will always be the first (and only) param
                     queryURL += "&";
-                }                
+                }
                 queryURL += "mutantGene=" + URLEncoder.encode(params.get("mutantGene")[0], "UTF-8"); // extend stem with parameter
                 first = false; // next time you need a separator                
-                
-                
+
                 // @depreciated
             } else if (param.equals("expressedGeneOrAllele")) {
                 if (!first) { // at the moment it will always be the first (and only) param
@@ -176,8 +177,7 @@ public class v103AS extends HttpServlet {
 
                 queryURL += "expressedGeneOrAllele=" + URLEncoder.encode(params.get("expressedGeneOrAllele")[0], "UTF-8"); // extend stem with parameter
                 first = false; // next time you need a separator     
-                
-                
+
                 // @depreciated
             } else if (param.equals("phenotype")) {
                 if (!first) { // at the moment it will always be the first (and only) param
@@ -186,10 +186,7 @@ public class v103AS extends HttpServlet {
 
                 queryURL += "phenotype=" + URLEncoder.encode(params.get("phenotype")[0], "UTF-8"); // extend stem with parameter
                 first = false; // next time you need a separator                 
-                
-                
-                
-                
+
             } else { // parameter was not recognised, send error
                 error = true; // error has been detected
                 logger.log(Level.WARNING, "Client sent invalid parameter: {0}", param);
@@ -206,9 +203,28 @@ public class v103AS extends HttpServlet {
             logger.log(Level.SEVERE, "[BAD QUERY] {0}", queryURL);
         }
 
+        // jsonp code from yiya
+        String type = "";
+        if (null == callback || callback.trim().equals("")) {
+            type = "application/json; charset=utf-8";
+        } else {
+            type = "application/javascript; charset=utf-8";
+            // you may want to get sender url to check whether
+            // this operation is allowed
+            // out.print('Access-Control-Allow-Origin: http://www.example.com/');
+
+            if (null != solrResult) {
+                solrResult = callback + "(" + solrResult + ")";
+            } else {
+                solrResult = callback + "()";
+            }
+        }        
+        response.setContentType(type);
+
         try ( // send result to client (UI)
-                PrintWriter out = response.getWriter()) {
-            out.println(solrResult); // may be error or genuine result
+
+            PrintWriter out = response.getWriter()) {
+            out.print(solrResult); // may be error or genuine result
         }
     }
 

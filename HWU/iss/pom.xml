@@ -76,15 +76,15 @@
         <profile>
             <id>beta</id>
             <properties>
-                <host></host>
-                <ebi></ebi>
+		<host>http://aberlour.hgu.mrc.ac.uk:9090/ISS/</host>
+                <ebi>beta</ebi>
             </properties>
         </profile> 	
         <profile>
-            <id>dev</id>
+            <id>live</id>
             <properties>
-                <host></host>
-                <ebi></ebi>
+		<host>http://aberlour.hgu.mrc.ac.uk:9191/ISS/</host>
+                <ebi>www</ebi>
             </properties>
         </profile> 	   
     </profiles>

@@ -23,9 +23,9 @@
         
         <h3>Notes</h3>
         <div>            
-            <p>Versions 003, 004, 005, 008 & 100 have been withdrawn and are no longer available.</p>
+            <p>Versions 003, 004, 005, 008, 100 & 101 have been withdrawn and are no longer available.</p>
             <br />            
-            <a href="${uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()}v101.jsp">Click here to use 101</a>.  
+            <a href="${uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()}v103.jsp">Click here to use 103</a>.  
             <br />
             <a href="${uk.ac.hw.macs.bisel.phis.iqs.GetHost.getURI()}v102.jsp">Click here to use 102</a>.
         </div>
