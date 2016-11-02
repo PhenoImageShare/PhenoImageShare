@@ -86,21 +86,17 @@ public class ChannelService extends BasicService {
 	public String getChannelAsJsonString(String channelId, Integer resNo){
 		SolrQuery solrQuery = new SolrQuery();
 		channelId = handleSpecialCharacters(channelId);
-		solrQuery.setQuery(ChannelDTO.ID + ":"+ handleSpecialCharacters(channelId) );
+		solrQuery.setQuery(ChannelDTO.ID + ":"+ channelId );
 		if (resNo != null){
 			solrQuery.setRows(resNo);
 		} else {
 			solrQuery.setRows(10000);
 		}
 		solrQuery.set("wt", "json");
-		
-		System.out.println("------ ChannelPojo" + getQueryUrl(solrQuery));
 
 		try {
 			return JSONRestUtil.getResults(getQueryUrl(solrQuery)).toString();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (URISyntaxException e) {
+		} catch (IOException | URISyntaxException e) {
 			e.printStackTrace();
 		}
 		
