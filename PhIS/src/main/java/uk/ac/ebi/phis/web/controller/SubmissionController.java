@@ -68,7 +68,8 @@ import java.util.List;
 			System.out.println("Try /getImages .");
 			return "submission_home";
 	    }
-		
+
+
 		@RequestMapping(value="/createAnnotation", method=RequestMethod.GET)	
 	    public @ResponseBody String createAnnotation(
 	    

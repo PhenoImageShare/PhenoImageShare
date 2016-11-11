@@ -1,5 +1,5 @@
 <beans:beans xmlns="http://www.springframework.org/schema/security"
-	xmlns:beans="http://www.springframework.org/schema/beans" 
+	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
 	http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
@@ -7,6 +7,7 @@
 	http://www.springframework.org/schema/security/spring-security-4.0.xsd">
 
 	<!-- HTTP basic authentication in Spring Security -->
+
 	<http>
 		<intercept-url pattern="/rest/submission/*" access="hasRole('ROLE_USER')" />
 		<http-basic />

@@ -296,6 +296,7 @@ public class BatchXmlUploader {
 		return bean;
 	}
 
+
 	private OntologyGroups.Species getSpecies(String taxon){
 
 		if (taxon.toLowerCase().contains("mus musculus") || taxon.toLowerCase().contains("mouse")){
@@ -309,6 +310,7 @@ public class BatchXmlUploader {
 		return null;
 
 	}
+
 
 	private ImageDTO fillPojo(Image img, Integer datasourceId) {
 

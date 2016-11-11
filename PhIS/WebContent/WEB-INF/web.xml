@@ -11,7 +11,7 @@
       <param-name>baseUrl</param-name>
       <param-value>${baseUrl}</param-value>
    </context-param>
-   
+
    <context-param>
       <param-name>internalSolrUrl</param-name>
       <param-value>${internalSolrUrl}</param-value>
@@ -21,7 +21,7 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
 			/WEB-INF/app-config.xml
-			/WEB-INF/spring-security.xml		
+			/WEB-INF/spring-security.xml
 		</param-value>
 	</context-param>
 
@@ -34,7 +34,7 @@
 
 	<filter-mapping>
 		<filter-name>springSecurityFilterChain</filter-name>
-		<url-pattern>/*</url-pattern>
+		<url-pattern>/rest/submission/*</url-pattern>
 	</filter-mapping>
 
 	<filter>
