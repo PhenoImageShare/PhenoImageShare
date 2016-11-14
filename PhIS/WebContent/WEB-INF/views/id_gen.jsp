@@ -20,18 +20,14 @@
 
 <html>
 
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
-	<title>PhIS Annotation submission rest</title>
-</head>
-
-<body>
+<jsp:include page="header_frag.jsp"/>
 
 	<h1>PhIS ID Generator Sevice Documentation</h1>
 	<p>URL example http://[dev|beta].phenoimageshare.org/data/rest/idGen/getAnnotationId</p>
 		
 	<h2>getAnnotationId</h2>
-	<p>The method returns a UUID. The method behing will be reimplemented to return shorter IDs but the method signature won't change.</p> 
-		
-</body>
+	<p>The method returns a UUID. The method behing will be reimplemented to return shorter IDs but the method signature won't change.</p>
+
+<jsp:include page="footer_frag.jsp"/>
+
 </html>

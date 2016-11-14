@@ -20,17 +20,7 @@
  *******************************************************************************/ -->
 
 <html>
-
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
-	<title>PhIS rest</title>
-	
-    <link rel="stylesheet" href="../css/documentation.css">
-    <link rel="stylesheet" href="http://www.phenoimageshare.org/phis/static/queries/css/bootstrap.css"/>
-    
-</head>
-
-<body>
+	<jsp:include page="header_frag.jsp"/>
 	<div class="container">
 		<h1>PhenoImageShare API Documentation</h1>
 		<p>Base URL <a href="${requestScope['javax.servlet.forward.request_uri']}"> ${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}</a> </p>
@@ -945,5 +935,5 @@
 		</table>
 
 </div>
-</body>
+	<jsp:include page="footer_frag.jsp"/>
 </html>

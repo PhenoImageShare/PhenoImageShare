@@ -19,13 +19,7 @@
  *******************************************************************************/ -->
 
 <html>
-
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
-	<title>PhIS Annotation submission rest</title>
-</head>
-
-<body>
+	<jsp:include page="header_frag.jsp"/>
 
 	<h1>PhIS RESTful Sevice Documentation</h1>
 	<p>Base URL is http://[dev|beta].phenoimageshare.org/data/rest/submission .</p>
@@ -298,5 +292,6 @@
 		</tbody>
 	</table>
 
-</body>
+	<jsp:include page="footer_frag.jsp"/>
+
 </html>
