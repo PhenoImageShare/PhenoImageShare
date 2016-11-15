@@ -75,6 +75,7 @@
                 <entry key="internalSolrUrl" value="${internalSolrUrl}" />
                 <entry key="tracerDBPass" value="${tracerDBPass}" />
                 <entry key="kompDBPass" value="${kompDBPass}" />
+                <entry key="djangoBaseUrl" value="${djangoBaseUrl}" />
             </map>
         </property>
     </bean>

@@ -12,24 +12,23 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
+<%
+    String baseUrl = (request.getAttribute("baseUrl") != null &&  ! ((String) request.getAttribute("baseUrl")).isEmpty()) ? (String) request.getAttribute("baseUrl") : (String) application.getInitParameter("baseUrl");
+%>
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
     <title>${title}</title>
-
-
     <!-- jQuery -->
-    <script type="text/javascript" charset="utf8" src="http://www.phenoimageshare.org/phis/static/queries/assets/jquery/v1.10.2/jquery.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="${djangoBaseUrl}/phis/static/queries/assets/jquery/v1.10.2/jquery.min.js"></script>
     <!-- jQuery UI -->
-    <script type="text/javascript" charset="utf8" src="http://www.phenoimageshare.org/phis/static/queries/assets/jquery-ui/v1.11.0/jquery-ui.js"></script>
+    <script type="text/javascript" charset="utf8" src="${djangoBaseUrl}/phis/static/queries/assets/jquery-ui/v1.11.0/jquery-ui.js"></script>
     <!-- Bootstrap -->
-    <script type="text/javascript" charset="utf8" src="http://www.phenoimageshare.org/phis/static/queries/js/bootstrap.min.js"></script>
-
-    <link rel="stylesheet" href="http://www.phenoimageshare.org/phis/static/queries/css/bootstrap.css"/>
-    <link rel="stylesheet" href="../css/documentation.css">
+    <script type="text/javascript" charset="utf8" src="${djangoBaseUrl}/phis/static/queries/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="${djangoBaseUrl}/phis/static/queries/css/bootstrap.css"/>
+    <link rel="stylesheet" href="${mappedHostname}/${baseUrl}/css/documentation.css">
     <!-- FlatUI CSS -->
-    <link rel="stylesheet" href="http://www.phenoimageshare.org/phis/static/queries/css/flat-ui.detailed_view.css">
-
-
+    <link rel="stylesheet" href="${djangoBaseUrl}/phis/static/queries/css/flat-ui.detailed_view.css">
 </head>
 
 <body>

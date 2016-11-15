@@ -23,12 +23,9 @@
 
     <jsp:include page="header_frag.jsp"/>
 
-    <h1>PhenoImageShare API</h1>
-		<h2>
-			For the Query API go here : <a href="/data/rest/">rest/</a>
-		</h2>
-		<h2>For the id Generator API go here : <a href="data/rest/idGen/">/rest/idGen/</a></h2>
-
+    <h2>PhenoImageShare API</h2>
+	<p>	For the Query API go here : <a href="${djangoBaseUrl}/data/rest/">rest/</a>	</p>
+	<p>For the id Generator API go here : <a href="${djangoBaseUrl}/data/rest/idGen/">/rest/idGen/</a></p>
 
     <jsp:include page="footer_frag.jsp"/>
 	

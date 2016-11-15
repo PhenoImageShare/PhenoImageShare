@@ -22,10 +22,10 @@
 
 <jsp:include page="header_frag.jsp"/>
 
-	<h1>PhIS ID Generator Sevice Documentation</h1>
+	<h2>PhIS ID Generator Sevice Documentation</h2>
 	<p>URL example http://[dev|beta].phenoimageshare.org/data/rest/idGen/getAnnotationId</p>
 		
-	<h2>getAnnotationId</h2>
+	<h3>getAnnotationId</h3>
 	<p>The method returns a UUID. The method behing will be reimplemented to return shorter IDs but the method signature won't change.</p>
 
 <jsp:include page="footer_frag.jsp"/>

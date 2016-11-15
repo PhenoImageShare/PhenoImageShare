@@ -10,6 +10,12 @@
 
 	<mvc:annotation-driven conversion-service="conversionService" />
 
+
+	<mvc:interceptors>
+		<bean class="uk.ac.ebi.phis.web.DeploymentInterceptor"/>
+	</mvc:interceptors>
+
+
 	<bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
 	    <property name="converters">
 	        <set>

@@ -21,7 +21,7 @@
 <html>
 	<jsp:include page="header_frag.jsp"/>
 
-	<h1>PhIS RESTful Sevice Documentation</h1>
+	<h2>PhIS RESTful Sevice Documentation</h2>
 	<p>Base URL is http://[dev|beta].phenoimageshare.org/data/rest/submission .</p>
 		
 	<p>Example urls to try out: <br/> [host]/rest/submission/createAnnotation?annotationId=ann_ua_5&userId=user_1&associatedImageId=komp2_289863&xCoordinates=1,20&yCoordinates=0,100&expressionInAnatomyFreetext=my%20description
@@ -29,7 +29,7 @@
 	[host]/rest/submission/deleteAnnotation?annotationId=ann_ua_5&userId=user_1</p>
 	
 
-	<h1>/createAnnotation</h1>
+	<h3>/createAnnotation</h3>
 	<table>
 		<tbody>
 		<thead>
@@ -220,7 +220,7 @@
 	</table>
 
 
-	<h1>/updateAnnotation</h1>
+	<h3>/updateAnnotation</h3>
 	<p> This method should be used only to modify existing annotations. If a field is ommitted (empty) it's value will be deleted from the database  (if it had one). So every single correct parameter should be sent for every update.</p>
 	<p> <b>All parameters from 	/createAnnotation</b> with the following meaning distinction: </p>
 	
@@ -259,7 +259,7 @@
 	</table>
 
 
-<h1>/deleteAnnotation</h1>
+	<h3>/deleteAnnotation</h3>
 	<table>
 		<tbody>
 		<thead>
