@@ -4,6 +4,10 @@ tr.deprecated {
 
 .clear{clear:both;}
 
+.left{
+    float:left;
+}
+
 p.code {
   font-family: "Courier New" Courier  monospace;
   background-color: gainsboro;
@@ -36,4 +40,55 @@ p.code {
     display: block;
     margin-left: auto;
     margin-right: auto
+}
+
+/*Draw svg lines for status updates */
+line.status {
+    stroke-width: 5;
+    stroke-dasharray: 70px;
+    stroke-dashoffset: 70px;
+    animation-name: draw;
+    animation-duration: 5s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+    animation-timing-function: linear;
+}
+circle.status {
+    stroke-width: 5;
+    stroke-dasharray: 70px;
+    stroke-dashoffset: 70px;
+    animation-name: draw;
+    animation-duration: 2s;
+    animation-delay:1s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+    animation-timing-function: linear;
+}
+line.success-true{
+    stroke: green;
+}
+
+line.success-false{
+    stroke:red;
+}
+
+circle.success-true{
+    stroke: green;
+    fill-opacity:0;
+}
+
+circle.success-false{
+    stroke:red;
+    fill-opacity:0;
+}
+
+@keyframes draw {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+#statusUpdatesUl svg{
+    width:25px;
+    height:61px;
 }

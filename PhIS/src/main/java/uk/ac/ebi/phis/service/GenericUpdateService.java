@@ -19,7 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import uk.ac.ebi.phis.exception.PhisSubmissionException;
-import uk.ac.ebi.phis.solrj.dto.RoiDTO;
+import  uk.ac.ebi.phis.dto.solrj.RoiDTO;
 
 @Service
 public class GenericUpdateService {

@@ -16,8 +16,8 @@
 package uk.ac.ebi.phis.service;
 
 import org.junit.Test;
-import uk.ac.ebi.phis.solrj.dto.ChannelDTO;
-import uk.ac.ebi.phis.solrj.dto.RoiDTO;
+import  uk.ac.ebi.phis.dto.solrj.ChannelDTO;
+import  uk.ac.ebi.phis.dto.solrj.RoiDTO;
 
 import java.util.List;
 

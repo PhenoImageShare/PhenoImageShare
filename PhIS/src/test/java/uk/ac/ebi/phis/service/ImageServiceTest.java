@@ -18,8 +18,8 @@ package uk.ac.ebi.phis.service;
 import org.junit.Test;
 import org.neo4j.cypher.ParameterNotFoundException;
 import uk.ac.ebi.phis.exception.PhisSubmissionException;
-import uk.ac.ebi.phis.solrj.dto.ImageDTO;
-import uk.ac.ebi.phis.solrj.dto.RoiDTO;
+import  uk.ac.ebi.phis.dto.solrj.ImageDTO;
+import  uk.ac.ebi.phis.dto.solrj.RoiDTO;
 
 import java.util.ArrayList;
 

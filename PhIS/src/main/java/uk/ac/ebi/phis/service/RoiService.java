@@ -19,7 +19,7 @@ import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.json.JSONObject;
-import uk.ac.ebi.phis.solrj.dto.RoiDTO;
+import uk.ac.ebi.phis.dto.solrj.RoiDTO;
 import uk.ac.ebi.phis.utils.web.JSONRestUtil;
 
 import java.io.IOException;

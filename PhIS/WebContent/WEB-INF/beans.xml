@@ -34,6 +34,8 @@
         <constructor-arg  value="${internalSolrUrl}/channels" />
     </bean>
 
+    <!--<bean id="batchXmlUploader" class="uk.ac.ebi.phis.importer.BatchXmlUploader">   </bean>-->
+
     <bean id="propertyPlaceholderConfigurer"
           class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">

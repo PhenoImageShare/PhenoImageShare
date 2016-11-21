@@ -15,7 +15,7 @@
  *******************************************************************************/
 package uk.ac.ebi.phis.service;
 
-import uk.ac.ebi.phis.solrj.dto.RoiDTO;
+import  uk.ac.ebi.phis.dto.solrj.RoiDTO;
 
 import java.util.ArrayList;
 import java.util.Date;

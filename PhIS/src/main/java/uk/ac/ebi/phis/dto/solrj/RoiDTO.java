@@ -13,7 +13,7 @@
  * language governing permissions and limitations under the
  * License.
  *******************************************************************************/
-package uk.ac.ebi.phis.solrj.dto;
+package uk.ac.ebi.phis.dto.solrj;
 
 import org.apache.solr.client.solrj.beans.Field;
 

@@ -19,8 +19,8 @@ import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.response.FacetField.Count;
 import org.apache.solr.client.solrj.response.QueryResponse;
-import uk.ac.ebi.phis.solrj.dto.ChannelDTO;
-import uk.ac.ebi.phis.solrj.dto.RoiDTO;
+import  uk.ac.ebi.phis.dto.solrj.ChannelDTO;
+import  uk.ac.ebi.phis.dto.solrj.RoiDTO;
 import uk.ac.ebi.phis.utils.web.JSONRestUtil;
 
 import java.io.IOException;

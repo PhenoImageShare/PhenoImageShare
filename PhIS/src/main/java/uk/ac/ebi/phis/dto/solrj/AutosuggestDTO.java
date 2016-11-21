@@ -13,14 +13,14 @@
  * language governing permissions and limitations under the
  * License.
  *******************************************************************************/
-package uk.ac.ebi.phis.solrj.dto;
+package uk.ac.ebi.phis.dto.solrj;
+
+import org.apache.solr.client.solrj.beans.Field;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import org.apache.solr.client.solrj.beans.Field;
 
 
 public class AutosuggestDTO {

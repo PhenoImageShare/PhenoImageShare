@@ -24,9 +24,9 @@ import org.apache.solr.client.solrj.SolrServerException;
 
 import uk.ac.ebi.phis.service.AutosuggestService;
 import uk.ac.ebi.phis.service.ImageService;
-import uk.ac.ebi.phis.solrj.dto.AutosuggestDTO;
-import uk.ac.ebi.phis.solrj.dto.AutosuggestTypes;
-import uk.ac.ebi.phis.solrj.dto.ImageDTO;
+import  uk.ac.ebi.phis.dto.solrj.AutosuggestDTO;
+import  uk.ac.ebi.phis.dto.solrj.AutosuggestTypes;
+import  uk.ac.ebi.phis.dto.solrj.ImageDTO;
 import uk.ac.ebi.phis.utils.ontology.OntologyObject;
 import uk.ac.ebi.phis.utils.ontology.OntologyUtils;
 

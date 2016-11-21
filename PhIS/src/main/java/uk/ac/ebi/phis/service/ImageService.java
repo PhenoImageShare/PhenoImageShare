@@ -27,8 +27,8 @@ import uk.ac.ebi.phis.exception.PhisQueryException;
 import uk.ac.ebi.phis.exception.PhisSubmissionException;
 import uk.ac.ebi.phis.release.DatasourceInstance;
 import uk.ac.ebi.phis.release.SpeciesData;
-import uk.ac.ebi.phis.solrj.dto.ImageDTO;
-import uk.ac.ebi.phis.solrj.dto.RoiDTO;
+import  uk.ac.ebi.phis.dto.solrj.ImageDTO;
+import  uk.ac.ebi.phis.dto.solrj.RoiDTO;
 import uk.ac.ebi.phis.utils.web.JSONRestUtil;
 
 import java.io.IOException;

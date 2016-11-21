@@ -33,8 +33,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import uk.ac.ebi.phis.exception.PhisQueryException;
 import uk.ac.ebi.phis.exception.PhisSubmissionException;
 import uk.ac.ebi.phis.service.*;
-import uk.ac.ebi.phis.solrj.dto.AutosuggestTypes;
-import uk.ac.ebi.phis.solrj.dto.ImageDTO;
+import  uk.ac.ebi.phis.dto.solrj.AutosuggestTypes;
+import  uk.ac.ebi.phis.dto.solrj.ImageDTO;
 import uk.ac.ebi.phis.utils.web.RestStatusMessage;
 
 import javax.servlet.http.HttpServletRequest;

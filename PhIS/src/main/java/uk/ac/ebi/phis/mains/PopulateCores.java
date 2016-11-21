@@ -99,15 +99,17 @@ public class PopulateCores {
 			
 			ImageService is = (ImageService) applicationContext.getBean("imageService");
 			RoiService rs = (RoiService) applicationContext.getBean("roiService");
-			ChannelService cs = (ChannelService) applicationContext.getBean("channelService"); 
+			ChannelService cs = (ChannelService) applicationContext.getBean("channelService");
+
+			BatchXmlUploader reader = (BatchXmlUploader) applicationContext.getBean("channelService");
+
 			String xmlToLoad;
 			
 			// delete everything in the cores. This will likely change as we might want to do updates only.
 			is.clear();
 			rs.clear();
 			cs.clear();
-			
-			BatchXmlUploader reader = new BatchXmlUploader(is, rs, cs);
+
 			release.setOntologiesUsed(reader.getontologyInstances());
 			
 			Map<String, DatasourceInstance> exportDates = new HashMap<>(); // <resourceName, resource object>

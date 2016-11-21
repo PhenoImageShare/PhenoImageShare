@@ -28,9 +28,9 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
-import uk.ac.ebi.phis.solrj.dto.AutosuggestDTO;
-import uk.ac.ebi.phis.solrj.dto.AutosuggestTypes;
-import uk.ac.ebi.phis.solrj.dto.ImageDTO;
+import  uk.ac.ebi.phis.dto.solrj.AutosuggestDTO;
+import  uk.ac.ebi.phis.dto.solrj.AutosuggestTypes;
+import  uk.ac.ebi.phis.dto.solrj.ImageDTO;
 
 @Service
 public class AutosuggestService extends BasicService {

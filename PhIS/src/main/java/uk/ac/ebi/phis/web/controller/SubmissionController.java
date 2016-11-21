@@ -30,7 +30,7 @@ import uk.ac.ebi.phis.exception.PhisSubmissionException;
 import uk.ac.ebi.phis.service.GenericUpdateService;
 import uk.ac.ebi.phis.service.ImageService;
 import uk.ac.ebi.phis.service.RoiService;
-import uk.ac.ebi.phis.solrj.dto.RoiDTO;
+import  uk.ac.ebi.phis.dto.solrj.RoiDTO;
 import uk.ac.ebi.phis.utils.web.RestStatusMessage;
 
 import java.io.IOException;

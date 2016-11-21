@@ -6,9 +6,9 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 import uk.ac.ebi.phis.exception.PhisSubmissionException;
-import uk.ac.ebi.phis.solrj.dto.ChannelDTO;
-import uk.ac.ebi.phis.solrj.dto.ImageDTO;
-import uk.ac.ebi.phis.solrj.dto.RoiDTO;
+import  uk.ac.ebi.phis.dto.solrj.ChannelDTO;
+import  uk.ac.ebi.phis.dto.solrj.ImageDTO;
+import  uk.ac.ebi.phis.dto.solrj.RoiDTO;
 
 import java.io.File;
 

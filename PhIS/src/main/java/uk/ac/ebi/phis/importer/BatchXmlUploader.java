@@ -16,16 +16,18 @@
 package uk.ac.ebi.phis.importer;
 
 import org.apache.solr.client.solrj.SolrServerException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.xml.sax.SAXException;
+import uk.ac.ebi.phis.dto.solrj.ChannelDTO;
+import uk.ac.ebi.phis.dto.solrj.ImageDTO;
+import uk.ac.ebi.phis.dto.solrj.RoiDTO;
+import uk.ac.ebi.phis.exception.PhenoImageShareException;
 import uk.ac.ebi.phis.jaxb.*;
 import uk.ac.ebi.phis.release.DatasourceInstance;
 import uk.ac.ebi.phis.release.OntologyInstance;
 import uk.ac.ebi.phis.service.ChannelService;
 import uk.ac.ebi.phis.service.ImageService;
 import uk.ac.ebi.phis.service.RoiService;
-import uk.ac.ebi.phis.solrj.dto.ChannelDTO;
-import uk.ac.ebi.phis.solrj.dto.ImageDTO;
-import uk.ac.ebi.phis.solrj.dto.RoiDTO;
 import uk.ac.ebi.phis.utils.ValidationUtils;
 import uk.ac.ebi.phis.utils.ontology.OntologyGroups;
 import uk.ac.ebi.phis.utils.ontology.OntologyObject;
@@ -48,6 +50,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+
+//@Service
 public class BatchXmlUploader {
 
 	HashMap<String, Image> imageIdMap = new HashMap<>();
@@ -59,20 +63,30 @@ public class BatchXmlUploader {
 	ValidationUtils vu = new ValidationUtils();
 	OntologyUtils ou = vu.ou;
 
+	@Autowired
 	ImageService is;
+
+	@Autowired
 	RoiService rs;
+
+	@Autowired
 	ChannelService cs;
 
 	OntologyGroups ontologyGroups = new OntologyGroups();
 
-	public BatchXmlUploader(ImageService is, RoiService rs, ChannelService cs) {
+	public BatchXmlUploader(){
 
 		classloader = Thread.currentThread().getContextClassLoader();
-		this.is = is;
-		this.rs = rs;
-		this.cs = cs;
-
 	}
+
+//	public BatchXmlUploader(ImageService is, RoiService rs, ChannelService cs) {
+//
+//		classloader = Thread.currentThread().getContextClassLoader();
+//		this.is = is;
+//		this.rs = rs;
+//		this.cs = cs;
+//
+//	}
 
 
 	public List<OntologyInstance> getontologyInstances (){
@@ -94,7 +108,12 @@ public class BatchXmlUploader {
 
 			xsd = classloader.getResourceAsStream("phisSchema.xsd");
 			xml = new FileInputStream(xmlLocation);
-			isValid = validateAgainstXSD(xml, xsd);
+			try {
+				isValid = validateAgainstXSD(xml, xsd);
+			} catch (PhenoImageShareException e){
+				e.printStackTrace();
+				isValid = false;
+			}
 			xsd.close();
 			xml.close();
 			isValid = (isValid && checkInformation(doc));
@@ -822,7 +841,7 @@ public class BatchXmlUploader {
 	}
 
 
-	boolean validateAgainstXSD(InputStream xml, InputStream xsd) {
+	public boolean validateAgainstXSD(InputStream xml, InputStream xsd) throws PhenoImageShareException {
 
 		try {
 			SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
@@ -833,12 +852,12 @@ public class BatchXmlUploader {
 		} catch (SAXException | IOException e) {
 			System.out.println("NOT valid for reason: " + e.getLocalizedMessage());
 			e.printStackTrace();
+			throw new PhenoImageShareException("NOT valid for reason: " + e.getLocalizedMessage());
 		}
-		return false;
 	}
 
 
-	boolean checkInformation(Doc doc) {
+	public boolean checkInformation(Doc doc) {
 
 		imageIdMap = new HashMap<>();
 		channelIdMap = new HashMap<>();
