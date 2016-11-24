@@ -29,6 +29,7 @@
     <link rel="stylesheet" href="${mappedHostname}${baseUrl}/css/documentation.css">
     <!-- FlatUI CSS -->
     <link rel="stylesheet" href="${djangoBaseUrl}/phis/static/queries/css/flat-ui.detailed_view.css">
+
 </head>
 
 <body>

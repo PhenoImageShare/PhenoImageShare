@@ -9,7 +9,7 @@ $(document).ready(function() {
 
     var statusCheck = setInterval(function () {
         if (jobId) {
-            $.getJSON("/phis/rest/upload/status?jobId=" + jobId, function (data) {
+            $.getJSON(baseUrl + "/rest/upload/status?jobId=" + jobId, function (data) {
                 status = data;
                 console.log(data);
             })

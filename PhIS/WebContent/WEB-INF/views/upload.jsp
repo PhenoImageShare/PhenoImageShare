@@ -18,7 +18,7 @@
 <html>
 
     <jsp:include page="header_frag.jsp"/>
-    <script type='text/javascript'>   var jobId="${jobId}" </script>
+    <script type="text/javascript">   var jobId="${jobId}"; var baseUrl = "${baseUrl}"; </script>
     <script type="text/javascript" charset="utf8" src="${mappedHostname}/${baseUrl}/js/status.js"></script>
 
     <c:if test="${jobId != null}">
