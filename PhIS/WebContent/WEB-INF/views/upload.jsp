@@ -23,13 +23,13 @@
 
     <c:if test="${jobId != null}">
 
-        <p>A job was successfully created with id <a href="/phis/rest/upload/status?jobId=${jobId}">${jobId}</a></p>
+        <p>A job was successfully created with id <a href="${baseUrl}/rest/upload/status?jobId=${jobId}">${jobId}</a></p>
         <div id="statusUpdatesUl">  </div>
 
     </c:if>
 
     <div id="formDiv">
-        <form method="POST" enctype="multipart/form-data" action="/phis/rest/upload/">
+        <form method="POST" enctype="multipart/form-data" action="${baseUrl}/rest/upload/">
            <label>File to upload:</label> <input type="file" name="file" accept=".xml"/> <button type="submit" value="Upload" class="btn btn-primary">Upload</button>
         </form>
     </div>
