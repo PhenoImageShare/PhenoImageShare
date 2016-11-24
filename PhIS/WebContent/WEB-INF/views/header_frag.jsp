@@ -26,7 +26,7 @@
     <!-- Bootstrap -->
     <script type="text/javascript" charset="utf8" src="${djangoBaseUrl}/phis/static/queries/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="${djangoBaseUrl}/phis/static/queries/css/bootstrap.css"/>
-    <link rel="stylesheet" href="${mappedHostname}/${baseUrl}/css/documentation.css">
+    <link rel="stylesheet" href="${mappedHostname}${baseUrl}/css/documentation.css">
     <!-- FlatUI CSS -->
     <link rel="stylesheet" href="${djangoBaseUrl}/phis/static/queries/css/flat-ui.detailed_view.css">
 </head>
