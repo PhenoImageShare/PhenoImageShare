@@ -21,13 +21,6 @@
     <script type='text/javascript'>   var jobId="${jobId}" </script>
     <script type="text/javascript" charset="utf8" src="${mappedHostname}/${baseUrl}/js/status.js"></script>
 
-
-    <div id="formDiv">
-        <form method="POST" enctype="multipart/form-data" action="/phis/rest/upload/">
-           <label>File to upload:</label> <input type="file" name="file" accept=".xml"/> <button type="submit" value="Upload" class="btn btn-primary">Upload</button>
-        </form>
-    </div>
-
     <c:if test="${jobId != null}">
 
         <p>A job was successfully created with id <a href="/phis/rest/upload/status?jobId=${jobId}">${jobId}</a></p>
@@ -35,6 +28,11 @@
 
     </c:if>
 
+    <div id="formDiv">
+        <form method="POST" enctype="multipart/form-data" action="/phis/rest/upload/">
+           <label>File to upload:</label> <input type="file" name="file" accept=".xml"/> <button type="submit" value="Upload" class="btn btn-primary">Upload</button>
+        </form>
+    </div>
 
     <jsp:include page="footer_frag.jsp"/>
 

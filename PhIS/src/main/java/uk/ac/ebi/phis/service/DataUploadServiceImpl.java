@@ -1,9 +1,12 @@
 package uk.ac.ebi.phis.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
 import uk.ac.ebi.phis.dto.Job;
+import uk.ac.ebi.phis.exception.PhenoImageShareException;
+import uk.ac.ebi.phis.importer.BatchXmlUploader;
 import uk.ac.ebi.phis.jaxb.Doc;
 
 import javax.xml.bind.JAXBContext;
@@ -21,9 +24,9 @@ import java.util.concurrent.Future;
 
 @Service("dataUploadService")
 public class DataUploadServiceImpl implements  DataUploadService {
-//
-//    @Autowired
-//    BatchXmlUploader batchXmlUploader;
+
+    @Autowired
+    BatchXmlUploader batchXmlUploader;
 
     ClassLoader classloader;
 
@@ -40,12 +43,6 @@ public class DataUploadServiceImpl implements  DataUploadService {
         boolean success = true;
         currentJob.setCompleted(false);
 
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
         // Unmarshal XML
         try {
             InputStream xsd;
@@ -55,18 +52,12 @@ public class DataUploadServiceImpl implements  DataUploadService {
 
             // Validate XSD
             try{
-                try {
-                    Thread.sleep(5000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-//                success = batchXmlUploader.validateAgainstXSD(xml, xsd);
-                success=true;
+                success = batchXmlUploader.validateAgainstXSD(xml, xsd);
                 if (success) {
                     currentJob.addJobUpdate("XML file validated schema. ", true);
                 } else {
                     currentJob.addJobUpdate("XML file does not validated schema. ", false);
-                    currentJob.setCompleted(false);
+                    currentJob.setCompleted(true);
                     currentJob.setSuccess(false);
                 }
             } catch (Exception e){
@@ -85,28 +76,32 @@ public class DataUploadServiceImpl implements  DataUploadService {
             e.printStackTrace();
         }
 
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+
+        System.out.println("COMPLETED " + currentJob.getCompleted());
+
         if (!currentJob.getCompleted()) {
             try {
+                System.out.println("Semantic validation ...");
                 Doc doc = convertXmlToObjects(filePath);
-//                Boolean validInfo = batchXmlUploader.checkInformation(doc);
-                Boolean validInfo = true;
+                Boolean validInfo = batchXmlUploader.checkInformation(doc);
                 if (validInfo) {
                     currentJob.setSuccess(true);
                     currentJob.addJobUpdate("Semantic validation was successfull.", true);
                 } else {
+                    currentJob.addJobUpdate("Semantic validation was not successfull.", false);
                     currentJob.setSuccess(false);
                 }
             } catch (JAXBException | FileNotFoundException e) {
                 currentJob.addJobUpdate("We could not read the file => " + e.getMessage(), false);
                 currentJob.setSuccess(false);
                 e.printStackTrace();
+            } catch (PhenoImageShareException e){
+                currentJob.addJobUpdate(e.getMessage(), false);
+                currentJob.setSuccess(false);
+                e.printStackTrace();
             }
         }
+
         // complete job, no matter of results
         currentJob.setCompleted(true);
 

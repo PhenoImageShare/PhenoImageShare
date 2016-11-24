@@ -27,9 +27,12 @@ $(document).ready(function() {
                     }
                     if (status.completed) {
                         clearInterval(statusCheck); // stop polling
+                        if (status.success) {
+                            $("#statusUpdatesUl").append("<br/><p> Completed: validation successfully completed. </p>");
+                        } else {
+                            $("#statusUpdatesUl").append("<br/><p> Completed: validation failed. Please fix the mentioned issues and submit again. </p>");
+                        }
                     }
-                } else {
-                    console.log("Null data");
                 }
             });
         }

@@ -17,6 +17,7 @@ package uk.ac.ebi.phis.importer;
 
 import org.apache.solr.client.solrj.SolrServerException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.xml.sax.SAXException;
 import uk.ac.ebi.phis.dto.solrj.ChannelDTO;
 import uk.ac.ebi.phis.dto.solrj.ImageDTO;
@@ -51,7 +52,7 @@ import java.util.HashMap;
 import java.util.List;
 
 
-//@Service
+@Service
 public class BatchXmlUploader {
 
 	HashMap<String, Image> imageIdMap = new HashMap<>();
@@ -118,7 +119,7 @@ public class BatchXmlUploader {
 			xml.close();
 			isValid = (isValid && checkInformation(doc));
 
-		} catch (IOException  e) {
+		} catch (IOException | PhenoImageShareException e) {
 			e.printStackTrace();
 		}
 
@@ -857,7 +858,7 @@ public class BatchXmlUploader {
 	}
 
 
-	public boolean checkInformation(Doc doc) {
+	public boolean checkInformation(Doc doc) throws PhenoImageShareException {
 
 		imageIdMap = new HashMap<>();
 		channelIdMap = new HashMap<>();
@@ -879,16 +880,17 @@ public class BatchXmlUploader {
 		boolean res = checkIdsReferenceExistingObjects();
 		if (!res) {
 			System.out.println("IDS don\t reference existing objects. ");
-			return false;
+			throw new PhenoImageShareException("IDS don't reference existing objects.");
 		}
 
 		for (Image img : imageIdMap.values()) {
 			if (!vu.hasValidOntologyTerms(img)) {
 				System.out.println("there was something wrong with the ontology terms for img id = " + img.getId());
+				throw new PhenoImageShareException("There was something wrong with the ontology terms for img id = " + img.getId());
 			}
 			if (img.getImageDescription().getImageDimensions() != null && !vu.hasPositieDimensions(img.getImageDescription().getImageDimensions())) {
 				System.out.println("Dimensions are not positive! Validation failed.");
-				return false;
+				throw new PhenoImageShareException("Dimensions are not positive! Validation failed.");
 			}
 		}
 
@@ -897,22 +899,22 @@ public class BatchXmlUploader {
 			if (!vu.arePercentagesOk(roi.getCoordinates())) { return false; }
 			if (!vu.hasValidOntologyTerms(roi)) {
 				System.out.println("there was something wrong with the ontology terms for roi id = " + roi.getId());
-				return false;
+				throw new PhenoImageShareException("There was something wrong with the ontology terms for roi id = " + roi.getId());
 			}
 		}
 		return true;
 	}
 
 
-	private boolean checkIdsReferenceExistingObjects() {
+	private boolean checkIdsReferenceExistingObjects()  throws PhenoImageShareException{
 
 		// Associated roi & channel for image really exist
 		for (Image img : imageIdMap.values()) {
 			if (img.getAssociatedRoi() != null) {
 				for (String roiId : img.getAssociatedRoi().getEl()) {
 					if (!roiIdMap.containsKey(roiId)) {
-						System.out.println("roi id referenced without existing in image id = " + img.getId());
-						return false;
+						System.out.println("Roi id referenced without existing in image id = " + img.getId());
+						throw new PhenoImageShareException("Roi id referenced without existing in image id = " + img.getId());
 					}
 				}
 			}
@@ -920,7 +922,7 @@ public class BatchXmlUploader {
 				for (String channelId : img.getAssociatedChannel().getEl()) {
 					if (!channelIdMap.containsKey(channelId)) {
 						System.out.println("channel id referenced without existing in image id = " + img.getId());
-						return false;
+						throw new PhenoImageShareException("Channel id referenced without existing in image id = " + img.getId());
 					}
 				}
 			}
@@ -932,14 +934,14 @@ public class BatchXmlUploader {
 				for (String roiId : channel.getAssociatedRoi().getEl()) {
 					if (!roiIdMap.containsKey(roiId)) {
 						System.out.println("roi id referenced without existing in channel id = " + channel.getId());
-						return false;
+						throw new PhenoImageShareException("Roi id referenced without existing in channel id = " + channel.getId());
 					}
 				}
 			}
 			if (channel.getAssociatedImage() != null) {
 				if (!imageIdMap.containsKey(channel.getAssociatedImage())) {
 					System.out.println("image id referenced without existing in channel id = " + channel.getId());
-					return false;
+					throw new PhenoImageShareException("Image id referenced without existing in channel id = " + channel.getId());
 				}
 			}
 		}
@@ -950,14 +952,14 @@ public class BatchXmlUploader {
 				for (String channelId : roi.getAssociatedChannel().getEl()) {
 					if (!channelIdMap.containsKey(channelId)) {
 						System.out.println("channel id referenced without existing in roi id = " + roi.getId());
-						return false;
+						throw new PhenoImageShareException("Channel id referenced without existing in roi id = " + roi.getId());
 					}
 				}
 			}
 			if (roi.getAssociatedImage() != null) {
 				if (!imageIdMap.containsKey(roi.getAssociatedImage())) {
 					System.out.println("image id referenced without existing in roi id = " + roi.getId());
-					return false;
+					throw new PhenoImageShareException("Image id referenced without existing in roi id = " + roi.getId());
 				}
 			}
 		}
