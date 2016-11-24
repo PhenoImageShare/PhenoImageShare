@@ -15,6 +15,7 @@
  *******************************************************************************/
 package uk.ac.ebi.phis.utils;
 
+import uk.ac.ebi.phis.exception.PhenoImageShareException;
 import uk.ac.ebi.phis.jaxb.*;
 import uk.ac.ebi.phis.utils.ontology.OntologyUtils;
 
@@ -59,7 +60,7 @@ public class ValidationUtils {
 	}
 
 
-	public boolean hasValidOntologyTerms(Image img) {
+	public boolean hasValidOntologyTerms(Image img) throws PhenoImageShareException{
 
 		boolean res = true;
 		Annotation ann = img.getDepictedAnatomicalStructure();
@@ -110,7 +111,7 @@ public class ValidationUtils {
 	}
 
 
-	public boolean hasValidOntologyTerms(Channel channel) {
+	public boolean hasValidOntologyTerms(Channel channel) throws PhenoImageShareException{
 
 		boolean res = true;
 		List<Annotation> ontologyTermArray;
@@ -129,7 +130,7 @@ public class ValidationUtils {
 		return res;
 	}
 
-	public boolean hasValidOntologyTerms(Roi roi) {
+	public boolean hasValidOntologyTerms(Roi roi) throws PhenoImageShareException{
 
 		List<Annotation> annList;
 		boolean res = true;
@@ -169,7 +170,7 @@ public class ValidationUtils {
 	 * @param type can be one of phenotype, anatomy, stage,
 	 * @return
 	 */
-	private boolean checkOntologyTerm(Annotation ann, String type) {
+	private boolean checkOntologyTerm(Annotation ann, String type) throws PhenoImageShareException{
 
 		if (ann != null && ann.getOntologyTerm() != null) { return checkOntologyTerm(ann.getOntologyTerm(), type); }
 
@@ -177,7 +178,7 @@ public class ValidationUtils {
 	}
 
 
-	private boolean checkOntologyTerm(OntologyTerm ot, String type) {
+	private boolean checkOntologyTerm(OntologyTerm ot, String type) throws PhenoImageShareException{
 
 		if (ot != null) {
 			if (ot.getTermLabel() != null && ot.getTermId() == null) {

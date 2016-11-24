@@ -29,6 +29,7 @@ import org.semanticweb.owlapi.util.InferredClassAssertionAxiomGenerator;
 import org.semanticweb.owlapi.util.InferredOntologyGenerator;
 import org.semanticweb.owlapi.util.InferredSubClassAxiomGenerator;
 import owltools.graph.OWLGraphWrapper;
+import uk.ac.ebi.phis.exception.PhenoImageShareException;
 import uk.ac.ebi.phis.release.OntologyInstance;
 import uk.ac.manchester.cs.owl.owlapi.OWLObjectPropertyImpl;
 
@@ -147,27 +148,27 @@ public class OntologyUtils {
 		
 	} 
 	
-	public boolean isAnatomy(String id){
+	public boolean isAnatomy(String id) throws PhenoImageShareException {
 		return checkIdIsIn(id, anatomyTerms);
 	}
 	
-	public boolean isPhenotype(String id){
+	public boolean isPhenotype(String id) throws PhenoImageShareException {
 		return checkIdIsIn(id, phenotypeTerms);
 	}
 	
-	public boolean isStage(String id){
+	public boolean isStage(String id) throws PhenoImageShareException {
 		return checkIdIsIn(id, stageTerms);
 	}
 	
-	public boolean isImaveVisualization(String id){
+	public boolean isImaveVisualization(String id) throws PhenoImageShareException {
 		return checkIdIsIn(id, imTerms);
 	}
 	
-	public boolean isSamplePreparation(String id){
+	public boolean isSamplePreparation(String id) throws PhenoImageShareException {
 		return checkIdIsIn(id, spTerms);
 	}
 	
-	public boolean isImagingMethod(String id){
+	public boolean isImagingMethod(String id) throws PhenoImageShareException {
 		return checkIdIsIn(id, imTerms);
 	}
 	
@@ -177,11 +178,12 @@ public class OntologyUtils {
 		return om.getMappings(mpUri, "MA_");		
 	}
 	
-	public boolean checkIdIsIn(String id, HashMap<String, OntologyObject> list){
+	public boolean checkIdIsIn(String id, HashMap<String, OntologyObject> list) throws PhenoImageShareException{
 		
 		boolean res = list.containsKey(id) || list.containsKey(id.replace(":", "_")) || list.containsKey(alternateIds.get(id)) || list.containsKey(alternateIds.get(id.replace(":", "_")));
 		if (res == false){
 			System.out.println("--- Ontology term " + id  + " not found.");
+			throw new PhenoImageShareException("Ontology term " + id  + " not found.");
 		}
 		return res;
 	}
