@@ -12,6 +12,6 @@ import java.util.concurrent.Future;
 public interface DataUploadService {
 
 
-    public Future<Boolean> validateXml(Job job, String xmlPath);
+    public Future<Boolean> validateXml(Job job, String xmlPath, Boolean strict);
 
 }

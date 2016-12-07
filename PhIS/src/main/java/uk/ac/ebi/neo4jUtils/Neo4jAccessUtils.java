@@ -118,8 +118,8 @@ public class Neo4jAccessUtils {
 	}
 	
 		
-	public void createAnnotationWithDates( String userId, String userGroupId, String annotationId, String associatedImageId, List<Float> xCoordinates,
-	List<Float> yCoordinates, List<Float> zCoordinates, List<String> associatedChannelId, 
+	public void createAnnotationWithDates( String userId, String userGroupId, String annotationId, String associatedImageId, List<Double> xCoordinates,
+	List<Double> yCoordinates, List<Double> zCoordinates, List<String> associatedChannelId,
 	List<String> depictedAnatomyId, List<String> depictedAnatomyFreetext, List<String> depictedAnatomyTerm,
     List<String> abnInAnatomyId, List<String> abnInAnatomyFreetext,  List<String> abnInAnatomyTerm, 
     List<String> phenotypeId, List<String> phenotypeFreetext, List<String> phenotypeTerm, 
@@ -266,8 +266,8 @@ public class Neo4jAccessUtils {
 	}
 	
 	
-	public Node addAnnotationNode(String id, List<String> observation, Date creationDate, Date lastModifiedDate, List<Float> xCoordinates, 
-	List<Float> yCoordinates, List<Float> zCoordinates) 
+	public Node addAnnotationNode(String id, List<String> observation, Date creationDate, Date lastModifiedDate, List<Double> xCoordinates,
+	List<Double> yCoordinates, List<Double> zCoordinates)
 	throws PhisSubmissionException{
 		
 		Node myNode = null;
@@ -615,8 +615,8 @@ public class Neo4jAccessUtils {
 	}
 	
 	
-	public void updateAnnotation(String userId, String userGroupId, String annotationId, String associatedImageId, List<Float> xCoordinates,
-		List<Float> yCoordinates, List<Float> zCoordinates, List<String> associatedChannelId, 
+	public void updateAnnotation(String userId, String userGroupId, String annotationId, String associatedImageId, List<Double> xCoordinates,
+		List<Double> yCoordinates, List<Double> zCoordinates, List<String> associatedChannelId,
 		List<String> depictedAnatomyId, List<String> depictedAnatomyFreetext, List<String> depictedAnatomyTerm,
 		List<String> abnInAnatomyId, List<String> abnInAnatomyFreetext,  List<String> abnInAnatomyTerm, 
 		List<String> phenotypeId, List<String> phenotypeFreetext, List<String> phenotypeTerm, 

@@ -21,6 +21,7 @@ import org.apache.log4j.Logger;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
+import org.springframework.stereotype.Component;
 import uk.ac.ebi.neo4jUtils.Neo4jAccessUtils;
 import uk.ac.ebi.phis.importer.BatchXmlUploader;
 import uk.ac.ebi.phis.jaxb.Doc;
@@ -37,15 +38,13 @@ import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
 
-
+@Component
 public class PopulateCores {
-
-	private static ApplicationContext applicationContext;
 
 	private static Logger logger = Logger.getLogger(PopulateCores.class);
 
 	public static void main(String[] args) {
-		
+
 		OptionParser parser = new OptionParser();
 		parser.accepts( "context" ).withRequiredArg();
 		parser.accepts( "dataDir" ).withRequiredArg();
@@ -62,8 +61,7 @@ public class PopulateCores {
 		if (!options.has("releaseVersion")) {
 			help();
 		}
-		
-		
+
 		// Check context file exists
 		String contextFile = (String) options.valueOf("context");
 		File f = new File(contextFile);
@@ -73,7 +71,6 @@ public class PopulateCores {
 		} else {
 			logger.info("--context OK");
 		}
-		
 		// Check data dir exists
 		String dataDir = (String) options.valueOf("dataDir");
 		File d = new File(dataDir);
@@ -83,85 +80,85 @@ public class PopulateCores {
 		}else {
 			logger.info("--dataDir OK"); //local path to releases: /Users/ilinca/Documents/phisReleases/v1.0.1
 		}
-		
+
 		String releaseVersion = (String) options.valueOf("releaseVersion");
 
+		ApplicationContext context = new FileSystemXmlApplicationContext("file:" + contextFile);
+
+		ImageService is = (ImageService) context.getBean("imageService");
+		RoiService rs = (RoiService) context.getBean("roiService");
+		ChannelService cs = (ChannelService) context.getBean("channelService");
+
+		BatchXmlUploader reader = new BatchXmlUploader(is, rs, cs);
+
 		logger.info("Started PopulateCores with context=" + contextFile + " , dataDir=" + dataDir + ", releaseVersion" + releaseVersion);
-		
+
 		ReleaseDocument release = new ReleaseDocument();
-		
+
 		release.setReleaseEnvironment(ReleaseEnvironment.BETA);
 		release.setReleaseVersion(releaseVersion);
-				
+
 		try {
 
-			applicationContext = new  FileSystemXmlApplicationContext("file:" + contextFile);
-			
-			ImageService is = (ImageService) applicationContext.getBean("imageService");
-			RoiService rs = (RoiService) applicationContext.getBean("roiService");
-			ChannelService cs = (ChannelService) applicationContext.getBean("channelService");
-
-			BatchXmlUploader reader = (BatchXmlUploader) applicationContext.getBean("channelService");
-
 			String xmlToLoad;
-			
+
 			// delete everything in the cores. This will likely change as we might want to do updates only.
 			is.clear();
 			rs.clear();
 			cs.clear();
 
 			release.setOntologiesUsed(reader.getontologyInstances());
-			
+
 			Map<String, DatasourceInstance> exportDates = new HashMap<>(); // <resourceName, resource object>
-			xmlToLoad = dataDir + "/impcExport.xml";
-			DatasourceInstance ds0 = processXml(xmlToLoad, DatasourceIds.IMPC,  reader);
-			exportDates.put(ds0.getName(), ds0);
-
-			xmlToLoad = dataDir + "/tracerExport.xml";
-			DatasourceInstance ds1 = processXml(xmlToLoad, DatasourceIds.TRACER,  reader);
-			exportDates.put(ds1.getName(), ds1);
-
-			xmlToLoad = dataDir + "/VFB_Cachero2010.xml";
-			DatasourceInstance ds2 = processXml(xmlToLoad, DatasourceIds.VFB_CACHERO, reader);
-			exportDates.put(ds2.getName(), ds2);
-
-			xmlToLoad = dataDir + "/VFB_Ito2013.xml";
-			DatasourceInstance ds3 = processXml(xmlToLoad, DatasourceIds.VFB_ITO, reader);
-			exportDates.put(ds3.getName(), ds3);
-
-			xmlToLoad = dataDir + "/VFB_Jenett2012_full.xml";
-			DatasourceInstance ds4 = processXml(xmlToLoad, DatasourceIds.VFB_JENETT, reader);
-			exportDates.put(ds4.getName(), ds4);
-
-			xmlToLoad = dataDir + "/VFB_Yu2013.xml";
-			DatasourceInstance ds5 = processXml(xmlToLoad, DatasourceIds.VFB_YU, reader);
-			exportDates.put(ds5.getName(), ds5);
-
-			xmlToLoad = dataDir + "/VFB_flycircuit_plus.xml";
-			DatasourceInstance ds6 = processXml(xmlToLoad, DatasourceIds.VFB_FLYCIRCUIT, reader);
-			exportDates.put(ds6.getName(), ds6);
-
-			xmlToLoad = dataDir + "/emageExport.xml";
-			DatasourceInstance ds7 = processXml(xmlToLoad, DatasourceIds.EMAGE, reader);
-			exportDates.put(ds7.getName(), ds7);
+//			xmlToLoad = dataDir + "/impcExport.xml";
+//			DatasourceInstance ds0 = processXml(xmlToLoad, DatasourceIds.IMPC,  reader);
+//			exportDates.put(ds0.getName(), ds0);
+//
+//			xmlToLoad = dataDir + "/tracerExport.xml";
+//			DatasourceInstance ds1 = processXml(xmlToLoad, DatasourceIds.TRACER,  reader);
+//			exportDates.put(ds1.getName(), ds1);
+//
+//			xmlToLoad = dataDir + "/VFB_Cachero2010.xml";
+//			DatasourceInstance ds2 = processXml(xmlToLoad, DatasourceIds.VFB_CACHERO, reader);
+//			exportDates.put(ds2.getName(), ds2);
+//
+//			xmlToLoad = dataDir + "/VFB_Ito2013.xml";
+//			DatasourceInstance ds3 = processXml(xmlToLoad, DatasourceIds.VFB_ITO, reader);
+//			exportDates.put(ds3.getName(), ds3);
+//
+//			xmlToLoad = dataDir + "/VFB_Jenett2012_full.xml";
+//			DatasourceInstance ds4 = processXml(xmlToLoad, DatasourceIds.VFB_JENETT, reader);
+//			exportDates.put(ds4.getName(), ds4);
+//
+//			xmlToLoad = dataDir + "/VFB_Yu2013.xml";
+//			DatasourceInstance ds5 = processXml(xmlToLoad, DatasourceIds.VFB_YU, reader);
+//			exportDates.put(ds5.getName(), ds5);
+//
+//			xmlToLoad = dataDir + "/VFB_flycircuit_plus.xml";
+//			DatasourceInstance ds6 = processXml(xmlToLoad, DatasourceIds.VFB_FLYCIRCUIT, reader);
+//			exportDates.put(ds6.getName(), ds6);
+//
+//			xmlToLoad = dataDir + "/emageExport.xml";
+//			DatasourceInstance ds7 = processXml(xmlToLoad, DatasourceIds.EMAGE, reader);
+//			exportDates.put(ds7.getName(), ds7);
 
 			xmlToLoad = dataDir + "/sangerExport.xml";
 			DatasourceInstance ds8 = processXml(xmlToLoad, DatasourceIds.WTSI, reader);
 			exportDates.put(ds8.getName(), ds8);
 
-			xmlToLoad =  dataDir + "/idrExport.xml";
-			DatasourceInstance ds9 = processXml(xmlToLoad, DatasourceIds.IDR, reader);
-			exportDates.put(ds9.getName(), ds9);
-
-			xmlToLoad =  dataDir + "/brainHistopathExport.xml";
-			DatasourceInstance ds10 = processXml(xmlToLoad, DatasourceIds.BRAIN_HISTOPATH, reader);
-			exportDates.put(ds10.getName(), ds10);
-
-			xmlToLoad = dataDir + "/VFB_flycircuit_plus.xml";
-			DatasourceInstance ds11 = processXml(xmlToLoad, DatasourceIds.VFB_FLYCIRCUIT_PLUS, reader);
-			exportDates.put(ds11.getName(), ds11);
-			
-			System.out.println("Solr url is : " + is.getSolrUrl());			
+//			xmlToLoad =  dataDir + "/idrExport.xml";
+//			DatasourceInstance ds9 = processXml(xmlToLoad, DatasourceIds.IDR, reader);
+//			exportDates.put(ds9.getName(), ds9);
+//
+//			xmlToLoad =  dataDir + "/brainHistopathExport.xml";
+//			DatasourceInstance ds10 = processXml(xmlToLoad, DatasourceIds.BRAIN_HISTOPATH, reader);
+//			exportDates.put(ds10.getName(), ds10);
+//
+//			xmlToLoad = dataDir + "/VFB_flycircuit_plus.xml";
+//			DatasourceInstance ds11 = processXml(xmlToLoad, DatasourceIds.VFB_FLYCIRCUIT_PLUS, reader);
+//			exportDates.put(ds11.getName(), ds11);
+//
+			System.out.println("Solr url is : " + is.getSolrUrl());
 
 			System.out.println("Persisting release data...");
 			release.setNumberOfImages(is.getNumberOfDocuments());
@@ -170,18 +167,18 @@ public class PopulateCores {
 			release.setDatasourcesUsed(is.getDatasources(exportDates));
 			release.addGeneIds(is.getGeneIds());
 			release.addGeneIds(cs.getGeneIds());
-			
-			Neo4jAccessUtils neo = (Neo4jAccessUtils) applicationContext.getBean("neo4jAccessUtils");
+
+			Neo4jAccessUtils neo = (Neo4jAccessUtils) context.getBean("neo4jAccessUtils");
 			neo.writeRelease(release);
-			
+
 			System.out.println("Release " + releaseVersion + "is ready.");
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
-		}			
-		
-	}
-	
+		}
+
+		}
+
 	/**
 	 * @author tudose
 	 * @since 2015/08/17
@@ -197,7 +194,7 @@ public class PopulateCores {
 		Long time = System.currentTimeMillis();
 		DatasourceInstance ds = null;
 
-		Doc doc = reader.validate(xmlToLoad);
+		Doc doc = reader.validate(xmlToLoad, false);
 
 		if (doc != null){
 			System.out.println(xmlToLoad + " is valid.");

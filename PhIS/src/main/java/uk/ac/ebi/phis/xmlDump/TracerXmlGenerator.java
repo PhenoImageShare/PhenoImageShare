@@ -216,14 +216,8 @@ public class TracerXmlGenerator extends BasicXmlGenerator{
 		    	    			roi.setDepictedAnatomicalStructure(new ExpressionAnnotationArray());
 		    	    			// set coordinates
 		    	    			Coordinates coords = new Coordinates();
-		    	    			PercentArray xcoords = new PercentArray();
-		    	    			PercentArray ycoords = new PercentArray();
-		    	    			xcoords.getEl().add((float)0);
-		    	    			xcoords.getEl().add((float)100); // whole image because tracer doesn't do rois by it's own
-		    	    			ycoords.getEl().add((float)0);
-		    	    			ycoords.getEl().add((float)100);
-		    	    			coords.setYCoordinates(ycoords);
-		    	    			coords.setXCoordinates(xcoords);
+		    	    			coords.setYCoordinates(getCoordinatesWholeImage());
+		    	    			coords.setXCoordinates(getCoordinatesWholeImage());
 		    	    			roi.setCoordinates(coords);
 		    	    		}
 		        			ExpressionAnnotation anatomy = new ExpressionAnnotation();

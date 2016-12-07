@@ -80,14 +80,14 @@ public class BatchXmlUploader {
 		classloader = Thread.currentThread().getContextClassLoader();
 	}
 
-//	public BatchXmlUploader(ImageService is, RoiService rs, ChannelService cs) {
-//
-//		classloader = Thread.currentThread().getContextClassLoader();
-//		this.is = is;
-//		this.rs = rs;
-//		this.cs = cs;
-//
-//	}
+	public BatchXmlUploader(ImageService is, RoiService rs, ChannelService cs) {
+
+		classloader = Thread.currentThread().getContextClassLoader();
+		this.is = is;
+		this.rs = rs;
+		this.cs = cs;
+
+	}
 
 
 	public List<OntologyInstance> getontologyInstances (){
@@ -97,7 +97,7 @@ public class BatchXmlUploader {
 	}
 
 
-	public Doc validate(String xmlLocation) {
+	public Doc validate(String xmlLocation, Boolean strict) {
 
 		InputStream xsd;
 		InputStream xml;
@@ -117,7 +117,7 @@ public class BatchXmlUploader {
 			}
 			xsd.close();
 			xml.close();
-			isValid = (isValid && checkInformation(doc));
+			isValid = (isValid && checkInformation(doc, strict));
 
 		} catch (IOException | PhenoImageShareException e) {
 			e.printStackTrace();
@@ -146,6 +146,7 @@ public class BatchXmlUploader {
 			throws IOException, SolrServerException {
 
 		List<ImageDTO> imageDocs = new ArrayList<>();
+		System.out.println(is == null);
 		for (Image img : images) {
 			is.addBean(fillPojo(img, datasourceId));
 		}
@@ -242,8 +243,12 @@ public class BatchXmlUploader {
 				}
 				if (ann.getOntologyTerm() != null){
 					OntologyObject obj = ou.getOntologyTermById(ann.getOntologyTerm().getTermId());
-					bean.addPhenotypeId(obj.getId());
-					bean.addPhenotypeTerm(obj.getLabel());
+					if (obj != null) {
+						bean.addPhenotypeId(obj.getId());
+						bean.addPhenotypeTerm(obj.getLabel());
+					} else {
+						System.out.println("Bad id " + ann.getOntologyTerm().getTermId());
+					}
 				}
 			}
 		}
@@ -366,8 +371,12 @@ public class BatchXmlUploader {
 		if (img.getProjectAnnotations() != null){
 			if (img.getProjectAnnotations().getParameter() != null){
 				bean.setParameter(img.getProjectAnnotations().getParameter());
-				bean.setPipeline(img.getProjectAnnotations().getPipeline());
+			}
+			if (img.getProjectAnnotations().getProcedure() != null){
 				bean.setProcedure(img.getProjectAnnotations().getProcedure());
+			}
+			if (img.getProjectAnnotations().getPipeline() != null){
+				bean.setPipeline(img.getProjectAnnotations().getPipeline());
 			}
 		}
 
@@ -633,22 +642,23 @@ public class BatchXmlUploader {
 						OntologyObject oo = ou.getOntologyTermById(ann.getOntologyTerm().getTermId().trim());
 						if (oo == null){
 							System.out.println("Ontology id not found in hash!! -> " + ann.getOntologyTerm().getTermId().trim());
-						}
-						phenotypeLabels.add(oo.getLabel());
-						res.addPhenotypeSynonymsBag(oo.getSynonyms());
-						for (OntologyObject anc : oo.getIntermediateTerms()){
-							res.addPhenotypeAncestors(anc.getId());
-							res.addPhenotypeAncestors(anc.getSynonyms());
-							res.addPhenotypeAncestors(anc.getLabel());
-						}
-						// add MAs from MP -> computedAnatomyTerms
-						List<String> maIds =ou.getMaFromMp(oo.getId());
-						for (String maId : maIds){
-							OntologyObject maOo= ou.getOntologyTermById(maId);
-							res.addAnatomyComputedIdBag(maOo.getId());
-							res.addAnatomyComputedLabelBag(maOo.getLabel());
-							res.addAnatomyComputedSynonymsBag(maOo.getSynonyms());
-							res.addAnatomyComputedAncestors(maOo.getAncestorsBag());
+						} else {
+							phenotypeLabels.add(oo.getLabel());
+							res.addPhenotypeSynonymsBag(oo.getSynonyms());
+							for (OntologyObject anc : oo.getIntermediateTerms()) {
+								res.addPhenotypeAncestors(anc.getId());
+								res.addPhenotypeAncestors(anc.getSynonyms());
+								res.addPhenotypeAncestors(anc.getLabel());
+							}
+							// add MAs from MP -> computedAnatomyTerms
+							List<String> maIds = ou.getMaFromMp(oo.getId());
+							for (String maId : maIds) {
+								OntologyObject maOo = ou.getOntologyTermById(maId);
+								res.addAnatomyComputedIdBag(maOo.getId());
+								res.addAnatomyComputedLabelBag(maOo.getLabel());
+								res.addAnatomyComputedSynonymsBag(maOo.getSynonyms());
+								res.addAnatomyComputedAncestors(maOo.getAncestorsBag());
+							}
 						}
 					}
 				}
@@ -858,7 +868,14 @@ public class BatchXmlUploader {
 	}
 
 
-	public boolean checkInformation(Doc doc) throws PhenoImageShareException {
+	/**
+	 *
+	 * @param doc
+	 * @param strict On strict=true ontology term issues will throw an error. Otherwise will just print the issue and continue.
+	 * @return
+	 * @throws PhenoImageShareException
+	 */
+	public boolean checkInformation(Doc doc, Boolean strict) throws PhenoImageShareException {
 
 		imageIdMap = new HashMap<>();
 		channelIdMap = new HashMap<>();
@@ -884,9 +901,11 @@ public class BatchXmlUploader {
 		}
 
 		for (Image img : imageIdMap.values()) {
-			if (!vu.hasValidOntologyTerms(img)) {
+			if (!vu.hasValidOntologyTerms(img, strict)) {
 				System.out.println("there was something wrong with the ontology terms for img id = " + img.getId());
-				throw new PhenoImageShareException("There was something wrong with the ontology terms for img id = " + img.getId());
+				if (strict) {
+					throw new PhenoImageShareException("There was something wrong with the ontology terms for img id = " + img.getId());
+				}
 			}
 			if (img.getImageDescription().getImageDimensions() != null && !vu.hasPositieDimensions(img.getImageDescription().getImageDimensions())) {
 				System.out.println("Dimensions are not positive! Validation failed.");
@@ -897,9 +916,11 @@ public class BatchXmlUploader {
 		for (Roi roi : roiIdMap.values()) {
 
 			if (!vu.arePercentagesOk(roi.getCoordinates())) { return false; }
-			if (!vu.hasValidOntologyTerms(roi)) {
+			if (!vu.hasValidOntologyTerms(roi, strict)) {
 				System.out.println("there was something wrong with the ontology terms for roi id = " + roi.getId());
-				throw new PhenoImageShareException("There was something wrong with the ontology terms for roi id = " + roi.getId());
+				if(strict) {
+					throw new PhenoImageShareException("There was something wrong with the ontology terms for roi id = " + roi.getId());
+				}
 			}
 		}
 		return true;

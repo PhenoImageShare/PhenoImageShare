@@ -18,7 +18,7 @@ package uk.ac.ebi.phis.mains;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 import org.springframework.stereotype.Component;
-import uk.ac.ebi.phis.xmlDump.ImpcXmlGenerator;
+import uk.ac.ebi.phis.xmlDump.SangerXmlGenerator;
 
 import java.io.File;
 
@@ -27,9 +27,6 @@ public class ExportDatabasesAsXml {
 
 	public static void main(String[] args){
 
-		// OntologyMapper mapper = new OntologyMapper(OntologyMapperPredefinedTypes.MA_MP);
-		// mapper.getMappings("http://purl.obolibrary.org/obo/MP_0003684", "MA");
-		// System.out.println("\t\t " + mapper.getAnatomyLabel("MA_0000003"));
 		OptionParser parser = new OptionParser();
 		parser.accepts( "context" ).withRequiredArg();
 		parser.accepts( "dataDir" ).withRequiredArg();
@@ -53,15 +50,15 @@ public class ExportDatabasesAsXml {
 
 		try {
 
-			long time = System.currentTimeMillis();
-			ImpcXmlGenerator impcGenerator = new ImpcXmlGenerator();
-			impcGenerator.exportImages();
-			System.out.println("Generating xml for Sanger took " + (System.currentTimeMillis() - time));
-
 //			long time = System.currentTimeMillis();
-//			SangerXmlGenerator sg = new SangerXmlGenerator();
-//			sg.exportImages(contextFile);
+//			ImpcXmlGenerator impcGenerator = new ImpcXmlGenerator();
+//			impcGenerator.exportImages();
 //			System.out.println("Generating xml for Sanger took " + (System.currentTimeMillis() - time));
+
+			long time = System.currentTimeMillis();
+			SangerXmlGenerator sg = new SangerXmlGenerator();
+			sg.exportImages(contextFile);
+			System.out.println("Generating xml for Sanger took " + (System.currentTimeMillis() - time));
 //
 //			time = System.currentTimeMillis();
 //			IdrXmlGenerator idr = new IdrXmlGenerator();

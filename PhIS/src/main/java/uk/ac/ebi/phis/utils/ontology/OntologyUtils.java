@@ -148,28 +148,28 @@ public class OntologyUtils {
 		
 	} 
 	
-	public boolean isAnatomy(String id) throws PhenoImageShareException {
-		return checkIdIsIn(id, anatomyTerms);
+	public boolean isAnatomy(String id, Boolean strict) throws PhenoImageShareException {
+		return checkIdIsIn(id, anatomyTerms, strict);
 	}
 	
-	public boolean isPhenotype(String id) throws PhenoImageShareException {
-		return checkIdIsIn(id, phenotypeTerms);
+	public boolean isPhenotype(String id, Boolean strict) throws PhenoImageShareException {
+		return checkIdIsIn(id, phenotypeTerms, strict);
 	}
 	
-	public boolean isStage(String id) throws PhenoImageShareException {
-		return checkIdIsIn(id, stageTerms);
+	public boolean isStage(String id, Boolean strict) throws PhenoImageShareException {
+		return checkIdIsIn(id, stageTerms, strict);
 	}
 	
-	public boolean isImaveVisualization(String id) throws PhenoImageShareException {
-		return checkIdIsIn(id, imTerms);
+	public boolean isImaveVisualization(String id, Boolean strict) throws PhenoImageShareException {
+		return checkIdIsIn(id, imTerms, strict);
 	}
 	
-	public boolean isSamplePreparation(String id) throws PhenoImageShareException {
-		return checkIdIsIn(id, spTerms);
+	public boolean isSamplePreparation(String id, Boolean strict) throws PhenoImageShareException {
+		return checkIdIsIn(id, spTerms, strict);
 	}
 	
-	public boolean isImagingMethod(String id) throws PhenoImageShareException {
-		return checkIdIsIn(id, imTerms);
+	public boolean isImagingMethod(String id, Boolean strict) throws PhenoImageShareException {
+		return checkIdIsIn(id, imTerms, strict);
 	}
 	
 	public List<String> getMaFromMp(String mpId){
@@ -178,12 +178,14 @@ public class OntologyUtils {
 		return om.getMappings(mpUri, "MA_");		
 	}
 	
-	public boolean checkIdIsIn(String id, HashMap<String, OntologyObject> list) throws PhenoImageShareException{
+	public boolean checkIdIsIn(String id, HashMap<String, OntologyObject> list, Boolean strict) throws PhenoImageShareException{
 		
 		boolean res = list.containsKey(id) || list.containsKey(id.replace(":", "_")) || list.containsKey(alternateIds.get(id)) || list.containsKey(alternateIds.get(id.replace(":", "_")));
 		if (res == false){
 			System.out.println("--- Ontology term " + id  + " not found.");
-			throw new PhenoImageShareException("Ontology term " + id  + " not found.");
+			if (strict) {
+				throw new PhenoImageShareException("Ontology term " + id + " not found.");
+			}
 		}
 		return res;
 	}

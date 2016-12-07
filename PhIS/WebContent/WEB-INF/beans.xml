@@ -36,6 +36,8 @@
 
     <bean id="batchXmlUploader" class="uk.ac.ebi.phis.importer.BatchXmlUploader">   </bean>
 
+    <bean id="populateCores" class="uk.ac.ebi.phis.mains.PopulateCores">   </bean>
+
     <bean id="propertyPlaceholderConfigurer"
           class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
@@ -60,7 +62,7 @@
     <bean id="komp2DataSource" class="org.apache.commons.dbcp.BasicDataSource"
           destroy-method="close">
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-        <property name="url" value="jdbc:mysql://mysql-mi-dev:4356/ilinca_komp2_test?autoReconnect=true&amp;useUnicode=true&amp;connectionCollation=utf8_general_ci&amp;characterEncoding=utf8&amp;characterSetResults=utf8"/>
+        <property name="url" value="jdbc:mysql://mysql-mi-dev:4356/komp2?autoReconnect=true&amp;useUnicode=true&amp;connectionCollation=utf8_general_ci&amp;characterEncoding=utf8&amp;characterSetResults=utf8"/>
         <property name="username" value="migrw" />
         <property name="password" value="${kompDBPass}" />
     </bean>
@@ -84,7 +86,7 @@
 
 
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-        <!-- one of the several properties available; the maximum file size in bytes -->
+        <!-- the maximum file size in bytes -->
         <property name="maxUploadSizePerFile" value="5242880"/>
     </bean>
 

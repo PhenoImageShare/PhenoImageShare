@@ -146,13 +146,13 @@ public class RoiDTO {
 	List<String> observations;
 
 	@Field(X_COORDINATES)
-	List<Float> xCoordinates;
+	List<Double> xCoordinates;
 
 	@Field(Y_COORDINATES)
-	List<Float> yCoordinates;
+	List<Double> yCoordinates;
 
 	@Field(Z_COORDINATES)
-	List<Float> zCoordinates;
+	List<Double> zCoordinates;
 
 	
 	
@@ -163,7 +163,7 @@ public class RoiDTO {
 	public RoiDTO(String id, List<String> associatedChannel, String associatedImage, List<String> depictedAnatomyId, 
 	List<String> depictedAnatomyTerm, List<String> depictedAnatomyFreetext, List<String> abnormalityAnatomyId, 
 	List<String> abnormalityAnatomyTerm, List<String> abnormalityAnatomyFreetext, List<String> phenotypeId, List<String> phenotypeTerm, 
-	List<String> phenotypeFreetext, List<String> observations, List<Float> xCoordinates, List<Float> yCoordinates, List<Float> zCoordinates,
+	List<String> phenotypeFreetext, List<String> observations, List<Double> xCoordinates, List<Double> yCoordinates, List<Double> zCoordinates,
 	List<String> expressionInTerm, List<String> expressionInFreetext, List<String> expressionInId, String userOwner, String usergroup, 
 	Date creationDate, Date lastEditDate, Boolean publish) {
 
@@ -339,7 +339,7 @@ public class RoiDTO {
 	/**
 	 * @param xCoordinates the xCoordinates to set
 	 */
-	public void setxCoordinates(List<Float> xCoordinates) {
+	public void setxCoordinates(List<Double> xCoordinates) {
 	
 		this.xCoordinates = xCoordinates;
 	}
@@ -348,7 +348,7 @@ public class RoiDTO {
 	/**
 	 * @param yCoordinates the yCoordinates to set
 	 */
-	public void setyCoordinates(List<Float> yCoordinates) {
+	public void setyCoordinates(List<Double> yCoordinates) {
 	
 		this.yCoordinates = yCoordinates;
 	}
@@ -357,7 +357,7 @@ public class RoiDTO {
 	/**
 	 * @param zCoordinates the zCoordinates to set
 	 */
-	public void setzCoordinates(List<Float> zCoordinates) {
+	public void setzCoordinates(List<Double> zCoordinates) {
 	
 		this.zCoordinates = zCoordinates;
 	}
@@ -755,7 +755,7 @@ public class RoiDTO {
 	/**
 	 * @return the xCoordinates
 	 */
-	public List<Float> getxCoordinates() {
+	public List<Double> getxCoordinates() {
 	
 		return xCoordinates;
 	}
@@ -764,7 +764,7 @@ public class RoiDTO {
 	/**
 	 * @param xCoordinates the xCoordinates to set
 	 */
-	public void setXCoordinates(List<Float> xCoordinates) {
+	public void setXCoordinates(List<Double> xCoordinates) {
 	
 		this.xCoordinates = xCoordinates;
 	}
@@ -773,7 +773,7 @@ public class RoiDTO {
 	/**
 	 * @return the yCoordinates
 	 */
-	public List<Float> getyCoordinates() {
+	public List<Double> getyCoordinates() {
 	
 		return yCoordinates;
 	}
@@ -782,7 +782,7 @@ public class RoiDTO {
 	/**
 	 * @param yCoordinates the yCoordinates to set
 	 */
-	public void setYCoordinates(List<Float> yCoordinates) {
+	public void setYCoordinates(List<Double> yCoordinates) {
 	
 		this.yCoordinates = yCoordinates;
 	}
@@ -791,7 +791,7 @@ public class RoiDTO {
 	/**
 	 * @return the zCoordinates
 	 */
-	public List<Float> getzCoordinates() {
+	public List<Double> getzCoordinates() {
 	
 		return zCoordinates;
 	}
@@ -800,7 +800,7 @@ public class RoiDTO {
 	/**
 	 * @param zCoordinates the zCoordinates to set
 	 */
-	public void setZCoordinates(List<Float> zCoordinates) {
+	public void setZCoordinates(List<Double> zCoordinates) {
 	
 		this.zCoordinates = zCoordinates;
 	}
@@ -972,8 +972,5 @@ public class RoiDTO {
 		return tabbed;
 
 	}
-
-
-
 
 }

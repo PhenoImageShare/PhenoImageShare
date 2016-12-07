@@ -3,7 +3,6 @@ package uk.ac.ebi.phis.jaxb;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 
@@ -17,9 +16,9 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;all>
- *         &lt;element name="parameter" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="procedure" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="pipeline" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="parameter" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="procedure" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="pipeline" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *       &lt;/all>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -34,11 +33,8 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class ProjectSpecific {
 
-    @XmlElement(required = true)
     protected String parameter;
-    @XmlElement(required = true)
     protected String procedure;
-    @XmlElement(required = true)
     protected String pipeline;
 
     /**

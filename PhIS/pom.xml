@@ -83,7 +83,7 @@
     </build>
 
     <properties>
-        <internalSolrUrl>http://ves-ebi-d1.ebi.ac.uk:8120/mi/phis/beta/v1.0.3</internalSolrUrl>
+        <internalSolrUrl>http://localhost:8086/solr-example/</internalSolrUrl>
         <dbURI>http://localhost:7474/db/data/</dbURI>
         <baseUrl>http://ves-ebi-d1.ebi.ac.uk:8120/mi/phis/beta/v1.0.3</baseUrl>
         <java.version>1.8</java.version>
@@ -173,7 +173,7 @@
             <properties>
                 <!-- internalSolrUrl>http://ves-ebi-d1.ebi.ac.uk:8120/mi/phis/beta</internalSolrUrl-->
                 <internalSolrUrl>http://ves-ebi-d1:8120/mi/phis/beta
-                </internalSolrUrl> <!--  This will do on d1 when called from d1 and d2 from d2. -->
+                </internalSolrUrl>
                 <dbURI>http://phenoimageshare.ebi.ac.uk:7474/db/data/</dbURI>
             </properties>
             <build>
@@ -589,7 +589,7 @@
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <version>3.0.1</version>
-            <scope>provided</scope>
+            <!--<scope>provided</scope>-->
         </dependency>
 
         <!-- Logging -->

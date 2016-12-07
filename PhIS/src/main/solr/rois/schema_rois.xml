@@ -58,9 +58,9 @@
    <field name="observations" type="string" indexed="true" stored="true" multiValued="true"/>
 
 
-   <field name="x_coordinates" type="float" indexed="true" stored="true" multiValued="true" required="true"/>
-   <field name="y_coordinates" type="float" indexed="true" stored="true" multiValued="true" required="true"/>
-   <field name="z_coordinates" type="float" indexed="true" stored="true" multiValued="true"/>
+   <field name="x_coordinates" type="double" indexed="true" stored="true" multiValued="true" required="true"/>
+   <field name="y_coordinates" type="double" indexed="true" stored="true" multiValued="true" required="true"/>
+   <field name="z_coordinates" type="double" indexed="true" stored="true" multiValued="true"/>
 
  </fields>
 

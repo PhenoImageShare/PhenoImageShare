@@ -26,16 +26,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import uk.ac.ebi.neo4jUtils.AnnotationProperties;
 import uk.ac.ebi.neo4jUtils.Neo4jAccessUtils;
+import uk.ac.ebi.phis.dto.solrj.RoiDTO;
 import uk.ac.ebi.phis.exception.PhisSubmissionException;
 import uk.ac.ebi.phis.service.GenericUpdateService;
 import uk.ac.ebi.phis.service.ImageService;
 import uk.ac.ebi.phis.service.RoiService;
-import  uk.ac.ebi.phis.dto.solrj.RoiDTO;
 import uk.ac.ebi.phis.utils.web.RestStatusMessage;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -80,12 +79,11 @@ import java.util.List;
 	            
 	    		@RequestParam(value = "userGroupId", required = false) String userGroup,
 	            
-	            @RequestParam(value = "xCoordinates", required = true) List<Float> xCoordinates,
-	            @RequestParam(value = "yCoordinates", required = true) List<Float> yCoordinates,
+	            @RequestParam(value = "xCoordinates", required = true) List<Double> xCoordinates,
+	            @RequestParam(value = "yCoordinates", required = true) List<Double> yCoordinates,
+				@RequestParam(value = "zCoordinates", required = false) List<Double> zCoordinates,
                 @RequestParam(value = "publish", required = true) Boolean publish,
 
-	            @RequestParam(value = "zCoordinates", required = false) List<Float> zCoordinates,
-	            
 	    		@RequestParam(value = "associatedChannelId", required = false) List<String> associatedChannelId,
 	    		
 	            @RequestParam(value = "depictedAnatomyId", required = false) List<String> depictedAnatomyId,
@@ -114,12 +112,12 @@ import java.util.List;
 
 					Date today = new Date();
 									
-					ArrayList<Float> zCoord = (zCoordinates != null ? new ArrayList<Float>(zCoordinates) : null);
+					List<Double> zCoord = (zCoordinates != null ? zCoordinates : null);
 
                     RoiDTO roi = new RoiDTO(annotationId, associatedChannelId, associatedImageId, depictedAnatomyId, depictedAnatomyTerm,
                                 depictedAnatomyFreetext, abnInAnatomyId, abnInAnatomyTerm, abnInAnatomyFreetext,
-                                phenotypeId, phenotypeTerm, phenotypeFreetext, observations, new ArrayList<Float>(xCoordinates),
-                                new ArrayList<Float>(yCoordinates), zCoord, expressionInAnatomyTerm, expressionInAnatomyFreetext, expressionInAnatomyId,
+                                phenotypeId, phenotypeTerm, phenotypeFreetext, observations, xCoordinates,
+                                yCoordinates, zCoord, expressionInAnatomyTerm, expressionInAnatomyFreetext, expressionInAnatomyId,
                                 userId, userGroup, today, today, publish);
                     gus.addToCores(roi, publish);
 
@@ -141,10 +139,10 @@ import java.util.List;
 	    		@RequestParam(value = "userId", required = true) String userId,
 	            @RequestParam(value = "annotationId", required = true) String annotationId,
 	            @RequestParam(value = "associatedImageId", required = true) String associatedImageId,
-	            @RequestParam(value = "xCoordinates", required = true) List<Float> xCoordinates,
-	            @RequestParam(value = "yCoordinates", required = true) List<Float> yCoordinates,
+	            @RequestParam(value = "xCoordinates", required = true) List<Double> xCoordinates,
+	            @RequestParam(value = "yCoordinates", required = true) List<Double> yCoordinates,
 	    		@RequestParam(value = "userGroupId", required = false) String userGroupId,
-	            @RequestParam(value = "zCoordinates", required = false) List<Float> zCoordinates,
+	            @RequestParam(value = "zCoordinates", required = false) List<Double> zCoordinates,
 	    		@RequestParam(value = "associatedChannelId", required = false) List<String> associatedChannelId,
 	            @RequestParam(value = "depictedAnatomyId", required = false) List<String> depictedAnatomyId,
 	            @RequestParam(value = "depictedAnatomyTerm", required = false) List<String> depictedAnatomyTerm,
@@ -184,8 +182,8 @@ import java.util.List;
 
 					RoiDTO roi = new RoiDTO(annotationId, associatedChannelId, associatedImageId, depictedAnatomyId, depictedAnatomyTerm,
                                 depictedAnatomyFreetext, abnInAnatomyId, abnInAnatomyTerm, abnInAnatomyFreetext,
-                                phenotypeId, phenotypeTerm, phenotypeFreetext, observations, new ArrayList<Float>(xCoordinates),
-                                new ArrayList<Float>(yCoordinates), zCoordinates != null ? new ArrayList<Float>(zCoordinates) : null,
+                                phenotypeId, phenotypeTerm, phenotypeFreetext, observations, xCoordinates,
+                                yCoordinates, zCoordinates != null ? zCoordinates : null,
                                 expressionInAnatomyTerm, expressionInAnatomyFreetext, expressionInAnatomyId, userId, userGroupId, creationDate, today, publish);
 
 					gus.updateCores(roi, publish);

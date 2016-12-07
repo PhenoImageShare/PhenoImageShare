@@ -38,7 +38,7 @@ public class DataUploadServiceImpl implements  DataUploadService {
     }
 
     @Async
-    public Future<Boolean> validateXml(Job currentJob, String filePath) {
+    public Future<Boolean> validateXml(Job currentJob, String filePath, Boolean strict) {
 
         boolean success = true;
         currentJob.setCompleted(false);
@@ -83,7 +83,7 @@ public class DataUploadServiceImpl implements  DataUploadService {
             try {
                 System.out.println("Semantic validation ...");
                 Doc doc = convertXmlToObjects(filePath);
-                Boolean validInfo = batchXmlUploader.checkInformation(doc);
+                Boolean validInfo = batchXmlUploader.checkInformation(doc, true);
                 if (validInfo) {
                     currentJob.setSuccess(true);
                     currentJob.addJobUpdate("Semantic validation was successfull.", true);

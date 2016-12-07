@@ -34,8 +34,8 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class PercentArray {
 
-    @XmlElement(type = Float.class)
-    protected List<Float> el;
+    @XmlElement(type = Double.class)
+    protected List<Double> el;
 
     /**
      * Gets the value of the el property.
@@ -55,13 +55,13 @@ public class PercentArray {
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link Float }
+     * {@link Double }
      * 
      * 
      */
-    public List<Float> getEl() {
+    public List<Double> getEl() {
         if (el == null) {
-            el = new ArrayList<Float>();
+            el = new ArrayList<Double>();
         }
         return this.el;
     }

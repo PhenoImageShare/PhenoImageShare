@@ -54,7 +54,7 @@ public class DataUploadController {
                 stream.close();
                 model.addAttribute("jobId", jobId );
                 newJob.addJobUpdate("File successfully uploaded (" + file.getOriginalFilename() + ")", true);
-                newJob.setFutureJob(dataUploadService.validateXml(newJob, uploadPath + "/" + name));
+                newJob.setFutureJob(dataUploadService.validateXml(newJob, uploadPath + "/" + name, false));
                 return "upload";
             } catch (Exception e) {
                 newJob.addJobUpdate("Filed to upload " + file.getOriginalFilename() + " => " + e.getMessage(), false);

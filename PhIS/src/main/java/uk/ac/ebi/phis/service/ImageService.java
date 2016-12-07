@@ -43,7 +43,9 @@ public class ImageService extends BasicService{
 	private static final Logger log = Logger.getLogger(ImageService.class);
 
 	public ImageService(String solrUrl) {
+
 		super(solrUrl);
+		System.out.println("Initisalized image service with URL " + solrUrl);
 
 	}
 

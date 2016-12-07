@@ -78,7 +78,7 @@
 	</complexType>
 
 	<simpleType name="Percentage">
-		<restriction base="float">
+		<restriction base="double">
 			<minInclusive value="0" />
 			<maxInclusive value="100" />
 		</restriction>
@@ -361,9 +361,9 @@
 	</complexType>
 	<complexType name="ProjectSpecific">
 		<all minOccurs="1">
-			<element name="parameter" type="string" minOccurs="1" maxOccurs="1" />
-			<element name="procedure" type="string" minOccurs="1" maxOccurs="1" />
-			<element name="pipeline" type="string" minOccurs="1" maxOccurs="1" />
+			<element name="parameter" type="string" minOccurs="0" maxOccurs="1" />
+			<element name="procedure" type="string" minOccurs="0" maxOccurs="1" />
+			<element name="pipeline" type="string" minOccurs="0" maxOccurs="1" />
 		</all>
 	</complexType>
 		

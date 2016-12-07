@@ -45,14 +45,14 @@ public class ValidationUtils {
 
 	public boolean arePercentagesOk(Coordinates coords) {
 
-		for (Float p : coords.getXCoordinates().getEl()) {
+		for (Double p : coords.getXCoordinates().getEl()) {
 			if (p < 0 || p > 100) { return false; }
 		}
-		for (Float p : coords.getYCoordinates().getEl()) {
+		for (Double p : coords.getYCoordinates().getEl()) {
 			if (p < 0 || p > 100) { return false; }
 		}
 		if (coords.getZCoordinates() != null) {
-			for (Float p : coords.getXCoordinates().getEl()) {
+			for (Double p : coords.getXCoordinates().getEl()) {
 				if (p < 0 || p > 100) { return false; }
 			}
 		}
@@ -60,19 +60,19 @@ public class ValidationUtils {
 	}
 
 
-	public boolean hasValidOntologyTerms(Image img) throws PhenoImageShareException{
+	public boolean hasValidOntologyTerms(Image img, Boolean strict) throws PhenoImageShareException{
 
 		boolean res = true;
 		Annotation ann = img.getDepictedAnatomicalStructure();
 		// depicted anatomy
-		res = res && checkOntologyTerm(ann, "anatomy");
+		res = res && checkOntologyTerm(ann, "anatomy", strict);
 		if (!res) {
 			System.out.println(">>> anatomy >>> " + ann.getOntologyTerm() + " img id " + img.getId());
 			return false;
 		}
 		// stage
 		if (img.getOrganism().getStage() != null) {
-			res = res && checkOntologyTerm(img.getOrganism().getStage(), "stage");
+			res = res && checkOntologyTerm(img.getOrganism().getStage(), "stage", strict);
 			if (!res) {
 				System.out.println(">>> stage " + img.getOrganism().getStage().getTermId() + "(" + img.getOrganism().getStage().getTermLabel() + ") is not a valid entry for stage.");
 				return false;
@@ -85,7 +85,7 @@ public class ValidationUtils {
 				for (Annotation a : annotationArray) {
 					OntologyTerm ot = a.getOntologyTerm();
 					if (ot != null){
-						res = res && checkOntologyTerm(ot, "samplePreparation");
+						res = res && checkOntologyTerm(ot, "samplePreparation", strict);
 						if (!res) {
 							System.out.println(">>> sample prep " + ot.getTermId() + "(" + ot.getTermLabel() + ") is not a valid entry for samplePreparation.");
 							return false;
@@ -99,7 +99,7 @@ public class ValidationUtils {
 			if (annotationArray != null) {
 				for (Annotation a : annotationArray) {
 					OntologyTerm ot = a.getOntologyTerm();
-					res = res && checkOntologyTerm(ot, "imagingMethod");
+					res = res && checkOntologyTerm(ot, "imagingMethod", strict);
 					if (!res) {
 						System.out.println(">>> imaging method " + ot.getTermId() + "(" + ot.getTermLabel() + ") is not a valid entry for imagingMethod.");
 						return false;
@@ -111,7 +111,7 @@ public class ValidationUtils {
 	}
 
 
-	public boolean hasValidOntologyTerms(Channel channel) throws PhenoImageShareException{
+	public boolean hasValidOntologyTerms(Channel channel, Boolean strict) throws PhenoImageShareException{
 
 		boolean res = true;
 		List<Annotation> ontologyTermArray;
@@ -120,7 +120,7 @@ public class ValidationUtils {
 			if (ontologyTermArray != null) {
 				for (Annotation a : ontologyTermArray) {
 					OntologyTerm ot = a.getOntologyTerm();
-					res = res && checkOntologyTerm(ot, "visualisationMethod");
+					res = res && checkOntologyTerm(ot, "visualisationMethod", strict);
 					if (!res) {
 						return false;
 					}
@@ -130,7 +130,7 @@ public class ValidationUtils {
 		return res;
 	}
 
-	public boolean hasValidOntologyTerms(Roi roi) throws PhenoImageShareException{
+	public boolean hasValidOntologyTerms(Roi roi, Boolean strict) throws PhenoImageShareException{
 
 		List<Annotation> annList;
 		boolean res = true;
@@ -141,12 +141,12 @@ public class ValidationUtils {
 			// Check if any ids present
 			if (annList != null) {
 				for (Annotation ann : annList) {
-					res = res && checkOntologyTerm(ann, "anatomy");
+					res = res && checkOntologyTerm(ann, "anatomy", strict);
 				}
 			}
 
 			for (ExpressionAnnotation ann: roi.getDepictedAnatomicalStructure().getEl()){
-				res = res && checkOntologyTerm(ann.getOntologyTerm(), "anatomy");
+				res = res && checkOntologyTerm(ann.getOntologyTerm(), "anatomy", strict);
 			}
 		}
 
@@ -156,7 +156,7 @@ public class ValidationUtils {
 			// Check if any ids present
 			if (annList != null) {
 				for (Annotation ann : annList) {
-					res = res && checkOntologyTerm(ann, "phenotype");
+					res = res && checkOntologyTerm(ann, "phenotype", strict);
 				}
 			}
 		}
@@ -170,15 +170,15 @@ public class ValidationUtils {
 	 * @param type can be one of phenotype, anatomy, stage,
 	 * @return
 	 */
-	private boolean checkOntologyTerm(Annotation ann, String type) throws PhenoImageShareException{
+	private boolean checkOntologyTerm(Annotation ann, String type, Boolean strict) throws PhenoImageShareException{
 
-		if (ann != null && ann.getOntologyTerm() != null) { return checkOntologyTerm(ann.getOntologyTerm(), type); }
+		if (ann != null && ann.getOntologyTerm() != null) { return checkOntologyTerm(ann.getOntologyTerm(), type, strict); }
 
 		return true;
 	}
 
 
-	private boolean checkOntologyTerm(OntologyTerm ot, String type) throws PhenoImageShareException{
+	private boolean checkOntologyTerm(OntologyTerm ot, String type, Boolean strict) throws PhenoImageShareException{
 
 		if (ot != null) {
 			if (ot.getTermLabel() != null && ot.getTermId() == null) {
@@ -189,17 +189,17 @@ public class ValidationUtils {
 				// check they are from the right ontology
 				boolean isValid = true;
 				if (type.equalsIgnoreCase("anatomy")) {
-					isValid = ou.isAnatomy(ot.getTermId());
+					isValid = ou.isAnatomy(ot.getTermId(), strict);
 				} else if (type.equalsIgnoreCase("phenotype")) {
-					isValid = ou.isPhenotype(ot.getTermId());
+					isValid = ou.isPhenotype(ot.getTermId(), strict);
 				} else if (type.equalsIgnoreCase("stage")) {
-					isValid = ou.isStage(ot.getTermId());
+					isValid = ou.isStage(ot.getTermId(), strict);
 				} else if (type.equalsIgnoreCase("samplePreparation")) {
-					isValid = ou.isSamplePreparation(ot.getTermId());
+					isValid = ou.isSamplePreparation(ot.getTermId(), strict);
 				} else if (type.equalsIgnoreCase("visualisationMethod")) {
-					isValid = ou.isImaveVisualization(ot.getTermId());
+					isValid = ou.isImaveVisualization(ot.getTermId(), strict);
 				} else if (type.equalsIgnoreCase("imagingMethod")) {
-					isValid = ou.isImagingMethod(ot.getTermId());
+					isValid = ou.isImagingMethod(ot.getTermId(), strict);
 				}
 				// Removed check to see if label & id match. If label doesn't match we'll use the one from the ontology
 /*				isValid = isValid && ou.labelMatchesId(ot.getTermLabel(), ot.getTermId());

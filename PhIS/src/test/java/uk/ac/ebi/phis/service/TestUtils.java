@@ -63,12 +63,12 @@ public class TestUtils {
 		
 		List<String> observations = new ArrayList<>();
 		observations.add("Observing carefully this..." );
-		List<Float> xCoordinates = new ArrayList<>();
-		xCoordinates.add((float) 2);
-		List<Float> yCoordinates = new ArrayList<>();
-		yCoordinates.add((float) 4);
-		List<Float> zCoordinates = new ArrayList<>();
-		zCoordinates.add((float) 12);
+		List<Double> xCoordinates = new ArrayList<>();
+		xCoordinates.add(new Double(2));
+		List<Double> yCoordinates = new ArrayList<>();
+		yCoordinates.add(new Double(4));
+		List<Double> zCoordinates = new ArrayList<>();
+		zCoordinates.add(new Double(12));
 		
 		String userOwner = "ilinca";
 		String usergroup = "myGroup";

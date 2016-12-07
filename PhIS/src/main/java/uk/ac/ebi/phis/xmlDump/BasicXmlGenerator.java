@@ -69,8 +69,8 @@ public class BasicXmlGenerator {
     public static PercentArray getCoordinatesWholeImage(){
 
         PercentArray xCoord = new PercentArray();
-        xCoord.getEl().add(new Float(0));
-        xCoord.getEl().add(new Float(100));
+        xCoord.getEl().add(new Double(0));
+        xCoord.getEl().add(new Double(100));
 
         return xCoord;
 

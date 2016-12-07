@@ -202,8 +202,8 @@ public class IdrXmlGenerator extends BasicXmlGenerator {
 
         ImageDescription description = new ImageDescription();
         description.setHost(getLink("http://idr-demo.openmicroscopy.org/", "Image Data Repository (IDR)", null));
-        description.setImageUrl(thumbnailUrl + "3000/" + imageId);
-        description.setThumbnailUrl(thumbnailUrl + "200/" + imageId);
+        description.setImageUrl(thumbnailUrl + "3000/" + imageId + "/");
+        description.setThumbnailUrl(thumbnailUrl + "200/" + imageId + "/");
         description.setSampleType(SampleType.MUTANT);
         ImageTypeArray type = new ImageTypeArray();
         type.getEl().add(ImageType.PHENOTYPE_ANATOMY);
