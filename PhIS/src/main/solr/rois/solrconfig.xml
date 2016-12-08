@@ -51,4 +51,10 @@
 	</admin>
 
 
+	<!-- warm up -->
+	<query>
+		<useColdSearcher>true</useColdSearcher>
+		<maxWarmingSearchers>6</maxWarmingSearchers>
+	</query>
+
 </config>
