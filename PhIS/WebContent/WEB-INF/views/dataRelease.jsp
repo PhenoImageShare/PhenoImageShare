@@ -19,10 +19,10 @@
 
 <jsp:include page="header_frag.jsp"/>
 
-    <script type="text/javascript" charset="utf8" src="${mappedHostname}/${baseUrl}/js/jquery.dataTables.min.js"></script>
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    <link rel="stylesheet" href="${mappedHostname}${baseUrl}/css/jquery.dataTables.min.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+    <script src="//code.highcharts.com/highcharts.js"></script>
+    <script src="//code.highcharts.com/modules/exporting.js"></script>
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
 
     <div></div>
         <h1>Data release notes</h1>
