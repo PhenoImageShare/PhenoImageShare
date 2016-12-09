@@ -22,17 +22,17 @@
 <html>
 	<jsp:include page="header_frag.jsp"/>
 	<div class="container">
-		<h1>PhenoImageShare API Documentation</h1>
+		<h3>PhenoImageShare API Documentation</h3>
 		<p>Base URL <a href="${requestScope['javax.servlet.forward.request_uri']}"> ${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}</a> </p>
 		<br/>
 
 
 
-		<h3 id="getImages">/getImages</h3>
+		<h4 id="getImages">/getImages</h4>
 		<p> This method should be the main one used to explore the data. If you find a parameter missing, please contact us on
 		<a href="mailto:webmaster@phenoimageshare.org">webmaster@phenoimageshare.org</a> . </p>
 
-		<h4>Examples</h4>
+		<h5>Examples</h5>
 
 		<p>1. Get "eye" images, restrict the result number to 5.</p>
 		<p class="code">$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}getImages?term=eye&resultNo=5">http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}getImages?term=eye&resultNo=5</a>'  -i -H 'Accept: application/json'</p>
@@ -59,7 +59,7 @@
 		<p class="code">$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}getImages?anatomy=lens%20vesicle^1&anatomy=heart^2&resNo=70">http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}/getImages?anatomy=lens%20vesicle^1&anatomy=heart^2&resNo=70</a>'  -i -H 'Accept: application/json'</p>
 
 
-		<h4>Parameters</h4>
+		<h5>Parameters</h5>
 		<table class="table">
 		<thead>
 			<tr  style="background-color: lightSteelBlue;">
@@ -300,16 +300,16 @@
 
 
 	<br/>
-	<h3>/getImage</h3>
+	<h4>/getImage</h4>
 	
-	<h4>Examples</h4>
+	<h5>Examples</h5>
 	<p>Get image with id 6_image_VFB_00009318.</p>
 	<p class="code">$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}getImage?imageId=6_image_VFB_00009318">
 	http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}getImage?imageId=6_image_VFB_00009318
 	</a>'  -i -H 'Accept: application/json'</p>
 	
 	
-	<h4>Parameters</h4>
+	<h5>Parameters</h5>
 	<table class="table table-striped">
 		<thead>
 			<tr style="background-color: lightSteelBlue;">
@@ -335,9 +335,9 @@
 
 
 		<br/>
-		<h3>/getImageDetails</h3>
+		<h4>/getImageDetails</h4>
 
-		<h4>Parameters</h4>
+		<h5>Parameters</h5>
 		<table class="table table-striped">
 			<thead>
 			<tr style="background-color: lightSteelBlue;">
@@ -364,9 +364,9 @@
 	<!-- h2>Getting ROIs & annotations</h2-->
 
 	<br/>
-	<h3>/getRois</h3>
+	<h4>/getRois</h4>
 	
-	<h4>Examples</h4>
+	<h5>Examples</h5>
 	<p>1. Get all annotations for image 6_image_VFB_00009318. Note that there is a default limit of results, so in order to get all documents back, just provide a high result limit.</p>
 	<p class="code">$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}getRois?imageId=6_image_VFB_00009318&resultNo=10000000">http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}getRois?imageId=6_image_VFB_00009318&resultNo=10000000</a>'
 		-i -H 'Accept: application/json'</p>
@@ -376,7 +376,7 @@
 		-i -H 'Accept: application/json'</p>
 	
 	
-	<h4>Parameters</h4>
+	<h5>Parameters</h5>
 	<table class="table table-striped">
 		<thead>
 			<tr style="background-color: lightSteelBlue;">
@@ -467,15 +467,15 @@
 	
 	
 	<br/>
-	<h3>/getRoi</h3>
+	<h4>/getRoi</h4>
 	
-	<h4>Examples</h4>
+	<h5>Examples</h5>
 	<p>Get roi with id 4_roi_VFB_00022854-b.</p>
 	<p class="code">$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}getRoi?roiId=4_roi_VFB_00022854-b">
 		http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}getRoi?roiId=4_roi_VFB_00022854-b</a>'
 		-i -H 'Accept: application/json'</p>
 	
-	<h4>Parameters</h4>
+	<h5>Parameters</h5>
 	<table class="table table-striped">
 		<thead>
 			<tr style="background-color: lightSteelBlue;">
@@ -504,15 +504,15 @@
 	<!-- h2>Getting channel information</h2-->
 	
 	<br/>
-	<h3>/getChannel</h3>
+	<h4>/getChannel</h4>
 	
 		
-	<h4>Examples</h4>
+	<h5>Examples</h5>
 	<p>Get channel with id 4_channel_VFB_00022854-b.</p>
 	<p class="code">$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}getChannel?channelId=4_channel_VFB_00022854-b">http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}getChannel?channelId=4_channel_VFB_00022854-b</a>'  -i -H 'Accept: application/json'</p>
 	
 	
-	<h4>Parameters</h4>
+	<h5>Parameters</h5>
 	<table class="table table-striped">
 		<thead>
 			<tr style="background-color: lightSteelBlue;">
@@ -538,18 +538,18 @@
 	
 	
 	<br/>
-	<h3>/getChannels</h3>
+	<h4>/getChannels</h4>
 	
 	<p>Channels contain information about the visualization method, i.e. type of fluorescent marker used or the gene whose expression is to be seen in the rois associated to this channel. </p>
 	
-	<h4>Examples</h4>
+	<h5>Examples</h5>
 	<p>Get chanels for image with id 4_image_VFB_00022854.</p>
 	<p class="code">$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}getChannels?imageId=4_image_VFB_00022854">
 		http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}getChannels?imageId=4_image_VFB_00022854
 	</a>'  -i -H 'Accept: application/json'</p>
 	
 	
-	<h4>Parameters</h4>
+	<h5>Parameters</h5>
 	<table class="table table-striped">
 		<thead>
 			<tr style="background-color: lightSteelBlue;">
@@ -595,10 +595,10 @@
 	</table>
 
 	<br/>
-	<h3>/getAutosuggest</h3>
+	<h4>/getAutosuggest</h4>
 	<p>Returns a JSONArray of suggestions for the typed string.</p>
 	
-	<h4>Examples</h4>
+	<h5>Examples</h5>
 	<p>1. Get 20 generic autosuggest options for the string "ab".</p> 
 	<p class="code">$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}getAutosuggest?term=ab&resultNo=20">
 		http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}getAutosuggest?term=ab&resultNo=20</a>' 
@@ -618,7 +618,7 @@
 		-i -H 'Accept: application/json'
 	</p>
 	 
-	<h4>Parameters</h4>
+	<h5>Parameters</h5>
 	<table class="table table-striped">
 		<thead>
 			<tr style="background-color: lightSteelBlue;">
@@ -711,7 +711,7 @@
 
 
 	<br/>
-	<h3>/getComplexAutosuggest</h3>
+	<h4>/getComplexAutosuggest</h4>
 	<p>Returns a JSONArray of suggestions for autosuggest. Like /getAutosuggest but offers more info on the term such as ontology id, type of annotation in which it is used and synonyms when available.</p> 
 	
 	<p>Get 5 autosuggest options for the string "ab".</p>
@@ -759,7 +759,7 @@
 	</p>
 
 
-	<h4>Parameters</h4>
+	<h5>Parameters</h5>
 	<table class="table table-striped">
 		<thead>
 			<tr  style="background-color: lightSteelBlue;">
@@ -842,24 +842,24 @@
 	<br/>
 	
 	
-	<h3 >/getDataReleases</h3>
-	<h4>Examples</h4>
+	<h4>/getDataReleases</h4>
+	<h5>Examples</h5>
 	
 	<p>Get information about all public (live) releases.</p> 
 	<p class="code">$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}getDataReleases">http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}getDataReleases</a>'  -i -H 'Accept: application/json'</p>
 		
-	<h4>Parameters</h4>
+	<h5>Parameters</h5>
 	No parameters supported.
 
 
-	<h3>/similar</h3>
+	<h4>/similar</h4>
 
-		<h4>Examples</h4>
+		<h5>Examples</h5>
 
 		<p>Get images similar to image with id 4_image_VFB_00022854.</p>
 		<p class="code">$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}similar?imageId=4_image_VFB_00022854">http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}similar?imageId=4_image_VFB_00022854</a>'  -i -H 'Accept: application/json'</p>
 
-		<h3>Parameters</h3>
+		<h5>Parameters</h5>
 
 		<table class="table">
 			<thead>
@@ -901,14 +901,14 @@
 		</table>
 
 
-		<h3>/download</h3>
+		<h4>/download</h4>
 
-		<h4>Examples</h4>
+		<h5>Examples</h5>
 
 		<p>Get tab separated details image with id 4_image_VFB_00022854.</p>
 		<p class="code">$ curl '<a href="${requestScope['javax.servlet.forward.request_uri']}download?imageId=4_image_VFB_00022854">http://${pageContext.request.serverName}${requestScope['javax.servlet.forward.request_uri']}download?imageId=4_image_VFB_00022854</a>'  -i -H 'Accept: application/json'</p>
 
-		<h3>Parameters</h3>
+		<h5>Parameters</h5>
 
 		<table class="table">
 			<thead>
