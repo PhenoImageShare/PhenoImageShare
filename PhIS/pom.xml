@@ -457,7 +457,7 @@
         </profile>
 
         <profile>
-            <id>v1.0.3</id>
+            <id>v1.0.4</id>
             <properties>
                 <internalSolrUrl>http://ves-ebi-d2.ebi.ac.uk:8140/mi/phis/v1.0.4</internalSolrUrl>
                 <dbURI>http://phenoimageshare-live.ebi.ac.uk:7474/db/data/</dbURI>
