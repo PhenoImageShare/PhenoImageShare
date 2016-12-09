@@ -27,7 +27,7 @@
     <div></div>
         <h1>Data release notes</h1>
         <div id="release"></div>
-        <div id="container"></div>
+        <div id="container"></div> <br/> <br/>
         <div id="currentRelease"> </div>
         <table id="currentDatasources"> </table>
         <br/> <br/>
@@ -52,7 +52,7 @@
 
             $('#release').append("<p>In PhenoImageShare you can currently browse data linked to <span class='bigger'>" + currentRelease.GENES_NUMBER + "</span> genes in <span class='bigger'>" +
                 currentRelease.species.length + " </span> species through <span class='bigger'>"
-                + currentRelease.IMAGES_NUMBER + " </span> images and <span class='bigger'>" + " ??? </span> image annotations.  </p>");
+                + currentRelease.IMAGES_NUMBER + " </span> images and <span class='bigger'>" + currentRelease.ROIS_NUMBER + " </span> image annotations.  </p>");
 
             var categories = [];
             releases.map(function (a) {
@@ -64,6 +64,9 @@
 
             var images = [];
             releases.map(function(a){images.push(a.IMAGES_NUMBER);});
+
+            var annotations = [];
+            releases.map(function(a){annotations.push(a.ROIS_NUMBER);});
 
             console.log(genes);
             /** OVERVIEW CHART **/
@@ -96,6 +99,9 @@
                 }, {
                     name: 'Images',
                     data: images
+                }, {
+                    name: 'Annotations with ROIs',
+                    data: annotations
                 }]
             });
 
@@ -103,6 +109,7 @@
             /** CURRENT RELEASE **/
 
             $('#currentRelease').append("<h3> Current release: " + currentRelease.VERSION + "</h3>");
+            $('#currentRelease').append("<p> Released " + currentRelease.RELEASE_DATE + "</p>");
             var currentDatatable = [];
             currentRelease.datasources.map(function(a) {
                 currentDatatable.push(JSON.parse("[\"" + a.NAME + "\"," + a.IMAGES_NUMBER + ",\""+ a.EXPORT_DATE +"\"]"));
@@ -151,6 +158,7 @@
                     // add new data div with id
                     var dataId = "data" + release.VERSION.replace(/\./g, "_");
                     $("#previousReleases").append( "<h3>Data release " + release.VERSION + "</h3>");
+                    $('#previousReleases').append("<p> Released " + release.RELEASE_DATE + "</p>");
                     $("#previousReleases").append("<table id=\"" + dataId + "\"> </table> <br/> <br/>");
 
                     // add data table

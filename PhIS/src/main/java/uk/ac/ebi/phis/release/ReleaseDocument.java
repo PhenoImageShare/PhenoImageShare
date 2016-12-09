@@ -51,8 +51,8 @@ public class ReleaseDocument {
 		setNumberOfRois(numberOfRois);
 		setNumberOfImages(numberOfImages);
 		
-	}	
-	
+	}
+
 	public String getReleaseVersion() {
 	
 		return releaseVersion;
