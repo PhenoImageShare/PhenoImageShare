@@ -19,8 +19,7 @@
 
     <jsp:include page="header_frag.jsp"/>
     <script type="text/javascript">   var jobId="${jobId}"; var baseUrl = "${baseUrl}"; </script>
-    <script type="text/javascript" charset="utf8" src="${mappedHostname}/${baseUrl}/js/status.js"></script>
-
+    <script type="text/javascript" charset="utf8" src="${mappedHostname}${baseUrl}/js/status.js"></script>
     <div>
         <h1>Data submission</h1>
         <p>To submit data to PhenoImageShare you need to:</p>

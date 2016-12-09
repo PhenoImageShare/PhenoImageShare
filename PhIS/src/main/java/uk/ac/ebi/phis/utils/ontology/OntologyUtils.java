@@ -71,7 +71,7 @@ public class OntologyUtils {
 	Logger logger = Logger.getLogger(OntologyMapper.class);
 
 	private String fbbi = System.getProperty("user.home") + "/phis_ontologies/fbbi.owl";
-	
+
 	public OntologyUtils(){
 		
 

@@ -128,6 +128,7 @@
                 <internalSolrUrl>http://ves-ebi-d0.ebi.ac.uk:8170/mi/phis</internalSolrUrl>
                 <dbURI>http://phenoimageshare.ebi.ac.uk:7474/db/data/</dbURI>
                 <baseUrl>http://dev.phenoimageshare.org/</baseUrl>
+                <djangoBaseUrl>http://dev.phenoimageshare.org</djangoBaseUrl>
             </properties>
             <build>
                 <plugins>
@@ -355,6 +356,7 @@
             <properties>
                 <internalSolrUrl>http://ves-ebi-d1:8120/mi/phis/beta/v1.0.3</internalSolrUrl>
                 <dbURI>http://phenoimageshare.ebi.ac.uk:7474/db/data/</dbURI>
+                <djangoBaseUrl>http://beta.phenoimageshare.org</djangoBaseUrl>
             </properties>
             <build>
                 <plugins>
@@ -454,6 +456,26 @@
             </build>
         </profile>
 
+        <profile>
+            <id>v1.0.3</id>
+            <properties>
+                <internalSolrUrl>http://ves-ebi-d2.ebi.ac.uk:8140/mi/phis/v1.0.4</internalSolrUrl>
+                <dbURI>http://phenoimageshare-live.ebi.ac.uk:7474/db/data/</dbURI>
+                <djangoBaseUrl>http://www.phenoimageshare.org</djangoBaseUrl>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.4.2</version>
+                        <configuration>
+                            <skipTests>true</skipTests>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
 
     </profiles>
 
