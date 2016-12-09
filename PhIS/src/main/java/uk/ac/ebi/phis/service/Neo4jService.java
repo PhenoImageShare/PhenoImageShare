@@ -18,17 +18,16 @@
  */
 package uk.ac.ebi.phis.service;
 
-import java.util.List;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.neo4j.graphdb.Node;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import uk.ac.ebi.neo4jUtils.Neo4jAccessUtils;
 import uk.ac.ebi.neo4jUtils.Neo4jRelationship;
 import uk.ac.ebi.neo4jUtils.ReleaseProperties;
+
+import java.util.List;
 
 
 /**
@@ -71,7 +70,7 @@ public class Neo4jService {
 				ontologiesArray.put(ontologyObj);
 			}
 			
-			releaseObj.accumulate("ontologies", ontologiesArray);
+			releaseObj.put("ontologies", ontologiesArray);
 			
 			JSONArray datasourcesArray = new JSONArray();
 			for (Node datasource : neo.getFirtsNodesFor(release.getId(), Neo4jRelationship.CONTAINS, "DataSource")){
@@ -82,7 +81,7 @@ public class Neo4jService {
 				datasourcesArray.put(dsObj);
 			}
 			
-			releaseObj.accumulate("datasources", datasourcesArray);
+			releaseObj.put("datasources", datasourcesArray);
 			
 			
 			JSONArray speciesArray = new JSONArray();
@@ -93,13 +92,13 @@ public class Neo4jService {
 				speciesArray.put(sObj);
 			}
 			
-			releaseObj.accumulate("species", speciesArray);					
+			releaseObj.put("species", speciesArray);
 			
 			releasesArray.put(releaseObj);
 	
 		}
 		
-		res.accumulate("releases", releasesArray);
+		res.put("releases", releasesArray);
 		
 		return res;
 		

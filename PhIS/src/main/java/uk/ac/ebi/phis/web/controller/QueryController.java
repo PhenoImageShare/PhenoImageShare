@@ -391,7 +391,13 @@ public class QueryController {
 		return  new ResponseEntity<String>( ns.getAllReleases().toString(), getJsonResponseHeaders(), HttpStatus.OK);
 		
 	}
-	
+
+	@RequestMapping(value="/dataRelease", method=RequestMethod.GET)
+	public String dataRelease(Model model){
+
+		return "dataRelease";
+
+	}
 	
 }
 

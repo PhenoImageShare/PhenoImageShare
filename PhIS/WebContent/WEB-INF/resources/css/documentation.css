@@ -1,3 +1,7 @@
+.bigger{
+    font-size: 200%;
+}
+
 tr.deprecated {
 	background-color: green;
 }
