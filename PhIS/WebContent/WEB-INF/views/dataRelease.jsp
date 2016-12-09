@@ -48,7 +48,7 @@
                 return a.VERSION < b.VERSION; // sort descending order so that latest release (current) is the first one
             });
 
-            var currentRelease = releases[5];
+            var currentRelease = releases[0];
 
             $('#release').append("<p>In PhenoImageShare you can currently browse data linked to <span class='bigger'>" + currentRelease.GENES_NUMBER + "</span> genes in <span class='bigger'>" +
                 currentRelease.species.length + " </span> species through <span class='bigger'>"
@@ -77,7 +77,7 @@
                 },
                 credits:false,
                 xAxis: {
-                    categories: categories
+                    categories: categories.reverse()
                 },
                 yAxis: {
                     title:"count",
@@ -95,13 +95,13 @@
                 },
                 series: [{
                     name: 'Genes',
-                    data: genes
+                    data: genes.reverse()
                 }, {
                     name: 'Images',
-                    data: images
+                    data: images.reverse()
                 }, {
                     name: 'Annotations with ROIs',
-                    data: annotations
+                    data: annotations.reverse()
                 }]
             });
 

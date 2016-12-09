@@ -84,7 +84,7 @@
 
     <properties>
         <internalSolrUrl>http://localhost:8086/solr-example/</internalSolrUrl>
-        <dbURI>http://localhost:7474/db/data/</dbURI>
+        <dbURI>http://phenoimageshare.ebi.ac.uk:7474/db/data/</dbURI>
         <baseUrl>http://ves-ebi-d1.ebi.ac.uk:8120/mi/phis/beta/v1.0.3</baseUrl>
         <java.version>1.8</java.version>
         <com.fasterxml.jackson.core.version>2.7.4</com.fasterxml.jackson.core.version>
