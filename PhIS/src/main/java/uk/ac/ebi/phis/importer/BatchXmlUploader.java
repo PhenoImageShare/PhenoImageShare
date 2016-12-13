@@ -62,7 +62,7 @@ public class BatchXmlUploader {
 	ClassLoader classloader;
 
 	ValidationUtils vu = new ValidationUtils();
-	OntologyUtils ou = vu.ou;
+	OntologyUtils ou;
 
 	@Autowired
 	ImageService is;
@@ -75,17 +75,28 @@ public class BatchXmlUploader {
 
 	OntologyGroups ontologyGroups = new OntologyGroups();
 
+
 	public BatchXmlUploader(){
 
 		classloader = Thread.currentThread().getContextClassLoader();
 	}
 
-	public BatchXmlUploader(ImageService is, RoiService rs, ChannelService cs) {
+	/**
+	 *
+	 * @param is
+	 * @param rs
+	 * @param cs
+	 * @param useOls can only use OLS to validate the fields. Not all methods implemented to index data into Solr.
+	 */
+	public BatchXmlUploader(ImageService is, RoiService rs, ChannelService cs, boolean useOls) {
 
 		classloader = Thread.currentThread().getContextClassLoader();
 		this.is = is;
 		this.rs = rs;
 		this.cs = cs;
+		if (!useOls) {
+			this.ou = new OntologyUtils();
+		}
 
 	}
 
@@ -145,7 +156,6 @@ public class BatchXmlUploader {
 	private void addImageDocuments(List<Image> images, Integer datasourceId)
 			throws IOException, SolrServerException {
 
-		List<ImageDTO> imageDocs = new ArrayList<>();
 		System.out.println(is == null);
 		for (Image img : images) {
 			is.addBean(fillPojo(img, datasourceId));
@@ -877,6 +887,7 @@ public class BatchXmlUploader {
 	 */
 	public boolean checkInformation(Doc doc, Boolean strict) throws PhenoImageShareException {
 
+		System.out.println("In checkInformation ......");
 		imageIdMap = new HashMap<>();
 		channelIdMap = new HashMap<>();
 		roiIdMap = new HashMap<>();

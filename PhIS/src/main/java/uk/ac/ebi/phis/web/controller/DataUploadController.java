@@ -60,6 +60,7 @@ public class DataUploadController {
                 newJob.addJobUpdate("Filed to upload " + file.getOriginalFilename() + " => " + e.getMessage(), false);
                 newJob.setCompleted(true);
                 newJob.setSuccess(false);
+                e.printStackTrace();
                 return "upload";
             }
         } else {

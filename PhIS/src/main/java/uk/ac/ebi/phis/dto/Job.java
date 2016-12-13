@@ -36,10 +36,6 @@ public class Job {
         this.currentJob = currentJob;
     }
 
-    public boolean isJobStillRunning(){
-        return (!currentJob.isDone()) | (!currentJob.isCancelled());
-    }
-
     public void addJobUpdate(String message, boolean completedSuccessfully){
         int seq = jobUpdates.size() + 1;
         jobUpdates.add(new JobUpdate(seq,completedSuccessfully,message));

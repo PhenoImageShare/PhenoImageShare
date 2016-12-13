@@ -17,17 +17,23 @@ package uk.ac.ebi.phis.utils;
 
 import uk.ac.ebi.phis.exception.PhenoImageShareException;
 import uk.ac.ebi.phis.jaxb.*;
-import uk.ac.ebi.phis.utils.ontology.OntologyUtils;
+import uk.ac.ebi.phis.utils.olsclient.OlsClient;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class ValidationUtils {
 
-	public OntologyUtils ou;
-
+	public OlsClient olsClient;
+	public static final Set<String> anatomyOntologies = Stream.of("ma", "uberon", "fbbt", "emap", "emapa").collect(Collectors.toCollection(HashSet::new));
+	public static final Set<String> phenotypeOntologies = Stream.of("mp", "cmpo").collect(Collectors.toCollection(HashSet::new));
+	public static final Set<String> stageOntologies = Stream.of("mmusdv", "fbdv").collect(Collectors.toSet());
 
 	public ValidationUtils() {
-		ou = new OntologyUtils();
+		olsClient = new OlsClient();
 	}
 
 
@@ -171,14 +177,15 @@ public class ValidationUtils {
 	 * @return
 	 */
 	private boolean checkOntologyTerm(Annotation ann, String type, Boolean strict) throws PhenoImageShareException{
-
 		if (ann != null && ann.getOntologyTerm() != null) { return checkOntologyTerm(ann.getOntologyTerm(), type, strict); }
-
 		return true;
 	}
 
 
 	private boolean checkOntologyTerm(OntologyTerm ot, String type, Boolean strict) throws PhenoImageShareException{
+
+		String ontologyShortName = ot.getTermId().split("_")[0].split(":")[0].toLowerCase(); // split at either : or _ as only one of them will be present
+		String termId = ot.getTermId().replace("_", ":"); // need obo id
 
 		if (ot != null) {
 			if (ot.getTermLabel() != null && ot.getTermId() == null) {
@@ -189,18 +196,41 @@ public class ValidationUtils {
 				// check they are from the right ontology
 				boolean isValid = true;
 				if (type.equalsIgnoreCase("anatomy")) {
-					isValid = ou.isAnatomy(ot.getTermId(), strict);
+					isValid = anatomyOntologies.contains(ontologyShortName) && olsClient.getTerm(ontologyShortName, termId) != null;
+					if (strict&& !isValid){
+						throw new PhenoImageShareException("Term " + termId + " is not an anatomy term or is not a valid ontology term.");
+					}
 				} else if (type.equalsIgnoreCase("phenotype")) {
-					isValid = ou.isPhenotype(ot.getTermId(), strict);
+					isValid = phenotypeOntologies.contains(ontologyShortName) && olsClient.getTerm(ontologyShortName, termId) != null;
+					if (strict&& !isValid){
+						throw new PhenoImageShareException("Term " + termId + " is not a phenotype term or is not a valid ontology term.");
+					}
 				} else if (type.equalsIgnoreCase("stage")) {
-					isValid = ou.isStage(ot.getTermId(), strict);
-				} else if (type.equalsIgnoreCase("samplePreparation")) {
-					isValid = ou.isSamplePreparation(ot.getTermId(), strict);
-				} else if (type.equalsIgnoreCase("visualisationMethod")) {
-					isValid = ou.isImaveVisualization(ot.getTermId(), strict);
-				} else if (type.equalsIgnoreCase("imagingMethod")) {
-					isValid = ou.isImagingMethod(ot.getTermId(), strict);
+					isValid = stageOntologies.contains(ontologyShortName) && olsClient.getTerm(ontologyShortName, termId) != null;
+					if (strict&& !isValid){
+						throw new PhenoImageShareException("Term " + termId + " is not a stage term or is not a valid ontology term.");
+					}
+				} else {
+					return true;
 				}
+//				else if (type.equalsIgnoreCase("samplePreparation")) {
+//					isValid = ou.isSamplePreparation(ot.getTermId(), strict);
+//					if (strict&& !isValid){
+//						throw new PhenoImageShareException("Term " + termId + " is not a samplePreparation term or is not a valid ontology term.");
+//					}
+//				} else if (type.equalsIgnoreCase("visualisationMethod")) {
+//					isValid = ou.isImaveVisualization(ot.getTermId(), strict);
+//					if (strict&& !isValid){
+//						throw new PhenoImageShareException("Term " + termId + " is not a visualisationMethod term or is not a valid ontology term.");
+//					}
+//				} else if (type.equalsIgnoreCase("imagingMethod")) {
+//					isValid = ou.isImagingMethod(ot.getTermId(), strict);
+//					if (strict&& !isValid){
+//						throw new PhenoImageShareException("Term " + termId + " is not an imagingMethod term or is not a valid ontology term.");
+//					}
+//				}
+//
+
 				// Removed check to see if label & id match. If label doesn't match we'll use the one from the ontology
 /*				isValid = isValid && ou.labelMatchesId(ot.getTermLabel(), ot.getTermId());
 				if (!isValid) {

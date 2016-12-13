@@ -76,9 +76,6 @@ public class DataUploadServiceImpl implements  DataUploadService {
             e.printStackTrace();
         }
 
-
-        System.out.println("COMPLETED " + currentJob.getCompleted());
-
         if (!currentJob.getCompleted()) {
             try {
                 System.out.println("Semantic validation ...");
@@ -99,13 +96,14 @@ public class DataUploadServiceImpl implements  DataUploadService {
                 currentJob.addJobUpdate(e.getMessage(), false);
                 currentJob.setSuccess(false);
                 e.printStackTrace();
+            } catch (Exception e){
+                System.err.println("PRINTING EXCEPTION!!");
+                e.printStackTrace();
             }
         }
 
         // complete job, no matter of results
         currentJob.setCompleted(true);
-
-        System.out.println("DONE WAITING");
 
         return new AsyncResult<Boolean>( currentJob.getSuccess());
     }
@@ -115,7 +113,7 @@ public class DataUploadServiceImpl implements  DataUploadService {
 
         JAXBContext jaxbContext = JAXBContext.newInstance(Doc.class);
         Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-        System.out.println(">>>>>>" + xmlFullPathLocation + "  " + (jaxbUnmarshaller != null));
+        System.out.println(">>>>>> Not null: " + xmlFullPathLocation + "  " + (jaxbUnmarshaller != null));
         return (Doc) jaxbUnmarshaller.unmarshal(new FileInputStream(xmlFullPathLocation));
 
     }
