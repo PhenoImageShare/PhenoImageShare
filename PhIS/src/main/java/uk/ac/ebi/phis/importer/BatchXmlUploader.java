@@ -79,6 +79,7 @@ public class BatchXmlUploader {
 	public BatchXmlUploader(){
 
 		classloader = Thread.currentThread().getContextClassLoader();
+		ou = new OntologyUtils();
 	}
 
 	/**

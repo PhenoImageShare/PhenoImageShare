@@ -89,7 +89,7 @@ public class PopulateCores {
 		RoiService rs = (RoiService) context.getBean("roiService");
 		ChannelService cs = (ChannelService) context.getBean("channelService");
 
-		BatchXmlUploader reader = new BatchXmlUploader(is, rs, cs, true);
+		BatchXmlUploader reader = new BatchXmlUploader(is, rs, cs, false);
 
 		logger.info("Started PopulateCores with context=" + contextFile + " , dataDir=" + dataDir + ", releaseVersion" + releaseVersion);
 
