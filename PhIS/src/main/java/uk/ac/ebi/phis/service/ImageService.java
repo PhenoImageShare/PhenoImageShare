@@ -467,8 +467,8 @@ public class ImageService extends BasicService{
 			img.setExpressionInLabelBag(removeOnce(img.getExpressionInLabelBag(), roi.getExpressedAnatomyTerm()));
 		}
 		img.setGenericSearch(new ArrayList<String>());
-				
-		addBean(img);
+
+		addBeanInstant(img);
 	}
 	
 	public List<String> removeOnce(List<String> from, List<String> whatToDelete){
@@ -574,6 +574,18 @@ public class ImageService extends BasicService{
 	
 	public String getSolrUrl () {
 		return solr.getBaseURL();
+	}
+
+	public void addBeanInstant(ImageDTO doc){
+
+		try {
+			solr.addBean(doc);
+			solr.commit();
+		} catch (SolrServerException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void addBean(ImageDTO doc) {

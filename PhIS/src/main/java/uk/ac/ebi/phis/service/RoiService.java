@@ -67,6 +67,18 @@ public class RoiService extends BasicService{
 	}
 
 
+	public void addBeanInstant(RoiDTO doc){
+
+		try {
+			solr.addBean(doc);
+			solr.commit();
+		} catch (SolrServerException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 	public RoiDTO getRoiById(String id){
 		
 		SolrQuery solrQuery = new SolrQuery();
@@ -169,11 +181,11 @@ public class RoiService extends BasicService{
 
 
 	public void updateRoi(RoiDTO roi){
-		addBean(roi);
+		addBeanInstant(roi);
 	}
 
 	public void addRoi(RoiDTO roi){
-		addBean(roi);
+		addBeanInstant(roi);
 	}
 
 

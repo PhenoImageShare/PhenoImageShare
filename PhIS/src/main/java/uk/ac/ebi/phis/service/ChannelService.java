@@ -47,7 +47,7 @@ public class ChannelService extends BasicService {
 				while (channel.getAssociatedRoi().contains(roiId)){
 					channel.getAssociatedRoi().remove(roiId);
 				}
-				addBean(channel);
+				addBeanInstant(channel);
 			}
 		}
 	}
@@ -59,11 +59,24 @@ public class ChannelService extends BasicService {
 			for(String channelId : channelIds){
 				ChannelDTO channel = getChannelBean(channelId);
 				channel.addAssociatedRoi(roiId);
-				addBean(channel);
+				addBeanInstant(channel);
 			}
 		}
 	}
-	
+
+
+	public void addBeanInstant(ChannelDTO doc){
+
+		try {
+			solr.addBean(doc);
+			solr.commit();
+		} catch (SolrServerException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 	public ChannelDTO getChannelBean(String channelId){
 		ChannelDTO channel = null;
 		
