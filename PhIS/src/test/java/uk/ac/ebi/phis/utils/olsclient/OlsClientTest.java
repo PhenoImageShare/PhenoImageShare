@@ -1,6 +1,7 @@
 package uk.ac.ebi.phis.utils.olsclient;
 
 import org.junit.Test;
+import uk.ac.ebi.phis.exception.PhenoImageShareException;
 
 import static org.junit.Assert.assertTrue;
 
@@ -16,7 +17,12 @@ public class OlsClientTest {
     @Test
     public void testGetTerm(){
 
-        Term ontologyTerm = olsClient.getTerm("efo",termId);
+        Term ontologyTerm = null;
+        try {
+            ontologyTerm = olsClient.getTerm("efo",termId);
+        } catch (PhenoImageShareException e) {
+            e.printStackTrace();
+        }
         assertTrue (ontologyTerm != null);
         assertTrue (ontologyTerm.getLabel().equals("Sasang constitutional medicine type"));
         assertTrue (ontologyTerm.getShort_form().equalsIgnoreCase(termId.replace(":", "_")));
