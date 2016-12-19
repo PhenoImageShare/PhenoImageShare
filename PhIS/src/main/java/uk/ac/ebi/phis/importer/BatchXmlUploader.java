@@ -210,9 +210,11 @@ public class BatchXmlUploader {
 				}
 				if (ann.getOntologyTerm() != null){
 					OntologyObject oo = ou.getOntologyTermById(ann.getOntologyTerm().getTermId());
-					bean.addExpressedAnatomyId(oo.getId());
-					bean.addExpressedAnatomyTerm(oo.getLabel());
-					expressionConcat += oo.getId() + " " + oo.getLabel() + " ";
+					if(ou!= null) {
+						bean.addExpressedAnatomyId(oo.getId());
+						bean.addExpressedAnatomyTerm(oo.getLabel());
+						expressionConcat += oo.getId() + " " + oo.getLabel() + " ";
+					}
 				}
 				if (ann.getExpressionValue() != null && ann.getExpressionValue().length() > 0){
 					bean.addExpressionValue(ann.getExpressionValue());
