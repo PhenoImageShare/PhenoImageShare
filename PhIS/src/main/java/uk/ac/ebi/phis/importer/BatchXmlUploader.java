@@ -214,6 +214,8 @@ public class BatchXmlUploader {
 						bean.addExpressedAnatomyId(oo.getId());
 						bean.addExpressedAnatomyTerm(oo.getLabel());
 						expressionConcat += oo.getId() + " " + oo.getLabel() + " ";
+					} else {
+						System.out.println("Null pointer for " + ann.getOntologyTerm().getTermId());
 					}
 				}
 				if (ann.getExpressionValue() != null && ann.getExpressionValue().length() > 0){
