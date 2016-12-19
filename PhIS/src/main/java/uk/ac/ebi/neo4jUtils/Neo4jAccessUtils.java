@@ -659,10 +659,15 @@ public class Neo4jAccessUtils {
 	}
 	
 	
-	public boolean hasSameUser(String userId, String nodeId){
+	public boolean hasSameUser(String userId, String nodeId) throws PhisSubmissionException {
 		
 		Node node = getNodeById(nodeId);
 		Node user = getNodeById(userId);
+		if (node == null){
+			throw new PhisSubmissionException("No annotation was found with the provided id " + nodeId);
+		}if (user == null){
+			throw new PhisSubmissionException("User " + userId + " does not exist");
+		}
 		return existsUnidirectionalRelationship(node, Neo4jRelationship.CREATED_BY, user);
 	}
 	
