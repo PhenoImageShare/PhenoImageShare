@@ -5,7 +5,9 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.retry.annotation.EnableRetry;
 import org.springframework.retry.annotation.Retryable;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
+import uk.ac.ebi.phis.exception.PhenoImageShareException;
 
 import java.util.HashMap;
 import java.util.List;
@@ -30,19 +32,24 @@ public class OlsClient {
 
 
     @Retryable
-    public Term getTerm(String ontologyId, String oboId){ //https://rest.ensembl.org/map/Mus_musculus/NCBIM37/18:33607548-34607548/GRCm38?content-type=application/json
+    public Term getTerm(String ontologyId, String oboId) throws PhenoImageShareException { //https://rest.ensembl.org/map/Mus_musculus/NCBIM37/18:33607548-34607548/GRCm38?content-type=application/json
 
         String url = OLS_URL + ontologyId + "/terms?obo_id=" + oboId;
-        if (!termCache.containsKey(url)){
-            TermResult e = restTemplate.getForObject(url, TermResult.class);
-            Embedded embedded = e.get_embedded();
-            List<Term> terms = embedded.getTerms();
-            if (!terms.isEmpty()){
-                termCache.put(url, terms.get(0));
+        try {
+            if (!termCache.containsKey(url)) {
+                TermResult e = restTemplate.getForObject(url, TermResult.class);
+                Embedded embedded = e.get_embedded();
+                List<Term> terms = embedded.getTerms();
+                if (!terms.isEmpty()) {
+                    termCache.put(url, terms.get(0));
+                }
             }
+            return termCache.get(url);
+        } catch (HttpClientErrorException e){
+            System.out.println("Error for " + url);
+            e.printStackTrace();
+            throw new PhenoImageShareException(e.getMessage());
         }
-        return termCache.get(url);
-
     }
 
 }

@@ -179,7 +179,7 @@ public class OntologyUtils {
 	}
 	
 	public boolean checkIdIsIn(String id, HashMap<String, OntologyObject> list, Boolean strict) throws PhenoImageShareException{
-		
+
 		boolean res = list.containsKey(id) || list.containsKey(id.replace(":", "_")) || list.containsKey(alternateIds.get(id)) || list.containsKey(alternateIds.get(id.replace(":", "_")));
 		if (res == false){
 			System.out.println("--- Ontology term " + id  + " not found.");

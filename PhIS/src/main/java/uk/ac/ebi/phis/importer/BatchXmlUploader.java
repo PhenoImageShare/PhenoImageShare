@@ -61,7 +61,7 @@ public class BatchXmlUploader {
 
 	ClassLoader classloader;
 
-	ValidationUtils vu = new ValidationUtils();
+	ValidationUtils vu ;
 	OntologyUtils ou;
 
 	@Autowired
@@ -79,7 +79,8 @@ public class BatchXmlUploader {
 	public BatchXmlUploader(){
 
 		classloader = Thread.currentThread().getContextClassLoader();
-		ou = new OntologyUtils();
+		vu = new ValidationUtils();
+
 	}
 
 	/**
@@ -97,6 +98,9 @@ public class BatchXmlUploader {
 		this.cs = cs;
 		if (!useOls) {
 			this.ou = new OntologyUtils();
+			vu = new ValidationUtils(ou);
+		} else {
+			vu = new ValidationUtils();
 		}
 
 	}

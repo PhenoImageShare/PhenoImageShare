@@ -110,9 +110,6 @@ public class PopulateCores {
 			release.setOntologiesUsed(reader.getontologyInstances());
 
 			Map<String, DatasourceInstance> exportDates = new HashMap<>(); // <resourceName, resource object>
-			xmlToLoad = dataDir + "/impcExport.xml";
-			DatasourceInstance ds0 = processXml(xmlToLoad, DatasourceIds.IMPC,  reader);
-			exportDates.put(ds0.getName(), ds0);
 
 			xmlToLoad = dataDir + "/tracerExport.xml";
 			DatasourceInstance ds1 = processXml(xmlToLoad, DatasourceIds.TRACER,  reader);
@@ -157,6 +154,10 @@ public class PopulateCores {
 			xmlToLoad = dataDir + "/VFB_flycircuit_plus.xml";
 			DatasourceInstance ds11 = processXml(xmlToLoad, DatasourceIds.VFB_FLYCIRCUIT_PLUS, reader);
 			exportDates.put(ds11.getName(), ds11);
+
+			xmlToLoad = dataDir + "/impcExport.xml";
+			DatasourceInstance ds0 = processXml(xmlToLoad, DatasourceIds.IMPC,  reader);
+			exportDates.put(ds0.getName(), ds0);
 
 			System.out.println("Solr url is : " + is.getSolrUrl());
 
