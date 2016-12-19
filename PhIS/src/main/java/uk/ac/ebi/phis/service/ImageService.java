@@ -553,7 +553,7 @@ public class ImageService extends BasicService{
 			}
 
 			img.setGenericSearch(new ArrayList<String>());
-			addBean(img);
+			addBeanInstant(img);
 		}
 	}
 	
