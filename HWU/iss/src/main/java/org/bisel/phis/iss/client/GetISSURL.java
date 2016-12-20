@@ -49,12 +49,10 @@ public class GetISSURL {
             LOG.severe(e.getMessage());
         }
         
-        if (version.equals("101")) {
-            return "https://" + machine + ".phenoimageshare.org/data/v1.0.1/rest/submission/";
-        } else if (version.equals("102")) {
-            return "https://" + machine + ".phenoimageshare.org/data/v1.0.2/rest/submission/";
-        }
-        return "https://" + machine + ".phenoimageshare.org/data/v1.0.3/rest/submission/";
+        if (version.equals("103")) {
+            return "https://" + machine + ".phenoimageshare.org/data/v1.0.3/rest/submission/";
+        } 
+        return "https://" + machine + ".phenoimageshare.org/data/v1.0.4/rest/submission/";
     }
 
     public static String getEBIToken() {

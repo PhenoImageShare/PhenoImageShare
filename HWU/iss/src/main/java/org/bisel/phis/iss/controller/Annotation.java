@@ -95,7 +95,7 @@ public class Annotation extends HttpServlet {
                     return;
                 }
 
-                if (!(version.equals("103") || version.equals("102"))) {
+                if (!(version.equals("103") || version.equals("104"))) {
                     String JSON = "{\"annotationId\" : \"" + phisID + "\", \"status\" : \"fail\", \"message\" : \"invalid version number!\", \"time\" : \"" + getTime() + "\", \"action\" : \"delete annotation\"}";
                     out.println(JSON);
                     return;
@@ -143,7 +143,7 @@ public class Annotation extends HttpServlet {
                     return;
                 }
 
-                if (!(version.equals("103") || version.equals("102"))) {
+                if (!(version.equals("103") || version.equals("104"))) {
                     String JSON = "{\"annotationId\" : \" new annotation with no ID \", \"status\" : \"fail\", \"message\" : \"invalid version number!\", \"time\" : \"" + getTime() + "\", \"action\" : \"create annotation\"}";
                     out.println(JSON);
                     return;
@@ -201,7 +201,7 @@ public class Annotation extends HttpServlet {
                     return;
                 }
 
-                if (!(version.equals("103") || version.equals("102"))) {
+                if (!(version.equals("103") || version.equals("104"))) {
                     String JSON = "{\"annotationId\" : \"" + phisID + "\", \"status\" : \"fail\", \"message\" : \"invalid version number!\", \"time\" : \"" + getTime() + "\", \"action\" : \"edit annotation\"}";
                     out.println(JSON);
                     return;

@@ -20,7 +20,7 @@
             <br />            
             <a href="${org.bisel.phis.iss.client.GetISSURL.getURL()}v103.jsp">Click here to use 103</a>.            
             <br />
-            <a href="${org.bisel.phis.iss.client.GetISSURL.getURL()}v102.jsp">Click here to use 102</a>.
+            <a href="${org.bisel.phis.iss.client.GetISSURL.getURL()}v104.jsp">Click here to use 104</a>.
         </div>
     </body>
 </html>
