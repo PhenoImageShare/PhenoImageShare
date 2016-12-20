@@ -105,7 +105,7 @@
                         <td><var>String</var></td>
                         <td>true: create & edit</td>
                         <td>Image ID must exist in EBI repo</td>                
-                        <td><var>EMAGE_1218.1</var></td>
+                        <td><var>8_komp2_74242</var></td>
                     </tr>
                     <tr>
 
@@ -260,7 +260,7 @@
         <div>    
             <h4>Examples:</h4>    
             <ol>
-                <li><a href="<%= org.bisel.phis.iss.client.GetISSURL.getURL()%>Annotation?action=create&publish=false&phisid=abc123X19078p&version=104&creatorid=TestUser&imageid=emage_EMAGE_1218.1&x_value=33.333333333333336&x_value=63.75661375661376&y_value=42.79661046949152&y_value=70.33898305084746&z_value=0&z_value=0&dpt_anatomy_term=body%20cavity%20or%20lining&dpt_anatomy_term=anatomical%20cluster&dpt_anatomyid=EMAP:3144&dpt_anatomyid=EMAP:3144"><%= org.bisel.phis.iss.client.GetISSURL.getURL()%>Annotation?action=create&publish=false&phisid=abc123X19078p&version=104&creatorid=TestUser&imageid=emage_EMAGE_1218.1&x_value=33.333333333333336&x_value=63.75661375661376&y_value=42.79661046949152&y_value=70.33898305084746&z_value=0&z_value=0&dpt_anatomy_term=body%20cavity%20or%20lining&dpt_anatomy_term=anatomical%20cluster&dpt_anatomyid=EMAP:3144&dpt_anatomyid=EMAP:3144</a>                            
+                <li><a href="<%= org.bisel.phis.iss.client.GetISSURL.getURL()%>Annotation?action=create&publish=false&phisid=abc123X19078p&version=104&creatorid=TestUser&imageid=8_komp2_74242&x_value=33.333333333333336&x_value=63.75661375661376&y_value=42.79661046949152&y_value=70.33898305084746&z_value=0&z_value=0&dpt_anatomy_term=body%20cavity%20or%20lining&dpt_anatomy_term=anatomical%20cluster&dpt_anatomyid=EMAP:3144&dpt_anatomyid=EMAP:3144"><%= org.bisel.phis.iss.client.GetISSURL.getURL()%>Annotation?action=create&publish=false&phisid=abc123X19078p&version=104&creatorid=TestUser&imageid=8_komp2_74242&x_value=33.333333333333336&x_value=63.75661375661376&y_value=42.79661046949152&y_value=70.33898305084746&z_value=0&z_value=0&dpt_anatomy_term=body%20cavity%20or%20lining&dpt_anatomy_term=anatomical%20cluster&dpt_anatomyid=EMAP:3144&dpt_anatomyid=EMAP:3144</a>                            
                 <li><a href="<%= org.bisel.phis.iss.client.GetISSURL.getURL()%>Annotation?action=delete&phisid=abc123X19078p&version=104&creatorid=TestUser"><%= org.bisel.phis.iss.client.GetISSURL.getURL()%>Annotation?action=delete&phisid=abc123X19078p&version=104&creatorid=TestUser</a>                            
             </ol>    
         </div>
