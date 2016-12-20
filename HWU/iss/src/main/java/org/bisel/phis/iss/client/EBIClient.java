@@ -61,10 +61,12 @@ public class EBIClient {
     public boolean sendAnnotation(Request guiRequest, String version) {
 
         String query;
-        if (version.equals("103") | version.equals("102")) {
+        message = "";
+        
+        if (version.equals("103") | version.equals("104")) {
             query = buildURL(guiRequest, GetISSURL.getEBI(version) + "createAnnotation?");
         } else {
-            query = buildURL(guiRequest, GetISSURL.getEBI("103") + "createAnnotation?");
+            query = buildURL(guiRequest, GetISSURL.getEBI("104") + "createAnnotation?");
         }
 
         if (query == null) {
@@ -90,11 +92,12 @@ public class EBIClient {
     public boolean deleteAnnotation(Request_Delete guiRequest, String version) {
 
         String query;
+        message = "";
 
-        if (version.equals("103") | version.equals("102")) {
+        if (version.equals("103") | version.equals("104")) {
             query = GetISSURL.getEBI(version) + "deleteAnnotation?";
         } else {
-            query = GetISSURL.getEBI("103") + "deleteAnnotation?";
+            query = GetISSURL.getEBI("104") + "deleteAnnotation?";
         }
 
         try {
@@ -127,11 +130,12 @@ public class EBIClient {
      */
     public boolean updateAnnotation(Request guiRequest, String version) {
         String query;
+        message = "";
 
-        if (version.equals("103") | version.equals("102")) {
+        if (version.equals("103") | version.equals("104")) {
             query = buildURL(guiRequest, GetISSURL.getEBI(version) + "updateAnnotation?");
         } else {
-            query = buildURL(guiRequest, GetISSURL.getEBI("103") + "updateAnnotation?");
+            query = buildURL(guiRequest, GetISSURL.getEBI("104") + "updateAnnotation?");
         }
 
         if (query == null) {
@@ -264,42 +268,69 @@ public class EBIClient {
      */
     private boolean talk(String queryURL, String version) {
         BufferedReader in = null;
+        HttpsURLConnection connection = null;
+        InputStream istream = null;
+        boolean success = false;
         try {
-            // connect to SOLR and run query
+
             URL url = new URL(queryURL);
-            // 101 onwards must be https
             String toBeEncoded = "iss:" + GetISSURL.getEBIToken();
             String encoding = Base64.encodeBase64URLSafeString(toBeEncoded.getBytes());
-            HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
-            // HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection = (HttpsURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             connection.setDoOutput(true);
             connection.setRequestProperty("Authorization", "Basic " + encoding);
-            InputStream content = (InputStream) connection.getInputStream();
-            in = new BufferedReader(new InputStreamReader(content));
-            // read JSON result
-            String inputLine;
-            if ((inputLine = in.readLine()) != null) { // should only be 1 line of result
-                // can currently return the API result unchanged
-                message = inputLine;  // might need to change this
-            }
-            in.close();
-            LOG.log(Level.INFO, "EBI response: {0}", message);
+            istream = (InputStream) connection.getInputStream();
+            in = new BufferedReader(new InputStreamReader(istream));
 
-            // program around EBI's error messages to
-            // make them fit my standard
-            if (message.contains("FAIL"));
-            StringTokenizer st = new StringTokenizer(inputLine, "\"");
-            st.nextToken();
-            st.nextToken();
-            st.nextToken();
-            message = st.nextToken();
+            String inputLine;
+            if ((inputLine = in.readLine()) != null) {
+                message = inputLine;
+            }
+            LOG.log(Level.INFO, "[EBI COMM] {0}", message);
+
+            if (message.contains("SUCCESS")) {
+                success = true;
+            } else {
+                success = false;
+                StringTokenizer st = new StringTokenizer(inputLine, "\"");
+                st.nextToken();
+                st.nextToken();
+                st.nextToken();
+                message = st.nextToken();
+            }
         } catch (IOException e) {
-            LOG.log(Level.SEVERE, "[EBI COMM] {0}", e.getMessage());
-            message = "error communicating with the EBI";
-            return false;
+            success = false;
+            boolean fail = false;
+            if (connection != null) {
+                istream = connection.getErrorStream();
+                in = new BufferedReader(new InputStreamReader(istream));
+                String error = "";
+                try {
+                    while ((error = in.readLine()) != null) {
+                        message += error;
+                    }
+                    LOG.log(Level.SEVERE, "[EBI ERROR] {0}", message);
+                    LOG.log(Level.SEVERE, "[JAVA ERROR] {0}", e.getMessage());
+                } catch (IOException e2) {
+                    LOG.log(Level.SEVERE, "[JAVA ERROR] {0}", e2.getMessage());
+                    fail = true;
+                }
+            }
+
+            if (fail || message.equals("") || connection == null) {
+                LOG.log(Level.SEVERE, "[JAVA ERROR] {0}", e.getMessage());
+                message = "error communicating with the EBI";
+            }
+        } finally {
+            try {
+                if(in != null) in.close();
+                if(connection != null) connection.disconnect();
+            } catch (IOException e3) {
+                LOG.log(Level.SEVERE, "[ERROR disconnecting from EBI] {0}", e3.getMessage());
+            }
         }
-        return true;
+        return success;
     }
 
     /**
