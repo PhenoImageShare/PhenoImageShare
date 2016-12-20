@@ -77,16 +77,12 @@ public class GetROI extends HttpServlet {
         String[] versions = params.get("version");
 
         if (versions == null) {            
-            request.getRequestDispatcher("/v103GR").forward(request, response);
-        } else if (versions[0].equals("101")) {
-            request.getRequestDispatcher("/v101GR").forward(request, response);
-        } else if (versions[0].equals("102")) {
-            request.getRequestDispatcher("/v102GR").forward(request, response);
+            request.getRequestDispatcher("/v104GR").forward(request, response);
         } else if (versions[0].equals("103")) {
             request.getRequestDispatcher("/v103GR").forward(request, response);            
         } else {
             // otherwise forward to default
-            request.getRequestDispatcher("/v103GR").forward(request, response);
+            request.getRequestDispatcher("/v104GR").forward(request, response);
         }
     }
 

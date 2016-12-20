@@ -54,12 +54,12 @@ public class Similar extends HttpServlet {
 
         if (versions == null) {
             // default is v103
-            request.getRequestDispatcher("/v103S").forward(request, response);
+            request.getRequestDispatcher("/v104S").forward(request, response);
         } else if (versions[0].equals("103")) {
             request.getRequestDispatcher("/v103S").forward(request, response);
         } else {
             // otherwise forward to default
-            request.getRequestDispatcher("/v103S").forward(request, response);
+            request.getRequestDispatcher("/v104S").forward(request, response);
         }
 
     }

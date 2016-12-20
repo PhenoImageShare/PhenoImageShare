@@ -51,10 +51,14 @@ public class GetHost {
             LOGGER.warning("File 'host.properties' was not found or error while reading current version.");
         }   
         
-       if(version.equals("102")) {
+       if(version.equals("103")) {
+            return "http://"+machine+".phenoimageshare.org/data/v1.0.3/rest/";
+        } else if(version.equals("102")) {
             return "http://"+machine+".phenoimageshare.org/data/v1.0.2/rest/";
+        } else if(version.equals("101")) {
+            return "http://"+machine+".phenoimageshare.org/data/v1.0.1/rest/";
         }
-        return "http://"+machine+".phenoimageshare.org/data/v1.0.3/rest/";
+        return "http://"+machine+".phenoimageshare.org/data/v1.0.4/rest/";
     }
     
 }

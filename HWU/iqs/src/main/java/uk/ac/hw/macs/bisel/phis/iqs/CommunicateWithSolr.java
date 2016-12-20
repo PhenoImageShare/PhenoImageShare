@@ -91,18 +91,20 @@ public class CommunicateWithSolr {
         URL url = new URL(queryURL);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
-        connection.setDoOutput(true);        
+        connection.setDoOutput(true);
         InputStream content = (InputStream) connection.getInputStream();
-        BufferedReader in = new BufferedReader(new InputStreamReader(content));         
-
-        // read JSON result
         String inputLine;
-        if ((inputLine = in.readLine()) != null) { // should only be 1 line of result
-            // can currently return the API result unchanged
+        // read JSON result
+        try (BufferedReader in = new BufferedReader(new InputStreamReader(content))) {
+            if ((inputLine = in.readLine()) != null) {
+                // can currently return the API result unchanged
+            }
+        }
+        connection.disconnect();
+
+        if (inputLine != null) {
             return inputLine;
         }
-        in.close();
-        connection.disconnect();
 
         return "";
     }

@@ -16,7 +16,6 @@
 package uk.ac.hw.macs.bisel.phis.iqs;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -53,13 +52,13 @@ public class Download extends HttpServlet {
         String[] versions = params.get("version");
 
         if (versions == null) {
-            // default is v103
-            request.getRequestDispatcher("/v103D").forward(request, response);
+            // default is v104
+            request.getRequestDispatcher("/v104D").forward(request, response);
         } else if (versions[0].equals("103")) {
             request.getRequestDispatcher("/v103D").forward(request, response);
         } else {
             // otherwise forward to default
-            request.getRequestDispatcher("/v103D").forward(request, response);
+            request.getRequestDispatcher("/v104D").forward(request, response);
         }
     }
 
