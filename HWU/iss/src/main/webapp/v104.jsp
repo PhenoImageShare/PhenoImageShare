@@ -13,7 +13,7 @@
 
 
             <p>Base URL: <%= org.bisel.phis.iss.client.GetISSURL.getURL()%></p>
-            <p>Hitting EBI endpoint: <%= org.bisel.phis.iss.client.GetISSURL.getEBI("103")%></p>
+            <p>Hitting EBI endpoint: <%= org.bisel.phis.iss.client.GetISSURL.getEBI("104")%></p>
         </div>
 
         <hr>
